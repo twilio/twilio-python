@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.wireless import WirelessBase
+from twilio.rest.wireless.WirelessBase import WirelessBase
 from twilio.rest.wireless.v1.command import CommandList
 from twilio.rest.wireless.v1.rate_plan import RatePlanList
 from twilio.rest.wireless.v1.sim import SimList

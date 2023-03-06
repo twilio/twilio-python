@@ -16,12 +16,12 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.pricing.v1.phone_number.countries import CountryList
+from twilio.rest.pricing.v1.phone_number.country import CountryList
 
 
 class PhoneNumberList(ListResource):
@@ -29,31 +29,33 @@ class PhoneNumberList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v1.phone_number..PhoneNumberList
-        :rtype: twilio.pricing.v1.phone_number..PhoneNumberList
+        :returns: twilio.rest.pricing.v1.phone_number.PhoneNumberList
+        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/PhoneNumbers'.format(**self._solution)
-
+        
         self._countries = None
-
+        
 
     @property
     def countries(self):
         """
         Access the countries
 
-        :returns: twilio.rest.pricing.v1.phone_number.countries.CountryList
-        :rtype: twilio.rest.pricing.v1.phone_number.countries.CountryList
+        :returns: twilio.rest.pricing.v1.phone_number.CountryList
+        :rtype: twilio.rest.pricing.v1.phone_number.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
-        return self.countries
+        return self._countries
+
 
     def __repr__(self):
         """

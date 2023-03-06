@@ -28,19 +28,20 @@ class ParticipantList(ListResource):
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the ParticipantList
+
         :param Version version: Version that contains the resource
         :param room_sid: The SID of the Room resource.
         
-        :returns: twilio.insights.v1.participant..ParticipantList
-        :rtype: twilio.insights.v1.participant..ParticipantList
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantList
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
-        self._uri = '/Video/Rooms/${room_sid}/Participants'.format(**self._solution)
-
-
+        self._uri = '/Video/Rooms/{room_sid}/Participants'.format(**self._solution)
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -58,7 +59,7 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.participant.ParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +82,7 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.participant.ParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +99,7 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.participant.ParticipantPage
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,7 +118,7 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.participant.ParticipantPage
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -125,6 +126,28 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, participant_sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param participant_sid: The SID of the Participant resource.
+        
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], participant_sid=participant_sid)
+
+    def __call__(self, participant_sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param participant_sid: The SID of the Participant resource.
+        
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], participant_sid=participant_sid)
 
     def __repr__(self):
         """
@@ -146,8 +169,8 @@ class ParticipantPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.insights.v1.participant.ParticipantPage
-        :rtype: twilio.rest.insights.v1.participant.ParticipantPage
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantPage
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         super().__init__(version, response)
 
@@ -160,8 +183,8 @@ class ParticipantPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.participant.ParticipantInstance
-        :rtype: twilio.rest.insights.v1.participant.ParticipantInstance
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
         return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
 
@@ -177,82 +200,281 @@ class ParticipantPage(Page):
 
 
 
-
 class ParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the ParticipantContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room resource.:param participant_sid: The SID of the Participant resource.
+
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid,  }
-        self._uri = '/Video/Rooms/${room_sid}/Participants/${participant_sid}'
+        self._solution = { 
+            'room_sid': room_sid,
+            'participant_sid': participant_sid,
+        }
+        self._uri = '/Video/Rooms/{room_sid}/Participants/{participant_sid}'.format(**self._solution)
         
     
     def fetch(self):
-        
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], )
-        
-
+        return ParticipantInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            participant_sid=self._solution['participant_sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Insights.V1.ParticipantContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.ParticipantContext {}>'.format(context)
 
 class ParticipantInstance(InstanceResource):
-    def __init__(self, version, payload, room_sid: str, participant_sid: str):
+
+    class Codec(object):
+        VP8 = "VP8"
+        H264 = "H264"
+        VP9 = "VP9"
+
+    class EdgeLocation(object):
+        ASHBURN = "ashburn"
+        DUBLIN = "dublin"
+        FRANKFURT = "frankfurt"
+        SINGAPORE = "singapore"
+        SYDNEY = "sydney"
+        SAO_PAULO = "sao_paulo"
+        ROAMING = "roaming"
+        UMATILLA = "umatilla"
+        TOKYO = "tokyo"
+
+    class RoomStatus(object):
+        IN_PROGRESS = "in_progress"
+        COMPLETED = "completed"
+
+    class TwilioRealm(object):
+        US1 = "us1"
+        US2 = "us2"
+        AU1 = "au1"
+        BR1 = "br1"
+        IE1 = "ie1"
+        JP1 = "jp1"
+        SG1 = "sg1"
+        IN1 = "in1"
+        DE1 = "de1"
+        GLL = "gll"
+
+    def __init__(self, version, payload, room_sid: str, participant_sid: str=None):
+        """
+        Initialize the ParticipantInstance
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'participant_sid' : payload.get('participant_sid'),
-            'participant_identity' : payload.get('participant_identity'),
-            'join_time' : payload.get('join_time'),
-            'leave_time' : payload.get('leave_time'),
-            'duration_sec' : payload.get('duration_sec'),
-            'account_sid' : payload.get('account_sid'),
-            'room_sid' : payload.get('room_sid'),
-            'status' : payload.get('status'),
-            'codecs' : payload.get('codecs'),
-            'end_reason' : payload.get('end_reason'),
-            'error_code' : payload.get('error_code'),
-            'error_code_url' : payload.get('error_code_url'),
-            'media_region' : payload.get('media_region'),
-            'properties' : payload.get('properties'),
-            'edge_location' : payload.get('edge_location'),
-            'publisher_info' : payload.get('publisher_info'),
-            'url' : payload.get('url'),
+            'participant_sid': payload.get('participant_sid'),
+            'participant_identity': payload.get('participant_identity'),
+            'join_time': deserialize.iso8601_datetime(payload.get('join_time')),
+            'leave_time': deserialize.iso8601_datetime(payload.get('leave_time')),
+            'duration_sec': payload.get('duration_sec'),
+            'account_sid': payload.get('account_sid'),
+            'room_sid': payload.get('room_sid'),
+            'status': payload.get('status'),
+            'codecs': payload.get('codecs'),
+            'end_reason': payload.get('end_reason'),
+            'error_code': deserialize.integer(payload.get('error_code')),
+            'error_code_url': payload.get('error_code_url'),
+            'media_region': payload.get('media_region'),
+            'properties': payload.get('properties'),
+            'edge_location': payload.get('edge_location'),
+            'publisher_info': payload.get('publisher_info'),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'room_sid': room_sid or self._properties['room_sid'],'participant_sid': participant_sid or self._properties['participant_sid'],
-        }
-
+        self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid or self._properties['participant_sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ParticipantContext for this ParticipantInstance
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
+        """
         if self._context is None:
-            self._context = ParticipantContext(
-                self._version,
-                room_sid=self._solution['room_sid'],participant_sid=self._solution['participant_sid'],
-            )
+            self._context = ParticipantContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'],)
         return self._context
-
     
+    @property
+    def participant_sid(self):
+        """
+        :returns: Unique identifier for the participant.
+        :rtype: str
+        """
+        return self._properties['participant_sid']
+    
+    @property
+    def participant_identity(self):
+        """
+        :returns: The application-defined string that uniquely identifies the participant within a Room.
+        :rtype: str
+        """
+        return self._properties['participant_identity']
+    
+    @property
+    def join_time(self):
+        """
+        :returns: When the participant joined the room.
+        :rtype: datetime
+        """
+        return self._properties['join_time']
+    
+    @property
+    def leave_time(self):
+        """
+        :returns: When the participant left the room.
+        :rtype: datetime
+        """
+        return self._properties['leave_time']
+    
+    @property
+    def duration_sec(self):
+        """
+        :returns: Amount of time in seconds the participant was in the room.
+        :rtype: int
+        """
+        return self._properties['duration_sec']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: Account SID associated with the room.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def room_sid(self):
+        """
+        :returns: Unique identifier for the room.
+        :rtype: str
+        """
+        return self._properties['room_sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: RoomStatus
+        """
+        return self._properties['status']
+    
+    @property
+    def codecs(self):
+        """
+        :returns: Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
+        :rtype: list[Codec]
+        """
+        return self._properties['codecs']
+    
+    @property
+    def end_reason(self):
+        """
+        :returns: Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#end_reason).
+        :rtype: str
+        """
+        return self._properties['end_reason']
+    
+    @property
+    def error_code(self):
+        """
+        :returns: Errors encountered by the participant.
+        :rtype: int
+        """
+        return self._properties['error_code']
+    
+    @property
+    def error_code_url(self):
+        """
+        :returns: Twilio error code dictionary link.
+        :rtype: str
+        """
+        return self._properties['error_code_url']
+    
+    @property
+    def media_region(self):
+        """
+        :returns: 
+        :rtype: TwilioRealm
+        """
+        return self._properties['media_region']
+    
+    @property
+    def properties(self):
+        """
+        :returns: Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
+        :rtype: dict
+        """
+        return self._properties['properties']
+    
+    @property
+    def edge_location(self):
+        """
+        :returns: 
+        :rtype: EdgeLocation
+        """
+        return self._properties['edge_location']
+    
+    @property
+    def publisher_info(self):
+        """
+        :returns: Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
+        :rtype: dict
+        """
+        return self._properties['publisher_info']
+    
+    @property
+    def url(self):
+        """
+        :returns: URL of the participant resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+        
 
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -261,6 +483,5 @@ class ParticipantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.ParticipantInstance {}>'.format(context)
-
 
 

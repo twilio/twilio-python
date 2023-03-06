@@ -28,21 +28,22 @@ class PayloadList(ListResource):
     def __init__(self, version: Version, account_sid: str, reference_sid: str, add_on_result_sid: str):
         """
         Initialize the PayloadList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
         :param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs.
         :param add_on_result_sid: The SID of the AddOnResult to which the payloads to read belongs.
         
-        :returns: twilio.api.v2010.payload..PayloadList
-        :rtype: twilio.api.v2010.payload..PayloadList
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid, 'add_on_result_sid': add_on_result_sid,  }
-        self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults/${add_on_result_sid}/Payloads.json'.format(**self._solution)
-
-
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads.json'.format(**self._solution)
+        
+        
     
     
     
@@ -61,7 +62,7 @@ class PayloadList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.payload.PayloadInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class PayloadList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.payload.PayloadInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class PayloadList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.payload.PayloadPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class PayloadList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.payload.PayloadPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +129,28 @@ class PayloadList(ListResource):
         )
         return PayloadPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PayloadContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        """
+        return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PayloadContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        """
+        return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -151,8 +174,8 @@ class PayloadPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.payload.PayloadPage
-        :rtype: twilio.rest.api.v2010.payload.PayloadPage
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         super().__init__(version, response)
 
@@ -165,8 +188,8 @@ class PayloadPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.payload.PayloadInstance
-        :rtype: twilio.rest.api.v2010.payload.PayloadInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         return PayloadInstance(self._version, payload, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'])
 
@@ -182,88 +205,219 @@ class PayloadPage(Page):
 
 
 
-
 class PayloadContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, reference_sid: str, add_on_result_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the PayloadContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch.:param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs.:param add_on_result_sid: The SID of the AddOnResult to which the payload to fetch belongs.:param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid, 'add_on_result_sid': add_on_result_sid, 'sid': sid,  }
-        self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults/${add_on_result_sid}/Payloads/${sid}.json'
+        self._solution = { 
+            'account_sid': account_sid,
+            'reference_sid': reference_sid,
+            'add_on_result_sid': add_on_result_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the PayloadInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the PayloadInstance
+        
 
         :returns: The fetched PayloadInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return PayloadInstance(self._version, payload, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=self._solution['sid'], )
-        
-
+        return PayloadInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            reference_sid=self._solution['reference_sid'],
+            add_on_result_sid=self._solution['add_on_result_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.PayloadContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.PayloadContext {}>'.format(context)
 
 class PayloadInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, reference_sid: str, add_on_result_sid: str, sid: str):
+
+    def __init__(self, version, payload, account_sid: str, reference_sid: str, add_on_result_sid: str, sid: str=None):
+        """
+        Initialize the PayloadInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'add_on_result_sid' : payload.get('add_on_result_sid'),
-            'account_sid' : payload.get('account_sid'),
-            'label' : payload.get('label'),
-            'add_on_sid' : payload.get('add_on_sid'),
-            'add_on_configuration_sid' : payload.get('add_on_configuration_sid'),
-            'content_type' : payload.get('content_type'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'reference_sid' : payload.get('reference_sid'),
-            'subresource_uris' : payload.get('subresource_uris'),
+            'sid': payload.get('sid'),
+            'add_on_result_sid': payload.get('add_on_result_sid'),
+            'account_sid': payload.get('account_sid'),
+            'label': payload.get('label'),
+            'add_on_sid': payload.get('add_on_sid'),
+            'add_on_configuration_sid': payload.get('add_on_configuration_sid'),
+            'content_type': payload.get('content_type'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'reference_sid': payload.get('reference_sid'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],'reference_sid': reference_sid or self._properties['reference_sid'],'add_on_result_sid': add_on_result_sid or self._properties['add_on_result_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid, 'add_on_result_sid': add_on_result_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: PayloadContext for this PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        """
         if self._context is None:
-            self._context = PayloadContext(
-                self._version,
-                account_sid=self._solution['account_sid'],reference_sid=self._solution['reference_sid'],add_on_result_sid=self._solution['add_on_result_sid'],sid=self._solution['sid'],
-            )
+            self._context = PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the Recording AddOnResult Payload resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def add_on_result_sid(self):
+        """
+        :returns: The SID of the AddOnResult to which the payload belongs.
+        :rtype: str
+        """
+        return self._properties['add_on_result_sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def label(self):
+        """
+        :returns: The string provided by the vendor that describes the payload.
+        :rtype: str
+        """
+        return self._properties['label']
+    
+    @property
+    def add_on_sid(self):
+        """
+        :returns: The SID of the Add-on to which the result belongs.
+        :rtype: str
+        """
+        return self._properties['add_on_sid']
+    
+    @property
+    def add_on_configuration_sid(self):
+        """
+        :returns: The SID of the Add-on configuration.
+        :rtype: str
+        """
+        return self._properties['add_on_configuration_sid']
+    
+    @property
+    def content_type(self):
+        """
+        :returns: The MIME type of the payload.
+        :rtype: str
+        """
+        return self._properties['content_type']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def reference_sid(self):
+        """
+        :returns: The SID of the recording to which the AddOnResult resource that contains the payload belongs.
+        :rtype: str
+        """
+        return self._properties['reference_sid']
+    
+    @property
+    def subresource_uris(self):
+        """
+        :returns: A list of related resources identified by their relative URIs.
+        :rtype: dict
+        """
+        return self._properties['subresource_uris']
+    
+    def delete(self):
+        """
+        Deletes the PayloadInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the PayloadInstance
+        
+
+        :returns: The fetched PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -272,6 +426,5 @@ class PayloadInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.PayloadInstance {}>'.format(context)
-
 
 

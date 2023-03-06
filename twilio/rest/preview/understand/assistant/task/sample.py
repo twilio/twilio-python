@@ -28,23 +28,45 @@ class SampleList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the SampleList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the Assistant.
         :param task_sid: The unique ID of the Task associated with this Sample.
         
-        :returns: twilio.preview.understand.sample..SampleList
-        :rtype: twilio.preview.understand.sample..SampleList
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleList
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Samples'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, language, tagged_text, source_channel=values.unset):
+        """
+        Create the SampleInstance
 
+        :param str language: An ISO language-country string of the sample.
+        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        
+        :returns: The created SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        data = values.of({ 
+            'Language': language,
+            'TaggedText': tagged_text,
+            'SourceChannel': source_channel,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-    
-    
-    
+        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
     
     def stream(self, language=values.unset, limit=None, page_size=None):
@@ -63,7 +85,7 @@ class SampleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.sample.SampleInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.sample.SampleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -88,7 +110,7 @@ class SampleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.sample.SampleInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.sample.SampleInstance]
         """
         return list(self.stream(
             language=language,
@@ -107,7 +129,7 @@ class SampleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.preview.understand.sample.SamplePage
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SamplePage
         """
         data = values.of({ 
             'Language': language,
@@ -127,7 +149,7 @@ class SampleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.preview.understand.sample.SamplePage
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SamplePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,6 +157,28 @@ class SampleList(ListResource):
         )
         return SamplePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SampleContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        """
+        return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SampleContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        """
+        return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -162,8 +206,8 @@ class SamplePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.sample.SamplePage
-        :rtype: twilio.rest.preview.understand.sample.SamplePage
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SamplePage
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SamplePage
         """
         super().__init__(version, response)
 
@@ -176,8 +220,8 @@ class SamplePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.sample.SampleInstance
-        :rtype: twilio.rest.preview.understand.sample.SampleInstance
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
         """
         return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 
@@ -193,100 +237,249 @@ class SamplePage(Page):
 
 
 
-
 class SampleContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, task_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the SampleContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the Assistant.:param task_sid: The unique ID of the Task associated with this Sample.:param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid, 'sid': sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Samples/${sid}'
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'task_sid': task_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples/{sid}'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the SampleInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the SampleInstance
+        
 
         :returns: The fetched SampleInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=self._solution['sid'], )
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
+    def update(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
+        """
+        Update the SampleInstance
+        
+        :params str language: An ISO language-country string of the sample.
+        :params str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :params str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
 
-        
-    
-    def update(self, body):
-        data = values.of({
-            'body': body,
+        :returns: The updated SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        data = values.of({ 
+            'Language': language,
+            'TaggedText': tagged_text,
+            'SourceChannel': source_channel,
         })
-
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
-
-        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=self._solution['sid'], )
-        
         
 
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid']
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.SampleContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.SampleContext {}>'.format(context)
 
 class SampleInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, task_sid: str, sid: str):
+
+    def __init__(self, version, payload, assistant_sid: str, task_sid: str, sid: str=None):
+        """
+        Initialize the SampleInstance
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'task_sid' : payload.get('task_sid'),
-            'language' : payload.get('language'),
-            'assistant_sid' : payload.get('assistant_sid'),
-            'sid' : payload.get('sid'),
-            'tagged_text' : payload.get('tagged_text'),
-            'url' : payload.get('url'),
-            'source_channel' : payload.get('source_channel'),
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'task_sid': payload.get('task_sid'),
+            'language': payload.get('language'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'tagged_text': payload.get('tagged_text'),
+            'url': payload.get('url'),
+            'source_channel': payload.get('source_channel'),
         }
 
         self._context = None
-        self._solution = {
-            'assistant_sid': assistant_sid or self._properties['assistant_sid'],'task_sid': task_sid or self._properties['task_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: SampleContext for this SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        """
         if self._context is None:
-            self._context = SampleContext(
-                self._version,
-                assistant_sid=self._solution['assistant_sid'],task_sid=self._solution['task_sid'],sid=self._solution['sid'],
-            )
+            self._context = SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique ID of the Account that created this Sample.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this resource was created
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was last updated
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def task_sid(self):
+        """
+        :returns: The unique ID of the Task associated with this Sample.
+        :rtype: str
+        """
+        return self._properties['task_sid']
+    
+    @property
+    def language(self):
+        """
+        :returns: An ISO language-country string of the sample.
+        :rtype: str
+        """
+        return self._properties['language']
+    
+    @property
+    def assistant_sid(self):
+        """
+        :returns: The unique ID of the Assistant.
+        :rtype: str
+        """
+        return self._properties['assistant_sid']
+    
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def tagged_text(self):
+        """
+        :returns: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :rtype: str
+        """
+        return self._properties['tagged_text']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def source_channel(self):
+        """
+        :returns: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :rtype: str
+        """
+        return self._properties['source_channel']
+    
+    def delete(self):
+        """
+        Deletes the SampleInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the SampleInstance
+        
+
+        :returns: The fetched SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
+        """
+        Update the SampleInstance
+        
+        :params str language: An ISO language-country string of the sample.
+        :params str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :params str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+
+        :returns: The updated SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        return self._proxy.update(language=language, tagged_text=tagged_text, source_channel=source_channel, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -295,6 +488,5 @@ class SampleInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.SampleInstance {}>'.format(context)
-
 
 

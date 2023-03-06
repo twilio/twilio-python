@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,19 +28,20 @@ class DependentHostedNumberOrderList(ListResource):
     def __init__(self, version: Version, signing_document_sid: str):
         """
         Initialize the DependentHostedNumberOrderList
+
         :param Version version: Version that contains the resource
         :param signing_document_sid: 
         
-        :returns: twilio.preview.hosted_numbers.dependent_hosted_number_order..DependentHostedNumberOrderList
-        :rtype: twilio.preview.hosted_numbers.dependent_hosted_number_order..DependentHostedNumberOrderList
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'signing_document_sid': signing_document_sid,  }
-        self._uri = '/AuthorizationDocuments/${signing_document_sid}/DependentHostedNumberOrders'.format(**self._solution)
-
-
+        self._uri = '/AuthorizationDocuments/{signing_document_sid}/DependentHostedNumberOrders'.format(**self._solution)
+        
+        
     
     def stream(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
@@ -49,7 +50,7 @@ class DependentHostedNumberOrderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param DependentHostedNumberOrderStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -62,7 +63,7 @@ class DependentHostedNumberOrderList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
+        :rtype: list[twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +83,7 @@ class DependentHostedNumberOrderList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param DependentHostedNumberOrderStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -95,7 +96,7 @@ class DependentHostedNumberOrderList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
+        :rtype: list[twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
         """
         return list(self.stream(
             status=status,
@@ -112,7 +113,7 @@ class DependentHostedNumberOrderList(ListResource):
         Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
         
-        :param DependentHostedNumberOrderStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -122,7 +123,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
         """
         data = values.of({ 
             'Status': status,
@@ -146,13 +147,14 @@ class DependentHostedNumberOrderList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -173,8 +175,8 @@ class DependentHostedNumberOrderPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
         """
         super().__init__(version, response)
 
@@ -187,8 +189,8 @@ class DependentHostedNumberOrderPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
         """
         return DependentHostedNumberOrderInstance(self._version, payload, signing_document_sid=self._solution['signing_document_sid'])
 
@@ -205,5 +207,243 @@ class DependentHostedNumberOrderPage(Page):
 
 
 
+class DependentHostedNumberOrderInstance(InstanceResource):
+
+    class Status(object):
+        RECEIVED = "received"
+        PENDING_VERIFICATION = "pending-verification"
+        VERIFIED = "verified"
+        PENDING_LOA = "pending-loa"
+        CARRIER_PROCESSING = "carrier-processing"
+        TESTING = "testing"
+        COMPLETED = "completed"
+        FAILED = "failed"
+        ACTION_REQUIRED = "action-required"
+
+    class VerificationType(object):
+        PHONE_CALL = "phone-call"
+        PHONE_BILL = "phone-bill"
+
+    def __init__(self, version, payload, signing_document_sid: str):
+        """
+        Initialize the DependentHostedNumberOrderInstance
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'incoming_phone_number_sid': payload.get('incoming_phone_number_sid'),
+            'address_sid': payload.get('address_sid'),
+            'signing_document_sid': payload.get('signing_document_sid'),
+            'phone_number': payload.get('phone_number'),
+            'capabilities': payload.get('capabilities'),
+            'friendly_name': payload.get('friendly_name'),
+            'unique_name': payload.get('unique_name'),
+            'status': payload.get('status'),
+            'failure_reason': payload.get('failure_reason'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'verification_attempts': deserialize.integer(payload.get('verification_attempts')),
+            'email': payload.get('email'),
+            'cc_emails': payload.get('cc_emails'),
+            'verification_type': payload.get('verification_type'),
+            'verification_document_sid': payload.get('verification_document_sid'),
+            'extension': payload.get('extension'),
+            'call_delay': deserialize.integer(payload.get('call_delay')),
+            'verification_code': payload.get('verification_code'),
+            'verification_call_sids': payload.get('verification_call_sids'),
+        }
+
+        self._context = None
+        self._solution = { 'signing_document_sid': signing_document_sid,  }
+    
+    
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this Authorization Document
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique SID identifier of the Account.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def incoming_phone_number_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :rtype: str
+        """
+        return self._properties['incoming_phone_number_sid']
+    
+    @property
+    def address_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+        :rtype: str
+        """
+        return self._properties['address_sid']
+    
+    @property
+    def signing_document_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
+        :rtype: str
+        """
+        return self._properties['signing_document_sid']
+    
+    @property
+    def phone_number(self):
+        """
+        :returns: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :rtype: str
+        """
+        return self._properties['phone_number']
+    
+    @property
+    def capabilities(self):
+        """
+        :returns: 
+        :rtype: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities
+        """
+        return self._properties['capabilities']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: A human readable description of this resource, up to 64 characters.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def unique_name(self):
+        """
+        :returns: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :rtype: str
+        """
+        return self._properties['unique_name']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: Status
+        """
+        return self._properties['status']
+    
+    @property
+    def failure_reason(self):
+        """
+        :returns: A message that explains why a hosted_number_order went to status \"action-required\"
+        :rtype: str
+        """
+        return self._properties['failure_reason']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def verification_attempts(self):
+        """
+        :returns: The number of attempts made to verify ownership of the phone number that is being hosted.
+        :rtype: int
+        """
+        return self._properties['verification_attempts']
+    
+    @property
+    def email(self):
+        """
+        :returns: Email of the owner of this phone number that is being hosted.
+        :rtype: str
+        """
+        return self._properties['email']
+    
+    @property
+    def cc_emails(self):
+        """
+        :returns: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :rtype: list[str]
+        """
+        return self._properties['cc_emails']
+    
+    @property
+    def verification_type(self):
+        """
+        :returns: 
+        :rtype: VerificationType
+        """
+        return self._properties['verification_type']
+    
+    @property
+    def verification_document_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the Identity Document resource that represents the document for verifying ownership of the number to be hosted.
+        :rtype: str
+        """
+        return self._properties['verification_document_sid']
+    
+    @property
+    def extension(self):
+        """
+        :returns: A numerical extension to be used when making the ownership verification call.
+        :rtype: str
+        """
+        return self._properties['extension']
+    
+    @property
+    def call_delay(self):
+        """
+        :returns: A value between 0-30 specifying the number of seconds to delay initiating the ownership verification call.
+        :rtype: int
+        """
+        return self._properties['call_delay']
+    
+    @property
+    def verification_code(self):
+        """
+        :returns: The digits passed during the ownership verification call.
+        :rtype: str
+        """
+        return self._properties['verification_code']
+    
+    @property
+    def verification_call_sids(self):
+        """
+        :returns: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
+        :rtype: list[str]
+        """
+        return self._properties['verification_call_sids']
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderInstance {}>'.format(context)
 
 

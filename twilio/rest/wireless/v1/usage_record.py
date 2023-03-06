@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,18 +28,19 @@ class UsageRecordList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the UsageRecordList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.wireless.v1.usage_record..UsageRecordList
-        :rtype: twilio.wireless.v1.usage_record..UsageRecordList
+        :returns: twilio.rest.wireless.v1.usage_record.UsageRecordList
+        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/UsageRecords'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, end=values.unset, start=values.unset, granularity=values.unset, limit=None, page_size=None):
         """
@@ -50,7 +51,7 @@ class UsageRecordList(ListResource):
         
         :param datetime end: Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
         :param datetime start: Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
-        :param AccountUsageRecordGranularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,7 +80,7 @@ class UsageRecordList(ListResource):
         
         :param datetime end: Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
         :param datetime start: Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
-        :param AccountUsageRecordGranularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -105,7 +106,7 @@ class UsageRecordList(ListResource):
         
         :param datetime end: Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
         :param datetime start: Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
-        :param AccountUsageRecordGranularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+        :param Granularity granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -114,8 +115,8 @@ class UsageRecordList(ListResource):
         :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
         """
         data = values.of({ 
-            'End': end,
-            'Start': start,
+            'End': serialize.iso8601_datetime(end),
+            'Start': serialize.iso8601_datetime(start),
             'Granularity': granularity,
             'PageToken': page_token,
             'Page': page_number,
@@ -140,6 +141,7 @@ class UsageRecordList(ListResource):
             target_url
         )
         return UsageRecordPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -192,5 +194,71 @@ class UsageRecordPage(Page):
 
 
 
+class UsageRecordInstance(InstanceResource):
+
+    class Granularity(object):
+        HOURLY = "hourly"
+        DAILY = "daily"
+        ALL = "all"
+
+    def __init__(self, version, payload):
+        """
+        Initialize the UsageRecordInstance
+        :returns: twilio.rest.wireless.v1.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'account_sid': payload.get('account_sid'),
+            'period': payload.get('period'),
+            'commands': payload.get('commands'),
+            'data': payload.get('data'),
+        }
+
+        self._context = None
+        self._solution = {  }
+    
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AccountUsageRecord resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def period(self):
+        """
+        :returns: The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: dict
+        """
+        return self._properties['period']
+    
+    @property
+    def commands(self):
+        """
+        :returns: An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#commands-usage-object).
+        :rtype: dict
+        """
+        return self._properties['commands']
+    
+    @property
+    def data(self):
+        """
+        :returns: An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#data-usage-object).
+        :rtype: dict
+        """
+        return self._properties['data']
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Wireless.V1.UsageRecordInstance {}>'.format(context)
 
 

@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.bulkexports import BulkexportsBase
+from twilio.rest.bulkexports.BulkexportsBase import BulkexportsBase
 from twilio.rest.bulkexports.v1.export import ExportList
 from twilio.rest.bulkexports.v1.export_configuration import ExportConfigurationList
 

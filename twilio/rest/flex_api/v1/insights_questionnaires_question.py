@@ -28,20 +28,47 @@ class InsightsQuestionnairesQuestionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesQuestionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_questionnaires_question..InsightsQuestionnairesQuestionList
-        :rtype: twilio.flex_api.v1.insights_questionnaires_question..InsightsQuestionnairesQuestionList
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Questions'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, category_id, question, description, answer_set_id, allow_na, token=values.unset):
+        """
+        Create the InsightsQuestionnairesQuestionInstance
+
+        :param str category_id: The ID of the category
+        :param str question: The question.
+        :param str description: The description for the question.
+        :param str answer_set_id: The answer_set for the question.
+        :param bool allow_na: The flag to enable for disable NA for answer.
+        :param str token: The Token HTTP request header
+        
+        :returns: The created InsightsQuestionnairesQuestionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
+        """
+        data = values.of({ 
+            'CategoryId': category_id,
+            'Question': question,
+            'Description': description,
+            'AnswerSetId': answer_set_id,
+            'AllowNa': allow_na,
+        })
+        headers = values.of({'Token': token, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return InsightsQuestionnairesQuestionInstance(self._version, payload)
     
     
     def stream(self, token=values.unset, category_id=values.unset, limit=None, page_size=None):
@@ -52,7 +79,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,7 +106,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         memory before returning.
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,7 +130,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         Request is executed immediately
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -113,7 +140,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         """
         data = values.of({ 
             'Token': token,
-            'CategoryId': category_id,
+            'CategoryId': serialize.map(category_id),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -138,6 +165,28 @@ class InsightsQuestionnairesQuestionList(ListResource):
         )
         return InsightsQuestionnairesQuestionPage(self._version, response, self._solution)
 
+
+    def get(self, question_id):
+        """
+        Constructs a InsightsQuestionnairesQuestionContext
+        
+        :param question_id: The unique ID of the question
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
+        return InsightsQuestionnairesQuestionContext(self._version, question_id=question_id)
+
+    def __call__(self, question_id):
+        """
+        Constructs a InsightsQuestionnairesQuestionContext
+        
+        :param question_id: The unique ID of the question
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
+        return InsightsQuestionnairesQuestionContext(self._version, question_id=question_id)
 
     def __repr__(self):
         """
@@ -194,84 +243,227 @@ class InsightsQuestionnairesQuestionPage(Page):
 
 
 
-
 class InsightsQuestionnairesQuestionContext(InstanceContext):
+
     def __init__(self, version: Version, question_id: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the InsightsQuestionnairesQuestionContext
+
+        :param Version version: Version that contains the resource
+        :param question_id: The unique ID of the question
+
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'question_id': question_id,  }
-        self._uri = '/Insights/QM/Questions/${question_id}'
+        self._solution = { 
+            'question_id': question_id,
+        }
+        self._uri = '/Insights/QM/Questions/{question_id}'.format(**self._solution)
         
     
-    def delete(self, token):
-        
-        
-
+    def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesQuestionInstance
 
+        :param str token: The Token HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def update(self, token, body):
-        data = values.of({
-            'token': token,'body': body,
+        headers = values.of({'Token': token, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def update(self, allow_na, token=values.unset, category_id=values.unset, question=values.unset, description=values.unset, answer_set_id=values.unset):
+        """
+        Update the InsightsQuestionnairesQuestionInstance
+        
+        :params bool allow_na: The flag to enable for disable NA for answer.
+        :params str token: The Token HTTP request header
+        :params str category_id: The ID of the category
+        :params str question: The question.
+        :params str description: The description for the question.
+        :params str answer_set_id: The answer_set for the question.
+
+        :returns: The updated InsightsQuestionnairesQuestionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
+        """
+        data = values.of({ 
+            'AllowNa': allow_na,
+            'CategoryId': category_id,
+            'Question': question,
+            'Description': description,
+            'AnswerSetId': answer_set_id,
         })
+        headers = values.of({'Token': token, })
 
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return InsightsQuestionnairesQuestionInstance(self._version, payload, question_id=self._solution['question_id'], )
-        
-        
-
+        return InsightsQuestionnairesQuestionInstance(
+            self._version,
+            payload,
+            question_id=self._solution['question_id']
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V1.InsightsQuestionnairesQuestionContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InsightsQuestionnairesQuestionContext {}>'.format(context)
 
 class InsightsQuestionnairesQuestionInstance(InstanceResource):
-    def __init__(self, version, payload, question_id: str):
+
+    def __init__(self, version, payload, question_id: str=None):
+        """
+        Initialize the InsightsQuestionnairesQuestionInstance
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'question_id' : payload.get('question_id'),
-            'question' : payload.get('question'),
-            'description' : payload.get('description'),
-            'category' : payload.get('category'),
-            'answer_set_id' : payload.get('answer_set_id'),
-            'allow_na' : payload.get('allow_na'),
-            'usage' : payload.get('usage'),
-            'url' : payload.get('url'),
+            'account_sid': payload.get('account_sid'),
+            'question_id': payload.get('question_id'),
+            'question': payload.get('question'),
+            'description': payload.get('description'),
+            'category': payload.get('category'),
+            'answer_set_id': payload.get('answer_set_id'),
+            'allow_na': payload.get('allow_na'),
+            'usage': deserialize.integer(payload.get('usage')),
+            'answer_set': payload.get('answer_set'),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'question_id': question_id or self._properties['question_id'],
-        }
-
+        self._solution = { 'question_id': question_id or self._properties['question_id'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: InsightsQuestionnairesQuestionContext for this InsightsQuestionnairesQuestionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
         if self._context is None:
-            self._context = InsightsQuestionnairesQuestionContext(
-                self._version,
-                question_id=self._solution['question_id'],
-            )
+            self._context = InsightsQuestionnairesQuestionContext(self._version, question_id=self._solution['question_id'],)
         return self._context
-
     
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def question_id(self):
+        """
+        :returns: The unique ID of the question
+        :rtype: str
+        """
+        return self._properties['question_id']
+    
+    @property
+    def question(self):
+        """
+        :returns: The question.
+        :rtype: str
+        """
+        return self._properties['question']
+    
+    @property
+    def description(self):
+        """
+        :returns: The description for the question.
+        :rtype: str
+        """
+        return self._properties['description']
+    
+    @property
+    def category(self):
+        """
+        :returns: The Category for the question.
+        :rtype: dict
+        """
+        return self._properties['category']
+    
+    @property
+    def answer_set_id(self):
+        """
+        :returns: The answer_set for the question.
+        :rtype: str
+        """
+        return self._properties['answer_set_id']
+    
+    @property
+    def allow_na(self):
+        """
+        :returns: The flag  to enable for disable NA for answer.
+        :rtype: bool
+        """
+        return self._properties['allow_na']
+    
+    @property
+    def usage(self):
+        """
+        :returns: Integer value that tells a particular question is used by how many questionnaires
+        :rtype: int
+        """
+        return self._properties['usage']
+    
+    @property
+    def answer_set(self):
+        """
+        :returns: Set of answers for the question
+        :rtype: dict
+        """
+        return self._properties['answer_set']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def delete(self, token=values.unset):
+        """
+        Deletes the InsightsQuestionnairesQuestionInstance
+        
+        :params str token: The Token HTTP request header
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete(token=token, )
+    
+    def update(self, allow_na, token=values.unset, category_id=values.unset, question=values.unset, description=values.unset, answer_set_id=values.unset):
+        """
+        Update the InsightsQuestionnairesQuestionInstance
+        
+        :params bool allow_na: The flag to enable for disable NA for answer.
+        :params str token: The Token HTTP request header
+        :params str category_id: The ID of the category
+        :params str question: The question.
+        :params str description: The description for the question.
+        :params str answer_set_id: The answer_set for the question.
+
+        :returns: The updated InsightsQuestionnairesQuestionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
+        """
+        return self._proxy.update(allow_na=allow_na, token=token, category_id=category_id, question=question, description=description, answer_set_id=answer_set_id, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -280,6 +472,5 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsQuestionnairesQuestionInstance {}>'.format(context)
-
 
 

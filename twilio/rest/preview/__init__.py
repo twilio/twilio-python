@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.preview import PreviewBase
+from twilio.rest.preview.PreviewBase import PreviewBase
 from twilio.rest.preview.deployed_devices.fleet import FleetList
 from twilio.rest.preview.hosted_numbers.authorization_document import AuthorizationDocumentList
 from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberOrderList

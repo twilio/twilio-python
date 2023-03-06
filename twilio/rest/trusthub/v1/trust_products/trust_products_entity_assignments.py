@@ -28,21 +28,39 @@ class TrustProductsEntityAssignmentsList(ListResource):
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsEntityAssignmentsList
+
         :param Version version: Version that contains the resource
         :param trust_product_sid: The unique string that we created to identify the TrustProduct resource.
         
-        :returns: twilio.trusthub.v1.trust_products_entity_assignments..TrustProductsEntityAssignmentsList
-        :rtype: twilio.trusthub.v1.trust_products_entity_assignments..TrustProductsEntityAssignmentsList
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsList
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'trust_product_sid': trust_product_sid,  }
-        self._uri = '/TrustProducts/${trust_product_sid}/EntityAssignments'.format(**self._solution)
-
-
+        self._uri = '/TrustProducts/{trust_product_sid}/EntityAssignments'.format(**self._solution)
+        
+        
     
     
+    
+    def create(self, object_sid):
+        """
+        Create the TrustProductsEntityAssignmentsInstance
+
+        :param str object_sid: The SID of an object bag that holds information of the different items.
+        
+        :returns: The created TrustProductsEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        """
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+
+        return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +78,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +101,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +118,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +137,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +145,28 @@ class TrustProductsEntityAssignmentsList(ListResource):
         )
         return TrustProductsEntityAssignmentsPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TrustProductsEntityAssignmentsContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
+        """
+        return TrustProductsEntityAssignmentsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TrustProductsEntityAssignmentsContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
+        """
+        return TrustProductsEntityAssignmentsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +192,8 @@ class TrustProductsEntityAssignmentsPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
-        :rtype: twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsPage
         """
         super().__init__(version, response)
 
@@ -166,8 +206,8 @@ class TrustProductsEntityAssignmentsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
         """
         return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
 
@@ -183,83 +223,170 @@ class TrustProductsEntityAssignmentsPage(Page):
 
 
 
-
 class TrustProductsEntityAssignmentsContext(InstanceContext):
+
     def __init__(self, version: Version, trust_product_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the TrustProductsEntityAssignmentsContext
+
+        :param Version version: Version that contains the resource
+        :param trust_product_sid: The unique string that we created to identify the TrustProduct resource.:param sid: The unique string that we created to identify the Identity resource.
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'trust_product_sid': trust_product_sid, 'sid': sid,  }
-        self._uri = '/TrustProducts/${trust_product_sid}/EntityAssignments/${sid}'
+        self._solution = { 
+            'trust_product_sid': trust_product_sid,
+            'sid': sid,
+        }
+        self._uri = '/TrustProducts/{trust_product_sid}/EntityAssignments/{sid}'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the TrustProductsEntityAssignmentsInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the TrustProductsEntityAssignmentsInstance
+        
 
         :returns: The fetched TrustProductsEntityAssignmentsInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'], sid=self._solution['sid'], )
-        
-
+        return TrustProductsEntityAssignmentsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution['trust_product_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsContext {}>'.format(context)
 
 class TrustProductsEntityAssignmentsInstance(InstanceResource):
-    def __init__(self, version, payload, trust_product_sid: str, sid: str):
+
+    def __init__(self, version, payload, trust_product_sid: str, sid: str=None):
+        """
+        Initialize the TrustProductsEntityAssignmentsInstance
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'trust_product_sid' : payload.get('trust_product_sid'),
-            'account_sid' : payload.get('account_sid'),
-            'object_sid' : payload.get('object_sid'),
-            'date_created' : payload.get('date_created'),
-            'url' : payload.get('url'),
+            'sid': payload.get('sid'),
+            'trust_product_sid': payload.get('trust_product_sid'),
+            'account_sid': payload.get('account_sid'),
+            'object_sid': payload.get('object_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'trust_product_sid': trust_product_sid or self._properties['trust_product_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'trust_product_sid': trust_product_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: TrustProductsEntityAssignmentsContext for this TrustProductsEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
+        """
         if self._context is None:
-            self._context = TrustProductsEntityAssignmentsContext(
-                self._version,
-                trust_product_sid=self._solution['trust_product_sid'],sid=self._solution['sid'],
-            )
+            self._context = TrustProductsEntityAssignmentsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Item Assignment resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def trust_product_sid(self):
+        """
+        :returns: The unique string that we created to identify the TrustProduct resource.
+        :rtype: str
+        """
+        return self._properties['trust_product_sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def object_sid(self):
+        """
+        :returns: The SID of an object bag that holds information of the different items.
+        :rtype: str
+        """
+        return self._properties['object_sid']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Identity resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def delete(self):
+        """
+        Deletes the TrustProductsEntityAssignmentsInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the TrustProductsEntityAssignmentsInstance
+        
+
+        :returns: The fetched TrustProductsEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -268,6 +395,5 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsInstance {}>'.format(context)
-
 
 

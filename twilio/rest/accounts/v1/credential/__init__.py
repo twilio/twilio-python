@@ -16,8 +16,8 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -30,44 +30,46 @@ class CredentialList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CredentialList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.accounts.v1.credential..CredentialList
-        :rtype: twilio.accounts.v1.credential..CredentialList
+        :returns: twilio.rest.accounts.v1.credential.CredentialList
+        :rtype: twilio.rest.accounts.v1.credential.CredentialList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Credentials'.format(**self._solution)
-
+        
         self._aws = None
         self._public_key = None
-
+        
 
     @property
     def aws(self):
         """
         Access the aws
 
-        :returns: twilio.rest.accounts.v1.credential.aws.AwsList
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsList
+        :returns: twilio.rest.accounts.v1.credential.AwsList
+        :rtype: twilio.rest.accounts.v1.credential.AwsList
         """
         if self._aws is None:
             self._aws = AwsList(self._version)
-        return self.aws
+        return self._aws
 
     @property
     def public_key(self):
         """
         Access the public_key
 
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyList
+        :returns: twilio.rest.accounts.v1.credential.PublicKeyList
+        :rtype: twilio.rest.accounts.v1.credential.PublicKeyList
         """
         if self._public_key is None:
             self._public_key = PublicKeyList(self._version)
-        return self.public_key
+        return self._public_key
+
 
     def __repr__(self):
         """

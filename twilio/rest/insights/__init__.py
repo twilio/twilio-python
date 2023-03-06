@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.insights import InsightsBase
+from twilio.rest.insights.InsightsBase import InsightsBase
 from twilio.rest.insights.v1.call import CallList
 from twilio.rest.insights.v1.call_summaries import CallSummariesList
 from twilio.rest.insights.v1.conference import ConferenceList

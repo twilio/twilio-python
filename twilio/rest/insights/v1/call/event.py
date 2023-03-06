@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,19 +28,20 @@ class EventList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the EventList
+
         :param Version version: Version that contains the resource
         :param call_sid: 
         
-        :returns: twilio.insights.v1.event..EventList
-        :rtype: twilio.insights.v1.event..EventList
+        :returns: twilio.rest.insights.v1.call.event.EventList
+        :rtype: twilio.rest.insights.v1.call.event.EventList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'call_sid': call_sid,  }
-        self._uri = '/Voice/${call_sid}/Events'.format(**self._solution)
-
-
+        self._uri = '/Voice/{call_sid}/Events'.format(**self._solution)
+        
+        
     
     def stream(self, edge=values.unset, limit=None, page_size=None):
         """
@@ -49,7 +50,7 @@ class EventList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param EventTwilioEdge edge: 
+        :param TwilioEdge edge: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -58,7 +59,7 @@ class EventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.event.EventInstance]
+        :rtype: list[twilio.rest.insights.v1.call.event.EventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -74,7 +75,7 @@ class EventList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param EventTwilioEdge edge: 
+        :param TwilioEdge edge: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -83,7 +84,7 @@ class EventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.event.EventInstance]
+        :rtype: list[twilio.rest.insights.v1.call.event.EventInstance]
         """
         return list(self.stream(
             edge=edge,
@@ -96,13 +97,13 @@ class EventList(ListResource):
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
         
-        :param EventTwilioEdge edge: 
+        :param TwilioEdge edge: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.insights.v1.event.EventPage
+        :rtype: twilio.rest.insights.v1.call.event.EventPage
         """
         data = values.of({ 
             'Edge': edge,
@@ -122,13 +123,14 @@ class EventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.insights.v1.event.EventPage
+        :rtype: twilio.rest.insights.v1.call.event.EventPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return EventPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -149,8 +151,8 @@ class EventPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.insights.v1.event.EventPage
-        :rtype: twilio.rest.insights.v1.event.EventPage
+        :returns: twilio.rest.insights.v1.call.event.EventPage
+        :rtype: twilio.rest.insights.v1.call.event.EventPage
         """
         super().__init__(version, response)
 
@@ -163,8 +165,8 @@ class EventPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.event.EventInstance
-        :rtype: twilio.rest.insights.v1.event.EventInstance
+        :returns: twilio.rest.insights.v1.call.event.EventInstance
+        :rtype: twilio.rest.insights.v1.call.event.EventInstance
         """
         return EventInstance(self._version, payload, call_sid=self._solution['call_sid'])
 
@@ -181,5 +183,143 @@ class EventPage(Page):
 
 
 
+class EventInstance(InstanceResource):
+
+    class Level(object):
+        UNKNOWN = "UNKNOWN"
+        DEBUG = "DEBUG"
+        INFO = "INFO"
+        WARNING = "WARNING"
+        ERROR = "ERROR"
+
+    class TwilioEdge(object):
+        UNKNOWN_EDGE = "unknown_edge"
+        CARRIER_EDGE = "carrier_edge"
+        SIP_EDGE = "sip_edge"
+        SDK_EDGE = "sdk_edge"
+        CLIENT_EDGE = "client_edge"
+
+    def __init__(self, version, payload, call_sid: str):
+        """
+        Initialize the EventInstance
+        :returns: twilio.rest.insights.v1.call.event.EventInstance
+        :rtype: twilio.rest.insights.v1.call.event.EventInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'timestamp': payload.get('timestamp'),
+            'call_sid': payload.get('call_sid'),
+            'account_sid': payload.get('account_sid'),
+            'edge': payload.get('edge'),
+            'group': payload.get('group'),
+            'level': payload.get('level'),
+            'name': payload.get('name'),
+            'carrier_edge': payload.get('carrier_edge'),
+            'sip_edge': payload.get('sip_edge'),
+            'sdk_edge': payload.get('sdk_edge'),
+            'client_edge': payload.get('client_edge'),
+        }
+
+        self._context = None
+        self._solution = { 'call_sid': call_sid,  }
+    
+    
+    @property
+    def timestamp(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['timestamp']
+    
+    @property
+    def call_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['call_sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def edge(self):
+        """
+        :returns: 
+        :rtype: TwilioEdge
+        """
+        return self._properties['edge']
+    
+    @property
+    def group(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['group']
+    
+    @property
+    def level(self):
+        """
+        :returns: 
+        :rtype: Level
+        """
+        return self._properties['level']
+    
+    @property
+    def name(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['name']
+    
+    @property
+    def carrier_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['carrier_edge']
+    
+    @property
+    def sip_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sip_edge']
+    
+    @property
+    def sdk_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sdk_edge']
+    
+    @property
+    def client_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['client_edge']
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.EventInstance {}>'.format(context)
 
 

@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.lookups import LookupsBase
+from twilio.rest.lookups.LookupsBase import LookupsBase
 from twilio.rest.lookups.v1.phone_number import PhoneNumberList
 
 

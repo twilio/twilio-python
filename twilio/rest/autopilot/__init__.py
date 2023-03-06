@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.autopilot import AutopilotBase
+from twilio.rest.autopilot.AutopilotBase import AutopilotBase
 from twilio.rest.autopilot.v1.assistant import AssistantList
 from twilio.rest.autopilot.v1.restore_assistant import RestoreAssistantList
 

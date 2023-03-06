@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.serverless import ServerlessBase
+from twilio.rest.serverless.ServerlessBase import ServerlessBase
 from twilio.rest.serverless.v1.service import ServiceList
 
 

@@ -28,19 +28,20 @@ class EvaluationList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the EvaluationList
+
         :param Version version: Version that contains the resource
         :param bundle_sid: The unique string that identifies the Bundle resource.
         
-        :returns: twilio.numbers.v2.evaluation..EvaluationList
-        :rtype: twilio.numbers.v2.evaluation..EvaluationList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
-        self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Evaluations'.format(**self._solution)
-
-
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Evaluations'.format(**self._solution)
+        
+        
     
     
     
@@ -59,7 +60,7 @@ class EvaluationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.evaluation.EvaluationInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +83,7 @@ class EvaluationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.evaluation.EvaluationInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +100,7 @@ class EvaluationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,7 +119,7 @@ class EvaluationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -126,6 +127,28 @@ class EvaluationList(ListResource):
         )
         return EvaluationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EvaluationContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        """
+        return EvaluationContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EvaluationContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        """
+        return EvaluationContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -149,8 +172,8 @@ class EvaluationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.evaluation.EvaluationPage
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationPage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         super().__init__(version, response)
 
@@ -163,8 +186,8 @@ class EvaluationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.evaluation.EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
         return EvaluationInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
 
@@ -180,73 +203,172 @@ class EvaluationPage(Page):
 
 
 
-
 class EvaluationContext(InstanceContext):
+
     def __init__(self, version: Version, bundle_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the EvaluationContext
+
+        :param Version version: Version that contains the resource
+        :param bundle_sid: The unique string that we created to identify the Bundle resource.:param sid: The unique string that identifies the Evaluation resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'bundle_sid': bundle_sid, 'sid': sid,  }
-        self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Evaluations/${sid}'
+        self._solution = { 
+            'bundle_sid': bundle_sid,
+            'sid': sid,
+        }
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Evaluations/{sid}'.format(**self._solution)
         
     
     def fetch(self):
-        
         """
         Fetch the EvaluationInstance
+        
 
         :returns: The fetched EvaluationInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return EvaluationInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'], sid=self._solution['sid'], )
-        
-
+        return EvaluationInstance(
+            self._version,
+            payload,
+            bundle_sid=self._solution['bundle_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2.EvaluationContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.EvaluationContext {}>'.format(context)
 
 class EvaluationInstance(InstanceResource):
-    def __init__(self, version, payload, bundle_sid: str, sid: str):
+
+    class Status(object):
+        COMPLIANT = "compliant"
+        NONCOMPLIANT = "noncompliant"
+
+    def __init__(self, version, payload, bundle_sid: str, sid: str=None):
+        """
+        Initialize the EvaluationInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'account_sid' : payload.get('account_sid'),
-            'regulation_sid' : payload.get('regulation_sid'),
-            'bundle_sid' : payload.get('bundle_sid'),
-            'status' : payload.get('status'),
-            'results' : payload.get('results'),
-            'date_created' : payload.get('date_created'),
-            'url' : payload.get('url'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'regulation_sid': payload.get('regulation_sid'),
+            'bundle_sid': payload.get('bundle_sid'),
+            'status': payload.get('status'),
+            'results': payload.get('results'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'bundle_sid': bundle_sid or self._properties['bundle_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'bundle_sid': bundle_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: EvaluationContext for this EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        """
         if self._context is None:
-            self._context = EvaluationContext(
-                self._version,
-                bundle_sid=self._solution['bundle_sid'],sid=self._solution['sid'],
-            )
+            self._context = EvaluationContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies the Evaluation resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def regulation_sid(self):
+        """
+        :returns: The unique string of a regulation that is associated to the Bundle resource.
+        :rtype: str
+        """
+        return self._properties['regulation_sid']
+    
+    @property
+    def bundle_sid(self):
+        """
+        :returns: The unique string that we created to identify the Bundle resource.
+        :rtype: str
+        """
+        return self._properties['bundle_sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: Status
+        """
+        return self._properties['status']
+    
+    @property
+    def results(self):
+        """
+        :returns: The results of the Evaluation which includes the valid and invalid attributes.
+        :rtype: list[object]
+        """
+        return self._properties['results']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def fetch(self):
+        """
+        Fetch the EvaluationInstance
+        
 
+        :returns: The fetched EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -255,6 +377,5 @@ class EvaluationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.EvaluationInstance {}>'.format(context)
-
 
 

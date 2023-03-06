@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.address.dependent_phone_numbers import DependentPhoneNumberList
+from twilio.rest.api.v2010.account.address.dependent_phone_number import DependentPhoneNumberList
 
 
 class AddressList(ListResource):
@@ -29,22 +29,58 @@ class AddressList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AddressList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
         
-        :returns: twilio.api.v2010.address..AddressList
-        :rtype: twilio.api.v2010.address..AddressList
+        :returns: twilio.rest.api.v2010.account.address.AddressList
+        :rtype: twilio.rest.api.v2010.account.address.AddressList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Addresses.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, customer_name, street, city, region, postal_code, iso_country, friendly_name=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
+        """
+        Create the AddressInstance
 
+        :param str customer_name: The name to associate with the new address.
+        :param str street: The number and street address of the new address.
+        :param str city: The city of the new address.
+        :param str region: The state or region of the new address.
+        :param str postal_code: The postal code of the new address.
+        :param str iso_country: The ISO country code of the new address.
+        :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+        :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param str street_secondary: The additional number and street address of the address.
+        
+        :returns: The created AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        data = values.of({ 
+            'CustomerName': customer_name,
+            'Street': street,
+            'City': city,
+            'Region': region,
+            'PostalCode': postal_code,
+            'IsoCountry': iso_country,
+            'FriendlyName': friendly_name,
+            'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
+            'StreetSecondary': street_secondary,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-    
-    
-    
+        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, customer_name=values.unset, friendly_name=values.unset, iso_country=values.unset, limit=None, page_size=None):
@@ -65,7 +101,7 @@ class AddressList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.address.AddressInstance]
+        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -94,7 +130,7 @@ class AddressList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.address.AddressInstance]
+        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
         """
         return list(self.stream(
             customer_name=customer_name,
@@ -117,7 +153,7 @@ class AddressList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddressInstance
-        :rtype: twilio.rest.api.v2010.address.AddressPage
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
         """
         data = values.of({ 
             'CustomerName': customer_name,
@@ -139,7 +175,7 @@ class AddressList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AddressInstance
-        :rtype: twilio.rest.api.v2010.address.AddressPage
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -147,6 +183,28 @@ class AddressList(ListResource):
         )
         return AddressPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AddressContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+        
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
+        """
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AddressContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+        
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
+        """
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -174,8 +232,8 @@ class AddressPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.address.AddressPage
-        :rtype: twilio.rest.api.v2010.address.AddressPage
+        :returns: twilio.rest.api.v2010.account.address.AddressPage
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
         """
         super().__init__(version, response)
 
@@ -188,8 +246,8 @@ class AddressPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.address.AddressInstance
-        :rtype: twilio.rest.api.v2010.address.AddressInstance
+        :returns: twilio.rest.api.v2010.account.address.AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
         return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
@@ -205,110 +263,342 @@ class AddressPage(Page):
 
 
 
-
 class AddressContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the AddressContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.:param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'sid': sid,  }
-        self._uri = '/Accounts/${account_sid}/Addresses/${sid}.json'
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._solution)
         
         self._dependent_phone_numbers = None
     
     def delete(self):
-        
-        
-
         """
         Deletes the AddressInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the AddressInstance
+        
 
         :returns: The fetched AddressInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'], sid=self._solution['sid'], )
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
+    def update(self, friendly_name=values.unset, customer_name=values.unset, street=values.unset, city=values.unset, region=values.unset, postal_code=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
+        """
+        Update the AddressInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :params str customer_name: The name to associate with the address.
+        :params str street: The number and street address of the address.
+        :params str city: The city of the address.
+        :params str region: The state or region of the address.
+        :params str postal_code: The postal code of the address.
+        :params bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :params bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :params str street_secondary: The additional number and street address of the address.
 
-        
-    
-    def update(self, body):
-        data = values.of({
-            'body': body,
+        :returns: The updated AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'CustomerName': customer_name,
+            'Street': street,
+            'City': city,
+            'Region': region,
+            'PostalCode': postal_code,
+            'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
+            'StreetSecondary': street_secondary,
         })
-
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
-
-        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'], sid=self._solution['sid'], )
-        
         
 
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
         
     
+    @property
+    def dependent_phone_numbers(self):
+        """
+        Access the dependent_phone_numbers
 
+        :returns: twilio.rest.api.v2010.account.address.DependentPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.address.DependentPhoneNumberList
+        """
+        if self._dependent_phone_numbers is None:
+            self._dependent_phone_numbers = DependentPhoneNumberList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._dependent_phone_numbers
+    
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.AddressContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AddressContext {}>'.format(context)
 
 class AddressInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: str):
+
+    def __init__(self, version, payload, account_sid: str, sid: str=None):
+        """
+        Initialize the AddressInstance
+        :returns: twilio.rest.api.v2010.account.address.AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'city' : payload.get('city'),
-            'customer_name' : payload.get('customer_name'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'friendly_name' : payload.get('friendly_name'),
-            'iso_country' : payload.get('iso_country'),
-            'postal_code' : payload.get('postal_code'),
-            'region' : payload.get('region'),
-            'sid' : payload.get('sid'),
-            'street' : payload.get('street'),
-            'uri' : payload.get('uri'),
-            'emergency_enabled' : payload.get('emergency_enabled'),
-            'validated' : payload.get('validated'),
-            'verified' : payload.get('verified'),
-            'street_secondary' : payload.get('street_secondary'),
+            'account_sid': payload.get('account_sid'),
+            'city': payload.get('city'),
+            'customer_name': payload.get('customer_name'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'iso_country': payload.get('iso_country'),
+            'postal_code': payload.get('postal_code'),
+            'region': payload.get('region'),
+            'sid': payload.get('sid'),
+            'street': payload.get('street'),
+            'uri': payload.get('uri'),
+            'emergency_enabled': payload.get('emergency_enabled'),
+            'validated': payload.get('validated'),
+            'verified': payload.get('verified'),
+            'street_secondary': payload.get('street_secondary'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'account_sid': account_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
-        if self._context is None:
-            self._context = AddressContext(
-                self._version,
-                account_sid=self._solution['account_sid'],sid=self._solution['sid'],
-            )
-        return self._context
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
 
+        :returns: AddressContext for this AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
+        """
+        if self._context is None:
+            self._context = AddressContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+        return self._context
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def city(self):
+        """
+        :returns: The city in which the address is located.
+        :rtype: str
+        """
+        return self._properties['city']
+    
+    @property
+    def customer_name(self):
+        """
+        :returns: The name associated with the address.This property has a maximum length of 16 4-byte characters, or 21 3-byte characters.
+        :rtype: str
+        """
+        return self._properties['customer_name']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def iso_country(self):
+        """
+        :returns: The ISO country code of the address.
+        :rtype: str
+        """
+        return self._properties['iso_country']
+    
+    @property
+    def postal_code(self):
+        """
+        :returns: The postal code of the address.
+        :rtype: str
+        """
+        return self._properties['postal_code']
+    
+    @property
+    def region(self):
+        """
+        :returns: The state or region of the address.
+        :rtype: str
+        """
+        return self._properties['region']
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the Address resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def street(self):
+        """
+        :returns: The number and street address of the address.
+        :rtype: str
+        """
+        return self._properties['street']
+    
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :rtype: str
+        """
+        return self._properties['uri']
+    
+    @property
+    def emergency_enabled(self):
+        """
+        :returns: Whether emergency calling has been enabled on this number.
+        :rtype: bool
+        """
+        return self._properties['emergency_enabled']
+    
+    @property
+    def validated(self):
+        """
+        :returns: Whether the address has been validated to comply with local regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been validated. `false` indicate the country doesn't require validation or the Address is not valid.
+        :rtype: bool
+        """
+        return self._properties['validated']
+    
+    @property
+    def verified(self):
+        """
+        :returns: Whether the address has been verified to comply with regulation. In countries that require valid addresses, an invalid address will not be accepted. `true` indicates the Address has been verified. `false` indicate the country doesn't require verified or the Address is not valid.
+        :rtype: bool
+        """
+        return self._properties['verified']
+    
+    @property
+    def street_secondary(self):
+        """
+        :returns: The additional number and street address of the address.
+        :rtype: str
+        """
+        return self._properties['street_secondary']
+    
+    def delete(self):
+        """
+        Deletes the AddressInstance
+        
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the AddressInstance
+        
+
+        :returns: The fetched AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, friendly_name=values.unset, customer_name=values.unset, street=values.unset, city=values.unset, region=values.unset, postal_code=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
+        """
+        Update the AddressInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :params str customer_name: The name to associate with the address.
+        :params str street: The number and street address of the address.
+        :params str city: The city of the address.
+        :params str region: The state or region of the address.
+        :params str postal_code: The postal code of the address.
+        :params bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :params bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :params str street_secondary: The additional number and street address of the address.
+
+        :returns: The updated AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        return self._proxy.update(friendly_name=friendly_name, customer_name=customer_name, street=street, city=city, region=region, postal_code=postal_code, emergency_enabled=emergency_enabled, auto_correct_address=auto_correct_address, street_secondary=street_secondary, )
+    
     @property
     def dependent_phone_numbers(self):
+        """
+        Access the dependent_phone_numbers
+
+        :returns: twilio.rest.api.v2010.account.address.DependentPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.address.DependentPhoneNumberList
+        """
         return self._proxy.dependent_phone_numbers
     
-
     def __repr__(self):
         """
         Provide a friendly representation
@@ -317,6 +607,5 @@ class AddressInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AddressInstance {}>'.format(context)
-
 
 

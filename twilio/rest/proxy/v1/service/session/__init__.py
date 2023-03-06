@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.proxy.v1.session.interactions import InteractionList
-from twilio.rest.proxy.v1.session.participants import ParticipantList
+from twilio.rest.proxy.v1.service.session.interaction import InteractionList
+from twilio.rest.proxy.v1.service.session.participant import ParticipantList
 
 
 class SessionList(ListResource):
@@ -30,22 +30,50 @@ class SessionList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SessionList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read.
         
-        :returns: twilio.proxy.v1.session..SessionList
-        :rtype: twilio.proxy.v1.session..SessionList
+        :returns: twilio.rest.proxy.v1.service.session.SessionList
+        :rtype: twilio.rest.proxy.v1.service.session.SessionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Sessions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, date_expiry=values.unset, ttl=values.unset, mode=values.unset, status=values.unset, participants=values.unset):
+        """
+        Create the SessionInstance
 
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+        :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+        :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+        :param Mode mode: 
+        :param Status status: 
+        :param list[object] participants: The Participant objects to include in the new session.
+        
+        :returns: The created SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'DateExpiry': serialize.iso8601_datetime(date_expiry),
+            'Ttl': ttl,
+            'Mode': mode,
+            'Status': status,
+            'Participants': serialize.map(participants, lambda e: e),
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-    
-    
-    
+        return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -63,7 +91,7 @@ class SessionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.session.SessionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -86,7 +114,7 @@ class SessionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.session.SessionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -103,7 +131,7 @@ class SessionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.session.SessionPage
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -122,7 +150,7 @@ class SessionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.session.SessionPage
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -130,6 +158,28 @@ class SessionList(ListResource):
         )
         return SessionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SessionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+        
+        :returns: twilio.rest.proxy.v1.service.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
+        """
+        return SessionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SessionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+        
+        :returns: twilio.rest.proxy.v1.service.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
+        """
+        return SessionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -157,8 +207,8 @@ class SessionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.proxy.v1.session.SessionPage
-        :rtype: twilio.rest.proxy.v1.session.SessionPage
+        :returns: twilio.rest.proxy.v1.service.session.SessionPage
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
         """
         super().__init__(version, response)
 
@@ -171,8 +221,8 @@ class SessionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.proxy.v1.session.SessionInstance
-        :rtype: twilio.rest.proxy.v1.session.SessionInstance
+        :returns: twilio.rest.proxy.v1.service.session.SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -188,114 +238,360 @@ class SessionPage(Page):
 
 
 
-
 class SessionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the SessionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+
+        :returns: twilio.rest.proxy.v1.service.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'sid': sid,  }
-        self._uri = '/Services/${service_sid}/Sessions/${sid}'
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Sessions/{sid}'.format(**self._solution)
         
         self._interactions = None
         self._participants = None
     
     def delete(self):
-        
-        
-
         """
         Deletes the SessionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the SessionInstance
+        
 
         :returns: The fetched SessionInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'], sid=self._solution['sid'], )
+        return SessionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
+    def update(self, date_expiry=values.unset, ttl=values.unset, status=values.unset):
+        """
+        Update the SessionInstance
+        
+        :params datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+        :params int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+        :params Status status: 
 
-        
-    
-    def update(self, body):
-        data = values.of({
-            'body': body,
+        :returns: The updated SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        data = values.of({ 
+            'DateExpiry': serialize.iso8601_datetime(date_expiry),
+            'Ttl': ttl,
+            'Status': status,
         })
-
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
-
-        return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'], sid=self._solution['sid'], )
-        
         
 
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SessionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
         
     
+    @property
+    def interactions(self):
+        """
+        Access the interactions
 
+        :returns: twilio.rest.proxy.v1.service.session.InteractionList
+        :rtype: twilio.rest.proxy.v1.service.session.InteractionList
+        """
+        if self._interactions is None:
+            self._interactions = InteractionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._interactions
+    
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.proxy.v1.service.session.ParticipantList
+        :rtype: twilio.rest.proxy.v1.service.session.ParticipantList
+        """
+        if self._participants is None:
+            self._participants = ParticipantList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._participants
+    
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Proxy.V1.SessionContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Proxy.V1.SessionContext {}>'.format(context)
 
 class SessionInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: str):
+
+    class Mode(object):
+        MESSAGE_ONLY = "message-only"
+        VOICE_ONLY = "voice-only"
+        VOICE_AND_MESSAGE = "voice-and-message"
+
+    class Status(object):
+        OPEN = "open"
+        IN_PROGRESS = "in-progress"
+        CLOSED = "closed"
+        FAILED = "failed"
+        UNKNOWN = "unknown"
+
+    def __init__(self, version, payload, service_sid: str, sid: str=None):
+        """
+        Initialize the SessionInstance
+        :returns: twilio.rest.proxy.v1.service.session.SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'service_sid' : payload.get('service_sid'),
-            'account_sid' : payload.get('account_sid'),
-            'date_started' : payload.get('date_started'),
-            'date_ended' : payload.get('date_ended'),
-            'date_last_interaction' : payload.get('date_last_interaction'),
-            'date_expiry' : payload.get('date_expiry'),
-            'unique_name' : payload.get('unique_name'),
-            'status' : payload.get('status'),
-            'closed_reason' : payload.get('closed_reason'),
-            'ttl' : payload.get('ttl'),
-            'mode' : payload.get('mode'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'url' : payload.get('url'),
-            'links' : payload.get('links'),
+            'sid': payload.get('sid'),
+            'service_sid': payload.get('service_sid'),
+            'account_sid': payload.get('account_sid'),
+            'date_started': deserialize.iso8601_datetime(payload.get('date_started')),
+            'date_ended': deserialize.iso8601_datetime(payload.get('date_ended')),
+            'date_last_interaction': deserialize.iso8601_datetime(payload.get('date_last_interaction')),
+            'date_expiry': deserialize.iso8601_datetime(payload.get('date_expiry')),
+            'unique_name': payload.get('unique_name'),
+            'status': payload.get('status'),
+            'closed_reason': payload.get('closed_reason'),
+            'ttl': deserialize.integer(payload.get('ttl')),
+            'mode': payload.get('mode'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         self._context = None
-        self._solution = {
-            'service_sid': service_sid or self._properties['service_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'service_sid': service_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
-        if self._context is None:
-            self._context = SessionContext(
-                self._version,
-                service_sid=self._solution['service_sid'],sid=self._solution['sid'],
-            )
-        return self._context
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
 
+        :returns: SessionContext for this SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
+        """
+        if self._context is None:
+            self._context = SessionContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
+        return self._context
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Session resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the [Service](https://www.twilio.com/docs/proxy/api/service) the session is associated with.
+        :rtype: str
+        """
+        return self._properties['service_sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Session resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def date_started(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session started.
+        :rtype: datetime
+        """
+        return self._properties['date_started']
+    
+    @property
+    def date_ended(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session ended.
+        :rtype: datetime
+        """
+        return self._properties['date_ended']
+    
+    @property
+    def date_last_interaction(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session last had an interaction.
+        :rtype: datetime
+        """
+        return self._properties['date_last_interaction']
+    
+    @property
+    def date_expiry(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+        :rtype: datetime
+        """
+        return self._properties['date_expiry']
+    
+    @property
+    def unique_name(self):
+        """
+        :returns: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. Supports UTF-8 characters. **This value should not have PII.**
+        :rtype: str
+        """
+        return self._properties['unique_name']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: Status
+        """
+        return self._properties['status']
+    
+    @property
+    def closed_reason(self):
+        """
+        :returns: The reason the Session ended.
+        :rtype: str
+        """
+        return self._properties['closed_reason']
+    
+    @property
+    def ttl(self):
+        """
+        :returns: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+        :rtype: int
+        """
+        return self._properties['ttl']
+    
+    @property
+    def mode(self):
+        """
+        :returns: 
+        :rtype: Mode
+        """
+        return self._properties['mode']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Session resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def links(self):
+        """
+        :returns: The URLs of resources related to the Session.
+        :rtype: dict
+        """
+        return self._properties['links']
+    
+    def delete(self):
+        """
+        Deletes the SessionInstance
+        
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the SessionInstance
+        
+
+        :returns: The fetched SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, date_expiry=values.unset, ttl=values.unset, status=values.unset):
+        """
+        Update the SessionInstance
+        
+        :params datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+        :params int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+        :params Status status: 
+
+        :returns: The updated SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        return self._proxy.update(date_expiry=date_expiry, ttl=ttl, status=status, )
+    
     @property
     def interactions(self):
+        """
+        Access the interactions
+
+        :returns: twilio.rest.proxy.v1.service.session.InteractionList
+        :rtype: twilio.rest.proxy.v1.service.session.InteractionList
+        """
         return self._proxy.interactions
+    
     @property
     def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.proxy.v1.service.session.ParticipantList
+        :rtype: twilio.rest.proxy.v1.service.session.ParticipantList
+        """
         return self._proxy.participants
     
-
     def __repr__(self):
         """
         Provide a friendly representation
@@ -304,6 +600,5 @@ class SessionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Proxy.V1.SessionInstance {}>'.format(context)
-
 
 

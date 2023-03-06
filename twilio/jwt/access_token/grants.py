@@ -113,6 +113,7 @@ class VoiceGrant(AccessTokenGrant):
 
         return grant
 
+
 class VideoGrant(AccessTokenGrant):
     """Grant to access Twilio Video"""
 

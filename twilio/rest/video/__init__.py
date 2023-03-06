@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.video import VideoBase
+from twilio.rest.video.VideoBase import VideoBase
 from twilio.rest.video.v1.composition import CompositionList
 from twilio.rest.video.v1.composition_hook import CompositionHookList
 from twilio.rest.video.v1.composition_settings import CompositionSettingsList

@@ -16,13 +16,13 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.voice.v1.dialing_permissions.bulk_country_updates import BulkCountryUpdateList
-from twilio.rest.voice.v1.dialing_permissions.countries import CountryList
+from twilio.rest.voice.v1.dialing_permissions.bulk_country_update import BulkCountryUpdateList
+from twilio.rest.voice.v1.dialing_permissions.country import CountryList
 from twilio.rest.voice.v1.dialing_permissions.settings import SettingsList
 
 
@@ -31,57 +31,59 @@ class DialingPermissionsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DialingPermissionsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.dialing_permissions..DialingPermissionsList
-        :rtype: twilio.voice.v1.dialing_permissions..DialingPermissionsList
+        :returns: twilio.rest.voice.v1.dialing_permissions.DialingPermissionsList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.DialingPermissionsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/DialingPermissions'.format(**self._solution)
-
+        
         self._bulk_country_updates = None
         self._countries = None
         self._settings = None
-
+        
 
     @property
     def bulk_country_updates(self):
         """
         Access the bulk_country_updates
 
-        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_updates.BulkCountryUpdateList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_updates.BulkCountryUpdateList
+        :returns: twilio.rest.voice.v1.dialing_permissions.BulkCountryUpdateList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.BulkCountryUpdateList
         """
         if self._bulk_country_updates is None:
             self._bulk_country_updates = BulkCountryUpdateList(self._version)
-        return self.bulk_country_updates
+        return self._bulk_country_updates
 
     @property
     def countries(self):
         """
         Access the countries
 
-        :returns: twilio.rest.voice.v1.dialing_permissions.countries.CountryList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.countries.CountryList
+        :returns: twilio.rest.voice.v1.dialing_permissions.CountryList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
-        return self.countries
+        return self._countries
 
     @property
     def settings(self):
         """
         Access the settings
 
-        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
+        :returns: twilio.rest.voice.v1.dialing_permissions.SettingsList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.SettingsList
         """
         if self._settings is None:
             self._settings = SettingsList(self._version)
-        return self.settings
+        return self._settings
+
 
     def __repr__(self):
         """

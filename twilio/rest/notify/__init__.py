@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.notify import NotifyBase
+from twilio.rest.notify.NotifyBase import NotifyBase
 from twilio.rest.notify.v1.credential import CredentialList
 from twilio.rest.notify.v1.service import ServiceList
 

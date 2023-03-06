@@ -28,19 +28,20 @@ class FlowRevisionList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowRevisionList
+
         :param Version version: Version that contains the resource
         :param sid: The SID of the Flow resource to fetch.
         
-        :returns: twilio.studio.v2.flow_revision..FlowRevisionList
-        :rtype: twilio.studio.v2.flow_revision..FlowRevisionList
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionList
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = '/Flows/${sid}/Revisions'.format(**self._solution)
-
-
+        self._uri = '/Flows/{sid}/Revisions'.format(**self._solution)
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -58,7 +59,7 @@ class FlowRevisionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow_revision.FlowRevisionInstance]
+        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +82,7 @@ class FlowRevisionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow_revision.FlowRevisionInstance]
+        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +99,7 @@ class FlowRevisionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,7 +118,7 @@ class FlowRevisionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -125,6 +126,28 @@ class FlowRevisionList(ListResource):
         )
         return FlowRevisionPage(self._version, response, self._solution)
 
+
+    def get(self, revision):
+        """
+        Constructs a FlowRevisionContext
+        
+        :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+        
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        """
+        return FlowRevisionContext(self._version, sid=self._solution['sid'], revision=revision)
+
+    def __call__(self, revision):
+        """
+        Constructs a FlowRevisionContext
+        
+        :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+        
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        """
+        return FlowRevisionContext(self._version, sid=self._solution['sid'], revision=revision)
 
     def __repr__(self):
         """
@@ -146,8 +169,8 @@ class FlowRevisionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         super().__init__(version, response)
 
@@ -160,8 +183,8 @@ class FlowRevisionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionInstance
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
         return FlowRevisionInstance(self._version, payload, sid=self._solution['sid'])
 
@@ -177,77 +200,208 @@ class FlowRevisionPage(Page):
 
 
 
-
 class FlowRevisionContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str, revision: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the FlowRevisionContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Flow resource to fetch.:param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'sid': sid, 'revision': revision,  }
-        self._uri = '/Flows/${sid}/Revisions/${revision}'
+        self._solution = { 
+            'sid': sid,
+            'revision': revision,
+        }
+        self._uri = '/Flows/{sid}/Revisions/{revision}'.format(**self._solution)
         
     
     def fetch(self):
-        
         """
         Fetch the FlowRevisionInstance
+        
 
         :returns: The fetched FlowRevisionInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return FlowRevisionInstance(self._version, payload, sid=self._solution['sid'], revision=self._solution['revision'], )
-        
-
+        return FlowRevisionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            revision=self._solution['revision'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Studio.V2.FlowRevisionContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.FlowRevisionContext {}>'.format(context)
 
 class FlowRevisionInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str, revision: str):
+
+    class Status(object):
+        DRAFT = "draft"
+        PUBLISHED = "published"
+
+    def __init__(self, version, payload, sid: str, revision: str=None):
+        """
+        Initialize the FlowRevisionInstance
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'account_sid' : payload.get('account_sid'),
-            'friendly_name' : payload.get('friendly_name'),
-            'definition' : payload.get('definition'),
-            'status' : payload.get('status'),
-            'revision' : payload.get('revision'),
-            'commit_message' : payload.get('commit_message'),
-            'valid' : payload.get('valid'),
-            'errors' : payload.get('errors'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'url' : payload.get('url'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'definition': payload.get('definition'),
+            'status': payload.get('status'),
+            'revision': deserialize.integer(payload.get('revision')),
+            'commit_message': payload.get('commit_message'),
+            'valid': payload.get('valid'),
+            'errors': payload.get('errors'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],'revision': revision or self._properties['revision'],
-        }
-
+        self._solution = { 'sid': sid, 'revision': revision or self._properties['revision'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: FlowRevisionContext for this FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        """
         if self._context is None:
-            self._context = FlowRevisionContext(
-                self._version,
-                sid=self._solution['sid'],revision=self._solution['revision'],
-            )
+            self._context = FlowRevisionContext(self._version, sid=self._solution['sid'], revision=self._solution['revision'],)
         return self._context
-
     
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Flow resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flow resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the Flow.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def definition(self):
+        """
+        :returns: JSON representation of flow definition.
+        :rtype: dict
+        """
+        return self._properties['definition']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: Status
+        """
+        return self._properties['status']
+    
+    @property
+    def revision(self):
+        """
+        :returns: The latest revision number of the Flow's definition.
+        :rtype: int
+        """
+        return self._properties['revision']
+    
+    @property
+    def commit_message(self):
+        """
+        :returns: Description of change made in the revision.
+        :rtype: str
+        """
+        return self._properties['commit_message']
+    
+    @property
+    def valid(self):
+        """
+        :returns: Boolean if the flow definition is valid.
+        :rtype: bool
+        """
+        return self._properties['valid']
+    
+    @property
+    def errors(self):
+        """
+        :returns: List of error in the flow definition.
+        :rtype: list[object]
+        """
+        return self._properties['errors']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def fetch(self):
+        """
+        Fetch the FlowRevisionInstance
+        
 
+        :returns: The fetched FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -256,6 +410,5 @@ class FlowRevisionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V2.FlowRevisionInstance {}>'.format(context)
-
 
 

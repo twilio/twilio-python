@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.assigned_add_on.extensions import AssignedAddOnExtensionList
+from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension import AssignedAddOnExtensionList
 
 
 class AssignedAddOnList(ListResource):
@@ -29,22 +29,40 @@ class AssignedAddOnList(ListResource):
     def __init__(self, version: Version, account_sid: str, resource_sid: str):
         """
         Initialize the AssignedAddOnList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
         :param resource_sid: The SID of the Phone Number to which the Add-on is assigned.
         
-        :returns: twilio.api.v2010.assigned_add_on..AssignedAddOnList
-        :rtype: twilio.api.v2010.assigned_add_on..AssignedAddOnList
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid,  }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns.json'.format(**self._solution)
-
-
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns.json'.format(**self._solution)
+        
+        
     
     
+    
+    def create(self, installed_add_on_sid):
+        """
+        Create the AssignedAddOnInstance
+
+        :param str installed_add_on_sid: The SID that identifies the Add-on installation.
+        
+        :returns: The created AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        data = values.of({ 
+            'InstalledAddOnSid': installed_add_on_sid,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+
+        return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +80,7 @@ class AssignedAddOnList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.assigned_add_on.AssignedAddOnInstance]
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +103,7 @@ class AssignedAddOnList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.assigned_add_on.AssignedAddOnInstance]
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +120,7 @@ class AssignedAddOnList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnPage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +139,7 @@ class AssignedAddOnList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnPage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +147,28 @@ class AssignedAddOnList(ListResource):
         )
         return AssignedAddOnPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AssignedAddOnContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        """
+        return AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssignedAddOnContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        """
+        return AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -154,8 +194,8 @@ class AssignedAddOnPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnPage
-        :rtype: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnPage
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
         """
         super().__init__(version, response)
 
@@ -168,8 +208,8 @@ class AssignedAddOnPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
         """
         return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])
 
@@ -185,92 +225,241 @@ class AssignedAddOnPage(Page):
 
 
 
-
 class AssignedAddOnContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, resource_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the AssignedAddOnContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.:param resource_sid: The SID of the Phone Number to which the Add-on is assigned.:param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid, 'sid': sid,  }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns/${sid}.json'
+        self._solution = { 
+            'account_sid': account_sid,
+            'resource_sid': resource_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{sid}.json'.format(**self._solution)
         
         self._extensions = None
     
     def delete(self):
-        
-        
-
         """
         Deletes the AssignedAddOnInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the AssignedAddOnInstance
+        
 
         :returns: The fetched AssignedAddOnInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=self._solution['sid'], )
-        
-
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            resource_sid=self._solution['resource_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
     
+    @property
+    def extensions(self):
+        """
+        Access the extensions
 
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnExtensionList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnExtensionList
+        """
+        if self._extensions is None:
+            self._extensions = AssignedAddOnExtensionList(self._version, self._solution['account_sid'], self._solution['resource_sid'], self._solution['sid'],
+            )
+        return self._extensions
+    
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.AssignedAddOnContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AssignedAddOnContext {}>'.format(context)
 
 class AssignedAddOnInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, resource_sid: str, sid: str):
+
+    def __init__(self, version, payload, account_sid: str, resource_sid: str, sid: str=None):
+        """
+        Initialize the AssignedAddOnInstance
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'account_sid' : payload.get('account_sid'),
-            'resource_sid' : payload.get('resource_sid'),
-            'friendly_name' : payload.get('friendly_name'),
-            'description' : payload.get('description'),
-            'configuration' : payload.get('configuration'),
-            'unique_name' : payload.get('unique_name'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'uri' : payload.get('uri'),
-            'subresource_uris' : payload.get('subresource_uris'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'resource_sid': payload.get('resource_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'description': payload.get('description'),
+            'configuration': payload.get('configuration'),
+            'unique_name': payload.get('unique_name'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'uri': payload.get('uri'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],'resource_sid': resource_sid or self._properties['resource_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
-        if self._context is None:
-            self._context = AssignedAddOnContext(
-                self._version,
-                account_sid=self._solution['account_sid'],resource_sid=self._solution['resource_sid'],sid=self._solution['sid'],
-            )
-        return self._context
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
 
+        :returns: AssignedAddOnContext for this AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        """
+        if self._context is None:
+            self._context = AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=self._solution['sid'],)
+        return self._context
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def resource_sid(self):
+        """
+        :returns: The SID of the Phone Number to which the Add-on is assigned.
+        :rtype: str
+        """
+        return self._properties['resource_sid']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def description(self):
+        """
+        :returns: A short description of the functionality that the Add-on provides.
+        :rtype: str
+        """
+        return self._properties['description']
+    
+    @property
+    def configuration(self):
+        """
+        :returns: A JSON string that represents the current configuration of this Add-on installation.
+        :rtype: dict
+        """
+        return self._properties['configuration']
+    
+    @property
+    def unique_name(self):
+        """
+        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :rtype: str
+        """
+        return self._properties['unique_name']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :rtype: str
+        """
+        return self._properties['uri']
+    
+    @property
+    def subresource_uris(self):
+        """
+        :returns: A list of related resources identified by their relative URIs.
+        :rtype: dict
+        """
+        return self._properties['subresource_uris']
+    
+    def delete(self):
+        """
+        Deletes the AssignedAddOnInstance
+        
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the AssignedAddOnInstance
+        
+
+        :returns: The fetched AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        return self._proxy.fetch()
+    
     @property
     def extensions(self):
+        """
+        Access the extensions
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnExtensionList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnExtensionList
+        """
         return self._proxy.extensions
     
-
     def __repr__(self):
         """
         Provide a friendly representation
@@ -279,6 +468,5 @@ class AssignedAddOnInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AssignedAddOnInstance {}>'.format(context)
-
 
 

@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,18 +28,19 @@ class TemplateList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the TemplateList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.verify.v2.template..TemplateList
-        :rtype: twilio.verify.v2.template..TemplateList
+        :returns: twilio.rest.verify.v2.template.TemplateList
+        :rtype: twilio.rest.verify.v2.template.TemplateList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Templates'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -130,6 +131,7 @@ class TemplateList(ListResource):
         return TemplatePage(self._version, response, self._solution)
 
 
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -180,5 +182,75 @@ class TemplatePage(Page):
 
 
 
+class TemplateInstance(InstanceResource):
+
+    def __init__(self, version, payload):
+        """
+        Initialize the TemplateInstance
+        :returns: twilio.rest.verify.v2.template.TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplateInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'channels': payload.get('channels'),
+            'translations': payload.get('translations'),
+        }
+
+        self._context = None
+        self._solution = {  }
+    
+    
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies a Verification Template.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique SID identifier of the Account.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: A descriptive string that you create to describe a Template.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def channels(self):
+        """
+        :returns: A list of channels that support the Template. Can include: sms, voice
+        :rtype: list[str]
+        """
+        return self._properties['channels']
+    
+    @property
+    def translations(self):
+        """
+        :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
+        :rtype: dict
+        """
+        return self._properties['translations']
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.TemplateInstance {}>'.format(context)
 
 

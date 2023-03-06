@@ -28,21 +28,22 @@ class DeliveryReceiptList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str, message_sid: str):
         """
         Initialize the DeliveryReceiptList
+
         :param Version version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
         :param message_sid: The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
         
-        :returns: twilio.conversations.v1.delivery_receipt..DeliveryReceiptList
-        :rtype: twilio.conversations.v1.delivery_receipt..DeliveryReceiptList
+        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptList
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid, 'conversation_sid': conversation_sid, 'message_sid': message_sid,  }
-        self._uri = '/Services/${chat_service_sid}/Conversations/${conversation_sid}/Messages/${message_sid}/Receipts'.format(**self._solution)
-
-
+        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages/{message_sid}/Receipts'.format(**self._solution)
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +61,7 @@ class DeliveryReceiptList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class DeliveryReceiptList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class DeliveryReceiptList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptPage
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class DeliveryReceiptList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptPage
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +128,28 @@ class DeliveryReceiptList(ListResource):
         )
         return DeliveryReceiptPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DeliveryReceiptContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
+        """
+        return DeliveryReceiptContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DeliveryReceiptContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
+        """
+        return DeliveryReceiptContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -148,8 +171,8 @@ class DeliveryReceiptPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptPage
-        :rtype: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptPage
+        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
         """
         super().__init__(version, response)
 
@@ -162,8 +185,8 @@ class DeliveryReceiptPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptInstance
+        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance
         """
         return DeliveryReceiptInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'])
 
@@ -179,77 +202,215 @@ class DeliveryReceiptPage(Page):
 
 
 
-
 class DeliveryReceiptContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str, message_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the DeliveryReceiptContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.:param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.:param message_sid: The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.:param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'chat_service_sid': chat_service_sid, 'conversation_sid': conversation_sid, 'message_sid': message_sid, 'sid': sid,  }
-        self._uri = '/Services/${chat_service_sid}/Conversations/${conversation_sid}/Messages/${message_sid}/Receipts/${sid}'
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+            'conversation_sid': conversation_sid,
+            'message_sid': message_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages/{message_sid}/Receipts/{sid}'.format(**self._solution)
         
     
     def fetch(self):
-        
         """
         Fetch the DeliveryReceiptInstance
+        
 
         :returns: The fetched DeliveryReceiptInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return DeliveryReceiptInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'], sid=self._solution['sid'], )
-        
-
+        return DeliveryReceiptInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            message_sid=self._solution['message_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Conversations.V1.DeliveryReceiptContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.DeliveryReceiptContext {}>'.format(context)
 
 class DeliveryReceiptInstance(InstanceResource):
-    def __init__(self, version, payload, chat_service_sid: str, conversation_sid: str, message_sid: str, sid: str):
+
+    class DeliveryStatus(object):
+        READ = "read"
+        FAILED = "failed"
+        DELIVERED = "delivered"
+        UNDELIVERED = "undelivered"
+        SENT = "sent"
+
+    def __init__(self, version, payload, chat_service_sid: str, conversation_sid: str, message_sid: str, sid: str=None):
+        """
+        Initialize the DeliveryReceiptInstance
+        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'chat_service_sid' : payload.get('chat_service_sid'),
-            'conversation_sid' : payload.get('conversation_sid'),
-            'message_sid' : payload.get('message_sid'),
-            'sid' : payload.get('sid'),
-            'channel_message_sid' : payload.get('channel_message_sid'),
-            'participant_sid' : payload.get('participant_sid'),
-            'status' : payload.get('status'),
-            'error_code' : payload.get('error_code'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'url' : payload.get('url'),
+            'account_sid': payload.get('account_sid'),
+            'chat_service_sid': payload.get('chat_service_sid'),
+            'conversation_sid': payload.get('conversation_sid'),
+            'message_sid': payload.get('message_sid'),
+            'sid': payload.get('sid'),
+            'channel_message_sid': payload.get('channel_message_sid'),
+            'participant_sid': payload.get('participant_sid'),
+            'status': payload.get('status'),
+            'error_code': deserialize.integer(payload.get('error_code')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'chat_service_sid': chat_service_sid or self._properties['chat_service_sid'],'conversation_sid': conversation_sid or self._properties['conversation_sid'],'message_sid': message_sid or self._properties['message_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'chat_service_sid': chat_service_sid, 'conversation_sid': conversation_sid, 'message_sid': message_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: DeliveryReceiptContext for this DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
+        """
         if self._context is None:
-            self._context = DeliveryReceiptContext(
-                self._version,
-                chat_service_sid=self._solution['chat_service_sid'],conversation_sid=self._solution['conversation_sid'],message_sid=self._solution['message_sid'],sid=self._solution['sid'],
-            )
+            self._context = DeliveryReceiptContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this participant.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def chat_service_sid(self):
+        """
+        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
+        :rtype: str
+        """
+        return self._properties['chat_service_sid']
+    
+    @property
+    def conversation_sid(self):
+        """
+        :returns: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+        :rtype: str
+        """
+        return self._properties['conversation_sid']
+    
+    @property
+    def message_sid(self):
+        """
+        :returns: The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to
+        :rtype: str
+        """
+        return self._properties['message_sid']
+    
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def channel_message_sid(self):
+        """
+        :returns: A messaging channel-specific identifier for the message delivered to participant e.g. `SMxx` for SMS, `WAxx` for Whatsapp etc. 
+        :rtype: str
+        """
+        return self._properties['channel_message_sid']
+    
+    @property
+    def participant_sid(self):
+        """
+        :returns: The unique ID of the participant the delivery receipt belongs to.
+        :rtype: str
+        """
+        return self._properties['participant_sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: DeliveryStatus
+        """
+        return self._properties['status']
+    
+    @property
+    def error_code(self):
+        """
+        :returns: The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status, 
+        :rtype: int
+        """
+        return self._properties['error_code']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this resource was created.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was last updated. `null` if the delivery receipt has not been updated.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def url(self):
+        """
+        :returns: An absolute API resource URL for this delivery receipt.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def fetch(self):
+        """
+        Fetch the DeliveryReceiptInstance
+        
 
+        :returns: The fetched DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -258,6 +419,5 @@ class DeliveryReceiptInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.DeliveryReceiptInstance {}>'.format(context)
-
 
 

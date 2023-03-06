@@ -16,13 +16,13 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.usage.records import RecordList
-from twilio.rest.api.v2010.usage.triggers import TriggerList
+from twilio.rest.api.v2010.account.usage.record import RecordList
+from twilio.rest.api.v2010.account.usage.trigger import TriggerList
 
 
 class UsageList(ListResource):
@@ -30,45 +30,47 @@ class UsageList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the UsageList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
         
-        :returns: twilio.api.v2010.usage..UsageList
-        :rtype: twilio.api.v2010.usage..UsageList
+        :returns: twilio.rest.api.v2010.account.usage.UsageList
+        :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Usage.json'.format(**self._solution)
-
+        self._uri = '/Accounts/{account_sid}/Usage.json'.format(**self._solution)
+        
         self._records = None
         self._triggers = None
-
+        
 
     @property
     def records(self):
         """
         Access the records
 
-        :returns: twilio.rest.api.v2010.usage.records.RecordList
-        :rtype: twilio.rest.api.v2010.usage.records.RecordList
+        :returns: twilio.rest.api.v2010.account.usage.RecordList
+        :rtype: twilio.rest.api.v2010.account.usage.RecordList
         """
         if self._records is None:
             self._records = RecordList(self._version, account_sid=self._solution['account_sid'])
-        return self.records
+        return self._records
 
     @property
     def triggers(self):
         """
         Access the triggers
 
-        :returns: twilio.rest.api.v2010.usage.triggers.TriggerList
-        :rtype: twilio.rest.api.v2010.usage.triggers.TriggerList
+        :returns: twilio.rest.api.v2010.account.usage.TriggerList
+        :rtype: twilio.rest.api.v2010.account.usage.TriggerList
         """
         if self._triggers is None:
             self._triggers = TriggerList(self._version, account_sid=self._solution['account_sid'])
-        return self.triggers
+        return self._triggers
+
 
     def __repr__(self):
         """

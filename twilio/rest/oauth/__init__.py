@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.oauth import OauthBase
+from twilio.rest.oauth.OauthBase import OauthBase
 from twilio.rest.oauth.v1.device_code import DeviceCodeList
 from twilio.rest.oauth.v1.oauth import OauthList
 from twilio.rest.oauth.v1.openid_discovery import OpenidDiscoveryList

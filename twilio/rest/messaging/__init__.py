@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.messaging import MessagingBase
+from twilio.rest.messaging.MessagingBase import MessagingBase
 from twilio.rest.messaging.v1.brand_registration import BrandRegistrationList
 from twilio.rest.messaging.v1.deactivations import DeactivationsList
 from twilio.rest.messaging.v1.domain_certs import DomainCertsList

@@ -28,21 +28,42 @@ class DeviceConfigList(ListResource):
     def __init__(self, version: Version, device_sid: str):
         """
         Initialize the DeviceConfigList
+
         :param Version version: Version that contains the resource
         :param device_sid: A 34-character string that uniquely identifies the Device.
         
-        :returns: twilio.microvisor.v1.device_config..DeviceConfigList
-        :rtype: twilio.microvisor.v1.device_config..DeviceConfigList
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigList
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'device_sid': device_sid,  }
-        self._uri = '/Devices/${device_sid}/Configs'.format(**self._solution)
-
-
+        self._uri = '/Devices/{device_sid}/Configs'.format(**self._solution)
+        
+        
     
     
+    
+    
+    def create(self, key, value):
+        """
+        Create the DeviceConfigInstance
+
+        :param str key: The config key; up to 100 characters.
+        :param str value: The config value; up to 4096 characters.
+        
+        :returns: The created DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+
+        return DeviceConfigInstance(self._version, payload, device_sid=self._solution['device_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +81,7 @@ class DeviceConfigList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device_config.DeviceConfigInstance]
+        :rtype: list[twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +104,7 @@ class DeviceConfigList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device_config.DeviceConfigInstance]
+        :rtype: list[twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +121,7 @@ class DeviceConfigList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device_config.DeviceConfigPage
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +140,7 @@ class DeviceConfigList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device_config.DeviceConfigPage
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +149,28 @@ class DeviceConfigList(ListResource):
         return DeviceConfigPage(self._version, response, self._solution)
 
 
+    def get(self, key):
+        """
+        Constructs a DeviceConfigContext
+        
+        :param key: The config key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        """
+        return DeviceConfigContext(self._version, device_sid=self._solution['device_sid'], key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a DeviceConfigContext
+        
+        :param key: The config key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        """
+        return DeviceConfigContext(self._version, device_sid=self._solution['device_sid'], key=key)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -135,6 +178,8 @@ class DeviceConfigList(ListResource):
         :rtype: str
         """
         return '<Twilio.Microvisor.V1.DeviceConfigList>'
+
+
 
 
 
@@ -152,8 +197,8 @@ class DeviceConfigPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.microvisor.v1.device_config.DeviceConfigPage
-        :rtype: twilio.rest.microvisor.v1.device_config.DeviceConfigPage
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigPage
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigPage
         """
         super().__init__(version, response)
 
@@ -166,8 +211,8 @@ class DeviceConfigPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.microvisor.v1.device_config.DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device_config.DeviceConfigInstance
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
         """
         return DeviceConfigInstance(self._version, payload, device_sid=self._solution['device_sid'])
 
@@ -183,82 +228,195 @@ class DeviceConfigPage(Page):
 
 
 
-
 class DeviceConfigContext(InstanceContext):
+
     def __init__(self, version: Version, device_sid: str, key: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the DeviceConfigContext
+
+        :param Version version: Version that contains the resource
+        :param device_sid: A 34-character string that uniquely identifies the Device.:param key: The config key; up to 100 characters.
+
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'device_sid': device_sid, 'key': key,  }
-        self._uri = '/Devices/${device_sid}/Configs/${key}'
+        self._solution = { 
+            'device_sid': device_sid,
+            'key': key,
+        }
+        self._uri = '/Devices/{device_sid}/Configs/{key}'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the DeviceConfigInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the DeviceConfigInstance
+        
 
         :returns: The fetched DeviceConfigInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return DeviceConfigInstance(self._version, payload, device_sid=self._solution['device_sid'], key=self._solution['key'], )
+        return DeviceConfigInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+            
+        )
+        
+    def update(self, value):
+        """
+        Update the DeviceConfigInstance
+        
+        :params str value: The config value; up to 4096 characters.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        data = values.of({ 
+            'Value': value,
+        })
         
 
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DeviceConfigInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key']
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Microvisor.V1.DeviceConfigContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.DeviceConfigContext {}>'.format(context)
 
 class DeviceConfigInstance(InstanceResource):
-    def __init__(self, version, payload, device_sid: str, key: str):
+
+    def __init__(self, version, payload, device_sid: str, key: str=None):
+        """
+        Initialize the DeviceConfigInstance
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'device_sid' : payload.get('device_sid'),
-            'key' : payload.get('key'),
-            'value' : payload.get('value'),
-            'date_updated' : payload.get('date_updated'),
-            'url' : payload.get('url'),
+            'device_sid': payload.get('device_sid'),
+            'key': payload.get('key'),
+            'value': payload.get('value'),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'device_sid': device_sid or self._properties['device_sid'],'key': key or self._properties['key'],
-        }
-
+        self._solution = { 'device_sid': device_sid, 'key': key or self._properties['key'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: DeviceConfigContext for this DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        """
         if self._context is None:
-            self._context = DeviceConfigContext(
-                self._version,
-                device_sid=self._solution['device_sid'],key=self._solution['key'],
-            )
+            self._context = DeviceConfigContext(self._version, device_sid=self._solution['device_sid'], key=self._solution['key'],)
         return self._context
-
     
+    @property
+    def device_sid(self):
+        """
+        :returns: A 34-character string that uniquely identifies the parent Device.
+        :rtype: str
+        """
+        return self._properties['device_sid']
+    
+    @property
+    def key(self):
+        """
+        :returns: The config key; up to 100 characters.
+        :rtype: str
+        """
+        return self._properties['key']
+    
+    @property
+    def value(self):
+        """
+        :returns: The config value; up to 4096 characters.
+        :rtype: str
+        """
+        return self._properties['value']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Config.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def delete(self):
+        """
+        Deletes the DeviceConfigInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the DeviceConfigInstance
+        
+
+        :returns: The fetched DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, value):
+        """
+        Update the DeviceConfigInstance
+        
+        :params str value: The config value; up to 4096 characters.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        return self._proxy.update(value=value, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -267,6 +425,5 @@ class DeviceConfigInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Microvisor.V1.DeviceConfigInstance {}>'.format(context)
-
 
 

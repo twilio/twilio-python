@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,20 +28,39 @@ class NewKeyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the NewKeyList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
         
-        :returns: twilio.api.v2010.key..NewKeyList
-        :rtype: twilio.api.v2010.key..NewKeyList
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyList
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Keys.json'.format(**self._solution)
-
-
+        self._uri = '/Accounts/{account_sid}/Keys.json'.format(**self._solution)
+        
+        
     
+    def create(self, friendly_name=values.unset):
+        """
+        Create the NewKeyInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        
+        :returns: The created NewKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+
+        return NewKeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
+
 
     def __repr__(self):
         """
@@ -52,34 +71,68 @@ class NewKeyList(ListResource):
         return '<Twilio.Api.V2010.NewKeyList>'
 
 
-
 class NewKeyInstance(InstanceResource):
+
     def __init__(self, version, payload, account_sid: str):
+        """
+        Initialize the NewKeyInstance
+        :returns: twilio.rest.api.v2010.account.new_key.NewKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'friendly_name' : payload.get('friendly_name'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'secret' : payload.get('secret'),
+            'sid': payload.get('sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'secret': payload.get('secret'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = NewKeyContext(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
-        return self._context
-
+        self._solution = { 'account_sid': account_sid,  }
     
-
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the NewKey resource. You will use this as the basic-auth `user` when authenticating to the API.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the API Key was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the new API Key was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def secret(self):
+        """
+        :returns: The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
+        :rtype: str
+        """
+        return self._properties['secret']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -88,6 +141,5 @@ class NewKeyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.NewKeyInstance {}>'.format(context)
-
 
 

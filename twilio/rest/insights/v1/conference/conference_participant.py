@@ -28,19 +28,20 @@ class ConferenceParticipantList(ListResource):
     def __init__(self, version: Version, conference_sid: str):
         """
         Initialize the ConferenceParticipantList
+
         :param Version version: Version that contains the resource
         :param conference_sid: The unique SID identifier of the Conference.
         
-        :returns: twilio.insights.v1.conference_participant..ConferenceParticipantList
-        :rtype: twilio.insights.v1.conference_participant..ConferenceParticipantList
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantList
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'conference_sid': conference_sid,  }
-        self._uri = '/Conferences/${conference_sid}/Participants'.format(**self._solution)
-
-
+        self._uri = '/Conferences/{conference_sid}/Participants'.format(**self._solution)
+        
+        
     
     
     def stream(self, participant_sid=values.unset, label=values.unset, events=values.unset, limit=None, page_size=None):
@@ -61,7 +62,7 @@ class ConferenceParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -90,7 +91,7 @@ class ConferenceParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance]
         """
         return list(self.stream(
             participant_sid=participant_sid,
@@ -113,7 +114,7 @@ class ConferenceParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceParticipantInstance
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
         """
         data = values.of({ 
             'ParticipantSid': participant_sid,
@@ -135,7 +136,7 @@ class ConferenceParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceParticipantInstance
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -143,6 +144,28 @@ class ConferenceParticipantList(ListResource):
         )
         return ConferenceParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, participant_sid):
+        """
+        Constructs a ConferenceParticipantContext
+        
+        :param participant_sid: The unique SID identifier of the Participant.
+        
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        """
+        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
+
+    def __call__(self, participant_sid):
+        """
+        Constructs a ConferenceParticipantContext
+        
+        :param participant_sid: The unique SID identifier of the Participant.
+        
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        """
+        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
 
     def __repr__(self):
         """
@@ -164,8 +187,8 @@ class ConferenceParticipantPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
         """
         super().__init__(version, response)
 
@@ -178,8 +201,8 @@ class ConferenceParticipantPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
         """
         return ConferenceParticipantInstance(self._version, payload, conference_sid=self._solution['conference_sid'])
 
@@ -195,92 +218,387 @@ class ConferenceParticipantPage(Page):
 
 
 
-
 class ConferenceParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, conference_sid: str, participant_sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the ConferenceParticipantContext
+
+        :param Version version: Version that contains the resource
+        :param conference_sid: The unique SID identifier of the Conference.:param participant_sid: The unique SID identifier of the Participant.
+
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'conference_sid': conference_sid, 'participant_sid': participant_sid,  }
-        self._uri = '/Conferences/${conference_sid}/Participants/${participant_sid}'
+        self._solution = { 
+            'conference_sid': conference_sid,
+            'participant_sid': participant_sid,
+        }
+        self._uri = '/Conferences/{conference_sid}/Participants/{participant_sid}'.format(**self._solution)
         
     
-    def fetch(self, events, metrics):
-        
+    def fetch(self, events=values.unset, metrics=values.unset):
         """
         Fetch the ConferenceParticipantInstance
+        
+        :params str events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
+        :params str metrics: Object. Contains participant call quality metrics.
 
         :returns: The fetched ConferenceParticipantInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ConferenceParticipantInstance(self._version, payload, conference_sid=self._solution['conference_sid'], participant_sid=self._solution['participant_sid'], )
         
+        data = values.of({ 
+            'Events': events,
+            'Metrics': metrics,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
+        return ConferenceParticipantInstance(
+            self._version,
+            payload,
+            conference_sid=self._solution['conference_sid'],
+            participant_sid=self._solution['participant_sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Insights.V1.ConferenceParticipantContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.ConferenceParticipantContext {}>'.format(context)
 
 class ConferenceParticipantInstance(InstanceResource):
-    def __init__(self, version, payload, conference_sid: str, participant_sid: str):
+
+    class CallDirection(object):
+        INBOUND = "inbound"
+        OUTBOUND = "outbound"
+
+    class CallStatus(object):
+        ANSWERED = "answered"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAIL = "fail"
+        NOANSWER = "noanswer"
+        RINGING = "ringing"
+        CANCELED = "canceled"
+
+    class CallType(object):
+        CARRIER = "carrier"
+        CLIENT = "client"
+        SIP = "sip"
+
+    class JitterBufferSize(object):
+        LARGE = "large"
+        SMALL = "small"
+        MEDIUM = "medium"
+        OFF = "off"
+
+    class ProcessingState(object):
+        COMPLETE = "complete"
+        IN_PROGRESS = "in_progress"
+        TIMEOUT = "timeout"
+
+    class Region(object):
+        US1 = "us1"
+        US2 = "us2"
+        AU1 = "au1"
+        BR1 = "br1"
+        IE1 = "ie1"
+        JP1 = "jp1"
+        SG1 = "sg1"
+        DE1 = "de1"
+
+    def __init__(self, version, payload, conference_sid: str, participant_sid: str=None):
+        """
+        Initialize the ConferenceParticipantInstance
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'participant_sid' : payload.get('participant_sid'),
-            'label' : payload.get('label'),
-            'conference_sid' : payload.get('conference_sid'),
-            'call_sid' : payload.get('call_sid'),
-            'account_sid' : payload.get('account_sid'),
-            'call_direction' : payload.get('call_direction'),
-            '_from' : payload.get('from'),
-            'to' : payload.get('to'),
-            'call_status' : payload.get('call_status'),
-            'country_code' : payload.get('country_code'),
-            'is_moderator' : payload.get('is_moderator'),
-            'join_time' : payload.get('join_time'),
-            'leave_time' : payload.get('leave_time'),
-            'duration_seconds' : payload.get('duration_seconds'),
-            'outbound_queue_length' : payload.get('outbound_queue_length'),
-            'outbound_time_in_queue' : payload.get('outbound_time_in_queue'),
-            'jitter_buffer_size' : payload.get('jitter_buffer_size'),
-            'is_coach' : payload.get('is_coach'),
-            'coached_participants' : payload.get('coached_participants'),
-            'participant_region' : payload.get('participant_region'),
-            'conference_region' : payload.get('conference_region'),
-            'call_type' : payload.get('call_type'),
-            'processing_state' : payload.get('processing_state'),
-            'properties' : payload.get('properties'),
-            'events' : payload.get('events'),
-            'metrics' : payload.get('metrics'),
-            'url' : payload.get('url'),
+            'participant_sid': payload.get('participant_sid'),
+            'label': payload.get('label'),
+            'conference_sid': payload.get('conference_sid'),
+            'call_sid': payload.get('call_sid'),
+            'account_sid': payload.get('account_sid'),
+            'call_direction': payload.get('call_direction'),
+            '_from': payload.get('from'),
+            'to': payload.get('to'),
+            'call_status': payload.get('call_status'),
+            'country_code': payload.get('country_code'),
+            'is_moderator': payload.get('is_moderator'),
+            'join_time': deserialize.iso8601_datetime(payload.get('join_time')),
+            'leave_time': deserialize.iso8601_datetime(payload.get('leave_time')),
+            'duration_seconds': deserialize.integer(payload.get('duration_seconds')),
+            'outbound_queue_length': deserialize.integer(payload.get('outbound_queue_length')),
+            'outbound_time_in_queue': deserialize.integer(payload.get('outbound_time_in_queue')),
+            'jitter_buffer_size': payload.get('jitter_buffer_size'),
+            'is_coach': payload.get('is_coach'),
+            'coached_participants': payload.get('coached_participants'),
+            'participant_region': payload.get('participant_region'),
+            'conference_region': payload.get('conference_region'),
+            'call_type': payload.get('call_type'),
+            'processing_state': payload.get('processing_state'),
+            'properties': payload.get('properties'),
+            'events': payload.get('events'),
+            'metrics': payload.get('metrics'),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'conference_sid': conference_sid or self._properties['conference_sid'],'participant_sid': participant_sid or self._properties['participant_sid'],
-        }
-
+        self._solution = { 'conference_sid': conference_sid, 'participant_sid': participant_sid or self._properties['participant_sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ConferenceParticipantContext for this ConferenceParticipantInstance
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        """
         if self._context is None:
-            self._context = ConferenceParticipantContext(
-                self._version,
-                conference_sid=self._solution['conference_sid'],participant_sid=self._solution['participant_sid'],
-            )
+            self._context = ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=self._solution['participant_sid'],)
         return self._context
-
     
+    @property
+    def participant_sid(self):
+        """
+        :returns: SID for this participant.
+        :rtype: str
+        """
+        return self._properties['participant_sid']
+    
+    @property
+    def label(self):
+        """
+        :returns: The user-specified label of this participant.
+        :rtype: str
+        """
+        return self._properties['label']
+    
+    @property
+    def conference_sid(self):
+        """
+        :returns: The unique SID identifier of the Conference.
+        :rtype: str
+        """
+        return self._properties['conference_sid']
+    
+    @property
+    def call_sid(self):
+        """
+        :returns: Unique SID identifier of the call that generated the Participant resource.
+        :rtype: str
+        """
+        return self._properties['call_sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique SID identifier of the Account.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def call_direction(self):
+        """
+        :returns: 
+        :rtype: CallDirection
+        """
+        return self._properties['call_direction']
+    
+    @property
+    def _from(self):
+        """
+        :returns: Caller ID of the calling party.
+        :rtype: str
+        """
+        return self._properties['_from']
+    
+    @property
+    def to(self):
+        """
+        :returns: Called party.
+        :rtype: str
+        """
+        return self._properties['to']
+    
+    @property
+    def call_status(self):
+        """
+        :returns: 
+        :rtype: CallStatus
+        """
+        return self._properties['call_status']
+    
+    @property
+    def country_code(self):
+        """
+        :returns: ISO alpha-2 country code of the participant based on caller ID or called number.
+        :rtype: str
+        """
+        return self._properties['country_code']
+    
+    @property
+    def is_moderator(self):
+        """
+        :returns: Boolean. Indicates whether participant had startConferenceOnEnter=true or endConferenceOnExit=true.
+        :rtype: bool
+        """
+        return self._properties['is_moderator']
+    
+    @property
+    def join_time(self):
+        """
+        :returns: ISO 8601 timestamp of participant join event.
+        :rtype: datetime
+        """
+        return self._properties['join_time']
+    
+    @property
+    def leave_time(self):
+        """
+        :returns: ISO 8601 timestamp of participant leave event.
+        :rtype: datetime
+        """
+        return self._properties['leave_time']
+    
+    @property
+    def duration_seconds(self):
+        """
+        :returns: Participant durations in seconds.
+        :rtype: int
+        """
+        return self._properties['duration_seconds']
+    
+    @property
+    def outbound_queue_length(self):
+        """
+        :returns: Add Participant API only. Estimated time in queue at call creation.
+        :rtype: int
+        """
+        return self._properties['outbound_queue_length']
+    
+    @property
+    def outbound_time_in_queue(self):
+        """
+        :returns: Add Participant API only. Actual time in queue in seconds.
+        :rtype: int
+        """
+        return self._properties['outbound_time_in_queue']
+    
+    @property
+    def jitter_buffer_size(self):
+        """
+        :returns: 
+        :rtype: JitterBufferSize
+        """
+        return self._properties['jitter_buffer_size']
+    
+    @property
+    def is_coach(self):
+        """
+        :returns: Boolean. Indicated whether participant was a coach.
+        :rtype: bool
+        """
+        return self._properties['is_coach']
+    
+    @property
+    def coached_participants(self):
+        """
+        :returns: Call SIDs coached by this participant.
+        :rtype: list[str]
+        """
+        return self._properties['coached_participants']
+    
+    @property
+    def participant_region(self):
+        """
+        :returns: 
+        :rtype: Region
+        """
+        return self._properties['participant_region']
+    
+    @property
+    def conference_region(self):
+        """
+        :returns: 
+        :rtype: Region
+        """
+        return self._properties['conference_region']
+    
+    @property
+    def call_type(self):
+        """
+        :returns: 
+        :rtype: CallType
+        """
+        return self._properties['call_type']
+    
+    @property
+    def processing_state(self):
+        """
+        :returns: 
+        :rtype: ProcessingState
+        """
+        return self._properties['processing_state']
+    
+    @property
+    def properties(self):
+        """
+        :returns: Participant properties and metadata.
+        :rtype: dict
+        """
+        return self._properties['properties']
+    
+    @property
+    def events(self):
+        """
+        :returns: Object containing information of actions taken by participants. Contains a dictionary of URL links to nested resources of this Conference Participant.
+        :rtype: dict
+        """
+        return self._properties['events']
+    
+    @property
+    def metrics(self):
+        """
+        :returns: Object. Contains participant call quality metrics.
+        :rtype: dict
+        """
+        return self._properties['metrics']
+    
+    @property
+    def url(self):
+        """
+        :returns: The URL of this resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def fetch(self, events=values.unset, metrics=values.unset):
+        """
+        Fetch the ConferenceParticipantInstance
+        
+        :params str events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
+        :params str metrics: Object. Contains participant call quality metrics.
 
+        :returns: The fetched ConferenceParticipantInstance
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
+        """
+        return self._proxy.fetch(events=events, metrics=metrics, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -289,6 +607,5 @@ class ConferenceParticipantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.ConferenceParticipantInstance {}>'.format(context)
-
 
 

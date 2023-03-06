@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.taskrouter import TaskrouterBase
+from twilio.rest.taskrouter.TaskrouterBase import TaskrouterBase
 from twilio.rest.taskrouter.v1.workspace import WorkspaceList
 
 

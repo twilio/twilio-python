@@ -28,20 +28,21 @@ class TranscriptionList(ListResource):
     def __init__(self, version: Version, account_sid: str, recording_sid: str):
         """
         Initialize the TranscriptionList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
         :param recording_sid: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcriptions to read.
         
-        :returns: twilio.api.v2010.transcription..TranscriptionList
-        :rtype: twilio.api.v2010.transcription..TranscriptionList
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'recording_sid': recording_sid,  }
-        self._uri = '/Accounts/${account_sid}/Recordings/${recording_sid}/Transcriptions.json'.format(**self._solution)
-
-
+        self._uri = '/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions.json'.format(**self._solution)
+        
+        
     
     
     
@@ -60,7 +61,7 @@ class TranscriptionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.transcription.TranscriptionInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class TranscriptionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.transcription.TranscriptionInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class TranscriptionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.transcription.TranscriptionPage
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class TranscriptionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.transcription.TranscriptionPage
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +128,28 @@ class TranscriptionList(ListResource):
         )
         return TranscriptionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TranscriptionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        """
+        return TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TranscriptionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        """
+        return TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -150,8 +173,8 @@ class TranscriptionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.transcription.TranscriptionPage
-        :rtype: twilio.rest.api.v2010.transcription.TranscriptionPage
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionPage
         """
         super().__init__(version, response)
 
@@ -164,8 +187,8 @@ class TranscriptionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.transcription.TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.transcription.TranscriptionInstance
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
         return TranscriptionInstance(self._version, payload, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'])
 
@@ -181,90 +204,240 @@ class TranscriptionPage(Page):
 
 
 
-
 class TranscriptionContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, recording_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the TranscriptionContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.:param recording_sid: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch.:param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'recording_sid': recording_sid, 'sid': sid,  }
-        self._uri = '/Accounts/${account_sid}/Recordings/${recording_sid}/Transcriptions/${sid}.json'
+        self._solution = { 
+            'account_sid': account_sid,
+            'recording_sid': recording_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the TranscriptionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the TranscriptionInstance
+        
 
         :returns: The fetched TranscriptionInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return TranscriptionInstance(self._version, payload, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=self._solution['sid'], )
-        
-
+        return TranscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            recording_sid=self._solution['recording_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.TranscriptionContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.TranscriptionContext {}>'.format(context)
 
 class TranscriptionInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, recording_sid: str, sid: str):
+
+    class Status(object):
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
+    def __init__(self, version, payload, account_sid: str, recording_sid: str, sid: str=None):
+        """
+        Initialize the TranscriptionInstance
+        :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'api_version' : payload.get('api_version'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'duration' : payload.get('duration'),
-            'price' : payload.get('price'),
-            'price_unit' : payload.get('price_unit'),
-            'recording_sid' : payload.get('recording_sid'),
-            'sid' : payload.get('sid'),
-            'status' : payload.get('status'),
-            'transcription_text' : payload.get('transcription_text'),
-            'type' : payload.get('type'),
-            'uri' : payload.get('uri'),
+            'account_sid': payload.get('account_sid'),
+            'api_version': payload.get('api_version'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'duration': payload.get('duration'),
+            'price': deserialize.decimal(payload.get('price')),
+            'price_unit': payload.get('price_unit'),
+            'recording_sid': payload.get('recording_sid'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'transcription_text': payload.get('transcription_text'),
+            'type': payload.get('type'),
+            'uri': payload.get('uri'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],'recording_sid': recording_sid or self._properties['recording_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'account_sid': account_sid, 'recording_sid': recording_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: TranscriptionContext for this TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
+        """
         if self._context is None:
-            self._context = TranscriptionContext(
-                self._version,
-                account_sid=self._solution['account_sid'],recording_sid=self._solution['recording_sid'],sid=self._solution['sid'],
-            )
+            self._context = TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def api_version(self):
+        """
+        :returns: The API version used to create the transcription.
+        :rtype: str
+        """
+        return self._properties['api_version']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def duration(self):
+        """
+        :returns: The duration of the transcribed audio in seconds.
+        :rtype: str
+        """
+        return self._properties['duration']
+    
+    @property
+    def price(self):
+        """
+        :returns: The charge for the transcript in the currency associated with the account. This value is populated after the transcript is complete so it may not be available immediately.
+        :rtype: float
+        """
+        return self._properties['price']
+    
+    @property
+    def price_unit(self):
+        """
+        :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+        :rtype: str
+        """
+        return self._properties['price_unit']
+    
+    @property
+    def recording_sid(self):
+        """
+        :returns: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) from which the transcription was created.
+        :rtype: str
+        """
+        return self._properties['recording_sid']
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the Transcription resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: Status
+        """
+        return self._properties['status']
+    
+    @property
+    def transcription_text(self):
+        """
+        :returns: The text content of the transcription.
+        :rtype: str
+        """
+        return self._properties['transcription_text']
+    
+    @property
+    def type(self):
+        """
+        :returns: The transcription type.
+        :rtype: str
+        """
+        return self._properties['type']
+    
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :rtype: str
+        """
+        return self._properties['uri']
+    
+    def delete(self):
+        """
+        Deletes the TranscriptionInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the TranscriptionInstance
+        
+
+        :returns: The fetched TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -273,6 +446,5 @@ class TranscriptionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.TranscriptionInstance {}>'.format(context)
-
 
 

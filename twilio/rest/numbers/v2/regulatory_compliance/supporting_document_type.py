@@ -28,18 +28,19 @@ class SupportingDocumentTypeList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SupportingDocumentTypeList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.numbers.v2.supporting_document_type..SupportingDocumentTypeList
-        :rtype: twilio.numbers.v2.supporting_document_type..SupportingDocumentTypeList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/RegulatoryCompliance/SupportingDocumentTypes'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -57,7 +58,7 @@ class SupportingDocumentTypeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -80,7 +81,7 @@ class SupportingDocumentTypeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -97,7 +98,7 @@ class SupportingDocumentTypeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SupportingDocumentTypeInstance
-        :rtype: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -116,7 +117,7 @@ class SupportingDocumentTypeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SupportingDocumentTypeInstance
-        :rtype: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -124,6 +125,28 @@ class SupportingDocumentTypeList(ListResource):
         )
         return SupportingDocumentTypePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SupportingDocumentTypeContext
+        
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeContext
+        """
+        return SupportingDocumentTypeContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SupportingDocumentTypeContext
+        
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeContext
+        """
+        return SupportingDocumentTypeContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -145,8 +168,8 @@ class SupportingDocumentTypePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypePage
-        :rtype: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypePage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypePage
         """
         super().__init__(version, response)
 
@@ -159,8 +182,8 @@ class SupportingDocumentTypePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeInstance
-        :rtype: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
         """
         return SupportingDocumentTypeInstance(self._version, payload)
 
@@ -176,70 +199,139 @@ class SupportingDocumentTypePage(Page):
 
 
 
-
 class SupportingDocumentTypeContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the SupportingDocumentTypeContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'sid': sid,  }
-        self._uri = '/RegulatoryCompliance/SupportingDocumentTypes/${sid}'
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/RegulatoryCompliance/SupportingDocumentTypes/{sid}'.format(**self._solution)
         
     
     def fetch(self):
-        
         """
         Fetch the SupportingDocumentTypeInstance
+        
 
         :returns: The fetched SupportingDocumentTypeInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return SupportingDocumentTypeInstance(self._version, payload, sid=self._solution['sid'], )
-        
-
+        return SupportingDocumentTypeInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2.SupportingDocumentTypeContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.SupportingDocumentTypeContext {}>'.format(context)
 
 class SupportingDocumentTypeInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str):
+
+    def __init__(self, version, payload, sid: str=None):
+        """
+        Initialize the SupportingDocumentTypeInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'friendly_name' : payload.get('friendly_name'),
-            'machine_name' : payload.get('machine_name'),
-            'fields' : payload.get('fields'),
-            'url' : payload.get('url'),
+            'sid': payload.get('sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'machine_name': payload.get('machine_name'),
+            'fields': payload.get('fields'),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: SupportingDocumentTypeContext for this SupportingDocumentTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeContext
+        """
         if self._context is None:
-            self._context = SupportingDocumentTypeContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
+            self._context = SupportingDocumentTypeContext(self._version, sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: A human-readable description of the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def machine_name(self):
+        """
+        :returns: The machine-readable description of the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties['machine_name']
+    
+    @property
+    def fields(self):
+        """
+        :returns: The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
+        :rtype: list[object]
+        """
+        return self._properties['fields']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def fetch(self):
+        """
+        Fetch the SupportingDocumentTypeInstance
+        
 
+        :returns: The fetched SupportingDocumentTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -248,6 +340,5 @@ class SupportingDocumentTypeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.SupportingDocumentTypeInstance {}>'.format(context)
-
 
 

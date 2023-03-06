@@ -28,22 +28,42 @@ class ModelBuildList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the ModelBuildList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: 
         
-        :returns: twilio.preview.understand.model_build..ModelBuildList
-        :rtype: twilio.preview.understand.model_build..ModelBuildList
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/ModelBuilds'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/ModelBuilds'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, status_callback=values.unset, unique_name=values.unset):
+        """
+        Create the ModelBuildInstance
 
+        :param str status_callback: 
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+        
+        :returns: The created ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        data = values.of({ 
+            'StatusCallback': status_callback,
+            'UniqueName': unique_name,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-    
-    
-    
+        return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -61,7 +81,7 @@ class ModelBuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.model_build.ModelBuildInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +104,7 @@ class ModelBuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.model_build.ModelBuildInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +121,7 @@ class ModelBuildList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildPage
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +140,7 @@ class ModelBuildList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildPage
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +148,28 @@ class ModelBuildList(ListResource):
         )
         return ModelBuildPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ModelBuildContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ModelBuildContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -155,8 +197,8 @@ class ModelBuildPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.model_build.ModelBuildPage
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildPage
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
         """
         super().__init__(version, response)
 
@@ -169,8 +211,8 @@ class ModelBuildPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.model_build.ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildInstance
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
         """
         return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 
@@ -186,100 +228,247 @@ class ModelBuildPage(Page):
 
 
 
-
 class ModelBuildContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the ModelBuildContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: :param sid: 
+
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'assistant_sid': assistant_sid, 'sid': sid,  }
-        self._uri = '/Assistants/${assistant_sid}/ModelBuilds/${sid}'
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/ModelBuilds/{sid}'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the ModelBuildInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the ModelBuildInstance
+        
 
         :returns: The fetched ModelBuildInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], sid=self._solution['sid'], )
+        return ModelBuildInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
+    def update(self, unique_name=values.unset):
+        """
+        Update the ModelBuildInstance
+        
+        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
 
-        
-    
-    def update(self, body):
-        data = values.of({
-            'body': body,
+        :returns: The updated ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
         })
-
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
-
-        return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], sid=self._solution['sid'], )
-        
         
 
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ModelBuildInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.ModelBuildContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.ModelBuildContext {}>'.format(context)
 
 class ModelBuildInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: str):
+
+    class Status(object):
+        ENQUEUED = "enqueued"
+        BUILDING = "building"
+        COMPLETED = "completed"
+        FAILED = "failed"
+        CANCELED = "canceled"
+
+    def __init__(self, version, payload, assistant_sid: str, sid: str=None):
+        """
+        Initialize the ModelBuildInstance
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'assistant_sid' : payload.get('assistant_sid'),
-            'sid' : payload.get('sid'),
-            'status' : payload.get('status'),
-            'unique_name' : payload.get('unique_name'),
-            'url' : payload.get('url'),
-            'build_duration' : payload.get('build_duration'),
-            'error_code' : payload.get('error_code'),
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'unique_name': payload.get('unique_name'),
+            'url': payload.get('url'),
+            'build_duration': deserialize.integer(payload.get('build_duration')),
+            'error_code': deserialize.integer(payload.get('error_code')),
         }
 
         self._context = None
-        self._solution = {
-            'assistant_sid': assistant_sid or self._properties['assistant_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'assistant_sid': assistant_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ModelBuildContext for this ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
         if self._context is None:
-            self._context = ModelBuildContext(
-                self._version,
-                assistant_sid=self._solution['assistant_sid'],sid=self._solution['sid'],
-            )
+            self._context = ModelBuildContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique ID of the Account that created this Model Build.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this resource was created
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was last updated
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def assistant_sid(self):
+        """
+        :returns: The unique ID of the parent Assistant.
+        :rtype: str
+        """
+        return self._properties['assistant_sid']
+    
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: Status
+        """
+        return self._properties['status']
+    
+    @property
+    def unique_name(self):
+        """
+        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :rtype: str
+        """
+        return self._properties['unique_name']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def build_duration(self):
+        """
+        :returns: The time in seconds it took to build the model.
+        :rtype: int
+        """
+        return self._properties['build_duration']
+    
+    @property
+    def error_code(self):
+        """
+        :returns: 
+        :rtype: int
+        """
+        return self._properties['error_code']
+    
+    def delete(self):
+        """
+        Deletes the ModelBuildInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the ModelBuildInstance
+        
+
+        :returns: The fetched ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, unique_name=values.unset):
+        """
+        Update the ModelBuildInstance
+        
+        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+
+        :returns: The updated ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        return self._proxy.update(unique_name=unique_name, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -288,6 +477,5 @@ class ModelBuildInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.ModelBuildInstance {}>'.format(context)
-
 
 

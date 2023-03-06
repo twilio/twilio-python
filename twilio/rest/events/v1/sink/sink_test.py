@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,20 +28,22 @@ class SinkTestList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkTestList
+
         :param Version version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies the Sink to be Tested.
         
-        :returns: twilio.events.v1.sink_test..SinkTestList
-        :rtype: twilio.events.v1.sink_test..SinkTestList
+        :returns: twilio.rest.events.v1.sink.sink_test.SinkTestList
+        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = '/Sinks/${sid}/Test'.format(**self._solution)
-
-
+        self._uri = '/Sinks/{sid}/Test'.format(**self._solution)
+        
+        
     
+
 
     def __repr__(self):
         """
@@ -52,30 +54,32 @@ class SinkTestList(ListResource):
         return '<Twilio.Events.V1.SinkTestList>'
 
 
-
 class SinkTestInstance(InstanceResource):
+
     def __init__(self, version, payload, sid: str):
+        """
+        Initialize the SinkTestInstance
+        :returns: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
+        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'result' : payload.get('result'),
+            'result': payload.get('result'),
         }
 
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = SinkTestContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
-        return self._context
-
+        self._solution = { 'sid': sid,  }
     
-
+    
+    @property
+    def result(self):
+        """
+        :returns: Feedback indicating whether the test event was generated.
+        :rtype: str
+        """
+        return self._properties['result']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -84,6 +88,5 @@ class SinkTestInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.SinkTestInstance {}>'.format(context)
-
 
 

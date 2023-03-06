@@ -28,19 +28,20 @@ class BindingList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the BindingList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.ip_messaging.v2.binding..BindingList
-        :rtype: twilio.ip_messaging.v2.binding..BindingList
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingList
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Bindings'.format(**self._solution)
-
-
+        self._uri = '/Services/{service_sid}/Bindings'.format(**self._solution)
+        
+        
     
     
     
@@ -51,8 +52,8 @@ class BindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [BindingBindingType] binding_type: 
-        :param [str] identity: 
+        :param list[BindingType] binding_type: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -61,7 +62,7 @@ class BindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.binding.BindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.binding.BindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -78,8 +79,8 @@ class BindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [BindingBindingType] binding_type: 
-        :param [str] identity: 
+        :param list[BindingType] binding_type: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -88,7 +89,7 @@ class BindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.binding.BindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.binding.BindingInstance]
         """
         return list(self.stream(
             binding_type=binding_type,
@@ -102,18 +103,18 @@ class BindingList(ListResource):
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
         
-        :param [BindingBindingType] binding_type: 
-        :param [str] identity: 
+        :param list[BindingType] binding_type: 
+        :param list[str] identity: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingPage
         """
         data = values.of({ 
-            'BindingType': binding_type,
-            'Identity': identity,
+            'BindingType': serialize.map(binding_type),
+            'Identity': serialize.map(identity),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -130,7 +131,7 @@ class BindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -138,6 +139,28 @@ class BindingList(ListResource):
         )
         return BindingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a BindingContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        """
+        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BindingContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        """
+        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -161,8 +184,8 @@ class BindingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.binding.BindingPage
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingPage
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingPage
         """
         super().__init__(version, response)
 
@@ -175,8 +198,8 @@ class BindingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.binding.BindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingInstance
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
         """
         return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -192,89 +215,229 @@ class BindingPage(Page):
 
 
 
-
 class BindingContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the BindingContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'sid': sid,  }
-        self._uri = '/Services/${service_sid}/Bindings/${sid}'
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the BindingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the BindingInstance
+        
 
         :returns: The fetched BindingInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'], sid=self._solution['sid'], )
-        
-
+        return BindingInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V2.BindingContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.BindingContext {}>'.format(context)
 
 class BindingInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: str):
+
+    class BindingType(object):
+        GCM = "gcm"
+        APN = "apn"
+        FCM = "fcm"
+
+    def __init__(self, version, payload, service_sid: str, sid: str=None):
+        """
+        Initialize the BindingInstance
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'account_sid' : payload.get('account_sid'),
-            'service_sid' : payload.get('service_sid'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'endpoint' : payload.get('endpoint'),
-            'identity' : payload.get('identity'),
-            'credential_sid' : payload.get('credential_sid'),
-            'binding_type' : payload.get('binding_type'),
-            'message_types' : payload.get('message_types'),
-            'url' : payload.get('url'),
-            'links' : payload.get('links'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'endpoint': payload.get('endpoint'),
+            'identity': payload.get('identity'),
+            'credential_sid': payload.get('credential_sid'),
+            'binding_type': payload.get('binding_type'),
+            'message_types': payload.get('message_types'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         self._context = None
-        self._solution = {
-            'service_sid': service_sid or self._properties['service_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'service_sid': service_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: BindingContext for this BindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        """
         if self._context is None:
-            self._context = BindingContext(
-                self._version,
-                service_sid=self._solution['service_sid'],sid=self._solution['sid'],
-            )
+            self._context = BindingContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def service_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['service_sid']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def endpoint(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['endpoint']
+    
+    @property
+    def identity(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['identity']
+    
+    @property
+    def credential_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['credential_sid']
+    
+    @property
+    def binding_type(self):
+        """
+        :returns: 
+        :rtype: BindingType
+        """
+        return self._properties['binding_type']
+    
+    @property
+    def message_types(self):
+        """
+        :returns: 
+        :rtype: list[str]
+        """
+        return self._properties['message_types']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def links(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['links']
+    
+    def delete(self):
+        """
+        Deletes the BindingInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the BindingInstance
+        
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
+        """
+        return self._proxy.fetch()
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -283,6 +446,5 @@ class BindingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V2.BindingInstance {}>'.format(context)
-
 
 

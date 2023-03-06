@@ -28,23 +28,47 @@ class SyncListItemList(ListResource):
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
         Initialize the SyncListItemList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the List Item resources to read.
         :param list_sid: The SID of the Sync List with the List Items to read. Can be the Sync List resource's `sid` or its `unique_name`.
         
-        :returns: twilio.sync.v1.sync_list_item..SyncListItemList
-        :rtype: twilio.sync.v1.sync_list_item..SyncListItemList
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemList
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
-        self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        """
+        Create the SyncListItemInstance
 
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
+        
+        :returns: The created SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-    
-    
-    
+        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -54,9 +78,9 @@ class SyncListItemList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param SyncListItemQueryResultOrder order: How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
+        :param QueryResultOrder order: How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
         :param str from_: The `index` of the first Sync List Item resource to read. See also `bounds`.
-        :param SyncListItemQueryFromBoundType bounds: Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
+        :param QueryFromBoundType bounds: Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -65,7 +89,7 @@ class SyncListItemList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_list_item.SyncListItemInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,9 +107,9 @@ class SyncListItemList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param SyncListItemQueryResultOrder order: How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
+        :param QueryResultOrder order: How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
         :param str from_: The `index` of the first Sync List Item resource to read. See also `bounds`.
-        :param SyncListItemQueryFromBoundType bounds: Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
+        :param QueryFromBoundType bounds: Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -94,7 +118,7 @@ class SyncListItemList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_list_item.SyncListItemInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         return list(self.stream(
             order=order,
@@ -109,15 +133,15 @@ class SyncListItemList(ListResource):
         Retrieve a single page of SyncListItemInstance records from the API.
         Request is executed immediately
         
-        :param SyncListItemQueryResultOrder order: How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
+        :param QueryResultOrder order: How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
         :param str from_: The `index` of the first Sync List Item resource to read. See also `bounds`.
-        :param SyncListItemQueryFromBoundType bounds: Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
+        :param QueryFromBoundType bounds: Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         """
         data = values.of({ 
             'Order': order,
@@ -139,7 +163,7 @@ class SyncListItemList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -147,6 +171,28 @@ class SyncListItemList(ListResource):
         )
         return SyncListItemPage(self._version, response, self._solution)
 
+
+    def get(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: The index of the Sync List Item resource to update.
+        
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
+
+    def __call__(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: The index of the Sync List Item resource to update.
+        
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
 
     def __repr__(self):
         """
@@ -174,8 +220,8 @@ class SyncListItemPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         """
         super().__init__(version, response)
 
@@ -188,8 +234,8 @@ class SyncListItemPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.sync.v1.sync_list_item.SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemInstance
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
 
@@ -205,101 +251,275 @@ class SyncListItemPage(Page):
 
 
 
-
 class SyncListItemContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, list_sid: str, index: int):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the SyncListItemContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update.:param list_sid: The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`.:param index: The index of the Sync List Item resource to update.
+
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'list_sid': list_sid, 'index': index,  }
-        self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items/${index}'
+        self._solution = { 
+            'service_sid': service_sid,
+            'list_sid': list_sid,
+            'index': index,
+        }
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items/{index}'.format(**self._solution)
         
     
-    def delete(self, if_match):
-        
-        
-
+    def delete(self, if_match=values.unset):
         """
         Deletes the SyncListItemInstance
 
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        headers = values.of({'If-Match': if_match, })
         
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
         """
         Fetch the SyncListItemInstance
+        
 
         :returns: The fetched SyncListItemInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=self._solution['index'], )
+        return SyncListItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            list_sid=self._solution['list_sid'],
+            index=self._solution['index'],
+            
+        )
         
+    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        """
+        Update the SyncListItemInstance
+        
+        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :params object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
 
-        
-    
-    def update(self, if_match, body):
-        data = values.of({
-            'if_match': if_match,'body': body,
+        :returns: The updated SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=self._solution['index'], )
-        
-        
-
+        return SyncListItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            list_sid=self._solution['list_sid'],
+            index=self._solution['index']
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Sync.V1.SyncListItemContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.SyncListItemContext {}>'.format(context)
 
 class SyncListItemInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, list_sid: str, index: int):
+
+    class QueryFromBoundType(object):
+        INCLUSIVE = "inclusive"
+        EXCLUSIVE = "exclusive"
+
+    class QueryResultOrder(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    def __init__(self, version, payload, service_sid: str, list_sid: str, index: int=None):
+        """
+        Initialize the SyncListItemInstance
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'index' : payload.get('index'),
-            'account_sid' : payload.get('account_sid'),
-            'service_sid' : payload.get('service_sid'),
-            'list_sid' : payload.get('list_sid'),
-            'url' : payload.get('url'),
-            'revision' : payload.get('revision'),
-            'data' : payload.get('data'),
-            'date_expires' : payload.get('date_expires'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'created_by' : payload.get('created_by'),
+            'index': deserialize.integer(payload.get('index')),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'list_sid': payload.get('list_sid'),
+            'url': payload.get('url'),
+            'revision': payload.get('revision'),
+            'data': payload.get('data'),
+            'date_expires': deserialize.iso8601_datetime(payload.get('date_expires')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'created_by': payload.get('created_by'),
         }
 
         self._context = None
-        self._solution = {
-            'service_sid': service_sid or self._properties['service_sid'],'list_sid': list_sid or self._properties['list_sid'],'index': index or self._properties['index'],
-        }
-
+        self._solution = { 'service_sid': service_sid, 'list_sid': list_sid, 'index': index or self._properties['index'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: SyncListItemContext for this SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        """
         if self._context is None:
-            self._context = SyncListItemContext(
-                self._version,
-                service_sid=self._solution['service_sid'],list_sid=self._solution['list_sid'],index=self._solution['index'],
-            )
+            self._context = SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=self._solution['index'],)
         return self._context
-
     
+    @property
+    def index(self):
+        """
+        :returns: The automatically generated index of the List Item. The `index` values of the List Items in a Sync List can have gaps in their sequence.
+        :rtype: int
+        """
+        return self._properties['index']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the List Item resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
+        :rtype: str
+        """
+        return self._properties['service_sid']
+    
+    @property
+    def list_sid(self):
+        """
+        :returns: The SID of the Sync List that contains the List Item.
+        :rtype: str
+        """
+        return self._properties['list_sid']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the List Item resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def revision(self):
+        """
+        :returns: The current revision of the item, represented as a string.
+        :rtype: str
+        """
+        return self._properties['revision']
+    
+    @property
+    def data(self):
+        """
+        :returns: An arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+        :rtype: dict
+        """
+        return self._properties['data']
+    
+    @property
+    def date_expires(self):
+        """
+        :returns: The date and time in GMT when the List Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the List Item does not expire, this value is `null`. The List Item resource might not be deleted immediately after it expires.
+        :rtype: datetime
+        """
+        return self._properties['date_expires']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def created_by(self):
+        """
+        :returns: The identity of the List Item's creator. If the item is created from the client SDK, the value matches the Access Token's `identity` field. If the item was created from the REST API, the value is `system`.
+        :rtype: str
+        """
+        return self._properties['created_by']
+    
+    def delete(self, if_match=values.unset):
+        """
+        Deletes the SyncListItemInstance
+        
+        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete(if_match=if_match, )
+    
+    def fetch(self):
+        """
+        Fetch the SyncListItemInstance
+        
+
+        :returns: The fetched SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        """
+        Update the SyncListItemInstance
+        
+        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :params object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
+
+        :returns: The updated SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        return self._proxy.update(if_match=if_match, data=data, ttl=ttl, item_ttl=item_ttl, collection_ttl=collection_ttl, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -308,6 +528,5 @@ class SyncListItemInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.SyncListItemInstance {}>'.format(context)
-
 
 

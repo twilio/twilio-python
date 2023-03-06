@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,20 +28,38 @@ class InteractionChannelInviteList(ListResource):
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelInviteList
+
         :param Version version: Version that contains the resource
         :param interaction_sid: The Interaction SID for this Channel.
         :param channel_sid: The Channel SID for this Participant.
         
-        :returns: twilio.flex_api.v1.interaction_channel_invite..InteractionChannelInviteList
-        :rtype: twilio.flex_api.v1.interaction_channel_invite..InteractionChannelInviteList
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteList
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Interactions/${interaction_sid}/Channels/${channel_sid}/Invites'.format(**self._solution)
+        self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Invites'.format(**self._solution)
+        
+        
+    
+    def create(self, routing):
+        """
+        Create the InteractionChannelInviteInstance
 
+        :param object routing: The Interaction's routing logic.
+        
+        :returns: The created InteractionChannelInviteInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
+        """
+        data = values.of({ 
+            'Routing': serialize.object(routing),
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
+        return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -59,7 +77,7 @@ class InteractionChannelInviteList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance]
+        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +100,7 @@ class InteractionChannelInviteList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance]
+        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +117,7 @@ class InteractionChannelInviteList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,13 +136,14 @@ class InteractionChannelInviteList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return InteractionChannelInvitePage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -147,8 +166,8 @@ class InteractionChannelInvitePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
         """
         super().__init__(version, response)
 
@@ -161,8 +180,8 @@ class InteractionChannelInvitePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
         """
         return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
 
@@ -179,34 +198,68 @@ class InteractionChannelInvitePage(Page):
 
 
 
-
 class InteractionChannelInviteInstance(InstanceResource):
+
     def __init__(self, version, payload, interaction_sid: str, channel_sid: str):
+        """
+        Initialize the InteractionChannelInviteInstance
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'interaction_sid' : payload.get('interaction_sid'),
-            'channel_sid' : payload.get('channel_sid'),
-            'routing' : payload.get('routing'),
-            'url' : payload.get('url'),
+            'sid': payload.get('sid'),
+            'interaction_sid': payload.get('interaction_sid'),
+            'channel_sid': payload.get('channel_sid'),
+            'routing': payload.get('routing'),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'interaction_sid': interaction_sid or self._properties['interaction_sid'],'channel_sid': channel_sid or self._properties['channel_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = InteractionChannelInviteContext(
-                self._version,
-                interaction_sid=self._solution['interaction_sid'],channel_sid=self._solution['channel_sid'],
-            )
-        return self._context
-
+        self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
     
-
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string created by Twilio to identify an Interaction Channel Invite resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def interaction_sid(self):
+        """
+        :returns: The Interaction SID for this Channel.
+        :rtype: str
+        """
+        return self._properties['interaction_sid']
+    
+    @property
+    def channel_sid(self):
+        """
+        :returns: The Channel SID for this Invite.
+        :rtype: str
+        """
+        return self._properties['channel_sid']
+    
+    @property
+    def routing(self):
+        """
+        :returns: A JSON object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
+        :rtype: dict
+        """
+        return self._properties['routing']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -215,6 +268,5 @@ class InteractionChannelInviteInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InteractionChannelInviteInstance {}>'.format(context)
-
 
 

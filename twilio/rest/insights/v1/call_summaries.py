@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -28,18 +28,19 @@ class CallSummariesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CallSummariesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.insights.v1.call_summaries..CallSummariesList
-        :rtype: twilio.insights.v1.call_summaries..CallSummariesList
+        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesList
+        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Voice/Summaries'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, from_=values.unset, to=values.unset, from_carrier=values.unset, to_carrier=values.unset, from_country_code=values.unset, to_country_code=values.unset, branded=values.unset, verified_caller=values.unset, has_tag=values.unset, start_time=values.unset, end_time=values.unset, call_type=values.unset, call_state=values.unset, direction=values.unset, processing_state=values.unset, sort_by=values.unset, subaccount=values.unset, abnormal_session=values.unset, limit=None, page_size=None):
         """
@@ -62,8 +63,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param CallSummariesProcessingStateRequest processing_state: 
-        :param CallSummariesSortBy sort_by: 
+        :param ProcessingStateRequest processing_state: 
+        :param SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param int limit: Upper limit for the number of records to return. stream()
@@ -121,8 +122,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param CallSummariesProcessingStateRequest processing_state: 
-        :param CallSummariesSortBy sort_by: 
+        :param ProcessingStateRequest processing_state: 
+        :param SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -177,8 +178,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param CallSummariesProcessingStateRequest processing_state: 
-        :param CallSummariesSortBy sort_by: 
+        :param ProcessingStateRequest processing_state: 
+        :param SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param str page_token: PageToken provided by the API
@@ -232,6 +233,7 @@ class CallSummariesList(ListResource):
         return CallSummariesPage(self._version, response, self._solution)
 
 
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -282,5 +284,267 @@ class CallSummariesPage(Page):
 
 
 
+class CallSummariesInstance(InstanceResource):
+
+    class AnsweredBy(object):
+        UNKNOWN = "unknown"
+        MACHINE_START = "machine_start"
+        MACHINE_END_BEEP = "machine_end_beep"
+        MACHINE_END_SILENCE = "machine_end_silence"
+        MACHINE_END_OTHER = "machine_end_other"
+        HUMAN = "human"
+        FAX = "fax"
+
+    class CallState(object):
+        RINGING = "ringing"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAIL = "fail"
+        NOANSWER = "noanswer"
+        CANCELED = "canceled"
+        ANSWERED = "answered"
+        UNDIALED = "undialed"
+
+    class CallType(object):
+        CARRIER = "carrier"
+        SIP = "sip"
+        TRUNKING = "trunking"
+        CLIENT = "client"
+
+    class ProcessingState(object):
+        COMPLETE = "complete"
+        PARTIAL = "partial"
+
+    class ProcessingStateRequest(object):
+        COMPLETED = "completed"
+        STARTED = "started"
+        PARTIAL = "partial"
+        ALL = "all"
+
+    class SortBy(object):
+        START_TIME = "start_time"
+        END_TIME = "end_time"
+
+    def __init__(self, version, payload):
+        """
+        Initialize the CallSummariesInstance
+        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
+        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'account_sid': payload.get('account_sid'),
+            'call_sid': payload.get('call_sid'),
+            'answered_by': payload.get('answered_by'),
+            'call_type': payload.get('call_type'),
+            'call_state': payload.get('call_state'),
+            'processing_state': payload.get('processing_state'),
+            'created_time': deserialize.iso8601_datetime(payload.get('created_time')),
+            'start_time': deserialize.iso8601_datetime(payload.get('start_time')),
+            'end_time': deserialize.iso8601_datetime(payload.get('end_time')),
+            'duration': deserialize.integer(payload.get('duration')),
+            'connect_duration': deserialize.integer(payload.get('connect_duration')),
+            '_from': payload.get('from'),
+            'to': payload.get('to'),
+            'carrier_edge': payload.get('carrier_edge'),
+            'client_edge': payload.get('client_edge'),
+            'sdk_edge': payload.get('sdk_edge'),
+            'sip_edge': payload.get('sip_edge'),
+            'tags': payload.get('tags'),
+            'url': payload.get('url'),
+            'attributes': payload.get('attributes'),
+            'properties': payload.get('properties'),
+            'trust': payload.get('trust'),
+        }
+
+        self._context = None
+        self._solution = {  }
+    
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def call_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['call_sid']
+    
+    @property
+    def answered_by(self):
+        """
+        :returns: 
+        :rtype: AnsweredBy
+        """
+        return self._properties['answered_by']
+    
+    @property
+    def call_type(self):
+        """
+        :returns: 
+        :rtype: CallType
+        """
+        return self._properties['call_type']
+    
+    @property
+    def call_state(self):
+        """
+        :returns: 
+        :rtype: CallState
+        """
+        return self._properties['call_state']
+    
+    @property
+    def processing_state(self):
+        """
+        :returns: 
+        :rtype: ProcessingState
+        """
+        return self._properties['processing_state']
+    
+    @property
+    def created_time(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['created_time']
+    
+    @property
+    def start_time(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['start_time']
+    
+    @property
+    def end_time(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['end_time']
+    
+    @property
+    def duration(self):
+        """
+        :returns: 
+        :rtype: int
+        """
+        return self._properties['duration']
+    
+    @property
+    def connect_duration(self):
+        """
+        :returns: 
+        :rtype: int
+        """
+        return self._properties['connect_duration']
+    
+    @property
+    def _from(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['_from']
+    
+    @property
+    def to(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['to']
+    
+    @property
+    def carrier_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['carrier_edge']
+    
+    @property
+    def client_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['client_edge']
+    
+    @property
+    def sdk_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sdk_edge']
+    
+    @property
+    def sip_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sip_edge']
+    
+    @property
+    def tags(self):
+        """
+        :returns: 
+        :rtype: list[str]
+        """
+        return self._properties['tags']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def attributes(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['attributes']
+    
+    @property
+    def properties(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['properties']
+    
+    @property
+    def trust(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['trust']
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.CallSummariesInstance {}>'.format(context)
 
 

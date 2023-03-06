@@ -28,23 +28,43 @@ class MemberList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MemberList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from.
         :param channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the members to read belong to. Can be the Channel resource's `sid` or `unique_name` value.
         
-        :returns: twilio.chat.v1.member..MemberList
-        :rtype: twilio.chat.v1.member..MemberList
+        :returns: twilio.rest.chat.v1.service.channel.member.MemberList
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Members'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, identity, role_sid=values.unset):
+        """
+        Create the MemberInstance
 
+        :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
+        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
+        
+        :returns: The created MemberInstance
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'RoleSid': role_sid,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-    
-    
-    
+        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, identity=values.unset, limit=None, page_size=None):
@@ -54,7 +74,7 @@ class MemberList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [str] identity: The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
+        :param list[str] identity: The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -63,7 +83,7 @@ class MemberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.member.MemberInstance]
+        :rtype: list[twilio.rest.chat.v1.service.channel.member.MemberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -79,7 +99,7 @@ class MemberList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [str] identity: The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
+        :param list[str] identity: The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -88,7 +108,7 @@ class MemberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.member.MemberInstance]
+        :rtype: list[twilio.rest.chat.v1.service.channel.member.MemberInstance]
         """
         return list(self.stream(
             identity=identity,
@@ -101,16 +121,16 @@ class MemberList(ListResource):
         Retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
         
-        :param [str] identity: The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
+        :param list[str] identity: The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.chat.v1.member.MemberPage
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberPage
         """
         data = values.of({ 
-            'Identity': identity,
+            'Identity': serialize.map(identity),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -127,7 +147,7 @@ class MemberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.chat.v1.member.MemberPage
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,6 +155,28 @@ class MemberList(ListResource):
         )
         return MemberPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MemberContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Member resource to update.
+        
+        :returns: twilio.rest.chat.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberContext
+        """
+        return MemberContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MemberContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Member resource to update.
+        
+        :returns: twilio.rest.chat.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberContext
+        """
+        return MemberContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -162,8 +204,8 @@ class MemberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v1.member.MemberPage
-        :rtype: twilio.rest.chat.v1.member.MemberPage
+        :returns: twilio.rest.chat.v1.service.channel.member.MemberPage
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberPage
         """
         super().__init__(version, response)
 
@@ -176,8 +218,8 @@ class MemberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.member.MemberInstance
-        :rtype: twilio.rest.chat.v1.member.MemberInstance
+        :returns: twilio.rest.chat.v1.service.channel.member.MemberInstance
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
         """
         return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
 
@@ -193,101 +235,255 @@ class MemberPage(Page):
 
 
 
-
 class MemberContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the MemberContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.:param channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the member to update belongs to. Can be the Channel resource's `sid` or `unique_name`.:param sid: The Twilio-provided string that uniquely identifies the Member resource to update.
+
+        :returns: twilio.rest.chat.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid, 'sid': sid,  }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Members/${sid}'
+        self._solution = { 
+            'service_sid': service_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members/{sid}'.format(**self._solution)
         
     
     def delete(self):
-        
-        
-
         """
         Deletes the MemberInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the MemberInstance
+        
 
         :returns: The fetched MemberInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=self._solution['sid'], )
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
+    def update(self, role_sid=values.unset, last_consumed_message_index=values.unset):
+        """
+        Update the MemberInstance
+        
+        :params str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
+        :params int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
 
-        
-    
-    def update(self, body):
-        data = values.of({
-            'body': body,
+        :returns: The updated MemberInstance
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
+        """
+        data = values.of({ 
+            'RoleSid': role_sid,
+            'LastConsumedMessageIndex': last_consumed_message_index,
         })
-
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
-
-        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=self._solution['sid'], )
-        
         
 
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
+        )
         
     
-
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Chat.V1.MemberContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V1.MemberContext {}>'.format(context)
 
 class MemberInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, channel_sid: str, sid: str):
+
+    def __init__(self, version, payload, service_sid: str, channel_sid: str, sid: str=None):
+        """
+        Initialize the MemberInstance
+        :returns: twilio.rest.chat.v1.service.channel.member.MemberInstance
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'account_sid' : payload.get('account_sid'),
-            'channel_sid' : payload.get('channel_sid'),
-            'service_sid' : payload.get('service_sid'),
-            'identity' : payload.get('identity'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'role_sid' : payload.get('role_sid'),
-            'last_consumed_message_index' : payload.get('last_consumed_message_index'),
-            'last_consumption_timestamp' : payload.get('last_consumption_timestamp'),
-            'url' : payload.get('url'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'channel_sid': payload.get('channel_sid'),
+            'service_sid': payload.get('service_sid'),
+            'identity': payload.get('identity'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'role_sid': payload.get('role_sid'),
+            'last_consumed_message_index': deserialize.integer(payload.get('last_consumed_message_index')),
+            'last_consumption_timestamp': deserialize.iso8601_datetime(payload.get('last_consumption_timestamp')),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'service_sid': service_sid or self._properties['service_sid'],'channel_sid': channel_sid or self._properties['channel_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: MemberContext for this MemberInstance
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberContext
+        """
         if self._context is None:
-            self._context = MemberContext(
-                self._version,
-                service_sid=self._solution['service_sid'],channel_sid=self._solution['channel_sid'],sid=self._solution['sid'],
-            )
+            self._context = MemberContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=self._solution['sid'],)
         return self._context
-
     
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Member resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the Member resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def channel_sid(self):
+        """
+        :returns: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) for the member.
+        :rtype: str
+        """
+        return self._properties['channel_sid']
+    
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
+        :rtype: str
+        """
+        return self._properties['service_sid']
+    
+    @property
+    def identity(self):
+        """
+        :returns: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/api/chat/rest/users) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
+        :rtype: str
+        """
+        return self._properties['identity']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def role_sid(self):
+        """
+        :returns: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the member.
+        :rtype: str
+        """
+        return self._properties['role_sid']
+    
+    @property
+    def last_consumed_message_index(self):
+        """
+        :returns: The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) in the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) that the Member has read.
+        :rtype: int
+        """
+        return self._properties['last_consumed_message_index']
+    
+    @property
+    def last_consumption_timestamp(self):
+        """
+        :returns: The ISO 8601 timestamp string that represents the date-time of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) read event for the Member within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
+        :rtype: datetime
+        """
+        return self._properties['last_consumption_timestamp']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Member resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def delete(self):
+        """
+        Deletes the MemberInstance
+        
 
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the MemberInstance
+        
+
+        :returns: The fetched MemberInstance
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, role_sid=values.unset, last_consumed_message_index=values.unset):
+        """
+        Update the MemberInstance
+        
+        :params str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
+        :params int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
+
+        :returns: The updated MemberInstance
+        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
+        """
+        return self._proxy.update(role_sid=role_sid, last_consumed_message_index=last_consumed_message_index, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -296,6 +492,5 @@ class MemberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V1.MemberInstance {}>'.format(context)
-
 
 

@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.autopilot.v1.task.fields import FieldList
-from twilio.rest.autopilot.v1.task.samples import SampleList
-from twilio.rest.autopilot.v1.task.task_actions import TaskActionsList
-from twilio.rest.autopilot.v1.task.statistics import TaskStatisticsList
+from twilio.rest.autopilot.v1.assistant.task.field import FieldList
+from twilio.rest.autopilot.v1.assistant.task.sample import SampleList
+from twilio.rest.autopilot.v1.assistant.task.task_actions import TaskActionsList
+from twilio.rest.autopilot.v1.assistant.task.task_statistics import TaskStatisticsList
 
 
 class TaskList(ListResource):
@@ -32,22 +32,46 @@ class TaskList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the TaskList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
         
-        :returns: twilio.autopilot.v1.task..TaskList
-        :rtype: twilio.autopilot.v1.task..TaskList
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Tasks'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name, friendly_name=values.unset, actions=values.unset, actions_url=values.unset):
+        """
+        Create the TaskInstance
 
+        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+        :param object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. It is optional and not unique.
+        :param str actions_url: The URL from which the Assistant can fetch actions.
+        
+        :returns: The created TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+            'Actions': serialize.object(actions),
+            'ActionsUrl': actions_url,
+        })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-    
-    
-    
+        return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -65,7 +89,7 @@ class TaskList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.task.TaskInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.TaskInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -88,7 +112,7 @@ class TaskList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.task.TaskInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.TaskInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -105,7 +129,7 @@ class TaskList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.autopilot.v1.task.TaskPage
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -124,7 +148,7 @@ class TaskList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.autopilot.v1.task.TaskPage
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -132,6 +156,28 @@ class TaskList(ListResource):
         )
         return TaskPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Task resource to update.
+        
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
+        """
+        return TaskContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Task resource to update.
+        
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
+        """
+        return TaskContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -159,8 +205,8 @@ class TaskPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.autopilot.v1.task.TaskPage
-        :rtype: twilio.rest.autopilot.v1.task.TaskPage
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskPage
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskPage
         """
         super().__init__(version, response)
 
@@ -173,8 +219,8 @@ class TaskPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.autopilot.v1.task.TaskInstance
-        :rtype: twilio.rest.autopilot.v1.task.TaskInstance
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
         return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 
@@ -190,15 +236,26 @@ class TaskPage(Page):
 
 
 
-
 class TaskContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, sid: str):
-        # TODO: needs autogenerated docs
+        """
+        Initialize the TaskContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the Task resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
+        """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'assistant_sid': assistant_sid, 'sid': sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${sid}'
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{sid}'.format(**self._solution)
         
         self._fields = None
         self._samples = None
@@ -206,100 +263,318 @@ class TaskContext(InstanceContext):
         self._statistics = None
     
     def delete(self):
-        
-        
-
         """
         Deletes the TaskInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-    
-    def fetch(self):
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
+    def fetch(self):
         """
         Fetch the TaskInstance
+        
 
         :returns: The fetched TaskInstance
-        #TODO: add rtype docs
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
+        
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], sid=self._solution['sid'], )
+        return TaskInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
         
+    def update(self, friendly_name=values.unset, unique_name=values.unset, actions=values.unset, actions_url=values.unset):
+        """
+        Update the TaskInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params str unique_name: An application-defined string that uniquely identifies the resource. This value must be 64 characters or less in length and be unique. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :params object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+        :params str actions_url: The URL from which the Assistant can fetch actions.
 
-        
-    
-    def update(self, body):
-        data = values.of({
-            'body': body,
+        :returns: The updated TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Actions': serialize.object(actions),
+            'ActionsUrl': actions_url,
         })
-
-        payload = self._version.update(method='post', uri=self._uri, data=data, )
-
-        return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], sid=self._solution['sid'], )
-        
         
 
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TaskInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
         
     
+    @property
+    def fields(self):
+        """
+        Access the fields
 
+        :returns: twilio.rest.autopilot.v1.assistant.task.FieldList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.FieldList
+        """
+        if self._fields is None:
+            self._fields = FieldList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._fields
+    
+    @property
+    def samples(self):
+        """
+        Access the samples
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.SampleList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.SampleList
+        """
+        if self._samples is None:
+            self._samples = SampleList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._samples
+    
+    @property
+    def task_actions(self):
+        """
+        Access the task_actions
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskActionsList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskActionsList
+        """
+        if self._task_actions is None:
+            self._task_actions = TaskActionsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._task_actions
+    
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskStatisticsList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = TaskStatisticsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._statistics
+    
     def __repr__(self):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Autopilot.V1.TaskContext>'
-
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.TaskContext {}>'.format(context)
 
 class TaskInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: str):
+
+    def __init__(self, version, payload, assistant_sid: str, sid: str=None):
+        """
+        Initialize the TaskInstance
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'friendly_name' : payload.get('friendly_name'),
-            'links' : payload.get('links'),
-            'assistant_sid' : payload.get('assistant_sid'),
-            'sid' : payload.get('sid'),
-            'unique_name' : payload.get('unique_name'),
-            'actions_url' : payload.get('actions_url'),
-            'url' : payload.get('url'),
+            'account_sid': payload.get('account_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'links': payload.get('links'),
+            'assistant_sid': payload.get('assistant_sid'),
+            'sid': payload.get('sid'),
+            'unique_name': payload.get('unique_name'),
+            'actions_url': payload.get('actions_url'),
+            'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = {
-            'assistant_sid': assistant_sid or self._properties['assistant_sid'],'sid': sid or self._properties['sid'],
-        }
-
+        self._solution = { 'assistant_sid': assistant_sid, 'sid': sid or self._properties['sid'],  }
+    
     @property
     def _proxy(self):
-        if self._context is None:
-            self._context = TaskContext(
-                self._version,
-                assistant_sid=self._solution['assistant_sid'],sid=self._solution['sid'],
-            )
-        return self._context
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
 
+        :returns: TaskContext for this TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
+        """
+        if self._context is None:
+            self._context = TaskContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=self._solution['sid'],)
+        return self._context
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource. It is not unique and can be up to 255 characters long.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def links(self):
+        """
+        :returns: A list of the URLs of related resources.
+        :rtype: dict
+        """
+        return self._properties['links']
+    
+    @property
+    def assistant_sid(self):
+        """
+        :returns: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource.
+        :rtype: str
+        """
+        return self._properties['assistant_sid']
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Task resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def unique_name(self):
+        """
+        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :rtype: str
+        """
+        return self._properties['unique_name']
+    
+    @property
+    def actions_url(self):
+        """
+        :returns: The URL from which the Assistant can fetch actions.
+        :rtype: str
+        """
+        return self._properties['actions_url']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Task resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def delete(self):
+        """
+        Deletes the TaskInstance
+        
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    
+    def fetch(self):
+        """
+        Fetch the TaskInstance
+        
+
+        :returns: The fetched TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, friendly_name=values.unset, unique_name=values.unset, actions=values.unset, actions_url=values.unset):
+        """
+        Update the TaskInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params str unique_name: An application-defined string that uniquely identifies the resource. This value must be 64 characters or less in length and be unique. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :params object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+        :params str actions_url: The URL from which the Assistant can fetch actions.
+
+        :returns: The updated TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        """
+        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, actions=actions, actions_url=actions_url, )
+    
     @property
     def fields(self):
+        """
+        Access the fields
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.FieldList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.FieldList
+        """
         return self._proxy.fields
+    
     @property
     def samples(self):
+        """
+        Access the samples
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.SampleList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.SampleList
+        """
         return self._proxy.samples
+    
     @property
     def task_actions(self):
+        """
+        Access the task_actions
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskActionsList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskActionsList
+        """
         return self._proxy.task_actions
+    
     @property
     def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskStatisticsList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskStatisticsList
+        """
         return self._proxy.statistics
     
-
     def __repr__(self):
         """
         Provide a friendly representation
@@ -308,6 +583,5 @@ class TaskInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.TaskInstance {}>'.format(context)
-
 
 
