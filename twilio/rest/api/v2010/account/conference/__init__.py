@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -447,7 +448,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A string that you assigned to describe this conference room. Maxiumum length is 128 characters.
+        :returns: A string that you assigned to describe this conference room.
         :rtype: str
         """
         return self._properties['friendly_name']

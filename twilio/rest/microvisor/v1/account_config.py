@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -44,13 +45,12 @@ class AccountConfigList(ListResource):
     
     
     
-    
     def create(self, key, value):
         """
         Create the AccountConfigInstance
 
         :param str key: The config key; up to 100 characters.
-        :param str value: The config value; up to 4096 characters.
+        :param str value: The config value;  up to 4096 characters.
         
         :returns: The created AccountConfigInstance
         :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
@@ -185,8 +185,6 @@ class AccountConfigList(ListResource):
 
 
 
-
-
 class AccountConfigPage(Page):
 
     def __init__(self, version, response, solution):
@@ -274,28 +272,6 @@ class AccountConfigContext(InstanceContext):
             payload,
             key=self._solution['key'],
             
-        )
-        
-    def update(self, value):
-        """
-        Update the AccountConfigInstance
-        
-        :params str value: The config value; up to 4096 characters.
-
-        :returns: The updated AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        """
-        data = values.of({ 
-            'Value': value,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AccountConfigInstance(
-            self._version,
-            payload,
-            key=self._solution['key']
         )
         
     
@@ -392,17 +368,6 @@ class AccountConfigInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         return self._proxy.fetch()
-    
-    def update(self, value):
-        """
-        Update the AccountConfigInstance
-        
-        :params str value: The config value; up to 4096 characters.
-
-        :returns: The updated AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        """
-        return self._proxy.update(value=value, )
     
     def __repr__(self):
         """

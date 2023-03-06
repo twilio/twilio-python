@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -41,7 +42,6 @@ class AccountSecretList(ListResource):
         self._uri = '/Secrets'.format(**self._solution)
         
         
-    
     
     
     
@@ -185,8 +185,6 @@ class AccountSecretList(ListResource):
 
 
 
-
-
 class AccountSecretPage(Page):
 
     def __init__(self, version, response, solution):
@@ -276,28 +274,6 @@ class AccountSecretContext(InstanceContext):
             
         )
         
-    def update(self, value):
-        """
-        Update the AccountSecretInstance
-        
-        :params str value: The secret value; up to 4096 characters.
-
-        :returns: The updated AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        data = values.of({ 
-            'Value': value,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AccountSecretInstance(
-            self._version,
-            payload,
-            key=self._solution['key']
-        )
-        
     
     def __repr__(self):
         """
@@ -383,17 +359,6 @@ class AccountSecretInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
         """
         return self._proxy.fetch()
-    
-    def update(self, value):
-        """
-        Update the AccountSecretInstance
-        
-        :params str value: The secret value; up to 4096 characters.
-
-        :returns: The updated AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        return self._proxy.update(value=value, )
     
     def __repr__(self):
         """

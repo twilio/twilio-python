@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -42,7 +43,6 @@ class DeviceConfigList(ListResource):
         self._uri = '/Devices/{device_sid}/Configs'.format(**self._solution)
         
         
-    
     
     
     
@@ -186,8 +186,6 @@ class DeviceConfigList(ListResource):
 
 
 
-
-
 class DeviceConfigPage(Page):
 
     def __init__(self, version, response, solution):
@@ -277,29 +275,6 @@ class DeviceConfigContext(InstanceContext):
             device_sid=self._solution['device_sid'],
             key=self._solution['key'],
             
-        )
-        
-    def update(self, value):
-        """
-        Update the DeviceConfigInstance
-        
-        :params str value: The config value; up to 4096 characters.
-
-        :returns: The updated DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        """
-        data = values.of({ 
-            'Value': value,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DeviceConfigInstance(
-            self._version,
-            payload,
-            device_sid=self._solution['device_sid'],
-            key=self._solution['key']
         )
         
     
@@ -405,17 +380,6 @@ class DeviceConfigInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
         """
         return self._proxy.fetch()
-    
-    def update(self, value):
-        """
-        Update the DeviceConfigInstance
-        
-        :params str value: The config value; up to 4096 characters.
-
-        :returns: The updated DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        """
-        return self._proxy.update(value=value, )
     
     def __repr__(self):
         """
