@@ -233,97 +233,6 @@ class WebhookPage(Page):
 
 
 
-class WebhookContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, sid: str):
-        """
-        Initialize the WebhookContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-        :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
-        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Webhooks/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the WebhookInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-        
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset, events=values.unset, webhook_url=values.unset, webhook_method=values.unset):
-        """
-        Update the WebhookInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
-        :params str events: The list of space-separated events that this Webhook will subscribe to.
-        :params str webhook_url: The URL associated with this Webhook.
-        :params str webhook_method: The method to be used when calling the webhook's URL.
-
-        :returns: The updated WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Events': events,
-            'WebhookUrl': webhook_url,
-            'WebhookMethod': webhook_method,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.WebhookContext {}>'.format(context)
-
 class WebhookInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, sid: str=None):
@@ -485,5 +394,96 @@ class WebhookInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.WebhookInstance {}>'.format(context)
+
+class WebhookContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, sid: str):
+        """
+        Initialize the WebhookContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Webhooks/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the WebhookInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the WebhookInstance
+        
+
+        :returns: The fetched WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset, events=values.unset, webhook_url=values.unset, webhook_method=values.unset):
+        """
+        Update the WebhookInstance
+        
+        :params str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+        :params str events: The list of space-separated events that this Webhook will subscribe to.
+        :params str webhook_url: The URL associated with this Webhook.
+        :params str webhook_method: The method to be used when calling the webhook's URL.
+
+        :returns: The updated WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Events': events,
+            'WebhookUrl': webhook_url,
+            'WebhookMethod': webhook_method,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.WebhookContext {}>'.format(context)
 
 

@@ -71,7 +71,6 @@ class NewKeyList(ListResource):
         """
         return '<Twilio.Api.V2010.NewKeyList>'
 
-
 class NewKeyInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str):
@@ -142,5 +141,6 @@ class NewKeyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.NewKeyInstance {}>'.format(context)
+
 
 

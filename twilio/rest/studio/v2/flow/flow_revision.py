@@ -201,58 +201,6 @@ class FlowRevisionPage(Page):
 
 
 
-class FlowRevisionContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str, revision: str):
-        """
-        Initialize the FlowRevisionContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Flow resource to fetch.
-        :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-            'revision': revision,
-        }
-        self._uri = '/Flows/{sid}/Revisions/{revision}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the FlowRevisionInstance
-        
-
-        :returns: The fetched FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FlowRevisionInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            revision=self._solution['revision'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V2.FlowRevisionContext {}>'.format(context)
-
 class FlowRevisionInstance(InstanceResource):
 
     class Status(object):
@@ -412,5 +360,57 @@ class FlowRevisionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V2.FlowRevisionInstance {}>'.format(context)
+
+class FlowRevisionContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str, revision: str):
+        """
+        Initialize the FlowRevisionContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Flow resource to fetch.
+        :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+            'revision': revision,
+        }
+        self._uri = '/Flows/{sid}/Revisions/{revision}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the FlowRevisionInstance
+        
+
+        :returns: The fetched FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FlowRevisionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            revision=self._solution['revision'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.FlowRevisionContext {}>'.format(context)
 
 

@@ -177,7 +177,6 @@ class DataSessionPage(Page):
 
 
 
-
 class DataSessionInstance(InstanceResource):
 
     def __init__(self, version, payload, sim_sid: str):
@@ -347,5 +346,6 @@ class DataSessionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Wireless.V1.DataSessionInstance {}>'.format(context)
+
 
 

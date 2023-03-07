@@ -231,91 +231,6 @@ class PhoneNumberPage(Page):
 
 
 
-class PhoneNumberContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the PhoneNumberContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update.
-        :param sid: The Twilio-provided string that uniquely identifies the PhoneNumber resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/PhoneNumbers/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the PhoneNumberInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the PhoneNumberInstance
-        
-
-        :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, is_reserved=values.unset):
-        """
-        Update the PhoneNumberInstance
-        
-        :params bool is_reserved: Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
-
-        :returns: The updated PhoneNumberInstance
-        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
-        """
-        data = values.of({ 
-            'IsReserved': is_reserved,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.PhoneNumberContext {}>'.format(context)
-
 class PhoneNumberInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -492,5 +407,90 @@ class PhoneNumberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Proxy.V1.PhoneNumberInstance {}>'.format(context)
+
+class PhoneNumberContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the PhoneNumberContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the PhoneNumber resource to update.
+
+        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/PhoneNumbers/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the PhoneNumberInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the PhoneNumberInstance
+        
+
+        :returns: The fetched PhoneNumberInstance
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, is_reserved=values.unset):
+        """
+        Update the PhoneNumberInstance
+        
+        :params bool is_reserved: Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
+
+        :returns: The updated PhoneNumberInstance
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
+        """
+        data = values.of({ 
+            'IsReserved': is_reserved,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Proxy.V1.PhoneNumberContext {}>'.format(context)
 
 

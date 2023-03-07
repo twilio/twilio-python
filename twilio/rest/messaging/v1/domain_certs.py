@@ -76,87 +76,6 @@ class DomainCertsList(ListResource):
         """
         return '<Twilio.Messaging.V1.DomainCertsList>'
 
-class DomainCertsContext(InstanceContext):
-
-    def __init__(self, version: Version, domain_sid: str):
-        """
-        Initialize the DomainCertsContext
-
-        :param Version version: Version that contains the resource
-        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'domain_sid': domain_sid,
-        }
-        self._uri = '/LinkShortening/Domains/{domain_sid}/Certificate'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the DomainCertsInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the DomainCertsInstance
-        
-
-        :returns: The fetched DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DomainCertsInstance(
-            self._version,
-            payload,
-            domain_sid=self._solution['domain_sid'],
-            
-        )
-        
-    def update(self, tls_cert):
-        """
-        Update the DomainCertsInstance
-        
-        :params str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
-
-        :returns: The updated DomainCertsInstance
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
-        """
-        data = values.of({ 
-            'TlsCert': tls_cert,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DomainCertsInstance(
-            self._version,
-            payload,
-            domain_sid=self._solution['domain_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.DomainCertsContext {}>'.format(context)
-
 class DomainCertsInstance(InstanceResource):
 
     def __init__(self, version, payload, domain_sid: str=None):
@@ -297,5 +216,86 @@ class DomainCertsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.DomainCertsInstance {}>'.format(context)
+
+class DomainCertsContext(InstanceContext):
+
+    def __init__(self, version: Version, domain_sid: str):
+        """
+        Initialize the DomainCertsContext
+
+        :param Version version: Version that contains the resource
+        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
+
+        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'domain_sid': domain_sid,
+        }
+        self._uri = '/LinkShortening/Domains/{domain_sid}/Certificate'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the DomainCertsInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the DomainCertsInstance
+        
+
+        :returns: The fetched DomainCertsInstance
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DomainCertsInstance(
+            self._version,
+            payload,
+            domain_sid=self._solution['domain_sid'],
+            
+        )
+        
+    def update(self, tls_cert):
+        """
+        Update the DomainCertsInstance
+        
+        :params str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+
+        :returns: The updated DomainCertsInstance
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
+        """
+        data = values.of({ 
+            'TlsCert': tls_cert,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DomainCertsInstance(
+            self._version,
+            payload,
+            domain_sid=self._solution['domain_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.DomainCertsContext {}>'.format(context)
 
 

@@ -235,71 +235,6 @@ class FieldValuePage(Page):
 
 
 
-class FieldValueContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, field_type_sid: str, sid: str):
-        """
-        Initialize the FieldValueContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: 
-        :param field_type_sid: 
-        :param sid: 
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'field_type_sid': field_type_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the FieldValueInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the FieldValueInstance
-        
-
-        :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FieldValueInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            field_type_sid=self._solution['field_type_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.FieldValueContext {}>'.format(context)
-
 class FieldValueInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, field_type_sid: str, sid: str=None):
@@ -447,5 +382,70 @@ class FieldValueInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.FieldValueInstance {}>'.format(context)
+
+class FieldValueContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, field_type_sid: str, sid: str):
+        """
+        Initialize the FieldValueContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: 
+        :param field_type_sid: 
+        :param sid: 
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'field_type_sid': field_type_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the FieldValueInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the FieldValueInstance
+        
+
+        :returns: The fetched FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FieldValueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            field_type_sid=self._solution['field_type_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.FieldValueContext {}>'.format(context)
 
 

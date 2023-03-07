@@ -236,89 +236,6 @@ class WebChannelPage(Page):
 
 
 
-class WebChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the WebChannelContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the WebChannel resource to update.
-
-        :returns: twilio.rest.flex_api.v1.web_channel.WebChannelContext
-        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/WebChannels/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the WebChannelInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the WebChannelInstance
-        
-
-        :returns: The fetched WebChannelInstance
-        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return WebChannelInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, chat_status=values.unset, post_engagement_data=values.unset):
-        """
-        Update the WebChannelInstance
-        
-        :params WebChannelInstance.ChatStatus chat_status: 
-        :params str post_engagement_data: The post-engagement data.
-
-        :returns: The updated WebChannelInstance
-        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
-        """
-        data = values.of({ 
-            'ChatStatus': chat_status,
-            'PostEngagementData': post_engagement_data,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebChannelInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.WebChannelContext {}>'.format(context)
-
 class WebChannelInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -442,5 +359,88 @@ class WebChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.WebChannelInstance {}>'.format(context)
+
+class WebChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the WebChannelContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the WebChannel resource to update.
+
+        :returns: twilio.rest.flex_api.v1.web_channel.WebChannelContext
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/WebChannels/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the WebChannelInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the WebChannelInstance
+        
+
+        :returns: The fetched WebChannelInstance
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return WebChannelInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, chat_status=values.unset, post_engagement_data=values.unset):
+        """
+        Update the WebChannelInstance
+        
+        :params WebChannelInstance.ChatStatus chat_status: 
+        :params str post_engagement_data: The post-engagement data.
+
+        :returns: The updated WebChannelInstance
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
+        """
+        data = values.of({ 
+            'ChatStatus': chat_status,
+            'PostEngagementData': post_engagement_data,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WebChannelInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.WebChannelContext {}>'.format(context)
 
 

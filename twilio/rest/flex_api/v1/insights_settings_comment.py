@@ -64,7 +64,6 @@ class InsightsSettingsCommentList(ListResource):
         """
         return '<Twilio.FlexApi.V1.InsightsSettingsCommentList>'
 
-
 class InsightsSettingsCommentInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -117,5 +116,6 @@ class InsightsSettingsCommentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsSettingsCommentInstance {}>'.format(context)
+
 
 

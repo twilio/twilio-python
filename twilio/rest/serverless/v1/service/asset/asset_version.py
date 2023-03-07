@@ -202,61 +202,6 @@ class AssetVersionPage(Page):
 
 
 
-class AssetVersionContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, asset_sid: str, sid: str):
-        """
-        Initialize the AssetVersionContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Asset Version resource from.
-        :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resource to fetch.
-        :param sid: The SID of the Asset Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'asset_sid': asset_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Assets/{asset_sid}/Versions/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the AssetVersionInstance
-        
-
-        :returns: The fetched AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AssetVersionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            asset_sid=self._solution['asset_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.AssetVersionContext {}>'.format(context)
-
 class AssetVersionInstance(InstanceResource):
 
     class Visibility(object):
@@ -381,5 +326,60 @@ class AssetVersionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.AssetVersionInstance {}>'.format(context)
+
+class AssetVersionContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, asset_sid: str, sid: str):
+        """
+        Initialize the AssetVersionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Asset Version resource from.
+        :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resource to fetch.
+        :param sid: The SID of the Asset Version resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'asset_sid': asset_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Assets/{asset_sid}/Versions/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AssetVersionInstance
+        
+
+        :returns: The fetched AssetVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AssetVersionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            asset_sid=self._solution['asset_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.AssetVersionContext {}>'.format(context)
 
 

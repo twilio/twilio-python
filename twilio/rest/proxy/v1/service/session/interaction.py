@@ -205,71 +205,6 @@ class InteractionPage(Page):
 
 
 
-class InteractionContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
-        """
-        Initialize the InteractionContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
-        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
-        :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
-
-        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
-        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'session_sid': session_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the InteractionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the InteractionInstance
-        
-
-        :returns: The fetched InteractionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return InteractionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.InteractionContext {}>'.format(context)
-
 class InteractionInstance(InstanceResource):
 
     class ResourceStatus(object):
@@ -526,5 +461,70 @@ class InteractionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Proxy.V1.InteractionInstance {}>'.format(context)
+
+class InteractionContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
+        """
+        Initialize the InteractionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
+
+        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'session_sid': session_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the InteractionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the InteractionInstance
+        
+
+        :returns: The fetched InteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return InteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            session_sid=self._solution['session_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Proxy.V1.InteractionContext {}>'.format(context)
 
 

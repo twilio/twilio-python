@@ -72,7 +72,6 @@ class FeedbackList(ListResource):
         """
         return '<Twilio.Api.V2010.FeedbackList>'
 
-
 class FeedbackInstance(InstanceResource):
 
     class Outcome(object):
@@ -156,5 +155,6 @@ class FeedbackInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.FeedbackInstance {}>'.format(context)
+
 
 

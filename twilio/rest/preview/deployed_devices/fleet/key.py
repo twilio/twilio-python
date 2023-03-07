@@ -235,93 +235,6 @@ class KeyPage(Page):
 
 
 
-class KeyContext(InstanceContext):
-
-    def __init__(self, version: Version, fleet_sid: str, sid: str):
-        """
-        Initialize the KeyContext
-
-        :param Version version: Version that contains the resource
-        :param fleet_sid: 
-        :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'fleet_sid': fleet_sid,
-            'sid': sid,
-        }
-        self._uri = '/Fleets/{fleet_sid}/Keys/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the KeyInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the KeyInstance
-        
-
-        :returns: The fetched KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return KeyInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, device_sid=values.unset):
-        """
-        Update the KeyInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
-        :params str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-
-        :returns: The updated KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DeviceSid': device_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return KeyInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.KeyContext {}>'.format(context)
-
 class KeyInstance(InstanceResource):
 
     def __init__(self, version, payload, fleet_sid: str, sid: str=None):
@@ -472,5 +385,92 @@ class KeyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.DeployedDevices.KeyInstance {}>'.format(context)
+
+class KeyContext(InstanceContext):
+
+    def __init__(self, version: Version, fleet_sid: str, sid: str):
+        """
+        Initialize the KeyContext
+
+        :param Version version: Version that contains the resource
+        :param fleet_sid: 
+        :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'fleet_sid': fleet_sid,
+            'sid': sid,
+        }
+        self._uri = '/Fleets/{fleet_sid}/Keys/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the KeyInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the KeyInstance
+        
+
+        :returns: The fetched KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return KeyInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, device_sid=values.unset):
+        """
+        Update the KeyInstance
+        
+        :params str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
+        :params str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
+
+        :returns: The updated KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DeviceSid': device_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return KeyInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.DeployedDevices.KeyContext {}>'.format(context)
 
 

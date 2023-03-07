@@ -230,211 +230,6 @@ class ServicePage(Page):
 
 
 
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v2.service.ServiceContext
-        :rtype: twilio.rest.ip_messaging.v2.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._bindings = None
-        self._channels = None
-        self._roles = None
-        self._users = None
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, default_service_role_sid=values.unset, default_channel_role_sid=values.unset, default_channel_creator_role_sid=values.unset, read_status_enabled=values.unset, reachability_enabled=values.unset, typing_indicator_timeout=values.unset, consumption_report_interval=values.unset, notifications_new_message_enabled=values.unset, notifications_new_message_template=values.unset, notifications_new_message_sound=values.unset, notifications_new_message_badge_count_enabled=values.unset, notifications_added_to_channel_enabled=values.unset, notifications_added_to_channel_template=values.unset, notifications_added_to_channel_sound=values.unset, notifications_removed_from_channel_enabled=values.unset, notifications_removed_from_channel_template=values.unset, notifications_removed_from_channel_sound=values.unset, notifications_invited_to_channel_enabled=values.unset, notifications_invited_to_channel_template=values.unset, notifications_invited_to_channel_sound=values.unset, pre_webhook_url=values.unset, post_webhook_url=values.unset, webhook_method=values.unset, webhook_filters=values.unset, limits_channel_members=values.unset, limits_user_channels=values.unset, media_compatibility_message=values.unset, pre_webhook_retry_count=values.unset, post_webhook_retry_count=values.unset, notifications_log_enabled=values.unset):
-        """
-        Update the ServiceInstance
-        
-        :params str friendly_name: 
-        :params str default_service_role_sid: 
-        :params str default_channel_role_sid: 
-        :params str default_channel_creator_role_sid: 
-        :params bool read_status_enabled: 
-        :params bool reachability_enabled: 
-        :params int typing_indicator_timeout: 
-        :params int consumption_report_interval: 
-        :params bool notifications_new_message_enabled: 
-        :params str notifications_new_message_template: 
-        :params str notifications_new_message_sound: 
-        :params bool notifications_new_message_badge_count_enabled: 
-        :params bool notifications_added_to_channel_enabled: 
-        :params str notifications_added_to_channel_template: 
-        :params str notifications_added_to_channel_sound: 
-        :params bool notifications_removed_from_channel_enabled: 
-        :params str notifications_removed_from_channel_template: 
-        :params str notifications_removed_from_channel_sound: 
-        :params bool notifications_invited_to_channel_enabled: 
-        :params str notifications_invited_to_channel_template: 
-        :params str notifications_invited_to_channel_sound: 
-        :params str pre_webhook_url: 
-        :params str post_webhook_url: 
-        :params str webhook_method: 
-        :params list[str] webhook_filters: 
-        :params int limits_channel_members: 
-        :params int limits_user_channels: 
-        :params str media_compatibility_message: 
-        :params int pre_webhook_retry_count: 
-        :params int post_webhook_retry_count: 
-        :params bool notifications_log_enabled: 
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DefaultServiceRoleSid': default_service_role_sid,
-            'DefaultChannelRoleSid': default_channel_role_sid,
-            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
-            'ReadStatusEnabled': read_status_enabled,
-            'ReachabilityEnabled': reachability_enabled,
-            'TypingIndicatorTimeout': typing_indicator_timeout,
-            'ConsumptionReportInterval': consumption_report_interval,
-            'Notifications.NewMessage.Enabled': notifications_new_message_enabled,
-            'Notifications.NewMessage.Template': notifications_new_message_template,
-            'Notifications.NewMessage.Sound': notifications_new_message_sound,
-            'Notifications.NewMessage.BadgeCountEnabled': notifications_new_message_badge_count_enabled,
-            'Notifications.AddedToChannel.Enabled': notifications_added_to_channel_enabled,
-            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
-            'Notifications.AddedToChannel.Sound': notifications_added_to_channel_sound,
-            'Notifications.RemovedFromChannel.Enabled': notifications_removed_from_channel_enabled,
-            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
-            'Notifications.RemovedFromChannel.Sound': notifications_removed_from_channel_sound,
-            'Notifications.InvitedToChannel.Enabled': notifications_invited_to_channel_enabled,
-            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
-            'Notifications.InvitedToChannel.Sound': notifications_invited_to_channel_sound,
-            'PreWebhookUrl': pre_webhook_url,
-            'PostWebhookUrl': post_webhook_url,
-            'WebhookMethod': webhook_method,
-            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
-            'Limits.ChannelMembers': limits_channel_members,
-            'Limits.UserChannels': limits_user_channels,
-            'Media.CompatibilityMessage': media_compatibility_message,
-            'PreWebhookRetryCount': pre_webhook_retry_count,
-            'PostWebhookRetryCount': post_webhook_retry_count,
-            'Notifications.LogEnabled': notifications_log_enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def bindings(self):
-        """
-        Access the bindings
-
-        :returns: twilio.rest.ip_messaging.v2.service.BindingList
-        :rtype: twilio.rest.ip_messaging.v2.service.BindingList
-        """
-        if self._bindings is None:
-            self._bindings = BindingList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._bindings
-    
-    @property
-    def channels(self):
-        """
-        Access the channels
-
-        :returns: twilio.rest.ip_messaging.v2.service.ChannelList
-        :rtype: twilio.rest.ip_messaging.v2.service.ChannelList
-        """
-        if self._channels is None:
-            self._channels = ChannelList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._channels
-    
-    @property
-    def roles(self):
-        """
-        Access the roles
-
-        :returns: twilio.rest.ip_messaging.v2.service.RoleList
-        :rtype: twilio.rest.ip_messaging.v2.service.RoleList
-        """
-        if self._roles is None:
-            self._roles = RoleList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._roles
-    
-    @property
-    def users(self):
-        """
-        Access the users
-
-        :returns: twilio.rest.ip_messaging.v2.service.UserList
-        :rtype: twilio.rest.ip_messaging.v2.service.UserList
-        """
-        if self._users is None:
-            self._users = UserList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._users
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.ServiceContext {}>'.format(context)
-
 class ServiceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -780,5 +575,210 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V2.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceContext
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._bindings = None
+        self._channels = None
+        self._roles = None
+        self._users = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, default_service_role_sid=values.unset, default_channel_role_sid=values.unset, default_channel_creator_role_sid=values.unset, read_status_enabled=values.unset, reachability_enabled=values.unset, typing_indicator_timeout=values.unset, consumption_report_interval=values.unset, notifications_new_message_enabled=values.unset, notifications_new_message_template=values.unset, notifications_new_message_sound=values.unset, notifications_new_message_badge_count_enabled=values.unset, notifications_added_to_channel_enabled=values.unset, notifications_added_to_channel_template=values.unset, notifications_added_to_channel_sound=values.unset, notifications_removed_from_channel_enabled=values.unset, notifications_removed_from_channel_template=values.unset, notifications_removed_from_channel_sound=values.unset, notifications_invited_to_channel_enabled=values.unset, notifications_invited_to_channel_template=values.unset, notifications_invited_to_channel_sound=values.unset, pre_webhook_url=values.unset, post_webhook_url=values.unset, webhook_method=values.unset, webhook_filters=values.unset, limits_channel_members=values.unset, limits_user_channels=values.unset, media_compatibility_message=values.unset, pre_webhook_retry_count=values.unset, post_webhook_retry_count=values.unset, notifications_log_enabled=values.unset):
+        """
+        Update the ServiceInstance
+        
+        :params str friendly_name: 
+        :params str default_service_role_sid: 
+        :params str default_channel_role_sid: 
+        :params str default_channel_creator_role_sid: 
+        :params bool read_status_enabled: 
+        :params bool reachability_enabled: 
+        :params int typing_indicator_timeout: 
+        :params int consumption_report_interval: 
+        :params bool notifications_new_message_enabled: 
+        :params str notifications_new_message_template: 
+        :params str notifications_new_message_sound: 
+        :params bool notifications_new_message_badge_count_enabled: 
+        :params bool notifications_added_to_channel_enabled: 
+        :params str notifications_added_to_channel_template: 
+        :params str notifications_added_to_channel_sound: 
+        :params bool notifications_removed_from_channel_enabled: 
+        :params str notifications_removed_from_channel_template: 
+        :params str notifications_removed_from_channel_sound: 
+        :params bool notifications_invited_to_channel_enabled: 
+        :params str notifications_invited_to_channel_template: 
+        :params str notifications_invited_to_channel_sound: 
+        :params str pre_webhook_url: 
+        :params str post_webhook_url: 
+        :params str webhook_method: 
+        :params list[str] webhook_filters: 
+        :params int limits_channel_members: 
+        :params int limits_user_channels: 
+        :params str media_compatibility_message: 
+        :params int pre_webhook_retry_count: 
+        :params int post_webhook_retry_count: 
+        :params bool notifications_log_enabled: 
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DefaultServiceRoleSid': default_service_role_sid,
+            'DefaultChannelRoleSid': default_channel_role_sid,
+            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
+            'ReadStatusEnabled': read_status_enabled,
+            'ReachabilityEnabled': reachability_enabled,
+            'TypingIndicatorTimeout': typing_indicator_timeout,
+            'ConsumptionReportInterval': consumption_report_interval,
+            'Notifications.NewMessage.Enabled': notifications_new_message_enabled,
+            'Notifications.NewMessage.Template': notifications_new_message_template,
+            'Notifications.NewMessage.Sound': notifications_new_message_sound,
+            'Notifications.NewMessage.BadgeCountEnabled': notifications_new_message_badge_count_enabled,
+            'Notifications.AddedToChannel.Enabled': notifications_added_to_channel_enabled,
+            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
+            'Notifications.AddedToChannel.Sound': notifications_added_to_channel_sound,
+            'Notifications.RemovedFromChannel.Enabled': notifications_removed_from_channel_enabled,
+            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
+            'Notifications.RemovedFromChannel.Sound': notifications_removed_from_channel_sound,
+            'Notifications.InvitedToChannel.Enabled': notifications_invited_to_channel_enabled,
+            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
+            'Notifications.InvitedToChannel.Sound': notifications_invited_to_channel_sound,
+            'PreWebhookUrl': pre_webhook_url,
+            'PostWebhookUrl': post_webhook_url,
+            'WebhookMethod': webhook_method,
+            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
+            'Limits.ChannelMembers': limits_channel_members,
+            'Limits.UserChannels': limits_user_channels,
+            'Media.CompatibilityMessage': media_compatibility_message,
+            'PreWebhookRetryCount': pre_webhook_retry_count,
+            'PostWebhookRetryCount': post_webhook_retry_count,
+            'Notifications.LogEnabled': notifications_log_enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def bindings(self):
+        """
+        Access the bindings
+
+        :returns: twilio.rest.ip_messaging.v2.service.BindingList
+        :rtype: twilio.rest.ip_messaging.v2.service.BindingList
+        """
+        if self._bindings is None:
+            self._bindings = BindingList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._bindings
+    
+    @property
+    def channels(self):
+        """
+        Access the channels
+
+        :returns: twilio.rest.ip_messaging.v2.service.ChannelList
+        :rtype: twilio.rest.ip_messaging.v2.service.ChannelList
+        """
+        if self._channels is None:
+            self._channels = ChannelList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._channels
+    
+    @property
+    def roles(self):
+        """
+        Access the roles
+
+        :returns: twilio.rest.ip_messaging.v2.service.RoleList
+        :rtype: twilio.rest.ip_messaging.v2.service.RoleList
+        """
+        if self._roles is None:
+            self._roles = RoleList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._roles
+    
+    @property
+    def users(self):
+        """
+        Access the users
+
+        :returns: twilio.rest.ip_messaging.v2.service.UserList
+        :rtype: twilio.rest.ip_messaging.v2.service.UserList
+        """
+        if self._users is None:
+            self._users = UserList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._users
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.ServiceContext {}>'.format(context)
 
 

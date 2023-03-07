@@ -254,55 +254,6 @@ class IpCommandPage(Page):
 
 
 
-class IpCommandContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the IpCommandContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the IP Command resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.ip_command.IpCommandContext
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/IpCommands/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the IpCommandInstance
-        
-
-        :returns: The fetched IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return IpCommandInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.IpCommandContext {}>'.format(context)
-
 class IpCommandInstance(InstanceResource):
 
     class Direction(object):
@@ -481,5 +432,54 @@ class IpCommandInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.IpCommandInstance {}>'.format(context)
+
+class IpCommandContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the IpCommandContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the IP Command resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/IpCommands/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the IpCommandInstance
+        
+
+        :returns: The fetched IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return IpCommandInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.IpCommandContext {}>'.format(context)
 
 

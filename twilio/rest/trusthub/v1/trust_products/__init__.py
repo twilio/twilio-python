@@ -253,141 +253,6 @@ class TrustProductsPage(Page):
 
 
 
-class TrustProductsContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the TrustProductsContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/TrustProducts/{sid}'.format(**self._solution)
-        
-        self._trust_products_channel_endpoint_assignment = None
-        self._trust_products_entity_assignments = None
-        self._trust_products_evaluations = None
-    
-    def delete(self):
-        """
-        Deletes the TrustProductsInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the TrustProductsInstance
-        
-
-        :returns: The fetched TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TrustProductsInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
-        """
-        Update the TrustProductsInstance
-        
-        :params TrustProductsInstance.Status status: 
-        :params str status_callback: The URL we call to inform your application of status changes.
-        :params str friendly_name: The string that you assigned to describe the resource.
-        :params str email: The email address that will receive updates when the Customer-Profile resource changes status.
-
-        :returns: The updated TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'StatusCallback': status_callback,
-            'FriendlyName': friendly_name,
-            'Email': email,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TrustProductsInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def trust_products_channel_endpoint_assignment(self):
-        """
-        Access the trust_products_channel_endpoint_assignment
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
-        """
-        if self._trust_products_channel_endpoint_assignment is None:
-            self._trust_products_channel_endpoint_assignment = TrustProductsChannelEndpointAssignmentList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._trust_products_channel_endpoint_assignment
-    
-    @property
-    def trust_products_entity_assignments(self):
-        """
-        Access the trust_products_entity_assignments
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
-        """
-        if self._trust_products_entity_assignments is None:
-            self._trust_products_entity_assignments = TrustProductsEntityAssignmentsList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._trust_products_entity_assignments
-    
-    @property
-    def trust_products_evaluations(self):
-        """
-        Access the trust_products_evaluations
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
-        """
-        if self._trust_products_evaluations is None:
-            self._trust_products_evaluations = TrustProductsEvaluationsList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._trust_products_evaluations
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.TrustProductsContext {}>'.format(context)
-
 class TrustProductsInstance(InstanceResource):
 
     class Status(object):
@@ -604,5 +469,140 @@ class TrustProductsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.TrustProductsInstance {}>'.format(context)
+
+class TrustProductsContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the TrustProductsContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/TrustProducts/{sid}'.format(**self._solution)
+        
+        self._trust_products_channel_endpoint_assignment = None
+        self._trust_products_entity_assignments = None
+        self._trust_products_evaluations = None
+    
+    def delete(self):
+        """
+        Deletes the TrustProductsInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the TrustProductsInstance
+        
+
+        :returns: The fetched TrustProductsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TrustProductsInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
+        """
+        Update the TrustProductsInstance
+        
+        :params TrustProductsInstance.Status status: 
+        :params str status_callback: The URL we call to inform your application of status changes.
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params str email: The email address that will receive updates when the Customer-Profile resource changes status.
+
+        :returns: The updated TrustProductsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'StatusCallback': status_callback,
+            'FriendlyName': friendly_name,
+            'Email': email,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TrustProductsInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def trust_products_channel_endpoint_assignment(self):
+        """
+        Access the trust_products_channel_endpoint_assignment
+
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
+        """
+        if self._trust_products_channel_endpoint_assignment is None:
+            self._trust_products_channel_endpoint_assignment = TrustProductsChannelEndpointAssignmentList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._trust_products_channel_endpoint_assignment
+    
+    @property
+    def trust_products_entity_assignments(self):
+        """
+        Access the trust_products_entity_assignments
+
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
+        """
+        if self._trust_products_entity_assignments is None:
+            self._trust_products_entity_assignments = TrustProductsEntityAssignmentsList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._trust_products_entity_assignments
+    
+    @property
+    def trust_products_evaluations(self):
+        """
+        Access the trust_products_evaluations
+
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
+        """
+        if self._trust_products_evaluations is None:
+            self._trust_products_evaluations = TrustProductsEvaluationsList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._trust_products_evaluations
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.TrustProductsContext {}>'.format(context)
 
 

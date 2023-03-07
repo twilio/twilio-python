@@ -99,58 +99,6 @@ class AccessTokenList(ListResource):
         """
         return '<Twilio.Verify.V2.AccessTokenList>'
 
-class AccessTokenContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the AccessTokenContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service.
-        :param sid: A 34 character string that uniquely identifies this Access Token.
-
-        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenContext
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/AccessTokens/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the AccessTokenInstance
-        
-
-        :returns: The fetched AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AccessTokenInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.AccessTokenContext {}>'.format(context)
-
 class AccessTokenInstance(InstanceResource):
 
     class FactorTypes(object):
@@ -291,5 +239,57 @@ class AccessTokenInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.AccessTokenInstance {}>'.format(context)
+
+class AccessTokenContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the AccessTokenContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The unique SID identifier of the Service.
+        :param sid: A 34 character string that uniquely identifies this Access Token.
+
+        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenContext
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/AccessTokens/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AccessTokenInstance
+        
+
+        :returns: The fetched AccessTokenInstance
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AccessTokenInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.AccessTokenContext {}>'.format(context)
 
 

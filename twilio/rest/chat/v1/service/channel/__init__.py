@@ -242,146 +242,6 @@ class ChannelPage(Page):
 
 
 
-class ChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the ChannelContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.
-        :param sid: The Twilio-provided string that uniquely identifies the Channel resource to update.
-
-        :returns: twilio.rest.chat.v1.service.channel.ChannelContext
-        :rtype: twilio.rest.chat.v1.service.channel.ChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
-        
-        self._invites = None
-        self._members = None
-        self._messages = None
-    
-    def delete(self):
-        """
-        Deletes the ChannelInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ChannelInstance
-        
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset):
-        """
-        Update the ChannelInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
-        :params str attributes: A valid JSON string that contains application-specific data.
-
-        :returns: The updated ChannelInstance
-        :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Attributes': attributes,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def invites(self):
-        """
-        Access the invites
-
-        :returns: twilio.rest.chat.v1.service.channel.InviteList
-        :rtype: twilio.rest.chat.v1.service.channel.InviteList
-        """
-        if self._invites is None:
-            self._invites = InviteList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
-            )
-        return self._invites
-    
-    @property
-    def members(self):
-        """
-        Access the members
-
-        :returns: twilio.rest.chat.v1.service.channel.MemberList
-        :rtype: twilio.rest.chat.v1.service.channel.MemberList
-        """
-        if self._members is None:
-            self._members = MemberList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
-            )
-        return self._members
-    
-    @property
-    def messages(self):
-        """
-        Access the messages
-
-        :returns: twilio.rest.chat.v1.service.channel.MessageList
-        :rtype: twilio.rest.chat.v1.service.channel.MessageList
-        """
-        if self._messages is None:
-            self._messages = MessageList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
-            )
-        return self._messages
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V1.ChannelContext {}>'.format(context)
-
 class ChannelInstance(InstanceResource):
 
     class ChannelType(object):
@@ -612,5 +472,145 @@ class ChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V1.ChannelInstance {}>'.format(context)
+
+class ChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the ChannelContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.
+        :param sid: The Twilio-provided string that uniquely identifies the Channel resource to update.
+
+        :returns: twilio.rest.chat.v1.service.channel.ChannelContext
+        :rtype: twilio.rest.chat.v1.service.channel.ChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
+        
+        self._invites = None
+        self._members = None
+        self._messages = None
+    
+    def delete(self):
+        """
+        Deletes the ChannelInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ChannelInstance
+        
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset):
+        """
+        Update the ChannelInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+        :params str attributes: A valid JSON string that contains application-specific data.
+
+        :returns: The updated ChannelInstance
+        :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def invites(self):
+        """
+        Access the invites
+
+        :returns: twilio.rest.chat.v1.service.channel.InviteList
+        :rtype: twilio.rest.chat.v1.service.channel.InviteList
+        """
+        if self._invites is None:
+            self._invites = InviteList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._invites
+    
+    @property
+    def members(self):
+        """
+        Access the members
+
+        :returns: twilio.rest.chat.v1.service.channel.MemberList
+        :rtype: twilio.rest.chat.v1.service.channel.MemberList
+        """
+        if self._members is None:
+            self._members = MemberList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._members
+    
+    @property
+    def messages(self):
+        """
+        Access the messages
+
+        :returns: twilio.rest.chat.v1.service.channel.MessageList
+        :rtype: twilio.rest.chat.v1.service.channel.MessageList
+        """
+        if self._messages is None:
+            self._messages = MessageList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._messages
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V1.ChannelContext {}>'.format(context)
 
 

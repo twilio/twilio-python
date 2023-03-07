@@ -197,7 +197,6 @@ class BundleCopyPage(Page):
 
 
 
-
 class BundleCopyInstance(InstanceResource):
 
     class Status(object):
@@ -321,5 +320,6 @@ class BundleCopyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.BundleCopyInstance {}>'.format(context)
+
 
 

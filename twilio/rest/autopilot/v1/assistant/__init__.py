@@ -246,229 +246,6 @@ class AssistantPage(Page):
 
 
 
-class AssistantContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the AssistantContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{sid}'.format(**self._solution)
-        
-        self._defaults = None
-        self._dialogues = None
-        self._field_types = None
-        self._model_builds = None
-        self._queries = None
-        self._style_sheet = None
-        self._tasks = None
-        self._webhooks = None
-    
-    def delete(self):
-        """
-        Deletes the AssistantInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the AssistantInstance
-        
-
-        :returns: The fetched AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AssistantInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset, development_stage=values.unset):
-        """
-        Update the AssistantInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :params bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-        :params str callback_url: Reserved.
-        :params str callback_events: Reserved.
-        :params object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-        :params object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-        :params str development_stage: A string describing the state of the assistant.
-
-        :returns: The updated AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'LogQueries': log_queries,
-            'UniqueName': unique_name,
-            'CallbackUrl': callback_url,
-            'CallbackEvents': callback_events,
-            'StyleSheet': serialize.object(style_sheet),
-            'Defaults': serialize.object(defaults),
-            'DevelopmentStage': development_stage,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssistantInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def defaults(self):
-        """
-        Access the defaults
-
-        :returns: twilio.rest.autopilot.v1.assistant.DefaultsList
-        :rtype: twilio.rest.autopilot.v1.assistant.DefaultsList
-        """
-        if self._defaults is None:
-            self._defaults = DefaultsList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._defaults
-    
-    @property
-    def dialogues(self):
-        """
-        Access the dialogues
-
-        :returns: twilio.rest.autopilot.v1.assistant.DialogueList
-        :rtype: twilio.rest.autopilot.v1.assistant.DialogueList
-        """
-        if self._dialogues is None:
-            self._dialogues = DialogueList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._dialogues
-    
-    @property
-    def field_types(self):
-        """
-        Access the field_types
-
-        :returns: twilio.rest.autopilot.v1.assistant.FieldTypeList
-        :rtype: twilio.rest.autopilot.v1.assistant.FieldTypeList
-        """
-        if self._field_types is None:
-            self._field_types = FieldTypeList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._field_types
-    
-    @property
-    def model_builds(self):
-        """
-        Access the model_builds
-
-        :returns: twilio.rest.autopilot.v1.assistant.ModelBuildList
-        :rtype: twilio.rest.autopilot.v1.assistant.ModelBuildList
-        """
-        if self._model_builds is None:
-            self._model_builds = ModelBuildList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._model_builds
-    
-    @property
-    def queries(self):
-        """
-        Access the queries
-
-        :returns: twilio.rest.autopilot.v1.assistant.QueryList
-        :rtype: twilio.rest.autopilot.v1.assistant.QueryList
-        """
-        if self._queries is None:
-            self._queries = QueryList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._queries
-    
-    @property
-    def style_sheet(self):
-        """
-        Access the style_sheet
-
-        :returns: twilio.rest.autopilot.v1.assistant.StyleSheetList
-        :rtype: twilio.rest.autopilot.v1.assistant.StyleSheetList
-        """
-        if self._style_sheet is None:
-            self._style_sheet = StyleSheetList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._style_sheet
-    
-    @property
-    def tasks(self):
-        """
-        Access the tasks
-
-        :returns: twilio.rest.autopilot.v1.assistant.TaskList
-        :rtype: twilio.rest.autopilot.v1.assistant.TaskList
-        """
-        if self._tasks is None:
-            self._tasks = TaskList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._tasks
-    
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.autopilot.v1.assistant.WebhookList
-        :rtype: twilio.rest.autopilot.v1.assistant.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._webhooks
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.AssistantContext {}>'.format(context)
-
 class AssistantInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -750,5 +527,228 @@ class AssistantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.AssistantInstance {}>'.format(context)
+
+class AssistantContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the AssistantContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{sid}'.format(**self._solution)
+        
+        self._defaults = None
+        self._dialogues = None
+        self._field_types = None
+        self._model_builds = None
+        self._queries = None
+        self._style_sheet = None
+        self._tasks = None
+        self._webhooks = None
+    
+    def delete(self):
+        """
+        Deletes the AssistantInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the AssistantInstance
+        
+
+        :returns: The fetched AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset, development_stage=values.unset):
+        """
+        Update the AssistantInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :params str callback_url: Reserved.
+        :params str callback_events: Reserved.
+        :params object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :params object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+        :params str development_stage: A string describing the state of the assistant.
+
+        :returns: The updated AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'LogQueries': log_queries,
+            'UniqueName': unique_name,
+            'CallbackUrl': callback_url,
+            'CallbackEvents': callback_events,
+            'StyleSheet': serialize.object(style_sheet),
+            'Defaults': serialize.object(defaults),
+            'DevelopmentStage': development_stage,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def defaults(self):
+        """
+        Access the defaults
+
+        :returns: twilio.rest.autopilot.v1.assistant.DefaultsList
+        :rtype: twilio.rest.autopilot.v1.assistant.DefaultsList
+        """
+        if self._defaults is None:
+            self._defaults = DefaultsList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._defaults
+    
+    @property
+    def dialogues(self):
+        """
+        Access the dialogues
+
+        :returns: twilio.rest.autopilot.v1.assistant.DialogueList
+        :rtype: twilio.rest.autopilot.v1.assistant.DialogueList
+        """
+        if self._dialogues is None:
+            self._dialogues = DialogueList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._dialogues
+    
+    @property
+    def field_types(self):
+        """
+        Access the field_types
+
+        :returns: twilio.rest.autopilot.v1.assistant.FieldTypeList
+        :rtype: twilio.rest.autopilot.v1.assistant.FieldTypeList
+        """
+        if self._field_types is None:
+            self._field_types = FieldTypeList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._field_types
+    
+    @property
+    def model_builds(self):
+        """
+        Access the model_builds
+
+        :returns: twilio.rest.autopilot.v1.assistant.ModelBuildList
+        :rtype: twilio.rest.autopilot.v1.assistant.ModelBuildList
+        """
+        if self._model_builds is None:
+            self._model_builds = ModelBuildList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._model_builds
+    
+    @property
+    def queries(self):
+        """
+        Access the queries
+
+        :returns: twilio.rest.autopilot.v1.assistant.QueryList
+        :rtype: twilio.rest.autopilot.v1.assistant.QueryList
+        """
+        if self._queries is None:
+            self._queries = QueryList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._queries
+    
+    @property
+    def style_sheet(self):
+        """
+        Access the style_sheet
+
+        :returns: twilio.rest.autopilot.v1.assistant.StyleSheetList
+        :rtype: twilio.rest.autopilot.v1.assistant.StyleSheetList
+        """
+        if self._style_sheet is None:
+            self._style_sheet = StyleSheetList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._style_sheet
+    
+    @property
+    def tasks(self):
+        """
+        Access the tasks
+
+        :returns: twilio.rest.autopilot.v1.assistant.TaskList
+        :rtype: twilio.rest.autopilot.v1.assistant.TaskList
+        """
+        if self._tasks is None:
+            self._tasks = TaskList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._tasks
+    
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.autopilot.v1.assistant.WebhookList
+        :rtype: twilio.rest.autopilot.v1.assistant.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._webhooks
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.AssistantContext {}>'.format(context)
 
 

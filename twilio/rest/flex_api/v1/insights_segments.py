@@ -74,60 +74,6 @@ class InsightsSegmentsList(ListResource):
         """
         return '<Twilio.FlexApi.V1.InsightsSegmentsList>'
 
-class InsightsSegmentsContext(InstanceContext):
-
-    def __init__(self, version: Version, segment_id: str):
-        """
-        Initialize the InsightsSegmentsContext
-
-        :param Version version: Version that contains the resource
-        :param segment_id: To unique id of the segment
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'segment_id': segment_id,
-        }
-        self._uri = '/Insights/Segments/{segment_id}'.format(**self._solution)
-        
-    
-    def fetch(self, token=values.unset):
-        """
-        Fetch the InsightsSegmentsInstance
-        
-        :params str token: The Token HTTP request header
-
-        :returns: The fetched InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        """
-        
-        data = values.of({ 
-            'Token': token,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return InsightsSegmentsInstance(
-            self._version,
-            payload,
-            segment_id=self._solution['segment_id'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsSegmentsContext {}>'.format(context)
-
 class InsightsSegmentsInstance(InstanceResource):
 
     def __init__(self, version, payload, segment_id: str=None):
@@ -374,5 +320,59 @@ class InsightsSegmentsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsSegmentsInstance {}>'.format(context)
+
+class InsightsSegmentsContext(InstanceContext):
+
+    def __init__(self, version: Version, segment_id: str):
+        """
+        Initialize the InsightsSegmentsContext
+
+        :param Version version: Version that contains the resource
+        :param segment_id: To unique id of the segment
+
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'segment_id': segment_id,
+        }
+        self._uri = '/Insights/Segments/{segment_id}'.format(**self._solution)
+        
+    
+    def fetch(self, token=values.unset):
+        """
+        Fetch the InsightsSegmentsInstance
+        
+        :params str token: The Token HTTP request header
+
+        :returns: The fetched InsightsSegmentsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
+        """
+        
+        data = values.of({ 
+            'Token': token,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return InsightsSegmentsInstance(
+            self._version,
+            payload,
+            segment_id=self._solution['segment_id'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InsightsSegmentsContext {}>'.format(context)
 
 

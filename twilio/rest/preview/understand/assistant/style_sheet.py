@@ -72,77 +72,6 @@ class StyleSheetList(ListResource):
         """
         return '<Twilio.Preview.Understand.StyleSheetList>'
 
-class StyleSheetContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the StyleSheetContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant
-
-        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
-        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/StyleSheet'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the StyleSheetInstance
-        
-
-        :returns: The fetched StyleSheetInstance
-        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return StyleSheetInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            
-        )
-        
-    def update(self, style_sheet=values.unset):
-        """
-        Update the StyleSheetInstance
-        
-        :params object style_sheet: The JSON Style sheet string
-
-        :returns: The updated StyleSheetInstance
-        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
-        """
-        data = values.of({ 
-            'StyleSheet': serialize.object(style_sheet),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return StyleSheetInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.StyleSheetContext {}>'.format(context)
-
 class StyleSheetInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str):
@@ -237,5 +166,76 @@ class StyleSheetInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.StyleSheetInstance {}>'.format(context)
+
+class StyleSheetContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the StyleSheetContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the Assistant
+
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/StyleSheet'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the StyleSheetInstance
+        
+
+        :returns: The fetched StyleSheetInstance
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return StyleSheetInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+        
+    def update(self, style_sheet=values.unset):
+        """
+        Update the StyleSheetInstance
+        
+        :params object style_sheet: The JSON Style sheet string
+
+        :returns: The updated StyleSheetInstance
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
+        """
+        data = values.of({ 
+            'StyleSheet': serialize.object(style_sheet),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return StyleSheetInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.StyleSheetContext {}>'.format(context)
 
 

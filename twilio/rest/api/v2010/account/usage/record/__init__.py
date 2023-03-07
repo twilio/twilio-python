@@ -313,7 +313,6 @@ class RecordPage(Page):
 
 
 
-
 class RecordInstance(InstanceResource):
 
     class Category(object):
@@ -721,5 +720,6 @@ class RecordInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.RecordInstance {}>'.format(context)
+
 
 

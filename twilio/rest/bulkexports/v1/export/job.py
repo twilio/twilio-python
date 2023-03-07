@@ -75,65 +75,6 @@ class JobList(ListResource):
         """
         return '<Twilio.Bulkexports.V1.JobList>'
 
-class JobContext(InstanceContext):
-
-    def __init__(self, version: Version, job_sid: str):
-        """
-        Initialize the JobContext
-
-        :param Version version: Version that contains the resource
-        :param job_sid: The unique string that that we created to identify the Bulk Export job
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'job_sid': job_sid,
-        }
-        self._uri = '/Exports/Jobs/{job_sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the JobInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the JobInstance
-        
-
-        :returns: The fetched JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return JobInstance(
-            self._version,
-            payload,
-            job_sid=self._solution['job_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Bulkexports.V1.JobContext {}>'.format(context)
-
 class JobInstance(InstanceResource):
 
     def __init__(self, version, payload, job_sid: str=None):
@@ -299,5 +240,64 @@ class JobInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Bulkexports.V1.JobInstance {}>'.format(context)
+
+class JobContext(InstanceContext):
+
+    def __init__(self, version: Version, job_sid: str):
+        """
+        Initialize the JobContext
+
+        :param Version version: Version that contains the resource
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
+
+        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'job_sid': job_sid,
+        }
+        self._uri = '/Exports/Jobs/{job_sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the JobInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the JobInstance
+        
+
+        :returns: The fetched JobInstance
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return JobInstance(
+            self._version,
+            payload,
+            job_sid=self._solution['job_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.JobContext {}>'.format(context)
 
 

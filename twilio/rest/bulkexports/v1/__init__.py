@@ -33,12 +33,18 @@ class V1(Version):
         
     @property
     def exports(self) -> ExportList:
+        """
+        :rtype: twilio.rest.bulkexports.v1.export.ExportList
+        """
         if self._exports is None:
             self._exports = ExportList(self)
         return self._exports
 
     @property
     def export_configuration(self) -> ExportConfigurationList:
+        """
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
+        """
         if self._export_configuration is None:
             self._export_configuration = ExportConfigurationList(self)
         return self._export_configuration

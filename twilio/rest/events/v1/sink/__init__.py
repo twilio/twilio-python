@@ -244,119 +244,6 @@ class SinkPage(Page):
 
 
 
-class SinkContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SinkContext
-
-        :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this Sink.
-
-        :returns: twilio.rest.events.v1.sink.SinkContext
-        :rtype: twilio.rest.events.v1.sink.SinkContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Sinks/{sid}'.format(**self._solution)
-        
-        self._sink_test = None
-        self._sink_validate = None
-    
-    def delete(self):
-        """
-        Deletes the SinkInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SinkInstance
-        
-
-        :returns: The fetched SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SinkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, description):
-        """
-        Update the SinkInstance
-        
-        :params str description: A human readable description for the Sink **This value should not contain PII.**
-
-        :returns: The updated SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
-        """
-        data = values.of({ 
-            'Description': description,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SinkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def sink_test(self):
-        """
-        Access the sink_test
-
-        :returns: twilio.rest.events.v1.sink.SinkTestList
-        :rtype: twilio.rest.events.v1.sink.SinkTestList
-        """
-        if self._sink_test is None:
-            self._sink_test = SinkTestList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._sink_test
-    
-    @property
-    def sink_validate(self):
-        """
-        Access the sink_validate
-
-        :returns: twilio.rest.events.v1.sink.SinkValidateList
-        :rtype: twilio.rest.events.v1.sink.SinkValidateList
-        """
-        if self._sink_validate is None:
-            self._sink_validate = SinkValidateList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._sink_validate
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SinkContext {}>'.format(context)
-
 class SinkInstance(InstanceResource):
 
     class SinkType(object):
@@ -537,5 +424,118 @@ class SinkInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.SinkInstance {}>'.format(context)
+
+class SinkContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SinkContext
+
+        :param Version version: Version that contains the resource
+        :param sid: A 34 character string that uniquely identifies this Sink.
+
+        :returns: twilio.rest.events.v1.sink.SinkContext
+        :rtype: twilio.rest.events.v1.sink.SinkContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Sinks/{sid}'.format(**self._solution)
+        
+        self._sink_test = None
+        self._sink_validate = None
+    
+    def delete(self):
+        """
+        Deletes the SinkInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SinkInstance
+        
+
+        :returns: The fetched SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SinkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, description):
+        """
+        Update the SinkInstance
+        
+        :params str description: A human readable description for the Sink **This value should not contain PII.**
+
+        :returns: The updated SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        data = values.of({ 
+            'Description': description,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SinkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def sink_test(self):
+        """
+        Access the sink_test
+
+        :returns: twilio.rest.events.v1.sink.SinkTestList
+        :rtype: twilio.rest.events.v1.sink.SinkTestList
+        """
+        if self._sink_test is None:
+            self._sink_test = SinkTestList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._sink_test
+    
+    @property
+    def sink_validate(self):
+        """
+        Access the sink_validate
+
+        :returns: twilio.rest.events.v1.sink.SinkValidateList
+        :rtype: twilio.rest.events.v1.sink.SinkValidateList
+        """
+        if self._sink_validate is None:
+            self._sink_validate = SinkValidateList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._sink_validate
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SinkContext {}>'.format(context)
 
 

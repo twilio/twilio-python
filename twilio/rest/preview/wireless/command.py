@@ -256,55 +256,6 @@ class CommandPage(Page):
 
 
 
-class CommandContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CommandContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.preview.wireless.command.CommandContext
-        :rtype: twilio.rest.preview.wireless.command.CommandContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Commands/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the CommandInstance
-        
-
-        :returns: The fetched CommandInstance
-        :rtype: twilio.rest.preview.wireless.command.CommandInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CommandInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Wireless.CommandContext {}>'.format(context)
-
 class CommandInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -451,5 +402,54 @@ class CommandInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Wireless.CommandInstance {}>'.format(context)
+
+class CommandContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CommandContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.preview.wireless.command.CommandContext
+        :rtype: twilio.rest.preview.wireless.command.CommandContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Commands/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the CommandInstance
+        
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CommandInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Wireless.CommandContext {}>'.format(context)
 
 

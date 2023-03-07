@@ -244,105 +244,6 @@ class ByocTrunkPage(Page):
 
 
 
-class ByocTrunkContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ByocTrunkContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
-
-        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/ByocTrunks/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ByocTrunkInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ByocTrunkInstance
-        
-
-        :returns: The fetched ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ByocTrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, cnam_lookup_enabled=values.unset, connection_policy_sid=values.unset, from_domain_sid=values.unset):
-        """
-        Update the ByocTrunkInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :params str voice_url: The URL we should call when the BYOC Trunk receives a call.
-        :params str voice_method: The HTTP method we should use to call `voice_url`
-        :params str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
-        :params str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :params str status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :params str status_callback_method: The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
-        :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :params str connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
-        :params str from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
-
-        :returns: The updated ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'StatusCallbackUrl': status_callback_url,
-            'StatusCallbackMethod': status_callback_method,
-            'CnamLookupEnabled': cnam_lookup_enabled,
-            'ConnectionPolicySid': connection_policy_sid,
-            'FromDomainSid': from_domain_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ByocTrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.ByocTrunkContext {}>'.format(context)
-
 class ByocTrunkInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -555,5 +456,104 @@ class ByocTrunkInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Voice.V1.ByocTrunkInstance {}>'.format(context)
+
+class ByocTrunkContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ByocTrunkContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
+
+        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/ByocTrunks/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ByocTrunkInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ByocTrunkInstance
+        
+
+        :returns: The fetched ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ByocTrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, cnam_lookup_enabled=values.unset, connection_policy_sid=values.unset, from_domain_sid=values.unset):
+        """
+        Update the ByocTrunkInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params str voice_url: The URL we should call when the BYOC Trunk receives a call.
+        :params str voice_method: The HTTP method we should use to call `voice_url`
+        :params str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+        :params str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :params str status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :params str status_callback_method: The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
+        :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :params str connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
+        :params str from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
+
+        :returns: The updated ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'VoiceUrl': voice_url,
+            'VoiceMethod': voice_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'StatusCallbackUrl': status_callback_url,
+            'StatusCallbackMethod': status_callback_method,
+            'CnamLookupEnabled': cnam_lookup_enabled,
+            'ConnectionPolicySid': connection_policy_sid,
+            'FromDomainSid': from_domain_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ByocTrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.ByocTrunkContext {}>'.format(context)
 
 

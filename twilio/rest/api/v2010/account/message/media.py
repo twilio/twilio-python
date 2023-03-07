@@ -223,71 +223,6 @@ class MediaPage(Page):
 
 
 
-class MediaContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, message_sid: str, sid: str):
-        """
-        Initialize the MediaContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
-        :param message_sid: The SID of the Message resource that this Media resource belongs to.
-        :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'message_sid': message_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the MediaInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the MediaInstance
-        
-
-        :returns: The fetched MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MediaInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            message_sid=self._solution['message_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.MediaContext {}>'.format(context)
-
 class MediaInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, message_sid: str, sid: str=None):
@@ -408,5 +343,70 @@ class MediaInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MediaInstance {}>'.format(context)
+
+class MediaContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, message_sid: str, sid: str):
+        """
+        Initialize the MediaContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
+        :param message_sid: The SID of the Message resource that this Media resource belongs to.
+        :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
+
+        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'message_sid': message_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the MediaInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the MediaInstance
+        
+
+        :returns: The fetched MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MediaInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MediaContext {}>'.format(context)
 
 

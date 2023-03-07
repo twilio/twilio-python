@@ -74,60 +74,6 @@ class NumberList(ListResource):
         """
         return '<Twilio.Pricing.V2.NumberList>'
 
-class NumberContext(InstanceContext):
-
-    def __init__(self, version: Version, destination_number: str):
-        """
-        Initialize the NumberContext
-
-        :param Version version: Version that contains the resource
-        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'destination_number': destination_number,
-        }
-        self._uri = '/Trunking/Numbers/{destination_number}'.format(**self._solution)
-        
-    
-    def fetch(self, origination_number=values.unset):
-        """
-        Fetch the NumberInstance
-        
-        :params str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: The fetched NumberInstance
-        :rtype: twilio.rest.pricing.v2.number.NumberInstance
-        """
-        
-        data = values.of({ 
-            'OriginationNumber': origination_number,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return NumberInstance(
-            self._version,
-            payload,
-            destination_number=self._solution['destination_number'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Pricing.V2.NumberContext {}>'.format(context)
-
 class NumberInstance(InstanceResource):
 
     def __init__(self, version, payload, destination_number: str=None):
@@ -248,5 +194,59 @@ class NumberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Pricing.V2.NumberInstance {}>'.format(context)
+
+class NumberContext(InstanceContext):
+
+    def __init__(self, version: Version, destination_number: str):
+        """
+        Initialize the NumberContext
+
+        :param Version version: Version that contains the resource
+        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: twilio.rest.pricing.v2.number.NumberContext
+        :rtype: twilio.rest.pricing.v2.number.NumberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'destination_number': destination_number,
+        }
+        self._uri = '/Trunking/Numbers/{destination_number}'.format(**self._solution)
+        
+    
+    def fetch(self, origination_number=values.unset):
+        """
+        Fetch the NumberInstance
+        
+        :params str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: The fetched NumberInstance
+        :rtype: twilio.rest.pricing.v2.number.NumberInstance
+        """
+        
+        data = values.of({ 
+            'OriginationNumber': origination_number,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return NumberInstance(
+            self._version,
+            payload,
+            destination_number=self._solution['destination_number'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Pricing.V2.NumberContext {}>'.format(context)
 
 

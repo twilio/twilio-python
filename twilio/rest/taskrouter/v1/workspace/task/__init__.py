@@ -290,120 +290,6 @@ class TaskPage(Page):
 
 
 
-class TaskContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, sid: str):
-        """
-        Initialize the TaskContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Task to update.
-        :param sid: The SID of the Task resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Tasks/{sid}'.format(**self._solution)
-        
-        self._reservations = None
-    
-    def delete(self, if_match=values.unset):
-        """
-        Deletes the TaskInstance
-
-        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'If-Match': if_match, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self):
-        """
-        Fetch the TaskInstance
-        
-
-        :returns: The fetched TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TaskInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, if_match=values.unset, attributes=values.unset, assignment_status=values.unset, reason=values.unset, priority=values.unset, task_channel=values.unset):
-        """
-        Update the TaskInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :params str attributes: The JSON string that describes the custom attributes of the task.
-        :params TaskInstance.Status assignment_status: 
-        :params str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
-        :params int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
-        :params str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The updated TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
-        """
-        data = values.of({ 
-            'Attributes': attributes,
-            'AssignmentStatus': assignment_status,
-            'Reason': reason,
-            'Priority': priority,
-            'TaskChannel': task_channel,
-        })
-        headers = values.of({'If-Match': if_match, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return TaskInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def reservations(self):
-        """
-        Access the reservations
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.ReservationList
-        """
-        if self._reservations is None:
-            self._reservations = ReservationList(
-                self._version, 
-                self._solution['workspace_sid'],
-                self._solution['sid'],
-            )
-        return self._reservations
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskContext {}>'.format(context)
-
 class TaskInstance(InstanceResource):
 
     class Status(object):
@@ -685,5 +571,119 @@ class TaskInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskInstance {}>'.format(context)
+
+class TaskContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, sid: str):
+        """
+        Initialize the TaskContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Task to update.
+        :param sid: The SID of the Task resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'sid': sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{sid}'.format(**self._solution)
+        
+        self._reservations = None
+    
+    def delete(self, if_match=values.unset):
+        """
+        Deletes the TaskInstance
+
+        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
+        """
+        Fetch the TaskInstance
+        
+
+        :returns: The fetched TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TaskInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, if_match=values.unset, attributes=values.unset, assignment_status=values.unset, reason=values.unset, priority=values.unset, task_channel=values.unset):
+        """
+        Update the TaskInstance
+        
+        :params str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :params str attributes: The JSON string that describes the custom attributes of the task.
+        :params TaskInstance.Status assignment_status: 
+        :params str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
+        :params int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+        :params str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The updated TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        """
+        data = values.of({ 
+            'Attributes': attributes,
+            'AssignmentStatus': assignment_status,
+            'Reason': reason,
+            'Priority': priority,
+            'TaskChannel': task_channel,
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return TaskInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def reservations(self):
+        """
+        Access the reservations
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task.ReservationList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.ReservationList
+        """
+        if self._reservations is None:
+            self._reservations = ReservationList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
+            )
+        return self._reservations
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.TaskContext {}>'.format(context)
 
 

@@ -73,7 +73,6 @@ class NotificationList(ListResource):
         """
         return '<Twilio.Verify.V2.NotificationList>'
 
-
 class NotificationInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, identity: str, challenge_sid: str):
@@ -180,5 +179,6 @@ class NotificationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.NotificationInstance {}>'.format(context)
+
 
 

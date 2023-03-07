@@ -216,68 +216,6 @@ class BindingPage(Page):
 
 
 
-class BindingContext(InstanceContext):
-
-    def __init__(self, version: Version, chat_service_sid: str, sid: str):
-        """
-        Initialize the BindingContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'chat_service_sid': chat_service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{chat_service_sid}/Bindings/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the BindingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the BindingInstance
-        
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BindingInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.BindingContext {}>'.format(context)
-
 class BindingInstance(InstanceResource):
 
     class BindingType(object):
@@ -439,5 +377,67 @@ class BindingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.BindingInstance {}>'.format(context)
+
+class BindingContext(InstanceContext):
+
+    def __init__(self, version: Version, chat_service_sid: str, sid: str):
+        """
+        Initialize the BindingContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{chat_service_sid}/Bindings/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the BindingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the BindingInstance
+        
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BindingInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.BindingContext {}>'.format(context)
 
 

@@ -228,68 +228,6 @@ class RoomRecordingPage(Page):
 
 
 
-class RoomRecordingContext(InstanceContext):
-
-    def __init__(self, version: Version, room_sid: str, sid: str):
-        """
-        Initialize the RoomRecordingContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource with the recording to fetch.
-        :param sid: The SID of the RoomRecording resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'sid': sid,
-        }
-        self._uri = '/Rooms/{room_sid}/Recordings/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the RoomRecordingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the RoomRecordingInstance
-        
-
-        :returns: The fetched RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RoomRecordingInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RoomRecordingContext {}>'.format(context)
-
 class RoomRecordingInstance(InstanceResource):
 
     class Codec(object):
@@ -521,5 +459,67 @@ class RoomRecordingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RoomRecordingInstance {}>'.format(context)
+
+class RoomRecordingContext(InstanceContext):
+
+    def __init__(self, version: Version, room_sid: str, sid: str):
+        """
+        Initialize the RoomRecordingContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room resource with the recording to fetch.
+        :param sid: The SID of the RoomRecording resource to fetch.
+
+        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
+        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'room_sid': room_sid,
+            'sid': sid,
+        }
+        self._uri = '/Rooms/{room_sid}/Recordings/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the RoomRecordingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the RoomRecordingInstance
+        
+
+        :returns: The fetched RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RoomRecordingInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RoomRecordingContext {}>'.format(context)
 
 

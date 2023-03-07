@@ -224,68 +224,6 @@ class ItemAssignmentPage(Page):
 
 
 
-class ItemAssignmentContext(InstanceContext):
-
-    def __init__(self, version: Version, bundle_sid: str, sid: str):
-        """
-        Initialize the ItemAssignmentContext
-
-        :param Version version: Version that contains the resource
-        :param bundle_sid: The unique string that we created to identify the Bundle resource.
-        :param sid: The unique string that we created to identify the Identity resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'bundle_sid': bundle_sid,
-            'sid': sid,
-        }
-        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ItemAssignmentInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ItemAssignmentInstance
-        
-
-        :returns: The fetched ItemAssignmentInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ItemAssignmentInstance(
-            self._version,
-            payload,
-            bundle_sid=self._solution['bundle_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.ItemAssignmentContext {}>'.format(context)
-
 class ItemAssignmentInstance(InstanceResource):
 
     def __init__(self, version, payload, bundle_sid: str, sid: str=None):
@@ -397,5 +335,67 @@ class ItemAssignmentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.ItemAssignmentInstance {}>'.format(context)
+
+class ItemAssignmentContext(InstanceContext):
+
+    def __init__(self, version: Version, bundle_sid: str, sid: str):
+        """
+        Initialize the ItemAssignmentContext
+
+        :param Version version: Version that contains the resource
+        :param bundle_sid: The unique string that we created to identify the Bundle resource.
+        :param sid: The unique string that we created to identify the Identity resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'bundle_sid': bundle_sid,
+            'sid': sid,
+        }
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ItemAssignmentInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ItemAssignmentInstance
+        
+
+        :returns: The fetched ItemAssignmentInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ItemAssignmentInstance(
+            self._version,
+            payload,
+            bundle_sid=self._solution['bundle_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.ItemAssignmentContext {}>'.format(context)
 
 

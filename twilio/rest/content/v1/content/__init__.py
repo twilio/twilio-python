@@ -204,81 +204,6 @@ class ContentPage(Page):
 
 
 
-class ContentContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ContentContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
-
-        :returns: twilio.rest.content.v1.content.ContentContext
-        :rtype: twilio.rest.content.v1.content.ContentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Content/{sid}'.format(**self._solution)
-        
-        self._approval_fetch = None
-    
-    def delete(self):
-        """
-        Deletes the ContentInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ContentInstance
-        
-
-        :returns: The fetched ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ContentInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    @property
-    def approval_fetch(self):
-        """
-        Access the approval_fetch
-
-        :returns: twilio.rest.content.v1.content.ApprovalFetchList
-        :rtype: twilio.rest.content.v1.content.ApprovalFetchList
-        """
-        if self._approval_fetch is None:
-            self._approval_fetch = ApprovalFetchList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._approval_fetch
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Content.V1.ContentContext {}>'.format(context)
-
 class ContentInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -436,5 +361,80 @@ class ContentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Content.V1.ContentInstance {}>'.format(context)
+
+class ContentContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ContentContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
+
+        :returns: twilio.rest.content.v1.content.ContentContext
+        :rtype: twilio.rest.content.v1.content.ContentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Content/{sid}'.format(**self._solution)
+        
+        self._approval_fetch = None
+    
+    def delete(self):
+        """
+        Deletes the ContentInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ContentInstance
+        
+
+        :returns: The fetched ContentInstance
+        :rtype: twilio.rest.content.v1.content.ContentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ContentInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def approval_fetch(self):
+        """
+        Access the approval_fetch
+
+        :returns: twilio.rest.content.v1.content.ApprovalFetchList
+        :rtype: twilio.rest.content.v1.content.ApprovalFetchList
+        """
+        if self._approval_fetch is None:
+            self._approval_fetch = ApprovalFetchList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._approval_fetch
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Content.V1.ContentContext {}>'.format(context)
 
 

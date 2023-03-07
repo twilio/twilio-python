@@ -72,77 +72,6 @@ class StyleSheetList(ListResource):
         """
         return '<Twilio.Autopilot.V1.StyleSheetList>'
 
-class StyleSheetContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the StyleSheetContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
-        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/StyleSheet'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the StyleSheetInstance
-        
-
-        :returns: The fetched StyleSheetInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return StyleSheetInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            
-        )
-        
-    def update(self, style_sheet=values.unset):
-        """
-        Update the StyleSheetInstance
-        
-        :params object style_sheet: The JSON string that describes the style sheet object.
-
-        :returns: The updated StyleSheetInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance
-        """
-        data = values.of({ 
-            'StyleSheet': serialize.object(style_sheet),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return StyleSheetInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.StyleSheetContext {}>'.format(context)
-
 class StyleSheetInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str):
@@ -237,5 +166,76 @@ class StyleSheetInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.StyleSheetInstance {}>'.format(context)
+
+class StyleSheetContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the StyleSheetContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/StyleSheet'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the StyleSheetInstance
+        
+
+        :returns: The fetched StyleSheetInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return StyleSheetInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+        
+    def update(self, style_sheet=values.unset):
+        """
+        Update the StyleSheetInstance
+        
+        :params object style_sheet: The JSON string that describes the style sheet object.
+
+        :returns: The updated StyleSheetInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance
+        """
+        data = values.of({ 
+            'StyleSheet': serialize.object(style_sheet),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return StyleSheetInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.StyleSheetContext {}>'.format(context)
 
 

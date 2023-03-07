@@ -35,18 +35,27 @@ class V2(Version):
         
     @property
     def countries(self) -> CountryList:
+        """
+        :rtype: twilio.rest.pricing.v2.country.CountryList
+        """
         if self._countries is None:
             self._countries = CountryList(self)
         return self._countries
 
     @property
     def numbers(self) -> NumberList:
+        """
+        :rtype: twilio.rest.pricing.v2.number.NumberList
+        """
         if self._numbers is None:
             self._numbers = NumberList(self)
         return self._numbers
 
     @property
     def voice(self) -> VoiceList:
+        """
+        :rtype: twilio.rest.pricing.v2.voice.VoiceList
+        """
         if self._voice is None:
             self._voice = VoiceList(self)
         return self._voice

@@ -75,79 +75,6 @@ class TrunkList(ListResource):
         """
         return '<Twilio.Routes.V2.TrunkList>'
 
-class TrunkContext(InstanceContext):
-
-    def __init__(self, version: Version, sip_trunk_domain: str):
-        """
-        Initialize the TrunkContext
-
-        :param Version version: Version that contains the resource
-        :param sip_trunk_domain: The absolute URL of the SIP Trunk
-
-        :returns: twilio.rest.routes.v2.trunk.TrunkContext
-        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sip_trunk_domain': sip_trunk_domain,
-        }
-        self._uri = '/Trunks/{sip_trunk_domain}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the TrunkInstance
-        
-
-        :returns: The fetched TrunkInstance
-        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TrunkInstance(
-            self._version,
-            payload,
-            sip_trunk_domain=self._solution['sip_trunk_domain'],
-            
-        )
-        
-    def update(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Update the TrunkInstance
-        
-        :params str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :params str friendly_name: A human readable description of this resource, up to 64 characters.
-
-        :returns: The updated TrunkInstance
-        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
-        """
-        data = values.of({ 
-            'VoiceRegion': voice_region,
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TrunkInstance(
-            self._version,
-            payload,
-            sip_trunk_domain=self._solution['sip_trunk_domain']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Routes.V2.TrunkContext {}>'.format(context)
-
 class TrunkInstance(InstanceResource):
 
     def __init__(self, version, payload, sip_trunk_domain: str=None):
@@ -279,5 +206,78 @@ class TrunkInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Routes.V2.TrunkInstance {}>'.format(context)
+
+class TrunkContext(InstanceContext):
+
+    def __init__(self, version: Version, sip_trunk_domain: str):
+        """
+        Initialize the TrunkContext
+
+        :param Version version: Version that contains the resource
+        :param sip_trunk_domain: The absolute URL of the SIP Trunk
+
+        :returns: twilio.rest.routes.v2.trunk.TrunkContext
+        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sip_trunk_domain': sip_trunk_domain,
+        }
+        self._uri = '/Trunks/{sip_trunk_domain}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the TrunkInstance
+        
+
+        :returns: The fetched TrunkInstance
+        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TrunkInstance(
+            self._version,
+            payload,
+            sip_trunk_domain=self._solution['sip_trunk_domain'],
+            
+        )
+        
+    def update(self, voice_region=values.unset, friendly_name=values.unset):
+        """
+        Update the TrunkInstance
+        
+        :params str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :returns: The updated TrunkInstance
+        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
+        """
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TrunkInstance(
+            self._version,
+            payload,
+            sip_trunk_domain=self._solution['sip_trunk_domain']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Routes.V2.TrunkContext {}>'.format(context)
 
 

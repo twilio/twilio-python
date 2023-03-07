@@ -235,99 +235,6 @@ class OriginationUrlPage(Page):
 
 
 
-class OriginationUrlContext(InstanceContext):
-
-    def __init__(self, version: Version, trunk_sid: str, sid: str):
-        """
-        Initialize the OriginationUrlContext
-
-        :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to update the OriginationUrl.
-        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
-
-        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'trunk_sid': trunk_sid,
-            'sid': sid,
-        }
-        self._uri = '/Trunks/{trunk_sid}/OriginationUrls/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the OriginationUrlInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the OriginationUrlInstance
-        
-
-        :returns: The fetched OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return OriginationUrlInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, weight=values.unset, priority=values.unset, enabled=values.unset, friendly_name=values.unset, sip_url=values.unset):
-        """
-        Update the OriginationUrlInstance
-        
-        :params int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-        :params int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-        :params bool enabled: Whether the URL is enabled. The default is `true`.
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :params str sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
-
-        :returns: The updated OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        """
-        data = values.of({ 
-            'Weight': weight,
-            'Priority': priority,
-            'Enabled': enabled,
-            'FriendlyName': friendly_name,
-            'SipUrl': sip_url,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return OriginationUrlInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trunking.V1.OriginationUrlContext {}>'.format(context)
-
 class OriginationUrlInstance(InstanceResource):
 
     def __init__(self, version, payload, trunk_sid: str, sid: str=None):
@@ -499,5 +406,98 @@ class OriginationUrlInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.OriginationUrlInstance {}>'.format(context)
+
+class OriginationUrlContext(InstanceContext):
+
+    def __init__(self, version: Version, trunk_sid: str, sid: str):
+        """
+        Initialize the OriginationUrlContext
+
+        :param Version version: Version that contains the resource
+        :param trunk_sid: The SID of the Trunk from which to update the OriginationUrl.
+        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
+
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'trunk_sid': trunk_sid,
+            'sid': sid,
+        }
+        self._uri = '/Trunks/{trunk_sid}/OriginationUrls/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the OriginationUrlInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the OriginationUrlInstance
+        
+
+        :returns: The fetched OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, weight=values.unset, priority=values.unset, enabled=values.unset, friendly_name=values.unset, sip_url=values.unset):
+        """
+        Update the OriginationUrlInstance
+        
+        :params int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :params int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :params bool enabled: Whether the URL is enabled. The default is `true`.
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
+
+        :returns: The updated OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        """
+        data = values.of({ 
+            'Weight': weight,
+            'Priority': priority,
+            'Enabled': enabled,
+            'FriendlyName': friendly_name,
+            'SipUrl': sip_url,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.OriginationUrlContext {}>'.format(context)
 
 

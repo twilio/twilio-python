@@ -231,91 +231,6 @@ class RolePage(Page):
 
 
 
-class RoleContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the RoleContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: 
-        :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v2.service.role.RoleContext
-        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Roles/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the RoleInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the RoleInstance
-        
-
-        :returns: The fetched RoleInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RoleInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, permission):
-        """
-        Update the RoleInstance
-        
-        :params list[str] permission: 
-
-        :returns: The updated RoleInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
-        """
-        data = values.of({ 
-            'Permission': serialize.map(permission, lambda e: e),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RoleInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.RoleContext {}>'.format(context)
-
 class RoleInstance(InstanceResource):
 
     class RoleType(object):
@@ -469,5 +384,90 @@ class RoleInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V2.RoleInstance {}>'.format(context)
+
+class RoleContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the RoleContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: 
+        :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v2.service.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Roles/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the RoleInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the RoleInstance
+        
+
+        :returns: The fetched RoleInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RoleInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, permission):
+        """
+        Update the RoleInstance
+        
+        :params list[str] permission: 
+
+        :returns: The updated RoleInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
+        """
+        data = values.of({ 
+            'Permission': serialize.map(permission, lambda e: e),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RoleInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.RoleContext {}>'.format(context)
 
 

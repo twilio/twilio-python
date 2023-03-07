@@ -74,7 +74,6 @@ class DeviceCodeList(ListResource):
         """
         return '<Twilio.Oauth.V1.DeviceCodeList>'
 
-
 class DeviceCodeInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -154,5 +153,6 @@ class DeviceCodeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Oauth.V1.DeviceCodeInstance {}>'.format(context)
+
 
 

@@ -231,93 +231,6 @@ class TaskChannelPage(Page):
 
 
 
-class TaskChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, sid: str):
-        """
-        Initialize the TaskChannelContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Task Channel to update.
-        :param sid: The SID of the Task Channel resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/TaskChannels/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the TaskChannelInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the TaskChannelInstance
-        
-
-        :returns: The fetched TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TaskChannelInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, channel_optimized_routing=values.unset):
-        """
-        Update the TaskChannelInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :params bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-
-        :returns: The updated TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ChannelOptimizedRouting': channel_optimized_routing,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TaskChannelInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskChannelContext {}>'.format(context)
-
 class TaskChannelInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str, sid: str=None):
@@ -477,5 +390,92 @@ class TaskChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskChannelInstance {}>'.format(context)
+
+class TaskChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, sid: str):
+        """
+        Initialize the TaskChannelContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Task Channel to update.
+        :param sid: The SID of the Task Channel resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'sid': sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/TaskChannels/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the TaskChannelInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the TaskChannelInstance
+        
+
+        :returns: The fetched TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TaskChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, channel_optimized_routing=values.unset):
+        """
+        Update the TaskChannelInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :params bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+
+        :returns: The updated TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ChannelOptimizedRouting': channel_optimized_routing,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TaskChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.TaskChannelContext {}>'.format(context)
 
 

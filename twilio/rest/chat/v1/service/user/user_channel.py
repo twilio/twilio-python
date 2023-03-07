@@ -178,7 +178,6 @@ class UserChannelPage(Page):
 
 
 
-
 class UserChannelInstance(InstanceResource):
 
     class ChannelStatus(object):
@@ -281,5 +280,6 @@ class UserChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V1.UserChannelInstance {}>'.format(context)
+
 
 

@@ -228,87 +228,6 @@ class SourceIpMappingPage(Page):
 
 
 
-class SourceIpMappingContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SourceIpMappingContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/SourceIpMappings/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the SourceIpMappingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SourceIpMappingInstance
-        
-
-        :returns: The fetched SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SourceIpMappingInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, sip_domain_sid):
-        """
-        Update the SourceIpMappingInstance
-        
-        :params str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
-
-        :returns: The updated SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
-        """
-        data = values.of({ 
-            'SipDomainSid': sip_domain_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SourceIpMappingInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.SourceIpMappingContext {}>'.format(context)
-
 class SourceIpMappingInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -431,5 +350,86 @@ class SourceIpMappingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Voice.V1.SourceIpMappingInstance {}>'.format(context)
+
+class SourceIpMappingContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SourceIpMappingContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
+
+        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/SourceIpMappings/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the SourceIpMappingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SourceIpMappingInstance
+        
+
+        :returns: The fetched SourceIpMappingInstance
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SourceIpMappingInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, sip_domain_sid):
+        """
+        Update the SourceIpMappingInstance
+        
+        :params str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
+
+        :returns: The updated SourceIpMappingInstance
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
+        """
+        data = values.of({ 
+            'SipDomainSid': sip_domain_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SourceIpMappingInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.SourceIpMappingContext {}>'.format(context)
 
 

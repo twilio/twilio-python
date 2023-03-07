@@ -35,18 +35,27 @@ class V1(Version):
         
     @property
     def auth_token_promotion(self) -> AuthTokenPromotionList:
+        """
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
+        """
         if self._auth_token_promotion is None:
             self._auth_token_promotion = AuthTokenPromotionList(self)
         return self._auth_token_promotion
 
     @property
     def credentials(self) -> CredentialList:
+        """
+        :rtype: twilio.rest.accounts.v1.credential.CredentialList
+        """
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
 
     @property
     def secondary_auth_token(self) -> SecondaryAuthTokenList:
+        """
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
+        """
         if self._secondary_auth_token is None:
             self._secondary_auth_token = SecondaryAuthTokenList(self)
         return self._secondary_auth_token

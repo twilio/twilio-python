@@ -241,65 +241,6 @@ class ChannelPage(Page):
 
 
 
-class ChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ChannelContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Flex chat channel resource to fetch.
-
-        :returns: twilio.rest.flex_api.v1.channel.ChannelContext
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Channels/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ChannelInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ChannelInstance
-        
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.ChannelContext {}>'.format(context)
-
 class ChannelInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -429,5 +370,64 @@ class ChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.ChannelInstance {}>'.format(context)
+
+class ChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ChannelContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Flex chat channel resource to fetch.
+
+        :returns: twilio.rest.flex_api.v1.channel.ChannelContext
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Channels/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ChannelInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ChannelInstance
+        
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.ChannelContext {}>'.format(context)
 
 

@@ -207,105 +207,6 @@ class ConnectAppPage(Page):
 
 
 
-class ConnectAppContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the ConnectAppContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
-        :param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
-
-        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/ConnectApps/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ConnectAppInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ConnectAppInstance
-        
-
-        :returns: The fetched ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ConnectAppInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, authorize_redirect_url=values.unset, company_name=values.unset, deauthorize_callback_method=values.unset, deauthorize_callback_url=values.unset, description=values.unset, friendly_name=values.unset, homepage_url=values.unset, permissions=values.unset):
-        """
-        Update the ConnectAppInstance
-        
-        :params str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
-        :params str company_name: The company name to set for the Connect App.
-        :params str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
-        :params str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
-        :params str description: A description of the Connect App.
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :params str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :params list[ConnectAppInstance.Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
-
-        :returns: The updated ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
-        """
-        data = values.of({ 
-            'AuthorizeRedirectUrl': authorize_redirect_url,
-            'CompanyName': company_name,
-            'DeauthorizeCallbackMethod': deauthorize_callback_method,
-            'DeauthorizeCallbackUrl': deauthorize_callback_url,
-            'Description': description,
-            'FriendlyName': friendly_name,
-            'HomepageUrl': homepage_url,
-            'Permissions': serialize.map(permissions, lambda e: e),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConnectAppInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ConnectAppContext {}>'.format(context)
-
 class ConnectAppInstance(InstanceResource):
 
     class Permission(object):
@@ -484,5 +385,104 @@ class ConnectAppInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ConnectAppInstance {}>'.format(context)
+
+class ConnectAppContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the ConnectAppContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
+        :param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
+
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/ConnectApps/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ConnectAppInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ConnectAppInstance
+        
+
+        :returns: The fetched ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, authorize_redirect_url=values.unset, company_name=values.unset, deauthorize_callback_method=values.unset, deauthorize_callback_url=values.unset, description=values.unset, friendly_name=values.unset, homepage_url=values.unset, permissions=values.unset):
+        """
+        Update the ConnectAppInstance
+        
+        :params str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :params str company_name: The company name to set for the Connect App.
+        :params str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :params str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :params str description: A description of the Connect App.
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str homepage_url: A public URL where users can obtain more information about this Connect App.
+        :params list[ConnectAppInstance.Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+
+        :returns: The updated ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        """
+        data = values.of({ 
+            'AuthorizeRedirectUrl': authorize_redirect_url,
+            'CompanyName': company_name,
+            'DeauthorizeCallbackMethod': deauthorize_callback_method,
+            'DeauthorizeCallbackUrl': deauthorize_callback_url,
+            'Description': description,
+            'FriendlyName': friendly_name,
+            'HomepageUrl': homepage_url,
+            'Permissions': serialize.map(permissions, lambda e: e),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.ConnectAppContext {}>'.format(context)
 
 

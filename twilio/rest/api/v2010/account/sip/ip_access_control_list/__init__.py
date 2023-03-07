@@ -228,108 +228,6 @@ class IpAccessControlListPage(Page):
 
 
 
-class IpAccessControlListContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the IpAccessControlListContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-        :param sid: A 34 character string that uniquely identifies the resource to udpate.
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{sid}.json'.format(**self._solution)
-        
-        self._ip_addresses = None
-    
-    def delete(self):
-        """
-        Deletes the IpAccessControlListInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the IpAccessControlListInstance
-        
-
-        :returns: The fetched IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return IpAccessControlListInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name):
-        """
-        Update the IpAccessControlListInstance
-        
-        :params str friendly_name: A human readable descriptive text, up to 255 characters long.
-
-        :returns: The updated IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return IpAccessControlListInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def ip_addresses(self):
-        """
-        Access the ip_addresses
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAddressList
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAddressList
-        """
-        if self._ip_addresses is None:
-            self._ip_addresses = IpAddressList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
-            )
-        return self._ip_addresses
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.IpAccessControlListContext {}>'.format(context)
-
 class IpAccessControlListInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, sid: str=None):
@@ -471,5 +369,107 @@ class IpAccessControlListInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.IpAccessControlListInstance {}>'.format(context)
+
+class IpAccessControlListContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the IpAccessControlListContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param sid: A 34 character string that uniquely identifies the resource to udpate.
+
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{sid}.json'.format(**self._solution)
+        
+        self._ip_addresses = None
+    
+    def delete(self):
+        """
+        Deletes the IpAccessControlListInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the IpAccessControlListInstance
+        
+
+        :returns: The fetched IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name):
+        """
+        Update the IpAccessControlListInstance
+        
+        :params str friendly_name: A human readable descriptive text, up to 255 characters long.
+
+        :returns: The updated IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def ip_addresses(self):
+        """
+        Access the ip_addresses
+
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAddressList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAddressList
+        """
+        if self._ip_addresses is None:
+            self._ip_addresses = IpAddressList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
+            )
+        return self._ip_addresses
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.IpAccessControlListContext {}>'.format(context)
 
 

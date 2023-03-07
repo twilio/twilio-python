@@ -90,6 +90,101 @@ class ExportList(ListResource):
         """
         return '<Twilio.Bulkexports.V1.ExportList>'
 
+class ExportInstance(InstanceResource):
+
+    def __init__(self, version, payload, resource_type: str=None):
+        """
+        Initialize the ExportInstance
+        :returns: twilio.rest.bulkexports.v1.export.ExportInstance
+        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'resource_type': payload.get('resource_type'),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
+        }
+
+        self._context = None
+        self._solution = { 'resource_type': resource_type or self._properties['resource_type'],  }
+    
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ExportContext for this ExportInstance
+        :rtype: twilio.rest.bulkexports.v1.export.ExportContext
+        """
+        if self._context is None:
+            self._context = ExportContext(self._version, resource_type=self._solution['resource_type'],)
+        return self._context
+    
+    @property
+    def resource_type(self):
+        """
+        :returns: The type of communication – Messages, Calls, Conferences, and Participants
+        :rtype: str
+        """
+        return self._properties['resource_type']
+    
+    @property
+    def url(self):
+        """
+        :returns: The URL of this resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def links(self):
+        """
+        :returns: Contains a dictionary of URL links to nested resources of this Export.
+        :rtype: dict
+        """
+        return self._properties['links']
+    
+    def fetch(self):
+        """
+        Fetch the ExportInstance
+        
+
+        :returns: The fetched ExportInstance
+        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
+        """
+        return self._proxy.fetch()
+    
+    @property
+    def days(self):
+        """
+        Access the days
+
+        :returns: twilio.rest.bulkexports.v1.export.DayList
+        :rtype: twilio.rest.bulkexports.v1.export.DayList
+        """
+        return self._proxy.days
+    
+    @property
+    def export_custom_jobs(self):
+        """
+        Access the export_custom_jobs
+
+        :returns: twilio.rest.bulkexports.v1.export.ExportCustomJobList
+        :rtype: twilio.rest.bulkexports.v1.export.ExportCustomJobList
+        """
+        return self._proxy.export_custom_jobs
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.ExportInstance {}>'.format(context)
+
 class ExportContext(InstanceContext):
 
     def __init__(self, version: Version, resource_type: str):
@@ -185,100 +280,5 @@ class ExportContext(InstanceContext):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Bulkexports.V1.ExportContext {}>'.format(context)
-
-class ExportInstance(InstanceResource):
-
-    def __init__(self, version, payload, resource_type: str=None):
-        """
-        Initialize the ExportInstance
-        :returns: twilio.rest.bulkexports.v1.export.ExportInstance
-        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
-        """
-        super().__init__(version)
-
-        self._properties = { 
-            'resource_type': payload.get('resource_type'),
-            'url': payload.get('url'),
-            'links': payload.get('links'),
-        }
-
-        self._context = None
-        self._solution = { 'resource_type': resource_type or self._properties['resource_type'],  }
-    
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ExportContext for this ExportInstance
-        :rtype: twilio.rest.bulkexports.v1.export.ExportContext
-        """
-        if self._context is None:
-            self._context = ExportContext(self._version, resource_type=self._solution['resource_type'],)
-        return self._context
-    
-    @property
-    def resource_type(self):
-        """
-        :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        :rtype: str
-        """
-        return self._properties['resource_type']
-    
-    @property
-    def url(self):
-        """
-        :returns: The URL of this resource.
-        :rtype: str
-        """
-        return self._properties['url']
-    
-    @property
-    def links(self):
-        """
-        :returns: Contains a dictionary of URL links to nested resources of this Export.
-        :rtype: dict
-        """
-        return self._properties['links']
-    
-    def fetch(self):
-        """
-        Fetch the ExportInstance
-        
-
-        :returns: The fetched ExportInstance
-        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
-        """
-        return self._proxy.fetch()
-    
-    @property
-    def days(self):
-        """
-        Access the days
-
-        :returns: twilio.rest.bulkexports.v1.export.DayList
-        :rtype: twilio.rest.bulkexports.v1.export.DayList
-        """
-        return self._proxy.days
-    
-    @property
-    def export_custom_jobs(self):
-        """
-        Access the export_custom_jobs
-
-        :returns: twilio.rest.bulkexports.v1.export.ExportCustomJobList
-        :rtype: twilio.rest.bulkexports.v1.export.ExportCustomJobList
-        """
-        return self._proxy.export_custom_jobs
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Bulkexports.V1.ExportInstance {}>'.format(context)
 
 

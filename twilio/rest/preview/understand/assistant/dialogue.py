@@ -75,58 +75,6 @@ class DialogueList(ListResource):
         """
         return '<Twilio.Preview.Understand.DialogueList>'
 
-class DialogueContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, sid: str):
-        """
-        Initialize the DialogueContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: 
-        :param sid: 
-
-        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
-        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Dialogues/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the DialogueInstance
-        
-
-        :returns: The fetched DialogueInstance
-        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DialogueInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.DialogueContext {}>'.format(context)
-
 class DialogueInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, sid: str=None):
@@ -219,5 +167,57 @@ class DialogueInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.DialogueInstance {}>'.format(context)
+
+class DialogueContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, sid: str):
+        """
+        Initialize the DialogueContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: 
+        :param sid: 
+
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Dialogues/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the DialogueInstance
+        
+
+        :returns: The fetched DialogueInstance
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DialogueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.DialogueContext {}>'.format(context)
 
 

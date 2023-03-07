@@ -202,61 +202,6 @@ class SubscribedTrackPage(Page):
 
 
 
-class SubscribedTrackContext(InstanceContext):
-
-    def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
-        """
-        Initialize the SubscribedTrackContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room where the Track resource to fetch is subscribed.
-        :param participant_sid: The SID of the participant that subscribes to the Track resource to fetch.
-        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'participant_sid': participant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the SubscribedTrackInstance
-        
-
-        :returns: The fetched SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SubscribedTrackInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            participant_sid=self._solution['participant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.SubscribedTrackContext {}>'.format(context)
-
 class SubscribedTrackInstance(InstanceResource):
 
     class Kind(object):
@@ -399,5 +344,60 @@ class SubscribedTrackInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.SubscribedTrackInstance {}>'.format(context)
+
+class SubscribedTrackContext(InstanceContext):
+
+    def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
+        """
+        Initialize the SubscribedTrackContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room where the Track resource to fetch is subscribed.
+        :param participant_sid: The SID of the participant that subscribes to the Track resource to fetch.
+        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'room_sid': room_sid,
+            'participant_sid': participant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the SubscribedTrackInstance
+        
+
+        :returns: The fetched SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SubscribedTrackInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            participant_sid=self._solution['participant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.SubscribedTrackContext {}>'.format(context)
 
 

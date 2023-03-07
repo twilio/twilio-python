@@ -230,110 +230,6 @@ class FieldTypePage(Page):
 
 
 
-class FieldTypeContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, sid: str):
-        """
-        Initialize the FieldTypeContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: 
-        :param sid: 
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
-        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{sid}'.format(**self._solution)
-        
-        self._field_values = None
-    
-    def delete(self):
-        """
-        Deletes the FieldTypeInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the FieldTypeInstance
-        
-
-        :returns: The fetched FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FieldTypeInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, unique_name=values.unset):
-        """
-        Update the FieldTypeInstance
-        
-        :params str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-
-        :returns: The updated FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FieldTypeInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def field_values(self):
-        """
-        Access the field_values
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.FieldValueList
-        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldValueList
-        """
-        if self._field_values is None:
-            self._field_values = FieldValueList(
-                self._version, 
-                self._solution['assistant_sid'],
-                self._solution['sid'],
-            )
-        return self._field_values
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.FieldTypeContext {}>'.format(context)
-
 class FieldTypeInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, sid: str=None):
@@ -494,5 +390,109 @@ class FieldTypeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.FieldTypeInstance {}>'.format(context)
+
+class FieldTypeContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, sid: str):
+        """
+        Initialize the FieldTypeContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: 
+        :param sid: 
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{sid}'.format(**self._solution)
+        
+        self._field_values = None
+    
+    def delete(self):
+        """
+        Deletes the FieldTypeInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the FieldTypeInstance
+        
+
+        :returns: The fetched FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FieldTypeInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, unique_name=values.unset):
+        """
+        Update the FieldTypeInstance
+        
+        :params str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+
+        :returns: The updated FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FieldTypeInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def field_values(self):
+        """
+        Access the field_values
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldValueList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldValueList
+        """
+        if self._field_values is None:
+            self._field_values = FieldValueList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
+            )
+        return self._field_values
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.FieldTypeContext {}>'.format(context)
 
 

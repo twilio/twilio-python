@@ -33,18 +33,28 @@ class V2010(Version):
         
     @property
     def accounts(self) -> AccountList:
+        """
+        :rtype: twilio.rest.api.v2010.account.AccountList
+        """
         if self._accounts is None:
             self._accounts = AccountList(self)
         return self._accounts
 
     @property
     def account(self) -> AccountContext:
+        """
+        :rtype: twilio.rest.api.v2010.account.AccountContext
+        """
         if self._account is None:
             self._account = AccountContext(self, self.domain.twilio.account_sid)
         return self._account
 
     @account.setter
     def account(self, value: AccountContext):
+        """
+        Setter to override account
+        :param value: value to use as account
+        """
         self._account = value
 
     def __repr__(self) -> str:

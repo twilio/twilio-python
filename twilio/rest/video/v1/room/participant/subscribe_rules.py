@@ -84,7 +84,6 @@ class SubscribeRulesList(ListResource):
         """
         return '<Twilio.Video.V1.SubscribeRulesList>'
 
-
 class SubscribeRulesInstance(InstanceResource):
 
     def __init__(self, version, payload, room_sid: str, participant_sid: str):
@@ -155,5 +154,6 @@ class SubscribeRulesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.SubscribeRulesInstance {}>'.format(context)
+
 
 

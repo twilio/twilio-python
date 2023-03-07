@@ -31,6 +31,9 @@ class V1(Version):
         
     @property
     def flows(self) -> FlowList:
+        """
+        :rtype: twilio.rest.studio.v1.flow.FlowList
+        """
         if self._flows is None:
             self._flows = FlowList(self)
         return self._flows

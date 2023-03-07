@@ -70,52 +70,6 @@ class UserInfoList(ListResource):
         """
         return '<Twilio.Oauth.V1.UserInfoList>'
 
-class UserInfoContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the UserInfoContext
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/userinfo'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the UserInfoInstance
-        
-
-        :returns: The fetched UserInfoInstance
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return UserInfoInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Oauth.V1.UserInfoContext {}>'.format(context)
-
 class UserInfoInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -217,5 +171,51 @@ class UserInfoInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Oauth.V1.UserInfoInstance {}>'.format(context)
+
+class UserInfoContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the UserInfoContext
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/userinfo'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the UserInfoInstance
+        
+
+        :returns: The fetched UserInfoInstance
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return UserInfoInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Oauth.V1.UserInfoContext {}>'.format(context)
 
 

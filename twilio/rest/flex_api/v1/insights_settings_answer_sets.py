@@ -64,7 +64,6 @@ class InsightsSettingsAnswerSetsList(ListResource):
         """
         return '<Twilio.FlexApi.V1.InsightsSettingsAnswerSetsList>'
 
-
 class InsightsSettingsAnswerSetsInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -135,5 +134,6 @@ class InsightsSettingsAnswerSetsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsSettingsAnswerSetsInstance {}>'.format(context)
+
 
 

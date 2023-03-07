@@ -81,7 +81,6 @@ class ValidationRequestList(ListResource):
         """
         return '<Twilio.Api.V2010.ValidationRequestList>'
 
-
 class ValidationRequestInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str):
@@ -152,5 +151,6 @@ class ValidationRequestInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ValidationRequestInstance {}>'.format(context)
+
 
 

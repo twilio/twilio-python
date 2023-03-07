@@ -244,55 +244,6 @@ class SmsCommandPage(Page):
 
 
 
-class SmsCommandContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SmsCommandContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the SMS Command resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandContext
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/SmsCommands/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the SmsCommandInstance
-        
-
-        :returns: The fetched SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SmsCommandInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.SmsCommandContext {}>'.format(context)
-
 class SmsCommandInstance(InstanceResource):
 
     class Direction(object):
@@ -432,5 +383,54 @@ class SmsCommandInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.SmsCommandInstance {}>'.format(context)
+
+class SmsCommandContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SmsCommandContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the SMS Command resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/SmsCommands/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the SmsCommandInstance
+        
+
+        :returns: The fetched SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SmsCommandInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.SmsCommandContext {}>'.format(context)
 
 

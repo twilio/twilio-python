@@ -205,113 +205,6 @@ class DevicePage(Page):
 
 
 
-class DeviceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the DeviceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: A 34-character string that uniquely identifies this Device.
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceContext
-        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Devices/{sid}'.format(**self._solution)
-        
-        self._device_configs = None
-        self._device_secrets = None
-    
-    def fetch(self):
-        """
-        Fetch the DeviceInstance
-        
-
-        :returns: The fetched DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DeviceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset, target_app=values.unset, logging_enabled=values.unset):
-        """
-        Update the DeviceInstance
-        
-        :params str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
-        :params str target_app: The SID or unique name of the App to be targeted to the Device.
-        :params bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
-
-        :returns: The updated DeviceInstance
-        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'TargetApp': target_app,
-            'LoggingEnabled': logging_enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DeviceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def device_configs(self):
-        """
-        Access the device_configs
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceConfigList
-        :rtype: twilio.rest.microvisor.v1.device.DeviceConfigList
-        """
-        if self._device_configs is None:
-            self._device_configs = DeviceConfigList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._device_configs
-    
-    @property
-    def device_secrets(self):
-        """
-        Access the device_secrets
-
-        :returns: twilio.rest.microvisor.v1.device.DeviceSecretList
-        :rtype: twilio.rest.microvisor.v1.device.DeviceSecretList
-        """
-        if self._device_secrets is None:
-            self._device_secrets = DeviceSecretList(
-                self._version, 
-                self._solution['sid'],
-            )
-        return self._device_secrets
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Microvisor.V1.DeviceContext {}>'.format(context)
-
 class DeviceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -473,5 +366,112 @@ class DeviceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Microvisor.V1.DeviceInstance {}>'.format(context)
+
+class DeviceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the DeviceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: A 34-character string that uniquely identifies this Device.
+
+        :returns: twilio.rest.microvisor.v1.device.DeviceContext
+        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Devices/{sid}'.format(**self._solution)
+        
+        self._device_configs = None
+        self._device_secrets = None
+    
+    def fetch(self):
+        """
+        Fetch the DeviceInstance
+        
+
+        :returns: The fetched DeviceInstance
+        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DeviceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset, target_app=values.unset, logging_enabled=values.unset):
+        """
+        Update the DeviceInstance
+        
+        :params str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
+        :params str target_app: The SID or unique name of the App to be targeted to the Device.
+        :params bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+
+        :returns: The updated DeviceInstance
+        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'TargetApp': target_app,
+            'LoggingEnabled': logging_enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DeviceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def device_configs(self):
+        """
+        Access the device_configs
+
+        :returns: twilio.rest.microvisor.v1.device.DeviceConfigList
+        :rtype: twilio.rest.microvisor.v1.device.DeviceConfigList
+        """
+        if self._device_configs is None:
+            self._device_configs = DeviceConfigList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._device_configs
+    
+    @property
+    def device_secrets(self):
+        """
+        Access the device_secrets
+
+        :returns: twilio.rest.microvisor.v1.device.DeviceSecretList
+        :rtype: twilio.rest.microvisor.v1.device.DeviceSecretList
+        """
+        if self._device_secrets is None:
+            self._device_secrets = DeviceSecretList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._device_secrets
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.DeviceContext {}>'.format(context)
 
 

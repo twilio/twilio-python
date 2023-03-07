@@ -226,102 +226,6 @@ class SyncMapPage(Page):
 
 
 
-class SyncMapContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the SyncMapContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: 
-        :param sid: 
-
-        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
-        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Maps/{sid}'.format(**self._solution)
-        
-        self._sync_map_items = None
-        self._sync_map_permissions = None
-    
-    def delete(self):
-        """
-        Deletes the SyncMapInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SyncMapInstance
-        
-
-        :returns: The fetched SyncMapInstance
-        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SyncMapInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    @property
-    def sync_map_items(self):
-        """
-        Access the sync_map_items
-
-        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapItemList
-        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapItemList
-        """
-        if self._sync_map_items is None:
-            self._sync_map_items = SyncMapItemList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
-            )
-        return self._sync_map_items
-    
-    @property
-    def sync_map_permissions(self):
-        """
-        Access the sync_map_permissions
-
-        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapPermissionList
-        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapPermissionList
-        """
-        if self._sync_map_permissions is None:
-            self._sync_map_permissions = SyncMapPermissionList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
-            )
-        return self._sync_map_permissions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Sync.SyncMapContext {}>'.format(context)
-
 class SyncMapInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -489,5 +393,101 @@ class SyncMapInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Sync.SyncMapInstance {}>'.format(context)
+
+class SyncMapContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the SyncMapContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: 
+        :param sid: 
+
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Maps/{sid}'.format(**self._solution)
+        
+        self._sync_map_items = None
+        self._sync_map_permissions = None
+    
+    def delete(self):
+        """
+        Deletes the SyncMapInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SyncMapInstance
+        
+
+        :returns: The fetched SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SyncMapInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def sync_map_items(self):
+        """
+        Access the sync_map_items
+
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapItemList
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapItemList
+        """
+        if self._sync_map_items is None:
+            self._sync_map_items = SyncMapItemList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._sync_map_items
+    
+    @property
+    def sync_map_permissions(self):
+        """
+        Access the sync_map_permissions
+
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapPermissionList
+        """
+        if self._sync_map_permissions is None:
+            self._sync_map_permissions = SyncMapPermissionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._sync_map_permissions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Sync.SyncMapContext {}>'.format(context)
 
 
