@@ -45,6 +45,20 @@ class EvaluationList(ListResource):
         
     
     
+    def create(self):
+        """
+        Create the EvaluationInstance
+
+        
+        :returns: The created EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        """
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, )
+
+        return EvaluationInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

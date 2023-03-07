@@ -44,6 +44,20 @@ class SinkTestList(ListResource):
         
         
     
+    def create(self):
+        """
+        Create the SinkTestInstance
+
+        
+        :returns: The created SinkTestInstance
+        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
+        """
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, )
+
+        return SinkTestInstance(self._version, payload, sid=self._solution['sid'])
+    
 
 
     def __repr__(self):

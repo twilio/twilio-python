@@ -43,6 +43,20 @@ class SecondaryAuthTokenList(ListResource):
         
         
     
+    def create(self):
+        """
+        Create the SecondaryAuthTokenInstance
+
+        
+        :returns: The created SecondaryAuthTokenInstance
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenInstance
+        """
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, )
+
+        return SecondaryAuthTokenInstance(self._version, payload)
+    
     
 
     def get(self):

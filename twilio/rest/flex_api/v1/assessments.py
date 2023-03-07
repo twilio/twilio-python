@@ -43,6 +43,20 @@ class AssessmentsList(ListResource):
         
         
     
+    def create(self):
+        """
+        Create the AssessmentsInstance
+
+        
+        :returns: The created AssessmentsInstance
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
+        """
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, )
+
+        return AssessmentsInstance(self._version, payload)
+    
 
     def get(self):
         """
