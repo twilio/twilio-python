@@ -37,24 +37,36 @@ class V1(Version):
         
     @property
     def event_types(self) -> EventTypeList:
+        """
+        :rtype: twilio.rest.events.v1.event_type.EventTypeList
+        """
         if self._event_types is None:
             self._event_types = EventTypeList(self)
         return self._event_types
 
     @property
     def schemas(self) -> SchemaList:
+        """
+        :rtype: twilio.rest.events.v1.schema.SchemaList
+        """
         if self._schemas is None:
             self._schemas = SchemaList(self)
         return self._schemas
 
     @property
     def sinks(self) -> SinkList:
+        """
+        :rtype: twilio.rest.events.v1.sink.SinkList
+        """
         if self._sinks is None:
             self._sinks = SinkList(self)
         return self._sinks
 
     @property
     def subscriptions(self) -> SubscriptionList:
+        """
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionList
+        """
         if self._subscriptions is None:
             self._subscriptions = SubscriptionList(self)
         return self._subscriptions

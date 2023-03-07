@@ -31,6 +31,9 @@ class Understand(Version):
         
     @property
     def assistants(self) -> AssistantList:
+        """
+        :rtype: twilio.rest.preview.understand.assistant.AssistantList
+        """
         if self._assistants is None:
             self._assistants = AssistantList(self)
         return self._assistants

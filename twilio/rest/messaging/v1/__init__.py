@@ -45,48 +45,72 @@ class V1(Version):
         
     @property
     def brand_registrations(self) -> BrandRegistrationList:
+        """
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationList
+        """
         if self._brand_registrations is None:
             self._brand_registrations = BrandRegistrationList(self)
         return self._brand_registrations
 
     @property
     def deactivations(self) -> DeactivationsList:
+        """
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
+        """
         if self._deactivations is None:
             self._deactivations = DeactivationsList(self)
         return self._deactivations
 
     @property
     def domain_certs(self) -> DomainCertsList:
+        """
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsList
+        """
         if self._domain_certs is None:
             self._domain_certs = DomainCertsList(self)
         return self._domain_certs
 
     @property
     def domain_config(self) -> DomainConfigList:
+        """
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
+        """
         if self._domain_config is None:
             self._domain_config = DomainConfigList(self)
         return self._domain_config
 
     @property
     def external_campaign(self) -> ExternalCampaignList:
+        """
+        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
+        """
         if self._external_campaign is None:
             self._external_campaign = ExternalCampaignList(self)
         return self._external_campaign
 
     @property
     def services(self) -> ServiceList:
+        """
+        :rtype: twilio.rest.messaging.v1.service.ServiceList
+        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
 
     @property
     def tollfree_verifications(self) -> TollfreeVerificationList:
+        """
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
+        """
         if self._tollfree_verifications is None:
             self._tollfree_verifications = TollfreeVerificationList(self)
         return self._tollfree_verifications
 
     @property
     def usecases(self) -> UsecaseList:
+        """
+        :rtype: twilio.rest.messaging.v1.usecase.UsecaseList
+        """
         if self._usecases is None:
             self._usecases = UsecaseList(self)
         return self._usecases

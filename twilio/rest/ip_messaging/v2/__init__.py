@@ -33,12 +33,18 @@ class V2(Version):
         
     @property
     def credentials(self) -> CredentialList:
+        """
+        :rtype: twilio.rest.ip_messaging.v2.credential.CredentialList
+        """
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
 
     @property
     def services(self) -> ServiceList:
+        """
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceList
+        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services

@@ -33,12 +33,18 @@ class V1(Version):
         
     @property
     def contents(self) -> ContentList:
+        """
+        :rtype: twilio.rest.content.v1.content.ContentList
+        """
         if self._contents is None:
             self._contents = ContentList(self)
         return self._contents
 
     @property
     def legacy_contents(self) -> LegacyContentList:
+        """
+        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentList
+        """
         if self._legacy_contents is None:
             self._legacy_contents = LegacyContentList(self)
         return self._legacy_contents

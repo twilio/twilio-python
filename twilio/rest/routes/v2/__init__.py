@@ -35,18 +35,27 @@ class V2(Version):
         
     @property
     def phone_numbers(self) -> PhoneNumberList:
+        """
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberList
+        """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
 
     @property
     def sip_domains(self) -> SipDomainList:
+        """
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainList
+        """
         if self._sip_domains is None:
             self._sip_domains = SipDomainList(self)
         return self._sip_domains
 
     @property
     def trunks(self) -> TrunkList:
+        """
+        :rtype: twilio.rest.routes.v2.trunk.TrunkList
+        """
         if self._trunks is None:
             self._trunks = TrunkList(self)
         return self._trunks

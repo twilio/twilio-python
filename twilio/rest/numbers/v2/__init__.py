@@ -31,6 +31,9 @@ class V2(Version):
         
     @property
     def regulatory_compliance(self) -> RegulatoryComplianceList:
+        """
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.RegulatoryComplianceList
+        """
         if self._regulatory_compliance is None:
             self._regulatory_compliance = RegulatoryComplianceList(self)
         return self._regulatory_compliance

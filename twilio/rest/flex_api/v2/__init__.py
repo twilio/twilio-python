@@ -31,6 +31,9 @@ class V2(Version):
         
     @property
     def web_channels(self) -> WebChannelsList:
+        """
+        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsList
+        """
         if self._web_channels is None:
             self._web_channels = WebChannelsList(self)
         return self._web_channels
