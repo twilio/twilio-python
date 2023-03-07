@@ -31,6 +31,9 @@ class V3(Version):
         
     @property
     def channels(self) -> ChannelList:
+        """
+        :rtype: twilio.rest.chat.v3.channel.ChannelList
+        """
         if self._channels is None:
             self._channels = ChannelList(self)
         return self._channels

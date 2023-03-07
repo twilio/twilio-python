@@ -45,48 +45,72 @@ class V1(Version):
         
     @property
     def address_configurations(self) -> AddressConfigurationList:
+        """
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
+        """
         if self._address_configurations is None:
             self._address_configurations = AddressConfigurationList(self)
         return self._address_configurations
 
     @property
     def configuration(self) -> ConfigurationList:
+        """
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationList
+        """
         if self._configuration is None:
             self._configuration = ConfigurationList(self)
         return self._configuration
 
     @property
     def conversations(self) -> ConversationList:
+        """
+        :rtype: twilio.rest.conversations.v1.conversation.ConversationList
+        """
         if self._conversations is None:
             self._conversations = ConversationList(self)
         return self._conversations
 
     @property
     def credentials(self) -> CredentialList:
+        """
+        :rtype: twilio.rest.conversations.v1.credential.CredentialList
+        """
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
 
     @property
     def participant_conversations(self) -> ParticipantConversationList:
+        """
+        :rtype: twilio.rest.conversations.v1.participant_conversation.ParticipantConversationList
+        """
         if self._participant_conversations is None:
             self._participant_conversations = ParticipantConversationList(self)
         return self._participant_conversations
 
     @property
     def roles(self) -> RoleList:
+        """
+        :rtype: twilio.rest.conversations.v1.role.RoleList
+        """
         if self._roles is None:
             self._roles = RoleList(self)
         return self._roles
 
     @property
     def services(self) -> ServiceList:
+        """
+        :rtype: twilio.rest.conversations.v1.service.ServiceList
+        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
 
     @property
     def users(self) -> UserList:
+        """
+        :rtype: twilio.rest.conversations.v1.user.UserList
+        """
         if self._users is None:
             self._users = UserList(self)
         return self._users

@@ -33,12 +33,18 @@ class V1(Version):
         
     @property
     def assistants(self) -> AssistantList:
+        """
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantList
+        """
         if self._assistants is None:
             self._assistants = AssistantList(self)
         return self._assistants
 
     @property
     def restore_assistant(self) -> RestoreAssistantList:
+        """
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
+        """
         if self._restore_assistant is None:
             self._restore_assistant = RestoreAssistantList(self)
         return self._restore_assistant

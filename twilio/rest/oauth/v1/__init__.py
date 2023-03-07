@@ -39,30 +39,45 @@ class V1(Version):
         
     @property
     def device_code(self) -> DeviceCodeList:
+        """
+        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeList
+        """
         if self._device_code is None:
             self._device_code = DeviceCodeList(self)
         return self._device_code
 
     @property
     def oauth(self) -> OauthList:
+        """
+        :rtype: twilio.rest.oauth.v1.oauth.OauthList
+        """
         if self._oauth is None:
             self._oauth = OauthList(self)
         return self._oauth
 
     @property
     def openid_discovery(self) -> OpenidDiscoveryList:
+        """
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
+        """
         if self._openid_discovery is None:
             self._openid_discovery = OpenidDiscoveryList(self)
         return self._openid_discovery
 
     @property
     def token(self) -> TokenList:
+        """
+        :rtype: twilio.rest.oauth.v1.token.TokenList
+        """
         if self._token is None:
             self._token = TokenList(self)
         return self._token
 
     @property
     def user_info(self) -> UserInfoList:
+        """
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoList
+        """
         if self._user_info is None:
             self._user_info = UserInfoList(self)
         return self._user_info
