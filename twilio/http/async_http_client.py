@@ -68,7 +68,7 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
 
         basic_auth = None
         if auth is not None:
-            basic_auth = BasicAuth(login=auth.username, password=auth.password)
+            basic_auth = BasicAuth(login=auth[0], password=auth[1])
 
         kwargs = {
             'method': method.upper(),
@@ -84,12 +84,19 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         self._log_request(kwargs)
         self._test_only_last_response = None
 
-        session = self.session if not None else aiohttp
-
+        temp = False
+        session = None
+        if self.session:
+            session = self.session
+        else:
+            session = aiohttp.ClientSession()
+            temp = True
         self._test_only_last_request = TwilioRequest(**kwargs)
         response = await session.request(**kwargs)
         self._log_response(response)
         self._test_only_last_response = Response(response.status, await response.text(), response.headers)
+        if temp:
+            await session.close()
         return self._test_only_last_response
 
     async def close(self):
