@@ -127,7 +127,7 @@ class FormInstance(InstanceResource):
     class FormTypes(object):
         FORM_PUSH = "form-push"
 
-    def __init__(self, version, payload, form_type: FormInstance.FormTypes=None):
+    def __init__(self, version, payload, form_type: FormTypes=None):
         """
         Initialize the FormInstance
         :returns: twilio.rest.verify.v2.form.FormInstance
