@@ -263,7 +263,9 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.:param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the Recording resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Recording resource to update.
 
         :returns: twilio.rest.api.v2010.account.call.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingContext

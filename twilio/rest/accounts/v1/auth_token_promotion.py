@@ -77,7 +77,6 @@ class AuthTokenPromotionContext(InstanceContext):
         Initialize the AuthTokenPromotionContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
         :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext

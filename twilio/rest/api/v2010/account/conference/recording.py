@@ -233,7 +233,9 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.:param conference_sid: The Conference SID that identifies the conference associated with the recording to update.:param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
+        :param conference_sid: The Conference SID that identifies the conference associated with the recording to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
 
         :returns: twilio.rest.api.v2010.account.conference.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingContext

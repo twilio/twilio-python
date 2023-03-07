@@ -232,7 +232,9 @@ class AuthCallsIpAccessControlListMappingContext(InstanceContext):
         Initialize the AuthCallsIpAccessControlListMappingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resource to fetch.:param domain_sid: The SID of the SIP domain that contains the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resource to fetch.
+        :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingContext

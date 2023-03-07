@@ -218,7 +218,9 @@ class UserBindingContext(InstanceContext):
         Initialize the UserBindingContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param user_sid: :param sid: 
+        :param service_sid: 
+        :param user_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext

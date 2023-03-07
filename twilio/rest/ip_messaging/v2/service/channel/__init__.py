@@ -257,7 +257,8 @@ class ChannelContext(InstanceContext):
         Initialize the ChannelContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param sid: 
+        :param service_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelContext
         :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelContext
@@ -352,7 +353,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v2.service.channel.InviteList
         """
         if self._invites is None:
-            self._invites = InviteList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._invites = InviteList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._invites
     
@@ -365,7 +369,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v2.service.channel.MemberList
         """
         if self._members is None:
-            self._members = MemberList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._members = MemberList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._members
     
@@ -378,7 +385,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v2.service.channel.MessageList
         """
         if self._messages is None:
-            self._messages = MessageList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._messages = MessageList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._messages
     
@@ -391,7 +401,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v2.service.channel.WebhookList
         """
         if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._webhooks = WebhookList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._webhooks
     

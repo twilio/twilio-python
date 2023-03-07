@@ -248,7 +248,8 @@ class ActivityContext(InstanceContext):
         Initialize the ActivityContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Activity resources to update.:param sid: The SID of the Activity resource to update.
+        :param workspace_sid: The SID of the Workspace with the Activity resources to update.
+        :param sid: The SID of the Activity resource to update.
 
         :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext

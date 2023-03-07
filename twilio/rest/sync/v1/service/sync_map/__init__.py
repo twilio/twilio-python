@@ -240,7 +240,8 @@ class SyncMapContext(InstanceContext):
         Initialize the SyncMapContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to update.:param sid: The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to update.
+        :param sid: The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
 
         :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
@@ -321,7 +322,10 @@ class SyncMapContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapItemList
         """
         if self._sync_map_items is None:
-            self._sync_map_items = SyncMapItemList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_map_items = SyncMapItemList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_map_items
     
@@ -334,7 +338,10 @@ class SyncMapContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapPermissionList
         """
         if self._sync_map_permissions is None:
-            self._sync_map_permissions = SyncMapPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_map_permissions = SyncMapPermissionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_map_permissions
     

@@ -248,7 +248,8 @@ class DeviceContext(InstanceContext):
         Initialize the DeviceContext
 
         :param Version version: Version that contains the resource
-        :param fleet_sid: :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
+        :param fleet_sid: 
+        :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
 
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext

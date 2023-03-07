@@ -309,7 +309,9 @@ class ConnectionPolicyContext(InstanceContext):
         :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyTargetList
         """
         if self._targets is None:
-            self._targets = ConnectionPolicyTargetList(self._version, self._solution['sid'],
+            self._targets = ConnectionPolicyTargetList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._targets
     

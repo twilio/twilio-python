@@ -210,7 +210,9 @@ class StepContext(InstanceContext):
         Initialize the StepContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Step to fetch.:param engagement_sid: The SID of the Engagement with the Step to fetch.:param sid: The SID of the Step resource to fetch.
+        :param flow_sid: The SID of the Flow with the Step to fetch.
+        :param engagement_sid: The SID of the Engagement with the Step to fetch.
+        :param sid: The SID of the Step resource to fetch.
 
         :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
@@ -257,7 +259,11 @@ class StepContext(InstanceContext):
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContextList
         """
         if self._step_context is None:
-            self._step_context = StepContextList(self._version, self._solution['flow_sid'], self._solution['engagement_sid'], self._solution['sid'],
+            self._step_context = StepContextList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['engagement_sid'],
+                self._solution['sid'],
             )
         return self._step_context
     

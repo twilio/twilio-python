@@ -235,7 +235,8 @@ class CredentialListContext(InstanceContext):
         Initialize the CredentialListContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that is responsible for this resource.:param sid: The credential list Sid that uniquely identifies this resource
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param sid: The credential list Sid that uniquely identifies this resource
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
@@ -313,7 +314,10 @@ class CredentialListContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialList
         """
         if self._credentials is None:
-            self._credentials = CredentialList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._credentials = CredentialList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._credentials
     

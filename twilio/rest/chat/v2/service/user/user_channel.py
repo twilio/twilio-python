@@ -215,7 +215,9 @@ class UserChannelContext(InstanceContext):
         Initialize the UserChannelContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User Channel resource in.:param user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) to update the User Channel resource from. This value can be either the `sid` or the `identity` of the User resource.:param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) with the User Channel resource to update. This value can be the Channel resource's `sid` or `unique_name`.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User Channel resource in.
+        :param user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) to update the User Channel resource from. This value can be either the `sid` or the `identity` of the User resource.
+        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) with the User Channel resource to update. This value can be the Channel resource's `sid` or `unique_name`.
 
         :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext

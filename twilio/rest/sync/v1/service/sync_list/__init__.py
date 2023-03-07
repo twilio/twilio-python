@@ -240,7 +240,8 @@ class SyncListContext(InstanceContext):
         Initialize the SyncListContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.:param sid: The SID of the Sync List resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.
+        :param sid: The SID of the Sync List resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
 
         :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
@@ -321,7 +322,10 @@ class SyncListContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListItemList
         """
         if self._sync_list_items is None:
-            self._sync_list_items = SyncListItemList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_list_items = SyncListItemList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_list_items
     
@@ -334,7 +338,10 @@ class SyncListContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListPermissionList
         """
         if self._sync_list_permissions is None:
-            self._sync_list_permissions = SyncListPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_list_permissions = SyncListPermissionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_list_permissions
     

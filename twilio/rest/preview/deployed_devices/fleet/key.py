@@ -242,7 +242,8 @@ class KeyContext(InstanceContext):
         Initialize the KeyContext
 
         :param Version version: Version that contains the resource
-        :param fleet_sid: :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
+        :param fleet_sid: 
+        :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
 
         :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext

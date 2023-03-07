@@ -237,7 +237,9 @@ class BucketContext(InstanceContext):
         Initialize the BucketContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.:param rate_limit_sid: The Twilio-provided string that uniquely identifies the Rate Limit resource.:param sid: A 34 character string that uniquely identifies this Bucket.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+        :param rate_limit_sid: The Twilio-provided string that uniquely identifies the Rate Limit resource.
+        :param sid: A 34 character string that uniquely identifies this Bucket.
 
         :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext

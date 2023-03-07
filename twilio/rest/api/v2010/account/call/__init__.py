@@ -385,7 +385,8 @@ class CallContext(InstanceContext):
         Initialize the CallContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the Call resource to update
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Call resource to update
 
         :returns: twilio.rest.api.v2010.account.call.CallContext
         :rtype: twilio.rest.api.v2010.account.call.CallContext
@@ -401,6 +402,7 @@ class CallContext(InstanceContext):
         
         self._events = None
         self._feedback = None
+        self._feedback_summaries = None
         self._notifications = None
         self._payments = None
         self._recordings = None
@@ -487,7 +489,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.EventList
         """
         if self._events is None:
-            self._events = EventList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._events = EventList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._events
     
@@ -500,9 +505,27 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.FeedbackList
         """
         if self._feedback is None:
-            self._feedback = FeedbackList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._feedback = FeedbackList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._feedback
+    
+    @property
+    def feedback_summaries(self):
+        """
+        Access the feedback_summaries
+
+        :returns: twilio.rest.api.v2010.account.call.FeedbackSummaryList
+        :rtype: twilio.rest.api.v2010.account.call.FeedbackSummaryList
+        """
+        if self._feedback_summaries is None:
+            self._feedback_summaries = FeedbackSummaryList(
+                self._version, 
+                self._solution['account_sid'],
+            )
+        return self._feedback_summaries
     
     @property
     def notifications(self):
@@ -513,7 +536,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.NotificationList
         """
         if self._notifications is None:
-            self._notifications = NotificationList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._notifications = NotificationList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._notifications
     
@@ -526,7 +552,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.PaymentList
         """
         if self._payments is None:
-            self._payments = PaymentList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._payments = PaymentList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._payments
     
@@ -539,7 +568,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.RecordingList
         """
         if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._recordings = RecordingList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._recordings
     
@@ -552,7 +584,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.SiprecList
         """
         if self._siprec is None:
-            self._siprec = SiprecList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._siprec = SiprecList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._siprec
     
@@ -565,7 +600,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.StreamList
         """
         if self._streams is None:
-            self._streams = StreamList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._streams = StreamList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._streams
     
@@ -578,7 +616,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageList
         """
         if self._user_defined_messages is None:
-            self._user_defined_messages = UserDefinedMessageList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._user_defined_messages = UserDefinedMessageList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._user_defined_messages
     
@@ -591,7 +632,10 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
         """
         if self._user_defined_message_subscriptions is None:
-            self._user_defined_message_subscriptions = UserDefinedMessageSubscriptionList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._user_defined_message_subscriptions = UserDefinedMessageSubscriptionList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._user_defined_message_subscriptions
     

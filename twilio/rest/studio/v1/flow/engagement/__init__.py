@@ -237,7 +237,8 @@ class EngagementContext(InstanceContext):
         Initialize the EngagementContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow.:param sid: The SID of the Engagement resource to fetch.
+        :param flow_sid: The SID of the Flow.
+        :param sid: The SID of the Engagement resource to fetch.
 
         :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
@@ -293,7 +294,10 @@ class EngagementContext(InstanceContext):
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContextList
         """
         if self._engagement_context is None:
-            self._engagement_context = EngagementContextList(self._version, self._solution['flow_sid'], self._solution['sid'],
+            self._engagement_context = EngagementContextList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
             )
         return self._engagement_context
     
@@ -306,7 +310,10 @@ class EngagementContext(InstanceContext):
         :rtype: twilio.rest.studio.v1.flow.engagement.StepList
         """
         if self._steps is None:
-            self._steps = StepList(self._version, self._solution['flow_sid'], self._solution['sid'],
+            self._steps = StepList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
             )
         return self._steps
     

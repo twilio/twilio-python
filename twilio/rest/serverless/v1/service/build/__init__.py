@@ -238,7 +238,8 @@ class BuildContext(InstanceContext):
         Initialize the BuildContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Build resource from.:param sid: The SID of the Build resource to fetch.
+        :param service_sid: The SID of the Service to fetch the Build resource from.
+        :param sid: The SID of the Build resource to fetch.
 
         :returns: twilio.rest.serverless.v1.service.build.BuildContext
         :rtype: twilio.rest.serverless.v1.service.build.BuildContext
@@ -293,7 +294,10 @@ class BuildContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.build.BuildStatusList
         """
         if self._build_status is None:
-            self._build_status = BuildStatusList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._build_status = BuildStatusList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._build_status
     

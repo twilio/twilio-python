@@ -77,7 +77,6 @@ class UserInfoContext(InstanceContext):
         Initialize the UserInfoContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
         :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext

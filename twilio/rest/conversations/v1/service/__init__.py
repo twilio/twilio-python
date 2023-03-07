@@ -294,7 +294,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.BindingList
         """
         if self._bindings is None:
-            self._bindings = BindingList(self._version, self._solution['sid'],
+            self._bindings = BindingList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._bindings
     
@@ -307,7 +309,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.ConfigurationList
         """
         if self._configuration is None:
-            self._configuration = ConfigurationList(self._version, self._solution['sid'],
+            self._configuration = ConfigurationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._configuration
     
@@ -320,7 +324,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.ConversationList
         """
         if self._conversations is None:
-            self._conversations = ConversationList(self._version, self._solution['sid'],
+            self._conversations = ConversationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._conversations
     
@@ -333,7 +339,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.ParticipantConversationList
         """
         if self._participant_conversations is None:
-            self._participant_conversations = ParticipantConversationList(self._version, self._solution['sid'],
+            self._participant_conversations = ParticipantConversationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._participant_conversations
     
@@ -346,7 +354,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.RoleList
         """
         if self._roles is None:
-            self._roles = RoleList(self._version, self._solution['sid'],
+            self._roles = RoleList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._roles
     
@@ -359,7 +369,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.UserList
         """
         if self._users is None:
-            self._users = UserList(self._version, self._solution['sid'],
+            self._users = UserList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._users
     

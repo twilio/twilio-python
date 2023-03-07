@@ -233,7 +233,9 @@ class AssignedAddOnContext(InstanceContext):
         Initialize the AssignedAddOnContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.:param resource_sid: The SID of the Phone Number to which the Add-on is assigned.:param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
+        :param resource_sid: The SID of the Phone Number to which the Add-on is assigned.
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
@@ -290,7 +292,11 @@ class AssignedAddOnContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnExtensionList
         """
         if self._extensions is None:
-            self._extensions = AssignedAddOnExtensionList(self._version, self._solution['account_sid'], self._solution['resource_sid'], self._solution['sid'],
+            self._extensions = AssignedAddOnExtensionList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['resource_sid'],
+                self._solution['sid'],
             )
         return self._extensions
     

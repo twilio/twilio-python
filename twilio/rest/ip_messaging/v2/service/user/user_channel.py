@@ -215,7 +215,9 @@ class UserChannelContext(InstanceContext):
         Initialize the UserChannelContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param user_sid: :param channel_sid: 
+        :param service_sid: 
+        :param user_sid: 
+        :param channel_sid: 
 
         :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
         :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext

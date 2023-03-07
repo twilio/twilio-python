@@ -125,7 +125,9 @@ class SchemaContext(InstanceContext):
         :rtype: twilio.rest.events.v1.schema.SchemaVersionList
         """
         if self._versions is None:
-            self._versions = SchemaVersionList(self._version, self._solution['id'],
+            self._versions = SchemaVersionList(
+                self._version, 
+                self._solution['id'],
             )
         return self._versions
     

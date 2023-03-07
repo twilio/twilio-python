@@ -80,7 +80,8 @@ class TaskActionsContext(InstanceContext):
         Initialize the TaskActionsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task for which the task actions to update were defined.:param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the task actions to update were defined.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task for which the task actions to update were defined.
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the task actions to update were defined.
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext

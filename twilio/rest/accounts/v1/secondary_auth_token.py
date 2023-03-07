@@ -78,7 +78,6 @@ class SecondaryAuthTokenContext(InstanceContext):
         Initialize the SecondaryAuthTokenContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
         :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext

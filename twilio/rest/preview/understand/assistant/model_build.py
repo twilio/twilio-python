@@ -236,7 +236,8 @@ class ModelBuildContext(InstanceContext):
         Initialize the ModelBuildContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: :param sid: 
+        :param assistant_sid: 
+        :param sid: 
 
         :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext

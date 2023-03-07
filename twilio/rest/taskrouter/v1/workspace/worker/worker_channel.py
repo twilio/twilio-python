@@ -212,7 +212,9 @@ class WorkerChannelContext(InstanceContext):
         Initialize the WorkerChannelContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the WorkerChannel to update.:param worker_sid: The SID of the Worker with the WorkerChannel to update.:param sid: The SID of the WorkerChannel to update.
+        :param workspace_sid: The SID of the Workspace with the WorkerChannel to update.
+        :param worker_sid: The SID of the Worker with the WorkerChannel to update.
+        :param sid: The SID of the WorkerChannel to update.
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext

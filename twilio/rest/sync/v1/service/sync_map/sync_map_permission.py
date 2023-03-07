@@ -215,7 +215,9 @@ class SyncMapPermissionContext(InstanceContext):
         Initialize the SyncMapPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service's `sid` value or `default`.:param map_sid: The SID of the Sync Map with the Sync Map Permission resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.:param identity: The application-defined string that uniquely identifies the User's Sync Map Permission resource to update.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service's `sid` value or `default`.
+        :param map_sid: The SID of the Sync Map with the Sync Map Permission resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.
+        :param identity: The application-defined string that uniquely identifies the User's Sync Map Permission resource to update.
 
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionContext
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionContext

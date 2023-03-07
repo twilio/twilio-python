@@ -249,7 +249,8 @@ class RecordingContext(InstanceContext):
         Initialize the RecordingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
@@ -310,7 +311,10 @@ class RecordingContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.recording.AddOnResultList
         """
         if self._add_on_results is None:
-            self._add_on_results = AddOnResultList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._add_on_results = AddOnResultList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._add_on_results
     
@@ -323,7 +327,10 @@ class RecordingContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.recording.TranscriptionList
         """
         if self._transcriptions is None:
-            self._transcriptions = TranscriptionList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._transcriptions = TranscriptionList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._transcriptions
     

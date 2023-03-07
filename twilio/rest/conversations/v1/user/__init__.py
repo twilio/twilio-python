@@ -324,7 +324,9 @@ class UserContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.user.UserConversationList
         """
         if self._user_conversations is None:
-            self._user_conversations = UserConversationList(self._version, self._solution['sid'],
+            self._user_conversations = UserConversationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._user_conversations
     

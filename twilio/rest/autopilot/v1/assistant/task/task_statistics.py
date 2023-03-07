@@ -79,7 +79,8 @@ class TaskStatisticsContext(InstanceContext):
         Initialize the TaskStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.:param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) that is associated with the resource to fetch.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) that is associated with the resource to fetch.
 
         :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext

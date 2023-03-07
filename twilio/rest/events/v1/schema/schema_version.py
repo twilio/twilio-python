@@ -208,7 +208,8 @@ class SchemaVersionContext(InstanceContext):
         Initialize the SchemaVersionContext
 
         :param Version version: Version that contains the resource
-        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.:param schema_version: The version of the schema
+        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+        :param schema_version: The version of the schema
 
         :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext

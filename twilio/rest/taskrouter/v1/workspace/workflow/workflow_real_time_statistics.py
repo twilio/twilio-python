@@ -79,7 +79,8 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         Initialize the WorkflowRealTimeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Workflow to fetch.:param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
+        :param workspace_sid: The SID of the Workspace with the Workflow to fetch.
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext

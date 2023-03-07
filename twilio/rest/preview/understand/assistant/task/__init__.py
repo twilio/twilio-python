@@ -244,7 +244,8 @@ class TaskContext(InstanceContext):
         Initialize the TaskContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.:param sid: A 34 character string that uniquely identifies this resource.
+        :param assistant_sid: The unique ID of the Assistant.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.preview.understand.assistant.task.TaskContext
         :rtype: twilio.rest.preview.understand.assistant.task.TaskContext
@@ -331,7 +332,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.task.FieldList
         """
         if self._fields is None:
-            self._fields = FieldList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._fields = FieldList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._fields
     
@@ -344,7 +348,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.task.SampleList
         """
         if self._samples is None:
-            self._samples = SampleList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._samples = SampleList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._samples
     
@@ -357,7 +364,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.task.TaskActionsList
         """
         if self._task_actions is None:
-            self._task_actions = TaskActionsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._task_actions = TaskActionsList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._task_actions
     
@@ -370,7 +380,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.task.TaskStatisticsList
         """
         if self._statistics is None:
-            self._statistics = TaskStatisticsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._statistics = TaskStatisticsList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._statistics
     

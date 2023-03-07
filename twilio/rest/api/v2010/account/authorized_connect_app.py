@@ -208,7 +208,8 @@ class AuthorizedConnectAppContext(InstanceContext):
         Initialize the AuthorizedConnectAppContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.:param connect_app_sid: The SID of the Connect App to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.
+        :param connect_app_sid: The SID of the Connect App to fetch.
 
         :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext

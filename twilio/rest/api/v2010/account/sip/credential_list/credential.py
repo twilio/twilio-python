@@ -237,7 +237,9 @@ class CredentialContext(InstanceContext):
         Initialize the CredentialContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that is responsible for this resource.:param credential_list_sid: The unique id that identifies the credential list that includes this credential.:param sid: The unique id that identifies the resource to update.
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param credential_list_sid: The unique id that identifies the credential list that includes this credential.
+        :param sid: The unique id that identifies the resource to update.
 
         :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext

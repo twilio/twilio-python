@@ -226,7 +226,8 @@ class ConferenceParticipantContext(InstanceContext):
         Initialize the ConferenceParticipantContext
 
         :param Version version: Version that contains the resource
-        :param conference_sid: The unique SID identifier of the Conference.:param participant_sid: The unique SID identifier of the Participant.
+        :param conference_sid: The unique SID identifier of the Conference.
+        :param participant_sid: The unique SID identifier of the Participant.
 
         :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
         :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext

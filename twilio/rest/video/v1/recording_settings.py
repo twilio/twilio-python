@@ -105,7 +105,6 @@ class RecordingSettingsContext(InstanceContext):
         Initialize the RecordingSettingsContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext

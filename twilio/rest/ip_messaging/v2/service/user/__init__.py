@@ -243,7 +243,8 @@ class UserContext(InstanceContext):
         Initialize the UserContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param sid: 
+        :param service_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v2.service.user.UserContext
         :rtype: twilio.rest.ip_messaging.v2.service.user.UserContext
@@ -327,7 +328,10 @@ class UserContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v2.service.user.UserBindingList
         """
         if self._user_bindings is None:
-            self._user_bindings = UserBindingList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._user_bindings = UserBindingList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._user_bindings
     
@@ -340,7 +344,10 @@ class UserContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v2.service.user.UserChannelList
         """
         if self._user_channels is None:
-            self._user_channels = UserChannelList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._user_channels = UserChannelList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._user_channels
     

@@ -215,7 +215,9 @@ class DocumentPermissionContext(InstanceContext):
         Initialize the DocumentPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to update.:param document_sid: The SID of the Sync Document with the Document Permission resource to update. Can be the Document resource's `sid` or its `unique_name`.:param identity: The application-defined string that uniquely identifies the User's Document Permission resource to update.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to update.
+        :param document_sid: The SID of the Sync Document with the Document Permission resource to update. Can be the Document resource's `sid` or its `unique_name`.
+        :param identity: The application-defined string that uniquely identifies the User's Document Permission resource to update.
 
         :returns: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext
         :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionContext

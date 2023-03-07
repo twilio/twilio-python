@@ -215,7 +215,9 @@ class SyncListPermissionContext(InstanceContext):
         Initialize the SyncListPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to update.:param list_sid: The SID of the Sync List with the Sync List Permission resource to update. Can be the Sync List resource's `sid` or its `unique_name`.:param identity: The application-defined string that uniquely identifies the User's Sync List Permission resource to update.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to update.
+        :param list_sid: The SID of the Sync List with the Sync List Permission resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
+        :param identity: The application-defined string that uniquely identifies the User's Sync List Permission resource to update.
 
         :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext

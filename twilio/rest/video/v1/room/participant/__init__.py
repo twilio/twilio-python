@@ -239,7 +239,8 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The SID of the room with the participant to update.:param sid: The SID of the RoomParticipant resource to update.
+        :param room_sid: The SID of the room with the participant to update.
+        :param sid: The SID of the RoomParticipant resource to update.
 
         :returns: twilio.rest.video.v1.room.participant.ParticipantContext
         :rtype: twilio.rest.video.v1.room.participant.ParticipantContext
@@ -310,7 +311,10 @@ class ParticipantContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.participant.AnonymizeList
         """
         if self._anonymize is None:
-            self._anonymize = AnonymizeList(self._version, self._solution['room_sid'], self._solution['sid'],
+            self._anonymize = AnonymizeList(
+                self._version, 
+                self._solution['room_sid'],
+                self._solution['sid'],
             )
         return self._anonymize
     
@@ -323,7 +327,10 @@ class ParticipantContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.participant.PublishedTrackList
         """
         if self._published_tracks is None:
-            self._published_tracks = PublishedTrackList(self._version, self._solution['room_sid'], self._solution['sid'],
+            self._published_tracks = PublishedTrackList(
+                self._version, 
+                self._solution['room_sid'],
+                self._solution['sid'],
             )
         return self._published_tracks
     
@@ -336,7 +343,10 @@ class ParticipantContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.participant.SubscribeRulesList
         """
         if self._subscribe_rules is None:
-            self._subscribe_rules = SubscribeRulesList(self._version, self._solution['room_sid'], self._solution['sid'],
+            self._subscribe_rules = SubscribeRulesList(
+                self._version, 
+                self._solution['room_sid'],
+                self._solution['sid'],
             )
         return self._subscribe_rules
     
@@ -349,7 +359,10 @@ class ParticipantContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.participant.SubscribedTrackList
         """
         if self._subscribed_tracks is None:
-            self._subscribed_tracks = SubscribedTrackList(self._version, self._solution['room_sid'], self._solution['sid'],
+            self._subscribed_tracks = SubscribedTrackList(
+                self._version, 
+                self._solution['room_sid'],
+                self._solution['sid'],
             )
         return self._subscribed_tracks
     

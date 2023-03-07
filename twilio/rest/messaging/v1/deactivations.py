@@ -77,7 +77,6 @@ class DeactivationsContext(InstanceContext):
         Initialize the DeactivationsContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
         :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext

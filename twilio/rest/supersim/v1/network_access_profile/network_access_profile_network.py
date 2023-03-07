@@ -231,7 +231,8 @@ class NetworkAccessProfileNetworkContext(InstanceContext):
         Initialize the NetworkAccessProfileNetworkContext
 
         :param Version version: Version that contains the resource
-        :param network_access_profile_sid: The unique string that identifies the Network Access Profile resource.:param sid: The SID of the Network resource to fetch.
+        :param network_access_profile_sid: The unique string that identifies the Network Access Profile resource.
+        :param sid: The SID of the Network resource to fetch.
 
         :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
         :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext

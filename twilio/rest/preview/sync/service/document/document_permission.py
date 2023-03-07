@@ -215,7 +215,9 @@ class DocumentPermissionContext(InstanceContext):
         Initialize the DocumentPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Sync Service Instance.:param document_sid: Identifier of the Sync Document. Either a SID or a unique name.:param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+        :param service_sid: The unique SID identifier of the Sync Service Instance.
+        :param document_sid: Identifier of the Sync Document. Either a SID or a unique name.
+        :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
 
         :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
         :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext

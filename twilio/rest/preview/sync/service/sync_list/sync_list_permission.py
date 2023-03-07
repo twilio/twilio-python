@@ -215,7 +215,9 @@ class SyncListPermissionContext(InstanceContext):
         Initialize the SyncListPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Sync Service Instance.:param list_sid: Identifier of the Sync List. Either a SID or a unique name.:param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+        :param service_sid: The unique SID identifier of the Sync Service Instance.
+        :param list_sid: Identifier of the Sync List. Either a SID or a unique name.
+        :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
 
         :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionContext

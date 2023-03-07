@@ -80,7 +80,8 @@ class FeedbackContext(InstanceContext):
         Initialize the FeedbackContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param call_sid: The call sid that uniquely identifies the call
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param call_sid: The call sid that uniquely identifies the call
 
         :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext

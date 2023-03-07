@@ -242,7 +242,8 @@ class OriginationUrlContext(InstanceContext):
         Initialize the OriginationUrlContext
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to update the OriginationUrl.:param sid: The unique string that we created to identify the OriginationUrl resource to update.
+        :param trunk_sid: The SID of the Trunk from which to update the OriginationUrl.
+        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
 
         :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext

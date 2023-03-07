@@ -85,7 +85,8 @@ class ChannelContext(InstanceContext):
         Initialize the ChannelContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service.:param sid: A 34 character string that uniquely identifies this Channel.
+        :param service_sid: The unique SID identifier of the Service.
+        :param sid: A 34 character string that uniquely identifies this Channel.
 
         :returns: twilio.rest.chat.v3.channel.ChannelContext
         :rtype: twilio.rest.chat.v3.channel.ChannelContext

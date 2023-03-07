@@ -80,7 +80,8 @@ class TaskActionsContext(InstanceContext):
         Initialize the TaskActionsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.:param task_sid: The unique ID of the Task.
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param task_sid: The unique ID of the Task.
 
         :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
         :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext

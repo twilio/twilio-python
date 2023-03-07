@@ -234,7 +234,9 @@ class FieldContext(InstanceContext):
         Initialize the FieldContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.:param task_sid: The unique ID of the Task associated with this Field.:param sid: A 34 character string that uniquely identifies this resource.
+        :param assistant_sid: The unique ID of the Assistant.
+        :param task_sid: The unique ID of the Task associated with this Field.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.preview.understand.assistant.task.field.FieldContext
         :rtype: twilio.rest.preview.understand.assistant.task.field.FieldContext

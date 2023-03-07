@@ -209,7 +209,9 @@ class SubscribedTrackContext(InstanceContext):
         Initialize the SubscribedTrackContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room where the Track resource to fetch is subscribed.:param participant_sid: The SID of the participant that subscribes to the Track resource to fetch.:param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
+        :param room_sid: The SID of the Room where the Track resource to fetch is subscribed.
+        :param participant_sid: The SID of the participant that subscribes to the Track resource to fetch.
+        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
 
         :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
         :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext

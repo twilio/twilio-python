@@ -260,7 +260,8 @@ class QueryContext(InstanceContext):
         Initialize the QueryContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.:param sid: A 34 character string that uniquely identifies this resource.
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.preview.understand.assistant.query.QueryContext
         :rtype: twilio.rest.preview.understand.assistant.query.QueryContext

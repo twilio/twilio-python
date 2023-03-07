@@ -223,7 +223,8 @@ class BindingContext(InstanceContext):
         Initialize the BindingContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.:param sid: A 34 character string that uniquely identifies this resource.
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.service.binding.BindingContext
         :rtype: twilio.rest.conversations.v1.service.binding.BindingContext

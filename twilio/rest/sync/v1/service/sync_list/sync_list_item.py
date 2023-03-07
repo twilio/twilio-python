@@ -259,7 +259,9 @@ class SyncListItemContext(InstanceContext):
         Initialize the SyncListItemContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update.:param list_sid: The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`.:param index: The index of the Sync List Item resource to update.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update.
+        :param list_sid: The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
+        :param index: The index of the Sync List Item resource to update.
 
         :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext

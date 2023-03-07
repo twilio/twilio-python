@@ -242,7 +242,8 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service.:param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
+        :param service_sid: The unique SID identifier of the Service.
+        :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
 
         :returns: twilio.rest.verify.v2.service.webhook.WebhookContext
         :rtype: twilio.rest.verify.v2.service.webhook.WebhookContext

@@ -78,7 +78,6 @@ class SettingsContext(InstanceContext):
         Initialize the SettingsContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext

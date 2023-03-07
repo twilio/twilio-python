@@ -208,7 +208,8 @@ class FlowRevisionContext(InstanceContext):
         Initialize the FlowRevisionContext
 
         :param Version version: Version that contains the resource
-        :param sid: The SID of the Flow resource to fetch.:param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+        :param sid: The SID of the Flow resource to fetch.
+        :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
 
         :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
         :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext

@@ -255,7 +255,9 @@ class SyncMapItemContext(InstanceContext):
         Initialize the SyncMapItemContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param map_sid: :param key: 
+        :param service_sid: 
+        :param map_sid: 
+        :param key: 
 
         :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext

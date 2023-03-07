@@ -231,7 +231,8 @@ class PhoneNumberContext(InstanceContext):
         Initialize the PhoneNumberContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the PhoneNumber resource to fetch.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
+        :param sid: The SID of the PhoneNumber resource to fetch.
 
         :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext

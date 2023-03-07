@@ -311,7 +311,9 @@ class ConferenceContext(InstanceContext):
         :rtype: twilio.rest.insights.v1.conference.ConferenceParticipantList
         """
         if self._conference_participants is None:
-            self._conference_participants = ConferenceParticipantList(self._version, self._solution['conference_sid'],
+            self._conference_participants = ConferenceParticipantList(
+                self._version, 
+                self._solution['conference_sid'],
             )
         return self._conference_participants
     

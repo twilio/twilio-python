@@ -341,7 +341,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.PhoneNumberList
         """
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self._version, self._solution['sid'],
+            self._phone_numbers = PhoneNumberList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._phone_numbers
     
@@ -354,7 +356,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.SessionList
         """
         if self._sessions is None:
-            self._sessions = SessionList(self._version, self._solution['sid'],
+            self._sessions = SessionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sessions
     
@@ -367,7 +371,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.ShortCodeList
         """
         if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, self._solution['sid'],
+            self._short_codes = ShortCodeList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._short_codes
     

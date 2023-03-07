@@ -242,7 +242,8 @@ class ConnectionPolicyTargetContext(InstanceContext):
         Initialize the ConnectionPolicyTargetContext
 
         :param Version version: Version that contains the resource
-        :param connection_policy_sid: The SID of the Connection Policy that owns the Target.:param sid: The unique string that we created to identify the Target resource to update.
+        :param connection_policy_sid: The SID of the Connection Policy that owns the Target.
+        :param sid: The unique string that we created to identify the Target resource to update.
 
         :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
         :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext

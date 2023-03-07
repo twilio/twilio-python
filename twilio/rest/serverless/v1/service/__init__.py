@@ -325,7 +325,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.AssetList
         """
         if self._assets is None:
-            self._assets = AssetList(self._version, self._solution['sid'],
+            self._assets = AssetList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._assets
     
@@ -338,7 +340,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.BuildList
         """
         if self._builds is None:
-            self._builds = BuildList(self._version, self._solution['sid'],
+            self._builds = BuildList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._builds
     
@@ -351,7 +355,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.EnvironmentList
         """
         if self._environments is None:
-            self._environments = EnvironmentList(self._version, self._solution['sid'],
+            self._environments = EnvironmentList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._environments
     
@@ -364,7 +370,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.FunctionList
         """
         if self._functions is None:
-            self._functions = FunctionList(self._version, self._solution['sid'],
+            self._functions = FunctionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._functions
     

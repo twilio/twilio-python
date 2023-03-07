@@ -232,7 +232,8 @@ class NotificationContext(InstanceContext):
         Initialize the NotificationContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Notification resource to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Notification resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.notification.NotificationContext
         :rtype: twilio.rest.api.v2010.account.notification.NotificationContext

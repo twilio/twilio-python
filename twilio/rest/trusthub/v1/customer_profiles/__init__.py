@@ -343,7 +343,9 @@ class CustomerProfilesContext(InstanceContext):
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
         """
         if self._customer_profiles_channel_endpoint_assignment is None:
-            self._customer_profiles_channel_endpoint_assignment = CustomerProfilesChannelEndpointAssignmentList(self._version, self._solution['sid'],
+            self._customer_profiles_channel_endpoint_assignment = CustomerProfilesChannelEndpointAssignmentList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._customer_profiles_channel_endpoint_assignment
     
@@ -356,7 +358,9 @@ class CustomerProfilesContext(InstanceContext):
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
         """
         if self._customer_profiles_entity_assignments is None:
-            self._customer_profiles_entity_assignments = CustomerProfilesEntityAssignmentsList(self._version, self._solution['sid'],
+            self._customer_profiles_entity_assignments = CustomerProfilesEntityAssignmentsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._customer_profiles_entity_assignments
     
@@ -369,7 +373,9 @@ class CustomerProfilesContext(InstanceContext):
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
         """
         if self._customer_profiles_evaluations is None:
-            self._customer_profiles_evaluations = CustomerProfilesEvaluationsList(self._version, self._solution['sid'],
+            self._customer_profiles_evaluations = CustomerProfilesEvaluationsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._customer_profiles_evaluations
     

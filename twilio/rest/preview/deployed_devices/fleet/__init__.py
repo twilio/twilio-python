@@ -317,7 +317,9 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.CertificateList
         """
         if self._certificates is None:
-            self._certificates = CertificateList(self._version, self._solution['sid'],
+            self._certificates = CertificateList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._certificates
     
@@ -330,7 +332,9 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.DeploymentList
         """
         if self._deployments is None:
-            self._deployments = DeploymentList(self._version, self._solution['sid'],
+            self._deployments = DeploymentList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._deployments
     
@@ -343,7 +347,9 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.DeviceList
         """
         if self._devices is None:
-            self._devices = DeviceList(self._version, self._solution['sid'],
+            self._devices = DeviceList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._devices
     
@@ -356,7 +362,9 @@ class FleetContext(InstanceContext):
         :rtype: twilio.rest.preview.deployed_devices.fleet.KeyList
         """
         if self._keys is None:
-            self._keys = KeyList(self._version, self._solution['sid'],
+            self._keys = KeyList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._keys
     

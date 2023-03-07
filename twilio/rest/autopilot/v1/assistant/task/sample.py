@@ -245,7 +245,9 @@ class SampleContext(InstanceContext):
         Initialize the SampleContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to update.:param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to update.:param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to update.
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
 
         :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext

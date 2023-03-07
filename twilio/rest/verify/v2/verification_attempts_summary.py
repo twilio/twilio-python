@@ -77,7 +77,6 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         Initialize the VerificationAttemptsSummaryContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
         :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext

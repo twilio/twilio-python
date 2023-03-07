@@ -112,6 +112,7 @@ class ExportContext(InstanceContext):
         
         self._days = None
         self._export_custom_jobs = None
+        self._jobs = None
     
     def fetch(self):
         """
@@ -141,7 +142,9 @@ class ExportContext(InstanceContext):
         :rtype: twilio.rest.bulkexports.v1.export.DayList
         """
         if self._days is None:
-            self._days = DayList(self._version, self._solution['resource_type'],
+            self._days = DayList(
+                self._version, 
+                self._solution['resource_type'],
             )
         return self._days
     
@@ -154,9 +157,25 @@ class ExportContext(InstanceContext):
         :rtype: twilio.rest.bulkexports.v1.export.ExportCustomJobList
         """
         if self._export_custom_jobs is None:
-            self._export_custom_jobs = ExportCustomJobList(self._version, self._solution['resource_type'],
+            self._export_custom_jobs = ExportCustomJobList(
+                self._version, 
+                self._solution['resource_type'],
             )
         return self._export_custom_jobs
+    
+    @property
+    def jobs(self):
+        """
+        Access the jobs
+
+        :returns: twilio.rest.bulkexports.v1.export.JobList
+        :rtype: twilio.rest.bulkexports.v1.export.JobList
+        """
+        if self._jobs is None:
+            self._jobs = JobList(
+                self._version, 
+            )
+        return self._jobs
     
     def __repr__(self):
         """

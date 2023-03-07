@@ -79,7 +79,8 @@ class ExecutionContextContext(InstanceContext):
         Initialize the ExecutionContextContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Execution context to fetch.:param execution_sid: The SID of the Execution context to fetch.
+        :param flow_sid: The SID of the Flow with the Execution context to fetch.
+        :param execution_sid: The SID of the Execution context to fetch.
 
         :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
         :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext

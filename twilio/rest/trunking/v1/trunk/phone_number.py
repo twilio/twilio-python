@@ -231,7 +231,8 @@ class PhoneNumberContext(InstanceContext):
         Initialize the PhoneNumberContext
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to fetch the PhoneNumber resource.:param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
+        :param trunk_sid: The SID of the Trunk from which to fetch the PhoneNumber resource.
+        :param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
 
         :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext

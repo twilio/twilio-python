@@ -245,7 +245,8 @@ class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
         Initialize the CustomerProfilesChannelEndpointAssignmentContext
 
         :param Version version: Version that contains the resource
-        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.:param sid: The unique string that we created to identify the resource.
+        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
+        :param sid: The unique string that we created to identify the resource.
 
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext

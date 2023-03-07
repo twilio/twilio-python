@@ -236,7 +236,8 @@ class EnvironmentContext(InstanceContext):
         Initialize the EnvironmentContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Environment resource from.:param sid: The SID of the Environment resource to fetch.
+        :param service_sid: The SID of the Service to fetch the Environment resource from.
+        :param sid: The SID of the Environment resource to fetch.
 
         :returns: twilio.rest.serverless.v1.service.environment.EnvironmentContext
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
@@ -293,7 +294,10 @@ class EnvironmentContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.environment.DeploymentList
         """
         if self._deployments is None:
-            self._deployments = DeploymentList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._deployments = DeploymentList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._deployments
     
@@ -306,7 +310,10 @@ class EnvironmentContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.environment.LogList
         """
         if self._logs is None:
-            self._logs = LogList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._logs = LogList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._logs
     
@@ -319,7 +326,10 @@ class EnvironmentContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.environment.VariableList
         """
         if self._variables is None:
-            self._variables = VariableList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._variables = VariableList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._variables
     

@@ -209,7 +209,9 @@ class AssetVersionContext(InstanceContext):
         Initialize the AssetVersionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Asset Version resource from.:param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resource to fetch.:param sid: The SID of the Asset Version resource to fetch.
+        :param service_sid: The SID of the Service to fetch the Asset Version resource from.
+        :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resource to fetch.
+        :param sid: The SID of the Asset Version resource to fetch.
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext

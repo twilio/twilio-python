@@ -79,7 +79,8 @@ class EngagementContextContext(InstanceContext):
         Initialize the EngagementContextContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow.:param engagement_sid: The SID of the Engagement.
+        :param flow_sid: The SID of the Flow.
+        :param engagement_sid: The SID of the Engagement.
 
         :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext

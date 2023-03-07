@@ -242,7 +242,8 @@ class UserContext(InstanceContext):
         Initialize the UserContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.:param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
 
         :returns: twilio.rest.conversations.v1.service.user.UserContext
         :rtype: twilio.rest.conversations.v1.service.user.UserContext
@@ -328,7 +329,10 @@ class UserContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.user.UserConversationList
         """
         if self._user_conversations is None:
-            self._user_conversations = UserConversationList(self._version, self._solution['chat_service_sid'], self._solution['sid'],
+            self._user_conversations = UserConversationList(
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._user_conversations
     

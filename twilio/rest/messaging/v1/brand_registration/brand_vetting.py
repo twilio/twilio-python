@@ -236,7 +236,8 @@ class BrandVettingContext(InstanceContext):
         Initialize the BrandVettingContext
 
         :param Version version: Version that contains the resource
-        :param brand_sid: The SID of the Brand Registration resource of the vettings to read .:param brand_vetting_sid: The Twilio SID of the third-party vetting record.
+        :param brand_sid: The SID of the Brand Registration resource of the vettings to read .
+        :param brand_vetting_sid: The Twilio SID of the third-party vetting record.
 
         :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
         :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext

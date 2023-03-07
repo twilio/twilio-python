@@ -347,7 +347,8 @@ class IncomingPhoneNumberContext(InstanceContext):
         Initialize the IncomingPhoneNumberContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).:param sid: The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
+        :param sid: The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
 
         :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberContext
@@ -362,6 +363,9 @@ class IncomingPhoneNumberContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._solution)
         
         self._assigned_add_ons = None
+        self._local = None
+        self._mobile = None
+        self._toll_free = None
     
     def delete(self):
         """
@@ -469,9 +473,57 @@ class IncomingPhoneNumberContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.AssignedAddOnList
         """
         if self._assigned_add_ons is None:
-            self._assigned_add_ons = AssignedAddOnList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._assigned_add_ons = AssignedAddOnList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._assigned_add_ons
+    
+    @property
+    def local(self):
+        """
+        Access the local
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.LocalList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.LocalList
+        """
+        if self._local is None:
+            self._local = LocalList(
+                self._version, 
+                self._solution['account_sid'],
+            )
+        return self._local
+    
+    @property
+    def mobile(self):
+        """
+        Access the mobile
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.MobileList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.MobileList
+        """
+        if self._mobile is None:
+            self._mobile = MobileList(
+                self._version, 
+                self._solution['account_sid'],
+            )
+        return self._mobile
+    
+    @property
+    def toll_free(self):
+        """
+        Access the toll_free
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.TollFreeList
+        """
+        if self._toll_free is None:
+            self._toll_free = TollFreeList(
+                self._version, 
+                self._solution['account_sid'],
+            )
+        return self._toll_free
     
     def __repr__(self):
         """

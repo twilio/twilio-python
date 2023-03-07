@@ -264,7 +264,9 @@ class ContentContext(InstanceContext):
         :rtype: twilio.rest.content.v1.content.ApprovalFetchList
         """
         if self._approval_fetch is None:
-            self._approval_fetch = ApprovalFetchList(self._version, self._solution['sid'],
+            self._approval_fetch = ApprovalFetchList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._approval_fetch
     

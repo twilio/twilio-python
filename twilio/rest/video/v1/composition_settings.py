@@ -105,7 +105,6 @@ class CompositionSettingsContext(InstanceContext):
         Initialize the CompositionSettingsContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
         :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext

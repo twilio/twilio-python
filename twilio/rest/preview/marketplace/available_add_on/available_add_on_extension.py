@@ -208,7 +208,8 @@ class AvailableAddOnExtensionContext(InstanceContext):
         Initialize the AvailableAddOnExtensionContext
 
         :param Version version: Version that contains the resource
-        :param available_add_on_sid: The SID of the AvailableAddOn resource with the extension to fetch.:param sid: The SID of the AvailableAddOn Extension resource to fetch.
+        :param available_add_on_sid: The SID of the AvailableAddOn resource with the extension to fetch.
+        :param sid: The SID of the AvailableAddOn Extension resource to fetch.
 
         :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext

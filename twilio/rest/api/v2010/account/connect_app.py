@@ -214,7 +214,8 @@ class ConnectAppContext(InstanceContext):
         Initialize the ConnectAppContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.:param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
+        :param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
 
         :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext

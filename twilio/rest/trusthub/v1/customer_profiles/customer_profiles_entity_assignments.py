@@ -231,7 +231,8 @@ class CustomerProfilesEntityAssignmentsContext(InstanceContext):
         Initialize the CustomerProfilesEntityAssignmentsContext
 
         :param Version version: Version that contains the resource
-        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.:param sid: The unique string that we created to identify the Identity resource.
+        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
+        :param sid: The unique string that we created to identify the Identity resource.
 
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext

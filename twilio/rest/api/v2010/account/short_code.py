@@ -223,7 +223,8 @@ class ShortCodeContext(InstanceContext):
         Initialize the ShortCodeContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
+        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
 
         :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext

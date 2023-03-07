@@ -79,7 +79,8 @@ class AnonymizeContext(InstanceContext):
         Initialize the AnonymizeContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The SID of the room with the participant to update.:param sid: The SID of the RoomParticipant resource to update.
+        :param room_sid: The SID of the room with the participant to update.
+        :param sid: The SID of the RoomParticipant resource to update.
 
         :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
         :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext

@@ -369,7 +369,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.notify.v1.service.BindingList
         """
         if self._bindings is None:
-            self._bindings = BindingList(self._version, self._solution['sid'],
+            self._bindings = BindingList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._bindings
     
@@ -382,7 +384,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.notify.v1.service.NotificationList
         """
         if self._notifications is None:
-            self._notifications = NotificationList(self._version, self._solution['sid'],
+            self._notifications = NotificationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._notifications
     

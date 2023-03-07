@@ -223,7 +223,8 @@ class BindingContext(InstanceContext):
         Initialize the BindingContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Binding resource from.:param sid: The SID of the Binding resource to fetch.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Binding resource from.
+        :param sid: The SID of the Binding resource to fetch.
 
         :returns: twilio.rest.chat.v2.service.binding.BindingContext
         :rtype: twilio.rest.chat.v2.service.binding.BindingContext

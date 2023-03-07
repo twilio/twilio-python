@@ -238,7 +238,8 @@ class RoleContext(InstanceContext):
         Initialize the RoleContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Role resource in.:param sid: The SID of the Role resource to update.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Role resource in.
+        :param sid: The SID of the Role resource to update.
 
         :returns: twilio.rest.chat.v2.service.role.RoleContext
         :rtype: twilio.rest.chat.v2.service.role.RoleContext

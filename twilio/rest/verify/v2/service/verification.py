@@ -129,7 +129,8 @@ class VerificationContext(InstanceContext):
         Initialize the VerificationContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to update the resource from.:param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
+        :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to update the resource from.
+        :param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
 
         :returns: twilio.rest.verify.v2.service.verification.VerificationContext
         :rtype: twilio.rest.verify.v2.service.verification.VerificationContext

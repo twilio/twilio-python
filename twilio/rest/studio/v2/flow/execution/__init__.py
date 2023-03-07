@@ -252,7 +252,8 @@ class ExecutionContext(InstanceContext):
         Initialize the ExecutionContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Execution resources to update.:param sid: The SID of the Execution resource to update.
+        :param flow_sid: The SID of the Flow with the Execution resources to update.
+        :param sid: The SID of the Execution resource to update.
 
         :returns: twilio.rest.studio.v2.flow.execution.ExecutionContext
         :rtype: twilio.rest.studio.v2.flow.execution.ExecutionContext
@@ -331,7 +332,10 @@ class ExecutionContext(InstanceContext):
         :rtype: twilio.rest.studio.v2.flow.execution.ExecutionContextList
         """
         if self._execution_context is None:
-            self._execution_context = ExecutionContextList(self._version, self._solution['flow_sid'], self._solution['sid'],
+            self._execution_context = ExecutionContextList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
             )
         return self._execution_context
     
@@ -344,7 +348,10 @@ class ExecutionContext(InstanceContext):
         :rtype: twilio.rest.studio.v2.flow.execution.ExecutionStepList
         """
         if self._steps is None:
-            self._steps = ExecutionStepList(self._version, self._solution['flow_sid'], self._solution['sid'],
+            self._steps = ExecutionStepList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
             )
         return self._steps
     

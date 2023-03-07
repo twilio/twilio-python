@@ -330,7 +330,9 @@ class AuthorizationDocumentContext(InstanceContext):
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.DependentHostedNumberOrderList
         """
         if self._dependent_hosted_number_orders is None:
-            self._dependent_hosted_number_orders = DependentHostedNumberOrderList(self._version, self._solution['sid'],
+            self._dependent_hosted_number_orders = DependentHostedNumberOrderList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._dependent_hosted_number_orders
     

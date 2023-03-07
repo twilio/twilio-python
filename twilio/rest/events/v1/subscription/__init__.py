@@ -321,7 +321,9 @@ class SubscriptionContext(InstanceContext):
         :rtype: twilio.rest.events.v1.subscription.SubscribedEventList
         """
         if self._subscribed_events is None:
-            self._subscribed_events = SubscribedEventList(self._version, self._solution['sid'],
+            self._subscribed_events = SubscribedEventList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._subscribed_events
     

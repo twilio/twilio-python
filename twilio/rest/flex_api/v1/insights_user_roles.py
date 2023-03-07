@@ -77,7 +77,6 @@ class InsightsUserRolesContext(InstanceContext):
         Initialize the InsightsUserRolesContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
         :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext

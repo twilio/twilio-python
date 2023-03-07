@@ -235,7 +235,8 @@ class RoomRecordingContext(InstanceContext):
         Initialize the RoomRecordingContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource with the recording to fetch.:param sid: The SID of the RoomRecording resource to fetch.
+        :param room_sid: The SID of the Room resource with the recording to fetch.
+        :param sid: The SID of the RoomRecording resource to fetch.
 
         :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingContext
         :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingContext

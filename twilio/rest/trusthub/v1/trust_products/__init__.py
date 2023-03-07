@@ -343,7 +343,9 @@ class TrustProductsContext(InstanceContext):
         :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsChannelEndpointAssignmentList
         """
         if self._trust_products_channel_endpoint_assignment is None:
-            self._trust_products_channel_endpoint_assignment = TrustProductsChannelEndpointAssignmentList(self._version, self._solution['sid'],
+            self._trust_products_channel_endpoint_assignment = TrustProductsChannelEndpointAssignmentList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._trust_products_channel_endpoint_assignment
     
@@ -356,7 +358,9 @@ class TrustProductsContext(InstanceContext):
         :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEntityAssignmentsList
         """
         if self._trust_products_entity_assignments is None:
-            self._trust_products_entity_assignments = TrustProductsEntityAssignmentsList(self._version, self._solution['sid'],
+            self._trust_products_entity_assignments = TrustProductsEntityAssignmentsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._trust_products_entity_assignments
     
@@ -369,7 +373,9 @@ class TrustProductsContext(InstanceContext):
         :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsEvaluationsList
         """
         if self._trust_products_evaluations is None:
-            self._trust_products_evaluations = TrustProductsEvaluationsList(self._version, self._solution['sid'],
+            self._trust_products_evaluations = TrustProductsEvaluationsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._trust_products_evaluations
     

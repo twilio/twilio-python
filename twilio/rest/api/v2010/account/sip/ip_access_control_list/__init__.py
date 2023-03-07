@@ -235,7 +235,8 @@ class IpAccessControlListContext(InstanceContext):
         Initialize the IpAccessControlListContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param sid: A 34 character string that uniquely identifies the resource to udpate.
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param sid: A 34 character string that uniquely identifies the resource to udpate.
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
@@ -313,7 +314,10 @@ class IpAccessControlListContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAddressList
         """
         if self._ip_addresses is None:
-            self._ip_addresses = IpAddressList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._ip_addresses = IpAddressList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._ip_addresses
     

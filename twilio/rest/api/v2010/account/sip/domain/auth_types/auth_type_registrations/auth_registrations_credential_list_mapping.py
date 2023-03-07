@@ -232,7 +232,9 @@ class AuthRegistrationsCredentialListMappingContext(InstanceContext):
         Initialize the AuthRegistrationsCredentialListMappingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.:param domain_sid: The SID of the SIP domain that contains the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
+        :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext

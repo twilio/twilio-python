@@ -233,7 +233,8 @@ class DeviceConfigContext(InstanceContext):
         Initialize the DeviceConfigContext
 
         :param Version version: Version that contains the resource
-        :param device_sid: A 34-character string that uniquely identifies the Device.:param key: The config key; up to 100 characters.
+        :param device_sid: A 34-character string that uniquely identifies the Device.
+        :param key: The config key; up to 100 characters.
 
         :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
         :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext

@@ -237,7 +237,8 @@ class DocumentContext(InstanceContext):
         Initialize the DocumentContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param sid: 
+        :param service_sid: 
+        :param sid: 
 
         :returns: twilio.rest.preview.sync.service.document.DocumentContext
         :rtype: twilio.rest.preview.sync.service.document.DocumentContext
@@ -316,7 +317,10 @@ class DocumentContext(InstanceContext):
         :rtype: twilio.rest.preview.sync.service.document.DocumentPermissionList
         """
         if self._document_permissions is None:
-            self._document_permissions = DocumentPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._document_permissions = DocumentPermissionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._document_permissions
     

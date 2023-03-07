@@ -231,7 +231,8 @@ class ShortCodeContext(InstanceContext):
         Initialize the ShortCodeContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the ShortCode resource to fetch.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
+        :param sid: The SID of the ShortCode resource to fetch.
 
         :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext

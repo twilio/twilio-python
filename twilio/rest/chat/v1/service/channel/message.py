@@ -245,7 +245,9 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.:param channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to. Can be the Channel's `sid` or `unique_name`.:param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.
+        :param channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to. Can be the Channel's `sid` or `unique_name`.
+        :param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
 
         :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext

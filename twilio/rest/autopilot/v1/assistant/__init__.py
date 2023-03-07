@@ -349,7 +349,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.DefaultsList
         """
         if self._defaults is None:
-            self._defaults = DefaultsList(self._version, self._solution['sid'],
+            self._defaults = DefaultsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._defaults
     
@@ -362,7 +364,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.DialogueList
         """
         if self._dialogues is None:
-            self._dialogues = DialogueList(self._version, self._solution['sid'],
+            self._dialogues = DialogueList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._dialogues
     
@@ -375,7 +379,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.FieldTypeList
         """
         if self._field_types is None:
-            self._field_types = FieldTypeList(self._version, self._solution['sid'],
+            self._field_types = FieldTypeList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._field_types
     
@@ -388,7 +394,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.ModelBuildList
         """
         if self._model_builds is None:
-            self._model_builds = ModelBuildList(self._version, self._solution['sid'],
+            self._model_builds = ModelBuildList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._model_builds
     
@@ -401,7 +409,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.QueryList
         """
         if self._queries is None:
-            self._queries = QueryList(self._version, self._solution['sid'],
+            self._queries = QueryList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._queries
     
@@ -414,7 +424,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.StyleSheetList
         """
         if self._style_sheet is None:
-            self._style_sheet = StyleSheetList(self._version, self._solution['sid'],
+            self._style_sheet = StyleSheetList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._style_sheet
     
@@ -427,7 +439,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.TaskList
         """
         if self._tasks is None:
-            self._tasks = TaskList(self._version, self._solution['sid'],
+            self._tasks = TaskList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._tasks
     
@@ -440,7 +454,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.WebhookList
         """
         if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['sid'],
+            self._webhooks = WebhookList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._webhooks
     

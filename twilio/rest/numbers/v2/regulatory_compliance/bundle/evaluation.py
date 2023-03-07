@@ -211,7 +211,8 @@ class EvaluationContext(InstanceContext):
         Initialize the EvaluationContext
 
         :param Version version: Version that contains the resource
-        :param bundle_sid: The unique string that we created to identify the Bundle resource.:param sid: The unique string that identifies the Evaluation resource.
+        :param bundle_sid: The unique string that we created to identify the Bundle resource.
+        :param sid: The unique string that identifies the Evaluation resource.
 
         :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext

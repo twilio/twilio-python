@@ -255,7 +255,8 @@ class UsAppToPersonContext(InstanceContext):
         Initialize the UsAppToPersonContext
 
         :param Version version: Version that contains the resource
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.:param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+        :param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
 
         :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
         :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext

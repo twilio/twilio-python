@@ -327,7 +327,9 @@ class SinkContext(InstanceContext):
         :rtype: twilio.rest.events.v1.sink.SinkTestList
         """
         if self._sink_test is None:
-            self._sink_test = SinkTestList(self._version, self._solution['sid'],
+            self._sink_test = SinkTestList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sink_test
     
@@ -340,7 +342,9 @@ class SinkContext(InstanceContext):
         :rtype: twilio.rest.events.v1.sink.SinkValidateList
         """
         if self._sink_validate is None:
-            self._sink_validate = SinkValidateList(self._version, self._solution['sid'],
+            self._sink_validate = SinkValidateList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sink_validate
     

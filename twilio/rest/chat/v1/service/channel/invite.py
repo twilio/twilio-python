@@ -240,7 +240,9 @@ class InviteContext(InstanceContext):
         Initialize the InviteContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from.:param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to fetch belongs to.:param sid: The Twilio-provided string that uniquely identifies the Invite resource to fetch.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from.
+        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to fetch belongs to.
+        :param sid: The Twilio-provided string that uniquely identifies the Invite resource to fetch.
 
         :returns: twilio.rest.chat.v1.service.channel.invite.InviteContext
         :rtype: twilio.rest.chat.v1.service.channel.invite.InviteContext

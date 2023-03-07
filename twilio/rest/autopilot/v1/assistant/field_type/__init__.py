@@ -237,7 +237,8 @@ class FieldTypeContext(InstanceContext):
         Initialize the FieldTypeContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the to update.:param sid: The Twilio-provided string that uniquely identifies the FieldType resource to update.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the to update.
+        :param sid: The Twilio-provided string that uniquely identifies the FieldType resource to update.
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeContext
@@ -317,7 +318,10 @@ class FieldTypeContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldValueList
         """
         if self._field_values is None:
-            self._field_values = FieldValueList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._field_values = FieldValueList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._field_values
     

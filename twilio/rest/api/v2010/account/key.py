@@ -214,7 +214,8 @@ class KeyContext(InstanceContext):
         Initialize the KeyContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.:param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
 
         :returns: twilio.rest.api.v2010.account.key.KeyContext
         :rtype: twilio.rest.api.v2010.account.key.KeyContext

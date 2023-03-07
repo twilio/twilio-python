@@ -244,7 +244,8 @@ class TaskContext(InstanceContext):
         Initialize the TaskContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the Task resource to update.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Task resource to update.
 
         :returns: twilio.rest.autopilot.v1.assistant.task.TaskContext
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskContext
@@ -331,7 +332,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.task.FieldList
         """
         if self._fields is None:
-            self._fields = FieldList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._fields = FieldList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._fields
     
@@ -344,7 +348,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.task.SampleList
         """
         if self._samples is None:
-            self._samples = SampleList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._samples = SampleList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._samples
     
@@ -357,7 +364,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskActionsList
         """
         if self._task_actions is None:
-            self._task_actions = TaskActionsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._task_actions = TaskActionsList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._task_actions
     
@@ -370,7 +380,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskStatisticsList
         """
         if self._statistics is None:
-            self._statistics = TaskStatisticsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            self._statistics = TaskStatisticsList(
+                self._version, 
+                self._solution['assistant_sid'],
+                self._solution['sid'],
             )
         return self._statistics
     

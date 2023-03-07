@@ -355,7 +355,9 @@ class SimContext(InstanceContext):
         :rtype: twilio.rest.wireless.v1.sim.DataSessionList
         """
         if self._data_sessions is None:
-            self._data_sessions = DataSessionList(self._version, self._solution['sid'],
+            self._data_sessions = DataSessionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._data_sessions
     
@@ -368,7 +370,9 @@ class SimContext(InstanceContext):
         :rtype: twilio.rest.wireless.v1.sim.UsageRecordList
         """
         if self._usage_records is None:
-            self._usage_records = UsageRecordList(self._version, self._solution['sid'],
+            self._usage_records = UsageRecordList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._usage_records
     

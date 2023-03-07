@@ -235,7 +235,8 @@ class FunctionContext(InstanceContext):
         Initialize the FunctionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to update the Function resource from.:param sid: The SID of the Function resource to update.
+        :param service_sid: The SID of the Service to update the Function resource from.
+        :param sid: The SID of the Function resource to update.
 
         :returns: twilio.rest.serverless.v1.service.function.FunctionContext
         :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
@@ -313,7 +314,10 @@ class FunctionContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.function.FunctionVersionList
         """
         if self._function_versions is None:
-            self._function_versions = FunctionVersionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._function_versions = FunctionVersionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._function_versions
     

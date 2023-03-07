@@ -287,7 +287,9 @@ class CountryContext(InstanceContext):
         :rtype: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
         """
         if self._highrisk_special_prefixes is None:
-            self._highrisk_special_prefixes = HighriskSpecialPrefixList(self._version, self._solution['iso_code'],
+            self._highrisk_special_prefixes = HighriskSpecialPrefixList(
+                self._version, 
+                self._solution['iso_code'],
             )
         return self._highrisk_special_prefixes
     

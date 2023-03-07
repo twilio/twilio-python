@@ -352,7 +352,9 @@ class RoomContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.ParticipantList
         """
         if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['sid'],
+            self._participants = ParticipantList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._participants
     
@@ -365,7 +367,9 @@ class RoomContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.RecordingRulesList
         """
         if self._recording_rules is None:
-            self._recording_rules = RecordingRulesList(self._version, self._solution['sid'],
+            self._recording_rules = RecordingRulesList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._recording_rules
     
@@ -378,7 +382,9 @@ class RoomContext(InstanceContext):
         :rtype: twilio.rest.video.v1.room.RoomRecordingList
         """
         if self._recordings is None:
-            self._recordings = RoomRecordingList(self._version, self._solution['sid'],
+            self._recordings = RoomRecordingList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._recordings
     

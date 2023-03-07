@@ -274,7 +274,8 @@ class EventContext(InstanceContext):
         Initialize the EventContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Event to fetch.:param sid: The SID of the Event resource to fetch.
+        :param workspace_sid: The SID of the Workspace with the Event to fetch.
+        :param sid: The SID of the Event resource to fetch.
 
         :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext

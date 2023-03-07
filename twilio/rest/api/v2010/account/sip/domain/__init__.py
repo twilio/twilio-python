@@ -261,7 +261,8 @@ class DomainContext(InstanceContext):
         Initialize the DomainContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.:param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
@@ -365,7 +366,10 @@ class DomainContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.sip.domain.AuthTypesList
         """
         if self._auth is None:
-            self._auth = AuthTypesList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._auth = AuthTypesList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._auth
     
@@ -378,7 +382,10 @@ class DomainContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.sip.domain.CredentialListMappingList
         """
         if self._credential_list_mappings is None:
-            self._credential_list_mappings = CredentialListMappingList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._credential_list_mappings = CredentialListMappingList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._credential_list_mappings
     
@@ -391,7 +398,10 @@ class DomainContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.sip.domain.IpAccessControlListMappingList
         """
         if self._ip_access_control_list_mappings is None:
-            self._ip_access_control_list_mappings = IpAccessControlListMappingList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._ip_access_control_list_mappings = IpAccessControlListMappingList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._ip_access_control_list_mappings
     

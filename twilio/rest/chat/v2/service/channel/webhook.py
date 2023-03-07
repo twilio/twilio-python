@@ -247,7 +247,9 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel that has the Webhook resource to update.:param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.:param sid: The SID of the Channel Webhook resource to update.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel that has the Webhook resource to update.
+        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.
+        :param sid: The SID of the Channel Webhook resource to update.
 
         :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext

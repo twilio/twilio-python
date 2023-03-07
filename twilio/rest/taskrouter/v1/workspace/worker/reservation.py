@@ -218,7 +218,9 @@ class ReservationContext(InstanceContext):
         Initialize the ReservationContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the WorkerReservation resources to update.:param worker_sid: The SID of the reserved Worker resource with the WorkerReservation resources to update.:param sid: The SID of the WorkerReservation resource to update.
+        :param workspace_sid: The SID of the Workspace with the WorkerReservation resources to update.
+        :param worker_sid: The SID of the reserved Worker resource with the WorkerReservation resources to update.
+        :param sid: The SID of the WorkerReservation resource to update.
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext

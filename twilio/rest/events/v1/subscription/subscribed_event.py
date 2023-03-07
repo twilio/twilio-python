@@ -236,7 +236,8 @@ class SubscribedEventContext(InstanceContext):
         Initialize the SubscribedEventContext
 
         :param Version version: Version that contains the resource
-        :param subscription_sid: The unique SID identifier of the Subscription.:param type: Type of event being subscribed to.
+        :param subscription_sid: The unique SID identifier of the Subscription.
+        :param type: Type of event being subscribed to.
 
         :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
         :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext

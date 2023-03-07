@@ -314,7 +314,9 @@ class PlayerStreamerContext(InstanceContext):
         :rtype: twilio.rest.media.v1.player_streamer.PlaybackGrantList
         """
         if self._playback_grant is None:
-            self._playback_grant = PlaybackGrantList(self._version, self._solution['sid'],
+            self._playback_grant = PlaybackGrantList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._playback_grant
     

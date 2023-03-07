@@ -85,7 +85,8 @@ class ArchivedCallContext(InstanceContext):
         Initialize the ArchivedCallContext
 
         :param Version version: Version that contains the resource
-        :param date: The date of the Call in UTC.:param sid: The Twilio-provided Call SID that uniquely identifies the Call resource to delete
+        :param date: The date of the Call in UTC.
+        :param sid: The Twilio-provided Call SID that uniquely identifies the Call resource to delete
 
         :returns: twilio.rest.voice.v1.archived_call.ArchivedCallContext
         :rtype: twilio.rest.voice.v1.archived_call.ArchivedCallContext

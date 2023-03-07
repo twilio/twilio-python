@@ -242,7 +242,9 @@ class FieldValueContext(InstanceContext):
         Initialize the FieldValueContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource to fetch.:param field_type_sid: The SID of the Field Type associated with the Field Value to fetch.:param sid: The Twilio-provided string that uniquely identifies the FieldValue resource to fetch.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource to fetch.
+        :param field_type_sid: The SID of the Field Type associated with the Field Value to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the FieldValue resource to fetch.
 
         :returns: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.field_value.FieldValueContext

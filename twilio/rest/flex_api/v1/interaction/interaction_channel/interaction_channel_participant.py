@@ -231,7 +231,9 @@ class InteractionChannelParticipantContext(InstanceContext):
         Initialize the InteractionChannelParticipantContext
 
         :param Version version: Version that contains the resource
-        :param interaction_sid: The Interaction Sid for this channel.:param channel_sid: The Channel Sid for this Participant.:param sid: The unique string created by Twilio to identify an Interaction Channel resource.
+        :param interaction_sid: The Interaction Sid for this channel.
+        :param channel_sid: The Channel Sid for this Participant.
+        :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantContext

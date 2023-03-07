@@ -236,7 +236,8 @@ class ModelBuildContext(InstanceContext):
         Initialize the ModelBuildContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
 
         :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext

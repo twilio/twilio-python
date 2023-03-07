@@ -77,7 +77,6 @@ class ConfigurationContext(InstanceContext):
         Initialize the ConfigurationContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext

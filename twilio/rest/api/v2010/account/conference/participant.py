@@ -343,7 +343,9 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.:param conference_sid: The SID of the conference with the participant to update.:param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
+        :param conference_sid: The SID of the conference with the participant to update.
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
 
         :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext

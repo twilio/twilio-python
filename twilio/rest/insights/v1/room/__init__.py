@@ -281,7 +281,9 @@ class RoomContext(InstanceContext):
         :rtype: twilio.rest.insights.v1.room.ParticipantList
         """
         if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['room_sid'],
+            self._participants = ParticipantList(
+                self._version, 
+                self._solution['room_sid'],
             )
         return self._participants
     

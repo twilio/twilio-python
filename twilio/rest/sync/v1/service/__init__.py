@@ -339,7 +339,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.DocumentList
         """
         if self._documents is None:
-            self._documents = DocumentList(self._version, self._solution['sid'],
+            self._documents = DocumentList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._documents
     
@@ -352,7 +354,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.SyncListList
         """
         if self._sync_lists is None:
-            self._sync_lists = SyncListList(self._version, self._solution['sid'],
+            self._sync_lists = SyncListList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sync_lists
     
@@ -365,7 +369,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.SyncMapList
         """
         if self._sync_maps is None:
-            self._sync_maps = SyncMapList(self._version, self._solution['sid'],
+            self._sync_maps = SyncMapList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sync_maps
     
@@ -378,7 +384,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.SyncStreamList
         """
         if self._sync_streams is None:
-            self._sync_streams = SyncStreamList(self._version, self._solution['sid'],
+            self._sync_streams = SyncStreamList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sync_streams
     

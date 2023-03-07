@@ -210,7 +210,9 @@ class ExecutionStepContext(InstanceContext):
         Initialize the ExecutionStepContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Step to fetch.:param execution_sid: The SID of the Execution resource with the Step to fetch.:param sid: The SID of the ExecutionStep resource to fetch.
+        :param flow_sid: The SID of the Flow with the Step to fetch.
+        :param execution_sid: The SID of the Execution resource with the Step to fetch.
+        :param sid: The SID of the ExecutionStep resource to fetch.
 
         :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContext
@@ -257,7 +259,11 @@ class ExecutionStepContext(InstanceContext):
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepContextList
         """
         if self._step_context is None:
-            self._step_context = ExecutionStepContextList(self._version, self._solution['flow_sid'], self._solution['execution_sid'], self._solution['sid'],
+            self._step_context = ExecutionStepContextList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['execution_sid'],
+                self._solution['sid'],
             )
         return self._step_context
     

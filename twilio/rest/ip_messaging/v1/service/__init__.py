@@ -419,7 +419,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v1.service.ChannelList
         """
         if self._channels is None:
-            self._channels = ChannelList(self._version, self._solution['sid'],
+            self._channels = ChannelList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._channels
     
@@ -432,7 +434,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v1.service.RoleList
         """
         if self._roles is None:
-            self._roles = RoleList(self._version, self._solution['sid'],
+            self._roles = RoleList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._roles
     
@@ -445,7 +449,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.ip_messaging.v1.service.UserList
         """
         if self._users is None:
-            self._users = UserList(self._version, self._solution['sid'],
+            self._users = UserList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._users
     

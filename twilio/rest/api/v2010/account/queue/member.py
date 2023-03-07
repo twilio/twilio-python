@@ -212,7 +212,9 @@ class MemberContext(InstanceContext):
         Initialize the MemberContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.:param queue_sid: The SID of the Queue in which to find the members to update.:param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.
+        :param queue_sid: The SID of the Queue in which to find the members to update.
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
 
         :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext

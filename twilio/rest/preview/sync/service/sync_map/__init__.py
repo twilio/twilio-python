@@ -233,7 +233,8 @@ class SyncMapContext(InstanceContext):
         Initialize the SyncMapContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param sid: 
+        :param service_sid: 
+        :param sid: 
 
         :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
         :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
@@ -289,7 +290,10 @@ class SyncMapContext(InstanceContext):
         :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapItemList
         """
         if self._sync_map_items is None:
-            self._sync_map_items = SyncMapItemList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_map_items = SyncMapItemList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_map_items
     
@@ -302,7 +306,10 @@ class SyncMapContext(InstanceContext):
         :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapPermissionList
         """
         if self._sync_map_permissions is None:
-            self._sync_map_permissions = SyncMapPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_map_permissions = SyncMapPermissionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_map_permissions
     

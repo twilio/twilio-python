@@ -237,7 +237,8 @@ class RateLimitContext(InstanceContext):
         Initialize the RateLimitContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.:param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
 
         :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
@@ -315,7 +316,10 @@ class RateLimitContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.rate_limit.BucketList
         """
         if self._buckets is None:
-            self._buckets = BucketList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._buckets = BucketList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._buckets
     

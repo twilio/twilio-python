@@ -336,7 +336,9 @@ class SimContext(InstanceContext):
         :rtype: twilio.rest.preview.wireless.sim.UsageList
         """
         if self._usage is None:
-            self._usage = UsageList(self._version, self._solution['sid'],
+            self._usage = UsageList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._usage
     

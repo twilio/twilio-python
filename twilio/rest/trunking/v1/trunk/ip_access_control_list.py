@@ -231,7 +231,8 @@ class IpAccessControlListContext(InstanceContext):
         Initialize the IpAccessControlListContext
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to fetch the IP Access Control List.:param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
+        :param trunk_sid: The SID of the Trunk from which to fetch the IP Access Control List.
+        :param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
 
         :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext

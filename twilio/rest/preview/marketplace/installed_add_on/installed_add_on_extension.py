@@ -211,7 +211,8 @@ class InstalledAddOnExtensionContext(InstanceContext):
         Initialize the InstalledAddOnExtensionContext
 
         :param Version version: Version that contains the resource
-        :param installed_add_on_sid: The SID of the InstalledAddOn resource with the extension to update.:param sid: The SID of the InstalledAddOn Extension resource to update.
+        :param installed_add_on_sid: The SID of the InstalledAddOn resource with the extension to update.
+        :param sid: The SID of the InstalledAddOn Extension resource to update.
 
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext

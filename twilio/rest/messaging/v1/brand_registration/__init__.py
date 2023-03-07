@@ -302,7 +302,9 @@ class BrandRegistrationContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandVettingList
         """
         if self._brand_vettings is None:
-            self._brand_vettings = BrandVettingList(self._version, self._solution['sid'],
+            self._brand_vettings = BrandVettingList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._brand_vettings
     

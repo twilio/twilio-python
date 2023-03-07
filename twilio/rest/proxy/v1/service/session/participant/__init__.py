@@ -239,7 +239,9 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.:param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
 
         :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
@@ -296,7 +298,11 @@ class ParticipantContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
         """
         if self._message_interactions is None:
-            self._message_interactions = MessageInteractionList(self._version, self._solution['service_sid'], self._solution['session_sid'], self._solution['sid'],
+            self._message_interactions = MessageInteractionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['session_sid'],
+                self._solution['sid'],
             )
         return self._message_interactions
     

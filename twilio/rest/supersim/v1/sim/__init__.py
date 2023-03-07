@@ -328,7 +328,9 @@ class SimContext(InstanceContext):
         :rtype: twilio.rest.supersim.v1.sim.BillingPeriodList
         """
         if self._billing_periods is None:
-            self._billing_periods = BillingPeriodList(self._version, self._solution['sid'],
+            self._billing_periods = BillingPeriodList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._billing_periods
     
@@ -341,7 +343,9 @@ class SimContext(InstanceContext):
         :rtype: twilio.rest.supersim.v1.sim.SimIpAddressList
         """
         if self._sim_ip_addresses is None:
-            self._sim_ip_addresses = SimIpAddressList(self._version, self._solution['sid'],
+            self._sim_ip_addresses = SimIpAddressList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sim_ip_addresses
     

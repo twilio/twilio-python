@@ -208,7 +208,8 @@ class DayContext(InstanceContext):
         Initialize the DayContext
 
         :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants:param day: The ISO 8601 format date of the resources in the file, for a UTC day
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
 
         :returns: twilio.rest.bulkexports.v1.export.day.DayContext
         :rtype: twilio.rest.bulkexports.v1.export.day.DayContext

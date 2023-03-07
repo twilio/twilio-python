@@ -254,7 +254,8 @@ class ConversationContext(InstanceContext):
         Initialize the ConversationContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.:param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+        :param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
 
         :returns: twilio.rest.conversations.v1.service.conversation.ConversationContext
         :rtype: twilio.rest.conversations.v1.service.conversation.ConversationContext
@@ -354,7 +355,10 @@ class ConversationContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.conversation.MessageList
         """
         if self._messages is None:
-            self._messages = MessageList(self._version, self._solution['chat_service_sid'], self._solution['sid'],
+            self._messages = MessageList(
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._messages
     
@@ -367,7 +371,10 @@ class ConversationContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.conversation.ParticipantList
         """
         if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['chat_service_sid'], self._solution['sid'],
+            self._participants = ParticipantList(
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._participants
     
@@ -380,7 +387,10 @@ class ConversationContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.conversation.WebhookList
         """
         if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['chat_service_sid'], self._solution['sid'],
+            self._webhooks = WebhookList(
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._webhooks
     

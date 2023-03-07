@@ -223,7 +223,8 @@ class BindingContext(InstanceContext):
         Initialize the BindingContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param sid: 
+        :param service_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v2.service.binding.BindingContext
         :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingContext

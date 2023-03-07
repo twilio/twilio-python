@@ -228,7 +228,8 @@ class TrustProductsEvaluationsContext(InstanceContext):
         Initialize the TrustProductsEvaluationsContext
 
         :param Version version: Version that contains the resource
-        :param trust_product_sid: The unique string that we created to identify the trust_product resource.:param sid: The unique string that identifies the Evaluation resource.
+        :param trust_product_sid: The unique string that we created to identify the trust_product resource.
+        :param sid: The unique string that identifies the Evaluation resource.
 
         :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
         :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext

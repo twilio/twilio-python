@@ -231,7 +231,8 @@ class ItemAssignmentContext(InstanceContext):
         Initialize the ItemAssignmentContext
 
         :param Version version: Version that contains the resource
-        :param bundle_sid: The unique string that we created to identify the Bundle resource.:param sid: The unique string that we created to identify the Identity resource.
+        :param bundle_sid: The unique string that we created to identify the Bundle resource.
+        :param sid: The unique string that we created to identify the Identity resource.
 
         :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext

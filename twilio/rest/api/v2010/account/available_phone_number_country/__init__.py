@@ -215,7 +215,8 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         Initialize the AvailablePhoneNumberCountryContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.:param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
+        :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
 
         :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
@@ -266,7 +267,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
         """
         if self._local is None:
-            self._local = LocalList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            self._local = LocalList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['country_code'],
             )
         return self._local
     
@@ -279,7 +283,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
         """
         if self._machine_to_machine is None:
-            self._machine_to_machine = MachineToMachineList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            self._machine_to_machine = MachineToMachineList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['country_code'],
             )
         return self._machine_to_machine
     
@@ -292,7 +299,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
         """
         if self._mobile is None:
-            self._mobile = MobileList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            self._mobile = MobileList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['country_code'],
             )
         return self._mobile
     
@@ -305,7 +315,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
         """
         if self._national is None:
-            self._national = NationalList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            self._national = NationalList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['country_code'],
             )
         return self._national
     
@@ -318,7 +331,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
         """
         if self._shared_cost is None:
-            self._shared_cost = SharedCostList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            self._shared_cost = SharedCostList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['country_code'],
             )
         return self._shared_cost
     
@@ -331,7 +347,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
         """
         if self._toll_free is None:
-            self._toll_free = TollFreeList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            self._toll_free = TollFreeList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['country_code'],
             )
         return self._toll_free
     
@@ -344,7 +363,10 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
         """
         if self._voip is None:
-            self._voip = VoipList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            self._voip = VoipList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['country_code'],
             )
         return self._voip
     

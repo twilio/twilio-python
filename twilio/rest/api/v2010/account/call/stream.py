@@ -505,7 +505,9 @@ class StreamContext(InstanceContext):
         Initialize the StreamContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.:param sid: The SID of the Stream resource, or the `name` used when creating the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
+        :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
+        :param sid: The SID of the Stream resource, or the `name` used when creating the resource
 
         :returns: twilio.rest.api.v2010.account.call.stream.StreamContext
         :rtype: twilio.rest.api.v2010.account.call.stream.StreamContext

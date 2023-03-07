@@ -236,7 +236,8 @@ class MessagingConfigurationContext(InstanceContext):
         Initialize the MessagingConfigurationContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.:param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
 
         :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext

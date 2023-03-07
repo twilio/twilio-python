@@ -266,7 +266,9 @@ class FlowContext(InstanceContext):
         :rtype: twilio.rest.studio.v1.flow.EngagementList
         """
         if self._engagements is None:
-            self._engagements = EngagementList(self._version, self._solution['sid'],
+            self._engagements = EngagementList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._engagements
     
@@ -279,7 +281,9 @@ class FlowContext(InstanceContext):
         :rtype: twilio.rest.studio.v1.flow.ExecutionList
         """
         if self._executions is None:
-            self._executions = ExecutionList(self._version, self._solution['sid'],
+            self._executions = ExecutionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._executions
     

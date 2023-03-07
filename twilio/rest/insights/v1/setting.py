@@ -78,7 +78,6 @@ class SettingContext(InstanceContext):
         Initialize the SettingContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.insights.v1.setting.SettingContext
         :rtype: twilio.rest.insights.v1.setting.SettingContext

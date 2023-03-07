@@ -213,7 +213,8 @@ class InteractionChannelContext(InstanceContext):
         Initialize the InteractionChannelContext
 
         :param Version version: Version that contains the resource
-        :param interaction_sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.:param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
+        :param interaction_sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
+        :param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
@@ -284,7 +285,10 @@ class InteractionChannelContext(InstanceContext):
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInviteList
         """
         if self._invites is None:
-            self._invites = InteractionChannelInviteList(self._version, self._solution['interaction_sid'], self._solution['sid'],
+            self._invites = InteractionChannelInviteList(
+                self._version, 
+                self._solution['interaction_sid'],
+                self._solution['sid'],
             )
         return self._invites
     
@@ -297,7 +301,10 @@ class InteractionChannelContext(InstanceContext):
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelParticipantList
         """
         if self._participants is None:
-            self._participants = InteractionChannelParticipantList(self._version, self._solution['interaction_sid'], self._solution['sid'],
+            self._participants = InteractionChannelParticipantList(
+                self._version, 
+                self._solution['interaction_sid'],
+                self._solution['sid'],
             )
         return self._participants
     

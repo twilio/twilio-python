@@ -215,7 +215,9 @@ class SyncMapPermissionContext(InstanceContext):
         Initialize the SyncMapPermissionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Sync Service Instance.:param map_sid: Identifier of the Sync Map. Either a SID or a unique name.:param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+        :param service_sid: The unique SID identifier of the Sync Service Instance.
+        :param map_sid: Identifier of the Sync Map. Either a SID or a unique name.
+        :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
 
         :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionContext
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionContext

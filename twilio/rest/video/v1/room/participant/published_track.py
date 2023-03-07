@@ -209,7 +209,9 @@ class PublishedTrackContext(InstanceContext):
         Initialize the PublishedTrackContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource where the Track resource to fetch is published.:param participant_sid: The SID of the Participant resource with the published track to fetch.:param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
+        :param room_sid: The SID of the Room resource where the Track resource to fetch is published.
+        :param participant_sid: The SID of the Participant resource with the published track to fetch.
+        :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
 
         :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
         :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext

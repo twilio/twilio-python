@@ -298,7 +298,9 @@ class NetworkAccessProfileContext(InstanceContext):
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
         """
         if self._networks is None:
-            self._networks = NetworkAccessProfileNetworkList(self._version, self._solution['sid'],
+            self._networks = NetworkAccessProfileNetworkList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._networks
     

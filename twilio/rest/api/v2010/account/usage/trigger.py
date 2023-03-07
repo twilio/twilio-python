@@ -264,7 +264,8 @@ class TriggerContext(InstanceContext):
         Initialize the TriggerContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.:param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.
+        :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
 
         :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext

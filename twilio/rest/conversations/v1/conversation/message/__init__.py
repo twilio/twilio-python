@@ -256,7 +256,8 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.:param sid: A 34 character string that uniquely identifies this resource.
+        :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.conversation.message.MessageContext
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageContext
@@ -346,7 +347,10 @@ class MessageContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.conversation.message.DeliveryReceiptList
         """
         if self._delivery_receipts is None:
-            self._delivery_receipts = DeliveryReceiptList(self._version, self._solution['conversation_sid'], self._solution['sid'],
+            self._delivery_receipts = DeliveryReceiptList(
+                self._version, 
+                self._solution['conversation_sid'],
+                self._solution['sid'],
             )
         return self._delivery_receipts
     

@@ -251,7 +251,8 @@ class WorkflowContext(InstanceContext):
         Initialize the WorkflowContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Workflow to update.:param sid: The SID of the Workflow resource to update.
+        :param workspace_sid: The SID of the Workspace with the Workflow to update.
+        :param sid: The SID of the Workflow resource to update.
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
@@ -341,7 +342,10 @@ class WorkflowContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
         """
         if self._cumulative_statistics is None:
-            self._cumulative_statistics = WorkflowCumulativeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            self._cumulative_statistics = WorkflowCumulativeStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
             )
         return self._cumulative_statistics
     
@@ -354,7 +358,10 @@ class WorkflowContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
         """
         if self._real_time_statistics is None:
-            self._real_time_statistics = WorkflowRealTimeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            self._real_time_statistics = WorkflowRealTimeStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
             )
         return self._real_time_statistics
     
@@ -367,7 +374,10 @@ class WorkflowContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
         """
         if self._statistics is None:
-            self._statistics = WorkflowStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            self._statistics = WorkflowStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
             )
         return self._statistics
     

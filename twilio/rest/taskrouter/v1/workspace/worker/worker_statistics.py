@@ -79,7 +79,8 @@ class WorkerStatisticsContext(InstanceContext):
         Initialize the WorkerStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the WorkerChannel to fetch.:param worker_sid: The SID of the Worker with the WorkerChannel to fetch.
+        :param workspace_sid: The SID of the Workspace with the WorkerChannel to fetch.
+        :param worker_sid: The SID of the Worker with the WorkerChannel to fetch.
 
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsContext

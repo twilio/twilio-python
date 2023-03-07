@@ -231,7 +231,8 @@ class CredentialListContext(InstanceContext):
         Initialize the CredentialListContext
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to fetch the credential list.:param sid: The unique string that we created to identify the CredentialList resource to fetch.
+        :param trunk_sid: The SID of the Trunk from which to fetch the credential list.
+        :param sid: The unique string that we created to identify the CredentialList resource to fetch.
 
         :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext

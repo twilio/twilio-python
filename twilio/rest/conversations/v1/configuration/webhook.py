@@ -78,7 +78,6 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext

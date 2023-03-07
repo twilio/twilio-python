@@ -297,7 +297,8 @@ class TaskContext(InstanceContext):
         Initialize the TaskContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Task to update.:param sid: The SID of the Task resource to update.
+        :param workspace_sid: The SID of the Workspace with the Task to update.
+        :param sid: The SID of the Task resource to update.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
@@ -387,7 +388,10 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task.ReservationList
         """
         if self._reservations is None:
-            self._reservations = ReservationList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            self._reservations = ReservationList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
             )
         return self._reservations
     

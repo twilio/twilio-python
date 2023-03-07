@@ -79,7 +79,8 @@ class TaskQueueStatisticsContext(InstanceContext):
         Initialize the TaskQueueStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.:param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.
+        :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext

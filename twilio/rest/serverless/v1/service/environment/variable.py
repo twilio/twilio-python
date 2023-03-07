@@ -237,7 +237,9 @@ class VariableContext(InstanceContext):
         Initialize the VariableContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to update the Variable resource under.:param environment_sid: The SID of the Environment with the Variable resource to update.:param sid: The SID of the Variable resource to update.
+        :param service_sid: The SID of the Service to update the Variable resource under.
+        :param environment_sid: The SID of the Environment with the Variable resource to update.
+        :param sid: The SID of the Variable resource to update.
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext

@@ -251,7 +251,9 @@ class AvailableAddOnContext(InstanceContext):
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnExtensionList
         """
         if self._extensions is None:
-            self._extensions = AvailableAddOnExtensionList(self._version, self._solution['sid'],
+            self._extensions = AvailableAddOnExtensionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._extensions
     

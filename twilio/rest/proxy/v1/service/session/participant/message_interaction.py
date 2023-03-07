@@ -232,7 +232,10 @@ class MessageInteractionContext(InstanceContext):
         Initialize the MessageInteractionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.:param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.:param participant_sid: The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.:param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+        :param participant_sid: The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
+        :param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
 
         :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext

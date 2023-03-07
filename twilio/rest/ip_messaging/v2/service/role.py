@@ -238,7 +238,8 @@ class RoleContext(InstanceContext):
         Initialize the RoleContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param sid: 
+        :param service_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v2.service.role.RoleContext
         :rtype: twilio.rest.ip_messaging.v2.service.role.RoleContext

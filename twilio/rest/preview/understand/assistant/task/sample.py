@@ -245,7 +245,9 @@ class SampleContext(InstanceContext):
         Initialize the SampleContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.:param task_sid: The unique ID of the Task associated with this Sample.:param sid: A 34 character string that uniquely identifies this resource.
+        :param assistant_sid: The unique ID of the Assistant.
+        :param task_sid: The unique ID of the Task associated with this Sample.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
         :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext

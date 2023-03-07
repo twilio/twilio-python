@@ -131,7 +131,9 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.insights.v1.call.AnnotationList
         """
         if self._annotation is None:
-            self._annotation = AnnotationList(self._version, self._solution['sid'],
+            self._annotation = AnnotationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._annotation
     
@@ -144,7 +146,9 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.insights.v1.call.CallSummaryList
         """
         if self._summary is None:
-            self._summary = CallSummaryList(self._version, self._solution['sid'],
+            self._summary = CallSummaryList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._summary
     
@@ -157,7 +161,9 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.insights.v1.call.EventList
         """
         if self._events is None:
-            self._events = EventList(self._version, self._solution['sid'],
+            self._events = EventList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._events
     
@@ -170,7 +176,9 @@ class CallContext(InstanceContext):
         :rtype: twilio.rest.insights.v1.call.MetricList
         """
         if self._metrics is None:
-            self._metrics = MetricList(self._version, self._solution['sid'],
+            self._metrics = MetricList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._metrics
     

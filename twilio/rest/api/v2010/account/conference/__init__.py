@@ -261,7 +261,8 @@ class ConferenceContext(InstanceContext):
         Initialize the ConferenceContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
 
         :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
@@ -334,7 +335,10 @@ class ConferenceContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.conference.ParticipantList
         """
         if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._participants = ParticipantList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._participants
     
@@ -347,7 +351,10 @@ class ConferenceContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.conference.RecordingList
         """
         if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._recordings = RecordingList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._recordings
     

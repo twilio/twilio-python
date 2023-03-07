@@ -218,7 +218,9 @@ class UserBindingContext(InstanceContext):
         Initialize the UserBindingContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the User Binding resource from.:param user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) with the User Binding resource to fetch.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.:param sid: The SID of the User Binding resource to fetch.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the User Binding resource from.
+        :param user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) with the User Binding resource to fetch.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param sid: The SID of the User Binding resource to fetch.
 
         :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
         :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext

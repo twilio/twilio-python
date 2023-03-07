@@ -82,7 +82,8 @@ class DialogueContext(InstanceContext):
         Initialize the DialogueContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Dialogue resource to fetch.
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Dialogue resource to fetch.
 
         :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
         :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext

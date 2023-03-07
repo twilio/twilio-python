@@ -257,7 +257,8 @@ class ChannelContext(InstanceContext):
         Initialize the ChannelContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Channel resource in.:param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Channel resource in.
+        :param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
 
         :returns: twilio.rest.chat.v2.service.channel.ChannelContext
         :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
@@ -352,7 +353,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.channel.InviteList
         """
         if self._invites is None:
-            self._invites = InviteList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._invites = InviteList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._invites
     
@@ -365,7 +369,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.channel.MemberList
         """
         if self._members is None:
-            self._members = MemberList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._members = MemberList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._members
     
@@ -378,7 +385,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.channel.MessageList
         """
         if self._messages is None:
-            self._messages = MessageList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._messages = MessageList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._messages
     
@@ -391,7 +401,10 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.channel.WebhookList
         """
         if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._webhooks = WebhookList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._webhooks
     

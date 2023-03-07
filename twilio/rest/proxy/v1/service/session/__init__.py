@@ -246,7 +246,8 @@ class SessionContext(InstanceContext):
         Initialize the SessionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
 
         :returns: twilio.rest.proxy.v1.service.session.SessionContext
         :rtype: twilio.rest.proxy.v1.service.session.SessionContext
@@ -329,7 +330,10 @@ class SessionContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.session.InteractionList
         """
         if self._interactions is None:
-            self._interactions = InteractionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._interactions = InteractionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._interactions
     
@@ -342,7 +346,10 @@ class SessionContext(InstanceContext):
         :rtype: twilio.rest.proxy.v1.service.session.ParticipantList
         """
         if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._participants = ParticipantList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._participants
     

@@ -77,7 +77,6 @@ class OauthContext(InstanceContext):
         Initialize the OauthContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.oauth.v1.oauth.OauthContext
         :rtype: twilio.rest.oauth.v1.oauth.OauthContext

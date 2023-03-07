@@ -131,7 +131,9 @@ class PaymentContext(InstanceContext):
         Initialize the PaymentContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.:param call_sid: The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.:param sid: The SID of Payments session that needs to be updated.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
+        :param call_sid: The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.
+        :param sid: The SID of Payments session that needs to be updated.
 
         :returns: twilio.rest.api.v2010.account.call.payment.PaymentContext
         :rtype: twilio.rest.api.v2010.account.call.payment.PaymentContext

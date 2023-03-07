@@ -237,7 +237,8 @@ class SyncStreamContext(InstanceContext):
         Initialize the SyncStreamContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update.:param sid: The SID of the Stream resource to update.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update.
+        :param sid: The SID of the Stream resource to update.
 
         :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
@@ -315,7 +316,10 @@ class SyncStreamContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.sync_stream.StreamMessageList
         """
         if self._stream_messages is None:
-            self._stream_messages = StreamMessageList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._stream_messages = StreamMessageList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._stream_messages
     

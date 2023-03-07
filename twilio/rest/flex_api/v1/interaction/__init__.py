@@ -145,7 +145,9 @@ class InteractionContext(InstanceContext):
         :rtype: twilio.rest.flex_api.v1.interaction.InteractionChannelList
         """
         if self._channels is None:
-            self._channels = InteractionChannelList(self._version, self._solution['sid'],
+            self._channels = InteractionChannelList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._channels
     

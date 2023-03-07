@@ -210,7 +210,9 @@ class FunctionVersionContext(InstanceContext):
         Initialize the FunctionVersionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Function Version resource from.:param function_sid: The SID of the function that is the parent of the Function Version resource to fetch.:param sid: The SID of the Function Version resource to fetch.
+        :param service_sid: The SID of the Service to fetch the Function Version resource from.
+        :param function_sid: The SID of the function that is the parent of the Function Version resource to fetch.
+        :param sid: The SID of the Function Version resource to fetch.
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
@@ -257,7 +259,11 @@ class FunctionVersionContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContentList
         """
         if self._function_version_content is None:
-            self._function_version_content = FunctionVersionContentList(self._version, self._solution['service_sid'], self._solution['function_sid'], self._solution['sid'],
+            self._function_version_content = FunctionVersionContentList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['function_sid'],
+                self._solution['sid'],
             )
         return self._function_version_content
     

@@ -308,7 +308,8 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.:param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
 
         :returns: twilio.rest.api.v2010.account.message.MessageContext
         :rtype: twilio.rest.api.v2010.account.message.MessageContext
@@ -389,7 +390,10 @@ class MessageContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.message.FeedbackList
         """
         if self._feedback is None:
-            self._feedback = FeedbackList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._feedback = FeedbackList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._feedback
     
@@ -402,7 +406,10 @@ class MessageContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.message.MediaList
         """
         if self._media is None:
-            self._media = MediaList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._media = MediaList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._media
     

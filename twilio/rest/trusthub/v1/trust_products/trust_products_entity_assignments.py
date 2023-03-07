@@ -231,7 +231,8 @@ class TrustProductsEntityAssignmentsContext(InstanceContext):
         Initialize the TrustProductsEntityAssignmentsContext
 
         :param Version version: Version that contains the resource
-        :param trust_product_sid: The unique string that we created to identify the TrustProduct resource.:param sid: The unique string that we created to identify the Identity resource.
+        :param trust_product_sid: The unique string that we created to identify the TrustProduct resource.
+        :param sid: The unique string that we created to identify the Identity resource.
 
         :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext
         :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsContext

@@ -253,7 +253,9 @@ class SyncListItemContext(InstanceContext):
         Initialize the SyncListItemContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param list_sid: :param index: 
+        :param service_sid: 
+        :param list_sid: 
+        :param index: 
 
         :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext

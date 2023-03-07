@@ -212,7 +212,9 @@ class InteractionContext(InstanceContext):
         Initialize the InteractionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.:param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
 
         :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext

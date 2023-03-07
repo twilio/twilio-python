@@ -228,7 +228,8 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
         Initialize the CustomerProfilesEvaluationsContext
 
         :param Version version: Version that contains the resource
-        :param customer_profile_sid: The unique string that we created to identify the customer_profile resource.:param sid: The unique string that identifies the Evaluation resource.
+        :param customer_profile_sid: The unique string that we created to identify the customer_profile resource.
+        :param sid: The unique string that identifies the Evaluation resource.
 
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext

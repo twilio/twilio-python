@@ -351,7 +351,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
         """
         if self._assistant_fallback_actions is None:
-            self._assistant_fallback_actions = AssistantFallbackActionsList(self._version, self._solution['sid'],
+            self._assistant_fallback_actions = AssistantFallbackActionsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._assistant_fallback_actions
     
@@ -364,7 +366,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
         """
         if self._assistant_initiation_actions is None:
-            self._assistant_initiation_actions = AssistantInitiationActionsList(self._version, self._solution['sid'],
+            self._assistant_initiation_actions = AssistantInitiationActionsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._assistant_initiation_actions
     
@@ -377,7 +381,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.DialogueList
         """
         if self._dialogues is None:
-            self._dialogues = DialogueList(self._version, self._solution['sid'],
+            self._dialogues = DialogueList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._dialogues
     
@@ -390,7 +396,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.FieldTypeList
         """
         if self._field_types is None:
-            self._field_types = FieldTypeList(self._version, self._solution['sid'],
+            self._field_types = FieldTypeList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._field_types
     
@@ -403,7 +411,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.ModelBuildList
         """
         if self._model_builds is None:
-            self._model_builds = ModelBuildList(self._version, self._solution['sid'],
+            self._model_builds = ModelBuildList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._model_builds
     
@@ -416,7 +426,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.QueryList
         """
         if self._queries is None:
-            self._queries = QueryList(self._version, self._solution['sid'],
+            self._queries = QueryList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._queries
     
@@ -429,7 +441,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.StyleSheetList
         """
         if self._style_sheet is None:
-            self._style_sheet = StyleSheetList(self._version, self._solution['sid'],
+            self._style_sheet = StyleSheetList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._style_sheet
     
@@ -442,7 +456,9 @@ class AssistantContext(InstanceContext):
         :rtype: twilio.rest.preview.understand.assistant.TaskList
         """
         if self._tasks is None:
-            self._tasks = TaskList(self._version, self._solution['sid'],
+            self._tasks = TaskList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._tasks
     

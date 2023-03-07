@@ -214,7 +214,8 @@ class SigningKeyContext(InstanceContext):
         Initialize the SigningKeyContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: :param sid: 
+        :param account_sid: 
+        :param sid: 
 
         :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext

@@ -282,7 +282,9 @@ class DeviceContext(InstanceContext):
         :rtype: twilio.rest.microvisor.v1.device.DeviceConfigList
         """
         if self._device_configs is None:
-            self._device_configs = DeviceConfigList(self._version, self._solution['sid'],
+            self._device_configs = DeviceConfigList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._device_configs
     
@@ -295,7 +297,9 @@ class DeviceContext(InstanceContext):
         :rtype: twilio.rest.microvisor.v1.device.DeviceSecretList
         """
         if self._device_secrets is None:
-            self._device_secrets = DeviceSecretList(self._version, self._solution['sid'],
+            self._device_secrets = DeviceSecretList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._device_secrets
     

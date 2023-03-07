@@ -229,7 +229,9 @@ class DeploymentContext(InstanceContext):
         Initialize the DeploymentContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Deployment resource from.:param environment_sid: The SID of the Environment used by the Deployment to fetch.:param sid: The SID that identifies the Deployment resource to fetch.
+        :param service_sid: The SID of the Service to fetch the Deployment resource from.
+        :param environment_sid: The SID of the Environment used by the Deployment to fetch.
+        :param sid: The SID that identifies the Deployment resource to fetch.
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext

@@ -377,7 +377,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.AlphaSenderList
         """
         if self._alpha_senders is None:
-            self._alpha_senders = AlphaSenderList(self._version, self._solution['sid'],
+            self._alpha_senders = AlphaSenderList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._alpha_senders
     
@@ -390,7 +392,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.PhoneNumberList
         """
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self._version, self._solution['sid'],
+            self._phone_numbers = PhoneNumberList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._phone_numbers
     
@@ -403,7 +407,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.ShortCodeList
         """
         if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, self._solution['sid'],
+            self._short_codes = ShortCodeList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._short_codes
     
@@ -416,7 +422,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.UsAppToPersonList
         """
         if self._us_app_to_person is None:
-            self._us_app_to_person = UsAppToPersonList(self._version, self._solution['sid'],
+            self._us_app_to_person = UsAppToPersonList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._us_app_to_person
     
@@ -429,7 +437,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.messaging.v1.service.UsAppToPersonUsecaseList
         """
         if self._us_app_to_person_usecases is None:
-            self._us_app_to_person_usecases = UsAppToPersonUsecaseList(self._version, self._solution['sid'],
+            self._us_app_to_person_usecases = UsAppToPersonUsecaseList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._us_app_to_person_usecases
     

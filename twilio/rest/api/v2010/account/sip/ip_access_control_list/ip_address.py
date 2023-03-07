@@ -239,7 +239,9 @@ class IpAddressContext(InstanceContext):
         Initialize the IpAddressContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to update.:param sid: A 34 character string that identifies the IpAddress resource to update.
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to update.
+        :param sid: A 34 character string that identifies the IpAddress resource to update.
 
         :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext

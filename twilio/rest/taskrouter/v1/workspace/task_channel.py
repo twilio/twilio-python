@@ -238,7 +238,8 @@ class TaskChannelContext(InstanceContext):
         Initialize the TaskChannelContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Task Channel to update.:param sid: The SID of the Task Channel resource to update.
+        :param workspace_sid: The SID of the Workspace with the Task Channel to update.
+        :param sid: The SID of the Task Channel resource to update.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext

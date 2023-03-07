@@ -245,7 +245,9 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param channel_sid: :param sid: 
+        :param service_sid: 
+        :param channel_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
         :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext

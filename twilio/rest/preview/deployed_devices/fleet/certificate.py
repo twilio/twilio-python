@@ -244,7 +244,8 @@ class CertificateContext(InstanceContext):
         Initialize the CertificateContext
 
         :param Version version: Version that contains the resource
-        :param fleet_sid: :param sid: Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
+        :param fleet_sid: 
+        :param sid: Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
 
         :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext

@@ -385,7 +385,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.AccessTokenList
         """
         if self._access_tokens is None:
-            self._access_tokens = AccessTokenList(self._version, self._solution['sid'],
+            self._access_tokens = AccessTokenList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._access_tokens
     
@@ -398,7 +400,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.EntityList
         """
         if self._entities is None:
-            self._entities = EntityList(self._version, self._solution['sid'],
+            self._entities = EntityList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._entities
     
@@ -411,7 +415,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.MessagingConfigurationList
         """
         if self._messaging_configurations is None:
-            self._messaging_configurations = MessagingConfigurationList(self._version, self._solution['sid'],
+            self._messaging_configurations = MessagingConfigurationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._messaging_configurations
     
@@ -424,7 +430,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.RateLimitList
         """
         if self._rate_limits is None:
-            self._rate_limits = RateLimitList(self._version, self._solution['sid'],
+            self._rate_limits = RateLimitList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._rate_limits
     
@@ -437,7 +445,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.VerificationList
         """
         if self._verifications is None:
-            self._verifications = VerificationList(self._version, self._solution['sid'],
+            self._verifications = VerificationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._verifications
     
@@ -450,7 +460,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.VerificationCheckList
         """
         if self._verification_checks is None:
-            self._verification_checks = VerificationCheckList(self._version, self._solution['sid'],
+            self._verification_checks = VerificationCheckList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._verification_checks
     
@@ -463,7 +475,9 @@ class ServiceContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.service.WebhookList
         """
         if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['sid'],
+            self._webhooks = WebhookList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._webhooks
     

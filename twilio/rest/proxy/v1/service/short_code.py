@@ -234,7 +234,8 @@ class ShortCodeContext(InstanceContext):
         Initialize the ShortCodeContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
 
         :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext

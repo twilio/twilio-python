@@ -243,7 +243,9 @@ class MemberContext(InstanceContext):
         Initialize the MemberContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param channel_sid: :param sid: 
+        :param service_sid: 
+        :param channel_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
         :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext

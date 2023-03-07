@@ -233,7 +233,8 @@ class SyncListContext(InstanceContext):
         Initialize the SyncListContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param sid: 
+        :param service_sid: 
+        :param sid: 
 
         :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
         :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
@@ -289,7 +290,10 @@ class SyncListContext(InstanceContext):
         :rtype: twilio.rest.preview.sync.service.sync_list.SyncListItemList
         """
         if self._sync_list_items is None:
-            self._sync_list_items = SyncListItemList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_list_items = SyncListItemList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_list_items
     
@@ -302,7 +306,10 @@ class SyncListContext(InstanceContext):
         :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
         """
         if self._sync_list_permissions is None:
-            self._sync_list_permissions = SyncListPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._sync_list_permissions = SyncListPermissionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._sync_list_permissions
     

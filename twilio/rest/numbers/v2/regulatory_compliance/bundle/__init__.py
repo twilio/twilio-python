@@ -399,7 +399,9 @@ class BundleContext(InstanceContext):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleCopyList
         """
         if self._bundle_copies is None:
-            self._bundle_copies = BundleCopyList(self._version, self._solution['sid'],
+            self._bundle_copies = BundleCopyList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._bundle_copies
     
@@ -412,7 +414,9 @@ class BundleContext(InstanceContext):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.EvaluationList
         """
         if self._evaluations is None:
-            self._evaluations = EvaluationList(self._version, self._solution['sid'],
+            self._evaluations = EvaluationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._evaluations
     
@@ -425,7 +429,9 @@ class BundleContext(InstanceContext):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.ItemAssignmentList
         """
         if self._item_assignments is None:
-            self._item_assignments = ItemAssignmentList(self._version, self._solution['sid'],
+            self._item_assignments = ItemAssignmentList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._item_assignments
     
@@ -438,7 +444,9 @@ class BundleContext(InstanceContext):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.ReplaceItemsList
         """
         if self._replace_items is None:
-            self._replace_items = ReplaceItemsList(self._version, self._solution['sid'],
+            self._replace_items = ReplaceItemsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._replace_items
     

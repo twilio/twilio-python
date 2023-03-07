@@ -232,7 +232,9 @@ class CredentialListMappingContext(InstanceContext):
         Initialize the CredentialListMappingContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param domain_sid: A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch.:param sid: A 34 character string that uniquely identifies the resource to fetch.
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param domain_sid: A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch.
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext

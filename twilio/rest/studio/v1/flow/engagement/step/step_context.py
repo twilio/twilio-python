@@ -80,7 +80,9 @@ class StepContextContext(InstanceContext):
         Initialize the StepContextContext
 
         :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Step to fetch.:param engagement_sid: The SID of the Engagement with the Step to fetch.:param step_sid: The SID of the Step to fetch
+        :param flow_sid: The SID of the Flow with the Step to fetch.
+        :param engagement_sid: The SID of the Engagement with the Step to fetch.
+        :param step_sid: The SID of the Step to fetch
 
         :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext

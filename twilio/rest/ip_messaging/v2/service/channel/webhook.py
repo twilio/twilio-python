@@ -247,7 +247,9 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: :param channel_sid: :param sid: 
+        :param service_sid: 
+        :param channel_sid: 
+        :param sid: 
 
         :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext

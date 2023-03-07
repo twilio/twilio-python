@@ -317,7 +317,9 @@ class InstalledAddOnContext(InstanceContext):
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnExtensionList
         """
         if self._extensions is None:
-            self._extensions = InstalledAddOnExtensionList(self._version, self._solution['sid'],
+            self._extensions = InstalledAddOnExtensionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._extensions
     

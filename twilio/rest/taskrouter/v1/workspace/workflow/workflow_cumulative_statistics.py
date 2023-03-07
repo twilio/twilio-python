@@ -79,7 +79,8 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
         Initialize the WorkflowCumulativeStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the resource to fetch.:param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+        :param workspace_sid: The SID of the Workspace with the resource to fetch.
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
 
         :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsContext
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsContext

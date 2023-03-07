@@ -208,7 +208,8 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource.:param participant_sid: The SID of the Participant resource.
+        :param room_sid: The SID of the Room resource.
+        :param participant_sid: The SID of the Participant resource.
 
         :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext

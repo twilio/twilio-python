@@ -271,7 +271,8 @@ class AddressContext(InstanceContext):
         Initialize the AddressContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.:param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
 
         :returns: twilio.rest.api.v2010.account.address.AddressContext
         :rtype: twilio.rest.api.v2010.account.address.AddressContext
@@ -365,7 +366,10 @@ class AddressContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.address.DependentPhoneNumberList
         """
         if self._dependent_phone_numbers is None:
-            self._dependent_phone_numbers = DependentPhoneNumberList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._dependent_phone_numbers = DependentPhoneNumberList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._dependent_phone_numbers
     

@@ -267,7 +267,8 @@ class BindingContext(InstanceContext):
         Initialize the BindingContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.:param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.
+        :param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
 
         :returns: twilio.rest.notify.v1.service.binding.BindingContext
         :rtype: twilio.rest.notify.v1.service.binding.BindingContext

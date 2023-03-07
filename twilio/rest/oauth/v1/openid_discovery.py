@@ -77,7 +77,6 @@ class OpenidDiscoveryContext(InstanceContext):
         Initialize the OpenidDiscoveryContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
         :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext

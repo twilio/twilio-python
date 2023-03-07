@@ -230,7 +230,9 @@ class MediaContext(InstanceContext):
         Initialize the MediaContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.:param message_sid: The SID of the Message resource that this Media resource belongs to.:param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
+        :param message_sid: The SID of the Message resource that this Media resource belongs to.
+        :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
 
         :returns: twilio.rest.api.v2010.account.message.media.MediaContext
         :rtype: twilio.rest.api.v2010.account.message.media.MediaContext

@@ -241,7 +241,8 @@ class UserContext(InstanceContext):
         Initialize the UserContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.:param sid: The Twilio-provided string that uniquely identifies the User resource to update.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.
+        :param sid: The Twilio-provided string that uniquely identifies the User resource to update.
 
         :returns: twilio.rest.chat.v1.service.user.UserContext
         :rtype: twilio.rest.chat.v1.service.user.UserContext
@@ -323,7 +324,10 @@ class UserContext(InstanceContext):
         :rtype: twilio.rest.chat.v1.service.user.UserChannelList
         """
         if self._user_channels is None:
-            self._user_channels = UserChannelList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._user_channels = UserChannelList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._user_channels
     

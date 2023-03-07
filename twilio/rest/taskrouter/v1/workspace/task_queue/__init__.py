@@ -285,7 +285,8 @@ class TaskQueueContext(InstanceContext):
         Initialize the TaskQueueContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the TaskQueue to update.:param sid: The SID of the TaskQueue resource to update.
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to update.
+        :param sid: The SID of the TaskQueue resource to update.
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
@@ -301,6 +302,7 @@ class TaskQueueContext(InstanceContext):
         
         self._cumulative_statistics = None
         self._real_time_statistics = None
+        self._statistics = None
         self._statistics = None
     
     def delete(self):
@@ -375,7 +377,10 @@ class TaskQueueContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueCumulativeStatisticsList
         """
         if self._cumulative_statistics is None:
-            self._cumulative_statistics = TaskQueueCumulativeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            self._cumulative_statistics = TaskQueueCumulativeStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
             )
         return self._cumulative_statistics
     
@@ -388,7 +393,10 @@ class TaskQueueContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueRealTimeStatisticsList
         """
         if self._real_time_statistics is None:
-            self._real_time_statistics = TaskQueueRealTimeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            self._real_time_statistics = TaskQueueRealTimeStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
             )
         return self._real_time_statistics
     
@@ -401,7 +409,25 @@ class TaskQueueContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueStatisticsList
         """
         if self._statistics is None:
-            self._statistics = TaskQueueStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            self._statistics = TaskQueueStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
+            )
+        return self._statistics
+    
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = TaskQueuesStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
             )
         return self._statistics
     

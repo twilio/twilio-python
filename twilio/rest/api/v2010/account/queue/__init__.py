@@ -237,7 +237,8 @@ class QueueContext(InstanceContext):
         Initialize the QueueContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.:param sid: The Twilio-provided string that uniquely identifies the Queue resource to update
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Queue resource to update
 
         :returns: twilio.rest.api.v2010.account.queue.QueueContext
         :rtype: twilio.rest.api.v2010.account.queue.QueueContext
@@ -317,7 +318,10 @@ class QueueContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.queue.MemberList
         """
         if self._members is None:
-            self._members = MemberList(self._version, self._solution['account_sid'], self._solution['sid'],
+            self._members = MemberList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._members
     

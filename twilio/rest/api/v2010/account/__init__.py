@@ -356,7 +356,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.AddressList
         """
         if self._addresses is None:
-            self._addresses = AddressList(self._version, self._solution['sid'],
+            self._addresses = AddressList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._addresses
     
@@ -369,7 +371,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.ApplicationList
         """
         if self._applications is None:
-            self._applications = ApplicationList(self._version, self._solution['sid'],
+            self._applications = ApplicationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._applications
     
@@ -382,7 +386,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.AuthorizedConnectAppList
         """
         if self._authorized_connect_apps is None:
-            self._authorized_connect_apps = AuthorizedConnectAppList(self._version, self._solution['sid'],
+            self._authorized_connect_apps = AuthorizedConnectAppList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._authorized_connect_apps
     
@@ -395,7 +401,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
         """
         if self._available_phone_numbers is None:
-            self._available_phone_numbers = AvailablePhoneNumberCountryList(self._version, self._solution['sid'],
+            self._available_phone_numbers = AvailablePhoneNumberCountryList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._available_phone_numbers
     
@@ -408,7 +416,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.BalanceList
         """
         if self._balance is None:
-            self._balance = BalanceList(self._version, self._solution['sid'],
+            self._balance = BalanceList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._balance
     
@@ -421,7 +431,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.CallList
         """
         if self._calls is None:
-            self._calls = CallList(self._version, self._solution['sid'],
+            self._calls = CallList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._calls
     
@@ -434,7 +446,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.ConferenceList
         """
         if self._conferences is None:
-            self._conferences = ConferenceList(self._version, self._solution['sid'],
+            self._conferences = ConferenceList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._conferences
     
@@ -447,7 +461,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.ConnectAppList
         """
         if self._connect_apps is None:
-            self._connect_apps = ConnectAppList(self._version, self._solution['sid'],
+            self._connect_apps = ConnectAppList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._connect_apps
     
@@ -460,7 +476,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.IncomingPhoneNumberList
         """
         if self._incoming_phone_numbers is None:
-            self._incoming_phone_numbers = IncomingPhoneNumberList(self._version, self._solution['sid'],
+            self._incoming_phone_numbers = IncomingPhoneNumberList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._incoming_phone_numbers
     
@@ -473,7 +491,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.KeyList
         """
         if self._keys is None:
-            self._keys = KeyList(self._version, self._solution['sid'],
+            self._keys = KeyList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._keys
     
@@ -486,7 +506,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.MessageList
         """
         if self._messages is None:
-            self._messages = MessageList(self._version, self._solution['sid'],
+            self._messages = MessageList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._messages
     
@@ -499,7 +521,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.NewKeyList
         """
         if self._new_keys is None:
-            self._new_keys = NewKeyList(self._version, self._solution['sid'],
+            self._new_keys = NewKeyList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._new_keys
     
@@ -512,7 +536,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.NewSigningKeyList
         """
         if self._new_signing_keys is None:
-            self._new_signing_keys = NewSigningKeyList(self._version, self._solution['sid'],
+            self._new_signing_keys = NewSigningKeyList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._new_signing_keys
     
@@ -525,7 +551,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.NotificationList
         """
         if self._notifications is None:
-            self._notifications = NotificationList(self._version, self._solution['sid'],
+            self._notifications = NotificationList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._notifications
     
@@ -538,7 +566,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.OutgoingCallerIdList
         """
         if self._outgoing_caller_ids is None:
-            self._outgoing_caller_ids = OutgoingCallerIdList(self._version, self._solution['sid'],
+            self._outgoing_caller_ids = OutgoingCallerIdList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._outgoing_caller_ids
     
@@ -551,7 +581,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.QueueList
         """
         if self._queues is None:
-            self._queues = QueueList(self._version, self._solution['sid'],
+            self._queues = QueueList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._queues
     
@@ -564,7 +596,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.RecordingList
         """
         if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['sid'],
+            self._recordings = RecordingList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._recordings
     
@@ -577,7 +611,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.ShortCodeList
         """
         if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, self._solution['sid'],
+            self._short_codes = ShortCodeList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._short_codes
     
@@ -590,7 +626,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.SigningKeyList
         """
         if self._signing_keys is None:
-            self._signing_keys = SigningKeyList(self._version, self._solution['sid'],
+            self._signing_keys = SigningKeyList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._signing_keys
     
@@ -603,7 +641,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.SipList
         """
         if self._sip is None:
-            self._sip = SipList(self._version, self._solution['sid'],
+            self._sip = SipList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._sip
     
@@ -616,7 +656,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.TokenList
         """
         if self._tokens is None:
-            self._tokens = TokenList(self._version, self._solution['sid'],
+            self._tokens = TokenList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._tokens
     
@@ -629,7 +671,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.TranscriptionList
         """
         if self._transcriptions is None:
-            self._transcriptions = TranscriptionList(self._version, self._solution['sid'],
+            self._transcriptions = TranscriptionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._transcriptions
     
@@ -642,7 +686,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.UsageList
         """
         if self._usage is None:
-            self._usage = UsageList(self._version, self._solution['sid'],
+            self._usage = UsageList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._usage
     
@@ -655,7 +701,9 @@ class AccountContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.ValidationRequestList
         """
         if self._validation_requests is None:
-            self._validation_requests = ValidationRequestList(self._version, self._solution['sid'],
+            self._validation_requests = ValidationRequestList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._validation_requests
     

@@ -82,7 +82,8 @@ class DialogueContext(InstanceContext):
         Initialize the DialogueContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: :param sid: 
+        :param assistant_sid: 
+        :param sid: 
 
         :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
         :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext

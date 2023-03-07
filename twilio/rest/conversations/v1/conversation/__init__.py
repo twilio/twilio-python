@@ -350,7 +350,9 @@ class ConversationContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.conversation.MessageList
         """
         if self._messages is None:
-            self._messages = MessageList(self._version, self._solution['sid'],
+            self._messages = MessageList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._messages
     
@@ -363,7 +365,9 @@ class ConversationContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.conversation.ParticipantList
         """
         if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['sid'],
+            self._participants = ParticipantList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._participants
     
@@ -376,7 +380,9 @@ class ConversationContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.conversation.WebhookList
         """
         if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['sid'],
+            self._webhooks = WebhookList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._webhooks
     

@@ -345,7 +345,9 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.CredentialListList
         """
         if self._credentials_lists is None:
-            self._credentials_lists = CredentialListList(self._version, self._solution['sid'],
+            self._credentials_lists = CredentialListList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._credentials_lists
     
@@ -358,7 +360,9 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.IpAccessControlListList
         """
         if self._ip_access_control_lists is None:
-            self._ip_access_control_lists = IpAccessControlListList(self._version, self._solution['sid'],
+            self._ip_access_control_lists = IpAccessControlListList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._ip_access_control_lists
     
@@ -371,7 +375,9 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.OriginationUrlList
         """
         if self._origination_urls is None:
-            self._origination_urls = OriginationUrlList(self._version, self._solution['sid'],
+            self._origination_urls = OriginationUrlList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._origination_urls
     
@@ -384,7 +390,9 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.PhoneNumberList
         """
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self._version, self._solution['sid'],
+            self._phone_numbers = PhoneNumberList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._phone_numbers
     
@@ -397,7 +405,9 @@ class TrunkContext(InstanceContext):
         :rtype: twilio.rest.trunking.v1.trunk.RecordingList
         """
         if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['sid'],
+            self._recordings = RecordingList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._recordings
     

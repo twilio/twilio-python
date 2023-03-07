@@ -93,7 +93,6 @@ class InsightsSessionContext(InstanceContext):
         Initialize the InsightsSessionContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext

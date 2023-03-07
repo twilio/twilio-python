@@ -254,7 +254,9 @@ class MemberContext(InstanceContext):
         Initialize the MemberContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Member resource in.:param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.:param sid: The SID of the Member resource to update. This value can be either the Member's `sid` or its `identity` value.
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Member resource in.
+        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.
+        :param sid: The SID of the Member resource to update. This value can be either the Member's `sid` or its `identity` value.
 
         :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext

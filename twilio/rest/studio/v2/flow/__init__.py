@@ -325,7 +325,9 @@ class FlowContext(InstanceContext):
         :rtype: twilio.rest.studio.v2.flow.ExecutionList
         """
         if self._executions is None:
-            self._executions = ExecutionList(self._version, self._solution['sid'],
+            self._executions = ExecutionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._executions
     
@@ -338,7 +340,9 @@ class FlowContext(InstanceContext):
         :rtype: twilio.rest.studio.v2.flow.FlowRevisionList
         """
         if self._revisions is None:
-            self._revisions = FlowRevisionList(self._version, self._solution['sid'],
+            self._revisions = FlowRevisionList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._revisions
     
@@ -351,7 +355,9 @@ class FlowContext(InstanceContext):
         :rtype: twilio.rest.studio.v2.flow.FlowTestUserList
         """
         if self._test_users is None:
-            self._test_users = FlowTestUserList(self._version, self._solution['sid'],
+            self._test_users = FlowTestUserList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._test_users
     

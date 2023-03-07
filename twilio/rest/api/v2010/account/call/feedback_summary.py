@@ -109,7 +109,8 @@ class FeedbackSummaryContext(InstanceContext):
         Initialize the FeedbackSummaryContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param sid: A 34 character string that uniquely identifies this resource.
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext

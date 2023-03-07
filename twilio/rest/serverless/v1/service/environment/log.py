@@ -227,7 +227,9 @@ class LogContext(InstanceContext):
         Initialize the LogContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Log resource from.:param environment_sid: The SID of the environment with the Log resource to fetch.:param sid: The SID of the Log resource to fetch.
+        :param service_sid: The SID of the Service to fetch the Log resource from.
+        :param environment_sid: The SID of the environment with the Log resource to fetch.
+        :param sid: The SID of the Log resource to fetch.
 
         :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext

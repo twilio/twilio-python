@@ -355,7 +355,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.ActivityList
         """
         if self._activities is None:
-            self._activities = ActivityList(self._version, self._solution['sid'],
+            self._activities = ActivityList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._activities
     
@@ -368,7 +370,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.EventList
         """
         if self._events is None:
-            self._events = EventList(self._version, self._solution['sid'],
+            self._events = EventList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._events
     
@@ -381,7 +385,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.TaskList
         """
         if self._tasks is None:
-            self._tasks = TaskList(self._version, self._solution['sid'],
+            self._tasks = TaskList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._tasks
     
@@ -394,7 +400,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.TaskChannelList
         """
         if self._task_channels is None:
-            self._task_channels = TaskChannelList(self._version, self._solution['sid'],
+            self._task_channels = TaskChannelList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._task_channels
     
@@ -407,7 +415,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.TaskQueueList
         """
         if self._task_queues is None:
-            self._task_queues = TaskQueueList(self._version, self._solution['sid'],
+            self._task_queues = TaskQueueList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._task_queues
     
@@ -420,7 +430,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkerList
         """
         if self._workers is None:
-            self._workers = WorkerList(self._version, self._solution['sid'],
+            self._workers = WorkerList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._workers
     
@@ -433,7 +445,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkflowList
         """
         if self._workflows is None:
-            self._workflows = WorkflowList(self._version, self._solution['sid'],
+            self._workflows = WorkflowList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._workflows
     
@@ -446,7 +460,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceCumulativeStatisticsList
         """
         if self._cumulative_statistics is None:
-            self._cumulative_statistics = WorkspaceCumulativeStatisticsList(self._version, self._solution['sid'],
+            self._cumulative_statistics = WorkspaceCumulativeStatisticsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._cumulative_statistics
     
@@ -459,7 +475,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceRealTimeStatisticsList
         """
         if self._real_time_statistics is None:
-            self._real_time_statistics = WorkspaceRealTimeStatisticsList(self._version, self._solution['sid'],
+            self._real_time_statistics = WorkspaceRealTimeStatisticsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._real_time_statistics
     
@@ -472,7 +490,9 @@ class WorkspaceContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceStatisticsList
         """
         if self._statistics is None:
-            self._statistics = WorkspaceStatisticsList(self._version, self._solution['sid'],
+            self._statistics = WorkspaceStatisticsList(
+                self._version, 
+                self._solution['sid'],
             )
         return self._statistics
     

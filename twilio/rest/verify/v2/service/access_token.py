@@ -106,7 +106,8 @@ class AccessTokenContext(InstanceContext):
         Initialize the AccessTokenContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service.:param sid: A 34 character string that uniquely identifies this Access Token.
+        :param service_sid: The unique SID identifier of the Service.
+        :param sid: A 34 character string that uniquely identifies this Access Token.
 
         :returns: twilio.rest.verify.v2.service.access_token.AccessTokenContext
         :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenContext

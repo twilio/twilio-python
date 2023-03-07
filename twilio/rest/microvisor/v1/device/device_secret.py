@@ -233,7 +233,8 @@ class DeviceSecretContext(InstanceContext):
         Initialize the DeviceSecretContext
 
         :param Version version: Version that contains the resource
-        :param device_sid: A 34-character string that uniquely identifies the Device.:param key: The secret key; up to 100 characters.
+        :param device_sid: A 34-character string that uniquely identifies the Device.
+        :param key: The secret key; up to 100 characters.
 
         :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
         :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext

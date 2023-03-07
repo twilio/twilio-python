@@ -213,7 +213,9 @@ class AddOnResultContext(InstanceContext):
         Initialize the AddOnResultContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.:param reference_sid: The SID of the recording to which the result to fetch belongs.:param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.
+        :param reference_sid: The SID of the recording to which the result to fetch belongs.
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
@@ -270,7 +272,11 @@ class AddOnResultContext(InstanceContext):
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
         """
         if self._payloads is None:
-            self._payloads = PayloadList(self._version, self._solution['account_sid'], self._solution['reference_sid'], self._solution['sid'],
+            self._payloads = PayloadList(
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['reference_sid'],
+                self._solution['sid'],
             )
         return self._payloads
     

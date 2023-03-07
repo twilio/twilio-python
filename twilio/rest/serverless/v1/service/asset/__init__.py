@@ -235,7 +235,8 @@ class AssetContext(InstanceContext):
         Initialize the AssetContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to update the Asset resource from.:param sid: The SID that identifies the Asset resource to update.
+        :param service_sid: The SID of the Service to update the Asset resource from.
+        :param sid: The SID that identifies the Asset resource to update.
 
         :returns: twilio.rest.serverless.v1.service.asset.AssetContext
         :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
@@ -313,7 +314,10 @@ class AssetContext(InstanceContext):
         :rtype: twilio.rest.serverless.v1.service.asset.AssetVersionList
         """
         if self._asset_versions is None:
-            self._asset_versions = AssetVersionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._asset_versions = AssetVersionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._asset_versions
     

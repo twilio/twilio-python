@@ -239,7 +239,8 @@ class DocumentContext(InstanceContext):
         Initialize the DocumentContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update.:param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update.
+        :param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
 
         :returns: twilio.rest.sync.v1.service.document.DocumentContext
         :rtype: twilio.rest.sync.v1.service.document.DocumentContext
@@ -320,7 +321,10 @@ class DocumentContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.document.DocumentPermissionList
         """
         if self._document_permissions is None:
-            self._document_permissions = DocumentPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            self._document_permissions = DocumentPermissionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._document_permissions
     

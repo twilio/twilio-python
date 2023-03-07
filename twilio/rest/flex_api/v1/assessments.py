@@ -77,7 +77,6 @@ class AssessmentsContext(InstanceContext):
         Initialize the AssessmentsContext
 
         :param Version version: Version that contains the resource
-        
 
         :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext

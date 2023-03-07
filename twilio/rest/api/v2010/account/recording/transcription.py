@@ -212,7 +212,9 @@ class TranscriptionContext(InstanceContext):
         Initialize the TranscriptionContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.:param recording_sid: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch.:param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
+        :param recording_sid: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
 
         :returns: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext
         :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionContext

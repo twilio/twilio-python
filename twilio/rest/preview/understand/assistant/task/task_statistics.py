@@ -79,7 +79,8 @@ class TaskStatisticsContext(InstanceContext):
         Initialize the TaskStatisticsContext
 
         :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.:param task_sid: The unique ID of the Task associated with this Field.
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param task_sid: The unique ID of the Task associated with this Field.
 
         :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext

@@ -261,7 +261,9 @@ class SyncMapItemContext(InstanceContext):
         Initialize the SyncMapItemContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update.:param map_sid: The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.:param key: The `key` value of the Sync Map Item resource to update. 
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update.
+        :param map_sid: The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.
+        :param key: The `key` value of the Sync Map Item resource to update. 
 
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext

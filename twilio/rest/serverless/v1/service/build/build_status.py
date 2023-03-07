@@ -79,7 +79,8 @@ class BuildStatusContext(InstanceContext):
         Initialize the BuildStatusContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Build resource from.:param sid: The SID of the Build resource to fetch.
+        :param service_sid: The SID of the Service to fetch the Build resource from.
+        :param sid: The SID of the Build resource to fetch.
 
         :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
