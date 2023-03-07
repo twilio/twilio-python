@@ -46,12 +46,12 @@ class BrandRegistrationList(ListResource):
     
     
     
-    def create(self, customer_profile_bundle_sid, a2_p_profile_bundle_sid, brand_type=values.unset, mock=values.unset, skip_automatic_sec_vet=values.unset):
+    def create(self, customer_profile_bundle_sid, a2p_profile_bundle_sid, brand_type=values.unset, mock=values.unset, skip_automatic_sec_vet=values.unset):
         """
         Create the BrandRegistrationInstance
 
         :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
-        :param str a2_p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+        :param str a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
         :param str brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
         :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
         :param bool skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
@@ -61,7 +61,7 @@ class BrandRegistrationList(ListResource):
         """
         data = values.of({ 
             'CustomerProfileBundleSid': customer_profile_bundle_sid,
-            'A2PProfileBundleSid': a2_p_profile_bundle_sid,
+            'A2PProfileBundleSid': a2p_profile_bundle_sid,
             'BrandType': brand_type,
             'Mock': mock,
             'SkipAutomaticSecVet': skip_automatic_sec_vet,
