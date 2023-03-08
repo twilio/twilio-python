@@ -64,7 +64,7 @@ class Domain(object):
         print('Called Domain.request_async method...')
 
         url = self.absolute_url(uri)
-        return await self.twilio.request(
+        return await self.twilio.request_async(
             method,
             url,
             params=params,
