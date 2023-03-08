@@ -81,7 +81,7 @@ class AuthorizationDocumentList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param AuthorizationDocumentInstance.Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -108,7 +108,7 @@ class AuthorizationDocumentList(ListResource):
         memory before returning.
         
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param AuthorizationDocumentInstance.Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -132,7 +132,7 @@ class AuthorizationDocumentList(ListResource):
         Request is executed immediately
         
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param AuthorizationDocumentInstance.Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -293,7 +293,7 @@ class AuthorizationDocumentContext(InstanceContext):
         :params str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :params str email: Email that this AuthorizationDocument will be sent to for signing.
         :params list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :params Status status: 
+        :params AuthorizationDocumentInstance.Status status: 
         :params str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :params str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
 
@@ -407,7 +407,7 @@ class AuthorizationDocumentInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: AuthorizationDocumentInstance.Status
         """
         return self._properties['status']
     
@@ -477,7 +477,7 @@ class AuthorizationDocumentInstance(InstanceResource):
         :params str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :params str email: Email that this AuthorizationDocument will be sent to for signing.
         :params list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :params Status status: 
+        :params AuthorizationDocumentInstance.Status status: 
         :params str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :params str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
 

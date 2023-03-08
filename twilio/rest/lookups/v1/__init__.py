@@ -31,6 +31,9 @@ class V1(Version):
         
     @property
     def phone_numbers(self) -> PhoneNumberList:
+        """
+        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberList
+        """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers

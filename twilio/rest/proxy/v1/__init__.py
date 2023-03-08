@@ -31,6 +31,9 @@ class V1(Version):
         
     @property
     def services(self) -> ServiceList:
+        """
+        :rtype: twilio.rest.proxy.v1.service.ServiceList
+        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services

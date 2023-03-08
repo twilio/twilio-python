@@ -114,8 +114,8 @@ class RecordingContext(InstanceContext):
         """
         Update the RecordingInstance
         
-        :params RecordingMode mode: 
-        :params RecordingTrim trim: 
+        :params RecordingInstance.RecordingMode mode: 
+        :params RecordingInstance.RecordingTrim trim: 
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
@@ -190,7 +190,7 @@ class RecordingInstance(InstanceResource):
     def mode(self):
         """
         :returns: 
-        :rtype: RecordingMode
+        :rtype: RecordingInstance.RecordingMode
         """
         return self._properties['mode']
     
@@ -198,7 +198,7 @@ class RecordingInstance(InstanceResource):
     def trim(self):
         """
         :returns: 
-        :rtype: RecordingTrim
+        :rtype: RecordingInstance.RecordingTrim
         """
         return self._properties['trim']
     
@@ -216,8 +216,8 @@ class RecordingInstance(InstanceResource):
         """
         Update the RecordingInstance
         
-        :params RecordingMode mode: 
-        :params RecordingTrim trim: 
+        :params RecordingInstance.RecordingMode mode: 
+        :params RecordingInstance.RecordingTrim trim: 
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance

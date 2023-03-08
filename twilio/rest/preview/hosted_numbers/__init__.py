@@ -33,12 +33,18 @@ class HostedNumbers(Version):
         
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
+        """
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentList
+        """
         if self._authorization_documents is None:
             self._authorization_documents = AuthorizationDocumentList(self)
         return self._authorization_documents
 
     @property
     def hosted_number_orders(self) -> HostedNumberOrderList:
+        """
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList
+        """
         if self._hosted_number_orders is None:
             self._hosted_number_orders = HostedNumberOrderList(self)
         return self._hosted_number_orders

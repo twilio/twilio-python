@@ -76,8 +76,8 @@ class PlayerStreamerList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
+        :param PlayerStreamerInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param PlayerStreamerInstance.Status status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,8 +103,8 @@ class PlayerStreamerList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
+        :param PlayerStreamerInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param PlayerStreamerInstance.Status status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -127,8 +127,8 @@ class PlayerStreamerList(ListResource):
         Retrieve a single page of PlayerStreamerInstance records from the API.
         Request is executed immediately
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
+        :param PlayerStreamerInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param PlayerStreamerInstance.Status status: Status to filter by, with possible values `created`, `started`, `ended`, or `failed`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -285,7 +285,7 @@ class PlayerStreamerContext(InstanceContext):
         """
         Update the PlayerStreamerInstance
         
-        :params UpdateStatus status: 
+        :params PlayerStreamerInstance.UpdateStatus status: 
 
         :returns: The updated PlayerStreamerInstance
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
@@ -435,7 +435,7 @@ class PlayerStreamerInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: PlayerStreamerInstance.Status
         """
         return self._properties['status']
     
@@ -467,7 +467,7 @@ class PlayerStreamerInstance(InstanceResource):
     def ended_reason(self):
         """
         :returns: 
-        :rtype: EndedReason
+        :rtype: PlayerStreamerInstance.EndedReason
         """
         return self._properties['ended_reason']
     
@@ -493,7 +493,7 @@ class PlayerStreamerInstance(InstanceResource):
         """
         Update the PlayerStreamerInstance
         
-        :params UpdateStatus status: 
+        :params PlayerStreamerInstance.UpdateStatus status: 
 
         :returns: The updated PlayerStreamerInstance
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance

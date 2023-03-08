@@ -119,7 +119,7 @@ class UserContext(InstanceContext):
         
         :params str friendly_name: The string that you assigned to describe the User.
         :params str avatar: The avatar URL which will be shown in Frontline application.
-        :params StateType state: 
+        :params UserInstance.StateType state: 
         :params bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance
@@ -227,7 +227,7 @@ class UserInstance(InstanceResource):
     def state(self):
         """
         :returns: 
-        :rtype: StateType
+        :rtype: UserInstance.StateType
         """
         return self._properties['state']
     
@@ -263,7 +263,7 @@ class UserInstance(InstanceResource):
         
         :params str friendly_name: The string that you assigned to describe the User.
         :params str avatar: The avatar URL which will be shown in Frontline application.
-        :params StateType state: 
+        :params UserInstance.StateType state: 
         :params bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
 
         :returns: The updated UserInstance

@@ -348,7 +348,7 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: CustomerProfilesEvaluationsInstance.Status
         """
         return self._properties['status']
     

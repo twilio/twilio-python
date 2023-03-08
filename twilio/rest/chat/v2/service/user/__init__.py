@@ -53,7 +53,7 @@ class UserList(ListResource):
         Create the UserInstance
 
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User.
         :param str attributes: A valid JSON string that contains application-specific data.
         :param str friendly_name: A descriptive string that you create to describe the new resource. This value is often used for display purposes.
@@ -292,7 +292,7 @@ class UserContext(InstanceContext):
         """
         Update the UserInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
         :params str attributes: A valid JSON string that contains application-specific data.
         :params str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
@@ -535,7 +535,7 @@ class UserInstance(InstanceResource):
         """
         Update the UserInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
         :params str attributes: A valid JSON string that contains application-specific data.
         :params str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.

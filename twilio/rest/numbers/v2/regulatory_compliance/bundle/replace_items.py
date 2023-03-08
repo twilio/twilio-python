@@ -142,7 +142,7 @@ class ReplaceItemsInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: ReplaceItemsInstance.Status
         """
         return self._properties['status']
     

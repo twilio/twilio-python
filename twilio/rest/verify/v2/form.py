@@ -75,7 +75,7 @@ class FormList(ListResource):
 
 class FormContext(InstanceContext):
 
-    def __init__(self, version: Version, form_type: FormTypes):
+    def __init__(self, version: Version, form_type: FormInstance.FormTypes):
         """
         Initialize the FormContext
 
@@ -162,7 +162,7 @@ class FormInstance(InstanceResource):
     def form_type(self):
         """
         :returns: 
-        :rtype: FormTypes
+        :rtype: FormInstance.FormTypes
         """
         return self._properties['form_type']
     

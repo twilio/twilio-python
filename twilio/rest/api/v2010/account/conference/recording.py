@@ -282,7 +282,7 @@ class RecordingContext(InstanceContext):
         """
         Update the RecordingInstance
         
-        :params Status status: 
+        :params RecordingInstance.Status status: 
         :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
@@ -469,7 +469,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: RecordingInstance.Status
         """
         return self._properties['status']
     
@@ -485,7 +485,7 @@ class RecordingInstance(InstanceResource):
     def source(self):
         """
         :returns: 
-        :rtype: Source
+        :rtype: RecordingInstance.Source
         """
         return self._properties['source']
     
@@ -537,7 +537,7 @@ class RecordingInstance(InstanceResource):
         """
         Update the RecordingInstance
         
-        :params Status status: 
+        :params RecordingInstance.Status status: 
         :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance

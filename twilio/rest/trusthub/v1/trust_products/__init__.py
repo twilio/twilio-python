@@ -79,7 +79,7 @@ class TrustProductsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Status status: The verification status of the Customer-Profile resource.
+        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -108,7 +108,7 @@ class TrustProductsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Status status: The verification status of the Customer-Profile resource.
+        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -134,7 +134,7 @@ class TrustProductsList(ListResource):
         Retrieve a single page of TrustProductsInstance records from the API.
         Request is executed immediately
         
-        :param Status status: The verification status of the Customer-Profile resource.
+        :param TrustProductsInstance.Status status: The verification status of the Customer-Profile resource.
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
         :param str page_token: PageToken provided by the API
@@ -308,7 +308,7 @@ class TrustProductsContext(InstanceContext):
         """
         Update the TrustProductsInstance
         
-        :params Status status: 
+        :params TrustProductsInstance.Status status: 
         :params str status_callback: The URL we call to inform your application of status changes.
         :params str friendly_name: The string that you assigned to describe the resource.
         :params str email: The email address that will receive updates when the Customer-Profile resource changes status.
@@ -465,7 +465,7 @@ class TrustProductsInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: TrustProductsInstance.Status
         """
         return self._properties['status']
     
@@ -549,7 +549,7 @@ class TrustProductsInstance(InstanceResource):
         """
         Update the TrustProductsInstance
         
-        :params Status status: 
+        :params TrustProductsInstance.Status status: 
         :params str status_callback: The URL we call to inform your application of status changes.
         :params str friendly_name: The string that you assigned to describe the resource.
         :params str email: The email address that will receive updates when the Customer-Profile resource changes status.

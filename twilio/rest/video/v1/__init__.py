@@ -41,36 +41,54 @@ class V1(Version):
         
     @property
     def compositions(self) -> CompositionList:
+        """
+        :rtype: twilio.rest.video.v1.composition.CompositionList
+        """
         if self._compositions is None:
             self._compositions = CompositionList(self)
         return self._compositions
 
     @property
     def composition_hooks(self) -> CompositionHookList:
+        """
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookList
+        """
         if self._composition_hooks is None:
             self._composition_hooks = CompositionHookList(self)
         return self._composition_hooks
 
     @property
     def composition_settings(self) -> CompositionSettingsList:
+        """
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
+        """
         if self._composition_settings is None:
             self._composition_settings = CompositionSettingsList(self)
         return self._composition_settings
 
     @property
     def recordings(self) -> RecordingList:
+        """
+        :rtype: twilio.rest.video.v1.recording.RecordingList
+        """
         if self._recordings is None:
             self._recordings = RecordingList(self)
         return self._recordings
 
     @property
     def recording_settings(self) -> RecordingSettingsList:
+        """
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
+        """
         if self._recording_settings is None:
             self._recording_settings = RecordingSettingsList(self)
         return self._recording_settings
 
     @property
     def rooms(self) -> RoomList:
+        """
+        :rtype: twilio.rest.video.v1.room.RoomList
+        """
         if self._rooms is None:
             self._rooms = RoomList(self)
         return self._rooms

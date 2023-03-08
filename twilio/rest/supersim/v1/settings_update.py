@@ -50,7 +50,7 @@ class SettingsUpdateList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
-        :param Status status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
+        :param SettingsUpdateInstance.Status status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -77,7 +77,7 @@ class SettingsUpdateList(ListResource):
         memory before returning.
         
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
-        :param Status status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
+        :param SettingsUpdateInstance.Status status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -101,7 +101,7 @@ class SettingsUpdateList(ListResource):
         Request is executed immediately
         
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
-        :param Status status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
+        :param SettingsUpdateInstance.Status status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -247,7 +247,7 @@ class SettingsUpdateInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: SettingsUpdateInstance.Status
         """
         return self._properties['status']
     

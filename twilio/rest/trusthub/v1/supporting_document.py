@@ -395,7 +395,7 @@ class SupportingDocumentInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: SupportingDocumentInstance.Status
         """
         return self._properties['status']
     

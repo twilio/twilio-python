@@ -31,6 +31,9 @@ class V1(Version):
         
     @property
     def users(self) -> UserList:
+        """
+        :rtype: twilio.rest.frontline_api.v1.user.UserList
+        """
         if self._users is None:
             self._users = UserList(self)
         return self._users

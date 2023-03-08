@@ -386,7 +386,7 @@ class LogInstance(InstanceResource):
     def level(self):
         """
         :returns: 
-        :rtype: Level
+        :rtype: LogInstance.Level
         """
         return self._properties['level']
     
