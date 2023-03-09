@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -175,7 +176,6 @@ class LegacyContentPage(Page):
 
 
 
-
 class LegacyContentInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -300,5 +300,6 @@ class LegacyContentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Content.V1.LegacyContentInstance {}>'.format(context)
+
 
 

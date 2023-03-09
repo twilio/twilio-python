@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -45,7 +46,7 @@ class SimList(ListResource):
     
     
     
-    def stream(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+    def stream(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
         """
         Streams SimInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -55,7 +56,7 @@ class SimList(ListResource):
         :param str status: 
         :param str iccid: 
         :param str rate_plan: 
-        :param str eid: 
+        :param str e_id: 
         :param str sim_registration_code: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -72,14 +73,14 @@ class SimList(ListResource):
             status=status,
             iccid=iccid,
             rate_plan=rate_plan,
-            eid=eid,
+            e_id=e_id,
             sim_registration_code=sim_registration_code,
             page_size=limits['page_size']
         )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+    def list(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
         """
         Lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -88,7 +89,7 @@ class SimList(ListResource):
         :param str status: 
         :param str iccid: 
         :param str rate_plan: 
-        :param str eid: 
+        :param str e_id: 
         :param str sim_registration_code: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -104,13 +105,13 @@ class SimList(ListResource):
             status=status,
             iccid=iccid,
             rate_plan=rate_plan,
-            eid=eid,
+            e_id=e_id,
             sim_registration_code=sim_registration_code,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
@@ -118,7 +119,7 @@ class SimList(ListResource):
         :param str status: 
         :param str iccid: 
         :param str rate_plan: 
-        :param str eid: 
+        :param str e_id: 
         :param str sim_registration_code: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -131,7 +132,7 @@ class SimList(ListResource):
             'Status': status,
             'Iccid': iccid,
             'RatePlan': rate_plan,
-            'EId': eid,
+            'EId': e_id,
             'SimRegistrationCode': sim_registration_code,
             'PageToken': page_token,
             'Page': page_number,
@@ -232,121 +233,6 @@ class SimPage(Page):
 
 
 
-
-class SimContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SimContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.preview.wireless.sim.SimContext
-        :rtype: twilio.rest.preview.wireless.sim.SimContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Sims/{sid}'.format(**self._solution)
-        
-        self._usage = None
-    
-    def fetch(self):
-        """
-        Fetch the SimInstance
-        
-
-        :returns: The fetched SimInstance
-        :rtype: twilio.rest.preview.wireless.sim.SimInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset):
-        """
-        Update the SimInstance
-        
-        :params str unique_name: 
-        :params str callback_method: 
-        :params str callback_url: 
-        :params str friendly_name: 
-        :params str rate_plan: 
-        :params str status: 
-        :params str commands_callback_method: 
-        :params str commands_callback_url: 
-        :params str sms_fallback_method: 
-        :params str sms_fallback_url: 
-        :params str sms_method: 
-        :params str sms_url: 
-        :params str voice_fallback_method: 
-        :params str voice_fallback_url: 
-        :params str voice_method: 
-        :params str voice_url: 
-
-        :returns: The updated SimInstance
-        :rtype: twilio.rest.preview.wireless.sim.SimInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-            'RatePlan': rate_plan,
-            'Status': status,
-            'CommandsCallbackMethod': commands_callback_method,
-            'CommandsCallbackUrl': commands_callback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsMethod': sms_method,
-            'SmsUrl': sms_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceMethod': voice_method,
-            'VoiceUrl': voice_url,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def usage(self):
-        """
-        Access the usage
-
-        :returns: twilio.rest.preview.wireless.sim.UsageList
-        :rtype: twilio.rest.preview.wireless.sim.UsageList
-        """
-        if self._usage is None:
-            self._usage = UsageList(self._version, self._solution['sid'],
-            )
-        return self._usage
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Wireless.SimContext {}>'.format(context)
 
 class SimInstance(InstanceResource):
 
@@ -629,5 +515,122 @@ class SimInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Wireless.SimInstance {}>'.format(context)
+
+class SimContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SimContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.preview.wireless.sim.SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Sims/{sid}'.format(**self._solution)
+        
+        self._usage = None
+    
+    def fetch(self):
+        """
+        Fetch the SimInstance
+        
+
+        :returns: The fetched SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset):
+        """
+        Update the SimInstance
+        
+        :params str unique_name: 
+        :params str callback_method: 
+        :params str callback_url: 
+        :params str friendly_name: 
+        :params str rate_plan: 
+        :params str status: 
+        :params str commands_callback_method: 
+        :params str commands_callback_url: 
+        :params str sms_fallback_method: 
+        :params str sms_fallback_url: 
+        :params str sms_method: 
+        :params str sms_url: 
+        :params str voice_fallback_method: 
+        :params str voice_fallback_url: 
+        :params str voice_method: 
+        :params str voice_url: 
+
+        :returns: The updated SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+            'RatePlan': rate_plan,
+            'Status': status,
+            'CommandsCallbackMethod': commands_callback_method,
+            'CommandsCallbackUrl': commands_callback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def usage(self):
+        """
+        Access the usage
+
+        :returns: twilio.rest.preview.wireless.sim.UsageList
+        :rtype: twilio.rest.preview.wireless.sim.UsageList
+        """
+        if self._usage is None:
+            self._usage = UsageList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._usage
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Wireless.SimContext {}>'.format(context)
 
 

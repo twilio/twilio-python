@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -72,7 +73,6 @@ class UserDefinedMessageList(ListResource):
         :rtype: str
         """
         return '<Twilio.Api.V2010.UserDefinedMessageList>'
-
 
 class UserDefinedMessageInstance(InstanceResource):
 
@@ -135,5 +135,6 @@ class UserDefinedMessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.UserDefinedMessageInstance {}>'.format(context)
+
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,7 +71,6 @@ class ExternalCampaignList(ListResource):
         :rtype: str
         """
         return '<Twilio.Messaging.V1.ExternalCampaignList>'
-
 
 class ExternalCampaignInstance(InstanceResource):
 
@@ -142,5 +142,6 @@ class ExternalCampaignInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.ExternalCampaignInstance {}>'.format(context)
+
 
 

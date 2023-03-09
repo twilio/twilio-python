@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -69,74 +70,6 @@ class SettingsList(ListResource):
         :rtype: str
         """
         return '<Twilio.Voice.V1.SettingsList>'
-
-class SettingsContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the SettingsContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Settings'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the SettingsInstance
-        
-
-        :returns: The fetched SettingsInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SettingsInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    def update(self, dialing_permissions_inheritance=values.unset):
-        """
-        Update the SettingsInstance
-        
-        :params bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
-
-        :returns: The updated SettingsInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
-        """
-        data = values.of({ 
-            'DialingPermissionsInheritance': dialing_permissions_inheritance,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SettingsInstance(
-            self._version,
-            payload
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.SettingsContext {}>'.format(context)
 
 class SettingsInstance(InstanceResource):
 
@@ -214,5 +147,72 @@ class SettingsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Voice.V1.SettingsInstance {}>'.format(context)
+
+class SettingsContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the SettingsContext
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Settings'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the SettingsInstance
+        
+
+        :returns: The fetched SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SettingsInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    def update(self, dialing_permissions_inheritance=values.unset):
+        """
+        Update the SettingsInstance
+        
+        :params bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+
+        :returns: The updated SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        """
+        data = values.of({ 
+            'DialingPermissionsInheritance': dialing_permissions_inheritance,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SettingsInstance(
+            self._version,
+            payload
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.SettingsContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -73,79 +74,6 @@ class SipDomainList(ListResource):
         :rtype: str
         """
         return '<Twilio.Routes.V2.SipDomainList>'
-
-class SipDomainContext(InstanceContext):
-
-    def __init__(self, version: Version, sip_domain: str):
-        """
-        Initialize the SipDomainContext
-
-        :param Version version: Version that contains the resource
-        :param sip_domain: 
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sip_domain': sip_domain,
-        }
-        self._uri = '/SipDomains/{sip_domain}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the SipDomainInstance
-        
-
-        :returns: The fetched SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SipDomainInstance(
-            self._version,
-            payload,
-            sip_domain=self._solution['sip_domain'],
-            
-        )
-        
-    def update(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Update the SipDomainInstance
-        
-        :params str voice_region: 
-        :params str friendly_name: 
-
-        :returns: The updated SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
-        """
-        data = values.of({ 
-            'VoiceRegion': voice_region,
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SipDomainInstance(
-            self._version,
-            payload,
-            sip_domain=self._solution['sip_domain']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Routes.V2.SipDomainContext {}>'.format(context)
 
 class SipDomainInstance(InstanceResource):
 
@@ -278,5 +206,78 @@ class SipDomainInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Routes.V2.SipDomainInstance {}>'.format(context)
+
+class SipDomainContext(InstanceContext):
+
+    def __init__(self, version: Version, sip_domain: str):
+        """
+        Initialize the SipDomainContext
+
+        :param Version version: Version that contains the resource
+        :param sip_domain: 
+
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sip_domain': sip_domain,
+        }
+        self._uri = '/SipDomains/{sip_domain}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the SipDomainInstance
+        
+
+        :returns: The fetched SipDomainInstance
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SipDomainInstance(
+            self._version,
+            payload,
+            sip_domain=self._solution['sip_domain'],
+            
+        )
+        
+    def update(self, voice_region=values.unset, friendly_name=values.unset):
+        """
+        Update the SipDomainInstance
+        
+        :params str voice_region: 
+        :params str friendly_name: 
+
+        :returns: The updated SipDomainInstance
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
+        """
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SipDomainInstance(
+            self._version,
+            payload,
+            sip_domain=self._solution['sip_domain']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Routes.V2.SipDomainContext {}>'.format(context)
 
 

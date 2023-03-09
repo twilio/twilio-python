@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -220,57 +221,6 @@ class TrustProductsEvaluationsPage(Page):
 
 
 
-class TrustProductsEvaluationsContext(InstanceContext):
-
-    def __init__(self, version: Version, trust_product_sid: str, sid: str):
-        """
-        Initialize the TrustProductsEvaluationsContext
-
-        :param Version version: Version that contains the resource
-        :param trust_product_sid: The unique string that we created to identify the trust_product resource.:param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'trust_product_sid': trust_product_sid,
-            'sid': sid,
-        }
-        self._uri = '/TrustProducts/{trust_product_sid}/Evaluations/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the TrustProductsEvaluationsInstance
-        
-
-        :returns: The fetched TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TrustProductsEvaluationsInstance(
-            self._version,
-            payload,
-            trust_product_sid=self._solution['trust_product_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.TrustProductsEvaluationsContext {}>'.format(context)
-
 class TrustProductsEvaluationsInstance(InstanceResource):
 
     class Status(object):
@@ -394,5 +344,57 @@ class TrustProductsEvaluationsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.TrustProductsEvaluationsInstance {}>'.format(context)
+
+class TrustProductsEvaluationsContext(InstanceContext):
+
+    def __init__(self, version: Version, trust_product_sid: str, sid: str):
+        """
+        Initialize the TrustProductsEvaluationsContext
+
+        :param Version version: Version that contains the resource
+        :param trust_product_sid: The unique string that we created to identify the trust_product resource.
+        :param sid: The unique string that identifies the Evaluation resource.
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'trust_product_sid': trust_product_sid,
+            'sid': sid,
+        }
+        self._uri = '/TrustProducts/{trust_product_sid}/Evaluations/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the TrustProductsEvaluationsInstance
+        
+
+        :returns: The fetched TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TrustProductsEvaluationsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution['trust_product_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.TrustProductsEvaluationsContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -42,6 +43,23 @@ class RestoreAssistantList(ListResource):
         
         
     
+    def update(self, assistant):
+        """
+        Update the RestoreAssistantInstance
+
+        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
+        
+        :returns: The created RestoreAssistantInstance
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantInstance
+        """
+        data = values.of({ 
+            'Assistant': assistant,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RestoreAssistantInstance(self._version, payload)
+    
 
 
     def __repr__(self):
@@ -51,7 +69,6 @@ class RestoreAssistantList(ListResource):
         :rtype: str
         """
         return '<Twilio.Autopilot.V1.RestoreAssistantList>'
-
 
 class RestoreAssistantInstance(InstanceResource):
 
@@ -186,5 +203,6 @@ class RestoreAssistantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.RestoreAssistantInstance {}>'.format(context)
+
 
 

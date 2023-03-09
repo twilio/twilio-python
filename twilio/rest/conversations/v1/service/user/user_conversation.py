@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -206,97 +207,6 @@ class UserConversationPage(Page):
 
 
 
-
-class UserConversationContext(InstanceContext):
-
-    def __init__(self, version: Version, chat_service_sid: str, user_sid: str, conversation_sid: str):
-        """
-        Initialize the UserConversationContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.:param user_sid: The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource.:param conversation_sid: The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
-
-        :returns: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationContext
-        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'chat_service_sid': chat_service_sid,
-            'user_sid': user_sid,
-            'conversation_sid': conversation_sid,
-        }
-        self._uri = '/Services/{chat_service_sid}/Users/{user_sid}/Conversations/{conversation_sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the UserConversationInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the UserConversationInstance
-        
-
-        :returns: The fetched UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return UserConversationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            user_sid=self._solution['user_sid'],
-            conversation_sid=self._solution['conversation_sid'],
-            
-        )
-        
-    def update(self, notification_level=values.unset, last_read_timestamp=values.unset, last_read_message_index=values.unset):
-        """
-        Update the UserConversationInstance
-        
-        :params UserConversationInstance.NotificationLevel notification_level: 
-        :params datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
-        :params int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
-
-        :returns: The updated UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationInstance
-        """
-        data = values.of({ 
-            'NotificationLevel': notification_level,
-            'LastReadTimestamp': serialize.iso8601_datetime(last_read_timestamp),
-            'LastReadMessageIndex': last_read_message_index,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserConversationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            user_sid=self._solution['user_sid'],
-            conversation_sid=self._solution['conversation_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.UserConversationContext {}>'.format(context)
 
 class UserConversationInstance(InstanceResource):
 
@@ -539,5 +449,98 @@ class UserConversationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.UserConversationInstance {}>'.format(context)
+
+class UserConversationContext(InstanceContext):
+
+    def __init__(self, version: Version, chat_service_sid: str, user_sid: str, conversation_sid: str):
+        """
+        Initialize the UserConversationContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+        :param user_sid: The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource.
+        :param conversation_sid: The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+
+        :returns: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationContext
+        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+            'user_sid': user_sid,
+            'conversation_sid': conversation_sid,
+        }
+        self._uri = '/Services/{chat_service_sid}/Users/{user_sid}/Conversations/{conversation_sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the UserConversationInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the UserConversationInstance
+        
+
+        :returns: The fetched UserConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return UserConversationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            user_sid=self._solution['user_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            
+        )
+        
+    def update(self, notification_level=values.unset, last_read_timestamp=values.unset, last_read_message_index=values.unset):
+        """
+        Update the UserConversationInstance
+        
+        :params UserConversationInstance.NotificationLevel notification_level: 
+        :params datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
+        :params int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
+
+        :returns: The updated UserConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationInstance
+        """
+        data = values.of({ 
+            'NotificationLevel': notification_level,
+            'LastReadTimestamp': serialize.iso8601_datetime(last_read_timestamp),
+            'LastReadMessageIndex': last_read_message_index,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return UserConversationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            user_sid=self._solution['user_sid'],
+            conversation_sid=self._solution['conversation_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.UserConversationContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -42,6 +43,17 @@ class UsecaseList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the UsecaseInstance
+
+        :returns: The fetched UsecaseInstance
+        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UsecaseInstance(self._version, payload)
+    
 
 
     def __repr__(self):
@@ -51,7 +63,6 @@ class UsecaseList(ListResource):
         :rtype: str
         """
         return '<Twilio.Messaging.V1.UsecaseList>'
-
 
 class UsecaseInstance(InstanceResource):
 
@@ -87,5 +98,6 @@ class UsecaseInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.UsecaseInstance {}>'.format(context)
+
 
 

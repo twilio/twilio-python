@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -497,63 +498,6 @@ class StreamList(ListResource):
         """
         return '<Twilio.Api.V2010.StreamList>'
 
-class StreamContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
-        """
-        Initialize the StreamContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.:param sid: The SID of the Stream resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.stream.StreamContext
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Streams/{sid}.json'.format(**self._solution)
-        
-    
-    def update(self, status):
-        """
-        Update the StreamInstance
-        
-        :params StreamInstance.UpdateStatus status: 
-
-        :returns: The updated StreamInstance
-        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return StreamInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.StreamContext {}>'.format(context)
-
 class StreamInstance(InstanceResource):
 
     class Status(object):
@@ -669,5 +613,64 @@ class StreamInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.StreamInstance {}>'.format(context)
+
+class StreamContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
+        """
+        Initialize the StreamContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
+        :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
+        :param sid: The SID of the Stream resource, or the `name` used when creating the resource
+
+        :returns: twilio.rest.api.v2010.account.call.stream.StreamContext
+        :rtype: twilio.rest.api.v2010.account.call.stream.StreamContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Streams/{sid}.json'.format(**self._solution)
+        
+    
+    def update(self, status):
+        """
+        Update the StreamInstance
+        
+        :params StreamInstance.UpdateStatus status: 
+
+        :returns: The updated StreamInstance
+        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return StreamInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.StreamContext {}>'.format(context)
 
 

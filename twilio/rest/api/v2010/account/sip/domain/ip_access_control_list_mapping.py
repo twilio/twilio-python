@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -224,69 +225,6 @@ class IpAccessControlListMappingPage(Page):
 
 
 
-class IpAccessControlListMappingContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
-        """
-        Initialize the IpAccessControlListMappingContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that is responsible for this resource.:param domain_sid: A 34 character string that uniquely identifies the SIP domain.:param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'domain_sid': domain_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/IpAccessControlListMappings/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the IpAccessControlListMappingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the IpAccessControlListMappingInstance
-        
-
-        :returns: The fetched IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return IpAccessControlListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            domain_sid=self._solution['domain_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.IpAccessControlListMappingContext {}>'.format(context)
-
 class IpAccessControlListMappingInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, domain_sid: str, sid: str=None):
@@ -407,5 +345,70 @@ class IpAccessControlListMappingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.IpAccessControlListMappingInstance {}>'.format(context)
+
+class IpAccessControlListMappingContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
+        """
+        Initialize the IpAccessControlListMappingContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the Account that is responsible for this resource.
+        :param domain_sid: A 34 character string that uniquely identifies the SIP domain.
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'domain_sid': domain_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/IpAccessControlListMappings/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the IpAccessControlListMappingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the IpAccessControlListMappingInstance
+        
+
+        :returns: The fetched IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return IpAccessControlListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            domain_sid=self._solution['domain_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.IpAccessControlListMappingContext {}>'.format(context)
 
 

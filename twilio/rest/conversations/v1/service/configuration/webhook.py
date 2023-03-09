@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,83 +71,6 @@ class WebhookList(ListResource):
         :rtype: str
         """
         return '<Twilio.Conversations.V1.WebhookList>'
-
-class WebhookContext(InstanceContext):
-
-    def __init__(self, version: Version, chat_service_sid: str):
-        """
-        Initialize the WebhookContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
-
-        :returns: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'chat_service_sid': chat_service_sid,
-        }
-        self._uri = '/Services/{chat_service_sid}/Configuration/Webhooks'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-        
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            
-        )
-        
-    def update(self, pre_webhook_url=values.unset, post_webhook_url=values.unset, filters=values.unset, method=values.unset):
-        """
-        Update the WebhookInstance
-        
-        :params str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :params str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :params list[str] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
-        :params str method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
-
-        :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'PreWebhookUrl': pre_webhook_url,
-            'PostWebhookUrl': post_webhook_url,
-            'Filters': serialize.map(filters, lambda e: e),
-            'Method': method,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.WebhookContext {}>'.format(context)
 
 class WebhookInstance(InstanceResource):
 
@@ -276,5 +200,82 @@ class WebhookInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.WebhookInstance {}>'.format(context)
+
+class WebhookContext(InstanceContext):
+
+    def __init__(self, version: Version, chat_service_sid: str):
+        """
+        Initialize the WebhookContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
+
+        :returns: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+        }
+        self._uri = '/Services/{chat_service_sid}/Configuration/Webhooks'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the WebhookInstance
+        
+
+        :returns: The fetched WebhookInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            
+        )
+        
+    def update(self, pre_webhook_url=values.unset, post_webhook_url=values.unset, filters=values.unset, method=values.unset):
+        """
+        Update the WebhookInstance
+        
+        :params str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :params str post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :params list[str] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :params str method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+
+        :returns: The updated WebhookInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'PreWebhookUrl': pre_webhook_url,
+            'PostWebhookUrl': post_webhook_url,
+            'Filters': serialize.map(filters, lambda e: e),
+            'Method': method,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.WebhookContext {}>'.format(context)
 
 

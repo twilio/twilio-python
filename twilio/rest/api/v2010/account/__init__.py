@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -257,415 +258,6 @@ class AccountPage(Page):
 
 
 
-
-class AccountContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the AccountContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Account Sid that uniquely identifies the account to update
-
-        :returns: twilio.rest.api.v2010.account.AccountContext
-        :rtype: twilio.rest.api.v2010.account.AccountContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{sid}.json'.format(**self._solution)
-        
-        self._addresses = None
-        self._applications = None
-        self._authorized_connect_apps = None
-        self._available_phone_numbers = None
-        self._balance = None
-        self._calls = None
-        self._conferences = None
-        self._connect_apps = None
-        self._incoming_phone_numbers = None
-        self._keys = None
-        self._messages = None
-        self._new_keys = None
-        self._new_signing_keys = None
-        self._notifications = None
-        self._outgoing_caller_ids = None
-        self._queues = None
-        self._recordings = None
-        self._short_codes = None
-        self._signing_keys = None
-        self._sip = None
-        self._tokens = None
-        self._transcriptions = None
-        self._usage = None
-        self._validation_requests = None
-    
-    def fetch(self):
-        """
-        Fetch the AccountInstance
-        
-
-        :returns: The fetched AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AccountInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, status=values.unset):
-        """
-        Update the AccountInstance
-        
-        :params str friendly_name: Update the human-readable description of this Account
-        :params AccountInstance.Status status: 
-
-        :returns: The updated AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AccountInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def addresses(self):
-        """
-        Access the addresses
-
-        :returns: twilio.rest.api.v2010.account.AddressList
-        :rtype: twilio.rest.api.v2010.account.AddressList
-        """
-        if self._addresses is None:
-            self._addresses = AddressList(self._version, self._solution['sid'],
-            )
-        return self._addresses
-    
-    @property
-    def applications(self):
-        """
-        Access the applications
-
-        :returns: twilio.rest.api.v2010.account.ApplicationList
-        :rtype: twilio.rest.api.v2010.account.ApplicationList
-        """
-        if self._applications is None:
-            self._applications = ApplicationList(self._version, self._solution['sid'],
-            )
-        return self._applications
-    
-    @property
-    def authorized_connect_apps(self):
-        """
-        Access the authorized_connect_apps
-
-        :returns: twilio.rest.api.v2010.account.AuthorizedConnectAppList
-        :rtype: twilio.rest.api.v2010.account.AuthorizedConnectAppList
-        """
-        if self._authorized_connect_apps is None:
-            self._authorized_connect_apps = AuthorizedConnectAppList(self._version, self._solution['sid'],
-            )
-        return self._authorized_connect_apps
-    
-    @property
-    def available_phone_numbers(self):
-        """
-        Access the available_phone_numbers
-
-        :returns: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
-        :rtype: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
-        """
-        if self._available_phone_numbers is None:
-            self._available_phone_numbers = AvailablePhoneNumberCountryList(self._version, self._solution['sid'],
-            )
-        return self._available_phone_numbers
-    
-    @property
-    def balance(self):
-        """
-        Access the balance
-
-        :returns: twilio.rest.api.v2010.account.BalanceList
-        :rtype: twilio.rest.api.v2010.account.BalanceList
-        """
-        if self._balance is None:
-            self._balance = BalanceList(self._version, self._solution['sid'],
-            )
-        return self._balance
-    
-    @property
-    def calls(self):
-        """
-        Access the calls
-
-        :returns: twilio.rest.api.v2010.account.CallList
-        :rtype: twilio.rest.api.v2010.account.CallList
-        """
-        if self._calls is None:
-            self._calls = CallList(self._version, self._solution['sid'],
-            )
-        return self._calls
-    
-    @property
-    def conferences(self):
-        """
-        Access the conferences
-
-        :returns: twilio.rest.api.v2010.account.ConferenceList
-        :rtype: twilio.rest.api.v2010.account.ConferenceList
-        """
-        if self._conferences is None:
-            self._conferences = ConferenceList(self._version, self._solution['sid'],
-            )
-        return self._conferences
-    
-    @property
-    def connect_apps(self):
-        """
-        Access the connect_apps
-
-        :returns: twilio.rest.api.v2010.account.ConnectAppList
-        :rtype: twilio.rest.api.v2010.account.ConnectAppList
-        """
-        if self._connect_apps is None:
-            self._connect_apps = ConnectAppList(self._version, self._solution['sid'],
-            )
-        return self._connect_apps
-    
-    @property
-    def incoming_phone_numbers(self):
-        """
-        Access the incoming_phone_numbers
-
-        :returns: twilio.rest.api.v2010.account.IncomingPhoneNumberList
-        :rtype: twilio.rest.api.v2010.account.IncomingPhoneNumberList
-        """
-        if self._incoming_phone_numbers is None:
-            self._incoming_phone_numbers = IncomingPhoneNumberList(self._version, self._solution['sid'],
-            )
-        return self._incoming_phone_numbers
-    
-    @property
-    def keys(self):
-        """
-        Access the keys
-
-        :returns: twilio.rest.api.v2010.account.KeyList
-        :rtype: twilio.rest.api.v2010.account.KeyList
-        """
-        if self._keys is None:
-            self._keys = KeyList(self._version, self._solution['sid'],
-            )
-        return self._keys
-    
-    @property
-    def messages(self):
-        """
-        Access the messages
-
-        :returns: twilio.rest.api.v2010.account.MessageList
-        :rtype: twilio.rest.api.v2010.account.MessageList
-        """
-        if self._messages is None:
-            self._messages = MessageList(self._version, self._solution['sid'],
-            )
-        return self._messages
-    
-    @property
-    def new_keys(self):
-        """
-        Access the new_keys
-
-        :returns: twilio.rest.api.v2010.account.NewKeyList
-        :rtype: twilio.rest.api.v2010.account.NewKeyList
-        """
-        if self._new_keys is None:
-            self._new_keys = NewKeyList(self._version, self._solution['sid'],
-            )
-        return self._new_keys
-    
-    @property
-    def new_signing_keys(self):
-        """
-        Access the new_signing_keys
-
-        :returns: twilio.rest.api.v2010.account.NewSigningKeyList
-        :rtype: twilio.rest.api.v2010.account.NewSigningKeyList
-        """
-        if self._new_signing_keys is None:
-            self._new_signing_keys = NewSigningKeyList(self._version, self._solution['sid'],
-            )
-        return self._new_signing_keys
-    
-    @property
-    def notifications(self):
-        """
-        Access the notifications
-
-        :returns: twilio.rest.api.v2010.account.NotificationList
-        :rtype: twilio.rest.api.v2010.account.NotificationList
-        """
-        if self._notifications is None:
-            self._notifications = NotificationList(self._version, self._solution['sid'],
-            )
-        return self._notifications
-    
-    @property
-    def outgoing_caller_ids(self):
-        """
-        Access the outgoing_caller_ids
-
-        :returns: twilio.rest.api.v2010.account.OutgoingCallerIdList
-        :rtype: twilio.rest.api.v2010.account.OutgoingCallerIdList
-        """
-        if self._outgoing_caller_ids is None:
-            self._outgoing_caller_ids = OutgoingCallerIdList(self._version, self._solution['sid'],
-            )
-        return self._outgoing_caller_ids
-    
-    @property
-    def queues(self):
-        """
-        Access the queues
-
-        :returns: twilio.rest.api.v2010.account.QueueList
-        :rtype: twilio.rest.api.v2010.account.QueueList
-        """
-        if self._queues is None:
-            self._queues = QueueList(self._version, self._solution['sid'],
-            )
-        return self._queues
-    
-    @property
-    def recordings(self):
-        """
-        Access the recordings
-
-        :returns: twilio.rest.api.v2010.account.RecordingList
-        :rtype: twilio.rest.api.v2010.account.RecordingList
-        """
-        if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['sid'],
-            )
-        return self._recordings
-    
-    @property
-    def short_codes(self):
-        """
-        Access the short_codes
-
-        :returns: twilio.rest.api.v2010.account.ShortCodeList
-        :rtype: twilio.rest.api.v2010.account.ShortCodeList
-        """
-        if self._short_codes is None:
-            self._short_codes = ShortCodeList(self._version, self._solution['sid'],
-            )
-        return self._short_codes
-    
-    @property
-    def signing_keys(self):
-        """
-        Access the signing_keys
-
-        :returns: twilio.rest.api.v2010.account.SigningKeyList
-        :rtype: twilio.rest.api.v2010.account.SigningKeyList
-        """
-        if self._signing_keys is None:
-            self._signing_keys = SigningKeyList(self._version, self._solution['sid'],
-            )
-        return self._signing_keys
-    
-    @property
-    def sip(self):
-        """
-        Access the sip
-
-        :returns: twilio.rest.api.v2010.account.SipList
-        :rtype: twilio.rest.api.v2010.account.SipList
-        """
-        if self._sip is None:
-            self._sip = SipList(self._version, self._solution['sid'],
-            )
-        return self._sip
-    
-    @property
-    def tokens(self):
-        """
-        Access the tokens
-
-        :returns: twilio.rest.api.v2010.account.TokenList
-        :rtype: twilio.rest.api.v2010.account.TokenList
-        """
-        if self._tokens is None:
-            self._tokens = TokenList(self._version, self._solution['sid'],
-            )
-        return self._tokens
-    
-    @property
-    def transcriptions(self):
-        """
-        Access the transcriptions
-
-        :returns: twilio.rest.api.v2010.account.TranscriptionList
-        :rtype: twilio.rest.api.v2010.account.TranscriptionList
-        """
-        if self._transcriptions is None:
-            self._transcriptions = TranscriptionList(self._version, self._solution['sid'],
-            )
-        return self._transcriptions
-    
-    @property
-    def usage(self):
-        """
-        Access the usage
-
-        :returns: twilio.rest.api.v2010.account.UsageList
-        :rtype: twilio.rest.api.v2010.account.UsageList
-        """
-        if self._usage is None:
-            self._usage = UsageList(self._version, self._solution['sid'],
-            )
-        return self._usage
-    
-    @property
-    def validation_requests(self):
-        """
-        Access the validation_requests
-
-        :returns: twilio.rest.api.v2010.account.ValidationRequestList
-        :rtype: twilio.rest.api.v2010.account.ValidationRequestList
-        """
-        if self._validation_requests is None:
-            self._validation_requests = ValidationRequestList(self._version, self._solution['sid'],
-            )
-        return self._validation_requests
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AccountContext {}>'.format(context)
 
 class AccountInstance(InstanceResource):
 
@@ -1065,5 +657,462 @@ class AccountInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AccountInstance {}>'.format(context)
+
+class AccountContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the AccountContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Account Sid that uniquely identifies the account to update
+
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{sid}.json'.format(**self._solution)
+        
+        self._addresses = None
+        self._applications = None
+        self._authorized_connect_apps = None
+        self._available_phone_numbers = None
+        self._balance = None
+        self._calls = None
+        self._conferences = None
+        self._connect_apps = None
+        self._incoming_phone_numbers = None
+        self._keys = None
+        self._messages = None
+        self._new_keys = None
+        self._new_signing_keys = None
+        self._notifications = None
+        self._outgoing_caller_ids = None
+        self._queues = None
+        self._recordings = None
+        self._short_codes = None
+        self._signing_keys = None
+        self._sip = None
+        self._tokens = None
+        self._transcriptions = None
+        self._usage = None
+        self._validation_requests = None
+    
+    def fetch(self):
+        """
+        Fetch the AccountInstance
+        
+
+        :returns: The fetched AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AccountInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, status=values.unset):
+        """
+        Update the AccountInstance
+        
+        :params str friendly_name: Update the human-readable description of this Account
+        :params AccountInstance.Status status: 
+
+        :returns: The updated AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AccountInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def addresses(self):
+        """
+        Access the addresses
+
+        :returns: twilio.rest.api.v2010.account.AddressList
+        :rtype: twilio.rest.api.v2010.account.AddressList
+        """
+        if self._addresses is None:
+            self._addresses = AddressList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._addresses
+    
+    @property
+    def applications(self):
+        """
+        Access the applications
+
+        :returns: twilio.rest.api.v2010.account.ApplicationList
+        :rtype: twilio.rest.api.v2010.account.ApplicationList
+        """
+        if self._applications is None:
+            self._applications = ApplicationList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._applications
+    
+    @property
+    def authorized_connect_apps(self):
+        """
+        Access the authorized_connect_apps
+
+        :returns: twilio.rest.api.v2010.account.AuthorizedConnectAppList
+        :rtype: twilio.rest.api.v2010.account.AuthorizedConnectAppList
+        """
+        if self._authorized_connect_apps is None:
+            self._authorized_connect_apps = AuthorizedConnectAppList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._authorized_connect_apps
+    
+    @property
+    def available_phone_numbers(self):
+        """
+        Access the available_phone_numbers
+
+        :returns: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
+        :rtype: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
+        """
+        if self._available_phone_numbers is None:
+            self._available_phone_numbers = AvailablePhoneNumberCountryList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._available_phone_numbers
+    
+    @property
+    def balance(self):
+        """
+        Access the balance
+
+        :returns: twilio.rest.api.v2010.account.BalanceList
+        :rtype: twilio.rest.api.v2010.account.BalanceList
+        """
+        if self._balance is None:
+            self._balance = BalanceList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._balance
+    
+    @property
+    def calls(self):
+        """
+        Access the calls
+
+        :returns: twilio.rest.api.v2010.account.CallList
+        :rtype: twilio.rest.api.v2010.account.CallList
+        """
+        if self._calls is None:
+            self._calls = CallList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._calls
+    
+    @property
+    def conferences(self):
+        """
+        Access the conferences
+
+        :returns: twilio.rest.api.v2010.account.ConferenceList
+        :rtype: twilio.rest.api.v2010.account.ConferenceList
+        """
+        if self._conferences is None:
+            self._conferences = ConferenceList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._conferences
+    
+    @property
+    def connect_apps(self):
+        """
+        Access the connect_apps
+
+        :returns: twilio.rest.api.v2010.account.ConnectAppList
+        :rtype: twilio.rest.api.v2010.account.ConnectAppList
+        """
+        if self._connect_apps is None:
+            self._connect_apps = ConnectAppList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._connect_apps
+    
+    @property
+    def incoming_phone_numbers(self):
+        """
+        Access the incoming_phone_numbers
+
+        :returns: twilio.rest.api.v2010.account.IncomingPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.IncomingPhoneNumberList
+        """
+        if self._incoming_phone_numbers is None:
+            self._incoming_phone_numbers = IncomingPhoneNumberList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._incoming_phone_numbers
+    
+    @property
+    def keys(self):
+        """
+        Access the keys
+
+        :returns: twilio.rest.api.v2010.account.KeyList
+        :rtype: twilio.rest.api.v2010.account.KeyList
+        """
+        if self._keys is None:
+            self._keys = KeyList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._keys
+    
+    @property
+    def messages(self):
+        """
+        Access the messages
+
+        :returns: twilio.rest.api.v2010.account.MessageList
+        :rtype: twilio.rest.api.v2010.account.MessageList
+        """
+        if self._messages is None:
+            self._messages = MessageList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._messages
+    
+    @property
+    def new_keys(self):
+        """
+        Access the new_keys
+
+        :returns: twilio.rest.api.v2010.account.NewKeyList
+        :rtype: twilio.rest.api.v2010.account.NewKeyList
+        """
+        if self._new_keys is None:
+            self._new_keys = NewKeyList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._new_keys
+    
+    @property
+    def new_signing_keys(self):
+        """
+        Access the new_signing_keys
+
+        :returns: twilio.rest.api.v2010.account.NewSigningKeyList
+        :rtype: twilio.rest.api.v2010.account.NewSigningKeyList
+        """
+        if self._new_signing_keys is None:
+            self._new_signing_keys = NewSigningKeyList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._new_signing_keys
+    
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.api.v2010.account.NotificationList
+        :rtype: twilio.rest.api.v2010.account.NotificationList
+        """
+        if self._notifications is None:
+            self._notifications = NotificationList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._notifications
+    
+    @property
+    def outgoing_caller_ids(self):
+        """
+        Access the outgoing_caller_ids
+
+        :returns: twilio.rest.api.v2010.account.OutgoingCallerIdList
+        :rtype: twilio.rest.api.v2010.account.OutgoingCallerIdList
+        """
+        if self._outgoing_caller_ids is None:
+            self._outgoing_caller_ids = OutgoingCallerIdList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._outgoing_caller_ids
+    
+    @property
+    def queues(self):
+        """
+        Access the queues
+
+        :returns: twilio.rest.api.v2010.account.QueueList
+        :rtype: twilio.rest.api.v2010.account.QueueList
+        """
+        if self._queues is None:
+            self._queues = QueueList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._queues
+    
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.api.v2010.account.RecordingList
+        :rtype: twilio.rest.api.v2010.account.RecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RecordingList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._recordings
+    
+    @property
+    def short_codes(self):
+        """
+        Access the short_codes
+
+        :returns: twilio.rest.api.v2010.account.ShortCodeList
+        :rtype: twilio.rest.api.v2010.account.ShortCodeList
+        """
+        if self._short_codes is None:
+            self._short_codes = ShortCodeList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._short_codes
+    
+    @property
+    def signing_keys(self):
+        """
+        Access the signing_keys
+
+        :returns: twilio.rest.api.v2010.account.SigningKeyList
+        :rtype: twilio.rest.api.v2010.account.SigningKeyList
+        """
+        if self._signing_keys is None:
+            self._signing_keys = SigningKeyList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._signing_keys
+    
+    @property
+    def sip(self):
+        """
+        Access the sip
+
+        :returns: twilio.rest.api.v2010.account.SipList
+        :rtype: twilio.rest.api.v2010.account.SipList
+        """
+        if self._sip is None:
+            self._sip = SipList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._sip
+    
+    @property
+    def tokens(self):
+        """
+        Access the tokens
+
+        :returns: twilio.rest.api.v2010.account.TokenList
+        :rtype: twilio.rest.api.v2010.account.TokenList
+        """
+        if self._tokens is None:
+            self._tokens = TokenList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._tokens
+    
+    @property
+    def transcriptions(self):
+        """
+        Access the transcriptions
+
+        :returns: twilio.rest.api.v2010.account.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.TranscriptionList
+        """
+        if self._transcriptions is None:
+            self._transcriptions = TranscriptionList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._transcriptions
+    
+    @property
+    def usage(self):
+        """
+        Access the usage
+
+        :returns: twilio.rest.api.v2010.account.UsageList
+        :rtype: twilio.rest.api.v2010.account.UsageList
+        """
+        if self._usage is None:
+            self._usage = UsageList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._usage
+    
+    @property
+    def validation_requests(self):
+        """
+        Access the validation_requests
+
+        :returns: twilio.rest.api.v2010.account.ValidationRequestList
+        :rtype: twilio.rest.api.v2010.account.ValidationRequestList
+        """
+        if self._validation_requests is None:
+            self._validation_requests = ValidationRequestList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._validation_requests
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AccountContext {}>'.format(context)
 
 

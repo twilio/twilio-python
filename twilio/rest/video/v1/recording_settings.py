@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -96,83 +97,6 @@ class RecordingSettingsList(ListResource):
         :rtype: str
         """
         return '<Twilio.Video.V1.RecordingSettingsList>'
-
-class RecordingSettingsContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the RecordingSettingsContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/RecordingSettings/Default'.format(**self._solution)
-        
-    
-    def create(self, friendly_name, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
-        """
-        Create the RecordingSettingsInstance
-        
-        :param str friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
-        :param str aws_credentials_sid: The SID of the stored Credential resource.
-        :param str encryption_key_sid: The SID of the Public Key resource to use for encryption.
-        :param str aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
-        :param bool aws_storage_enabled: Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
-        :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
-
-        :returns: The created RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'AwsCredentialsSid': aws_credentials_sid,
-            'EncryptionKeySid': encryption_key_sid,
-            'AwsS3Url': aws_s3_url,
-            'AwsStorageEnabled': aws_storage_enabled,
-            'EncryptionEnabled': encryption_enabled,
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
-
-        return RecordingSettingsInstance(
-            self._version,
-            payload
-        )
-    
-    def fetch(self):
-        """
-        Fetch the RecordingSettingsInstance
-        
-
-        :returns: The fetched RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RecordingSettingsInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RecordingSettingsContext {}>'.format(context)
 
 class RecordingSettingsInstance(InstanceResource):
 
@@ -309,5 +233,81 @@ class RecordingSettingsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RecordingSettingsInstance {}>'.format(context)
+
+class RecordingSettingsContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the RecordingSettingsContext
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/RecordingSettings/Default'.format(**self._solution)
+        
+    
+    def create(self, friendly_name, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
+        """
+        Create the RecordingSettingsInstance
+        
+        :param str friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
+        :param str aws_credentials_sid: The SID of the stored Credential resource.
+        :param str encryption_key_sid: The SID of the Public Key resource to use for encryption.
+        :param str aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+        :param bool aws_storage_enabled: Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
+        :param bool encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
+
+        :returns: The created RecordingSettingsInstance
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'AwsCredentialsSid': aws_credentials_sid,
+            'EncryptionKeySid': encryption_key_sid,
+            'AwsS3Url': aws_s3_url,
+            'AwsStorageEnabled': aws_storage_enabled,
+            'EncryptionEnabled': encryption_enabled,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+
+        return RecordingSettingsInstance(
+            self._version,
+            payload
+        )
+    
+    def fetch(self):
+        """
+        Fetch the RecordingSettingsInstance
+        
+
+        :returns: The fetched RecordingSettingsInstance
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RecordingSettingsInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RecordingSettingsContext {}>'.format(context)
 
 

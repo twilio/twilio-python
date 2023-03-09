@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -201,59 +202,6 @@ class PublishedTrackPage(Page):
 
 
 
-class PublishedTrackContext(InstanceContext):
-
-    def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
-        """
-        Initialize the PublishedTrackContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource where the Track resource to fetch is published.:param participant_sid: The SID of the Participant resource with the published track to fetch.:param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'participant_sid': participant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Rooms/{room_sid}/Participants/{participant_sid}/PublishedTracks/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the PublishedTrackInstance
-        
-
-        :returns: The fetched PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PublishedTrackInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            participant_sid=self._solution['participant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.PublishedTrackContext {}>'.format(context)
-
 class PublishedTrackInstance(InstanceResource):
 
     class Kind(object):
@@ -387,5 +335,60 @@ class PublishedTrackInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.PublishedTrackInstance {}>'.format(context)
+
+class PublishedTrackContext(InstanceContext):
+
+    def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
+        """
+        Initialize the PublishedTrackContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room resource where the Track resource to fetch is published.
+        :param participant_sid: The SID of the Participant resource with the published track to fetch.
+        :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
+
+        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'room_sid': room_sid,
+            'participant_sid': participant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Rooms/{room_sid}/Participants/{participant_sid}/PublishedTracks/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the PublishedTrackInstance
+        
+
+        :returns: The fetched PublishedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PublishedTrackInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            participant_sid=self._solution['participant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.PublishedTrackContext {}>'.format(context)
 
 

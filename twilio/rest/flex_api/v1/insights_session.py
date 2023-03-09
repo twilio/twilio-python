@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -84,56 +85,6 @@ class InsightsSessionList(ListResource):
         :rtype: str
         """
         return '<Twilio.FlexApi.V1.InsightsSessionList>'
-
-class InsightsSessionContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the InsightsSessionContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Insights/Session'.format(**self._solution)
-        
-    
-    def create(self, authorization=values.unset):
-        """
-        Create the InsightsSessionInstance
-        
-        :param str authorization: The Authorization HTTP request header
-
-        :returns: The created InsightsSessionInstance
-        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
-        """
-        data = values.of({ 
-            'Authorization': authorization,
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
-
-        return InsightsSessionInstance(
-            self._version,
-            payload
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsSessionContext {}>'.format(context)
 
 class InsightsSessionInstance(InstanceResource):
 
@@ -228,5 +179,54 @@ class InsightsSessionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsSessionInstance {}>'.format(context)
+
+class InsightsSessionContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the InsightsSessionContext
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Insights/Session'.format(**self._solution)
+        
+    
+    def create(self, authorization=values.unset):
+        """
+        Create the InsightsSessionInstance
+        
+        :param str authorization: The Authorization HTTP request header
+
+        :returns: The created InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
+        """
+        data = values.of({ 
+            'Authorization': authorization,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+
+        return InsightsSessionInstance(
+            self._version,
+            payload
+        )
+    
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InsightsSessionContext {}>'.format(context)
 
 

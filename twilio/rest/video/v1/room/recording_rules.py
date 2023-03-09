@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -43,6 +44,34 @@ class RecordingRulesList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the RecordingRulesInstance
+
+        :returns: The fetched RecordingRulesInstance
+        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
+    
+    
+    def update(self, rules=values.unset):
+        """
+        Update the RecordingRulesInstance
+
+        :param object rules: A JSON-encoded array of recording rules.
+        
+        :returns: The created RecordingRulesInstance
+        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
+        """
+        data = values.of({ 
+            'Rules': serialize.object(rules),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
     
 
 
@@ -53,7 +82,6 @@ class RecordingRulesList(ListResource):
         :rtype: str
         """
         return '<Twilio.Video.V1.RecordingRulesList>'
-
 
 class RecordingRulesInstance(InstanceResource):
 
@@ -116,5 +144,6 @@ class RecordingRulesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RecordingRulesInstance {}>'.format(context)
+
 
 

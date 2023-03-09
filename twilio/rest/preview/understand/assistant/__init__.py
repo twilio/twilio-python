@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -246,213 +247,6 @@ class AssistantPage(Page):
 
 
 
-
-class AssistantContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the AssistantContext
-
-        :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantContext
-        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{sid}'.format(**self._solution)
-        
-        self._assistant_fallback_actions = None
-        self._assistant_initiation_actions = None
-        self._dialogues = None
-        self._field_types = None
-        self._model_builds = None
-        self._queries = None
-        self._style_sheet = None
-        self._tasks = None
-    
-    def delete(self):
-        """
-        Deletes the AssistantInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the AssistantInstance
-        
-
-        :returns: The fetched AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AssistantInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, fallback_actions=values.unset, initiation_actions=values.unset, style_sheet=values.unset):
-        """
-        Update the AssistantInstance
-        
-        :params str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :params bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :params str callback_url: A user-provided URL to send event callbacks to.
-        :params str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :params object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :params object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :params object style_sheet: The JSON object that holds the style sheet for the assistant
-
-        :returns: The updated AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'LogQueries': log_queries,
-            'UniqueName': unique_name,
-            'CallbackUrl': callback_url,
-            'CallbackEvents': callback_events,
-            'FallbackActions': serialize.object(fallback_actions),
-            'InitiationActions': serialize.object(initiation_actions),
-            'StyleSheet': serialize.object(style_sheet),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssistantInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def assistant_fallback_actions(self):
-        """
-        Access the assistant_fallback_actions
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
-        """
-        if self._assistant_fallback_actions is None:
-            self._assistant_fallback_actions = AssistantFallbackActionsList(self._version, self._solution['sid'],
-            )
-        return self._assistant_fallback_actions
-    
-    @property
-    def assistant_initiation_actions(self):
-        """
-        Access the assistant_initiation_actions
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
-        """
-        if self._assistant_initiation_actions is None:
-            self._assistant_initiation_actions = AssistantInitiationActionsList(self._version, self._solution['sid'],
-            )
-        return self._assistant_initiation_actions
-    
-    @property
-    def dialogues(self):
-        """
-        Access the dialogues
-
-        :returns: twilio.rest.preview.understand.assistant.DialogueList
-        :rtype: twilio.rest.preview.understand.assistant.DialogueList
-        """
-        if self._dialogues is None:
-            self._dialogues = DialogueList(self._version, self._solution['sid'],
-            )
-        return self._dialogues
-    
-    @property
-    def field_types(self):
-        """
-        Access the field_types
-
-        :returns: twilio.rest.preview.understand.assistant.FieldTypeList
-        :rtype: twilio.rest.preview.understand.assistant.FieldTypeList
-        """
-        if self._field_types is None:
-            self._field_types = FieldTypeList(self._version, self._solution['sid'],
-            )
-        return self._field_types
-    
-    @property
-    def model_builds(self):
-        """
-        Access the model_builds
-
-        :returns: twilio.rest.preview.understand.assistant.ModelBuildList
-        :rtype: twilio.rest.preview.understand.assistant.ModelBuildList
-        """
-        if self._model_builds is None:
-            self._model_builds = ModelBuildList(self._version, self._solution['sid'],
-            )
-        return self._model_builds
-    
-    @property
-    def queries(self):
-        """
-        Access the queries
-
-        :returns: twilio.rest.preview.understand.assistant.QueryList
-        :rtype: twilio.rest.preview.understand.assistant.QueryList
-        """
-        if self._queries is None:
-            self._queries = QueryList(self._version, self._solution['sid'],
-            )
-        return self._queries
-    
-    @property
-    def style_sheet(self):
-        """
-        Access the style_sheet
-
-        :returns: twilio.rest.preview.understand.assistant.StyleSheetList
-        :rtype: twilio.rest.preview.understand.assistant.StyleSheetList
-        """
-        if self._style_sheet is None:
-            self._style_sheet = StyleSheetList(self._version, self._solution['sid'],
-            )
-        return self._style_sheet
-    
-    @property
-    def tasks(self):
-        """
-        Access the tasks
-
-        :returns: twilio.rest.preview.understand.assistant.TaskList
-        :rtype: twilio.rest.preview.understand.assistant.TaskList
-        """
-        if self._tasks is None:
-            self._tasks = TaskList(self._version, self._solution['sid'],
-            )
-        return self._tasks
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.AssistantContext {}>'.format(context)
 
 class AssistantInstance(InstanceResource):
 
@@ -717,5 +511,228 @@ class AssistantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.AssistantInstance {}>'.format(context)
+
+class AssistantContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the AssistantContext
+
+        :param Version version: Version that contains the resource
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantContext
+        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{sid}'.format(**self._solution)
+        
+        self._assistant_fallback_actions = None
+        self._assistant_initiation_actions = None
+        self._dialogues = None
+        self._field_types = None
+        self._model_builds = None
+        self._queries = None
+        self._style_sheet = None
+        self._tasks = None
+    
+    def delete(self):
+        """
+        Deletes the AssistantInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the AssistantInstance
+        
+
+        :returns: The fetched AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, fallback_actions=values.unset, initiation_actions=values.unset, style_sheet=values.unset):
+        """
+        Update the AssistantInstance
+        
+        :params str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :params bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :params str callback_url: A user-provided URL to send event callbacks to.
+        :params str callback_events: Space-separated list of callback events that will trigger callbacks.
+        :params object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :params object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :params object style_sheet: The JSON object that holds the style sheet for the assistant
+
+        :returns: The updated AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'LogQueries': log_queries,
+            'UniqueName': unique_name,
+            'CallbackUrl': callback_url,
+            'CallbackEvents': callback_events,
+            'FallbackActions': serialize.object(fallback_actions),
+            'InitiationActions': serialize.object(initiation_actions),
+            'StyleSheet': serialize.object(style_sheet),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def assistant_fallback_actions(self):
+        """
+        Access the assistant_fallback_actions
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
+        :rtype: twilio.rest.preview.understand.assistant.AssistantFallbackActionsList
+        """
+        if self._assistant_fallback_actions is None:
+            self._assistant_fallback_actions = AssistantFallbackActionsList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._assistant_fallback_actions
+    
+    @property
+    def assistant_initiation_actions(self):
+        """
+        Access the assistant_initiation_actions
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInitiationActionsList
+        """
+        if self._assistant_initiation_actions is None:
+            self._assistant_initiation_actions = AssistantInitiationActionsList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._assistant_initiation_actions
+    
+    @property
+    def dialogues(self):
+        """
+        Access the dialogues
+
+        :returns: twilio.rest.preview.understand.assistant.DialogueList
+        :rtype: twilio.rest.preview.understand.assistant.DialogueList
+        """
+        if self._dialogues is None:
+            self._dialogues = DialogueList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._dialogues
+    
+    @property
+    def field_types(self):
+        """
+        Access the field_types
+
+        :returns: twilio.rest.preview.understand.assistant.FieldTypeList
+        :rtype: twilio.rest.preview.understand.assistant.FieldTypeList
+        """
+        if self._field_types is None:
+            self._field_types = FieldTypeList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._field_types
+    
+    @property
+    def model_builds(self):
+        """
+        Access the model_builds
+
+        :returns: twilio.rest.preview.understand.assistant.ModelBuildList
+        :rtype: twilio.rest.preview.understand.assistant.ModelBuildList
+        """
+        if self._model_builds is None:
+            self._model_builds = ModelBuildList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._model_builds
+    
+    @property
+    def queries(self):
+        """
+        Access the queries
+
+        :returns: twilio.rest.preview.understand.assistant.QueryList
+        :rtype: twilio.rest.preview.understand.assistant.QueryList
+        """
+        if self._queries is None:
+            self._queries = QueryList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._queries
+    
+    @property
+    def style_sheet(self):
+        """
+        Access the style_sheet
+
+        :returns: twilio.rest.preview.understand.assistant.StyleSheetList
+        :rtype: twilio.rest.preview.understand.assistant.StyleSheetList
+        """
+        if self._style_sheet is None:
+            self._style_sheet = StyleSheetList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._style_sheet
+    
+    @property
+    def tasks(self):
+        """
+        Access the tasks
+
+        :returns: twilio.rest.preview.understand.assistant.TaskList
+        :rtype: twilio.rest.preview.understand.assistant.TaskList
+        """
+        if self._tasks is None:
+            self._tasks = TaskList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._tasks
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.AssistantContext {}>'.format(context)
 
 

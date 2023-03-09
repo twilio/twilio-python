@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -229,95 +230,6 @@ class BucketPage(Page):
 
 
 
-class BucketContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, rate_limit_sid: str, sid: str):
-        """
-        Initialize the BucketContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.:param rate_limit_sid: The Twilio-provided string that uniquely identifies the Rate Limit resource.:param sid: A 34 character string that uniquely identifies this Bucket.
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
-        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'rate_limit_sid': rate_limit_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/RateLimits/{rate_limit_sid}/Buckets/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the BucketInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the BucketInstance
-        
-
-        :returns: The fetched BucketInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BucketInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            rate_limit_sid=self._solution['rate_limit_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, max=values.unset, interval=values.unset):
-        """
-        Update the BucketInstance
-        
-        :params int max: Maximum number of requests permitted in during the interval.
-        :params int interval: Number of seconds that the rate limit will be enforced over.
-
-        :returns: The updated BucketInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
-        """
-        data = values.of({ 
-            'Max': max,
-            'Interval': interval,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return BucketInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            rate_limit_sid=self._solution['rate_limit_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.BucketContext {}>'.format(context)
-
 class BucketInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, rate_limit_sid: str, sid: str=None):
@@ -468,5 +380,96 @@ class BucketInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.BucketInstance {}>'.format(context)
+
+class BucketContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, rate_limit_sid: str, sid: str):
+        """
+        Initialize the BucketContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+        :param rate_limit_sid: The Twilio-provided string that uniquely identifies the Rate Limit resource.
+        :param sid: A 34 character string that uniquely identifies this Bucket.
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'rate_limit_sid': rate_limit_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/RateLimits/{rate_limit_sid}/Buckets/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the BucketInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the BucketInstance
+        
+
+        :returns: The fetched BucketInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BucketInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            rate_limit_sid=self._solution['rate_limit_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, max=values.unset, interval=values.unset):
+        """
+        Update the BucketInstance
+        
+        :params int max: Maximum number of requests permitted in during the interval.
+        :params int interval: Number of seconds that the rate limit will be enforced over.
+
+        :returns: The updated BucketInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        """
+        data = values.of({ 
+            'Max': max,
+            'Interval': interval,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return BucketInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            rate_limit_sid=self._solution['rate_limit_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.BucketContext {}>'.format(context)
 
 

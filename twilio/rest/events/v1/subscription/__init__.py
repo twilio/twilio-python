@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -60,7 +61,7 @@ class SubscriptionList(ListResource):
         data = values.of({ 
             'Description': description,
             'SinkSid': sink_sid,
-            'Types': serialize.map(types, lambda e: e),
+            'Types': serialize.map(types, lambda e: serialize.object(e)),
         })
         
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
@@ -236,103 +237,6 @@ class SubscriptionPage(Page):
 
 
 
-class SubscriptionContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SubscriptionContext
-
-        :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this Subscription.
-
-        :returns: twilio.rest.events.v1.subscription.SubscriptionContext
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Subscriptions/{sid}'.format(**self._solution)
-        
-        self._subscribed_events = None
-    
-    def delete(self):
-        """
-        Deletes the SubscriptionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SubscriptionInstance
-        
-
-        :returns: The fetched SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SubscriptionInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, description=values.unset, sink_sid=values.unset):
-        """
-        Update the SubscriptionInstance
-        
-        :params str description: A human readable description for the Subscription.
-        :params str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-
-        :returns: The updated SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
-        """
-        data = values.of({ 
-            'Description': description,
-            'SinkSid': sink_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SubscriptionInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def subscribed_events(self):
-        """
-        Access the subscribed_events
-
-        :returns: twilio.rest.events.v1.subscription.SubscribedEventList
-        :rtype: twilio.rest.events.v1.subscription.SubscribedEventList
-        """
-        if self._subscribed_events is None:
-            self._subscribed_events = SubscribedEventList(self._version, self._solution['sid'],
-            )
-        return self._subscribed_events
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SubscriptionContext {}>'.format(context)
-
 class SubscriptionInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -484,5 +388,104 @@ class SubscriptionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.SubscriptionInstance {}>'.format(context)
+
+class SubscriptionContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SubscriptionContext
+
+        :param Version version: Version that contains the resource
+        :param sid: A 34 character string that uniquely identifies this Subscription.
+
+        :returns: twilio.rest.events.v1.subscription.SubscriptionContext
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Subscriptions/{sid}'.format(**self._solution)
+        
+        self._subscribed_events = None
+    
+    def delete(self):
+        """
+        Deletes the SubscriptionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SubscriptionInstance
+        
+
+        :returns: The fetched SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SubscriptionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, description=values.unset, sink_sid=values.unset):
+        """
+        Update the SubscriptionInstance
+        
+        :params str description: A human readable description for the Subscription.
+        :params str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+
+        :returns: The updated SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        data = values.of({ 
+            'Description': description,
+            'SinkSid': sink_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SubscriptionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def subscribed_events(self):
+        """
+        Access the subscribed_events
+
+        :returns: twilio.rest.events.v1.subscription.SubscribedEventList
+        :rtype: twilio.rest.events.v1.subscription.SubscribedEventList
+        """
+        if self._subscribed_events is None:
+            self._subscribed_events = SubscribedEventList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._subscribed_events
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SubscriptionContext {}>'.format(context)
 
 

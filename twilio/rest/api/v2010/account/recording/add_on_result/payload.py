@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -205,71 +206,6 @@ class PayloadPage(Page):
 
 
 
-class PayloadContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, reference_sid: str, add_on_result_sid: str, sid: str):
-        """
-        Initialize the PayloadContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch.:param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs.:param add_on_result_sid: The SID of the AddOnResult to which the payload to fetch belongs.:param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'reference_sid': reference_sid,
-            'add_on_result_sid': add_on_result_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the PayloadInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the PayloadInstance
-        
-
-        :returns: The fetched PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PayloadInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            reference_sid=self._solution['reference_sid'],
-            add_on_result_sid=self._solution['add_on_result_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.PayloadContext {}>'.format(context)
-
 class PayloadInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, reference_sid: str, add_on_result_sid: str, sid: str=None):
@@ -426,5 +362,73 @@ class PayloadInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.PayloadInstance {}>'.format(context)
+
+class PayloadContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, reference_sid: str, add_on_result_sid: str, sid: str):
+        """
+        Initialize the PayloadContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch.
+        :param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs.
+        :param add_on_result_sid: The SID of the AddOnResult to which the payload to fetch belongs.
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'reference_sid': reference_sid,
+            'add_on_result_sid': add_on_result_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the PayloadInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the PayloadInstance
+        
+
+        :returns: The fetched PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PayloadInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            reference_sid=self._solution['reference_sid'],
+            add_on_result_sid=self._solution['add_on_result_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.PayloadContext {}>'.format(context)
 
 

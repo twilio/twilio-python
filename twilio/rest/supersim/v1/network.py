@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -217,55 +218,6 @@ class NetworkPage(Page):
 
 
 
-class NetworkContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the NetworkContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Network resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.network.NetworkContext
-        :rtype: twilio.rest.supersim.v1.network.NetworkContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Networks/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the NetworkInstance
-        
-
-        :returns: The fetched NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return NetworkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.NetworkContext {}>'.format(context)
-
 class NetworkInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -358,5 +310,54 @@ class NetworkInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.NetworkInstance {}>'.format(context)
+
+class NetworkContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the NetworkContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Network resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.network.NetworkContext
+        :rtype: twilio.rest.supersim.v1.network.NetworkContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Networks/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the NetworkInstance
+        
+
+        :returns: The fetched NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return NetworkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.NetworkContext {}>'.format(context)
 
 

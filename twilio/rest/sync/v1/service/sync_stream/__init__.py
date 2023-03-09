@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -229,104 +230,6 @@ class SyncStreamPage(Page):
 
 
 
-class SyncStreamContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the SyncStreamContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update.:param sid: The SID of the Stream resource to update.
-
-        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
-        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Streams/{sid}'.format(**self._solution)
-        
-        self._stream_messages = None
-    
-    def delete(self):
-        """
-        Deletes the SyncStreamInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SyncStreamInstance
-        
-
-        :returns: The fetched SyncStreamInstance
-        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SyncStreamInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, ttl=values.unset):
-        """
-        Update the SyncStreamInstance
-        
-        :params int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
-
-        :returns: The updated SyncStreamInstance
-        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
-        """
-        data = values.of({ 
-            'Ttl': ttl,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SyncStreamInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def stream_messages(self):
-        """
-        Access the stream_messages
-
-        :returns: twilio.rest.sync.v1.service.sync_stream.StreamMessageList
-        :rtype: twilio.rest.sync.v1.service.sync_stream.StreamMessageList
-        """
-        if self._stream_messages is None:
-            self._stream_messages = StreamMessageList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._stream_messages
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.SyncStreamContext {}>'.format(context)
-
 class SyncStreamInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -495,5 +398,107 @@ class SyncStreamInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.SyncStreamInstance {}>'.format(context)
+
+class SyncStreamContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the SyncStreamContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update.
+        :param sid: The SID of the Stream resource to update.
+
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Streams/{sid}'.format(**self._solution)
+        
+        self._stream_messages = None
+    
+    def delete(self):
+        """
+        Deletes the SyncStreamInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SyncStreamInstance
+        
+
+        :returns: The fetched SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SyncStreamInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, ttl=values.unset):
+        """
+        Update the SyncStreamInstance
+        
+        :params int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+
+        :returns: The updated SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        """
+        data = values.of({ 
+            'Ttl': ttl,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SyncStreamInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def stream_messages(self):
+        """
+        Access the stream_messages
+
+        :returns: twilio.rest.sync.v1.service.sync_stream.StreamMessageList
+        :rtype: twilio.rest.sync.v1.service.sync_stream.StreamMessageList
+        """
+        if self._stream_messages is None:
+            self._stream_messages = StreamMessageList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._stream_messages
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.SyncStreamContext {}>'.format(context)
 
 

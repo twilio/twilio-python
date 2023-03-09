@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -231,97 +232,6 @@ class IpAddressPage(Page):
 
 
 
-class IpAddressContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, ip_access_control_list_sid: str, sid: str):
-        """
-        Initialize the IpAddressContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to update.:param sid: A 34 character string that identifies the IpAddress resource to update.
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'ip_access_control_list_sid': ip_access_control_list_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{ip_access_control_list_sid}/IpAddresses/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the IpAddressInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the IpAddressInstance
-        
-
-        :returns: The fetched IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return IpAddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            ip_access_control_list_sid=self._solution['ip_access_control_list_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, ip_address=values.unset, friendly_name=values.unset, cidr_prefix_length=values.unset):
-        """
-        Update the IpAddressInstance
-        
-        :params str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :params str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-        :params int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-
-        :returns: The updated IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
-        """
-        data = values.of({ 
-            'IpAddress': ip_address,
-            'FriendlyName': friendly_name,
-            'CidrPrefixLength': cidr_prefix_length,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return IpAddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            ip_access_control_list_sid=self._solution['ip_access_control_list_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.IpAddressContext {}>'.format(context)
-
 class IpAddressInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, ip_access_control_list_sid: str, sid: str=None):
@@ -473,5 +383,98 @@ class IpAddressInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.IpAddressInstance {}>'.format(context)
+
+class IpAddressContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, ip_access_control_list_sid: str, sid: str):
+        """
+        Initialize the IpAddressContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to update.
+        :param sid: A 34 character string that identifies the IpAddress resource to update.
+
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'ip_access_control_list_sid': ip_access_control_list_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{ip_access_control_list_sid}/IpAddresses/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the IpAddressInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the IpAddressInstance
+        
+
+        :returns: The fetched IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return IpAddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            ip_access_control_list_sid=self._solution['ip_access_control_list_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, ip_address=values.unset, friendly_name=values.unset, cidr_prefix_length=values.unset):
+        """
+        Update the IpAddressInstance
+        
+        :params str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :params str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :params int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+
+        :returns: The updated IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
+        """
+        data = values.of({ 
+            'IpAddress': ip_address,
+            'FriendlyName': friendly_name,
+            'CidrPrefixLength': cidr_prefix_length,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return IpAddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            ip_access_control_list_sid=self._solution['ip_access_control_list_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.IpAddressContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -258,65 +259,6 @@ class CommandPage(Page):
 
 
 
-class CommandContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CommandContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Command resource to fetch.
-
-        :returns: twilio.rest.wireless.v1.command.CommandContext
-        :rtype: twilio.rest.wireless.v1.command.CommandContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Commands/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the CommandInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the CommandInstance
-        
-
-        :returns: The fetched CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CommandInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Wireless.V1.CommandContext {}>'.format(context)
-
 class CommandInstance(InstanceResource):
 
     class CommandMode(object):
@@ -501,5 +443,64 @@ class CommandInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Wireless.V1.CommandInstance {}>'.format(context)
+
+class CommandContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CommandContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Command resource to fetch.
+
+        :returns: twilio.rest.wireless.v1.command.CommandContext
+        :rtype: twilio.rest.wireless.v1.command.CommandContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Commands/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CommandInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CommandInstance
+        
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CommandInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Wireless.V1.CommandContext {}>'.format(context)
 
 

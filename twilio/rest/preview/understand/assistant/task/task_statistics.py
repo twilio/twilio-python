@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,57 +71,6 @@ class TaskStatisticsList(ListResource):
         :rtype: str
         """
         return '<Twilio.Preview.Understand.TaskStatisticsList>'
-
-class TaskStatisticsContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
-        """
-        Initialize the TaskStatisticsContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.:param task_sid: The unique ID of the Task associated with this Field.
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
-        :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'task_sid': task_sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Statistics'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the TaskStatisticsInstance
-        
-
-        :returns: The fetched TaskStatisticsInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TaskStatisticsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.TaskStatisticsContext {}>'.format(context)
 
 class TaskStatisticsInstance(InstanceResource):
 
@@ -223,5 +173,57 @@ class TaskStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.TaskStatisticsInstance {}>'.format(context)
+
+class TaskStatisticsContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
+        """
+        Initialize the TaskStatisticsContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param task_sid: The unique ID of the Task associated with this Field.
+
+        :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
+        :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'task_sid': task_sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Statistics'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the TaskStatisticsInstance
+        
+
+        :returns: The fetched TaskStatisticsInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TaskStatisticsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.TaskStatisticsContext {}>'.format(context)
 
 

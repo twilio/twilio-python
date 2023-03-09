@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -229,95 +230,6 @@ class EngagementPage(Page):
 
 
 
-class EngagementContext(InstanceContext):
-
-    def __init__(self, version: Version, flow_sid: str, sid: str):
-        """
-        Initialize the EngagementContext
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow.:param sid: The SID of the Engagement resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'flow_sid': flow_sid,
-            'sid': sid,
-        }
-        self._uri = '/Flows/{flow_sid}/Engagements/{sid}'.format(**self._solution)
-        
-        self._engagement_context = None
-        self._steps = None
-    
-    def delete(self):
-        """
-        Deletes the EngagementInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the EngagementInstance
-        
-
-        :returns: The fetched EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EngagementInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution['flow_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    @property
-    def engagement_context(self):
-        """
-        Access the engagement_context
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContextList
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContextList
-        """
-        if self._engagement_context is None:
-            self._engagement_context = EngagementContextList(self._version, self._solution['flow_sid'], self._solution['sid'],
-            )
-        return self._engagement_context
-    
-    @property
-    def steps(self):
-        """
-        Access the steps
-
-        :returns: twilio.rest.studio.v1.flow.engagement.StepList
-        :rtype: twilio.rest.studio.v1.flow.engagement.StepList
-        """
-        if self._steps is None:
-            self._steps = StepList(self._version, self._solution['flow_sid'], self._solution['sid'],
-            )
-        return self._steps
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V1.EngagementContext {}>'.format(context)
-
 class EngagementInstance(InstanceResource):
 
     class Status(object):
@@ -498,5 +410,101 @@ class EngagementInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V1.EngagementInstance {}>'.format(context)
+
+class EngagementContext(InstanceContext):
+
+    def __init__(self, version: Version, flow_sid: str, sid: str):
+        """
+        Initialize the EngagementContext
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow.
+        :param sid: The SID of the Engagement resource to fetch.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'flow_sid': flow_sid,
+            'sid': sid,
+        }
+        self._uri = '/Flows/{flow_sid}/Engagements/{sid}'.format(**self._solution)
+        
+        self._engagement_context = None
+        self._steps = None
+    
+    def delete(self):
+        """
+        Deletes the EngagementInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the EngagementInstance
+        
+
+        :returns: The fetched EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EngagementInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution['flow_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def engagement_context(self):
+        """
+        Access the engagement_context
+
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContextList
+        """
+        if self._engagement_context is None:
+            self._engagement_context = EngagementContextList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
+            )
+        return self._engagement_context
+    
+    @property
+    def steps(self):
+        """
+        Access the steps
+
+        :returns: twilio.rest.studio.v1.flow.engagement.StepList
+        :rtype: twilio.rest.studio.v1.flow.engagement.StepList
+        """
+        if self._steps is None:
+            self._steps = StepList(
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
+            )
+        return self._steps
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V1.EngagementContext {}>'.format(context)
 
 

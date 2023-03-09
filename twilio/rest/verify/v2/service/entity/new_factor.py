@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -96,7 +97,6 @@ class NewFactorList(ListResource):
         :rtype: str
         """
         return '<Twilio.Verify.V2.NewFactorList>'
-
 
 class NewFactorInstance(InstanceResource):
 
@@ -257,5 +257,6 @@ class NewFactorInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.NewFactorInstance {}>'.format(context)
+
 
 

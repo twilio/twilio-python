@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -73,79 +74,6 @@ class PhoneNumberList(ListResource):
         :rtype: str
         """
         return '<Twilio.Routes.V2.PhoneNumberList>'
-
-class PhoneNumberContext(InstanceContext):
-
-    def __init__(self, version: Version, phone_number: str):
-        """
-        Initialize the PhoneNumberContext
-
-        :param Version version: Version that contains the resource
-        :param phone_number: The phone number in E.164 format
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'phone_number': phone_number,
-        }
-        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the PhoneNumberInstance
-        
-
-        :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            phone_number=self._solution['phone_number'],
-            
-        )
-        
-    def update(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Update the PhoneNumberInstance
-        
-        :params str voice_region: The Inbound Processing Region used for this phone number for voice
-        :params str friendly_name: A human readable description of this resource, up to 64 characters.
-
-        :returns: The updated PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
-        """
-        data = values.of({ 
-            'VoiceRegion': voice_region,
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            phone_number=self._solution['phone_number']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Routes.V2.PhoneNumberContext {}>'.format(context)
 
 class PhoneNumberInstance(InstanceResource):
 
@@ -278,5 +206,78 @@ class PhoneNumberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Routes.V2.PhoneNumberInstance {}>'.format(context)
+
+class PhoneNumberContext(InstanceContext):
+
+    def __init__(self, version: Version, phone_number: str):
+        """
+        Initialize the PhoneNumberContext
+
+        :param Version version: Version that contains the resource
+        :param phone_number: The phone number in E.164 format
+
+        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'phone_number': phone_number,
+        }
+        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the PhoneNumberInstance
+        
+
+        :returns: The fetched PhoneNumberInstance
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number'],
+            
+        )
+        
+    def update(self, voice_region=values.unset, friendly_name=values.unset):
+        """
+        Update the PhoneNumberInstance
+        
+        :params str voice_region: The Inbound Processing Region used for this phone number for voice
+        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :returns: The updated PhoneNumberInstance
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
+        """
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Routes.V2.PhoneNumberContext {}>'.format(context)
 
 

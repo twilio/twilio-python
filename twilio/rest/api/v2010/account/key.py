@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -206,90 +207,6 @@ class KeyPage(Page):
 
 
 
-class KeyContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the KeyContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.:param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
-
-        :returns: twilio.rest.api.v2010.account.key.KeyContext
-        :rtype: twilio.rest.api.v2010.account.key.KeyContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Keys/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the KeyInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the KeyInstance
-        
-
-        :returns: The fetched KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return KeyInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset):
-        """
-        Update the KeyInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-
-        :returns: The updated KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return KeyInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.KeyContext {}>'.format(context)
-
 class KeyInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, sid: str=None):
@@ -394,5 +311,90 @@ class KeyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.KeyInstance {}>'.format(context)
+
+class KeyContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the KeyContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
+
+        :returns: twilio.rest.api.v2010.account.key.KeyContext
+        :rtype: twilio.rest.api.v2010.account.key.KeyContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Keys/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the KeyInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the KeyInstance
+        
+
+        :returns: The fetched KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return KeyInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset):
+        """
+        Update the KeyInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: The updated KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return KeyInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.KeyContext {}>'.format(context)
 
 

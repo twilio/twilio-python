@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -234,98 +235,6 @@ class WebhookPage(Page):
 
 
 
-class WebhookContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the WebhookContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service.:param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
-
-        :returns: twilio.rest.verify.v2.service.webhook.WebhookContext
-        :rtype: twilio.rest.verify.v2.service.webhook.WebhookContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Webhooks/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the WebhookInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-        
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, event_types=values.unset, webhook_url=values.unset, status=values.unset, version=values.unset):
-        """
-        Update the WebhookInstance
-        
-        :params str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :params list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
-        :params str webhook_url: The URL associated with this Webhook.
-        :params WebhookInstance.Status status: 
-        :params WebhookInstance.Version version: 
-
-        :returns: The updated WebhookInstance
-        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'EventTypes': serialize.map(event_types, lambda e: e),
-            'WebhookUrl': webhook_url,
-            'Status': status,
-            'Version': version,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.WebhookContext {}>'.format(context)
-
 class WebhookInstance(InstanceResource):
 
     class Methods(object):
@@ -518,5 +427,98 @@ class WebhookInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.WebhookInstance {}>'.format(context)
+
+class WebhookContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the WebhookContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The unique SID identifier of the Service.
+        :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
+
+        :returns: twilio.rest.verify.v2.service.webhook.WebhookContext
+        :rtype: twilio.rest.verify.v2.service.webhook.WebhookContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Webhooks/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the WebhookInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the WebhookInstance
+        
+
+        :returns: The fetched WebhookInstance
+        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, event_types=values.unset, webhook_url=values.unset, status=values.unset, version=values.unset):
+        """
+        Update the WebhookInstance
+        
+        :params str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
+        :params list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+        :params str webhook_url: The URL associated with this Webhook.
+        :params WebhookInstance.Status status: 
+        :params WebhookInstance.Version version: 
+
+        :returns: The updated WebhookInstance
+        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'EventTypes': serialize.map(event_types, lambda e: e),
+            'WebhookUrl': webhook_url,
+            'Status': status,
+            'Version': version,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.WebhookContext {}>'.format(context)
 
 

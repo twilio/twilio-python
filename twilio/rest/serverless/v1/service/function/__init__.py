@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -227,104 +228,6 @@ class FunctionPage(Page):
 
 
 
-class FunctionContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the FunctionContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to update the Function resource from.:param sid: The SID of the Function resource to update.
-
-        :returns: twilio.rest.serverless.v1.service.function.FunctionContext
-        :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Functions/{sid}'.format(**self._solution)
-        
-        self._function_versions = None
-    
-    def delete(self):
-        """
-        Deletes the FunctionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the FunctionInstance
-        
-
-        :returns: The fetched FunctionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FunctionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name):
-        """
-        Update the FunctionInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
-
-        :returns: The updated FunctionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FunctionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def function_versions(self):
-        """
-        Access the function_versions
-
-        :returns: twilio.rest.serverless.v1.service.function.FunctionVersionList
-        :rtype: twilio.rest.serverless.v1.service.function.FunctionVersionList
-        """
-        if self._function_versions is None:
-            self._function_versions = FunctionVersionList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._function_versions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.FunctionContext {}>'.format(context)
-
 class FunctionInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -475,5 +378,107 @@ class FunctionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.FunctionInstance {}>'.format(context)
+
+class FunctionContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the FunctionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to update the Function resource from.
+        :param sid: The SID of the Function resource to update.
+
+        :returns: twilio.rest.serverless.v1.service.function.FunctionContext
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Functions/{sid}'.format(**self._solution)
+        
+        self._function_versions = None
+    
+    def delete(self):
+        """
+        Deletes the FunctionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the FunctionInstance
+        
+
+        :returns: The fetched FunctionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FunctionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name):
+        """
+        Update the FunctionInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
+
+        :returns: The updated FunctionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FunctionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def function_versions(self):
+        """
+        Access the function_versions
+
+        :returns: twilio.rest.serverless.v1.service.function.FunctionVersionList
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionVersionList
+        """
+        if self._function_versions is None:
+            self._function_versions = FunctionVersionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._function_versions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.FunctionContext {}>'.format(context)
 
 

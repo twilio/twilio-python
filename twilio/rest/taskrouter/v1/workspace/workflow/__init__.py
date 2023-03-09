@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -243,142 +244,6 @@ class WorkflowPage(Page):
 
 
 
-class WorkflowContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, sid: str):
-        """
-        Initialize the WorkflowContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Workflow to update.:param sid: The SID of the Workflow resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Workflows/{sid}'.format(**self._solution)
-        
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
-    
-    def delete(self):
-        """
-        Deletes the WorkflowInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the WorkflowInstance
-        
-
-        :returns: The fetched WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return WorkflowInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, configuration=values.unset, task_reservation_timeout=values.unset, re_evaluate_tasks=values.unset):
-        """
-        Update the WorkflowInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
-        :params str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
-        :params str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
-        :params str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-        :params int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
-        :params str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
-
-        :returns: The updated WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'AssignmentCallbackUrl': assignment_callback_url,
-            'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
-            'Configuration': configuration,
-            'TaskReservationTimeout': task_reservation_timeout,
-            'ReEvaluateTasks': re_evaluate_tasks,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WorkflowInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def cumulative_statistics(self):
-        """
-        Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
-        """
-        if self._cumulative_statistics is None:
-            self._cumulative_statistics = WorkflowCumulativeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
-            )
-        return self._cumulative_statistics
-    
-    @property
-    def real_time_statistics(self):
-        """
-        Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
-        """
-        if self._real_time_statistics is None:
-            self._real_time_statistics = WorkflowRealTimeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
-            )
-        return self._real_time_statistics
-    
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = WorkflowStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
-            )
-        return self._statistics
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.WorkflowContext {}>'.format(context)
-
 class WorkflowInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str, sid: str=None):
@@ -599,5 +464,151 @@ class WorkflowInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkflowInstance {}>'.format(context)
+
+class WorkflowContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, sid: str):
+        """
+        Initialize the WorkflowContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Workflow to update.
+        :param sid: The SID of the Workflow resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'sid': sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Workflows/{sid}'.format(**self._solution)
+        
+        self._cumulative_statistics = None
+        self._real_time_statistics = None
+        self._statistics = None
+    
+    def delete(self):
+        """
+        Deletes the WorkflowInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the WorkflowInstance
+        
+
+        :returns: The fetched WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, configuration=values.unset, task_reservation_timeout=values.unset, re_evaluate_tasks=values.unset):
+        """
+        Update the WorkflowInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
+        :params str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+        :params str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
+        :params str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+        :params int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+        :params str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
+
+        :returns: The updated WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'AssignmentCallbackUrl': assignment_callback_url,
+            'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
+            'Configuration': configuration,
+            'TaskReservationTimeout': task_reservation_timeout,
+            'ReEvaluateTasks': re_evaluate_tasks,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def cumulative_statistics(self):
+        """
+        Access the cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowCumulativeStatisticsList
+        """
+        if self._cumulative_statistics is None:
+            self._cumulative_statistics = WorkflowCumulativeStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
+            )
+        return self._cumulative_statistics
+    
+    @property
+    def real_time_statistics(self):
+        """
+        Access the real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowRealTimeStatisticsList
+        """
+        if self._real_time_statistics is None:
+            self._real_time_statistics = WorkflowRealTimeStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
+            )
+        return self._real_time_statistics
+    
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = WorkflowStatisticsList(
+                self._version, 
+                self._solution['workspace_sid'],
+                self._solution['sid'],
+            )
+        return self._statistics
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.WorkflowContext {}>'.format(context)
 
 
