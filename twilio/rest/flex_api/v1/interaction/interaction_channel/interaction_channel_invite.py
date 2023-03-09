@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -296,7 +297,6 @@ class InteractionChannelInvitePage(Page):
 
 
 
-
 class InteractionChannelInviteInstance(InstanceResource):
 
     def __init__(self, version, payload, interaction_sid: str, channel_sid: str):
@@ -367,5 +367,6 @@ class InteractionChannelInviteInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InteractionChannelInviteInstance {}>'.format(context)
+
 
 

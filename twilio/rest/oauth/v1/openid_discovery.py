@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -68,71 +69,6 @@ class OpenidDiscoveryList(ListResource):
         :rtype: str
         """
         return '<Twilio.Oauth.V1.OpenidDiscoveryList>'
-
-class OpenidDiscoveryContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the OpenidDiscoveryContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
-        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/.well-known/openid-configuration'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the OpenidDiscoveryInstance
-        
-
-        :returns: The fetched OpenidDiscoveryInstance
-        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return OpenidDiscoveryInstance(
-            self._version,
-            payload,
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the OpenidDiscoveryInstance
-        
-
-        :returns: The fetched OpenidDiscoveryInstance
-        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return OpenidDiscoveryInstance(
-            self._version,
-            payload,
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Oauth.V1.OpenidDiscoveryContext {}>'.format(context)
 
 class OpenidDiscoveryInstance(InstanceResource):
 
@@ -309,5 +245,51 @@ class OpenidDiscoveryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Oauth.V1.OpenidDiscoveryInstance {}>'.format(context)
+
+class OpenidDiscoveryContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the OpenidDiscoveryContext
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/.well-known/openid-configuration'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the OpenidDiscoveryInstance
+        
+
+        :returns: The fetched OpenidDiscoveryInstance
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return OpenidDiscoveryInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Oauth.V1.OpenidDiscoveryContext {}>'.format(context)
 
 

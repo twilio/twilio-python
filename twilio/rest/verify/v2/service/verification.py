@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -165,124 +166,6 @@ class VerificationList(ListResource):
         :rtype: str
         """
         return '<Twilio.Verify.V2.VerificationList>'
-
-class VerificationContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the VerificationContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to update the resource from.:param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
-
-        :returns: twilio.rest.verify.v2.service.verification.VerificationContext
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Verifications/{sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the VerificationInstance
-        
-
-        :returns: The fetched VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return VerificationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the VerificationInstance
-        
-
-        :returns: The fetched VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return VerificationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, status):
-        """
-        Update the VerificationInstance
-        
-        :params VerificationInstance.Status status: 
-
-        :returns: The updated VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return VerificationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, status):
-        """
-        Asynchronous coroutine to update the VerificationInstance
-        
-        :params VerificationInstance.Status status: 
-
-        :returns: The updated VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return VerificationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.VerificationContext {}>'.format(context)
 
 class VerificationInstance(InstanceResource):
 
@@ -507,5 +390,80 @@ class VerificationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.VerificationInstance {}>'.format(context)
+
+class VerificationContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the VerificationContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to update the resource from.
+        :param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
+
+        :returns: twilio.rest.verify.v2.service.verification.VerificationContext
+        :rtype: twilio.rest.verify.v2.service.verification.VerificationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Verifications/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the VerificationInstance
+        
+
+        :returns: The fetched VerificationInstance
+        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status):
+        """
+        Update the VerificationInstance
+        
+        :params VerificationInstance.Status status: 
+
+        :returns: The updated VerificationInstance
+        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.VerificationContext {}>'.format(context)
 
 

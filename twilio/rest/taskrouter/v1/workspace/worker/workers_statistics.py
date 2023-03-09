@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -69,108 +70,6 @@ class WorkersStatisticsList(ListResource):
         :rtype: str
         """
         return '<Twilio.Taskrouter.V1.WorkersStatisticsList>'
-
-class WorkersStatisticsContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the WorkersStatisticsContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Worker to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Workers/Statistics'.format(**self._solution)
-        
-    
-    
-    def fetch(self, minutes=values.unset, start_date=values.unset, end_date=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, friendly_name=values.unset, task_channel=values.unset):
-        """
-        Fetch the WorkersStatisticsInstance
-        
-        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :params str task_queue_sid: The SID of the TaskQueue for which to fetch Worker statistics.
-        :params str task_queue_name: The `friendly_name` of the TaskQueue for which to fetch Worker statistics.
-        :params str friendly_name: Only include Workers with `friendly_name` values that match this parameter.
-        :params str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched WorkersStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'Minutes': minutes,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'TaskQueueSid': task_queue_sid,
-            'TaskQueueName': task_queue_name,
-            'FriendlyName': friendly_name,
-            'TaskChannel': task_channel,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return WorkersStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            
-        )
-
-    async def fetch_async(self, minutes=values.unset, start_date=values.unset, end_date=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, friendly_name=values.unset, task_channel=values.unset):
-        """
-        Asynchronous coroutine to fetch the WorkersStatisticsInstance
-        
-        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :params str task_queue_sid: The SID of the TaskQueue for which to fetch Worker statistics.
-        :params str task_queue_name: The `friendly_name` of the TaskQueue for which to fetch Worker statistics.
-        :params str friendly_name: Only include Workers with `friendly_name` values that match this parameter.
-        :params str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched WorkersStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'Minutes': minutes,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'TaskQueueSid': task_queue_sid,
-            'TaskQueueName': task_queue_name,
-            'FriendlyName': friendly_name,
-            'TaskChannel': task_channel,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
-
-        return WorkersStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.WorkersStatisticsContext {}>'.format(context)
 
 class WorkersStatisticsInstance(InstanceResource):
 
@@ -289,5 +188,71 @@ class WorkersStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkersStatisticsInstance {}>'.format(context)
+
+class WorkersStatisticsContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the WorkersStatisticsContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Worker to fetch.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Workers/Statistics'.format(**self._solution)
+        
+    
+    def fetch(self, minutes=values.unset, start_date=values.unset, end_date=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, friendly_name=values.unset, task_channel=values.unset):
+        """
+        Fetch the WorkersStatisticsInstance
+        
+        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :params str task_queue_sid: The SID of the TaskQueue for which to fetch Worker statistics.
+        :params str task_queue_name: The `friendly_name` of the TaskQueue for which to fetch Worker statistics.
+        :params str friendly_name: Only include Workers with `friendly_name` values that match this parameter.
+        :params str task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched WorkersStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'TaskQueueSid': task_queue_sid,
+            'TaskQueueName': task_queue_name,
+            'FriendlyName': friendly_name,
+            'TaskChannel': task_channel,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return WorkersStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.WorkersStatisticsContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -44,6 +45,34 @@ class SubscribeRulesList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the SubscribeRulesInstance
+
+        :returns: The fetched SubscribeRulesInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
+    
+    
+    def update(self, rules=values.unset):
+        """
+        Update the SubscribeRulesInstance
+
+        :param object rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+        
+        :returns: The created SubscribeRulesInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
+        """
+        data = values.of({ 
+            'Rules': serialize.object(rules),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
     
 
 
@@ -54,7 +83,6 @@ class SubscribeRulesList(ListResource):
         :rtype: str
         """
         return '<Twilio.Video.V1.SubscribeRulesList>'
-
 
 class SubscribeRulesInstance(InstanceResource):
 
@@ -126,5 +154,6 @@ class SubscribeRulesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.SubscribeRulesInstance {}>'.format(context)
+
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -282,77 +283,6 @@ class SchemaVersionPage(Page):
 
 
 
-class SchemaVersionContext(InstanceContext):
-
-    def __init__(self, version: Version, id: str, schema_version: int):
-        """
-        Initialize the SchemaVersionContext
-
-        :param Version version: Version that contains the resource
-        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.:param schema_version: The version of the schema
-
-        :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
-        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'id': id,
-            'schema_version': schema_version,
-        }
-        self._uri = '/Schemas/{id}/Versions/{schema_version}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the SchemaVersionInstance
-        
-
-        :returns: The fetched SchemaVersionInstance
-        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SchemaVersionInstance(
-            self._version,
-            payload,
-            id=self._solution['id'],
-            schema_version=self._solution['schema_version'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SchemaVersionInstance
-        
-
-        :returns: The fetched SchemaVersionInstance
-        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return SchemaVersionInstance(
-            self._version,
-            payload,
-            id=self._solution['id'],
-            schema_version=self._solution['schema_version'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SchemaVersionContext {}>'.format(context)
-
 class SchemaVersionInstance(InstanceResource):
 
     def __init__(self, version, payload, id: str, schema_version: int=None):
@@ -456,5 +386,57 @@ class SchemaVersionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.SchemaVersionInstance {}>'.format(context)
+
+class SchemaVersionContext(InstanceContext):
+
+    def __init__(self, version: Version, id: str, schema_version: int):
+        """
+        Initialize the SchemaVersionContext
+
+        :param Version version: Version that contains the resource
+        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+        :param schema_version: The version of the schema
+
+        :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
+        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'id': id,
+            'schema_version': schema_version,
+        }
+        self._uri = '/Schemas/{id}/Versions/{schema_version}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the SchemaVersionInstance
+        
+
+        :returns: The fetched SchemaVersionInstance
+        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SchemaVersionInstance(
+            self._version,
+            payload,
+            id=self._solution['id'],
+            schema_version=self._solution['schema_version'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SchemaVersionContext {}>'.format(context)
 
 

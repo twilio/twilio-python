@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -330,159 +331,6 @@ class RateLimitPage(Page):
 
 
 
-class RateLimitContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the RateLimitContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.:param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/RateLimits/{sid}'.format(**self._solution)
-        
-        self._buckets = None
-    
-    
-    def delete(self):
-        """
-        Deletes the RateLimitInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the RateLimitInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the RateLimitInstance
-        
-
-        :returns: The fetched RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RateLimitInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the RateLimitInstance
-        
-
-        :returns: The fetched RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return RateLimitInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, description=values.unset):
-        """
-        Update the RateLimitInstance
-        
-        :params str description: Description of this Rate Limit
-
-        :returns: The updated RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        data = values.of({ 
-            'Description': description,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RateLimitInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, description=values.unset):
-        """
-        Asynchronous coroutine to update the RateLimitInstance
-        
-        :params str description: Description of this Rate Limit
-
-        :returns: The updated RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        data = values.of({ 
-            'Description': description,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return RateLimitInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    @property
-    def buckets(self):
-        """
-        Access the buckets
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.BucketList
-        :rtype: twilio.rest.verify.v2.service.rate_limit.BucketList
-        """
-        if self._buckets is None:
-            self._buckets = BucketList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._buckets
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.RateLimitContext {}>'.format(context)
-
 class RateLimitInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -675,5 +523,107 @@ class RateLimitInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.RateLimitInstance {}>'.format(context)
+
+class RateLimitContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the RateLimitContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/RateLimits/{sid}'.format(**self._solution)
+        
+        self._buckets = None
+    
+    def delete(self):
+        """
+        Deletes the RateLimitInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the RateLimitInstance
+        
+
+        :returns: The fetched RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RateLimitInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, description=values.unset):
+        """
+        Update the RateLimitInstance
+        
+        :params str description: Description of this Rate Limit
+
+        :returns: The updated RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        data = values.of({ 
+            'Description': description,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RateLimitInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def buckets(self):
+        """
+        Access the buckets
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.BucketList
+        :rtype: twilio.rest.verify.v2.service.rate_limit.BucketList
+        """
+        if self._buckets is None:
+            self._buckets = BucketList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._buckets
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.RateLimitContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -68,75 +69,6 @@ class AuthTokenPromotionList(ListResource):
         :rtype: str
         """
         return '<Twilio.Accounts.V1.AuthTokenPromotionList>'
-
-class AuthTokenPromotionContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the AuthTokenPromotionContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
-        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/AuthTokens/Promote'.format(**self._solution)
-        
-    
-    
-    def update(self):
-        """
-        Update the AuthTokenPromotionInstance
-        
-
-        :returns: The updated AuthTokenPromotionInstance
-        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionInstance
-        """
-        data = values.of({ 
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AuthTokenPromotionInstance(
-            self._version,
-            payload
-        )
-
-    async def update_async(self):
-        """
-        Asynchronous coroutine to update the AuthTokenPromotionInstance
-        
-
-        :returns: The updated AuthTokenPromotionInstance
-        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionInstance
-        """
-        data = values.of({ 
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return AuthTokenPromotionInstance(
-            self._version,
-            payload
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Accounts.V1.AuthTokenPromotionContext {}>'.format(context)
 
 class AuthTokenPromotionInstance(InstanceResource):
 
@@ -241,5 +173,53 @@ class AuthTokenPromotionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Accounts.V1.AuthTokenPromotionInstance {}>'.format(context)
+
+class AuthTokenPromotionContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the AuthTokenPromotionContext
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/AuthTokens/Promote'.format(**self._solution)
+        
+    
+    def update(self):
+        """
+        Update the AuthTokenPromotionInstance
+        
+
+        :returns: The updated AuthTokenPromotionInstance
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionInstance
+        """
+        data = values.of({ 
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AuthTokenPromotionInstance(
+            self._version,
+            payload
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Accounts.V1.AuthTokenPromotionContext {}>'.format(context)
 
 

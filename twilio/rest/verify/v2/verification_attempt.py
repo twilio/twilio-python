@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -377,74 +378,6 @@ class VerificationAttemptPage(Page):
 
 
 
-class VerificationAttemptContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the VerificationAttemptContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique SID identifier of a Verification Attempt
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Attempts/{sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the VerificationAttemptInstance
-        
-
-        :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return VerificationAttemptInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the VerificationAttemptInstance
-        
-
-        :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return VerificationAttemptInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.VerificationAttemptContext {}>'.format(context)
-
 class VerificationAttemptInstance(InstanceResource):
 
     class Channels(object):
@@ -612,5 +545,54 @@ class VerificationAttemptInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.VerificationAttemptInstance {}>'.format(context)
+
+class VerificationAttemptContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the VerificationAttemptContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique SID identifier of a Verification Attempt
+
+        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Attempts/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the VerificationAttemptInstance
+        
+
+        :returns: The fetched VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return VerificationAttemptInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.VerificationAttemptContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -69,132 +70,6 @@ class SettingList(ListResource):
         :rtype: str
         """
         return '<Twilio.Insights.V1.SettingList>'
-
-class SettingContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the SettingContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.insights.v1.setting.SettingContext
-        :rtype: twilio.rest.insights.v1.setting.SettingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Voice/Settings'.format(**self._solution)
-        
-    
-    
-    def fetch(self, subaccount_sid=values.unset):
-        """
-        Fetch the SettingInstance
-        
-        :params str subaccount_sid: 
-
-        :returns: The fetched SettingInstance
-        :rtype: twilio.rest.insights.v1.setting.SettingInstance
-        """
-        
-        data = values.of({ 
-            'SubaccountSid': subaccount_sid,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return SettingInstance(
-            self._version,
-            payload,
-            
-        )
-
-    async def fetch_async(self, subaccount_sid=values.unset):
-        """
-        Asynchronous coroutine to fetch the SettingInstance
-        
-        :params str subaccount_sid: 
-
-        :returns: The fetched SettingInstance
-        :rtype: twilio.rest.insights.v1.setting.SettingInstance
-        """
-        
-        data = values.of({ 
-            'SubaccountSid': subaccount_sid,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
-
-        return SettingInstance(
-            self._version,
-            payload,
-            
-        )
-    
-    
-    def update(self, advanced_features=values.unset, voice_trace=values.unset, subaccount_sid=values.unset):
-        """
-        Update the SettingInstance
-        
-        :params bool advanced_features: 
-        :params bool voice_trace: 
-        :params str subaccount_sid: 
-
-        :returns: The updated SettingInstance
-        :rtype: twilio.rest.insights.v1.setting.SettingInstance
-        """
-        data = values.of({ 
-            'AdvancedFeatures': advanced_features,
-            'VoiceTrace': voice_trace,
-            'SubaccountSid': subaccount_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SettingInstance(
-            self._version,
-            payload
-        )
-
-    async def update_async(self, advanced_features=values.unset, voice_trace=values.unset, subaccount_sid=values.unset):
-        """
-        Asynchronous coroutine to update the SettingInstance
-        
-        :params bool advanced_features: 
-        :params bool voice_trace: 
-        :params str subaccount_sid: 
-
-        :returns: The updated SettingInstance
-        :rtype: twilio.rest.insights.v1.setting.SettingInstance
-        """
-        data = values.of({ 
-            'AdvancedFeatures': advanced_features,
-            'VoiceTrace': voice_trace,
-            'SubaccountSid': subaccount_sid,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return SettingInstance(
-            self._version,
-            payload
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.SettingContext {}>'.format(context)
 
 class SettingInstance(InstanceResource):
 
@@ -319,5 +194,81 @@ class SettingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.SettingInstance {}>'.format(context)
+
+class SettingContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the SettingContext
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.insights.v1.setting.SettingContext
+        :rtype: twilio.rest.insights.v1.setting.SettingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Voice/Settings'.format(**self._solution)
+        
+    
+    def fetch(self, subaccount_sid=values.unset):
+        """
+        Fetch the SettingInstance
+        
+        :params str subaccount_sid: 
+
+        :returns: The fetched SettingInstance
+        :rtype: twilio.rest.insights.v1.setting.SettingInstance
+        """
+        
+        data = values.of({ 
+            'SubaccountSid': subaccount_sid,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return SettingInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    def update(self, advanced_features=values.unset, voice_trace=values.unset, subaccount_sid=values.unset):
+        """
+        Update the SettingInstance
+        
+        :params bool advanced_features: 
+        :params bool voice_trace: 
+        :params str subaccount_sid: 
+
+        :returns: The updated SettingInstance
+        :rtype: twilio.rest.insights.v1.setting.SettingInstance
+        """
+        data = values.of({ 
+            'AdvancedFeatures': advanced_features,
+            'VoiceTrace': voice_trace,
+            'SubaccountSid': subaccount_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SettingInstance(
+            self._version,
+            payload
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.SettingContext {}>'.format(context)
 
 

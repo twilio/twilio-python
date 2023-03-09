@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -385,149 +386,6 @@ class QueryPage(Page):
 
 
 
-class QueryContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, sid: str):
-        """
-        Initialize the QueryContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Queries/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the QueryInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the QueryInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the QueryInstance
-        
-
-        :returns: The fetched QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return QueryInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the QueryInstance
-        
-
-        :returns: The fetched QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return QueryInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, sample_sid=values.unset, status=values.unset):
-        """
-        Update the QueryInstance
-        
-        :params str sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-        :params str status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
-
-        :returns: The updated QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        data = values.of({ 
-            'SampleSid': sample_sid,
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return QueryInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, sample_sid=values.unset, status=values.unset):
-        """
-        Asynchronous coroutine to update the QueryInstance
-        
-        :params str sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-        :params str status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
-
-        :returns: The updated QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        data = values.of({ 
-            'SampleSid': sample_sid,
-            'Status': status,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return QueryInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.QueryContext {}>'.format(context)
-
 class QueryInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, sid: str=None):
@@ -757,5 +615,92 @@ class QueryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.QueryInstance {}>'.format(context)
+
+class QueryContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, sid: str):
+        """
+        Initialize the QueryContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
+        :param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Queries/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the QueryInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the QueryInstance
+        
+
+        :returns: The fetched QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return QueryInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, sample_sid=values.unset, status=values.unset):
+        """
+        Update the QueryInstance
+        
+        :params str sample_sid: The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
+        :params str status: The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
+
+        :returns: The updated QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        """
+        data = values.of({ 
+            'SampleSid': sample_sid,
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return QueryInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.QueryContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -357,238 +358,6 @@ class TrunkPage(Page):
 
 
 
-class TrunkContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the TrunkContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
-
-        :returns: twilio.rest.trunking.v1.trunk.TrunkContext
-        :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Trunks/{sid}'.format(**self._solution)
-        
-        self._credentials_lists = None
-        self._ip_access_control_lists = None
-        self._origination_urls = None
-        self._phone_numbers = None
-        self._recordings = None
-    
-    
-    def delete(self):
-        """
-        Deletes the TrunkInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the TrunkInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the TrunkInstance
-        
-
-        :returns: The fetched TrunkInstance
-        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the TrunkInstance
-        
-
-        :returns: The fetched TrunkInstance
-        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return TrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name=values.unset, domain_name=values.unset, disaster_recovery_url=values.unset, disaster_recovery_method=values.unset, transfer_mode=values.unset, secure=values.unset, cnam_lookup_enabled=values.unset, transfer_caller_id=values.unset):
-        """
-        Update the TrunkInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :params str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :params str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :params str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :params TrunkInstance.TransferSetting transfer_mode: 
-        :params bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :params TrunkInstance.TransferCallerId transfer_caller_id: 
-
-        :returns: The updated TrunkInstance
-        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DomainName': domain_name,
-            'DisasterRecoveryUrl': disaster_recovery_url,
-            'DisasterRecoveryMethod': disaster_recovery_method,
-            'TransferMode': transfer_mode,
-            'Secure': secure,
-            'CnamLookupEnabled': cnam_lookup_enabled,
-            'TransferCallerId': transfer_caller_id,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name=values.unset, domain_name=values.unset, disaster_recovery_url=values.unset, disaster_recovery_method=values.unset, transfer_mode=values.unset, secure=values.unset, cnam_lookup_enabled=values.unset, transfer_caller_id=values.unset):
-        """
-        Asynchronous coroutine to update the TrunkInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :params str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
-        :params str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
-        :params str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :params TrunkInstance.TransferSetting transfer_mode: 
-        :params bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
-        :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :params TrunkInstance.TransferCallerId transfer_caller_id: 
-
-        :returns: The updated TrunkInstance
-        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DomainName': domain_name,
-            'DisasterRecoveryUrl': disaster_recovery_url,
-            'DisasterRecoveryMethod': disaster_recovery_method,
-            'TransferMode': transfer_mode,
-            'Secure': secure,
-            'CnamLookupEnabled': cnam_lookup_enabled,
-            'TransferCallerId': transfer_caller_id,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return TrunkInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    @property
-    def credentials_lists(self):
-        """
-        Access the credentials_lists
-
-        :returns: twilio.rest.trunking.v1.trunk.CredentialListList
-        :rtype: twilio.rest.trunking.v1.trunk.CredentialListList
-        """
-        if self._credentials_lists is None:
-            self._credentials_lists = CredentialListList(self._version, self._solution['sid'],
-            )
-        return self._credentials_lists
-    
-    @property
-    def ip_access_control_lists(self):
-        """
-        Access the ip_access_control_lists
-
-        :returns: twilio.rest.trunking.v1.trunk.IpAccessControlListList
-        :rtype: twilio.rest.trunking.v1.trunk.IpAccessControlListList
-        """
-        if self._ip_access_control_lists is None:
-            self._ip_access_control_lists = IpAccessControlListList(self._version, self._solution['sid'],
-            )
-        return self._ip_access_control_lists
-    
-    @property
-    def origination_urls(self):
-        """
-        Access the origination_urls
-
-        :returns: twilio.rest.trunking.v1.trunk.OriginationUrlList
-        :rtype: twilio.rest.trunking.v1.trunk.OriginationUrlList
-        """
-        if self._origination_urls is None:
-            self._origination_urls = OriginationUrlList(self._version, self._solution['sid'],
-            )
-        return self._origination_urls
-    
-    @property
-    def phone_numbers(self):
-        """
-        Access the phone_numbers
-
-        :returns: twilio.rest.trunking.v1.trunk.PhoneNumberList
-        :rtype: twilio.rest.trunking.v1.trunk.PhoneNumberList
-        """
-        if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self._version, self._solution['sid'],
-            )
-        return self._phone_numbers
-    
-    @property
-    def recordings(self):
-        """
-        Access the recordings
-
-        :returns: twilio.rest.trunking.v1.trunk.RecordingList
-        :rtype: twilio.rest.trunking.v1.trunk.RecordingList
-        """
-        if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['sid'],
-            )
-        return self._recordings
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trunking.V1.TrunkContext {}>'.format(context)
-
 class TrunkInstance(InstanceResource):
 
     class TransferCallerId(object):
@@ -916,5 +685,180 @@ class TrunkInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.TrunkInstance {}>'.format(context)
+
+class TrunkContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the TrunkContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
+
+        :returns: twilio.rest.trunking.v1.trunk.TrunkContext
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Trunks/{sid}'.format(**self._solution)
+        
+        self._credentials_lists = None
+        self._ip_access_control_lists = None
+        self._origination_urls = None
+        self._phone_numbers = None
+        self._recordings = None
+    
+    def delete(self):
+        """
+        Deletes the TrunkInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the TrunkInstance
+        
+
+        :returns: The fetched TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, domain_name=values.unset, disaster_recovery_url=values.unset, disaster_recovery_method=values.unset, transfer_mode=values.unset, secure=values.unset, cnam_lookup_enabled=values.unset, transfer_caller_id=values.unset):
+        """
+        Update the TrunkInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+        :params str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+        :params str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+        :params TrunkInstance.TransferSetting transfer_mode: 
+        :params bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+        :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :params TrunkInstance.TransferCallerId transfer_caller_id: 
+
+        :returns: The updated TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DomainName': domain_name,
+            'DisasterRecoveryUrl': disaster_recovery_url,
+            'DisasterRecoveryMethod': disaster_recovery_method,
+            'TransferMode': transfer_mode,
+            'Secure': secure,
+            'CnamLookupEnabled': cnam_lookup_enabled,
+            'TransferCallerId': transfer_caller_id,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def credentials_lists(self):
+        """
+        Access the credentials_lists
+
+        :returns: twilio.rest.trunking.v1.trunk.CredentialListList
+        :rtype: twilio.rest.trunking.v1.trunk.CredentialListList
+        """
+        if self._credentials_lists is None:
+            self._credentials_lists = CredentialListList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._credentials_lists
+    
+    @property
+    def ip_access_control_lists(self):
+        """
+        Access the ip_access_control_lists
+
+        :returns: twilio.rest.trunking.v1.trunk.IpAccessControlListList
+        :rtype: twilio.rest.trunking.v1.trunk.IpAccessControlListList
+        """
+        if self._ip_access_control_lists is None:
+            self._ip_access_control_lists = IpAccessControlListList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._ip_access_control_lists
+    
+    @property
+    def origination_urls(self):
+        """
+        Access the origination_urls
+
+        :returns: twilio.rest.trunking.v1.trunk.OriginationUrlList
+        :rtype: twilio.rest.trunking.v1.trunk.OriginationUrlList
+        """
+        if self._origination_urls is None:
+            self._origination_urls = OriginationUrlList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._origination_urls
+    
+    @property
+    def phone_numbers(self):
+        """
+        Access the phone_numbers
+
+        :returns: twilio.rest.trunking.v1.trunk.PhoneNumberList
+        :rtype: twilio.rest.trunking.v1.trunk.PhoneNumberList
+        """
+        if self._phone_numbers is None:
+            self._phone_numbers = PhoneNumberList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._phone_numbers
+    
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.trunking.v1.trunk.RecordingList
+        :rtype: twilio.rest.trunking.v1.trunk.RecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RecordingList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._recordings
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.TrunkContext {}>'.format(context)
 
 

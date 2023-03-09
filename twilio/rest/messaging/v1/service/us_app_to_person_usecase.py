@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -43,6 +44,17 @@ class UsAppToPersonUsecaseList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the UsAppToPersonUsecaseInstance
+
+        :returns: The fetched UsAppToPersonUsecaseInstance
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UsAppToPersonUsecaseInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
+    
 
 
     def __repr__(self):
@@ -52,7 +64,6 @@ class UsAppToPersonUsecaseList(ListResource):
         :rtype: str
         """
         return '<Twilio.Messaging.V1.UsAppToPersonUsecaseList>'
-
 
 class UsAppToPersonUsecaseInstance(InstanceResource):
 
@@ -88,5 +99,6 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.UsAppToPersonUsecaseInstance {}>'.format(context)
+
 
 

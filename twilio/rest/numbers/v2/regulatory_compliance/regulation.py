@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -317,74 +318,6 @@ class RegulationPage(Page):
 
 
 
-class RegulationContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the RegulationContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the Regulation resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/RegulatoryCompliance/Regulations/{sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the RegulationInstance
-        
-
-        :returns: The fetched RegulationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RegulationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the RegulationInstance
-        
-
-        :returns: The fetched RegulationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return RegulationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.RegulationContext {}>'.format(context)
-
 class RegulationInstance(InstanceResource):
 
     class EndUserType(object):
@@ -510,5 +443,54 @@ class RegulationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.RegulationInstance {}>'.format(context)
+
+class RegulationContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the RegulationContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that identifies the Regulation resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/RegulatoryCompliance/Regulations/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the RegulationInstance
+        
+
+        :returns: The fetched RegulationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RegulationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.RegulationContext {}>'.format(context)
 
 

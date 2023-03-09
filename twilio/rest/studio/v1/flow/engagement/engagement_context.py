@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,77 +71,6 @@ class EngagementContextList(ListResource):
         :rtype: str
         """
         return '<Twilio.Studio.V1.EngagementContextList>'
-
-class EngagementContextContext(InstanceContext):
-
-    def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
-        """
-        Initialize the EngagementContextContext
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow.:param engagement_sid: The SID of the Engagement.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'flow_sid': flow_sid,
-            'engagement_sid': engagement_sid,
-        }
-        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Context'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the EngagementContextInstance
-        
-
-        :returns: The fetched EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EngagementContextInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution['flow_sid'],
-            engagement_sid=self._solution['engagement_sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EngagementContextInstance
-        
-
-        :returns: The fetched EngagementContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return EngagementContextInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution['flow_sid'],
-            engagement_sid=self._solution['engagement_sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V1.EngagementContextContext {}>'.format(context)
 
 class EngagementContextInstance(InstanceResource):
 
@@ -245,5 +175,57 @@ class EngagementContextInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V1.EngagementContextInstance {}>'.format(context)
+
+class EngagementContextContext(InstanceContext):
+
+    def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
+        """
+        Initialize the EngagementContextContext
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow.
+        :param engagement_sid: The SID of the Engagement.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'flow_sid': flow_sid,
+            'engagement_sid': engagement_sid,
+        }
+        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Context'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the EngagementContextInstance
+        
+
+        :returns: The fetched EngagementContextInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EngagementContextInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution['flow_sid'],
+            engagement_sid=self._solution['engagement_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V1.EngagementContextContext {}>'.format(context)
 
 

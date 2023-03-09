@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -329,145 +330,6 @@ class MessagingConfigurationPage(Page):
 
 
 
-class MessagingConfigurationContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, country: str):
-        """
-        Initialize the MessagingConfigurationContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.:param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-
-        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'country': country,
-        }
-        self._uri = '/Services/{service_sid}/MessagingConfigurations/{country}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the MessagingConfigurationInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the MessagingConfigurationInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the MessagingConfigurationInstance
-        
-
-        :returns: The fetched MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MessagingConfigurationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            country=self._solution['country'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the MessagingConfigurationInstance
-        
-
-        :returns: The fetched MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return MessagingConfigurationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            country=self._solution['country'],
-            
-        )
-    
-    
-    def update(self, messaging_service_sid):
-        """
-        Update the MessagingConfigurationInstance
-        
-        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
-
-        :returns: The updated MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        data = values.of({ 
-            'MessagingServiceSid': messaging_service_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MessagingConfigurationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            country=self._solution['country']
-        )
-
-    async def update_async(self, messaging_service_sid):
-        """
-        Asynchronous coroutine to update the MessagingConfigurationInstance
-        
-        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
-
-        :returns: The updated MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        data = values.of({ 
-            'MessagingServiceSid': messaging_service_sid,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return MessagingConfigurationInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            country=self._solution['country']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.MessagingConfigurationContext {}>'.format(context)
-
 class MessagingConfigurationInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, country: str=None):
@@ -632,5 +494,90 @@ class MessagingConfigurationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.MessagingConfigurationInstance {}>'.format(context)
+
+class MessagingConfigurationContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, country: str):
+        """
+        Initialize the MessagingConfigurationContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'country': country,
+        }
+        self._uri = '/Services/{service_sid}/MessagingConfigurations/{country}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the MessagingConfigurationInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the MessagingConfigurationInstance
+        
+
+        :returns: The fetched MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            country=self._solution['country'],
+            
+        )
+        
+    def update(self, messaging_service_sid):
+        """
+        Update the MessagingConfigurationInstance
+        
+        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+
+        :returns: The updated MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        data = values.of({ 
+            'MessagingServiceSid': messaging_service_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            country=self._solution['country']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.MessagingConfigurationContext {}>'.format(context)
 
 

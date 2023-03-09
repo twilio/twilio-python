@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -317,74 +318,6 @@ class AlertPage(Page):
 
 
 
-class AlertContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the AlertContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Alert resource to fetch.
-
-        :returns: twilio.rest.monitor.v1.alert.AlertContext
-        :rtype: twilio.rest.monitor.v1.alert.AlertContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Alerts/{sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the AlertInstance
-        
-
-        :returns: The fetched AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AlertInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AlertInstance
-        
-
-        :returns: The fetched AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return AlertInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Monitor.V1.AlertContext {}>'.format(context)
-
 class AlertInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -614,5 +547,54 @@ class AlertInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Monitor.V1.AlertInstance {}>'.format(context)
+
+class AlertContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the AlertContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Alert resource to fetch.
+
+        :returns: twilio.rest.monitor.v1.alert.AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Alerts/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AlertInstance
+        
+
+        :returns: The fetched AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AlertInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Monitor.V1.AlertContext {}>'.format(context)
 
 

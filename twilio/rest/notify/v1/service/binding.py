@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -245,8 +246,8 @@ class BindingList(ListResource):
         data = values.of({ 
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
-            'Identity': serialize.map(identity),
-            'Tag': serialize.map(tag),
+            'Identity': serialize.map(identity, lambda e: e),
+            'Tag': serialize.map(tag, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -393,98 +394,6 @@ class BindingPage(Page):
 
 
 
-
-class BindingContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the BindingContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.:param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
-
-        :returns: twilio.rest.notify.v1.service.binding.BindingContext
-        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the BindingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the BindingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the BindingInstance
-        
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BindingInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the BindingInstance
-        
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return BindingInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Notify.V1.BindingContext {}>'.format(context)
 
 class BindingInstance(InstanceResource):
 
@@ -690,5 +599,67 @@ class BindingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Notify.V1.BindingInstance {}>'.format(context)
+
+class BindingContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the BindingContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to fetch the resource from.
+        :param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
+
+        :returns: twilio.rest.notify.v1.service.binding.BindingContext
+        :rtype: twilio.rest.notify.v1.service.binding.BindingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the BindingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the BindingInstance
+        
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BindingInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Notify.V1.BindingContext {}>'.format(context)
 
 

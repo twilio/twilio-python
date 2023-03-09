@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -289,158 +290,6 @@ class SyncMapPermissionPage(Page):
 
 
 
-class SyncMapPermissionContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, map_sid: str, identity: str):
-        """
-        Initialize the SyncMapPermissionContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service's `sid` value or `default`.:param map_sid: The SID of the Sync Map with the Sync Map Permission resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.:param identity: The application-defined string that uniquely identifies the User's Sync Map Permission resource to update.
-
-        :returns: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionContext
-        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'map_sid': map_sid,
-            'identity': identity,
-        }
-        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Permissions/{identity}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the SyncMapPermissionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the SyncMapPermissionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the SyncMapPermissionInstance
-        
-
-        :returns: The fetched SyncMapPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SyncMapPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            identity=self._solution['identity'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SyncMapPermissionInstance
-        
-
-        :returns: The fetched SyncMapPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return SyncMapPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            identity=self._solution['identity'],
-            
-        )
-    
-    
-    def update(self, read, write, manage):
-        """
-        Update the SyncMapPermissionInstance
-        
-        :params bool read: Whether the identity can read the Sync Map and its Items. Default value is `false`.
-        :params bool write: Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`.
-        :params bool manage: Whether the identity can delete the Sync Map. Default value is `false`.
-
-        :returns: The updated SyncMapPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
-        """
-        data = values.of({ 
-            'Read': read,
-            'Write': write,
-            'Manage': manage,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SyncMapPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            identity=self._solution['identity']
-        )
-
-    async def update_async(self, read, write, manage):
-        """
-        Asynchronous coroutine to update the SyncMapPermissionInstance
-        
-        :params bool read: Whether the identity can read the Sync Map and its Items. Default value is `false`.
-        :params bool write: Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`.
-        :params bool manage: Whether the identity can delete the Sync Map. Default value is `false`.
-
-        :returns: The updated SyncMapPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
-        """
-        data = values.of({ 
-            'Read': read,
-            'Write': write,
-            'Manage': manage,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return SyncMapPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            identity=self._solution['identity']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.SyncMapPermissionContext {}>'.format(context)
-
 class SyncMapPermissionInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, map_sid: str, identity: str=None):
@@ -618,5 +467,98 @@ class SyncMapPermissionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.SyncMapPermissionInstance {}>'.format(context)
+
+class SyncMapPermissionContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, map_sid: str, identity: str):
+        """
+        Initialize the SyncMapPermissionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service's `sid` value or `default`.
+        :param map_sid: The SID of the Sync Map with the Sync Map Permission resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.
+        :param identity: The application-defined string that uniquely identifies the User's Sync Map Permission resource to update.
+
+        :returns: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionContext
+        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'map_sid': map_sid,
+            'identity': identity,
+        }
+        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Permissions/{identity}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the SyncMapPermissionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SyncMapPermissionInstance
+        
+
+        :returns: The fetched SyncMapPermissionInstance
+        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SyncMapPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            identity=self._solution['identity'],
+            
+        )
+        
+    def update(self, read, write, manage):
+        """
+        Update the SyncMapPermissionInstance
+        
+        :params bool read: Whether the identity can read the Sync Map and its Items. Default value is `false`.
+        :params bool write: Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`.
+        :params bool manage: Whether the identity can delete the Sync Map. Default value is `false`.
+
+        :returns: The updated SyncMapPermissionInstance
+        :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
+        """
+        data = values.of({ 
+            'Read': read,
+            'Write': write,
+            'Manage': manage,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SyncMapPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            identity=self._solution['identity']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.SyncMapPermissionContext {}>'.format(context)
 
 

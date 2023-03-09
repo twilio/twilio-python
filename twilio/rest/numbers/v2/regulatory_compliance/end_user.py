@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -332,144 +333,6 @@ class EndUserPage(Page):
 
 
 
-class EndUserContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the EndUserContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string created by Twilio to identify the End User resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/RegulatoryCompliance/EndUsers/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the EndUserInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the EndUserInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the EndUserInstance
-        
-
-        :returns: The fetched EndUserInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EndUserInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EndUserInstance
-        
-
-        :returns: The fetched EndUserInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return EndUserInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name=values.unset, attributes=values.unset):
-        """
-        Update the EndUserInstance
-        
-        :params str friendly_name: The string that you assigned to describe the resource.
-        :params object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
-
-        :returns: The updated EndUserInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Attributes': serialize.object(attributes),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return EndUserInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name=values.unset, attributes=values.unset):
-        """
-        Asynchronous coroutine to update the EndUserInstance
-        
-        :params str friendly_name: The string that you assigned to describe the resource.
-        :params object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
-
-        :returns: The updated EndUserInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Attributes': serialize.object(attributes),
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return EndUserInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.EndUserContext {}>'.format(context)
-
 class EndUserInstance(InstanceResource):
 
     class Type(object):
@@ -649,5 +512,88 @@ class EndUserInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.EndUserInstance {}>'.format(context)
+
+class EndUserContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the EndUserContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string created by Twilio to identify the End User resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/RegulatoryCompliance/EndUsers/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the EndUserInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the EndUserInstance
+        
+
+        :returns: The fetched EndUserInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EndUserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, attributes=values.unset):
+        """
+        Update the EndUserInstance
+        
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
+
+        :returns: The updated EndUserInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Attributes': serialize.object(attributes),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return EndUserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.EndUserContext {}>'.format(context)
 
 

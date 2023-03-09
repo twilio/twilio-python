@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -346,154 +347,6 @@ class MessagePage(Page):
 
 
 
-class MessageContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        """
-        Initialize the MessageContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: :param channel_sid: :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the MessageInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the MessageInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the MessageInstance
-        
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MessageInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the MessageInstance
-        
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return MessageInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, body=values.unset, attributes=values.unset):
-        """
-        Update the MessageInstance
-        
-        :params str body: 
-        :params str attributes: 
-
-        :returns: The updated MessageInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
-        """
-        data = values.of({ 
-            'Body': body,
-            'Attributes': attributes,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MessageInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, body=values.unset, attributes=values.unset):
-        """
-        Asynchronous coroutine to update the MessageInstance
-        
-        :params str body: 
-        :params str attributes: 
-
-        :returns: The updated MessageInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
-        """
-        data = values.of({ 
-            'Body': body,
-            'Attributes': attributes,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return MessageInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.MessageContext {}>'.format(context)
-
 class MessageInstance(InstanceResource):
 
     class OrderType(object):
@@ -718,5 +571,96 @@ class MessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V1.MessageInstance {}>'.format(context)
+
+class MessageContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
+        """
+        Initialize the MessageContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: 
+        :param channel_sid: 
+        :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the MessageInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the MessageInstance
+        
+
+        :returns: The fetched MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, body=values.unset, attributes=values.unset):
+        """
+        Update the MessageInstance
+        
+        :params str body: 
+        :params str attributes: 
+
+        :returns: The updated MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
+        """
+        data = values.of({ 
+            'Body': body,
+            'Attributes': attributes,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V1.MessageContext {}>'.format(context)
 
 

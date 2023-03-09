@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -336,115 +337,6 @@ class ParticipantPage(Page):
 
 
 
-class ParticipantContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
-        """
-        Initialize the ParticipantContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.:param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'session_sid': session_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}'.format(**self._solution)
-        
-        self._message_interactions = None
-    
-    
-    def delete(self):
-        """
-        Deletes the ParticipantInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ParticipantInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-        
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ParticipantInstance
-        
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    @property
-    def message_interactions(self):
-        """
-        Access the message_interactions
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        """
-        if self._message_interactions is None:
-            self._message_interactions = MessageInteractionList(self._version, self._solution['service_sid'], self._solution['session_sid'], self._solution['sid'],
-            )
-        return self._message_interactions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.ParticipantContext {}>'.format(context)
-
 class ParticipantInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, session_sid: str, sid: str=None):
@@ -650,5 +542,88 @@ class ParticipantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Proxy.V1.ParticipantInstance {}>'.format(context)
+
+class ParticipantContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
+        """
+        Initialize the ParticipantContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'session_sid': session_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}'.format(**self._solution)
+        
+        self._message_interactions = None
+    
+    def delete(self):
+        """
+        Deletes the ParticipantInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+        
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            session_sid=self._solution['session_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def message_interactions(self):
+        """
+        Access the message_interactions
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
+        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
+        """
+        if self._message_interactions is None:
+            self._message_interactions = MessageInteractionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['session_sid'],
+                self._solution['sid'],
+            )
+        return self._message_interactions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Proxy.V1.ParticipantContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -102,7 +103,6 @@ class VerificationCheckList(ListResource):
         :rtype: str
         """
         return '<Twilio.Verify.V2.VerificationCheckList>'
-
 
 class VerificationCheckInstance(InstanceResource):
 
@@ -244,5 +244,6 @@ class VerificationCheckInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.VerificationCheckInstance {}>'.format(context)
+
 
 

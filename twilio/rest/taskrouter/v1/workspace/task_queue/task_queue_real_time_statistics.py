@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,87 +71,6 @@ class TaskQueueRealTimeStatisticsList(ListResource):
         :rtype: str
         """
         return '<Twilio.Taskrouter.V1.TaskQueueRealTimeStatisticsList>'
-
-class TaskQueueRealTimeStatisticsContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
-        """
-        Initialize the TaskQueueRealTimeStatisticsContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.:param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/RealTimeStatistics'.format(**self._solution)
-        
-    
-    
-    def fetch(self, task_channel=values.unset):
-        """
-        Fetch the TaskQueueRealTimeStatisticsInstance
-        
-        :params str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'TaskChannel': task_channel,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return TaskQueueRealTimeStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            task_queue_sid=self._solution['task_queue_sid'],
-            
-        )
-
-    async def fetch_async(self, task_channel=values.unset):
-        """
-        Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance
-        
-        :params str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched TaskQueueRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'TaskChannel': task_channel,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
-
-        return TaskQueueRealTimeStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            task_queue_sid=self._solution['task_queue_sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskQueueRealTimeStatisticsContext {}>'.format(context)
 
 class TaskQueueRealTimeStatisticsInstance(InstanceResource):
 
@@ -338,5 +258,62 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskQueueRealTimeStatisticsInstance {}>'.format(context)
+
+class TaskQueueRealTimeStatisticsContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
+        """
+        Initialize the TaskQueueRealTimeStatisticsContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.
+        :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'task_queue_sid': task_queue_sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/RealTimeStatistics'.format(**self._solution)
+        
+    
+    def fetch(self, task_channel=values.unset):
+        """
+        Fetch the TaskQueueRealTimeStatisticsInstance
+        
+        :params str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched TaskQueueRealTimeStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'TaskChannel': task_channel,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return TaskQueueRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            task_queue_sid=self._solution['task_queue_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.TaskQueueRealTimeStatisticsContext {}>'.format(context)
 
 

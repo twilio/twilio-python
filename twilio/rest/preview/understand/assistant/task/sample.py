@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -346,158 +347,6 @@ class SamplePage(Page):
 
 
 
-class SampleContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, task_sid: str, sid: str):
-        """
-        Initialize the SampleContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.:param task_sid: The unique ID of the Task associated with this Sample.:param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
-        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'task_sid': task_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the SampleInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the SampleInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the SampleInstance
-        
-
-        :returns: The fetched SampleInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SampleInstance
-        
-
-        :returns: The fetched SampleInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
-        """
-        Update the SampleInstance
-        
-        :params str language: An ISO language-country string of the sample.
-        :params str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :params str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-
-        :returns: The updated SampleInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
-        """
-        data = values.of({ 
-            'Language': language,
-            'TaggedText': tagged_text,
-            'SourceChannel': source_channel,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
-        """
-        Asynchronous coroutine to update the SampleInstance
-        
-        :params str language: An ISO language-country string of the sample.
-        :params str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-        :params str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-
-        :returns: The updated SampleInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
-        """
-        data = values.of({ 
-            'Language': language,
-            'TaggedText': tagged_text,
-            'SourceChannel': source_channel,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.SampleContext {}>'.format(context)
-
 class SampleInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, task_sid: str, sid: str=None):
@@ -693,5 +542,98 @@ class SampleInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.SampleInstance {}>'.format(context)
+
+class SampleContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, task_sid: str, sid: str):
+        """
+        Initialize the SampleContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the Assistant.
+        :param task_sid: The unique ID of the Task associated with this Sample.
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'task_sid': task_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the SampleInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SampleInstance
+        
+
+        :returns: The fetched SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
+        """
+        Update the SampleInstance
+        
+        :params str language: An ISO language-country string of the sample.
+        :params str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :params str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+
+        :returns: The updated SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        data = values.of({ 
+            'Language': language,
+            'TaggedText': tagged_text,
+            'SourceChannel': source_channel,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.SampleContext {}>'.format(context)
 
 

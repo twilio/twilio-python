@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -365,119 +366,6 @@ class MediaProcessorPage(Page):
 
 
 
-class MediaProcessorContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the MediaProcessorContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the MediaProcessor resource to update.
-
-        :returns: twilio.rest.media.v1.media_processor.MediaProcessorContext
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/MediaProcessors/{sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the MediaProcessorInstance
-        
-
-        :returns: The fetched MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MediaProcessorInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the MediaProcessorInstance
-        
-
-        :returns: The fetched MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return MediaProcessorInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, status):
-        """
-        Update the MediaProcessorInstance
-        
-        :params MediaProcessorInstance.UpdateStatus status: 
-
-        :returns: The updated MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MediaProcessorInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, status):
-        """
-        Asynchronous coroutine to update the MediaProcessorInstance
-        
-        :params MediaProcessorInstance.UpdateStatus status: 
-
-        :returns: The updated MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return MediaProcessorInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Media.V1.MediaProcessorContext {}>'.format(context)
-
 class MediaProcessorInstance(InstanceResource):
 
     class Order(object):
@@ -676,5 +564,76 @@ class MediaProcessorInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Media.V1.MediaProcessorInstance {}>'.format(context)
+
+class MediaProcessorContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the MediaProcessorContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the MediaProcessor resource to update.
+
+        :returns: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/MediaProcessors/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the MediaProcessorInstance
+        
+
+        :returns: The fetched MediaProcessorInstance
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MediaProcessorInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status):
+        """
+        Update the MediaProcessorInstance
+        
+        :params MediaProcessorInstance.UpdateStatus status: 
+
+        :returns: The updated MediaProcessorInstance
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MediaProcessorInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Media.V1.MediaProcessorContext {}>'.format(context)
 
 

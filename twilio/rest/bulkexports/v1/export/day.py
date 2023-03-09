@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -282,77 +283,6 @@ class DayPage(Page):
 
 
 
-class DayContext(InstanceContext):
-
-    def __init__(self, version: Version, resource_type: str, day: str):
-        """
-        Initialize the DayContext
-
-        :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants:param day: The ISO 8601 format date of the resources in the file, for a UTC day
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'resource_type': resource_type,
-            'day': day,
-        }
-        self._uri = '/Exports/{resource_type}/Days/{day}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the DayInstance
-        
-
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DayInstance(
-            self._version,
-            payload,
-            resource_type=self._solution['resource_type'],
-            day=self._solution['day'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the DayInstance
-        
-
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return DayInstance(
-            self._version,
-            payload,
-            resource_type=self._solution['resource_type'],
-            day=self._solution['day'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Bulkexports.V1.DayContext {}>'.format(context)
-
 class DayInstance(InstanceResource):
 
     def __init__(self, version, payload, resource_type: str, day: str=None):
@@ -465,5 +395,57 @@ class DayInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Bulkexports.V1.DayInstance {}>'.format(context)
+
+class DayContext(InstanceContext):
+
+    def __init__(self, version: Version, resource_type: str, day: str):
+        """
+        Initialize the DayContext
+
+        :param Version version: Version that contains the resource
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
+
+        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'resource_type': resource_type,
+            'day': day,
+        }
+        self._uri = '/Exports/{resource_type}/Days/{day}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the DayInstance
+        
+
+        :returns: The fetched DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DayInstance(
+            self._version,
+            payload,
+            resource_type=self._solution['resource_type'],
+            day=self._solution['day'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.DayContext {}>'.format(context)
 
 

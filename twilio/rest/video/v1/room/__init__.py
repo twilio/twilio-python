@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -428,161 +429,6 @@ class RoomPage(Page):
 
 
 
-class RoomContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the RoomContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Room resource to update.
-
-        :returns: twilio.rest.video.v1.room.RoomContext
-        :rtype: twilio.rest.video.v1.room.RoomContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Rooms/{sid}'.format(**self._solution)
-        
-        self._participants = None
-        self._recording_rules = None
-        self._recordings = None
-    
-    
-    def fetch(self):
-        """
-        Fetch the RoomInstance
-        
-
-        :returns: The fetched RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the RoomInstance
-        
-
-        :returns: The fetched RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, status):
-        """
-        Update the RoomInstance
-        
-        :params RoomInstance.RoomStatus status: 
-
-        :returns: The updated RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, status):
-        """
-        Asynchronous coroutine to update the RoomInstance
-        
-        :params RoomInstance.RoomStatus status: 
-
-        :returns: The updated RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    @property
-    def participants(self):
-        """
-        Access the participants
-
-        :returns: twilio.rest.video.v1.room.ParticipantList
-        :rtype: twilio.rest.video.v1.room.ParticipantList
-        """
-        if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['sid'],
-            )
-        return self._participants
-    
-    @property
-    def recording_rules(self):
-        """
-        Access the recording_rules
-
-        :returns: twilio.rest.video.v1.room.RecordingRulesList
-        :rtype: twilio.rest.video.v1.room.RecordingRulesList
-        """
-        if self._recording_rules is None:
-            self._recording_rules = RecordingRulesList(self._version, self._solution['sid'],
-            )
-        return self._recording_rules
-    
-    @property
-    def recordings(self):
-        """
-        Access the recordings
-
-        :returns: twilio.rest.video.v1.room.RoomRecordingList
-        :rtype: twilio.rest.video.v1.room.RoomRecordingList
-        """
-        if self._recordings is None:
-            self._recordings = RoomRecordingList(self._version, self._solution['sid'],
-            )
-        return self._recordings
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RoomContext {}>'.format(context)
-
 class RoomInstance(InstanceResource):
 
     class RoomStatus(object):
@@ -925,5 +771,124 @@ class RoomInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RoomInstance {}>'.format(context)
+
+class RoomContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the RoomContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Room resource to update.
+
+        :returns: twilio.rest.video.v1.room.RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Rooms/{sid}'.format(**self._solution)
+        
+        self._participants = None
+        self._recording_rules = None
+        self._recordings = None
+    
+    def fetch(self):
+        """
+        Fetch the RoomInstance
+        
+
+        :returns: The fetched RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status):
+        """
+        Update the RoomInstance
+        
+        :params RoomInstance.RoomStatus status: 
+
+        :returns: The updated RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.video.v1.room.ParticipantList
+        :rtype: twilio.rest.video.v1.room.ParticipantList
+        """
+        if self._participants is None:
+            self._participants = ParticipantList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._participants
+    
+    @property
+    def recording_rules(self):
+        """
+        Access the recording_rules
+
+        :returns: twilio.rest.video.v1.room.RecordingRulesList
+        :rtype: twilio.rest.video.v1.room.RecordingRulesList
+        """
+        if self._recording_rules is None:
+            self._recording_rules = RecordingRulesList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._recording_rules
+    
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.video.v1.room.RoomRecordingList
+        :rtype: twilio.rest.video.v1.room.RoomRecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RoomRecordingList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._recordings
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RoomContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -353,74 +354,6 @@ class EventPage(Page):
 
 
 
-class EventContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the EventContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Event resource to fetch.
-
-        :returns: twilio.rest.monitor.v1.event.EventContext
-        :rtype: twilio.rest.monitor.v1.event.EventContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Events/{sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the EventInstance
-        
-
-        :returns: The fetched EventInstance
-        :rtype: twilio.rest.monitor.v1.event.EventInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EventInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EventInstance
-        
-
-        :returns: The fetched EventInstance
-        :rtype: twilio.rest.monitor.v1.event.EventInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return EventInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Monitor.V1.EventContext {}>'.format(context)
-
 class EventInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -605,5 +538,54 @@ class EventInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Monitor.V1.EventInstance {}>'.format(context)
+
+class EventContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the EventContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Event resource to fetch.
+
+        :returns: twilio.rest.monitor.v1.event.EventContext
+        :rtype: twilio.rest.monitor.v1.event.EventContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Events/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the EventInstance
+        
+
+        :returns: The fetched EventInstance
+        :rtype: twilio.rest.monitor.v1.event.EventInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EventInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Monitor.V1.EventContext {}>'.format(context)
 
 

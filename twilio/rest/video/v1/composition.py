@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -401,95 +402,6 @@ class CompositionPage(Page):
 
 
 
-class CompositionContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CompositionContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Composition resource to fetch.
-
-        :returns: twilio.rest.video.v1.composition.CompositionContext
-        :rtype: twilio.rest.video.v1.composition.CompositionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Compositions/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the CompositionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CompositionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the CompositionInstance
-        
-
-        :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CompositionInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CompositionInstance
-        
-
-        :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return CompositionInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.CompositionContext {}>'.format(context)
-
 class CompositionInstance(InstanceResource):
 
     class Format(object):
@@ -768,5 +680,64 @@ class CompositionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.CompositionInstance {}>'.format(context)
+
+class CompositionContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CompositionContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Composition resource to fetch.
+
+        :returns: twilio.rest.video.v1.composition.CompositionContext
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Compositions/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CompositionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CompositionInstance
+        
+
+        :returns: The fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CompositionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.CompositionContext {}>'.format(context)
 
 

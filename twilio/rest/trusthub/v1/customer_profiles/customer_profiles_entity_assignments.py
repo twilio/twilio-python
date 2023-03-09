@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -322,98 +323,6 @@ class CustomerProfilesEntityAssignmentsPage(Page):
 
 
 
-class CustomerProfilesEntityAssignmentsContext(InstanceContext):
-
-    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
-        """
-        Initialize the CustomerProfilesEntityAssignmentsContext
-
-        :param Version version: Version that contains the resource
-        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.:param sid: The unique string that we created to identify the Identity resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'customer_profile_sid': customer_profile_sid,
-            'sid': sid,
-        }
-        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the CustomerProfilesEntityAssignmentsInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CustomerProfilesEntityAssignmentsInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesEntityAssignmentsInstance
-        
-
-        :returns: The fetched CustomerProfilesEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CustomerProfilesEntityAssignmentsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution['customer_profile_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CustomerProfilesEntityAssignmentsInstance
-        
-
-        :returns: The fetched CustomerProfilesEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return CustomerProfilesEntityAssignmentsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution['customer_profile_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsContext {}>'.format(context)
-
 class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
 
     def __init__(self, version, payload, customer_profile_sid: str, sid: str=None):
@@ -546,5 +455,67 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsInstance {}>'.format(context)
+
+class CustomerProfilesEntityAssignmentsContext(InstanceContext):
+
+    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
+        """
+        Initialize the CustomerProfilesEntityAssignmentsContext
+
+        :param Version version: Version that contains the resource
+        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
+        :param sid: The unique string that we created to identify the Identity resource.
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'customer_profile_sid': customer_profile_sid,
+            'sid': sid,
+        }
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CustomerProfilesEntityAssignmentsInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesEntityAssignmentsInstance
+        
+
+        :returns: The fetched CustomerProfilesEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CustomerProfilesEntityAssignmentsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution['customer_profile_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsContext {}>'.format(context)
 
 

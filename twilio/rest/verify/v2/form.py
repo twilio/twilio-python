@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -72,74 +73,6 @@ class FormList(ListResource):
         :rtype: str
         """
         return '<Twilio.Verify.V2.FormList>'
-
-class FormContext(InstanceContext):
-
-    def __init__(self, version: Version, form_type: FormInstance.FormTypes):
-        """
-        Initialize the FormContext
-
-        :param Version version: Version that contains the resource
-        :param form_type: The Type of this Form. Currently only `form-push` is supported.
-
-        :returns: twilio.rest.verify.v2.form.FormContext
-        :rtype: twilio.rest.verify.v2.form.FormContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'form_type': form_type,
-        }
-        self._uri = '/Forms/{form_type}'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the FormInstance
-        
-
-        :returns: The fetched FormInstance
-        :rtype: twilio.rest.verify.v2.form.FormInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FormInstance(
-            self._version,
-            payload,
-            form_type=self._solution['form_type'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the FormInstance
-        
-
-        :returns: The fetched FormInstance
-        :rtype: twilio.rest.verify.v2.form.FormInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return FormInstance(
-            self._version,
-            payload,
-            form_type=self._solution['form_type'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.FormContext {}>'.format(context)
 
 class FormInstance(InstanceResource):
 
@@ -238,5 +171,54 @@ class FormInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.FormInstance {}>'.format(context)
+
+class FormContext(InstanceContext):
+
+    def __init__(self, version: Version, form_type: FormInstance.FormTypes):
+        """
+        Initialize the FormContext
+
+        :param Version version: Version that contains the resource
+        :param form_type: The Type of this Form. Currently only `form-push` is supported.
+
+        :returns: twilio.rest.verify.v2.form.FormContext
+        :rtype: twilio.rest.verify.v2.form.FormContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'form_type': form_type,
+        }
+        self._uri = '/Forms/{form_type}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the FormInstance
+        
+
+        :returns: The fetched FormInstance
+        :rtype: twilio.rest.verify.v2.form.FormInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FormInstance(
+            self._version,
+            payload,
+            form_type=self._solution['form_type'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.FormContext {}>'.format(context)
 
 

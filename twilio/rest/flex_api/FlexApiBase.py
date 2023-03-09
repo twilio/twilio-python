@@ -24,7 +24,7 @@ class FlexApiBase(Domain):
         :rtype: twilio.rest.flex_api.FlexApi
         """
         super().__init__(twilio)
-        self.base_url = 'https://flex_api.twilio.com'
+        self.base_url = 'https://flex-api.twilio.com'
         self._v1 = None
         self._v2 = None
 

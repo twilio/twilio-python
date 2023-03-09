@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -348,160 +349,6 @@ class CredentialPage(Page):
 
 
 
-class CredentialContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CredentialContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Credentials/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the CredentialInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CredentialInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the CredentialInstance
-        
-
-        :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CredentialInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CredentialInstance
-        
-
-        :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return CredentialInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
-        """
-        Update the CredentialInstance
-        
-        :params str friendly_name: 
-        :params str certificate: 
-        :params str private_key: 
-        :params bool sandbox: 
-        :params str api_key: 
-        :params str secret: 
-
-        :returns: The updated CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Certificate': certificate,
-            'PrivateKey': private_key,
-            'Sandbox': sandbox,
-            'ApiKey': api_key,
-            'Secret': secret,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CredentialInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
-        """
-        Asynchronous coroutine to update the CredentialInstance
-        
-        :params str friendly_name: 
-        :params str certificate: 
-        :params str private_key: 
-        :params bool sandbox: 
-        :params str api_key: 
-        :params str secret: 
-
-        :returns: The updated CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Certificate': certificate,
-            'PrivateKey': private_key,
-            'Sandbox': sandbox,
-            'ApiKey': api_key,
-            'Secret': secret,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return CredentialInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.CredentialContext {}>'.format(context)
-
 class CredentialInstance(InstanceResource):
 
     class PushService(object):
@@ -690,5 +537,96 @@ class CredentialInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V1.CredentialInstance {}>'.format(context)
+
+class CredentialContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CredentialContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Credentials/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CredentialInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CredentialInstance
+        
+
+        :returns: The fetched CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CredentialInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
+        """
+        Update the CredentialInstance
+        
+        :params str friendly_name: 
+        :params str certificate: 
+        :params str private_key: 
+        :params bool sandbox: 
+        :params str api_key: 
+        :params str secret: 
+
+        :returns: The updated CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
+            'Secret': secret,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CredentialInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V1.CredentialContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -326,159 +327,6 @@ class AssetPage(Page):
 
 
 
-class AssetContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the AssetContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to update the Asset resource from.:param sid: The SID that identifies the Asset resource to update.
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetContext
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Assets/{sid}'.format(**self._solution)
-        
-        self._asset_versions = None
-    
-    
-    def delete(self):
-        """
-        Deletes the AssetInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the AssetInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the AssetInstance
-        
-
-        :returns: The fetched AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AssetInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AssetInstance
-        
-
-        :returns: The fetched AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return AssetInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name):
-        """
-        Update the AssetInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
-
-        :returns: The updated AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssetInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name):
-        """
-        Asynchronous coroutine to update the AssetInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
-
-        :returns: The updated AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return AssetInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    @property
-    def asset_versions(self):
-        """
-        Access the asset_versions
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetVersionList
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetVersionList
-        """
-        if self._asset_versions is None:
-            self._asset_versions = AssetVersionList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._asset_versions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.AssetContext {}>'.format(context)
-
 class AssetInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -662,5 +510,107 @@ class AssetInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.AssetInstance {}>'.format(context)
+
+class AssetContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the AssetContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to update the Asset resource from.
+        :param sid: The SID that identifies the Asset resource to update.
+
+        :returns: twilio.rest.serverless.v1.service.asset.AssetContext
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Assets/{sid}'.format(**self._solution)
+        
+        self._asset_versions = None
+    
+    def delete(self):
+        """
+        Deletes the AssetInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the AssetInstance
+        
+
+        :returns: The fetched AssetInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AssetInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name):
+        """
+        Update the AssetInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+
+        :returns: The updated AssetInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AssetInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def asset_versions(self):
+        """
+        Access the asset_versions
+
+        :returns: twilio.rest.serverless.v1.service.asset.AssetVersionList
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetVersionList
+        """
+        if self._asset_versions is None:
+            self._asset_versions = AssetVersionList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._asset_versions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.AssetContext {}>'.format(context)
 
 

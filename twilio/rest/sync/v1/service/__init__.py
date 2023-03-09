@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -352,220 +353,6 @@ class ServicePage(Page):
 
 
 
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.sync.v1.service.ServiceContext
-        :rtype: twilio.rest.sync.v1.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._documents = None
-        self._sync_lists = None
-        self._sync_maps = None
-        self._sync_streams = None
-    
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset, reachability_debouncing_enabled=values.unset, reachability_debouncing_window=values.unset, webhooks_from_rest_enabled=values.unset):
-        """
-        Update the ServiceInstance
-        
-        :params str webhook_url: The URL we should call when Sync objects are manipulated.
-        :params str friendly_name: A string that you assign to describe the resource.
-        :params bool reachability_webhooks_enabled: Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
-        :params bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
-        :params bool reachability_debouncing_enabled: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
-        :params int reachability_debouncing_window: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
-        :params bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
-        """
-        data = values.of({ 
-            'WebhookUrl': webhook_url,
-            'FriendlyName': friendly_name,
-            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
-            'AclEnabled': acl_enabled,
-            'ReachabilityDebouncingEnabled': reachability_debouncing_enabled,
-            'ReachabilityDebouncingWindow': reachability_debouncing_window,
-            'WebhooksFromRestEnabled': webhooks_from_rest_enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset, reachability_debouncing_enabled=values.unset, reachability_debouncing_window=values.unset, webhooks_from_rest_enabled=values.unset):
-        """
-        Asynchronous coroutine to update the ServiceInstance
-        
-        :params str webhook_url: The URL we should call when Sync objects are manipulated.
-        :params str friendly_name: A string that you assign to describe the resource.
-        :params bool reachability_webhooks_enabled: Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
-        :params bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
-        :params bool reachability_debouncing_enabled: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
-        :params int reachability_debouncing_window: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
-        :params bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.sync.v1.service.ServiceInstance
-        """
-        data = values.of({ 
-            'WebhookUrl': webhook_url,
-            'FriendlyName': friendly_name,
-            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
-            'AclEnabled': acl_enabled,
-            'ReachabilityDebouncingEnabled': reachability_debouncing_enabled,
-            'ReachabilityDebouncingWindow': reachability_debouncing_window,
-            'WebhooksFromRestEnabled': webhooks_from_rest_enabled,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    @property
-    def documents(self):
-        """
-        Access the documents
-
-        :returns: twilio.rest.sync.v1.service.DocumentList
-        :rtype: twilio.rest.sync.v1.service.DocumentList
-        """
-        if self._documents is None:
-            self._documents = DocumentList(self._version, self._solution['sid'],
-            )
-        return self._documents
-    
-    @property
-    def sync_lists(self):
-        """
-        Access the sync_lists
-
-        :returns: twilio.rest.sync.v1.service.SyncListList
-        :rtype: twilio.rest.sync.v1.service.SyncListList
-        """
-        if self._sync_lists is None:
-            self._sync_lists = SyncListList(self._version, self._solution['sid'],
-            )
-        return self._sync_lists
-    
-    @property
-    def sync_maps(self):
-        """
-        Access the sync_maps
-
-        :returns: twilio.rest.sync.v1.service.SyncMapList
-        :rtype: twilio.rest.sync.v1.service.SyncMapList
-        """
-        if self._sync_maps is None:
-            self._sync_maps = SyncMapList(self._version, self._solution['sid'],
-            )
-        return self._sync_maps
-    
-    @property
-    def sync_streams(self):
-        """
-        Access the sync_streams
-
-        :returns: twilio.rest.sync.v1.service.SyncStreamList
-        :rtype: twilio.rest.sync.v1.service.SyncStreamList
-        """
-        if self._sync_streams is None:
-            self._sync_streams = SyncStreamList(self._version, self._solution['sid'],
-            )
-        return self._sync_streams
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.ServiceContext {}>'.format(context)
-
 class ServiceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -845,5 +632,162 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Service resource to update.
+
+        :returns: twilio.rest.sync.v1.service.ServiceContext
+        :rtype: twilio.rest.sync.v1.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._documents = None
+        self._sync_lists = None
+        self._sync_maps = None
+        self._sync_streams = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.sync.v1.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset, reachability_debouncing_enabled=values.unset, reachability_debouncing_window=values.unset, webhooks_from_rest_enabled=values.unset):
+        """
+        Update the ServiceInstance
+        
+        :params str webhook_url: The URL we should call when Sync objects are manipulated.
+        :params str friendly_name: A string that you assign to describe the resource.
+        :params bool reachability_webhooks_enabled: Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
+        :params bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
+        :params bool reachability_debouncing_enabled: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
+        :params int reachability_debouncing_window: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
+        :params bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.sync.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'WebhookUrl': webhook_url,
+            'FriendlyName': friendly_name,
+            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
+            'AclEnabled': acl_enabled,
+            'ReachabilityDebouncingEnabled': reachability_debouncing_enabled,
+            'ReachabilityDebouncingWindow': reachability_debouncing_window,
+            'WebhooksFromRestEnabled': webhooks_from_rest_enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def documents(self):
+        """
+        Access the documents
+
+        :returns: twilio.rest.sync.v1.service.DocumentList
+        :rtype: twilio.rest.sync.v1.service.DocumentList
+        """
+        if self._documents is None:
+            self._documents = DocumentList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._documents
+    
+    @property
+    def sync_lists(self):
+        """
+        Access the sync_lists
+
+        :returns: twilio.rest.sync.v1.service.SyncListList
+        :rtype: twilio.rest.sync.v1.service.SyncListList
+        """
+        if self._sync_lists is None:
+            self._sync_lists = SyncListList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._sync_lists
+    
+    @property
+    def sync_maps(self):
+        """
+        Access the sync_maps
+
+        :returns: twilio.rest.sync.v1.service.SyncMapList
+        :rtype: twilio.rest.sync.v1.service.SyncMapList
+        """
+        if self._sync_maps is None:
+            self._sync_maps = SyncMapList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._sync_maps
+    
+    @property
+    def sync_streams(self):
+        """
+        Access the sync_streams
+
+        :returns: twilio.rest.sync.v1.service.SyncStreamList
+        :rtype: twilio.rest.sync.v1.service.SyncStreamList
+        """
+        if self._sync_streams is None:
+            self._sync_streams = SyncStreamList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._sync_streams
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.ServiceContext {}>'.format(context)
 
 

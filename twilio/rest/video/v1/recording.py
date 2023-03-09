@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -203,7 +204,7 @@ class RecordingList(ListResource):
         data = values.of({ 
             'Status': status,
             'SourceSid': source_sid,
-            'GroupingSid': serialize.map(grouping_sid),
+            'GroupingSid': serialize.map(grouping_sid, lambda e: e),
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'MediaType': media_type,
@@ -355,95 +356,6 @@ class RecordingPage(Page):
 
 
 
-
-class RecordingContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the RecordingContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Recording resource to fetch.
-
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Recordings/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the RecordingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the RecordingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-        
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the RecordingInstance
-        
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RecordingContext {}>'.format(context)
 
 class RecordingInstance(InstanceResource):
 
@@ -706,5 +618,64 @@ class RecordingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RecordingInstance {}>'.format(context)
+
+class RecordingContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the RecordingContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Recording resource to fetch.
+
+        :returns: twilio.rest.video.v1.recording.RecordingContext
+        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Recordings/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the RecordingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the RecordingInstance
+        
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RecordingContext {}>'.format(context)
 
 

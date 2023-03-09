@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,103 +71,6 @@ class TaskQueueStatisticsList(ListResource):
         :rtype: str
         """
         return '<Twilio.Taskrouter.V1.TaskQueueStatisticsList>'
-
-class TaskQueueStatisticsContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
-        """
-        Initialize the TaskQueueStatisticsContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.:param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'task_queue_sid': task_queue_sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/Statistics'.format(**self._solution)
-        
-    
-    
-    def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset):
-        """
-        Fetch the TaskQueueStatisticsInstance
-        
-        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :params int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :params str task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :params str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-
-        :returns: The fetched TaskQueueStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'Minutes': minutes,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'TaskChannel': task_channel,
-            'SplitByWaitTime': split_by_wait_time,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return TaskQueueStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            task_queue_sid=self._solution['task_queue_sid'],
-            
-        )
-
-    async def fetch_async(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset):
-        """
-        Asynchronous coroutine to fetch the TaskQueueStatisticsInstance
-        
-        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-        :params int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :params str task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :params str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-
-        :returns: The fetched TaskQueueStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'Minutes': minutes,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'TaskChannel': task_channel,
-            'SplitByWaitTime': split_by_wait_time,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
-
-        return TaskQueueStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            task_queue_sid=self._solution['task_queue_sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskQueueStatisticsContext {}>'.format(context)
 
 class TaskQueueStatisticsInstance(InstanceResource):
 
@@ -290,5 +194,70 @@ class TaskQueueStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskQueueStatisticsInstance {}>'.format(context)
+
+class TaskQueueStatisticsContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
+        """
+        Initialize the TaskQueueStatisticsContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.
+        :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'task_queue_sid': task_queue_sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/Statistics'.format(**self._solution)
+        
+    
+    def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset):
+        """
+        Fetch the TaskQueueStatisticsInstance
+        
+        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :params int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params str task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :params str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+
+        :returns: The fetched TaskQueueStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return TaskQueueStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            task_queue_sid=self._solution['task_queue_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.TaskQueueStatisticsContext {}>'.format(context)
 
 

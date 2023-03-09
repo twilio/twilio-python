@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -390,220 +391,6 @@ class ServicePage(Page):
 
 
 
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.notify.v1.service.ServiceContext
-        :rtype: twilio.rest.notify.v1.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._bindings = None
-        self._notifications = None
-    
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name=values.unset, apn_credential_sid=values.unset, gcm_credential_sid=values.unset, messaging_service_sid=values.unset, facebook_messenger_page_id=values.unset, default_apn_notification_protocol_version=values.unset, default_gcm_notification_protocol_version=values.unset, fcm_credential_sid=values.unset, default_fcm_notification_protocol_version=values.unset, log_enabled=values.unset, alexa_skill_id=values.unset, default_alexa_notification_protocol_version=values.unset, delivery_callback_url=values.unset, delivery_callback_enabled=values.unset):
-        """
-        Update the ServiceInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :params str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :params str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :params str facebook_messenger_page_id: Deprecated.
-        :params str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :params str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :params str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :params str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :params bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :params str alexa_skill_id: Deprecated.
-        :params str default_alexa_notification_protocol_version: Deprecated.
-        :params str delivery_callback_url: URL to send delivery status callback.
-        :params bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApnCredentialSid': apn_credential_sid,
-            'GcmCredentialSid': gcm_credential_sid,
-            'MessagingServiceSid': messaging_service_sid,
-            'FacebookMessengerPageId': facebook_messenger_page_id,
-            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
-            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
-            'FcmCredentialSid': fcm_credential_sid,
-            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
-            'LogEnabled': log_enabled,
-            'AlexaSkillId': alexa_skill_id,
-            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
-            'DeliveryCallbackUrl': delivery_callback_url,
-            'DeliveryCallbackEnabled': delivery_callback_enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name=values.unset, apn_credential_sid=values.unset, gcm_credential_sid=values.unset, messaging_service_sid=values.unset, facebook_messenger_page_id=values.unset, default_apn_notification_protocol_version=values.unset, default_gcm_notification_protocol_version=values.unset, fcm_credential_sid=values.unset, default_fcm_notification_protocol_version=values.unset, log_enabled=values.unset, alexa_skill_id=values.unset, default_alexa_notification_protocol_version=values.unset, delivery_callback_url=values.unset, delivery_callback_enabled=values.unset):
-        """
-        Asynchronous coroutine to update the ServiceInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :params str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
-        :params str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
-        :params str facebook_messenger_page_id: Deprecated.
-        :params str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :params str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :params str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-        :params str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
-        :params bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
-        :params str alexa_skill_id: Deprecated.
-        :params str default_alexa_notification_protocol_version: Deprecated.
-        :params str delivery_callback_url: URL to send delivery status callback.
-        :params bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.notify.v1.service.ServiceInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApnCredentialSid': apn_credential_sid,
-            'GcmCredentialSid': gcm_credential_sid,
-            'MessagingServiceSid': messaging_service_sid,
-            'FacebookMessengerPageId': facebook_messenger_page_id,
-            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
-            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
-            'FcmCredentialSid': fcm_credential_sid,
-            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
-            'LogEnabled': log_enabled,
-            'AlexaSkillId': alexa_skill_id,
-            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
-            'DeliveryCallbackUrl': delivery_callback_url,
-            'DeliveryCallbackEnabled': delivery_callback_enabled,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    @property
-    def bindings(self):
-        """
-        Access the bindings
-
-        :returns: twilio.rest.notify.v1.service.BindingList
-        :rtype: twilio.rest.notify.v1.service.BindingList
-        """
-        if self._bindings is None:
-            self._bindings = BindingList(self._version, self._solution['sid'],
-            )
-        return self._bindings
-    
-    @property
-    def notifications(self):
-        """
-        Access the notifications
-
-        :returns: twilio.rest.notify.v1.service.NotificationList
-        :rtype: twilio.rest.notify.v1.service.NotificationList
-        """
-        if self._notifications is None:
-            self._notifications = NotificationList(self._version, self._solution['sid'],
-            )
-        return self._notifications
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Notify.V1.ServiceContext {}>'.format(context)
-
 class ServiceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -931,5 +718,144 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Notify.V1.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
+
+        :returns: twilio.rest.notify.v1.service.ServiceContext
+        :rtype: twilio.rest.notify.v1.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._bindings = None
+        self._notifications = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, apn_credential_sid=values.unset, gcm_credential_sid=values.unset, messaging_service_sid=values.unset, facebook_messenger_page_id=values.unset, default_apn_notification_protocol_version=values.unset, default_gcm_notification_protocol_version=values.unset, fcm_credential_sid=values.unset, default_fcm_notification_protocol_version=values.unset, log_enabled=values.unset, alexa_skill_id=values.unset, default_alexa_notification_protocol_version=values.unset, delivery_callback_url=values.unset, delivery_callback_enabled=values.unset):
+        """
+        Update the ServiceInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :params str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :params str facebook_messenger_page_id: Deprecated.
+        :params str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :params str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :params str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :params str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :params bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :params str alexa_skill_id: Deprecated.
+        :params str default_alexa_notification_protocol_version: Deprecated.
+        :params str delivery_callback_url: URL to send delivery status callback.
+        :params bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ApnCredentialSid': apn_credential_sid,
+            'GcmCredentialSid': gcm_credential_sid,
+            'MessagingServiceSid': messaging_service_sid,
+            'FacebookMessengerPageId': facebook_messenger_page_id,
+            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
+            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
+            'FcmCredentialSid': fcm_credential_sid,
+            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
+            'LogEnabled': log_enabled,
+            'AlexaSkillId': alexa_skill_id,
+            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
+            'DeliveryCallbackUrl': delivery_callback_url,
+            'DeliveryCallbackEnabled': delivery_callback_enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def bindings(self):
+        """
+        Access the bindings
+
+        :returns: twilio.rest.notify.v1.service.BindingList
+        :rtype: twilio.rest.notify.v1.service.BindingList
+        """
+        if self._bindings is None:
+            self._bindings = BindingList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._bindings
+    
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.notify.v1.service.NotificationList
+        :rtype: twilio.rest.notify.v1.service.NotificationList
+        """
+        if self._notifications is None:
+            self._notifications = NotificationList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._notifications
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Notify.V1.ServiceContext {}>'.format(context)
 
 

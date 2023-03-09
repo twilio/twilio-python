@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -309,144 +310,6 @@ class ShortCodePage(Page):
 
 
 
-class ShortCodeContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the ShortCodeContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
-
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the ShortCodeInstance
-        
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ShortCodeInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ShortCodeInstance
-        
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return ShortCodeInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name=values.unset, api_version=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset):
-        """
-        Update the ShortCodeInstance
-        
-        :params str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
-        :params str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-        :params str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
-        :params str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-        :params str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :params str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
-
-        :returns: The updated ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApiVersion': api_version,
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ShortCodeInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name=values.unset, api_version=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset):
-        """
-        Asynchronous coroutine to update the ShortCodeInstance
-        
-        :params str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
-        :params str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-        :params str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
-        :params str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-        :params str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :params str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
-
-        :returns: The updated ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApiVersion': api_version,
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return ShortCodeInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ShortCodeContext {}>'.format(context)
-
 class ShortCodeInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, sid: str=None):
@@ -646,5 +509,90 @@ class ShortCodeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ShortCodeInstance {}>'.format(context)
+
+class ShortCodeContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the ShortCodeContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
+        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
+
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the ShortCodeInstance
+        
+
+        :returns: The fetched ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, api_version=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset):
+        """
+        Update the ShortCodeInstance
+        
+        :params str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+        :params str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+        :params str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
+        :params str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+        :params str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :params str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+
+        :returns: The updated ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ApiVersion': api_version,
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.ShortCodeContext {}>'.format(context)
 
 

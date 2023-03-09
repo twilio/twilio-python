@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -197,7 +198,7 @@ class InviteList(ListResource):
         :rtype: twilio.rest.chat.v1.service.channel.invite.InvitePage
         """
         data = values.of({ 
-            'Identity': serialize.map(identity),
+            'Identity': serialize.map(identity, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -338,101 +339,6 @@ class InvitePage(Page):
 
 
 
-
-class InviteContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        """
-        Initialize the InviteContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from.:param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to fetch belongs to.:param sid: The Twilio-provided string that uniquely identifies the Invite resource to fetch.
-
-        :returns: twilio.rest.chat.v1.service.channel.invite.InviteContext
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Invites/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the InviteInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the InviteInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the InviteInstance
-        
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return InviteInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the InviteInstance
-        
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return InviteInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V1.InviteContext {}>'.format(context)
 
 class InviteInstance(InstanceResource):
 
@@ -602,5 +508,70 @@ class InviteInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V1.InviteInstance {}>'.format(context)
+
+class InviteContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
+        """
+        Initialize the InviteContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from.
+        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource to fetch belongs to.
+        :param sid: The Twilio-provided string that uniquely identifies the Invite resource to fetch.
+
+        :returns: twilio.rest.chat.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Invites/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the InviteInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the InviteInstance
+        
+
+        :returns: The fetched InviteInstance
+        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return InviteInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V1.InviteContext {}>'.format(context)
 
 

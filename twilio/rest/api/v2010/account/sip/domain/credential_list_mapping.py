@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -323,101 +324,6 @@ class CredentialListMappingPage(Page):
 
 
 
-class CredentialListMappingContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
-        """
-        Initialize the CredentialListMappingContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param domain_sid: A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch.:param sid: A 34 character string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'domain_sid': domain_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings/{sid}.json'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the CredentialListMappingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CredentialListMappingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the CredentialListMappingInstance
-        
-
-        :returns: The fetched CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            domain_sid=self._solution['domain_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CredentialListMappingInstance
-        
-
-        :returns: The fetched CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return CredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            domain_sid=self._solution['domain_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.CredentialListMappingContext {}>'.format(context)
-
 class CredentialListMappingInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, domain_sid: str, sid: str=None):
@@ -559,5 +465,70 @@ class CredentialListMappingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.CredentialListMappingInstance {}>'.format(context)
+
+class CredentialListMappingContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
+        """
+        Initialize the CredentialListMappingContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param domain_sid: A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch.
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'domain_sid': domain_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CredentialListMappingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CredentialListMappingInstance
+        
+
+        :returns: The fetched CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            domain_sid=self._solution['domain_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.CredentialListMappingContext {}>'.format(context)
 
 

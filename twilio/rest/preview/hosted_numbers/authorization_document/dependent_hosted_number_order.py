@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -318,7 +319,6 @@ class DependentHostedNumberOrderPage(Page):
 
 
 
-
 class DependentHostedNumberOrderInstance(InstanceResource):
 
     class Status(object):
@@ -557,5 +557,6 @@ class DependentHostedNumberOrderInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderInstance {}>'.format(context)
+
 
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -402,88 +403,6 @@ class ConferencePage(Page):
 
 
 
-class ConferenceContext(InstanceContext):
-
-    def __init__(self, version: Version, conference_sid: str):
-        """
-        Initialize the ConferenceContext
-
-        :param Version version: Version that contains the resource
-        :param conference_sid: The unique SID identifier of the Conference.
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceContext
-        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'conference_sid': conference_sid,
-        }
-        self._uri = '/Conferences/{conference_sid}'.format(**self._solution)
-        
-        self._conference_participants = None
-    
-    
-    def fetch(self):
-        """
-        Fetch the ConferenceInstance
-        
-
-        :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ConferenceInstance(
-            self._version,
-            payload,
-            conference_sid=self._solution['conference_sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ConferenceInstance
-        
-
-        :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return ConferenceInstance(
-            self._version,
-            payload,
-            conference_sid=self._solution['conference_sid'],
-            
-        )
-    
-    
-    @property
-    def conference_participants(self):
-        """
-        Access the conference_participants
-
-        :returns: twilio.rest.insights.v1.conference.ConferenceParticipantList
-        :rtype: twilio.rest.insights.v1.conference.ConferenceParticipantList
-        """
-        if self._conference_participants is None:
-            self._conference_participants = ConferenceParticipantList(self._version, self._solution['conference_sid'],
-            )
-        return self._conference_participants
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.ConferenceContext {}>'.format(context)
-
 class ConferenceInstance(InstanceResource):
 
     class ConferenceEndReason(object):
@@ -799,5 +718,70 @@ class ConferenceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.ConferenceInstance {}>'.format(context)
+
+class ConferenceContext(InstanceContext):
+
+    def __init__(self, version: Version, conference_sid: str):
+        """
+        Initialize the ConferenceContext
+
+        :param Version version: Version that contains the resource
+        :param conference_sid: The unique SID identifier of the Conference.
+
+        :returns: twilio.rest.insights.v1.conference.ConferenceContext
+        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'conference_sid': conference_sid,
+        }
+        self._uri = '/Conferences/{conference_sid}'.format(**self._solution)
+        
+        self._conference_participants = None
+    
+    def fetch(self):
+        """
+        Fetch the ConferenceInstance
+        
+
+        :returns: The fetched ConferenceInstance
+        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ConferenceInstance(
+            self._version,
+            payload,
+            conference_sid=self._solution['conference_sid'],
+            
+        )
+        
+    
+    @property
+    def conference_participants(self):
+        """
+        Access the conference_participants
+
+        :returns: twilio.rest.insights.v1.conference.ConferenceParticipantList
+        :rtype: twilio.rest.insights.v1.conference.ConferenceParticipantList
+        """
+        if self._conference_participants is None:
+            self._conference_participants = ConferenceParticipantList(
+                self._version, 
+                self._solution['conference_sid'],
+            )
+        return self._conference_participants
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.ConferenceContext {}>'.format(context)
 
 

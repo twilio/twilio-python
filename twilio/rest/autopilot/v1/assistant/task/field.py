@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -327,101 +328,6 @@ class FieldPage(Page):
 
 
 
-class FieldContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, task_sid: str, sid: str):
-        """
-        Initialize the FieldContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to fetch.:param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Field resource to fetch.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'task_sid': task_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Fields/{sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the FieldInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the FieldInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the FieldInstance
-        
-
-        :returns: The fetched FieldInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FieldInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the FieldInstance
-        
-
-        :returns: The fetched FieldInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return FieldInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.FieldContext {}>'.format(context)
-
 class FieldInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, task_sid: str, sid: str=None):
@@ -581,5 +487,70 @@ class FieldInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.FieldInstance {}>'.format(context)
+
+class FieldContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, task_sid: str, sid: str):
+        """
+        Initialize the FieldContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to fetch.
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Field resource to fetch.
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'task_sid': task_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Fields/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the FieldInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the FieldInstance
+        
+
+        :returns: The fetched FieldInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FieldInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.FieldContext {}>'.format(context)
 
 

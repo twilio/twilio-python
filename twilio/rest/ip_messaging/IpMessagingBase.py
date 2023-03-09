@@ -24,7 +24,7 @@ class IpMessagingBase(Domain):
         :rtype: twilio.rest.ip_messaging.IpMessaging
         """
         super().__init__(twilio)
-        self.base_url = 'https://ip_messaging.twilio.com'
+        self.base_url = 'https://ip-messaging.twilio.com'
         self._v1 = None
         self._v2 = None
 

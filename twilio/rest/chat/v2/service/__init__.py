@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -327,316 +328,6 @@ class ServicePage(Page):
 
 
 
-
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Service resource to update.
-
-        :returns: twilio.rest.chat.v2.service.ServiceContext
-        :rtype: twilio.rest.chat.v2.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._bindings = None
-        self._channels = None
-        self._roles = None
-        self._users = None
-    
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name=values.unset, default_service_role_sid=values.unset, default_channel_role_sid=values.unset, default_channel_creator_role_sid=values.unset, read_status_enabled=values.unset, reachability_enabled=values.unset, typing_indicator_timeout=values.unset, consumption_report_interval=values.unset, notifications_new_message_enabled=values.unset, notifications_new_message_template=values.unset, notifications_new_message_sound=values.unset, notifications_new_message_badge_count_enabled=values.unset, notifications_added_to_channel_enabled=values.unset, notifications_added_to_channel_template=values.unset, notifications_added_to_channel_sound=values.unset, notifications_removed_from_channel_enabled=values.unset, notifications_removed_from_channel_template=values.unset, notifications_removed_from_channel_sound=values.unset, notifications_invited_to_channel_enabled=values.unset, notifications_invited_to_channel_template=values.unset, notifications_invited_to_channel_sound=values.unset, pre_webhook_url=values.unset, post_webhook_url=values.unset, webhook_method=values.unset, webhook_filters=values.unset, limits_channel_members=values.unset, limits_user_channels=values.unset, media_compatibility_message=values.unset, pre_webhook_retry_count=values.unset, post_webhook_retry_count=values.unset, notifications_log_enabled=values.unset):
-        """
-        Update the ServiceInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource.
-        :params str default_service_role_sid: The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-        :params str default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-        :params str default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-        :params bool read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
-        :params bool reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
-        :params int typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-        :params int consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-        :params bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. The default is `false`.
-        :params str notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :params str notifications_new_message_sound: The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :params bool notifications_new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
-        :params bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. The default is `false`.
-        :params str notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :params str notifications_added_to_channel_sound: The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :params bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. The default is `false`.
-        :params str notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :params str notifications_removed_from_channel_sound: The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :params bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. The default is `false`.
-        :params str notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :params str notifications_invited_to_channel_sound: The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :params str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params list[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-        :params int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
-        :params str media_compatibility_message: The message to send when a media message has no text. Can be used as placeholder message.
-        :params int pre_webhook_retry_count: The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won't be retried.
-        :params int post_webhook_retry_count: The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
-        :params bool notifications_log_enabled: Whether to log notifications. The default is `false`.
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DefaultServiceRoleSid': default_service_role_sid,
-            'DefaultChannelRoleSid': default_channel_role_sid,
-            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
-            'ReadStatusEnabled': read_status_enabled,
-            'ReachabilityEnabled': reachability_enabled,
-            'TypingIndicatorTimeout': typing_indicator_timeout,
-            'ConsumptionReportInterval': consumption_report_interval,
-            'Notifications.NewMessage.Enabled': notifications_new_message_enabled,
-            'Notifications.NewMessage.Template': notifications_new_message_template,
-            'Notifications.NewMessage.Sound': notifications_new_message_sound,
-            'Notifications.NewMessage.BadgeCountEnabled': notifications_new_message_badge_count_enabled,
-            'Notifications.AddedToChannel.Enabled': notifications_added_to_channel_enabled,
-            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
-            'Notifications.AddedToChannel.Sound': notifications_added_to_channel_sound,
-            'Notifications.RemovedFromChannel.Enabled': notifications_removed_from_channel_enabled,
-            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
-            'Notifications.RemovedFromChannel.Sound': notifications_removed_from_channel_sound,
-            'Notifications.InvitedToChannel.Enabled': notifications_invited_to_channel_enabled,
-            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
-            'Notifications.InvitedToChannel.Sound': notifications_invited_to_channel_sound,
-            'PreWebhookUrl': pre_webhook_url,
-            'PostWebhookUrl': post_webhook_url,
-            'WebhookMethod': webhook_method,
-            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
-            'Limits.ChannelMembers': limits_channel_members,
-            'Limits.UserChannels': limits_user_channels,
-            'Media.CompatibilityMessage': media_compatibility_message,
-            'PreWebhookRetryCount': pre_webhook_retry_count,
-            'PostWebhookRetryCount': post_webhook_retry_count,
-            'Notifications.LogEnabled': notifications_log_enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name=values.unset, default_service_role_sid=values.unset, default_channel_role_sid=values.unset, default_channel_creator_role_sid=values.unset, read_status_enabled=values.unset, reachability_enabled=values.unset, typing_indicator_timeout=values.unset, consumption_report_interval=values.unset, notifications_new_message_enabled=values.unset, notifications_new_message_template=values.unset, notifications_new_message_sound=values.unset, notifications_new_message_badge_count_enabled=values.unset, notifications_added_to_channel_enabled=values.unset, notifications_added_to_channel_template=values.unset, notifications_added_to_channel_sound=values.unset, notifications_removed_from_channel_enabled=values.unset, notifications_removed_from_channel_template=values.unset, notifications_removed_from_channel_sound=values.unset, notifications_invited_to_channel_enabled=values.unset, notifications_invited_to_channel_template=values.unset, notifications_invited_to_channel_sound=values.unset, pre_webhook_url=values.unset, post_webhook_url=values.unset, webhook_method=values.unset, webhook_filters=values.unset, limits_channel_members=values.unset, limits_user_channels=values.unset, media_compatibility_message=values.unset, pre_webhook_retry_count=values.unset, post_webhook_retry_count=values.unset, notifications_log_enabled=values.unset):
-        """
-        Asynchronous coroutine to update the ServiceInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource.
-        :params str default_service_role_sid: The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-        :params str default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-        :params str default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-        :params bool read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
-        :params bool reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
-        :params int typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-        :params int consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-        :params bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. The default is `false`.
-        :params str notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :params str notifications_new_message_sound: The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-        :params bool notifications_new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
-        :params bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. The default is `false`.
-        :params str notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :params str notifications_added_to_channel_sound: The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-        :params bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. The default is `false`.
-        :params str notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :params str notifications_removed_from_channel_sound: The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-        :params bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. The default is `false`.
-        :params str notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :params str notifications_invited_to_channel_sound: The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-        :params str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params list[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :params int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-        :params int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
-        :params str media_compatibility_message: The message to send when a media message has no text. Can be used as placeholder message.
-        :params int pre_webhook_retry_count: The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won't be retried.
-        :params int post_webhook_retry_count: The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
-        :params bool notifications_log_enabled: Whether to log notifications. The default is `false`.
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DefaultServiceRoleSid': default_service_role_sid,
-            'DefaultChannelRoleSid': default_channel_role_sid,
-            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
-            'ReadStatusEnabled': read_status_enabled,
-            'ReachabilityEnabled': reachability_enabled,
-            'TypingIndicatorTimeout': typing_indicator_timeout,
-            'ConsumptionReportInterval': consumption_report_interval,
-            'Notifications.NewMessage.Enabled': notifications_new_message_enabled,
-            'Notifications.NewMessage.Template': notifications_new_message_template,
-            'Notifications.NewMessage.Sound': notifications_new_message_sound,
-            'Notifications.NewMessage.BadgeCountEnabled': notifications_new_message_badge_count_enabled,
-            'Notifications.AddedToChannel.Enabled': notifications_added_to_channel_enabled,
-            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
-            'Notifications.AddedToChannel.Sound': notifications_added_to_channel_sound,
-            'Notifications.RemovedFromChannel.Enabled': notifications_removed_from_channel_enabled,
-            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
-            'Notifications.RemovedFromChannel.Sound': notifications_removed_from_channel_sound,
-            'Notifications.InvitedToChannel.Enabled': notifications_invited_to_channel_enabled,
-            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
-            'Notifications.InvitedToChannel.Sound': notifications_invited_to_channel_sound,
-            'PreWebhookUrl': pre_webhook_url,
-            'PostWebhookUrl': post_webhook_url,
-            'WebhookMethod': webhook_method,
-            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
-            'Limits.ChannelMembers': limits_channel_members,
-            'Limits.UserChannels': limits_user_channels,
-            'Media.CompatibilityMessage': media_compatibility_message,
-            'PreWebhookRetryCount': pre_webhook_retry_count,
-            'PostWebhookRetryCount': post_webhook_retry_count,
-            'Notifications.LogEnabled': notifications_log_enabled,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-    
-    
-    @property
-    def bindings(self):
-        """
-        Access the bindings
-
-        :returns: twilio.rest.chat.v2.service.BindingList
-        :rtype: twilio.rest.chat.v2.service.BindingList
-        """
-        if self._bindings is None:
-            self._bindings = BindingList(self._version, self._solution['sid'],
-            )
-        return self._bindings
-    
-    @property
-    def channels(self):
-        """
-        Access the channels
-
-        :returns: twilio.rest.chat.v2.service.ChannelList
-        :rtype: twilio.rest.chat.v2.service.ChannelList
-        """
-        if self._channels is None:
-            self._channels = ChannelList(self._version, self._solution['sid'],
-            )
-        return self._channels
-    
-    @property
-    def roles(self):
-        """
-        Access the roles
-
-        :returns: twilio.rest.chat.v2.service.RoleList
-        :rtype: twilio.rest.chat.v2.service.RoleList
-        """
-        if self._roles is None:
-            self._roles = RoleList(self._version, self._solution['sid'],
-            )
-        return self._roles
-    
-    @property
-    def users(self):
-        """
-        Access the users
-
-        :returns: twilio.rest.chat.v2.service.UserList
-        :rtype: twilio.rest.chat.v2.service.UserList
-        """
-        if self._users is None:
-            self._users = UserList(self._version, self._solution['sid'],
-            )
-        return self._users
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V2.ServiceContext {}>'.format(context)
 
 class ServiceInstance(InstanceResource):
 
@@ -1046,5 +737,210 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V2.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Service resource to update.
+
+        :returns: twilio.rest.chat.v2.service.ServiceContext
+        :rtype: twilio.rest.chat.v2.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._bindings = None
+        self._channels = None
+        self._roles = None
+        self._users = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, default_service_role_sid=values.unset, default_channel_role_sid=values.unset, default_channel_creator_role_sid=values.unset, read_status_enabled=values.unset, reachability_enabled=values.unset, typing_indicator_timeout=values.unset, consumption_report_interval=values.unset, notifications_new_message_enabled=values.unset, notifications_new_message_template=values.unset, notifications_new_message_sound=values.unset, notifications_new_message_badge_count_enabled=values.unset, notifications_added_to_channel_enabled=values.unset, notifications_added_to_channel_template=values.unset, notifications_added_to_channel_sound=values.unset, notifications_removed_from_channel_enabled=values.unset, notifications_removed_from_channel_template=values.unset, notifications_removed_from_channel_sound=values.unset, notifications_invited_to_channel_enabled=values.unset, notifications_invited_to_channel_template=values.unset, notifications_invited_to_channel_sound=values.unset, pre_webhook_url=values.unset, post_webhook_url=values.unset, webhook_method=values.unset, webhook_filters=values.unset, limits_channel_members=values.unset, limits_user_channels=values.unset, media_compatibility_message=values.unset, pre_webhook_retry_count=values.unset, post_webhook_retry_count=values.unset, notifications_log_enabled=values.unset):
+        """
+        Update the ServiceInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource.
+        :params str default_service_role_sid: The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
+        :params str default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
+        :params str default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
+        :params bool read_status_enabled: Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
+        :params bool reachability_enabled: Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
+        :params int typing_indicator_timeout: How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
+        :params int consumption_report_interval: DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+        :params bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel. The default is `false`.
+        :params str notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+        :params str notifications_new_message_sound: The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+        :params bool notifications_new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :params bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel. The default is `false`.
+        :params str notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+        :params str notifications_added_to_channel_sound: The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+        :params bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel. The default is `false`.
+        :params str notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+        :params str notifications_removed_from_channel_sound: The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+        :params bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel. The default is `false`.
+        :params str notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+        :params str notifications_invited_to_channel_sound: The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+        :params str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :params str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :params str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :params list[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :params int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+        :params int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+        :params str media_compatibility_message: The message to send when a media message has no text. Can be used as placeholder message.
+        :params int pre_webhook_retry_count: The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won't be retried.
+        :params int post_webhook_retry_count: The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
+        :params bool notifications_log_enabled: Whether to log notifications. The default is `false`.
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DefaultServiceRoleSid': default_service_role_sid,
+            'DefaultChannelRoleSid': default_channel_role_sid,
+            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
+            'ReadStatusEnabled': read_status_enabled,
+            'ReachabilityEnabled': reachability_enabled,
+            'TypingIndicatorTimeout': typing_indicator_timeout,
+            'ConsumptionReportInterval': consumption_report_interval,
+            'Notifications.NewMessage.Enabled': notifications_new_message_enabled,
+            'Notifications.NewMessage.Template': notifications_new_message_template,
+            'Notifications.NewMessage.Sound': notifications_new_message_sound,
+            'Notifications.NewMessage.BadgeCountEnabled': notifications_new_message_badge_count_enabled,
+            'Notifications.AddedToChannel.Enabled': notifications_added_to_channel_enabled,
+            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
+            'Notifications.AddedToChannel.Sound': notifications_added_to_channel_sound,
+            'Notifications.RemovedFromChannel.Enabled': notifications_removed_from_channel_enabled,
+            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
+            'Notifications.RemovedFromChannel.Sound': notifications_removed_from_channel_sound,
+            'Notifications.InvitedToChannel.Enabled': notifications_invited_to_channel_enabled,
+            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
+            'Notifications.InvitedToChannel.Sound': notifications_invited_to_channel_sound,
+            'PreWebhookUrl': pre_webhook_url,
+            'PostWebhookUrl': post_webhook_url,
+            'WebhookMethod': webhook_method,
+            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
+            'Limits.ChannelMembers': limits_channel_members,
+            'Limits.UserChannels': limits_user_channels,
+            'Media.CompatibilityMessage': media_compatibility_message,
+            'PreWebhookRetryCount': pre_webhook_retry_count,
+            'PostWebhookRetryCount': post_webhook_retry_count,
+            'Notifications.LogEnabled': notifications_log_enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def bindings(self):
+        """
+        Access the bindings
+
+        :returns: twilio.rest.chat.v2.service.BindingList
+        :rtype: twilio.rest.chat.v2.service.BindingList
+        """
+        if self._bindings is None:
+            self._bindings = BindingList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._bindings
+    
+    @property
+    def channels(self):
+        """
+        Access the channels
+
+        :returns: twilio.rest.chat.v2.service.ChannelList
+        :rtype: twilio.rest.chat.v2.service.ChannelList
+        """
+        if self._channels is None:
+            self._channels = ChannelList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._channels
+    
+    @property
+    def roles(self):
+        """
+        Access the roles
+
+        :returns: twilio.rest.chat.v2.service.RoleList
+        :rtype: twilio.rest.chat.v2.service.RoleList
+        """
+        if self._roles is None:
+            self._roles = RoleList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._roles
+    
+    @property
+    def users(self):
+        """
+        Access the users
+
+        :returns: twilio.rest.chat.v2.service.UserList
+        :rtype: twilio.rest.chat.v2.service.UserList
+        """
+        if self._users is None:
+            self._users = UserList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._users
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V2.ServiceContext {}>'.format(context)
 
 

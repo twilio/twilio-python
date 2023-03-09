@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -414,7 +415,6 @@ class RecordPage(Page):
         :rtype: str
         """
         return '<Twilio.Api.V2010.RecordPage>'
-
 
 
 
@@ -826,5 +826,6 @@ class RecordInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.RecordInstance {}>'.format(context)
+
 
 

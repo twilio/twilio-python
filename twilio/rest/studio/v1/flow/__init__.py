@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -286,123 +287,6 @@ class FlowPage(Page):
 
 
 
-class FlowContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the FlowContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Flow resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.FlowContext
-        :rtype: twilio.rest.studio.v1.flow.FlowContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Flows/{sid}'.format(**self._solution)
-        
-        self._engagements = None
-        self._executions = None
-    
-    
-    def delete(self):
-        """
-        Deletes the FlowInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the FlowInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the FlowInstance
-        
-
-        :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FlowInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the FlowInstance
-        
-
-        :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return FlowInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    @property
-    def engagements(self):
-        """
-        Access the engagements
-
-        :returns: twilio.rest.studio.v1.flow.EngagementList
-        :rtype: twilio.rest.studio.v1.flow.EngagementList
-        """
-        if self._engagements is None:
-            self._engagements = EngagementList(self._version, self._solution['sid'],
-            )
-        return self._engagements
-    
-    @property
-    def executions(self):
-        """
-        Access the executions
-
-        :returns: twilio.rest.studio.v1.flow.ExecutionList
-        :rtype: twilio.rest.studio.v1.flow.ExecutionList
-        """
-        if self._executions is None:
-            self._executions = ExecutionList(self._version, self._solution['sid'],
-            )
-        return self._executions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V1.FlowContext {}>'.format(context)
-
 class FlowInstance(InstanceResource):
 
     class Status(object):
@@ -586,5 +470,96 @@ class FlowInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V1.FlowInstance {}>'.format(context)
+
+class FlowContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the FlowContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Flow resource to fetch.
+
+        :returns: twilio.rest.studio.v1.flow.FlowContext
+        :rtype: twilio.rest.studio.v1.flow.FlowContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Flows/{sid}'.format(**self._solution)
+        
+        self._engagements = None
+        self._executions = None
+    
+    def delete(self):
+        """
+        Deletes the FlowInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the FlowInstance
+        
+
+        :returns: The fetched FlowInstance
+        :rtype: twilio.rest.studio.v1.flow.FlowInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FlowInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def engagements(self):
+        """
+        Access the engagements
+
+        :returns: twilio.rest.studio.v1.flow.EngagementList
+        :rtype: twilio.rest.studio.v1.flow.EngagementList
+        """
+        if self._engagements is None:
+            self._engagements = EngagementList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._engagements
+    
+    @property
+    def executions(self):
+        """
+        Access the executions
+
+        :returns: twilio.rest.studio.v1.flow.ExecutionList
+        :rtype: twilio.rest.studio.v1.flow.ExecutionList
+        """
+        if self._executions is None:
+            self._executions = ExecutionList(
+                self._version, 
+                self._solution['sid'],
+            )
+        return self._executions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V1.FlowContext {}>'.format(context)
 
 

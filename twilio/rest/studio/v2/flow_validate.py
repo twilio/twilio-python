@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -42,6 +43,29 @@ class FlowValidateList(ListResource):
         
         
     
+    def update(self, friendly_name, status, definition, commit_message=values.unset):
+        """
+        Update the FlowValidateInstance
+
+        :param str friendly_name: The string that you assigned to describe the Flow.
+        :param FlowValidateInstance.Status status: 
+        :param object definition: JSON representation of flow definition.
+        :param str commit_message: Description of change made in the revision.
+        
+        :returns: The created FlowValidateInstance
+        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+            'Definition': serialize.object(definition),
+            'CommitMessage': commit_message,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FlowValidateInstance(self._version, payload)
+    
 
 
     def __repr__(self):
@@ -51,7 +75,6 @@ class FlowValidateList(ListResource):
         :rtype: str
         """
         return '<Twilio.Studio.V2.FlowValidateList>'
-
 
 class FlowValidateInstance(InstanceResource):
 
@@ -87,5 +110,6 @@ class FlowValidateInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V2.FlowValidateInstance {}>'.format(context)
+
 
 

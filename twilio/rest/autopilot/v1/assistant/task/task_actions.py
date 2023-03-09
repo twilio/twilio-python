@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -71,124 +72,6 @@ class TaskActionsList(ListResource):
         :rtype: str
         """
         return '<Twilio.Autopilot.V1.TaskActionsList>'
-
-class TaskActionsContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
-        """
-        Initialize the TaskActionsContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task for which the task actions to update were defined.:param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the task actions to update were defined.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'task_sid': task_sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Actions'.format(**self._solution)
-        
-    
-    
-    def fetch(self):
-        """
-        Fetch the TaskActionsInstance
-        
-
-        :returns: The fetched TaskActionsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TaskActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the TaskActionsInstance
-        
-
-        :returns: The fetched TaskActionsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return TaskActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            
-        )
-    
-    
-    def update(self, actions=values.unset):
-        """
-        Update the TaskActionsInstance
-        
-        :params object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-
-        :returns: The updated TaskActionsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
-        """
-        data = values.of({ 
-            'Actions': serialize.object(actions),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TaskActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid']
-        )
-
-    async def update_async(self, actions=values.unset):
-        """
-        Asynchronous coroutine to update the TaskActionsInstance
-        
-        :params object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-
-        :returns: The updated TaskActionsInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
-        """
-        data = values.of({ 
-            'Actions': serialize.object(actions),
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return TaskActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.TaskActionsContext {}>'.format(context)
 
 class TaskActionsInstance(InstanceResource):
 
@@ -316,5 +199,80 @@ class TaskActionsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.TaskActionsInstance {}>'.format(context)
+
+class TaskActionsContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
+        """
+        Initialize the TaskActionsContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task for which the task actions to update were defined.
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the task actions to update were defined.
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'task_sid': task_sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Actions'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the TaskActionsInstance
+        
+
+        :returns: The fetched TaskActionsInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TaskActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            
+        )
+        
+    def update(self, actions=values.unset):
+        """
+        Update the TaskActionsInstance
+        
+        :params object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+
+        :returns: The updated TaskActionsInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
+        """
+        data = values.of({ 
+            'Actions': serialize.object(actions),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TaskActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.TaskActionsContext {}>'.format(context)
 
 

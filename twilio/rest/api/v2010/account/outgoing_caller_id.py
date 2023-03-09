@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -312,145 +313,6 @@ class OutgoingCallerIdPage(Page):
 
 
 
-class OutgoingCallerIdContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the OutgoingCallerIdContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update.:param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
-
-        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/OutgoingCallerIds/{sid}.json'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the OutgoingCallerIdInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the OutgoingCallerIdInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the OutgoingCallerIdInstance
-        
-
-        :returns: The fetched OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return OutgoingCallerIdInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the OutgoingCallerIdInstance
-        
-
-        :returns: The fetched OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return OutgoingCallerIdInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    def update(self, friendly_name=values.unset):
-        """
-        Update the OutgoingCallerIdInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-
-        :returns: The updated OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return OutgoingCallerIdInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-
-    async def update_async(self, friendly_name=values.unset):
-        """
-        Asynchronous coroutine to update the OutgoingCallerIdInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-
-        :returns: The updated OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return OutgoingCallerIdInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.OutgoingCallerIdContext {}>'.format(context)
-
 class OutgoingCallerIdInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, sid: str=None):
@@ -615,5 +477,90 @@ class OutgoingCallerIdInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.OutgoingCallerIdInstance {}>'.format(context)
+
+class OutgoingCallerIdContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the OutgoingCallerIdContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update.
+        :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
+
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/OutgoingCallerIds/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the OutgoingCallerIdInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the OutgoingCallerIdInstance
+        
+
+        :returns: The fetched OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return OutgoingCallerIdInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset):
+        """
+        Update the OutgoingCallerIdInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: The updated OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return OutgoingCallerIdInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.OutgoingCallerIdContext {}>'.format(context)
 
 

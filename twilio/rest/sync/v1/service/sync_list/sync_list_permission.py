@@ -13,6 +13,7 @@ r"""
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -289,158 +290,6 @@ class SyncListPermissionPage(Page):
 
 
 
-class SyncListPermissionContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, list_sid: str, identity: str):
-        """
-        Initialize the SyncListPermissionContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to update.:param list_sid: The SID of the Sync List with the Sync List Permission resource to update. Can be the Sync List resource's `sid` or its `unique_name`.:param identity: The application-defined string that uniquely identifies the User's Sync List Permission resource to update.
-
-        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'list_sid': list_sid,
-            'identity': identity,
-        }
-        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Permissions/{identity}'.format(**self._solution)
-        
-    
-    
-    def delete(self):
-        """
-        Deletes the SyncListPermissionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the SyncListPermissionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the SyncListPermissionInstance
-        
-
-        :returns: The fetched SyncListPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SyncListPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            list_sid=self._solution['list_sid'],
-            identity=self._solution['identity'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SyncListPermissionInstance
-        
-
-        :returns: The fetched SyncListPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return SyncListPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            list_sid=self._solution['list_sid'],
-            identity=self._solution['identity'],
-            
-        )
-    
-    
-    def update(self, read, write, manage):
-        """
-        Update the SyncListPermissionInstance
-        
-        :params bool read: Whether the identity can read the Sync List and its Items. Default value is `false`.
-        :params bool write: Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`.
-        :params bool manage: Whether the identity can delete the Sync List. Default value is `false`.
-
-        :returns: The updated SyncListPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        """
-        data = values.of({ 
-            'Read': read,
-            'Write': write,
-            'Manage': manage,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SyncListPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            list_sid=self._solution['list_sid'],
-            identity=self._solution['identity']
-        )
-
-    async def update_async(self, read, write, manage):
-        """
-        Asynchronous coroutine to update the SyncListPermissionInstance
-        
-        :params bool read: Whether the identity can read the Sync List and its Items. Default value is `false`.
-        :params bool write: Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`.
-        :params bool manage: Whether the identity can delete the Sync List. Default value is `false`.
-
-        :returns: The updated SyncListPermissionInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        """
-        data = values.of({ 
-            'Read': read,
-            'Write': write,
-            'Manage': manage,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return SyncListPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            list_sid=self._solution['list_sid'],
-            identity=self._solution['identity']
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.SyncListPermissionContext {}>'.format(context)
-
 class SyncListPermissionInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, list_sid: str, identity: str=None):
@@ -618,5 +467,98 @@ class SyncListPermissionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.SyncListPermissionInstance {}>'.format(context)
+
+class SyncListPermissionContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, list_sid: str, identity: str):
+        """
+        Initialize the SyncListPermissionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to update.
+        :param list_sid: The SID of the Sync List with the Sync List Permission resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
+        :param identity: The application-defined string that uniquely identifies the User's Sync List Permission resource to update.
+
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'list_sid': list_sid,
+            'identity': identity,
+        }
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Permissions/{identity}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the SyncListPermissionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SyncListPermissionInstance
+        
+
+        :returns: The fetched SyncListPermissionInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SyncListPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            list_sid=self._solution['list_sid'],
+            identity=self._solution['identity'],
+            
+        )
+        
+    def update(self, read, write, manage):
+        """
+        Update the SyncListPermissionInstance
+        
+        :params bool read: Whether the identity can read the Sync List and its Items. Default value is `false`.
+        :params bool write: Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`.
+        :params bool manage: Whether the identity can delete the Sync List. Default value is `false`.
+
+        :returns: The updated SyncListPermissionInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
+        """
+        data = values.of({ 
+            'Read': read,
+            'Write': write,
+            'Manage': manage,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SyncListPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            list_sid=self._solution['list_sid'],
+            identity=self._solution['identity']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.SyncListPermissionContext {}>'.format(context)
 
 
