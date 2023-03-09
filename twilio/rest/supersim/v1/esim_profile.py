@@ -34,18 +34,24 @@ class EsimProfileList(ListResource):
         self._uri = '/ESimProfiles'.format(**self._solution)
 
     def create(self, callback_url=values.unset, callback_method=values.unset,
-               eid=values.unset):
+               generate_matching_id=values.unset, eid=values.unset):
         """
         Create the EsimProfileInstance
 
         :param unicode callback_url: The URL we should call after we have sent when the status of the eSIM Profile changes
         :param unicode callback_method: The HTTP method we should use to call callback_url
+        :param bool generate_matching_id: When set to `true`, generates a matching ID that identifies the specific eSIM profile that can be downloaded
         :param unicode eid: Identifier of the eUICC that will claim the eSIM Profile
 
         :returns: The created EsimProfileInstance
         :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
         """
-        data = values.of({'CallbackUrl': callback_url, 'CallbackMethod': callback_method, 'Eid': eid, })
+        data = values.of({
+            'CallbackUrl': callback_url,
+            'CallbackMethod': callback_method,
+            'GenerateMatchingId': generate_matching_id,
+            'Eid': eid,
+        })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
@@ -291,6 +297,8 @@ class EsimProfileInstance(InstanceResource):
             'status': payload.get('status'),
             'eid': payload.get('eid'),
             'smdp_plus_address': payload.get('smdp_plus_address'),
+            'matching_id': payload.get('matching_id'),
+            'activation_code': payload.get('activation_code'),
             'error_code': payload.get('error_code'),
             'error_message': payload.get('error_message'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
@@ -370,6 +378,22 @@ class EsimProfileInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['smdp_plus_address']
+
+    @property
+    def matching_id(self):
+        """
+        :returns: Unique identifier of the eSIM profile that be used to identify and download the eSIM profile
+        :rtype: unicode
+        """
+        return self._properties['matching_id']
+
+    @property
+    def activation_code(self):
+        """
+        :returns: Combined machine-readable activation code for acquiring an eSIM Profile with the Activation Code download method
+        :rtype: unicode
+        """
+        return self._properties['activation_code']
 
     @property
     def error_code(self):

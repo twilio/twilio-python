@@ -18,12 +18,11 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.insights_questionnaires_question.create(category_id="category_id", question="question", description="description", answer_set_id="answer_set_id", allow_na=True, token="token")
+            self.client.flex_api.v1.insights_questionnaires_question.create(category_id="category_id", question="question", answer_set_id="answer_set_id", allow_na=True, token="token")
 
         values = {
             'CategoryId': "category_id",
             'Question': "question",
-            'Description': "description",
             'AnswerSetId': "answer_set_id",
             'AllowNa': True,
         }
@@ -84,7 +83,7 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.flex_api.v1.insights_questionnaires_question.create(category_id="category_id", question="question", description="description", answer_set_id="answer_set_id", allow_na=True)
+        actual = self.client.flex_api.v1.insights_questionnaires_question.create(category_id="category_id", question="question", answer_set_id="answer_set_id", allow_na=True)
 
         self.assertIsNotNone(actual)
 

@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.microvisor.v1.app.app_manifest import AppManifestList
 
 
 class AppList(ListResource):
@@ -205,6 +206,9 @@ class AppContext(InstanceContext):
         self._solution = {'sid': sid, }
         self._uri = '/Apps/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._app_manifests = None
+
     def fetch(self):
         """
         Fetch the AppInstance
@@ -224,6 +228,18 @@ class AppContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
+
+    @property
+    def app_manifests(self):
+        """
+        Access the app_manifests
+
+        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
+        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
+        """
+        if self._app_manifests is None:
+            self._app_manifests = AppManifestList(self._version, app_sid=self._solution['sid'], )
+        return self._app_manifests
 
     def __repr__(self):
         """
@@ -259,6 +275,7 @@ class AppInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -334,6 +351,14 @@ class AppInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch the AppInstance
@@ -351,6 +376,16 @@ class AppInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    @property
+    def app_manifests(self):
+        """
+        Access the app_manifests
+
+        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
+        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
+        """
+        return self._proxy.app_manifests
 
     def __repr__(self):
         """

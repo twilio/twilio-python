@@ -35,16 +35,16 @@ class InsightsQuestionnairesQuestionList(ListResource):
         self._solution = {}
         self._uri = '/Insights/QM/Questions'.format(**self._solution)
 
-    def create(self, category_id, question, description, answer_set_id, allow_na,
-               token=values.unset):
+    def create(self, category_id, question, answer_set_id, allow_na,
+               description=values.unset, token=values.unset):
         """
         Create the InsightsQuestionnairesQuestionInstance
 
         :param unicode category_id: Category ID
         :param unicode question: The question.
-        :param unicode description: The question description.
         :param unicode answer_set_id: The answer_set for question.
         :param bool allow_na: Flag to enable NA for answer.
+        :param unicode description: The question description.
         :param unicode token: The Token HTTP request header
 
         :returns: The created InsightsQuestionnairesQuestionInstance
@@ -53,9 +53,9 @@ class InsightsQuestionnairesQuestionList(ListResource):
         data = values.of({
             'CategoryId': category_id,
             'Question': question,
-            'Description': description,
             'AnswerSetId': answer_set_id,
             'AllowNa': allow_na,
+            'Description': description,
         })
         headers = values.of({'Token': token, })
 
