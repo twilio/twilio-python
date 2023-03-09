@@ -50,7 +50,7 @@ class UsecaseList(ListResource):
         :returns: The fetched UsecaseInstance
         :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
         """
-        payload = self._version.create(method='GET', uri=self._uri)
+        payload = self._version.fetch(method='GET', uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
     

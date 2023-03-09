@@ -52,7 +52,7 @@ class SubscribeRulesList(ListResource):
         :returns: The fetched SubscribeRulesInstance
         :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
         """
-        payload = self._version.create(method='GET', uri=self._uri)
+        payload = self._version.fetch(method='GET', uri=self._uri)
 
         return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
     

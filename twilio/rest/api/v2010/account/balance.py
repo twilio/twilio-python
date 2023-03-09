@@ -51,7 +51,7 @@ class BalanceList(ListResource):
         :returns: The fetched BalanceInstance
         :rtype: twilio.rest.api.v2010.account.balance.BalanceInstance
         """
-        payload = self._version.create(method='GET', uri=self._uri)
+        payload = self._version.fetch(method='GET', uri=self._uri)
 
         return BalanceInstance(self._version, payload, account_sid=self._solution['account_sid'])
     

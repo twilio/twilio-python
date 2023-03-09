@@ -50,7 +50,7 @@ class InsightsSettingsAnswerSetsList(ListResource):
         :returns: The fetched InsightsSettingsAnswerSetsInstance
         :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsInstance
         """
-        payload = self._version.create(method='GET', uri=self._uri)
+        payload = self._version.fetch(method='GET', uri=self._uri)
 
         return InsightsSettingsAnswerSetsInstance(self._version, payload)
     
