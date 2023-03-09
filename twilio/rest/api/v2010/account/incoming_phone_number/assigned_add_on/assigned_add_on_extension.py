@@ -73,7 +73,7 @@ class AssignedAddOnExtensionList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AssignedAddOnExtensionInstance records from the API as a generator stream.
+        Asynchronously streams AssignedAddOnExtensionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -93,7 +93,7 @@ class AssignedAddOnExtensionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -118,7 +118,7 @@ class AssignedAddOnExtensionList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AssignedAddOnExtensionInstance records from the API as a list.
+        Asynchronously lists AssignedAddOnExtensionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -160,7 +160,7 @@ class AssignedAddOnExtensionList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AssignedAddOnExtensionInstance records from the API.
+        Asynchronously retrieve a single page of AssignedAddOnExtensionInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -197,7 +197,7 @@ class AssignedAddOnExtensionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AssignedAddOnExtensionInstance records from the API.
+        Asynchronously retrieve a specific page of AssignedAddOnExtensionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -452,6 +452,7 @@ class AssignedAddOnExtensionContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{assigned_add_on_sid}/Extensions/{sid}.json'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the AssignedAddOnExtensionInstance
@@ -472,7 +473,28 @@ class AssignedAddOnExtensionContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssignedAddOnExtensionInstance
         
+
+        :returns: The fetched AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AssignedAddOnExtensionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            resource_sid=self._solution['resource_sid'],
+            assigned_add_on_sid=self._solution['assigned_add_on_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

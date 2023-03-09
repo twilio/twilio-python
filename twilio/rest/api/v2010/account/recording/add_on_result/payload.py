@@ -74,7 +74,7 @@ class PayloadList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams PayloadInstance records from the API as a generator stream.
+        Asynchronously streams PayloadInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -94,7 +94,7 @@ class PayloadList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -119,7 +119,7 @@ class PayloadList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists PayloadInstance records from the API as a list.
+        Asynchronously lists PayloadInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -161,7 +161,7 @@ class PayloadList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of PayloadInstance records from the API.
+        Asynchronously retrieve a single page of PayloadInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -198,7 +198,7 @@ class PayloadList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of PayloadInstance records from the API.
+        Asynchronously retrieve a specific page of PayloadInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -493,6 +493,7 @@ class PayloadContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the PayloadInstance
@@ -502,7 +503,18 @@ class PayloadContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the PayloadInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the PayloadInstance
@@ -523,7 +535,28 @@ class PayloadContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the PayloadInstance
         
+
+        :returns: The fetched PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return PayloadInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            reference_sid=self._solution['reference_sid'],
+            add_on_result_sid=self._solution['add_on_result_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

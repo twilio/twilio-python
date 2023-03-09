@@ -252,6 +252,7 @@ class PhoneNumberContext(InstanceContext):
         self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the PhoneNumberInstance
@@ -269,7 +270,26 @@ class PhoneNumberContext(InstanceContext):
             phone_number=self._solution['phone_number'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the PhoneNumberInstance
         
+
+        :returns: The fetched PhoneNumberInstance
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number'],
+            
+        )
+    
+    
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the PhoneNumberInstance
@@ -293,7 +313,31 @@ class PhoneNumberContext(InstanceContext):
             payload,
             phone_number=self._solution['phone_number']
         )
+
+    async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
+        """
+        Asynchronous coroutine to update the PhoneNumberInstance
         
+        :params str voice_region: The Inbound Processing Region used for this phone number for voice
+        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :returns: The updated PhoneNumberInstance
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
+        """
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number']
+        )
+    
     
     def __repr__(self):
         """

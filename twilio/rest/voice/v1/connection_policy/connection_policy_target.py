@@ -74,7 +74,7 @@ class ConnectionPolicyTargetList(ListResource):
 
     async def create_async(self, target, friendly_name=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):
         """
-        Asynchronous coroutine to create the ConnectionPolicyTargetInstance
+        Asynchronously create the ConnectionPolicyTargetInstance
 
         :param str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -124,7 +124,7 @@ class ConnectionPolicyTargetList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ConnectionPolicyTargetInstance records from the API as a generator stream.
+        Asynchronously streams ConnectionPolicyTargetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -144,7 +144,7 @@ class ConnectionPolicyTargetList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -169,7 +169,7 @@ class ConnectionPolicyTargetList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ConnectionPolicyTargetInstance records from the API as a list.
+        Asynchronously lists ConnectionPolicyTargetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -211,7 +211,7 @@ class ConnectionPolicyTargetList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ConnectionPolicyTargetInstance records from the API.
+        Asynchronously retrieve a single page of ConnectionPolicyTargetInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -248,7 +248,7 @@ class ConnectionPolicyTargetList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ConnectionPolicyTargetInstance records from the API.
+        Asynchronously retrieve a specific page of ConnectionPolicyTargetInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -574,6 +574,7 @@ class ConnectionPolicyTargetContext(InstanceContext):
         self._uri = '/ConnectionPolicies/{connection_policy_sid}/Targets/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the ConnectionPolicyTargetInstance
@@ -583,7 +584,18 @@ class ConnectionPolicyTargetContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ConnectionPolicyTargetInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ConnectionPolicyTargetInstance
@@ -602,7 +614,27 @@ class ConnectionPolicyTargetContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ConnectionPolicyTargetInstance
         
+
+        :returns: The fetched ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution['connection_policy_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, target=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):
         """
         Update the ConnectionPolicyTargetInstance
@@ -633,7 +665,38 @@ class ConnectionPolicyTargetContext(InstanceContext):
             connection_policy_sid=self._solution['connection_policy_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, target=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):
+        """
+        Asynchronous coroutine to update the ConnectionPolicyTargetInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+        :params int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
+        :params int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
+        :params bool enabled: Whether the Target is enabled.
+
+        :returns: The updated ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Target': target,
+            'Priority': priority,
+            'Weight': weight,
+            'Enabled': enabled,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution['connection_policy_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

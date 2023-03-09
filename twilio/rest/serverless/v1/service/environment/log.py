@@ -78,7 +78,7 @@ class LogList(ListResource):
 
     async def stream_async(self, function_sid=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams LogInstance records from the API as a generator stream.
+        Asynchronously streams LogInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -104,7 +104,7 @@ class LogList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, function_sid=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
         """
@@ -135,7 +135,7 @@ class LogList(ListResource):
 
     async def list_async(self, function_sid=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists LogInstance records from the API as a list.
+        Asynchronously lists LogInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -189,7 +189,7 @@ class LogList(ListResource):
 
     async def page_async(self, function_sid=values.unset, start_date=values.unset, end_date=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of LogInstance records from the API.
+        Asynchronously retrieve a single page of LogInstance records from the API.
         Request is executed immediately
         
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
@@ -232,7 +232,7 @@ class LogList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of LogInstance records from the API.
+        Asynchronously retrieve a specific page of LogInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -517,6 +517,7 @@ class LogContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the LogInstance
@@ -536,7 +537,27 @@ class LogContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the LogInstance
         
+
+        :returns: The fetched LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return LogInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            environment_sid=self._solution['environment_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

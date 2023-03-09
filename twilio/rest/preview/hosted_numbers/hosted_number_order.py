@@ -97,7 +97,7 @@ class HostedNumberOrderList(ListResource):
 
     async def create_async(self, phone_number, sms_capability, account_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, cc_emails=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, sms_application_sid=values.unset, address_sid=values.unset, email=values.unset, verification_type=values.unset, verification_document_sid=values.unset):
         """
-        Asynchronous coroutine to create the HostedNumberOrderInstance
+        Asynchronously create the HostedNumberOrderInstance
 
         :param str phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
         :param bool sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
@@ -181,7 +181,7 @@ class HostedNumberOrderList(ListResource):
 
     async def stream_async(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams HostedNumberOrderInstance records from the API as a generator stream.
+        Asynchronously streams HostedNumberOrderInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -211,7 +211,7 @@ class HostedNumberOrderList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
@@ -246,7 +246,7 @@ class HostedNumberOrderList(ListResource):
 
     async def list_async(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists HostedNumberOrderInstance records from the API as a list.
+        Asynchronously lists HostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -308,7 +308,7 @@ class HostedNumberOrderList(ListResource):
 
     async def page_async(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of HostedNumberOrderInstance records from the API.
+        Asynchronously retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
         
         :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
@@ -355,7 +355,7 @@ class HostedNumberOrderList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of HostedNumberOrderInstance records from the API.
+        Asynchronously retrieve a specific page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -812,6 +812,7 @@ class HostedNumberOrderContext(InstanceContext):
         self._uri = '/HostedNumberOrders/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the HostedNumberOrderInstance
@@ -821,7 +822,18 @@ class HostedNumberOrderContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the HostedNumberOrderInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the HostedNumberOrderInstance
@@ -839,7 +851,26 @@ class HostedNumberOrderContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the HostedNumberOrderInstance
         
+
+        :returns: The fetched HostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return HostedNumberOrderInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, unique_name=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, verification_code=values.unset, verification_type=values.unset, verification_document_sid=values.unset, extension=values.unset, call_delay=values.unset):
         """
         Update the HostedNumberOrderInstance
@@ -879,7 +910,47 @@ class HostedNumberOrderContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, unique_name=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, verification_code=values.unset, verification_type=values.unset, verification_document_sid=values.unset, extension=values.unset, call_delay=values.unset):
+        """
+        Asynchronous coroutine to update the HostedNumberOrderInstance
         
+        :params str friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :params str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :params str email: Email of the owner of this phone number that is being hosted.
+        :params list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :params HostedNumberOrderInstance.Status status: 
+        :params str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :params HostedNumberOrderInstance.VerificationType verification_type: 
+        :params str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :params str extension: Digits to dial after connecting the verification call.
+        :params int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+
+        :returns: The updated HostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Email': email,
+            'CcEmails': serialize.map(cc_emails, lambda e: e),
+            'Status': status,
+            'VerificationCode': verification_code,
+            'VerificationType': verification_type,
+            'VerificationDocumentSid': verification_document_sid,
+            'Extension': extension,
+            'CallDelay': call_delay,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return HostedNumberOrderInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

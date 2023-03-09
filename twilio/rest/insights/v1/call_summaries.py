@@ -105,7 +105,7 @@ class CallSummariesList(ListResource):
 
     async def stream_async(self, from_=values.unset, to=values.unset, from_carrier=values.unset, to_carrier=values.unset, from_country_code=values.unset, to_country_code=values.unset, branded=values.unset, verified_caller=values.unset, has_tag=values.unset, start_time=values.unset, end_time=values.unset, call_type=values.unset, call_state=values.unset, direction=values.unset, processing_state=values.unset, sort_by=values.unset, subaccount=values.unset, abnormal_session=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CallSummariesInstance records from the API as a generator stream.
+        Asynchronously streams CallSummariesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -161,7 +161,7 @@ class CallSummariesList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, from_=values.unset, to=values.unset, from_carrier=values.unset, to_carrier=values.unset, from_country_code=values.unset, to_country_code=values.unset, branded=values.unset, verified_caller=values.unset, has_tag=values.unset, start_time=values.unset, end_time=values.unset, call_type=values.unset, call_state=values.unset, direction=values.unset, processing_state=values.unset, sort_by=values.unset, subaccount=values.unset, abnormal_session=values.unset, limit=None, page_size=None):
         """
@@ -222,7 +222,7 @@ class CallSummariesList(ListResource):
 
     async def list_async(self, from_=values.unset, to=values.unset, from_carrier=values.unset, to_carrier=values.unset, from_country_code=values.unset, to_country_code=values.unset, branded=values.unset, verified_caller=values.unset, has_tag=values.unset, start_time=values.unset, end_time=values.unset, call_type=values.unset, call_state=values.unset, direction=values.unset, processing_state=values.unset, sort_by=values.unset, subaccount=values.unset, abnormal_session=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CallSummariesInstance records from the API as a list.
+        Asynchronously lists CallSummariesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -336,7 +336,7 @@ class CallSummariesList(ListResource):
 
     async def page_async(self, from_=values.unset, to=values.unset, from_carrier=values.unset, to_carrier=values.unset, from_country_code=values.unset, to_country_code=values.unset, branded=values.unset, verified_caller=values.unset, has_tag=values.unset, start_time=values.unset, end_time=values.unset, call_type=values.unset, call_state=values.unset, direction=values.unset, processing_state=values.unset, sort_by=values.unset, subaccount=values.unset, abnormal_session=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CallSummariesInstance records from the API.
+        Asynchronously retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
         
         :param str from_: 
@@ -409,7 +409,7 @@ class CallSummariesList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CallSummariesInstance records from the API.
+        Asynchronously retrieve a specific page of CallSummariesInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

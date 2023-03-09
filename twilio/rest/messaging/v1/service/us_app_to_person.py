@@ -89,7 +89,7 @@ class UsAppToPersonList(ListResource):
 
     async def create_async(self, brand_registration_sid, description, message_flow, message_samples, us_app_to_person_usecase, has_embedded_links, has_embedded_phone, opt_in_message=values.unset, opt_out_message=values.unset, help_message=values.unset, opt_in_keywords=values.unset, opt_out_keywords=values.unset, help_keywords=values.unset):
         """
-        Asynchronous coroutine to create the UsAppToPersonInstance
+        Asynchronously create the UsAppToPersonInstance
 
         :param str brand_registration_sid: A2P Brand Registration SID
         :param str description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
@@ -155,7 +155,7 @@ class UsAppToPersonList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams UsAppToPersonInstance records from the API as a generator stream.
+        Asynchronously streams UsAppToPersonInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -175,7 +175,7 @@ class UsAppToPersonList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -200,7 +200,7 @@ class UsAppToPersonList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists UsAppToPersonInstance records from the API as a list.
+        Asynchronously lists UsAppToPersonInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -242,7 +242,7 @@ class UsAppToPersonList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of UsAppToPersonInstance records from the API.
+        Asynchronously retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -279,7 +279,7 @@ class UsAppToPersonList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of UsAppToPersonInstance records from the API.
+        Asynchronously retrieve a specific page of UsAppToPersonInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -689,6 +689,7 @@ class UsAppToPersonContext(InstanceContext):
         self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the UsAppToPersonInstance
@@ -698,7 +699,18 @@ class UsAppToPersonContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the UsAppToPersonInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the UsAppToPersonInstance
@@ -717,7 +729,26 @@ class UsAppToPersonContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UsAppToPersonInstance
         
+
+        :returns: The fetched UsAppToPersonInstance
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution['messaging_service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

@@ -69,7 +69,7 @@ class EndUserList(ListResource):
 
     async def create_async(self, friendly_name, type, attributes=values.unset):
         """
-        Asynchronous coroutine to create the EndUserInstance
+        Asynchronously create the EndUserInstance
 
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str type: The type of end user of the Bundle resource - can be `individual` or `business`.
@@ -115,7 +115,7 @@ class EndUserList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EndUserInstance records from the API as a generator stream.
+        Asynchronously streams EndUserInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -135,7 +135,7 @@ class EndUserList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -160,7 +160,7 @@ class EndUserList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EndUserInstance records from the API as a list.
+        Asynchronously lists EndUserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -202,7 +202,7 @@ class EndUserList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EndUserInstance records from the API.
+        Asynchronously retrieve a single page of EndUserInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -239,7 +239,7 @@ class EndUserList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EndUserInstance records from the API.
+        Asynchronously retrieve a specific page of EndUserInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -530,6 +530,7 @@ class EndUserContext(InstanceContext):
         self._uri = '/EndUsers/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the EndUserInstance
@@ -539,7 +540,18 @@ class EndUserContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the EndUserInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the EndUserInstance
@@ -557,7 +569,26 @@ class EndUserContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EndUserInstance
         
+
+        :returns: The fetched EndUserInstance
+        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EndUserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, attributes=values.unset):
         """
         Update the EndUserInstance
@@ -581,7 +612,31 @@ class EndUserContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, attributes=values.unset):
+        """
+        Asynchronous coroutine to update the EndUserInstance
         
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
+
+        :returns: The updated EndUserInstance
+        :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Attributes': serialize.object(attributes),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return EndUserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

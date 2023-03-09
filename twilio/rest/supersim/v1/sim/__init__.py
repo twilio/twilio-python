@@ -68,7 +68,7 @@ class SimList(ListResource):
 
     async def create_async(self, iccid, registration_code):
         """
-        Asynchronous coroutine to create the SimInstance
+        Asynchronously create the SimInstance
 
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
         :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
@@ -118,7 +118,7 @@ class SimList(ListResource):
 
     async def stream_async(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SimInstance records from the API as a generator stream.
+        Asynchronously streams SimInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -144,7 +144,7 @@ class SimList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
         """
@@ -175,7 +175,7 @@ class SimList(ListResource):
 
     async def list_async(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SimInstance records from the API as a list.
+        Asynchronously lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -229,7 +229,7 @@ class SimList(ListResource):
 
     async def page_async(self, status=values.unset, fleet=values.unset, iccid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SimInstance records from the API.
+        Asynchronously retrieve a single page of SimInstance records from the API.
         Request is executed immediately
         
         :param SimInstance.Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
@@ -272,7 +272,7 @@ class SimList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SimInstance records from the API.
+        Asynchronously retrieve a specific page of SimInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -596,6 +596,7 @@ class SimContext(InstanceContext):
         self._billing_periods = None
         self._sim_ip_addresses = None
     
+    
     def fetch(self):
         """
         Fetch the SimInstance
@@ -613,7 +614,26 @@ class SimContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SimInstance
         
+
+        :returns: The fetched SimInstance
+        :rtype: twilio.rest.supersim.v1.sim.SimInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
         """
         Update the SimInstance
@@ -645,7 +665,39 @@ class SimContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
+        """
+        Asynchronous coroutine to update the SimInstance
         
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :params SimInstance.StatusUpdate status: 
+        :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :params str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+
+        :returns: The updated SimInstance
+        :rtype: twilio.rest.supersim.v1.sim.SimInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Status': status,
+            'Fleet': fleet,
+            'CallbackUrl': callback_url,
+            'CallbackMethod': callback_method,
+            'AccountSid': account_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def billing_periods(self):

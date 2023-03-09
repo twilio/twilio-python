@@ -56,6 +56,20 @@ class SecondaryAuthTokenList(ListResource):
         payload = self._version.create(method='POST', uri=self._uri, )
 
         return SecondaryAuthTokenInstance(self._version, payload)
+
+    async def create_async(self):
+        """
+        Asynchronously create the SecondaryAuthTokenInstance
+
+        
+        :returns: The created SecondaryAuthTokenInstance
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenInstance
+        """
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, )
+
+        return SecondaryAuthTokenInstance(self._version, payload)
     
     
 
@@ -227,6 +241,7 @@ class SecondaryAuthTokenContext(InstanceContext):
         self._uri = '/AuthTokens/Secondary'.format(**self._solution)
         
     
+    
     def create(self):
         """
         Create the SecondaryAuthTokenInstance
@@ -244,6 +259,25 @@ class SecondaryAuthTokenContext(InstanceContext):
             self._version,
             payload
         )
+
+    async def create_async(self):
+        """
+        Asynchronous coroutine to create the SecondaryAuthTokenInstance
+        
+
+        :returns: The created SecondaryAuthTokenInstance
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenInstance
+        """
+        data = values.of({ 
+        })
+
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data)
+
+        return SecondaryAuthTokenInstance(
+            self._version,
+            payload
+        )
+    
     
     def delete(self):
         """
@@ -254,7 +288,17 @@ class SecondaryAuthTokenContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SecondaryAuthTokenInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
     
     def __repr__(self):
         """

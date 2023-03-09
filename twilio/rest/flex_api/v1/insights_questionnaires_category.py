@@ -65,7 +65,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
     async def create_async(self, name, token=values.unset):
         """
-        Asynchronous coroutine to create the InsightsQuestionnairesCategoryInstance
+        Asynchronously create the InsightsQuestionnairesCategoryInstance
 
         :param str name: The name of this category.
         :param str token: The Token HTTP request header
@@ -110,7 +110,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
     async def stream_async(self, token=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams InsightsQuestionnairesCategoryInstance records from the API as a generator stream.
+        Asynchronously streams InsightsQuestionnairesCategoryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -132,7 +132,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, token=values.unset, limit=None, page_size=None):
         """
@@ -159,7 +159,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
     async def list_async(self, token=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists InsightsQuestionnairesCategoryInstance records from the API as a list.
+        Asynchronously lists InsightsQuestionnairesCategoryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -205,7 +205,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
     async def page_async(self, token=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
+        Asynchronously retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
         
         :param str token: The Token HTTP request header
@@ -244,7 +244,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
+        Asynchronously retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -478,6 +478,7 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         self._uri = '/Insights/QM/Categories/{category_id}'.format(**self._solution)
         
     
+    
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesCategoryInstance
@@ -490,7 +491,21 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         headers = values.of({'Token': token, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, token=values.unset):
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
+
+        :param str token: The Token HTTP request header
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'Token': token, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def update(self, name, token=values.unset):
         """
         Update the InsightsQuestionnairesCategoryInstance
@@ -513,7 +528,30 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
             payload,
             category_id=self._solution['category_id']
         )
+
+    async def update_async(self, name, token=values.unset):
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
         
+        :params str name: The name of this category.
+        :params str token: The Token HTTP request header
+
+        :returns: The updated InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        data = values.of({ 
+            'Name': name,
+        })
+        headers = values.of({'Token': token, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return InsightsQuestionnairesCategoryInstance(
+            self._version,
+            payload,
+            category_id=self._solution['category_id']
+        )
+    
     
     def __repr__(self):
         """

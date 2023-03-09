@@ -223,6 +223,7 @@ class TaskActionsContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Actions'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the TaskActionsInstance
@@ -241,7 +242,27 @@ class TaskActionsContext(InstanceContext):
             task_sid=self._solution['task_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TaskActionsInstance
         
+
+        :returns: The fetched TaskActionsInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return TaskActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            
+        )
+    
+    
     def update(self, actions=values.unset):
         """
         Update the TaskActionsInstance
@@ -264,7 +285,30 @@ class TaskActionsContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             task_sid=self._solution['task_sid']
         )
+
+    async def update_async(self, actions=values.unset):
+        """
+        Asynchronous coroutine to update the TaskActionsInstance
         
+        :params object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+
+        :returns: The updated TaskActionsInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsInstance
+        """
+        data = values.of({ 
+            'Actions': serialize.object(actions),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return TaskActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid']
+        )
+    
     
     def __repr__(self):
         """

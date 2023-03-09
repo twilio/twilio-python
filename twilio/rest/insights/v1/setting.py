@@ -214,6 +214,7 @@ class SettingContext(InstanceContext):
         self._uri = '/Voice/Settings'.format(**self._solution)
         
     
+    
     def fetch(self, subaccount_sid=values.unset):
         """
         Fetch the SettingInstance
@@ -235,7 +236,30 @@ class SettingContext(InstanceContext):
             payload,
             
         )
+
+    async def fetch_async(self, subaccount_sid=values.unset):
+        """
+        Asynchronous coroutine to fetch the SettingInstance
         
+        :params str subaccount_sid: 
+
+        :returns: The fetched SettingInstance
+        :rtype: twilio.rest.insights.v1.setting.SettingInstance
+        """
+        
+        data = values.of({ 
+            'SubaccountSid': subaccount_sid,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return SettingInstance(
+            self._version,
+            payload,
+            
+        )
+    
+    
     def update(self, advanced_features=values.unset, voice_trace=values.unset, subaccount_sid=values.unset):
         """
         Update the SettingInstance
@@ -260,7 +284,32 @@ class SettingContext(InstanceContext):
             self._version,
             payload
         )
+
+    async def update_async(self, advanced_features=values.unset, voice_trace=values.unset, subaccount_sid=values.unset):
+        """
+        Asynchronous coroutine to update the SettingInstance
         
+        :params bool advanced_features: 
+        :params bool voice_trace: 
+        :params str subaccount_sid: 
+
+        :returns: The updated SettingInstance
+        :rtype: twilio.rest.insights.v1.setting.SettingInstance
+        """
+        data = values.of({ 
+            'AdvancedFeatures': advanced_features,
+            'VoiceTrace': voice_trace,
+            'SubaccountSid': subaccount_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SettingInstance(
+            self._version,
+            payload
+        )
+    
     
     def __repr__(self):
         """

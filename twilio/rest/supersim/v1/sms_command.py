@@ -69,7 +69,7 @@ class SmsCommandList(ListResource):
 
     async def create_async(self, sim, payload, callback_method=values.unset, callback_url=values.unset):
         """
-        Asynchronous coroutine to create the SmsCommandInstance
+        Asynchronously create the SmsCommandInstance
 
         :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
         :param str payload: The message body of the SMS Command.
@@ -123,7 +123,7 @@ class SmsCommandList(ListResource):
 
     async def stream_async(self, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SmsCommandInstance records from the API as a generator stream.
+        Asynchronously streams SmsCommandInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -149,7 +149,7 @@ class SmsCommandList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
         """
@@ -180,7 +180,7 @@ class SmsCommandList(ListResource):
 
     async def list_async(self, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SmsCommandInstance records from the API as a list.
+        Asynchronously lists SmsCommandInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -234,7 +234,7 @@ class SmsCommandList(ListResource):
 
     async def page_async(self, sim=values.unset, status=values.unset, direction=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SmsCommandInstance records from the API.
+        Asynchronously retrieve a single page of SmsCommandInstance records from the API.
         Request is executed immediately
         
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
@@ -277,7 +277,7 @@ class SmsCommandList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SmsCommandInstance records from the API.
+        Asynchronously retrieve a specific page of SmsCommandInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -539,6 +539,7 @@ class SmsCommandContext(InstanceContext):
         self._uri = '/SmsCommands/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the SmsCommandInstance
@@ -556,7 +557,25 @@ class SmsCommandContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SmsCommandInstance
         
+
+        :returns: The fetched SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SmsCommandInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

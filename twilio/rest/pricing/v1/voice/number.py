@@ -217,6 +217,7 @@ class NumberContext(InstanceContext):
         self._uri = '/Voice/Numbers/{number}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the NumberInstance
@@ -234,7 +235,25 @@ class NumberContext(InstanceContext):
             number=self._solution['number'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the NumberInstance
         
+
+        :returns: The fetched NumberInstance
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return NumberInstance(
+            self._version,
+            payload,
+            number=self._solution['number'],
+            
+        )
+    
     
     def __repr__(self):
         """

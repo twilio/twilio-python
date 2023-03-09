@@ -73,7 +73,7 @@ class FeedbackSummaryList(ListResource):
 
     async def create_async(self, start_date, end_date, include_subaccounts=values.unset, status_callback=values.unset, status_callback_method=values.unset):
         """
-        Asynchronous coroutine to create the FeedbackSummaryInstance
+        Asynchronously create the FeedbackSummaryInstance
 
         :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
         :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
@@ -361,6 +361,7 @@ class FeedbackSummaryContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the FeedbackSummaryInstance
@@ -370,7 +371,18 @@ class FeedbackSummaryContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the FeedbackSummaryInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the FeedbackSummaryInstance
@@ -389,7 +401,26 @@ class FeedbackSummaryContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FeedbackSummaryInstance
         
+
+        :returns: The fetched FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FeedbackSummaryInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

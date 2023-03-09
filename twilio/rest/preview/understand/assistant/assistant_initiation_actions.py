@@ -211,6 +211,7 @@ class AssistantInitiationActionsContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/InitiationActions'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the AssistantInitiationActionsInstance
@@ -228,7 +229,26 @@ class AssistantInitiationActionsContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssistantInitiationActionsInstance
         
+
+        :returns: The fetched AssistantInitiationActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AssistantInitiationActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+    
+    
     def update(self, initiation_actions=values.unset):
         """
         Update the AssistantInitiationActionsInstance
@@ -250,7 +270,29 @@ class AssistantInitiationActionsContext(InstanceContext):
             payload,
             assistant_sid=self._solution['assistant_sid']
         )
+
+    async def update_async(self, initiation_actions=values.unset):
+        """
+        Asynchronous coroutine to update the AssistantInitiationActionsInstance
         
+        :params object initiation_actions: 
+
+        :returns: The updated AssistantInitiationActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
+        """
+        data = values.of({ 
+            'InitiationActions': serialize.object(initiation_actions),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AssistantInitiationActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+    
     
     def __repr__(self):
         """

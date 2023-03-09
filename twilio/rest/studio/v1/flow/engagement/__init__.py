@@ -71,7 +71,7 @@ class EngagementList(ListResource):
 
     async def create_async(self, to, from_, parameters=values.unset):
         """
-        Asynchronous coroutine to create the EngagementInstance
+        Asynchronously create the EngagementInstance
 
         :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
         :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
@@ -117,7 +117,7 @@ class EngagementList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EngagementInstance records from the API as a generator stream.
+        Asynchronously streams EngagementInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -137,7 +137,7 @@ class EngagementList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -162,7 +162,7 @@ class EngagementList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EngagementInstance records from the API as a list.
+        Asynchronously lists EngagementInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -204,7 +204,7 @@ class EngagementList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EngagementInstance records from the API.
+        Asynchronously retrieve a single page of EngagementInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -241,7 +241,7 @@ class EngagementList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EngagementInstance records from the API.
+        Asynchronously retrieve a specific page of EngagementInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -560,6 +560,7 @@ class EngagementContext(InstanceContext):
         self._engagement_context = None
         self._steps = None
     
+    
     def delete(self):
         """
         Deletes the EngagementInstance
@@ -569,7 +570,18 @@ class EngagementContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the EngagementInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the EngagementInstance
@@ -588,7 +600,26 @@ class EngagementContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EngagementInstance
         
+
+        :returns: The fetched EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EngagementInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution['flow_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     @property
     def engagement_context(self):

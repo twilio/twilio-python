@@ -219,6 +219,7 @@ class ExportContext(InstanceContext):
         self._days = None
         self._export_custom_jobs = None
     
+    
     def fetch(self):
         """
         Fetch the ExportInstance
@@ -236,7 +237,25 @@ class ExportContext(InstanceContext):
             resource_type=self._solution['resource_type'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ExportInstance
         
+
+        :returns: The fetched ExportInstance
+        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ExportInstance(
+            self._version,
+            payload,
+            resource_type=self._solution['resource_type'],
+            
+        )
+    
     
     @property
     def days(self):

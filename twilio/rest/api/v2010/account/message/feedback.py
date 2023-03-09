@@ -64,7 +64,7 @@ class FeedbackList(ListResource):
 
     async def create_async(self, outcome=values.unset):
         """
-        Asynchronous coroutine to create the FeedbackInstance
+        Asynchronously create the FeedbackInstance
 
         :param FeedbackInstance.Outcome outcome: 
         

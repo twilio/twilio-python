@@ -64,7 +64,7 @@ class InteractionChannelInviteList(ListResource):
 
     async def create_async(self, routing):
         """
-        Asynchronous coroutine to create the InteractionChannelInviteInstance
+        Asynchronously create the InteractionChannelInviteInstance
 
         :param object routing: The Interaction's routing logic.
         
@@ -106,7 +106,7 @@ class InteractionChannelInviteList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams InteractionChannelInviteInstance records from the API as a generator stream.
+        Asynchronously streams InteractionChannelInviteInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -126,7 +126,7 @@ class InteractionChannelInviteList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -151,7 +151,7 @@ class InteractionChannelInviteList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists InteractionChannelInviteInstance records from the API as a list.
+        Asynchronously lists InteractionChannelInviteInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -193,7 +193,7 @@ class InteractionChannelInviteList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of InteractionChannelInviteInstance records from the API.
+        Asynchronously retrieve a single page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -230,7 +230,7 @@ class InteractionChannelInviteList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of InteractionChannelInviteInstance records from the API.
+        Asynchronously retrieve a specific page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

@@ -69,7 +69,7 @@ class CredentialList(ListResource):
 
     async def create_async(self, username, password):
         """
-        Asynchronous coroutine to create the CredentialInstance
+        Asynchronously create the CredentialInstance
 
         :param str username: The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
         :param str password: The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
@@ -113,7 +113,7 @@ class CredentialList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CredentialInstance records from the API as a generator stream.
+        Asynchronously streams CredentialInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -133,7 +133,7 @@ class CredentialList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -158,7 +158,7 @@ class CredentialList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CredentialInstance records from the API as a list.
+        Asynchronously lists CredentialInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -200,7 +200,7 @@ class CredentialList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CredentialInstance records from the API.
+        Asynchronously retrieve a single page of CredentialInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -237,7 +237,7 @@ class CredentialList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CredentialInstance records from the API.
+        Asynchronously retrieve a specific page of CredentialInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -521,6 +521,7 @@ class CredentialContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the CredentialInstance
@@ -530,7 +531,18 @@ class CredentialContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CredentialInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the CredentialInstance
@@ -550,7 +562,28 @@ class CredentialContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CredentialInstance
         
+
+        :returns: The fetched CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CredentialInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, password=values.unset):
         """
         Update the CredentialInstance
@@ -574,7 +607,31 @@ class CredentialContext(InstanceContext):
             credential_list_sid=self._solution['credential_list_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, password=values.unset):
+        """
+        Asynchronous coroutine to update the CredentialInstance
         
+        :params str password: The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
+
+        :returns: The updated CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'Password': password,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return CredentialInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            credential_list_sid=self._solution['credential_list_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

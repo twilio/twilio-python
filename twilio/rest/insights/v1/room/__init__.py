@@ -81,7 +81,7 @@ class RoomList(ListResource):
 
     async def stream_async(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams RoomInstance records from the API as a generator stream.
+        Asynchronously streams RoomInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -111,7 +111,7 @@ class RoomList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
         """
@@ -146,7 +146,7 @@ class RoomList(ListResource):
 
     async def list_async(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists RoomInstance records from the API as a list.
+        Asynchronously lists RoomInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -208,7 +208,7 @@ class RoomList(ListResource):
 
     async def page_async(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of RoomInstance records from the API.
+        Asynchronously retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
         
         :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
@@ -224,8 +224,8 @@ class RoomList(ListResource):
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
         data = values.of({ 
-            'RoomType': serialize.map(room_type),
-            'Codec': serialize.map(codec),
+            'RoomType': serialize.map(room_type, lambda e: e),
+            'Codec': serialize.map(codec, lambda e: e),
             'RoomName': room_name,
             'CreatedAfter': serialize.iso8601_datetime(created_after),
             'CreatedBefore': serialize.iso8601_datetime(created_before),
@@ -255,7 +255,7 @@ class RoomList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of RoomInstance records from the API.
+        Asynchronously retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -719,6 +719,7 @@ class RoomContext(InstanceContext):
         
         self._participants = None
     
+    
     def fetch(self):
         """
         Fetch the RoomInstance
@@ -736,7 +737,25 @@ class RoomContext(InstanceContext):
             room_sid=self._solution['room_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RoomInstance
         
+
+        :returns: The fetched RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return RoomInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            
+        )
+    
     
     @property
     def participants(self):

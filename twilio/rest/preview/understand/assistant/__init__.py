@@ -87,7 +87,7 @@ class AssistantList(ListResource):
 
     async def create_async(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, fallback_actions=values.unset, initiation_actions=values.unset, style_sheet=values.unset):
         """
-        Asynchronous coroutine to create the AssistantInstance
+        Asynchronously create the AssistantInstance
 
         :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
@@ -143,7 +143,7 @@ class AssistantList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AssistantInstance records from the API as a generator stream.
+        Asynchronously streams AssistantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -163,7 +163,7 @@ class AssistantList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -188,7 +188,7 @@ class AssistantList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AssistantInstance records from the API as a list.
+        Asynchronously lists AssistantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -230,7 +230,7 @@ class AssistantList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AssistantInstance records from the API.
+        Asynchronously retrieve a single page of AssistantInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -267,7 +267,7 @@ class AssistantList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AssistantInstance records from the API.
+        Asynchronously retrieve a specific page of AssistantInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -694,6 +694,7 @@ class AssistantContext(InstanceContext):
         self._style_sheet = None
         self._tasks = None
     
+    
     def delete(self):
         """
         Deletes the AssistantInstance
@@ -703,7 +704,18 @@ class AssistantContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AssistantInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the AssistantInstance
@@ -721,7 +733,26 @@ class AssistantContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssistantInstance
         
+
+        :returns: The fetched AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, fallback_actions=values.unset, initiation_actions=values.unset, style_sheet=values.unset):
         """
         Update the AssistantInstance
@@ -757,7 +788,43 @@ class AssistantContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, fallback_actions=values.unset, initiation_actions=values.unset, style_sheet=values.unset):
+        """
+        Asynchronous coroutine to update the AssistantInstance
         
+        :params str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :params bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :params str callback_url: A user-provided URL to send event callbacks to.
+        :params str callback_events: Space-separated list of callback events that will trigger callbacks.
+        :params object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :params object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :params object style_sheet: The JSON object that holds the style sheet for the assistant
+
+        :returns: The updated AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'LogQueries': log_queries,
+            'UniqueName': unique_name,
+            'CallbackUrl': callback_url,
+            'CallbackEvents': callback_events,
+            'FallbackActions': serialize.object(fallback_actions),
+            'InitiationActions': serialize.object(initiation_actions),
+            'StyleSheet': serialize.object(style_sheet),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def assistant_fallback_actions(self):

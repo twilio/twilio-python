@@ -93,7 +93,7 @@ class VerificationList(ListResource):
 
     async def create_async(self, to, channel, custom_friendly_name=values.unset, custom_message=values.unset, send_digits=values.unset, locale=values.unset, custom_code=values.unset, amount=values.unset, payee=values.unset, rate_limits=values.unset, channel_configuration=values.unset, app_hash=values.unset, template_sid=values.unset, template_custom_substitutions=values.unset, device_ip=values.unset):
         """
-        Asynchronous coroutine to create the VerificationInstance
+        Asynchronously create the VerificationInstance
 
         :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :param str channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
@@ -414,6 +414,7 @@ class VerificationContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Verifications/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the VerificationInstance
@@ -432,7 +433,27 @@ class VerificationContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the VerificationInstance
         
+
+        :returns: The fetched VerificationInstance
+        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status):
         """
         Update the VerificationInstance
@@ -455,7 +476,30 @@ class VerificationContext(InstanceContext):
             service_sid=self._solution['service_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status):
+        """
+        Asynchronous coroutine to update the VerificationInstance
         
+        :params VerificationInstance.Status status: 
+
+        :returns: The updated VerificationInstance
+        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

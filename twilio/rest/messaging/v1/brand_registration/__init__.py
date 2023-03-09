@@ -71,12 +71,12 @@ class BrandRegistrationList(ListResource):
 
         return BrandRegistrationInstance(self._version, payload)
 
-    async def create_async(self, customer_profile_bundle_sid, a2_p_profile_bundle_sid, brand_type=values.unset, mock=values.unset, skip_automatic_sec_vet=values.unset):
+    async def create_async(self, customer_profile_bundle_sid, a2p_profile_bundle_sid, brand_type=values.unset, mock=values.unset, skip_automatic_sec_vet=values.unset):
         """
-        Asynchronous coroutine to create the BrandRegistrationInstance
+        Asynchronously create the BrandRegistrationInstance
 
         :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
-        :param str a2_p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+        :param str a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
         :param str brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
         :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
         :param bool skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
@@ -86,7 +86,7 @@ class BrandRegistrationList(ListResource):
         """
         data = values.of({ 
             'CustomerProfileBundleSid': customer_profile_bundle_sid,
-            'A2PProfileBundleSid': a2_p_profile_bundle_sid,
+            'A2PProfileBundleSid': a2p_profile_bundle_sid,
             'BrandType': brand_type,
             'Mock': mock,
             'SkipAutomaticSecVet': skip_automatic_sec_vet,
@@ -123,7 +123,7 @@ class BrandRegistrationList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams BrandRegistrationInstance records from the API as a generator stream.
+        Asynchronously streams BrandRegistrationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -143,7 +143,7 @@ class BrandRegistrationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -168,7 +168,7 @@ class BrandRegistrationList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists BrandRegistrationInstance records from the API as a list.
+        Asynchronously lists BrandRegistrationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -210,7 +210,7 @@ class BrandRegistrationList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of BrandRegistrationInstance records from the API.
+        Asynchronously retrieve a single page of BrandRegistrationInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -247,7 +247,7 @@ class BrandRegistrationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of BrandRegistrationInstance records from the API.
+        Asynchronously retrieve a specific page of BrandRegistrationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -651,6 +651,7 @@ class BrandRegistrationContext(InstanceContext):
         
         self._brand_vettings = None
     
+    
     def fetch(self):
         """
         Fetch the BrandRegistrationInstance
@@ -668,7 +669,26 @@ class BrandRegistrationContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BrandRegistrationInstance
         
+
+        :returns: The fetched BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return BrandRegistrationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self):
         """
         Update the BrandRegistrationInstance
@@ -688,7 +708,27 @@ class BrandRegistrationContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self):
+        """
+        Asynchronous coroutine to update the BrandRegistrationInstance
         
+
+        :returns: The updated BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        data = values.of({ 
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return BrandRegistrationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def brand_vettings(self):

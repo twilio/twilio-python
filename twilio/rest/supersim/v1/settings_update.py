@@ -73,7 +73,7 @@ class SettingsUpdateList(ListResource):
 
     async def stream_async(self, sim=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SettingsUpdateInstance records from the API as a generator stream.
+        Asynchronously streams SettingsUpdateInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -97,7 +97,7 @@ class SettingsUpdateList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, sim=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -126,7 +126,7 @@ class SettingsUpdateList(ListResource):
 
     async def list_async(self, sim=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SettingsUpdateInstance records from the API as a list.
+        Asynchronously lists SettingsUpdateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -176,7 +176,7 @@ class SettingsUpdateList(ListResource):
 
     async def page_async(self, sim=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SettingsUpdateInstance records from the API.
+        Asynchronously retrieve a single page of SettingsUpdateInstance records from the API.
         Request is executed immediately
         
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
@@ -217,7 +217,7 @@ class SettingsUpdateList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SettingsUpdateInstance records from the API.
+        Asynchronously retrieve a specific page of SettingsUpdateInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

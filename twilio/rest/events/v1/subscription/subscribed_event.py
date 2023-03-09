@@ -68,7 +68,7 @@ class SubscribedEventList(ListResource):
 
     async def create_async(self, type, schema_version=values.unset):
         """
-        Asynchronous coroutine to create the SubscribedEventInstance
+        Asynchronously create the SubscribedEventInstance
 
         :param str type: Type of event being subscribed to.
         :param int schema_version: The schema version that the subscription should use.
@@ -112,7 +112,7 @@ class SubscribedEventList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SubscribedEventInstance records from the API as a generator stream.
+        Asynchronously streams SubscribedEventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -132,7 +132,7 @@ class SubscribedEventList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -157,7 +157,7 @@ class SubscribedEventList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SubscribedEventInstance records from the API as a list.
+        Asynchronously lists SubscribedEventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -199,7 +199,7 @@ class SubscribedEventList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SubscribedEventInstance records from the API.
+        Asynchronously retrieve a single page of SubscribedEventInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -236,7 +236,7 @@ class SubscribedEventList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SubscribedEventInstance records from the API.
+        Asynchronously retrieve a specific page of SubscribedEventInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -500,6 +500,7 @@ class SubscribedEventContext(InstanceContext):
         self._uri = '/Subscriptions/{subscription_sid}/SubscribedEvents/{type}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the SubscribedEventInstance
@@ -509,7 +510,18 @@ class SubscribedEventContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SubscribedEventInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the SubscribedEventInstance
@@ -528,7 +540,27 @@ class SubscribedEventContext(InstanceContext):
             type=self._solution['type'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SubscribedEventInstance
         
+
+        :returns: The fetched SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type'],
+            
+        )
+    
+    
     def update(self, schema_version=values.unset):
         """
         Update the SubscribedEventInstance
@@ -551,7 +583,30 @@ class SubscribedEventContext(InstanceContext):
             subscription_sid=self._solution['subscription_sid'],
             type=self._solution['type']
         )
+
+    async def update_async(self, schema_version=values.unset):
+        """
+        Asynchronous coroutine to update the SubscribedEventInstance
         
+        :params int schema_version: The schema version that the subscription should use.
+
+        :returns: The updated SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        data = values.of({ 
+            'SchemaVersion': schema_version,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type']
+        )
+    
     
     def __repr__(self):
         """

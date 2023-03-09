@@ -211,6 +211,7 @@ class AssistantFallbackActionsContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/FallbackActions'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the AssistantFallbackActionsInstance
@@ -228,7 +229,26 @@ class AssistantFallbackActionsContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssistantFallbackActionsInstance
         
+
+        :returns: The fetched AssistantFallbackActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AssistantFallbackActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+    
+    
     def update(self, fallback_actions=values.unset):
         """
         Update the AssistantFallbackActionsInstance
@@ -250,7 +270,29 @@ class AssistantFallbackActionsContext(InstanceContext):
             payload,
             assistant_sid=self._solution['assistant_sid']
         )
+
+    async def update_async(self, fallback_actions=values.unset):
+        """
+        Asynchronous coroutine to update the AssistantFallbackActionsInstance
         
+        :params object fallback_actions: 
+
+        :returns: The updated AssistantFallbackActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
+        """
+        data = values.of({ 
+            'FallbackActions': serialize.object(fallback_actions),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AssistantFallbackActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+    
     
     def __repr__(self):
         """

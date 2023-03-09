@@ -68,7 +68,7 @@ class FieldList(ListResource):
 
     async def create_async(self, field_type, unique_name):
         """
-        Asynchronous coroutine to create the FieldInstance
+        Asynchronously create the FieldInstance
 
         :param str field_type: The Field Type of the new field. Can be: a [Built-in Field Type](https://www.twilio.com/docs/autopilot/built-in-field-types), the `unique_name`, or the `sid` of a custom Field Type.
         :param str unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
@@ -112,7 +112,7 @@ class FieldList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams FieldInstance records from the API as a generator stream.
+        Asynchronously streams FieldInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -132,7 +132,7 @@ class FieldList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -157,7 +157,7 @@ class FieldList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists FieldInstance records from the API as a list.
+        Asynchronously lists FieldInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -199,7 +199,7 @@ class FieldList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of FieldInstance records from the API.
+        Asynchronously retrieve a single page of FieldInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -236,7 +236,7 @@ class FieldList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of FieldInstance records from the API.
+        Asynchronously retrieve a specific page of FieldInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -513,6 +513,7 @@ class FieldContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Fields/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the FieldInstance
@@ -522,7 +523,18 @@ class FieldContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the FieldInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the FieldInstance
@@ -542,7 +554,27 @@ class FieldContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FieldInstance
         
+
+        :returns: The fetched FieldInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FieldInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

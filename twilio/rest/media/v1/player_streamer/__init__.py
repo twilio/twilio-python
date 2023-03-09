@@ -71,7 +71,7 @@ class PlayerStreamerList(ListResource):
 
     async def create_async(self, video=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):
         """
-        Asynchronous coroutine to create the PlayerStreamerInstance
+        Asynchronously create the PlayerStreamerInstance
 
         :param bool video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
         :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
@@ -123,7 +123,7 @@ class PlayerStreamerList(ListResource):
 
     async def stream_async(self, order=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams PlayerStreamerInstance records from the API as a generator stream.
+        Asynchronously streams PlayerStreamerInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -147,7 +147,7 @@ class PlayerStreamerList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, order=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -176,7 +176,7 @@ class PlayerStreamerList(ListResource):
 
     async def list_async(self, order=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists PlayerStreamerInstance records from the API as a list.
+        Asynchronously lists PlayerStreamerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -226,7 +226,7 @@ class PlayerStreamerList(ListResource):
 
     async def page_async(self, order=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of PlayerStreamerInstance records from the API.
+        Asynchronously retrieve a single page of PlayerStreamerInstance records from the API.
         Request is executed immediately
         
         :param PlayerStreamerInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
@@ -267,7 +267,7 @@ class PlayerStreamerList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of PlayerStreamerInstance records from the API.
+        Asynchronously retrieve a specific page of PlayerStreamerInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -597,6 +597,7 @@ class PlayerStreamerContext(InstanceContext):
         
         self._playback_grant = None
     
+    
     def fetch(self):
         """
         Fetch the PlayerStreamerInstance
@@ -614,7 +615,26 @@ class PlayerStreamerContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the PlayerStreamerInstance
         
+
+        :returns: The fetched PlayerStreamerInstance
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return PlayerStreamerInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status):
         """
         Update the PlayerStreamerInstance
@@ -636,7 +656,29 @@ class PlayerStreamerContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status):
+        """
+        Asynchronous coroutine to update the PlayerStreamerInstance
         
+        :params PlayerStreamerInstance.UpdateStatus status: 
+
+        :returns: The updated PlayerStreamerInstance
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return PlayerStreamerInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def playback_grant(self):

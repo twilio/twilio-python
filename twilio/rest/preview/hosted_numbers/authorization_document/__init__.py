@@ -75,7 +75,7 @@ class AuthorizationDocumentList(ListResource):
 
     async def create_async(self, hosted_number_order_sids, address_sid, email, contact_title, contact_phone_number, cc_emails=values.unset):
         """
-        Asynchronous coroutine to create the AuthorizationDocumentInstance
+        Asynchronously create the AuthorizationDocumentInstance
 
         :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
@@ -131,7 +131,7 @@ class AuthorizationDocumentList(ListResource):
 
     async def stream_async(self, email=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AuthorizationDocumentInstance records from the API as a generator stream.
+        Asynchronously streams AuthorizationDocumentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -155,7 +155,7 @@ class AuthorizationDocumentList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, email=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -184,7 +184,7 @@ class AuthorizationDocumentList(ListResource):
 
     async def list_async(self, email=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AuthorizationDocumentInstance records from the API as a list.
+        Asynchronously lists AuthorizationDocumentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -234,7 +234,7 @@ class AuthorizationDocumentList(ListResource):
 
     async def page_async(self, email=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AuthorizationDocumentInstance records from the API.
+        Asynchronously retrieve a single page of AuthorizationDocumentInstance records from the API.
         Request is executed immediately
         
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
@@ -275,7 +275,7 @@ class AuthorizationDocumentList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AuthorizationDocumentInstance records from the API.
+        Asynchronously retrieve a specific page of AuthorizationDocumentInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -581,6 +581,7 @@ class AuthorizationDocumentContext(InstanceContext):
         
         self._dependent_hosted_number_orders = None
     
+    
     def fetch(self):
         """
         Fetch the AuthorizationDocumentInstance
@@ -598,7 +599,26 @@ class AuthorizationDocumentContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AuthorizationDocumentInstance
         
+
+        :returns: The fetched AuthorizationDocumentInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AuthorizationDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, hosted_number_order_sids=values.unset, address_sid=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, contact_title=values.unset, contact_phone_number=values.unset):
         """
         Update the AuthorizationDocumentInstance
@@ -632,7 +652,41 @@ class AuthorizationDocumentContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, hosted_number_order_sids=values.unset, address_sid=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, contact_title=values.unset, contact_phone_number=values.unset):
+        """
+        Asynchronous coroutine to update the AuthorizationDocumentInstance
         
+        :params list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :params str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :params str email: Email that this AuthorizationDocument will be sent to for signing.
+        :params list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :params AuthorizationDocumentInstance.Status status: 
+        :params str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :params str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+
+        :returns: The updated AuthorizationDocumentInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
+        """
+        data = values.of({ 
+            'HostedNumberOrderSids': serialize.map(hosted_number_order_sids, lambda e: e),
+            'AddressSid': address_sid,
+            'Email': email,
+            'CcEmails': serialize.map(cc_emails, lambda e: e),
+            'Status': status,
+            'ContactTitle': contact_title,
+            'ContactPhoneNumber': contact_phone_number,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AuthorizationDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def dependent_hosted_number_orders(self):

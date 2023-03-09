@@ -85,7 +85,7 @@ class AssistantList(ListResource):
 
     async def create_async(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset):
         """
-        Asynchronous coroutine to create the AssistantInstance
+        Asynchronously create the AssistantInstance
 
         :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
         :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
@@ -139,7 +139,7 @@ class AssistantList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AssistantInstance records from the API as a generator stream.
+        Asynchronously streams AssistantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -159,7 +159,7 @@ class AssistantList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -184,7 +184,7 @@ class AssistantList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AssistantInstance records from the API as a list.
+        Asynchronously lists AssistantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -226,7 +226,7 @@ class AssistantList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AssistantInstance records from the API.
+        Asynchronously retrieve a single page of AssistantInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -263,7 +263,7 @@ class AssistantList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AssistantInstance records from the API.
+        Asynchronously retrieve a specific page of AssistantInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -708,6 +708,7 @@ class AssistantContext(InstanceContext):
         self._tasks = None
         self._webhooks = None
     
+    
     def delete(self):
         """
         Deletes the AssistantInstance
@@ -717,7 +718,18 @@ class AssistantContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AssistantInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the AssistantInstance
@@ -735,7 +747,26 @@ class AssistantContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssistantInstance
         
+
+        :returns: The fetched AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset, development_stage=values.unset):
         """
         Update the AssistantInstance
@@ -771,7 +802,43 @@ class AssistantContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset, development_stage=values.unset):
+        """
+        Asynchronous coroutine to update the AssistantInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :params str callback_url: Reserved.
+        :params str callback_events: Reserved.
+        :params object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :params object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+        :params str development_stage: A string describing the state of the assistant.
+
+        :returns: The updated AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'LogQueries': log_queries,
+            'UniqueName': unique_name,
+            'CallbackUrl': callback_url,
+            'CallbackEvents': callback_events,
+            'StyleSheet': serialize.object(style_sheet),
+            'Defaults': serialize.object(defaults),
+            'DevelopmentStage': development_stage,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AssistantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def defaults(self):

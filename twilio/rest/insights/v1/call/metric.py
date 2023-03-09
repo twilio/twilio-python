@@ -74,7 +74,7 @@ class MetricList(ListResource):
 
     async def stream_async(self, edge=values.unset, direction=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams MetricInstance records from the API as a generator stream.
+        Asynchronously streams MetricInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -98,7 +98,7 @@ class MetricList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, edge=values.unset, direction=values.unset, limit=None, page_size=None):
         """
@@ -127,7 +127,7 @@ class MetricList(ListResource):
 
     async def list_async(self, edge=values.unset, direction=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists MetricInstance records from the API as a list.
+        Asynchronously lists MetricInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -177,7 +177,7 @@ class MetricList(ListResource):
 
     async def page_async(self, edge=values.unset, direction=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of MetricInstance records from the API.
+        Asynchronously retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
         
         :param MetricInstance.TwilioEdge edge: 
@@ -218,7 +218,7 @@ class MetricList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of MetricInstance records from the API.
+        Asynchronously retrieve a specific page of MetricInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

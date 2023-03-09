@@ -93,7 +93,7 @@ class EventList(ListResource):
 
     async def stream_async(self, end_date=values.unset, event_type=values.unset, minutes=values.unset, reservation_sid=values.unset, start_date=values.unset, task_queue_sid=values.unset, task_sid=values.unset, worker_sid=values.unset, workflow_sid=values.unset, task_channel=values.unset, sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EventInstance records from the API as a generator stream.
+        Asynchronously streams EventInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -135,7 +135,7 @@ class EventList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, end_date=values.unset, event_type=values.unset, minutes=values.unset, reservation_sid=values.unset, start_date=values.unset, task_queue_sid=values.unset, task_sid=values.unset, worker_sid=values.unset, workflow_sid=values.unset, task_channel=values.unset, sid=values.unset, limit=None, page_size=None):
         """
@@ -182,7 +182,7 @@ class EventList(ListResource):
 
     async def list_async(self, end_date=values.unset, event_type=values.unset, minutes=values.unset, reservation_sid=values.unset, start_date=values.unset, task_queue_sid=values.unset, task_sid=values.unset, worker_sid=values.unset, workflow_sid=values.unset, task_channel=values.unset, sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EventInstance records from the API as a list.
+        Asynchronously lists EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -268,7 +268,7 @@ class EventList(ListResource):
 
     async def page_async(self, end_date=values.unset, event_type=values.unset, minutes=values.unset, reservation_sid=values.unset, start_date=values.unset, task_queue_sid=values.unset, task_sid=values.unset, worker_sid=values.unset, workflow_sid=values.unset, task_channel=values.unset, sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EventInstance records from the API.
+        Asynchronously retrieve a single page of EventInstance records from the API.
         Request is executed immediately
         
         :param datetime end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
@@ -327,7 +327,7 @@ class EventList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EventInstance records from the API.
+        Asynchronously retrieve a specific page of EventInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -650,6 +650,7 @@ class EventContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the EventInstance
@@ -668,7 +669,26 @@ class EventContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EventInstance
         
+
+        :returns: The fetched EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EventInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

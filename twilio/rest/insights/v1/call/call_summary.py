@@ -389,6 +389,7 @@ class CallSummaryContext(InstanceContext):
         self._uri = '/Voice/{call_sid}/Summary'.format(**self._solution)
         
     
+    
     def fetch(self, processing_state=values.unset):
         """
         Fetch the CallSummaryInstance
@@ -411,7 +412,30 @@ class CallSummaryContext(InstanceContext):
             call_sid=self._solution['call_sid'],
             
         )
+
+    async def fetch_async(self, processing_state=values.unset):
+        """
+        Asynchronous coroutine to fetch the CallSummaryInstance
         
+        :params CallSummaryInstance.ProcessingState processing_state: 
+
+        :returns: The fetched CallSummaryInstance
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
+        """
+        
+        data = values.of({ 
+            'ProcessingState': processing_state,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return CallSummaryInstance(
+            self._version,
+            payload,
+            call_sid=self._solution['call_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

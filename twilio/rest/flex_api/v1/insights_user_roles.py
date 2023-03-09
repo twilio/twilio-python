@@ -168,6 +168,7 @@ class InsightsUserRolesContext(InstanceContext):
         self._uri = '/Insights/UserRoles'.format(**self._solution)
         
     
+    
     def fetch(self, authorization=values.unset):
         """
         Fetch the InsightsUserRolesInstance
@@ -189,7 +190,29 @@ class InsightsUserRolesContext(InstanceContext):
             payload,
             
         )
+
+    async def fetch_async(self, authorization=values.unset):
+        """
+        Asynchronous coroutine to fetch the InsightsUserRolesInstance
         
+        :params str authorization: The Authorization HTTP request header
+
+        :returns: The fetched InsightsUserRolesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
+        """
+        
+        data = values.of({ 
+            'Authorization': authorization,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return InsightsUserRolesInstance(
+            self._version,
+            payload,
+            
+        )
+    
     
     def __repr__(self):
         """

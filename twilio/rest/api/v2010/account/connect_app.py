@@ -73,7 +73,7 @@ class ConnectAppList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ConnectAppInstance records from the API as a generator stream.
+        Asynchronously streams ConnectAppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -93,7 +93,7 @@ class ConnectAppList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -118,7 +118,7 @@ class ConnectAppList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ConnectAppInstance records from the API as a list.
+        Asynchronously lists ConnectAppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -160,7 +160,7 @@ class ConnectAppList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ConnectAppInstance records from the API.
+        Asynchronously retrieve a single page of ConnectAppInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -197,7 +197,7 @@ class ConnectAppList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ConnectAppInstance records from the API.
+        Asynchronously retrieve a specific page of ConnectAppInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -531,6 +531,7 @@ class ConnectAppContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/ConnectApps/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the ConnectAppInstance
@@ -540,7 +541,18 @@ class ConnectAppContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ConnectAppInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ConnectAppInstance
@@ -559,7 +571,27 @@ class ConnectAppContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ConnectAppInstance
         
+
+        :returns: The fetched ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, authorize_redirect_url=values.unset, company_name=values.unset, deauthorize_callback_method=values.unset, deauthorize_callback_url=values.unset, description=values.unset, friendly_name=values.unset, homepage_url=values.unset, permissions=values.unset):
         """
         Update the ConnectAppInstance
@@ -596,7 +628,44 @@ class ConnectAppContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, authorize_redirect_url=values.unset, company_name=values.unset, deauthorize_callback_method=values.unset, deauthorize_callback_url=values.unset, description=values.unset, friendly_name=values.unset, homepage_url=values.unset, permissions=values.unset):
+        """
+        Asynchronous coroutine to update the ConnectAppInstance
         
+        :params str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :params str company_name: The company name to set for the Connect App.
+        :params str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :params str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :params str description: A description of the Connect App.
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str homepage_url: A public URL where users can obtain more information about this Connect App.
+        :params list[ConnectAppInstance.Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+
+        :returns: The updated ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        """
+        data = values.of({ 
+            'AuthorizeRedirectUrl': authorize_redirect_url,
+            'CompanyName': company_name,
+            'DeauthorizeCallbackMethod': deauthorize_callback_method,
+            'DeauthorizeCallbackUrl': deauthorize_callback_url,
+            'Description': description,
+            'FriendlyName': friendly_name,
+            'HomepageUrl': homepage_url,
+            'Permissions': serialize.map(permissions, lambda e: e),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

@@ -70,7 +70,7 @@ class EndUserTypeList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EndUserTypeInstance records from the API as a generator stream.
+        Asynchronously streams EndUserTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -90,7 +90,7 @@ class EndUserTypeList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -115,7 +115,7 @@ class EndUserTypeList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EndUserTypeInstance records from the API as a list.
+        Asynchronously lists EndUserTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -157,7 +157,7 @@ class EndUserTypeList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EndUserTypeInstance records from the API.
+        Asynchronously retrieve a single page of EndUserTypeInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -194,7 +194,7 @@ class EndUserTypeList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EndUserTypeInstance records from the API.
+        Asynchronously retrieve a specific page of EndUserTypeInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -407,6 +407,7 @@ class EndUserTypeContext(InstanceContext):
         self._uri = '/EndUserTypes/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the EndUserTypeInstance
@@ -424,7 +425,25 @@ class EndUserTypeContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EndUserTypeInstance
         
+
+        :returns: The fetched EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EndUserTypeInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

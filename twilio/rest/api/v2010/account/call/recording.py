@@ -77,7 +77,7 @@ class RecordingList(ListResource):
 
     async def create_async(self, recording_status_callback_event=values.unset, recording_status_callback=values.unset, recording_status_callback_method=values.unset, trim=values.unset, recording_channels=values.unset, recording_track=values.unset):
         """
-        Asynchronous coroutine to create the RecordingInstance
+        Asynchronously create the RecordingInstance
 
         :param list[str] recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
         :param str recording_status_callback: The URL we should call using the `recording_status_callback_method` on each recording event specified in  `recording_status_callback_event`. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback).
@@ -135,7 +135,7 @@ class RecordingList(ListResource):
 
     async def stream_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams RecordingInstance records from the API as a generator stream.
+        Asynchronously streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -161,7 +161,7 @@ class RecordingList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
         """
@@ -192,7 +192,7 @@ class RecordingList(ListResource):
 
     async def list_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists RecordingInstance records from the API as a list.
+        Asynchronously lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -246,7 +246,7 @@ class RecordingList(ListResource):
 
     async def page_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of RecordingInstance records from the API.
+        Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
         
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -289,7 +289,7 @@ class RecordingList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of RecordingInstance records from the API.
+        Asynchronously retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -691,6 +691,7 @@ class RecordingContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the RecordingInstance
@@ -700,7 +701,18 @@ class RecordingContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the RecordingInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the RecordingInstance
@@ -720,7 +732,28 @@ class RecordingContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RecordingInstance
         
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
@@ -746,7 +779,33 @@ class RecordingContext(InstanceContext):
             call_sid=self._solution['call_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status, pause_behavior=values.unset):
+        """
+        Asynchronous coroutine to update the RecordingInstance
         
+        :params RecordingInstance.Status status: 
+        :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+
+        :returns: The updated RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'PauseBehavior': pause_behavior,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

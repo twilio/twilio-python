@@ -70,7 +70,7 @@ class CertificateList(ListResource):
 
     async def create_async(self, certificate_data, friendly_name=values.unset, device_sid=values.unset):
         """
-        Asynchronous coroutine to create the CertificateInstance
+        Asynchronously create the CertificateInstance
 
         :param str certificate_data: Provides a URL encoded representation of the public certificate in PEM format.
         :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
@@ -118,7 +118,7 @@ class CertificateList(ListResource):
 
     async def stream_async(self, device_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CertificateInstance records from the API as a generator stream.
+        Asynchronously streams CertificateInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -140,7 +140,7 @@ class CertificateList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, device_sid=values.unset, limit=None, page_size=None):
         """
@@ -167,7 +167,7 @@ class CertificateList(ListResource):
 
     async def list_async(self, device_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CertificateInstance records from the API as a list.
+        Asynchronously lists CertificateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -213,7 +213,7 @@ class CertificateList(ListResource):
 
     async def page_async(self, device_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CertificateInstance records from the API.
+        Asynchronously retrieve a single page of CertificateInstance records from the API.
         Request is executed immediately
         
         :param str device_sid: Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
@@ -252,7 +252,7 @@ class CertificateList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CertificateInstance records from the API.
+        Asynchronously retrieve a specific page of CertificateInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -554,6 +554,7 @@ class CertificateContext(InstanceContext):
         self._uri = '/Fleets/{fleet_sid}/Certificates/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the CertificateInstance
@@ -563,7 +564,18 @@ class CertificateContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CertificateInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the CertificateInstance
@@ -582,7 +594,27 @@ class CertificateContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CertificateInstance
         
+
+        :returns: The fetched CertificateInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CertificateInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, device_sid=values.unset):
         """
         Update the CertificateInstance
@@ -607,7 +639,32 @@ class CertificateContext(InstanceContext):
             fleet_sid=self._solution['fleet_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, device_sid=values.unset):
+        """
+        Asynchronous coroutine to update the CertificateInstance
         
+        :params str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :params str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+
+        :returns: The updated CertificateInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DeviceSid': device_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return CertificateInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

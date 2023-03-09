@@ -251,6 +251,7 @@ class UserContext(InstanceContext):
         self._uri = '/Users/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the UserInstance
@@ -268,7 +269,26 @@ class UserContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserInstance
         
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return UserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, avatar=values.unset, state=values.unset, is_available=values.unset):
         """
         Update the UserInstance
@@ -296,7 +316,35 @@ class UserContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, avatar=values.unset, state=values.unset, is_available=values.unset):
+        """
+        Asynchronous coroutine to update the UserInstance
         
+        :params str friendly_name: The string that you assigned to describe the User.
+        :params str avatar: The avatar URL which will be shown in Frontline application.
+        :params UserInstance.StateType state: 
+        :params bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Avatar': avatar,
+            'State': state,
+            'IsAvailable': is_available,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return UserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

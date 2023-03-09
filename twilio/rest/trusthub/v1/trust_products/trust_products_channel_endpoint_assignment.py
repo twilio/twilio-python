@@ -67,7 +67,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
     async def create_async(self, channel_endpoint_type, channel_endpoint_sid):
         """
-        Asynchronous coroutine to create the TrustProductsChannelEndpointAssignmentInstance
+        Asynchronously create the TrustProductsChannelEndpointAssignmentInstance
 
         :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
         :param str channel_endpoint_sid: The SID of an channel endpoint
@@ -115,7 +115,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
     async def stream_async(self, channel_endpoint_sid=values.unset, channel_endpoint_sids=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams TrustProductsChannelEndpointAssignmentInstance records from the API as a generator stream.
+        Asynchronously streams TrustProductsChannelEndpointAssignmentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -139,7 +139,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, channel_endpoint_sid=values.unset, channel_endpoint_sids=values.unset, limit=None, page_size=None):
         """
@@ -168,7 +168,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
     async def list_async(self, channel_endpoint_sid=values.unset, channel_endpoint_sids=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list.
+        Asynchronously lists TrustProductsChannelEndpointAssignmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -218,7 +218,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
     async def page_async(self, channel_endpoint_sid=values.unset, channel_endpoint_sids=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.
+        Asynchronously retrieve a single page of TrustProductsChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
         
         :param str channel_endpoint_sid: The SID of an channel endpoint
@@ -259,7 +259,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of TrustProductsChannelEndpointAssignmentInstance records from the API.
+        Asynchronously retrieve a specific page of TrustProductsChannelEndpointAssignmentInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -516,6 +516,7 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
         self._uri = '/TrustProducts/{trust_product_sid}/ChannelEndpointAssignments/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the TrustProductsChannelEndpointAssignmentInstance
@@ -525,7 +526,18 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the TrustProductsChannelEndpointAssignmentInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the TrustProductsChannelEndpointAssignmentInstance
@@ -544,7 +556,26 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TrustProductsChannelEndpointAssignmentInstance
         
+
+        :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return TrustProductsChannelEndpointAssignmentInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution['trust_product_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

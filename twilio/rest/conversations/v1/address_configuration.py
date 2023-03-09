@@ -85,7 +85,7 @@ class AddressConfigurationList(ListResource):
 
     async def create_async(self, type, address, friendly_name=values.unset, auto_creation_enabled=values.unset, auto_creation_type=values.unset, auto_creation_conversation_service_sid=values.unset, auto_creation_webhook_url=values.unset, auto_creation_webhook_method=values.unset, auto_creation_webhook_filters=values.unset, auto_creation_studio_flow_sid=values.unset, auto_creation_studio_retry_count=values.unset):
         """
-        Asynchronous coroutine to create the AddressConfigurationInstance
+        Asynchronously create the AddressConfigurationInstance
 
         :param AddressConfigurationInstance.Type type: 
         :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
@@ -149,7 +149,7 @@ class AddressConfigurationList(ListResource):
 
     async def stream_async(self, type=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AddressConfigurationInstance records from the API as a generator stream.
+        Asynchronously streams AddressConfigurationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -171,7 +171,7 @@ class AddressConfigurationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, type=values.unset, limit=None, page_size=None):
         """
@@ -198,7 +198,7 @@ class AddressConfigurationList(ListResource):
 
     async def list_async(self, type=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AddressConfigurationInstance records from the API as a list.
+        Asynchronously lists AddressConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -244,7 +244,7 @@ class AddressConfigurationList(ListResource):
 
     async def page_async(self, type=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AddressConfigurationInstance records from the API.
+        Asynchronously retrieve a single page of AddressConfigurationInstance records from the API.
         Request is executed immediately
         
         :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
@@ -283,7 +283,7 @@ class AddressConfigurationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AddressConfigurationInstance records from the API.
+        Asynchronously retrieve a specific page of AddressConfigurationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -597,6 +597,7 @@ class AddressConfigurationContext(InstanceContext):
         self._uri = '/Configuration/Addresses/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the AddressConfigurationInstance
@@ -606,7 +607,18 @@ class AddressConfigurationContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AddressConfigurationInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the AddressConfigurationInstance
@@ -624,7 +636,26 @@ class AddressConfigurationContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AddressConfigurationInstance
         
+
+        :returns: The fetched AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AddressConfigurationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, auto_creation_enabled=values.unset, auto_creation_type=values.unset, auto_creation_conversation_service_sid=values.unset, auto_creation_webhook_url=values.unset, auto_creation_webhook_method=values.unset, auto_creation_webhook_filters=values.unset, auto_creation_studio_flow_sid=values.unset, auto_creation_studio_retry_count=values.unset):
         """
         Update the AddressConfigurationInstance
@@ -662,7 +693,45 @@ class AddressConfigurationContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, auto_creation_enabled=values.unset, auto_creation_type=values.unset, auto_creation_conversation_service_sid=values.unset, auto_creation_webhook_url=values.unset, auto_creation_webhook_method=values.unset, auto_creation_webhook_filters=values.unset, auto_creation_studio_flow_sid=values.unset, auto_creation_studio_retry_count=values.unset):
+        """
+        Asynchronous coroutine to update the AddressConfigurationInstance
         
+        :params str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :params bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :params AddressConfigurationInstance.AutoCreationType auto_creation_type: 
+        :params str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :params str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :params AddressConfigurationInstance.Method auto_creation_webhook_method: 
+        :params list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :params str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :params int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+
+        :returns: The updated AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'AutoCreation.Enabled': auto_creation_enabled,
+            'AutoCreation.Type': auto_creation_type,
+            'AutoCreation.ConversationServiceSid': auto_creation_conversation_service_sid,
+            'AutoCreation.WebhookUrl': auto_creation_webhook_url,
+            'AutoCreation.WebhookMethod': auto_creation_webhook_method,
+            'AutoCreation.WebhookFilters': serialize.map(auto_creation_webhook_filters, lambda e: e),
+            'AutoCreation.StudioFlowSid': auto_creation_studio_flow_sid,
+            'AutoCreation.StudioRetryCount': auto_creation_studio_retry_count,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AddressConfigurationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

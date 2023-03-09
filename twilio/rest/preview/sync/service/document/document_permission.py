@@ -74,7 +74,7 @@ class DocumentPermissionList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams DocumentPermissionInstance records from the API as a generator stream.
+        Asynchronously streams DocumentPermissionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -94,7 +94,7 @@ class DocumentPermissionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -119,7 +119,7 @@ class DocumentPermissionList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists DocumentPermissionInstance records from the API as a list.
+        Asynchronously lists DocumentPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -161,7 +161,7 @@ class DocumentPermissionList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of DocumentPermissionInstance records from the API.
+        Asynchronously retrieve a single page of DocumentPermissionInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -198,7 +198,7 @@ class DocumentPermissionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of DocumentPermissionInstance records from the API.
+        Asynchronously retrieve a specific page of DocumentPermissionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -493,6 +493,7 @@ class DocumentPermissionContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Documents/{document_sid}/Permissions/{identity}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the DocumentPermissionInstance
@@ -502,7 +503,18 @@ class DocumentPermissionContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DocumentPermissionInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the DocumentPermissionInstance
@@ -522,7 +534,28 @@ class DocumentPermissionContext(InstanceContext):
             identity=self._solution['identity'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DocumentPermissionInstance
         
+
+        :returns: The fetched DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DocumentPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            document_sid=self._solution['document_sid'],
+            identity=self._solution['identity'],
+            
+        )
+    
+    
     def update(self, read, write, manage):
         """
         Update the DocumentPermissionInstance
@@ -550,7 +583,35 @@ class DocumentPermissionContext(InstanceContext):
             document_sid=self._solution['document_sid'],
             identity=self._solution['identity']
         )
+
+    async def update_async(self, read, write, manage):
+        """
+        Asynchronous coroutine to update the DocumentPermissionInstance
         
+        :params bool read: Boolean flag specifying whether the identity can read the Sync Document.
+        :params bool write: Boolean flag specifying whether the identity can update the Sync Document.
+        :params bool manage: Boolean flag specifying whether the identity can delete the Sync Document.
+
+        :returns: The updated DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        """
+        data = values.of({ 
+            'Read': read,
+            'Write': write,
+            'Manage': manage,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return DocumentPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            document_sid=self._solution['document_sid'],
+            identity=self._solution['identity']
+        )
+    
     
     def __repr__(self):
         """

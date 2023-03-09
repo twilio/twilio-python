@@ -252,6 +252,7 @@ class SipDomainContext(InstanceContext):
         self._uri = '/SipDomains/{sip_domain}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the SipDomainInstance
@@ -269,7 +270,26 @@ class SipDomainContext(InstanceContext):
             sip_domain=self._solution['sip_domain'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SipDomainInstance
         
+
+        :returns: The fetched SipDomainInstance
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SipDomainInstance(
+            self._version,
+            payload,
+            sip_domain=self._solution['sip_domain'],
+            
+        )
+    
+    
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the SipDomainInstance
@@ -293,7 +313,31 @@ class SipDomainContext(InstanceContext):
             payload,
             sip_domain=self._solution['sip_domain']
         )
+
+    async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
+        """
+        Asynchronous coroutine to update the SipDomainInstance
         
+        :params str voice_region: 
+        :params str friendly_name: 
+
+        :returns: The updated SipDomainInstance
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
+        """
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SipDomainInstance(
+            self._version,
+            payload,
+            sip_domain=self._solution['sip_domain']
+        )
+    
     
     def __repr__(self):
         """

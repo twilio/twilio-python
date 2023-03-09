@@ -58,6 +58,20 @@ class EvaluationList(ListResource):
         payload = self._version.create(method='POST', uri=self._uri, )
 
         return EvaluationInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
+
+    async def create_async(self):
+        """
+        Asynchronously create the EvaluationInstance
+
+        
+        :returns: The created EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        """
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, )
+
+        return EvaluationInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -86,7 +100,7 @@ class EvaluationList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EvaluationInstance records from the API as a generator stream.
+        Asynchronously streams EvaluationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -106,7 +120,7 @@ class EvaluationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -131,7 +145,7 @@ class EvaluationList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EvaluationInstance records from the API as a list.
+        Asynchronously lists EvaluationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -173,7 +187,7 @@ class EvaluationList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EvaluationInstance records from the API.
+        Asynchronously retrieve a single page of EvaluationInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -210,7 +224,7 @@ class EvaluationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EvaluationInstance records from the API.
+        Asynchronously retrieve a specific page of EvaluationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -458,6 +472,7 @@ class EvaluationContext(InstanceContext):
         self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Evaluations/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the EvaluationInstance
@@ -476,7 +491,26 @@ class EvaluationContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EvaluationInstance
         
+
+        :returns: The fetched EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EvaluationInstance(
+            self._version,
+            payload,
+            bundle_sid=self._solution['bundle_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

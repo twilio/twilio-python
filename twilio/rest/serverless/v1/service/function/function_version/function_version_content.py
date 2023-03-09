@@ -211,6 +211,7 @@ class FunctionVersionContentContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Functions/{function_sid}/Versions/{sid}/Content'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the FunctionVersionContentInstance
@@ -230,7 +231,27 @@ class FunctionVersionContentContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FunctionVersionContentInstance
         
+
+        :returns: The fetched FunctionVersionContentInstance
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FunctionVersionContentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            function_sid=self._solution['function_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

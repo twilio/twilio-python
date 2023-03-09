@@ -78,7 +78,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AvailablePhoneNumberCountryInstance records from the API as a generator stream.
+        Asynchronously streams AvailablePhoneNumberCountryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -98,7 +98,7 @@ class AvailablePhoneNumberCountryList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -123,7 +123,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AvailablePhoneNumberCountryInstance records from the API as a list.
+        Asynchronously lists AvailablePhoneNumberCountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -165,7 +165,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
+        Asynchronously retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -202,7 +202,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AvailablePhoneNumberCountryInstance records from the API.
+        Asynchronously retrieve a specific page of AvailablePhoneNumberCountryInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -494,6 +494,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         self._toll_free = None
         self._voip = None
     
+    
     def fetch(self):
         """
         Fetch the AvailablePhoneNumberCountryInstance
@@ -512,7 +513,26 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
             country_code=self._solution['country_code'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AvailablePhoneNumberCountryInstance
         
+
+        :returns: The fetched AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AvailablePhoneNumberCountryInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            country_code=self._solution['country_code'],
+            
+        )
+    
     
     @property
     def local(self):

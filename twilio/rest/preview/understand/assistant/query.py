@@ -74,7 +74,7 @@ class QueryList(ListResource):
 
     async def create_async(self, language, query, tasks=values.unset, model_build=values.unset, field=values.unset):
         """
-        Asynchronous coroutine to create the QueryInstance
+        Asynchronously create the QueryInstance
 
         :param str language: An ISO language-country string of the sample.
         :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
@@ -130,7 +130,7 @@ class QueryList(ListResource):
 
     async def stream_async(self, language=values.unset, model_build=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams QueryInstance records from the API as a generator stream.
+        Asynchronously streams QueryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -156,7 +156,7 @@ class QueryList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, language=values.unset, model_build=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -187,7 +187,7 @@ class QueryList(ListResource):
 
     async def list_async(self, language=values.unset, model_build=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists QueryInstance records from the API as a list.
+        Asynchronously lists QueryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -241,7 +241,7 @@ class QueryList(ListResource):
 
     async def page_async(self, language=values.unset, model_build=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of QueryInstance records from the API.
+        Asynchronously retrieve a single page of QueryInstance records from the API.
         Request is executed immediately
         
         :param str language: An ISO language-country string of the sample.
@@ -284,7 +284,7 @@ class QueryList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of QueryInstance records from the API.
+        Asynchronously retrieve a specific page of QueryInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -622,6 +622,7 @@ class QueryContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/Queries/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the QueryInstance
@@ -631,7 +632,18 @@ class QueryContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the QueryInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the QueryInstance
@@ -650,7 +662,27 @@ class QueryContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the QueryInstance
         
+
+        :returns: The fetched QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return QueryInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, sample_sid=values.unset, status=values.unset):
         """
         Update the QueryInstance
@@ -675,7 +707,32 @@ class QueryContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, sample_sid=values.unset, status=values.unset):
+        """
+        Asynchronous coroutine to update the QueryInstance
         
+        :params str sample_sid: An optional reference to the Sample created from this query.
+        :params str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+
+        :returns: The updated QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        data = values.of({ 
+            'SampleSid': sample_sid,
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return QueryInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

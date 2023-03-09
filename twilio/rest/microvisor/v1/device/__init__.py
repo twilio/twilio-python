@@ -73,7 +73,7 @@ class DeviceList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams DeviceInstance records from the API as a generator stream.
+        Asynchronously streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -93,7 +93,7 @@ class DeviceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -118,7 +118,7 @@ class DeviceList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists DeviceInstance records from the API as a list.
+        Asynchronously lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -160,7 +160,7 @@ class DeviceList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of DeviceInstance records from the API.
+        Asynchronously retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -197,7 +197,7 @@ class DeviceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of DeviceInstance records from the API.
+        Asynchronously retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -497,6 +497,7 @@ class DeviceContext(InstanceContext):
         self._device_configs = None
         self._device_secrets = None
     
+    
     def fetch(self):
         """
         Fetch the DeviceInstance
@@ -514,7 +515,26 @@ class DeviceContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DeviceInstance
         
+
+        :returns: The fetched DeviceInstance
+        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DeviceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, unique_name=values.unset, target_app=values.unset, logging_enabled=values.unset):
         """
         Update the DeviceInstance
@@ -540,7 +560,33 @@ class DeviceContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, unique_name=values.unset, target_app=values.unset, logging_enabled=values.unset):
+        """
+        Asynchronous coroutine to update the DeviceInstance
         
+        :params str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
+        :params str target_app: The SID or unique name of the App to be targeted to the Device.
+        :params bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+
+        :returns: The updated DeviceInstance
+        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'TargetApp': target_app,
+            'LoggingEnabled': logging_enabled,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return DeviceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def device_configs(self):

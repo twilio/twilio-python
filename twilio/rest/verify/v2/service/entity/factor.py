@@ -74,7 +74,7 @@ class FactorList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams FactorInstance records from the API as a generator stream.
+        Asynchronously streams FactorInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -94,7 +94,7 @@ class FactorList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -119,7 +119,7 @@ class FactorList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists FactorInstance records from the API as a list.
+        Asynchronously lists FactorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -161,7 +161,7 @@ class FactorList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of FactorInstance records from the API.
+        Asynchronously retrieve a single page of FactorInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -198,7 +198,7 @@ class FactorList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of FactorInstance records from the API.
+        Asynchronously retrieve a specific page of FactorInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -558,6 +558,7 @@ class FactorContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the FactorInstance
@@ -567,7 +568,18 @@ class FactorContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the FactorInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the FactorInstance
@@ -587,7 +599,28 @@ class FactorContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FactorInstance
         
+
+        :returns: The fetched FactorInstance
+        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FactorInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            identity=self._solution['identity'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, auth_payload=values.unset, friendly_name=values.unset, config_notification_token=values.unset, config_sdk_version=values.unset, config_time_step=values.unset, config_skew=values.unset, config_code_length=values.unset, config_alg=values.unset, config_notification_platform=values.unset):
         """
         Update the FactorInstance
@@ -627,7 +660,47 @@ class FactorContext(InstanceContext):
             identity=self._solution['identity'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, auth_payload=values.unset, friendly_name=values.unset, config_notification_token=values.unset, config_sdk_version=values.unset, config_time_step=values.unset, config_skew=values.unset, config_code_length=values.unset, config_alg=values.unset, config_notification_platform=values.unset):
+        """
+        Asynchronous coroutine to update the FactorInstance
         
+        :params str auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
+        :params str friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
+        :params str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
+        :params str config_sdk_version: The Verify Push SDK version used to configure the factor
+        :params int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+        :params int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+        :params int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+        :params FactorInstance.TotpAlgorithms config_alg: 
+        :params str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
+
+        :returns: The updated FactorInstance
+        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
+        """
+        data = values.of({ 
+            'AuthPayload': auth_payload,
+            'FriendlyName': friendly_name,
+            'Config.NotificationToken': config_notification_token,
+            'Config.SdkVersion': config_sdk_version,
+            'Config.TimeStep': config_time_step,
+            'Config.Skew': config_skew,
+            'Config.CodeLength': config_code_length,
+            'Config.Alg': config_alg,
+            'Config.NotificationPlatform': config_notification_platform,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return FactorInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            identity=self._solution['identity'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

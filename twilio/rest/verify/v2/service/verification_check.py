@@ -71,7 +71,7 @@ class VerificationCheckList(ListResource):
 
     async def create_async(self, code=values.unset, to=values.unset, verification_sid=values.unset, amount=values.unset, payee=values.unset):
         """
-        Asynchronous coroutine to create the VerificationCheckInstance
+        Asynchronously create the VerificationCheckInstance
 
         :param str code: The 4-10 character string being verified.
         :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).

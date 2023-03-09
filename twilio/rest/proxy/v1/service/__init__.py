@@ -82,7 +82,7 @@ class ServiceList(ListResource):
 
     async def create_async(self, unique_name, default_ttl=values.unset, callback_url=values.unset, geo_match_level=values.unset, number_selection_behavior=values.unset, intercept_callback_url=values.unset, out_of_session_callback_url=values.unset, chat_instance_sid=values.unset):
         """
-        Asynchronous coroutine to create the ServiceInstance
+        Asynchronously create the ServiceInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
@@ -138,7 +138,7 @@ class ServiceList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ServiceInstance records from the API as a generator stream.
+        Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -158,7 +158,7 @@ class ServiceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -183,7 +183,7 @@ class ServiceList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ServiceInstance records from the API as a list.
+        Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -225,7 +225,7 @@ class ServiceList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ServiceInstance records from the API.
+        Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -262,7 +262,7 @@ class ServiceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ServiceInstance records from the API.
+        Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -662,6 +662,7 @@ class ServiceContext(InstanceContext):
         self._sessions = None
         self._short_codes = None
     
+    
     def delete(self):
         """
         Deletes the ServiceInstance
@@ -671,7 +672,18 @@ class ServiceContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ServiceInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ServiceInstance
@@ -689,7 +701,26 @@ class ServiceContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ServiceInstance
         
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, unique_name=values.unset, default_ttl=values.unset, callback_url=values.unset, geo_match_level=values.unset, number_selection_behavior=values.unset, intercept_callback_url=values.unset, out_of_session_callback_url=values.unset, chat_instance_sid=values.unset):
         """
         Update the ServiceInstance
@@ -725,7 +756,43 @@ class ServiceContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, unique_name=values.unset, default_ttl=values.unset, callback_url=values.unset, geo_match_level=values.unset, number_selection_behavior=values.unset, intercept_callback_url=values.unset, out_of_session_callback_url=values.unset, chat_instance_sid=values.unset):
+        """
+        Asynchronous coroutine to update the ServiceInstance
         
+        :params str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+        :params int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
+        :params str callback_url: The URL we should call when the interaction status changes.
+        :params ServiceInstance.GeoMatchLevel geo_match_level: 
+        :params ServiceInstance.NumberSelectionBehavior number_selection_behavior: 
+        :params str intercept_callback_url: The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
+        :params str out_of_session_callback_url: The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
+        :params str chat_instance_sid: The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.proxy.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'DefaultTtl': default_ttl,
+            'CallbackUrl': callback_url,
+            'GeoMatchLevel': geo_match_level,
+            'NumberSelectionBehavior': number_selection_behavior,
+            'InterceptCallbackUrl': intercept_callback_url,
+            'OutOfSessionCallbackUrl': out_of_session_callback_url,
+            'ChatInstanceSid': chat_instance_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def phone_numbers(self):

@@ -65,7 +65,7 @@ class PlaybackGrantList(ListResource):
 
     async def create_async(self, ttl=values.unset, access_control_allow_origin=values.unset):
         """
-        Asynchronous coroutine to create the PlaybackGrantInstance
+        Asynchronously create the PlaybackGrantInstance
 
         :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
         :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
@@ -259,6 +259,7 @@ class PlaybackGrantContext(InstanceContext):
         self._uri = '/PlayerStreamers/{sid}/PlaybackGrant'.format(**self._solution)
         
     
+    
     def create(self, ttl=values.unset, access_control_allow_origin=values.unset):
         """
         Create the PlaybackGrantInstance
@@ -281,6 +282,30 @@ class PlaybackGrantContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def create_async(self, ttl=values.unset, access_control_allow_origin=values.unset):
+        """
+        Asynchronous coroutine to create the PlaybackGrantInstance
+        
+        :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
+        :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
+
+        :returns: The created PlaybackGrantInstance
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
+        """
+        data = values.of({ 
+            'Ttl': ttl,
+            'AccessControlAllowOrigin': access_control_allow_origin,
+        })
+
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data)
+
+        return PlaybackGrantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def fetch(self):
         """
@@ -299,7 +324,25 @@ class PlaybackGrantContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the PlaybackGrantInstance
         
+
+        :returns: The fetched PlaybackGrantInstance
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return PlaybackGrantInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

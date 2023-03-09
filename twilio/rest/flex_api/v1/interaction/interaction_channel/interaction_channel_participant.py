@@ -67,7 +67,7 @@ class InteractionChannelParticipantList(ListResource):
 
     async def create_async(self, type, media_properties):
         """
-        Asynchronous coroutine to create the InteractionChannelParticipantInstance
+        Asynchronously create the InteractionChannelParticipantInstance
 
         :param InteractionChannelParticipantInstance.Type type: 
         :param object media_properties: JSON representing the Media Properties for the new Participant.
@@ -111,7 +111,7 @@ class InteractionChannelParticipantList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams InteractionChannelParticipantInstance records from the API as a generator stream.
+        Asynchronously streams InteractionChannelParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -131,7 +131,7 @@ class InteractionChannelParticipantList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -156,7 +156,7 @@ class InteractionChannelParticipantList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists InteractionChannelParticipantInstance records from the API as a list.
+        Asynchronously lists InteractionChannelParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -198,7 +198,7 @@ class InteractionChannelParticipantList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of InteractionChannelParticipantInstance records from the API.
+        Asynchronously retrieve a single page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -235,7 +235,7 @@ class InteractionChannelParticipantList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of InteractionChannelParticipantInstance records from the API.
+        Asynchronously retrieve a specific page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -463,6 +463,7 @@ class InteractionChannelParticipantContext(InstanceContext):
         self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Participants/{sid}'.format(**self._solution)
         
     
+    
     def update(self, status):
         """
         Update the InteractionChannelParticipantInstance
@@ -486,7 +487,31 @@ class InteractionChannelParticipantContext(InstanceContext):
             channel_sid=self._solution['channel_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status):
+        """
+        Asynchronous coroutine to update the InteractionChannelParticipantInstance
         
+        :params InteractionChannelParticipantInstance.Status status: 
+
+        :returns: The updated InteractionChannelParticipantInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return InteractionChannelParticipantInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution['interaction_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

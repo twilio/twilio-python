@@ -187,6 +187,7 @@ class ApprovalFetchContext(InstanceContext):
         self._uri = '/Content/{sid}/ApprovalRequests'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the ApprovalFetchInstance
@@ -204,7 +205,25 @@ class ApprovalFetchContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ApprovalFetchInstance
         
+
+        :returns: The fetched ApprovalFetchInstance
+        :rtype: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ApprovalFetchInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

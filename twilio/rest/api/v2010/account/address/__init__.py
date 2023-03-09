@@ -85,7 +85,7 @@ class AddressList(ListResource):
 
     async def create_async(self, customer_name, street, city, region, postal_code, iso_country, friendly_name=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
         """
-        Asynchronous coroutine to create the AddressInstance
+        Asynchronously create the AddressInstance
 
         :param str customer_name: The name to associate with the new address.
         :param str street: The number and street address of the new address.
@@ -151,7 +151,7 @@ class AddressList(ListResource):
 
     async def stream_async(self, customer_name=values.unset, friendly_name=values.unset, iso_country=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AddressInstance records from the API as a generator stream.
+        Asynchronously streams AddressInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -177,7 +177,7 @@ class AddressList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, customer_name=values.unset, friendly_name=values.unset, iso_country=values.unset, limit=None, page_size=None):
         """
@@ -208,7 +208,7 @@ class AddressList(ListResource):
 
     async def list_async(self, customer_name=values.unset, friendly_name=values.unset, iso_country=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AddressInstance records from the API as a list.
+        Asynchronously lists AddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -262,7 +262,7 @@ class AddressList(ListResource):
 
     async def page_async(self, customer_name=values.unset, friendly_name=values.unset, iso_country=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AddressInstance records from the API.
+        Asynchronously retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
         
         :param str customer_name: The `customer_name` of the Address resources to read.
@@ -305,7 +305,7 @@ class AddressList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AddressInstance records from the API.
+        Asynchronously retrieve a specific page of AddressInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -695,6 +695,7 @@ class AddressContext(InstanceContext):
         
         self._dependent_phone_numbers = None
     
+    
     def delete(self):
         """
         Deletes the AddressInstance
@@ -704,7 +705,18 @@ class AddressContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AddressInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the AddressInstance
@@ -723,7 +735,27 @@ class AddressContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AddressInstance
         
+
+        :returns: The fetched AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, customer_name=values.unset, street=values.unset, city=values.unset, region=values.unset, postal_code=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
         """
         Update the AddressInstance
@@ -762,7 +794,46 @@ class AddressContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, customer_name=values.unset, street=values.unset, city=values.unset, region=values.unset, postal_code=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
+        """
+        Asynchronous coroutine to update the AddressInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :params str customer_name: The name to associate with the address.
+        :params str street: The number and street address of the address.
+        :params str city: The city of the address.
+        :params str region: The state or region of the address.
+        :params str postal_code: The postal code of the address.
+        :params bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :params bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :params str street_secondary: The additional number and street address of the address.
+
+        :returns: The updated AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'CustomerName': customer_name,
+            'Street': street,
+            'City': city,
+            'Region': region,
+            'PostalCode': postal_code,
+            'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
+            'StreetSecondary': street_secondary,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def dependent_phone_numbers(self):

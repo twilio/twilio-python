@@ -73,7 +73,7 @@ class ParticipantConversationList(ListResource):
 
     async def stream_async(self, identity=values.unset, address=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ParticipantConversationInstance records from the API as a generator stream.
+        Asynchronously streams ParticipantConversationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -97,7 +97,7 @@ class ParticipantConversationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, identity=values.unset, address=values.unset, limit=None, page_size=None):
         """
@@ -126,7 +126,7 @@ class ParticipantConversationList(ListResource):
 
     async def list_async(self, identity=values.unset, address=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ParticipantConversationInstance records from the API as a list.
+        Asynchronously lists ParticipantConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -176,7 +176,7 @@ class ParticipantConversationList(ListResource):
 
     async def page_async(self, identity=values.unset, address=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ParticipantConversationInstance records from the API.
+        Asynchronously retrieve a single page of ParticipantConversationInstance records from the API.
         Request is executed immediately
         
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
@@ -217,7 +217,7 @@ class ParticipantConversationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ParticipantConversationInstance records from the API.
+        Asynchronously retrieve a specific page of ParticipantConversationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

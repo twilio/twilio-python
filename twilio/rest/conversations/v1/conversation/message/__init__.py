@@ -82,7 +82,7 @@ class MessageList(ListResource):
 
     async def create_async(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, media_sid=values.unset, content_sid=values.unset, content_variables=values.unset):
         """
-        Asynchronous coroutine to create the MessageInstance
+        Asynchronously create the MessageInstance
 
         :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
@@ -141,7 +141,7 @@ class MessageList(ListResource):
 
     async def stream_async(self, order=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams MessageInstance records from the API as a generator stream.
+        Asynchronously streams MessageInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -163,7 +163,7 @@ class MessageList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, order=values.unset, limit=None, page_size=None):
         """
@@ -190,7 +190,7 @@ class MessageList(ListResource):
 
     async def list_async(self, order=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists MessageInstance records from the API as a list.
+        Asynchronously lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -236,7 +236,7 @@ class MessageList(ListResource):
 
     async def page_async(self, order=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of MessageInstance records from the API.
+        Asynchronously retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
         
         :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
@@ -275,7 +275,7 @@ class MessageList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of MessageInstance records from the API.
+        Asynchronously retrieve a specific page of MessageInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -660,6 +660,7 @@ class MessageContext(InstanceContext):
         
         self._delivery_receipts = None
     
+    
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the MessageInstance
@@ -672,7 +673,21 @@ class MessageContext(InstanceContext):
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Asynchronous coroutine that deletes the MessageInstance
+
+        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self):
         """
         Fetch the MessageInstance
@@ -691,7 +706,27 @@ class MessageContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the MessageInstance
         
+
+        :returns: The fetched MessageInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return MessageInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
         """
         Update the MessageInstance
@@ -723,7 +758,39 @@ class MessageContext(InstanceContext):
             conversation_sid=self._solution['conversation_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
+        """
+        Asynchronous coroutine to update the MessageInstance
         
+        :params MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params str author: The channel specific identifier of the message's author. Defaults to `system`.
+        :params str body: The content of the message, can be up to 1,600 characters long.
+        :params datetime date_created: The date that this resource was created.
+        :params datetime date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :params str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+
+        :returns: The updated MessageInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
+        """
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return MessageInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def delivery_receipts(self):

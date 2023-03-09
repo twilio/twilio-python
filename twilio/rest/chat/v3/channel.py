@@ -300,6 +300,7 @@ class ChannelContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
         
     
+    
     def update(self, x_twilio_webhook_enabled=values.unset, type=values.unset, messaging_service_sid=values.unset):
         """
         Update the ChannelInstance
@@ -325,7 +326,33 @@ class ChannelContext(InstanceContext):
             service_sid=self._solution['service_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, x_twilio_webhook_enabled=values.unset, type=values.unset, messaging_service_sid=values.unset):
+        """
+        Asynchronous coroutine to update the ChannelInstance
         
+        :params ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelInstance.ChannelType type: 
+        :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+
+        :returns: The updated ChannelInstance
+        :rtype: twilio.rest.chat.v3.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'MessagingServiceSid': messaging_service_sid,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

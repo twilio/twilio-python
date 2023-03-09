@@ -80,7 +80,7 @@ class RoomRecordingList(ListResource):
 
     async def stream_async(self, status=values.unset, source_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams RoomRecordingInstance records from the API as a generator stream.
+        Asynchronously streams RoomRecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -108,7 +108,7 @@ class RoomRecordingList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, source_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
@@ -141,7 +141,7 @@ class RoomRecordingList(ListResource):
 
     async def list_async(self, status=values.unset, source_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists RoomRecordingInstance records from the API as a list.
+        Asynchronously lists RoomRecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -199,7 +199,7 @@ class RoomRecordingList(ListResource):
 
     async def page_async(self, status=values.unset, source_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of RoomRecordingInstance records from the API.
+        Asynchronously retrieve a single page of RoomRecordingInstance records from the API.
         Request is executed immediately
         
         :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
@@ -244,7 +244,7 @@ class RoomRecordingList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of RoomRecordingInstance records from the API.
+        Asynchronously retrieve a specific page of RoomRecordingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -610,6 +610,7 @@ class RoomRecordingContext(InstanceContext):
         self._uri = '/Rooms/{room_sid}/Recordings/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the RoomRecordingInstance
@@ -619,7 +620,18 @@ class RoomRecordingContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the RoomRecordingInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the RoomRecordingInstance
@@ -638,7 +650,26 @@ class RoomRecordingContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RoomRecordingInstance
         
+
+        :returns: The fetched RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return RoomRecordingInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

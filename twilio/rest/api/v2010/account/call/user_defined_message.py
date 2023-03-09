@@ -66,7 +66,7 @@ class UserDefinedMessageList(ListResource):
 
     async def create_async(self, content, idempotency_key=values.unset):
         """
-        Asynchronous coroutine to create the UserDefinedMessageInstance
+        Asynchronously create the UserDefinedMessageInstance
 
         :param str content: The User Defined Message in the form of URL-encoded JSON string.
         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.

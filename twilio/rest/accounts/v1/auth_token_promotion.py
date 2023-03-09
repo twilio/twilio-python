@@ -193,6 +193,7 @@ class AuthTokenPromotionContext(InstanceContext):
         self._uri = '/AuthTokens/Promote'.format(**self._solution)
         
     
+    
     def update(self):
         """
         Update the AuthTokenPromotionInstance
@@ -211,7 +212,26 @@ class AuthTokenPromotionContext(InstanceContext):
             self._version,
             payload
         )
+
+    async def update_async(self):
+        """
+        Asynchronous coroutine to update the AuthTokenPromotionInstance
         
+
+        :returns: The updated AuthTokenPromotionInstance
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionInstance
+        """
+        data = values.of({ 
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AuthTokenPromotionInstance(
+            self._version,
+            payload
+        )
+    
     
     def __repr__(self):
         """

@@ -63,7 +63,7 @@ class TokenList(ListResource):
 
     async def create_async(self, ttl=values.unset):
         """
-        Asynchronous coroutine to create the TokenInstance
+        Asynchronously create the TokenInstance
 
         :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
         

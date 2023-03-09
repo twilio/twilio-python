@@ -75,7 +75,7 @@ class CommandList(ListResource):
 
     async def create_async(self, command, device=values.unset, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset):
         """
-        Asynchronous coroutine to create the CommandInstance
+        Asynchronously create the CommandInstance
 
         :param str command: 
         :param str device: 
@@ -137,7 +137,7 @@ class CommandList(ListResource):
 
     async def stream_async(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CommandInstance records from the API as a generator stream.
+        Asynchronously streams CommandInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -165,7 +165,7 @@ class CommandList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
         """
@@ -198,7 +198,7 @@ class CommandList(ListResource):
 
     async def list_async(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CommandInstance records from the API as a list.
+        Asynchronously lists CommandInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -256,7 +256,7 @@ class CommandList(ListResource):
 
     async def page_async(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CommandInstance records from the API.
+        Asynchronously retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
         
         :param str device: 
@@ -301,7 +301,7 @@ class CommandList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CommandInstance records from the API.
+        Asynchronously retrieve a specific page of CommandInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -570,6 +570,7 @@ class CommandContext(InstanceContext):
         self._uri = '/Commands/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the CommandInstance
@@ -587,7 +588,25 @@ class CommandContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CommandInstance
         
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CommandInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

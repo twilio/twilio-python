@@ -206,6 +206,7 @@ class RecordingContext(InstanceContext):
         self._uri = '/Trunks/{trunk_sid}/Recording'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the RecordingInstance
@@ -223,7 +224,26 @@ class RecordingContext(InstanceContext):
             trunk_sid=self._solution['trunk_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RecordingInstance
         
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+            
+        )
+    
+    
     def update(self, mode=values.unset, trim=values.unset):
         """
         Update the RecordingInstance
@@ -247,7 +267,31 @@ class RecordingContext(InstanceContext):
             payload,
             trunk_sid=self._solution['trunk_sid']
         )
+
+    async def update_async(self, mode=values.unset, trim=values.unset):
+        """
+        Asynchronous coroutine to update the RecordingInstance
         
+        :params RecordingInstance.RecordingMode mode: 
+        :params RecordingInstance.RecordingTrim trim: 
+
+        :returns: The updated RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        """
+        data = values.of({ 
+            'Mode': mode,
+            'Trim': trim,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid']
+        )
+    
     
     def __repr__(self):
         """

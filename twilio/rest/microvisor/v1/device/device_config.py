@@ -46,6 +46,7 @@ class DeviceConfigList(ListResource):
     
     
     
+    
     def create(self, key, value):
         """
         Create the DeviceConfigInstance
@@ -67,7 +68,7 @@ class DeviceConfigList(ListResource):
 
     async def create_async(self, key, value):
         """
-        Asynchronous coroutine to create the DeviceConfigInstance
+        Asynchronously create the DeviceConfigInstance
 
         :param str key: The config key; up to 100 characters.
         :param str value: The config value; up to 4096 characters.
@@ -111,7 +112,7 @@ class DeviceConfigList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams DeviceConfigInstance records from the API as a generator stream.
+        Asynchronously streams DeviceConfigInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -131,7 +132,7 @@ class DeviceConfigList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -156,7 +157,7 @@ class DeviceConfigList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists DeviceConfigInstance records from the API as a list.
+        Asynchronously lists DeviceConfigInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -198,7 +199,7 @@ class DeviceConfigList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of DeviceConfigInstance records from the API.
+        Asynchronously retrieve a single page of DeviceConfigInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -235,7 +236,7 @@ class DeviceConfigList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of DeviceConfigInstance records from the API.
+        Asynchronously retrieve a specific page of DeviceConfigInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -279,6 +280,8 @@ class DeviceConfigList(ListResource):
         :rtype: str
         """
         return '<Twilio.Microvisor.V1.DeviceConfigList>'
+
+
 
 
 
@@ -443,6 +446,28 @@ class DeviceConfigInstance(InstanceResource):
         return await self._proxy.fetch_async()
     
     
+    def update(self, value):
+        """
+        Update the DeviceConfigInstance
+        
+        :params str value: The config value; up to 4096 characters.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        return self._proxy.update(value=value, )
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the DeviceConfigInstance
+        
+        :params str value: The config value; up to 4096 characters.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        return await self._proxy.update_async(value=value, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -475,6 +500,7 @@ class DeviceConfigContext(InstanceContext):
         self._uri = '/Devices/{device_sid}/Configs/{key}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the DeviceConfigInstance
@@ -484,7 +510,18 @@ class DeviceConfigContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DeviceConfigInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the DeviceConfigInstance
@@ -503,7 +540,73 @@ class DeviceConfigContext(InstanceContext):
             key=self._solution['key'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DeviceConfigInstance
         
+
+        :returns: The fetched DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DeviceConfigInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+            
+        )
+    
+    
+    def update(self, value):
+        """
+        Update the DeviceConfigInstance
+        
+        :params str value: The config value; up to 4096 characters.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        data = values.of({ 
+            'Value': value,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DeviceConfigInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key']
+        )
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the DeviceConfigInstance
+        
+        :params str value: The config value; up to 4096 characters.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        data = values.of({ 
+            'Value': value,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return DeviceConfigInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key']
+        )
+    
     
     def __repr__(self):
         """

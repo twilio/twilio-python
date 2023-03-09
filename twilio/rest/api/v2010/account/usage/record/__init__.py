@@ -94,7 +94,7 @@ class RecordList(ListResource):
 
     async def stream_async(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams RecordInstance records from the API as a generator stream.
+        Asynchronously streams RecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -122,7 +122,7 @@ class RecordList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
         """
@@ -155,7 +155,7 @@ class RecordList(ListResource):
 
     async def list_async(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists RecordInstance records from the API as a list.
+        Asynchronously lists RecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -213,7 +213,7 @@ class RecordList(ListResource):
 
     async def page_async(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of RecordInstance records from the API.
+        Asynchronously retrieve a single page of RecordInstance records from the API.
         Request is executed immediately
         
         :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -258,7 +258,7 @@ class RecordList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of RecordInstance records from the API.
+        Asynchronously retrieve a specific page of RecordInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

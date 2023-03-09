@@ -211,6 +211,7 @@ class ExecutionStepContextContext(InstanceContext):
         self._uri = '/Flows/{flow_sid}/Executions/{execution_sid}/Steps/{step_sid}/Context'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the ExecutionStepContextInstance
@@ -230,7 +231,27 @@ class ExecutionStepContextContext(InstanceContext):
             step_sid=self._solution['step_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ExecutionStepContextInstance
         
+
+        :returns: The fetched ExecutionStepContextInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ExecutionStepContextInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution['flow_sid'],
+            execution_sid=self._solution['execution_sid'],
+            step_sid=self._solution['step_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

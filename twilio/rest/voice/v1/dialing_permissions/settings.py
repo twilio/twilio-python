@@ -190,6 +190,7 @@ class SettingsContext(InstanceContext):
         self._uri = '/Settings'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the SettingsInstance
@@ -206,7 +207,25 @@ class SettingsContext(InstanceContext):
             payload,
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SettingsInstance
         
+
+        :returns: The fetched SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SettingsInstance(
+            self._version,
+            payload,
+            
+        )
+    
+    
     def update(self, dialing_permissions_inheritance=values.unset):
         """
         Update the SettingsInstance
@@ -227,7 +246,28 @@ class SettingsContext(InstanceContext):
             self._version,
             payload
         )
+
+    async def update_async(self, dialing_permissions_inheritance=values.unset):
+        """
+        Asynchronous coroutine to update the SettingsInstance
         
+        :params bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+
+        :returns: The updated SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        """
+        data = values.of({ 
+            'DialingPermissionsInheritance': dialing_permissions_inheritance,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SettingsInstance(
+            self._version,
+            payload
+        )
+    
     
     def __repr__(self):
         """

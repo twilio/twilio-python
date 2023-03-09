@@ -229,6 +229,7 @@ class CallContext(InstanceContext):
         self._events = None
         self._metrics = None
     
+    
     def fetch(self):
         """
         Fetch the CallInstance
@@ -246,7 +247,25 @@ class CallContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CallInstance
         
+
+        :returns: The fetched CallInstance
+        :rtype: twilio.rest.insights.v1.call.CallInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CallInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     @property
     def annotation(self):

@@ -64,7 +64,7 @@ class SafelistList(ListResource):
 
     async def create_async(self, phone_number):
         """
-        Asynchronous coroutine to create the SafelistInstance
+        Asynchronously create the SafelistInstance
 
         :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         
@@ -237,6 +237,7 @@ class SafelistContext(InstanceContext):
         self._uri = '/SafeList/Numbers/{phone_number}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the SafelistInstance
@@ -246,7 +247,18 @@ class SafelistContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SafelistInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the SafelistInstance
@@ -264,7 +276,25 @@ class SafelistContext(InstanceContext):
             phone_number=self._solution['phone_number'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SafelistInstance
         
+
+        :returns: The fetched SafelistInstance
+        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SafelistInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number'],
+            
+        )
+    
     
     def __repr__(self):
         """

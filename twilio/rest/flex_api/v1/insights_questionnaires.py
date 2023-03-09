@@ -72,7 +72,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def create_async(self, name, token=values.unset, description=values.unset, active=values.unset, question_ids=values.unset):
         """
-        Asynchronous coroutine to create the InsightsQuestionnairesInstance
+        Asynchronously create the InsightsQuestionnairesInstance
 
         :param str name: The name of this questionnaire
         :param str token: The Token HTTP request header
@@ -125,7 +125,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def stream_async(self, token=values.unset, include_inactive=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams InsightsQuestionnairesInstance records from the API as a generator stream.
+        Asynchronously streams InsightsQuestionnairesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -149,7 +149,7 @@ class InsightsQuestionnairesList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, token=values.unset, include_inactive=values.unset, limit=None, page_size=None):
         """
@@ -178,7 +178,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def list_async(self, token=values.unset, include_inactive=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists InsightsQuestionnairesInstance records from the API as a list.
+        Asynchronously lists InsightsQuestionnairesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -228,7 +228,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def page_async(self, token=values.unset, include_inactive=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of InsightsQuestionnairesInstance records from the API.
+        Asynchronously retrieve a single page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
         
         :param str token: The Token HTTP request header
@@ -269,7 +269,7 @@ class InsightsQuestionnairesList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of InsightsQuestionnairesInstance records from the API.
+        Asynchronously retrieve a specific page of InsightsQuestionnairesInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -561,6 +561,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         self._uri = '/Insights/QM/Questionnaires/{id}'.format(**self._solution)
         
     
+    
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesInstance
@@ -573,7 +574,21 @@ class InsightsQuestionnairesContext(InstanceContext):
         headers = values.of({'Token': token, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, token=values.unset):
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesInstance
+
+        :param str token: The Token HTTP request header
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'Token': token, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self, token=values.unset):
         """
         Fetch the InsightsQuestionnairesInstance
@@ -596,7 +611,31 @@ class InsightsQuestionnairesContext(InstanceContext):
             id=self._solution['id'],
             
         )
+
+    async def fetch_async(self, token=values.unset):
+        """
+        Asynchronous coroutine to fetch the InsightsQuestionnairesInstance
         
+        :params str token: The Token HTTP request header
+
+        :returns: The fetched InsightsQuestionnairesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
+        """
+        
+        data = values.of({ 
+            'Token': token,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            id=self._solution['id'],
+            
+        )
+    
+    
     def update(self, active, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
         """
         Update the InsightsQuestionnairesInstance
@@ -625,7 +664,36 @@ class InsightsQuestionnairesContext(InstanceContext):
             payload,
             id=self._solution['id']
         )
+
+    async def update_async(self, active, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesInstance
         
+        :params bool active: The flag to enable or disable questionnaire
+        :params str token: The Token HTTP request header
+        :params str name: The name of this questionnaire
+        :params str description: The description of this questionnaire
+        :params list[str] question_ids: The list of questions ids under a questionnaire
+
+        :returns: The updated InsightsQuestionnairesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
+        """
+        data = values.of({ 
+            'Active': active,
+            'Name': name,
+            'Description': description,
+            'QuestionIds': serialize.map(question_ids, lambda e: e),
+        })
+        headers = values.of({'Token': token, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            id=self._solution['id']
+        )
+    
     
     def __repr__(self):
         """

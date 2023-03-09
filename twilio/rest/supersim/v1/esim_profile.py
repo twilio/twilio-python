@@ -69,7 +69,7 @@ class EsimProfileList(ListResource):
 
     async def create_async(self, callback_url=values.unset, callback_method=values.unset, generate_matching_id=values.unset, eid=values.unset):
         """
-        Asynchronous coroutine to create the EsimProfileInstance
+        Asynchronously create the EsimProfileInstance
 
         :param str callback_url: The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
@@ -123,7 +123,7 @@ class EsimProfileList(ListResource):
 
     async def stream_async(self, eid=values.unset, sim_sid=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EsimProfileInstance records from the API as a generator stream.
+        Asynchronously streams EsimProfileInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -149,7 +149,7 @@ class EsimProfileList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, eid=values.unset, sim_sid=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -180,7 +180,7 @@ class EsimProfileList(ListResource):
 
     async def list_async(self, eid=values.unset, sim_sid=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EsimProfileInstance records from the API as a list.
+        Asynchronously lists EsimProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -234,7 +234,7 @@ class EsimProfileList(ListResource):
 
     async def page_async(self, eid=values.unset, sim_sid=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EsimProfileInstance records from the API.
+        Asynchronously retrieve a single page of EsimProfileInstance records from the API.
         Request is executed immediately
         
         :param str eid: List the eSIM Profiles that have been associated with an EId.
@@ -277,7 +277,7 @@ class EsimProfileList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EsimProfileInstance records from the API.
+        Asynchronously retrieve a specific page of EsimProfileInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -581,6 +581,7 @@ class EsimProfileContext(InstanceContext):
         self._uri = '/ESimProfiles/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the EsimProfileInstance
@@ -598,7 +599,25 @@ class EsimProfileContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EsimProfileInstance
         
+
+        :returns: The fetched EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EsimProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

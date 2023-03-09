@@ -211,6 +211,7 @@ class StyleSheetContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/StyleSheet'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the StyleSheetInstance
@@ -228,7 +229,26 @@ class StyleSheetContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the StyleSheetInstance
         
+
+        :returns: The fetched StyleSheetInstance
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return StyleSheetInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+    
+    
     def update(self, style_sheet=values.unset):
         """
         Update the StyleSheetInstance
@@ -250,7 +270,29 @@ class StyleSheetContext(InstanceContext):
             payload,
             assistant_sid=self._solution['assistant_sid']
         )
+
+    async def update_async(self, style_sheet=values.unset):
+        """
+        Asynchronous coroutine to update the StyleSheetInstance
         
+        :params object style_sheet: The JSON Style sheet string
+
+        :returns: The updated StyleSheetInstance
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
+        """
+        data = values.of({ 
+            'StyleSheet': serialize.object(style_sheet),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return StyleSheetInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+    
     
     def __repr__(self):
         """

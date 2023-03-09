@@ -76,7 +76,7 @@ class NetworkList(ListResource):
 
     async def stream_async(self, iso_country=values.unset, mcc=values.unset, mnc=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams NetworkInstance records from the API as a generator stream.
+        Asynchronously streams NetworkInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -102,7 +102,7 @@ class NetworkList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, iso_country=values.unset, mcc=values.unset, mnc=values.unset, limit=None, page_size=None):
         """
@@ -133,7 +133,7 @@ class NetworkList(ListResource):
 
     async def list_async(self, iso_country=values.unset, mcc=values.unset, mnc=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists NetworkInstance records from the API as a list.
+        Asynchronously lists NetworkInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -187,7 +187,7 @@ class NetworkList(ListResource):
 
     async def page_async(self, iso_country=values.unset, mcc=values.unset, mnc=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of NetworkInstance records from the API.
+        Asynchronously retrieve a single page of NetworkInstance records from the API.
         Request is executed immediately
         
         :param str iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
@@ -230,7 +230,7 @@ class NetworkList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of NetworkInstance records from the API.
+        Asynchronously retrieve a specific page of NetworkInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -443,6 +443,7 @@ class NetworkContext(InstanceContext):
         self._uri = '/Networks/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the NetworkInstance
@@ -460,7 +461,25 @@ class NetworkContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the NetworkInstance
         
+
+        :returns: The fetched NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return NetworkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

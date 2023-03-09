@@ -83,7 +83,7 @@ class CompositionHookList(ListResource):
 
     async def create_async(self, friendly_name, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, resolution=values.unset, format=values.unset, status_callback=values.unset, status_callback_method=values.unset, trim=values.unset):
         """
-        Asynchronous coroutine to create the CompositionHookInstance
+        Asynchronously create the CompositionHookInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
         :param bool enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
@@ -151,7 +151,7 @@ class CompositionHookList(ListResource):
 
     async def stream_async(self, enabled=values.unset, date_created_after=values.unset, date_created_before=values.unset, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CompositionHookInstance records from the API as a generator stream.
+        Asynchronously streams CompositionHookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -179,7 +179,7 @@ class CompositionHookList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, enabled=values.unset, date_created_after=values.unset, date_created_before=values.unset, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -212,7 +212,7 @@ class CompositionHookList(ListResource):
 
     async def list_async(self, enabled=values.unset, date_created_after=values.unset, date_created_before=values.unset, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CompositionHookInstance records from the API as a list.
+        Asynchronously lists CompositionHookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -270,7 +270,7 @@ class CompositionHookList(ListResource):
 
     async def page_async(self, enabled=values.unset, date_created_after=values.unset, date_created_before=values.unset, friendly_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CompositionHookInstance records from the API.
+        Asynchronously retrieve a single page of CompositionHookInstance records from the API.
         Request is executed immediately
         
         :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
@@ -315,7 +315,7 @@ class CompositionHookList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CompositionHookInstance records from the API.
+        Asynchronously retrieve a specific page of CompositionHookInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -689,6 +689,7 @@ class CompositionHookContext(InstanceContext):
         self._uri = '/CompositionHooks/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the CompositionHookInstance
@@ -698,7 +699,18 @@ class CompositionHookContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CompositionHookInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the CompositionHookInstance
@@ -716,7 +728,26 @@ class CompositionHookContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CompositionHookInstance
         
+
+        :returns: The fetched CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CompositionHookInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, trim=values.unset, format=values.unset, resolution=values.unset, status_callback=values.unset, status_callback_method=values.unset):
         """
         Update the CompositionHookInstance
@@ -756,7 +787,47 @@ class CompositionHookContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, trim=values.unset, format=values.unset, resolution=values.unset, status_callback=values.unset, status_callback_method=values.unset):
+        """
+        Asynchronous coroutine to update the CompositionHookInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
+        :params bool enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
+        :params object video_layout: A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :params list[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
+        :params list[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+        :params bool trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :params CompositionHookInstance.Format format: 
+        :params str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :params str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+        :params str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+
+        :returns: The updated CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Enabled': enabled,
+            'VideoLayout': serialize.object(video_layout),
+            'AudioSources': serialize.map(audio_sources, lambda e: e),
+            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
+            'Trim': trim,
+            'Format': format,
+            'Resolution': resolution,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return CompositionHookInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

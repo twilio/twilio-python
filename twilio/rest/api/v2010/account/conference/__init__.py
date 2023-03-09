@@ -90,7 +90,7 @@ class ConferenceList(ListResource):
 
     async def stream_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, date_updated=values.unset, date_updated_before=values.unset, date_updated_after=values.unset, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ConferenceInstance records from the API as a generator stream.
+        Asynchronously streams ConferenceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -126,7 +126,7 @@ class ConferenceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, date_updated=values.unset, date_updated_before=values.unset, date_updated_after=values.unset, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -167,7 +167,7 @@ class ConferenceList(ListResource):
 
     async def list_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, date_updated=values.unset, date_updated_before=values.unset, date_updated_after=values.unset, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ConferenceInstance records from the API as a list.
+        Asynchronously lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -241,7 +241,7 @@ class ConferenceList(ListResource):
 
     async def page_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, date_updated=values.unset, date_updated_before=values.unset, date_updated_after=values.unset, friendly_name=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ConferenceInstance records from the API.
+        Asynchronously retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
         
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
@@ -294,7 +294,7 @@ class ConferenceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ConferenceInstance records from the API.
+        Asynchronously retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -472,7 +472,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A string that you assigned to describe this conference room.
+        :returns: A string that you assigned to describe this conference room. Maxiumum length is 128 characters.
         :rtype: str
         """
         return self._properties['friendly_name']
@@ -635,6 +635,7 @@ class ConferenceContext(InstanceContext):
         self._participants = None
         self._recordings = None
     
+    
     def fetch(self):
         """
         Fetch the ConferenceInstance
@@ -653,7 +654,27 @@ class ConferenceContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ConferenceInstance
         
+
+        :returns: The fetched ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status=values.unset, announce_url=values.unset, announce_method=values.unset):
         """
         Update the ConferenceInstance
@@ -680,7 +701,34 @@ class ConferenceContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status=values.unset, announce_url=values.unset, announce_method=values.unset):
+        """
+        Asynchronous coroutine to update the ConferenceInstance
         
+        :params ConferenceInstance.UpdateStatus status: 
+        :params str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :params str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+
+        :returns: The updated ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'AnnounceUrl': announce_url,
+            'AnnounceMethod': announce_method,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def participants(self):

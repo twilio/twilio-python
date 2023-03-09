@@ -70,7 +70,7 @@ class SubscriptionList(ListResource):
 
     async def create_async(self, description, sink_sid, types):
         """
-        Asynchronous coroutine to create the SubscriptionInstance
+        Asynchronously create the SubscriptionInstance
 
         :param str description: A human readable description for the Subscription **This value should not contain PII.**
         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
@@ -82,7 +82,7 @@ class SubscriptionList(ListResource):
         data = values.of({ 
             'Description': description,
             'SinkSid': sink_sid,
-            'Types': serialize.map(types, lambda e: e),
+            'Types': serialize.map(types, lambda e: serialize.object(e)),
         })
         
         payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
@@ -118,7 +118,7 @@ class SubscriptionList(ListResource):
 
     async def stream_async(self, sink_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SubscriptionInstance records from the API as a generator stream.
+        Asynchronously streams SubscriptionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -140,7 +140,7 @@ class SubscriptionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, sink_sid=values.unset, limit=None, page_size=None):
         """
@@ -167,7 +167,7 @@ class SubscriptionList(ListResource):
 
     async def list_async(self, sink_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SubscriptionInstance records from the API as a list.
+        Asynchronously lists SubscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -213,7 +213,7 @@ class SubscriptionList(ListResource):
 
     async def page_async(self, sink_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SubscriptionInstance records from the API.
+        Asynchronously retrieve a single page of SubscriptionInstance records from the API.
         Request is executed immediately
         
         :param str sink_sid: The SID of the sink that the list of Subscriptions should be filtered by.
@@ -252,7 +252,7 @@ class SubscriptionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SubscriptionInstance records from the API.
+        Asynchronously retrieve a specific page of SubscriptionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -554,6 +554,7 @@ class SubscriptionContext(InstanceContext):
         
         self._subscribed_events = None
     
+    
     def delete(self):
         """
         Deletes the SubscriptionInstance
@@ -563,7 +564,18 @@ class SubscriptionContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SubscriptionInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the SubscriptionInstance
@@ -581,7 +593,26 @@ class SubscriptionContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SubscriptionInstance
         
+
+        :returns: The fetched SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SubscriptionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, description=values.unset, sink_sid=values.unset):
         """
         Update the SubscriptionInstance
@@ -605,7 +636,31 @@ class SubscriptionContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, description=values.unset, sink_sid=values.unset):
+        """
+        Asynchronous coroutine to update the SubscriptionInstance
         
+        :params str description: A human readable description for the Subscription.
+        :params str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+
+        :returns: The updated SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        data = values.of({ 
+            'Description': description,
+            'SinkSid': sink_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SubscriptionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def subscribed_events(self):

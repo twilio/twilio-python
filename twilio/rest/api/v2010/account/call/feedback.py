@@ -244,6 +244,7 @@ class FeedbackContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the FeedbackInstance
@@ -262,7 +263,27 @@ class FeedbackContext(InstanceContext):
             call_sid=self._solution['call_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FeedbackInstance
         
+
+        :returns: The fetched FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            
+        )
+    
+    
     def update(self, quality_score=values.unset, issue=values.unset):
         """
         Update the FeedbackInstance
@@ -287,7 +308,32 @@ class FeedbackContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             call_sid=self._solution['call_sid']
         )
+
+    async def update_async(self, quality_score=values.unset, issue=values.unset):
+        """
+        Asynchronous coroutine to update the FeedbackInstance
         
+        :params int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
+        :params list[FeedbackInstance.Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+
+        :returns: The updated FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        """
+        data = values.of({ 
+            'QualityScore': quality_score,
+            'Issue': serialize.map(issue, lambda e: e),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid']
+        )
+    
     
     def __repr__(self):
         """

@@ -211,6 +211,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         self._uri = '/Attempts/Summary'.format(**self._solution)
         
     
+    
     def fetch(self, verify_service_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, country=values.unset, channel=values.unset, destination_prefix=values.unset):
         """
         Fetch the VerificationAttemptsSummaryInstance
@@ -242,7 +243,39 @@ class VerificationAttemptsSummaryContext(InstanceContext):
             payload,
             
         )
+
+    async def fetch_async(self, verify_service_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, country=values.unset, channel=values.unset, destination_prefix=values.unset):
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance
         
+        :params str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :params VerificationAttemptsSummaryInstance.Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+
+        :returns: The fetched VerificationAttemptsSummaryInstance
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
+        """
+        
+        data = values.of({ 
+            'VerifyServiceSid': verify_service_sid,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'Country': country,
+            'Channel': channel,
+            'DestinationPrefix': destination_prefix,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return VerificationAttemptsSummaryInstance(
+            self._version,
+            payload,
+            
+        )
+    
     
     def __repr__(self):
         """

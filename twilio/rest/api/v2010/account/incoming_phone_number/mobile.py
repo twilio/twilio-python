@@ -107,7 +107,7 @@ class MobileList(ListResource):
 
     async def create_async(self, phone_number, api_version=values.unset, friendly_name=values.unset, sms_application_sid=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_application_sid=values.unset, voice_caller_id_lookup=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset, identity_sid=values.unset, address_sid=values.unset, emergency_status=values.unset, emergency_address_sid=values.unset, trunk_sid=values.unset, voice_receive_mode=values.unset, bundle_sid=values.unset):
         """
-        Asynchronous coroutine to create the MobileInstance
+        Asynchronously create the MobileInstance
 
         :param str phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
         :param str api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
@@ -201,7 +201,7 @@ class MobileList(ListResource):
 
     async def stream_async(self, beta=values.unset, friendly_name=values.unset, phone_number=values.unset, origin=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams MobileInstance records from the API as a generator stream.
+        Asynchronously streams MobileInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -229,7 +229,7 @@ class MobileList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, beta=values.unset, friendly_name=values.unset, phone_number=values.unset, origin=values.unset, limit=None, page_size=None):
         """
@@ -262,7 +262,7 @@ class MobileList(ListResource):
 
     async def list_async(self, beta=values.unset, friendly_name=values.unset, phone_number=values.unset, origin=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists MobileInstance records from the API as a list.
+        Asynchronously lists MobileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -320,7 +320,7 @@ class MobileList(ListResource):
 
     async def page_async(self, beta=values.unset, friendly_name=values.unset, phone_number=values.unset, origin=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of MobileInstance records from the API.
+        Asynchronously retrieve a single page of MobileInstance records from the API.
         Request is executed immediately
         
         :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
@@ -365,7 +365,7 @@ class MobileList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of MobileInstance records from the API.
+        Asynchronously retrieve a specific page of MobileInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

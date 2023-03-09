@@ -63,7 +63,7 @@ class NewSigningKeyList(ListResource):
 
     async def create_async(self, friendly_name=values.unset):
         """
-        Asynchronous coroutine to create the NewSigningKeyInstance
+        Asynchronously create the NewSigningKeyInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         

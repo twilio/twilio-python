@@ -71,7 +71,7 @@ class FlowRevisionList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams FlowRevisionInstance records from the API as a generator stream.
+        Asynchronously streams FlowRevisionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -91,7 +91,7 @@ class FlowRevisionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -116,7 +116,7 @@ class FlowRevisionList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists FlowRevisionInstance records from the API as a list.
+        Asynchronously lists FlowRevisionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -158,7 +158,7 @@ class FlowRevisionList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of FlowRevisionInstance records from the API.
+        Asynchronously retrieve a single page of FlowRevisionInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -195,7 +195,7 @@ class FlowRevisionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of FlowRevisionInstance records from the API.
+        Asynchronously retrieve a specific page of FlowRevisionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -477,6 +477,7 @@ class FlowRevisionContext(InstanceContext):
         self._uri = '/Flows/{sid}/Revisions/{revision}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the FlowRevisionInstance
@@ -495,7 +496,26 @@ class FlowRevisionContext(InstanceContext):
             revision=self._solution['revision'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FlowRevisionInstance
         
+
+        :returns: The fetched FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FlowRevisionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            revision=self._solution['revision'],
+            
+        )
+    
     
     def __repr__(self):
         """

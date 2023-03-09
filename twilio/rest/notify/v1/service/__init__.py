@@ -93,7 +93,7 @@ class ServiceList(ListResource):
 
     async def create_async(self, friendly_name=values.unset, apn_credential_sid=values.unset, gcm_credential_sid=values.unset, messaging_service_sid=values.unset, facebook_messenger_page_id=values.unset, default_apn_notification_protocol_version=values.unset, default_gcm_notification_protocol_version=values.unset, fcm_credential_sid=values.unset, default_fcm_notification_protocol_version=values.unset, log_enabled=values.unset, alexa_skill_id=values.unset, default_alexa_notification_protocol_version=values.unset, delivery_callback_url=values.unset, delivery_callback_enabled=values.unset):
         """
-        Asynchronous coroutine to create the ServiceInstance
+        Asynchronously create the ServiceInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
@@ -163,7 +163,7 @@ class ServiceList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ServiceInstance records from the API as a generator stream.
+        Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -185,7 +185,7 @@ class ServiceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -212,7 +212,7 @@ class ServiceList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ServiceInstance records from the API as a list.
+        Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -258,7 +258,7 @@ class ServiceList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ServiceInstance records from the API.
+        Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The string that identifies the Service resources to read.
@@ -297,7 +297,7 @@ class ServiceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ServiceInstance records from the API.
+        Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -742,6 +742,7 @@ class ServiceContext(InstanceContext):
         self._bindings = None
         self._notifications = None
     
+    
     def delete(self):
         """
         Deletes the ServiceInstance
@@ -751,7 +752,18 @@ class ServiceContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ServiceInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ServiceInstance
@@ -769,7 +781,26 @@ class ServiceContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ServiceInstance
         
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, apn_credential_sid=values.unset, gcm_credential_sid=values.unset, messaging_service_sid=values.unset, facebook_messenger_page_id=values.unset, default_apn_notification_protocol_version=values.unset, default_gcm_notification_protocol_version=values.unset, fcm_credential_sid=values.unset, default_fcm_notification_protocol_version=values.unset, log_enabled=values.unset, alexa_skill_id=values.unset, default_alexa_notification_protocol_version=values.unset, delivery_callback_url=values.unset, delivery_callback_enabled=values.unset):
         """
         Update the ServiceInstance
@@ -817,7 +848,55 @@ class ServiceContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, apn_credential_sid=values.unset, gcm_credential_sid=values.unset, messaging_service_sid=values.unset, facebook_messenger_page_id=values.unset, default_apn_notification_protocol_version=values.unset, default_gcm_notification_protocol_version=values.unset, fcm_credential_sid=values.unset, default_fcm_notification_protocol_version=values.unset, log_enabled=values.unset, alexa_skill_id=values.unset, default_alexa_notification_protocol_version=values.unset, delivery_callback_url=values.unset, delivery_callback_enabled=values.unset):
+        """
+        Asynchronous coroutine to update the ServiceInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
+        :params str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
+        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :params str facebook_messenger_page_id: Deprecated.
+        :params str default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :params str default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :params str fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
+        :params str default_fcm_notification_protocol_version: The protocol version to use for sending FCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
+        :params bool log_enabled: Whether to log notifications. Can be: `true` or `false` and the default is `true`.
+        :params str alexa_skill_id: Deprecated.
+        :params str default_alexa_notification_protocol_version: Deprecated.
+        :params str delivery_callback_url: URL to send delivery status callback.
+        :params bool delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.notify.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ApnCredentialSid': apn_credential_sid,
+            'GcmCredentialSid': gcm_credential_sid,
+            'MessagingServiceSid': messaging_service_sid,
+            'FacebookMessengerPageId': facebook_messenger_page_id,
+            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
+            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
+            'FcmCredentialSid': fcm_credential_sid,
+            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
+            'LogEnabled': log_enabled,
+            'AlexaSkillId': alexa_skill_id,
+            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
+            'DeliveryCallbackUrl': delivery_callback_url,
+            'DeliveryCallbackEnabled': delivery_callback_enabled,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def bindings(self):

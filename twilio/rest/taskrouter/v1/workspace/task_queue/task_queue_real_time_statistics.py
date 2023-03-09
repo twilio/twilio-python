@@ -282,6 +282,7 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/RealTimeStatistics'.format(**self._solution)
         
     
+    
     def fetch(self, task_channel=values.unset):
         """
         Fetch the TaskQueueRealTimeStatisticsInstance
@@ -305,7 +306,31 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
             task_queue_sid=self._solution['task_queue_sid'],
             
         )
+
+    async def fetch_async(self, task_channel=values.unset):
+        """
+        Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance
         
+        :params str task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched TaskQueueRealTimeStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'TaskChannel': task_channel,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return TaskQueueRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            task_queue_sid=self._solution['task_queue_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

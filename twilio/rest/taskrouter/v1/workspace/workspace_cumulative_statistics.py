@@ -350,6 +350,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/CumulativeStatistics'.format(**self._solution)
         
     
+    
     def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset):
         """
         Fetch the WorkspaceCumulativeStatisticsInstance
@@ -380,7 +381,38 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
             workspace_sid=self._solution['workspace_sid'],
             
         )
+
+    async def fetch_async(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset):
+        """
+        Asynchronous coroutine to fetch the WorkspaceCumulativeStatisticsInstance
         
+        :params datetime end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :params str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA. TaskRouter will calculate statistics on up to 10,000 Tasks for any given threshold.
+
+        :returns: The fetched WorkspaceCumulativeStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return WorkspaceCumulativeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

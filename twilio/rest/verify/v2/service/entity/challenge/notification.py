@@ -65,7 +65,7 @@ class NotificationList(ListResource):
 
     async def create_async(self, ttl=values.unset):
         """
-        Asynchronous coroutine to create the NotificationInstance
+        Asynchronously create the NotificationInstance
 
         :param int ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
         

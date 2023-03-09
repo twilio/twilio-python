@@ -78,7 +78,7 @@ class TriggerList(ListResource):
 
     async def create_async(self, callback_url, trigger_value, usage_category, callback_method=values.unset, friendly_name=values.unset, recurring=values.unset, trigger_by=values.unset):
         """
-        Asynchronous coroutine to create the TriggerInstance
+        Asynchronously create the TriggerInstance
 
         :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
@@ -138,7 +138,7 @@ class TriggerList(ListResource):
 
     async def stream_async(self, recurring=values.unset, trigger_by=values.unset, usage_category=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams TriggerInstance records from the API as a generator stream.
+        Asynchronously streams TriggerInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -164,7 +164,7 @@ class TriggerList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, recurring=values.unset, trigger_by=values.unset, usage_category=values.unset, limit=None, page_size=None):
         """
@@ -195,7 +195,7 @@ class TriggerList(ListResource):
 
     async def list_async(self, recurring=values.unset, trigger_by=values.unset, usage_category=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists TriggerInstance records from the API as a list.
+        Asynchronously lists TriggerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -249,7 +249,7 @@ class TriggerList(ListResource):
 
     async def page_async(self, recurring=values.unset, trigger_by=values.unset, usage_category=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of TriggerInstance records from the API.
+        Asynchronously retrieve a single page of TriggerInstance records from the API.
         Request is executed immediately
         
         :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
@@ -292,7 +292,7 @@ class TriggerList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of TriggerInstance records from the API.
+        Asynchronously retrieve a specific page of TriggerInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -917,6 +917,7 @@ class TriggerContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Usage/Triggers/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the TriggerInstance
@@ -926,7 +927,18 @@ class TriggerContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the TriggerInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the TriggerInstance
@@ -945,7 +957,27 @@ class TriggerContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TriggerInstance
         
+
+        :returns: The fetched TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return TriggerInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset):
         """
         Update the TriggerInstance
@@ -972,7 +1004,34 @@ class TriggerContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset):
+        """
+        Asynchronous coroutine to update the TriggerInstance
         
+        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
+        :params str callback_url: The URL we should call using `callback_method` when the trigger fires.
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: The updated TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        data = values.of({ 
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return TriggerInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

@@ -80,7 +80,7 @@ class CompositionList(ListResource):
 
     async def create_async(self, room_sid, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, resolution=values.unset, format=values.unset, status_callback=values.unset, status_callback_method=values.unset, trim=values.unset):
         """
-        Asynchronous coroutine to create the CompositionInstance
+        Asynchronously create the CompositionInstance
 
         :param str room_sid: The SID of the Group Room with the media tracks to be used as composition sources.
         :param object video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
@@ -146,7 +146,7 @@ class CompositionList(ListResource):
 
     async def stream_async(self, status=values.unset, date_created_after=values.unset, date_created_before=values.unset, room_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CompositionInstance records from the API as a generator stream.
+        Asynchronously streams CompositionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -174,7 +174,7 @@ class CompositionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, date_created_after=values.unset, date_created_before=values.unset, room_sid=values.unset, limit=None, page_size=None):
         """
@@ -207,7 +207,7 @@ class CompositionList(ListResource):
 
     async def list_async(self, status=values.unset, date_created_after=values.unset, date_created_before=values.unset, room_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CompositionInstance records from the API as a list.
+        Asynchronously lists CompositionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -265,7 +265,7 @@ class CompositionList(ListResource):
 
     async def page_async(self, status=values.unset, date_created_after=values.unset, date_created_before=values.unset, room_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CompositionInstance records from the API.
+        Asynchronously retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
         
         :param CompositionInstance.Status status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
@@ -310,7 +310,7 @@ class CompositionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CompositionInstance records from the API.
+        Asynchronously retrieve a specific page of CompositionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -702,6 +702,7 @@ class CompositionContext(InstanceContext):
         self._uri = '/Compositions/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the CompositionInstance
@@ -711,7 +712,18 @@ class CompositionContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CompositionInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the CompositionInstance
@@ -729,7 +741,25 @@ class CompositionContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CompositionInstance
         
+
+        :returns: The fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CompositionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

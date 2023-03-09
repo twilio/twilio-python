@@ -67,7 +67,7 @@ class AssignedAddOnList(ListResource):
 
     async def create_async(self, installed_add_on_sid):
         """
-        Asynchronous coroutine to create the AssignedAddOnInstance
+        Asynchronously create the AssignedAddOnInstance
 
         :param str installed_add_on_sid: The SID that identifies the Add-on installation.
         
@@ -109,7 +109,7 @@ class AssignedAddOnList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AssignedAddOnInstance records from the API as a generator stream.
+        Asynchronously streams AssignedAddOnInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -129,7 +129,7 @@ class AssignedAddOnList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -154,7 +154,7 @@ class AssignedAddOnList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AssignedAddOnInstance records from the API as a list.
+        Asynchronously lists AssignedAddOnInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -196,7 +196,7 @@ class AssignedAddOnList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AssignedAddOnInstance records from the API.
+        Asynchronously retrieve a single page of AssignedAddOnInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -233,7 +233,7 @@ class AssignedAddOnList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AssignedAddOnInstance records from the API.
+        Asynchronously retrieve a specific page of AssignedAddOnInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -539,6 +539,7 @@ class AssignedAddOnContext(InstanceContext):
         
         self._extensions = None
     
+    
     def delete(self):
         """
         Deletes the AssignedAddOnInstance
@@ -548,7 +549,18 @@ class AssignedAddOnContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AssignedAddOnInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the AssignedAddOnInstance
@@ -568,7 +580,27 @@ class AssignedAddOnContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssignedAddOnInstance
         
+
+        :returns: The fetched AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            resource_sid=self._solution['resource_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     @property
     def extensions(self):

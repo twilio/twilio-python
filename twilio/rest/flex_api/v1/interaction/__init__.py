@@ -66,7 +66,7 @@ class InteractionList(ListResource):
 
     async def create_async(self, channel, routing):
         """
-        Asynchronous coroutine to create the InteractionInstance
+        Asynchronously create the InteractionInstance
 
         :param object channel: The Interaction's channel.
         :param object routing: The Interaction's routing logic.
@@ -250,6 +250,7 @@ class InteractionContext(InstanceContext):
         
         self._channels = None
     
+    
     def fetch(self):
         """
         Fetch the InteractionInstance
@@ -267,7 +268,25 @@ class InteractionContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the InteractionInstance
         
+
+        :returns: The fetched InteractionInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return InteractionInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     @property
     def channels(self):

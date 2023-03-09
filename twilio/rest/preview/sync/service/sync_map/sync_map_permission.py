@@ -74,7 +74,7 @@ class SyncMapPermissionList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SyncMapPermissionInstance records from the API as a generator stream.
+        Asynchronously streams SyncMapPermissionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -94,7 +94,7 @@ class SyncMapPermissionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -119,7 +119,7 @@ class SyncMapPermissionList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SyncMapPermissionInstance records from the API as a list.
+        Asynchronously lists SyncMapPermissionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -161,7 +161,7 @@ class SyncMapPermissionList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SyncMapPermissionInstance records from the API.
+        Asynchronously retrieve a single page of SyncMapPermissionInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -198,7 +198,7 @@ class SyncMapPermissionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SyncMapPermissionInstance records from the API.
+        Asynchronously retrieve a specific page of SyncMapPermissionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -493,6 +493,7 @@ class SyncMapPermissionContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Maps/{map_sid}/Permissions/{identity}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the SyncMapPermissionInstance
@@ -502,7 +503,18 @@ class SyncMapPermissionContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SyncMapPermissionInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the SyncMapPermissionInstance
@@ -522,7 +534,28 @@ class SyncMapPermissionContext(InstanceContext):
             identity=self._solution['identity'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SyncMapPermissionInstance
         
+
+        :returns: The fetched SyncMapPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SyncMapPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            identity=self._solution['identity'],
+            
+        )
+    
+    
     def update(self, read, write, manage):
         """
         Update the SyncMapPermissionInstance
@@ -550,7 +583,35 @@ class SyncMapPermissionContext(InstanceContext):
             map_sid=self._solution['map_sid'],
             identity=self._solution['identity']
         )
+
+    async def update_async(self, read, write, manage):
+        """
+        Asynchronous coroutine to update the SyncMapPermissionInstance
         
+        :params bool read: Boolean flag specifying whether the identity can read the Sync Map.
+        :params bool write: Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
+        :params bool manage: Boolean flag specifying whether the identity can delete the Sync Map.
+
+        :returns: The updated SyncMapPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance
+        """
+        data = values.of({ 
+            'Read': read,
+            'Write': write,
+            'Manage': manage,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SyncMapPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            identity=self._solution['identity']
+        )
+    
     
     def __repr__(self):
         """

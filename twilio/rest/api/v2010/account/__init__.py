@@ -88,7 +88,7 @@ class AccountList(ListResource):
 
     async def create_async(self, friendly_name=values.unset):
         """
-        Asynchronous coroutine to create the AccountInstance
+        Asynchronously create the AccountInstance
 
         :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
         
@@ -134,7 +134,7 @@ class AccountList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AccountInstance records from the API as a generator stream.
+        Asynchronously streams AccountInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -158,7 +158,7 @@ class AccountList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -187,7 +187,7 @@ class AccountList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AccountInstance records from the API as a list.
+        Asynchronously lists AccountInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -237,7 +237,7 @@ class AccountList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AccountInstance records from the API.
+        Asynchronously retrieve a single page of AccountInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
@@ -278,7 +278,7 @@ class AccountList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AccountInstance records from the API.
+        Asynchronously retrieve a specific page of AccountInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -838,6 +838,7 @@ class AccountContext(InstanceContext):
         self._usage = None
         self._validation_requests = None
     
+    
     def fetch(self):
         """
         Fetch the AccountInstance
@@ -855,7 +856,26 @@ class AccountContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AccountInstance
         
+
+        :returns: The fetched AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AccountInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, status=values.unset):
         """
         Update the AccountInstance
@@ -879,7 +899,31 @@ class AccountContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, status=values.unset):
+        """
+        Asynchronous coroutine to update the AccountInstance
         
+        :params str friendly_name: Update the human-readable description of this Account
+        :params AccountInstance.Status status: 
+
+        :returns: The updated AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AccountInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def addresses(self):

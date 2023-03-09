@@ -79,7 +79,7 @@ class WebhookList(ListResource):
 
     async def create_async(self, target, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_replay_after=values.unset):
         """
-        Asynchronous coroutine to create the WebhookInstance
+        Asynchronously create the WebhookInstance
 
         :param WebhookInstance.Target target: 
         :param str configuration_url: The absolute url the webhook request should be sent to.
@@ -133,7 +133,7 @@ class WebhookList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams WebhookInstance records from the API as a generator stream.
+        Asynchronously streams WebhookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -153,7 +153,7 @@ class WebhookList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -178,7 +178,7 @@ class WebhookList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists WebhookInstance records from the API as a list.
+        Asynchronously lists WebhookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -220,7 +220,7 @@ class WebhookList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of WebhookInstance records from the API.
+        Asynchronously retrieve a single page of WebhookInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -257,7 +257,7 @@ class WebhookList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of WebhookInstance records from the API.
+        Asynchronously retrieve a specific page of WebhookInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -567,6 +567,7 @@ class WebhookContext(InstanceContext):
         self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Webhooks/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the WebhookInstance
@@ -576,7 +577,18 @@ class WebhookContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the WebhookInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the WebhookInstance
@@ -596,7 +608,28 @@ class WebhookContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WebhookInstance
         
+
+        :returns: The fetched WebhookInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset):
         """
         Update the WebhookInstance
@@ -628,7 +661,39 @@ class WebhookContext(InstanceContext):
             conversation_sid=self._solution['conversation_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset):
+        """
+        Asynchronous coroutine to update the WebhookInstance
         
+        :params str configuration_url: The absolute url the webhook request should be sent to.
+        :params WebhookInstance.Method configuration_method: 
+        :params list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :params list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :params str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
+
+        :returns: The updated WebhookInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'Configuration.Url': configuration_url,
+            'Configuration.Method': configuration_method,
+            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
+            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
+            'Configuration.FlowSid': configuration_flow_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

@@ -77,7 +77,7 @@ class WorkflowList(ListResource):
 
     async def create_async(self, friendly_name, configuration, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, task_reservation_timeout=values.unset):
         """
-        Asynchronous coroutine to create the WorkflowInstance
+        Asynchronously create the WorkflowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
         :param str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
@@ -129,7 +129,7 @@ class WorkflowList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams WorkflowInstance records from the API as a generator stream.
+        Asynchronously streams WorkflowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -151,7 +151,7 @@ class WorkflowList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -178,7 +178,7 @@ class WorkflowList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists WorkflowInstance records from the API as a list.
+        Asynchronously lists WorkflowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -224,7 +224,7 @@ class WorkflowList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of WorkflowInstance records from the API.
+        Asynchronously retrieve a single page of WorkflowInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The `friendly_name` of the Workflow resources to read.
@@ -263,7 +263,7 @@ class WorkflowList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of WorkflowInstance records from the API.
+        Asynchronously retrieve a specific page of WorkflowInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -642,6 +642,7 @@ class WorkflowContext(InstanceContext):
         self._real_time_statistics = None
         self._statistics = None
     
+    
     def delete(self):
         """
         Deletes the WorkflowInstance
@@ -651,7 +652,18 @@ class WorkflowContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the WorkflowInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the WorkflowInstance
@@ -670,7 +682,27 @@ class WorkflowContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WorkflowInstance
         
+
+        :returns: The fetched WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, configuration=values.unset, task_reservation_timeout=values.unset, re_evaluate_tasks=values.unset):
         """
         Update the WorkflowInstance
@@ -703,7 +735,40 @@ class WorkflowContext(InstanceContext):
             workspace_sid=self._solution['workspace_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, configuration=values.unset, task_reservation_timeout=values.unset, re_evaluate_tasks=values.unset):
+        """
+        Asynchronous coroutine to update the WorkflowInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
+        :params str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+        :params str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
+        :params str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+        :params int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+        :params str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
+
+        :returns: The updated WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'AssignmentCallbackUrl': assignment_callback_url,
+            'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
+            'Configuration': configuration,
+            'TaskReservationTimeout': task_reservation_timeout,
+            'ReEvaluateTasks': re_evaluate_tasks,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return WorkflowInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def cumulative_statistics(self):

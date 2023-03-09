@@ -66,7 +66,7 @@ class BrandVettingList(ListResource):
 
     async def create_async(self, vetting_provider, vetting_id=values.unset):
         """
-        Asynchronous coroutine to create the BrandVettingInstance
+        Asynchronously create the BrandVettingInstance
 
         :param BrandVettingInstance.VettingProvider vetting_provider: 
         :param str vetting_id: The unique ID of the vetting
@@ -112,7 +112,7 @@ class BrandVettingList(ListResource):
 
     async def stream_async(self, vetting_provider=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams BrandVettingInstance records from the API as a generator stream.
+        Asynchronously streams BrandVettingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -134,7 +134,7 @@ class BrandVettingList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, vetting_provider=values.unset, limit=None, page_size=None):
         """
@@ -161,7 +161,7 @@ class BrandVettingList(ListResource):
 
     async def list_async(self, vetting_provider=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists BrandVettingInstance records from the API as a list.
+        Asynchronously lists BrandVettingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -207,7 +207,7 @@ class BrandVettingList(ListResource):
 
     async def page_async(self, vetting_provider=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of BrandVettingInstance records from the API.
+        Asynchronously retrieve a single page of BrandVettingInstance records from the API.
         Request is executed immediately
         
         :param BrandVettingInstance.VettingProvider vetting_provider: The third-party provider of the vettings to read
@@ -246,7 +246,7 @@ class BrandVettingList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of BrandVettingInstance records from the API.
+        Asynchronously retrieve a specific page of BrandVettingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -511,6 +511,7 @@ class BrandVettingContext(InstanceContext):
         self._uri = '/a2p/BrandRegistrations/{brand_sid}/Vettings/{brand_vetting_sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the BrandVettingInstance
@@ -529,7 +530,26 @@ class BrandVettingContext(InstanceContext):
             brand_vetting_sid=self._solution['brand_vetting_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BrandVettingInstance
         
+
+        :returns: The fetched BrandVettingInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return BrandVettingInstance(
+            self._version,
+            payload,
+            brand_sid=self._solution['brand_sid'],
+            brand_vetting_sid=self._solution['brand_vetting_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

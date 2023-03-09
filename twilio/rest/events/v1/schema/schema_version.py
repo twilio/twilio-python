@@ -71,7 +71,7 @@ class SchemaVersionList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SchemaVersionInstance records from the API as a generator stream.
+        Asynchronously streams SchemaVersionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -91,7 +91,7 @@ class SchemaVersionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -116,7 +116,7 @@ class SchemaVersionList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SchemaVersionInstance records from the API as a list.
+        Asynchronously lists SchemaVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -158,7 +158,7 @@ class SchemaVersionList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SchemaVersionInstance records from the API.
+        Asynchronously retrieve a single page of SchemaVersionInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -195,7 +195,7 @@ class SchemaVersionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SchemaVersionInstance records from the API.
+        Asynchronously retrieve a specific page of SchemaVersionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -410,6 +410,7 @@ class SchemaVersionContext(InstanceContext):
         self._uri = '/Schemas/{id}/Versions/{schema_version}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the SchemaVersionInstance
@@ -428,7 +429,26 @@ class SchemaVersionContext(InstanceContext):
             schema_version=self._solution['schema_version'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SchemaVersionInstance
         
+
+        :returns: The fetched SchemaVersionInstance
+        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SchemaVersionInstance(
+            self._version,
+            payload,
+            id=self._solution['id'],
+            schema_version=self._solution['schema_version'],
+            
+        )
+    
     
     def __repr__(self):
         """

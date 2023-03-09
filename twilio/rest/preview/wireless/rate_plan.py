@@ -83,7 +83,7 @@ class RatePlanList(ListResource):
 
     async def create_async(self, unique_name=values.unset, friendly_name=values.unset, data_enabled=values.unset, data_limit=values.unset, data_metering=values.unset, messaging_enabled=values.unset, voice_enabled=values.unset, commands_enabled=values.unset, national_roaming_enabled=values.unset, international_roaming=values.unset):
         """
-        Asynchronous coroutine to create the RatePlanInstance
+        Asynchronously create the RatePlanInstance
 
         :param str unique_name: 
         :param str friendly_name: 
@@ -143,7 +143,7 @@ class RatePlanList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams RatePlanInstance records from the API as a generator stream.
+        Asynchronously streams RatePlanInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -163,7 +163,7 @@ class RatePlanList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -188,7 +188,7 @@ class RatePlanList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists RatePlanInstance records from the API as a list.
+        Asynchronously lists RatePlanInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -230,7 +230,7 @@ class RatePlanList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of RatePlanInstance records from the API.
+        Asynchronously retrieve a single page of RatePlanInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -267,7 +267,7 @@ class RatePlanList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of RatePlanInstance records from the API.
+        Asynchronously retrieve a specific page of RatePlanInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -612,6 +612,7 @@ class RatePlanContext(InstanceContext):
         self._uri = '/RatePlans/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the RatePlanInstance
@@ -621,7 +622,18 @@ class RatePlanContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the RatePlanInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the RatePlanInstance
@@ -639,7 +651,26 @@ class RatePlanContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RatePlanInstance
         
+
+        :returns: The fetched RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return RatePlanInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, unique_name=values.unset, friendly_name=values.unset):
         """
         Update the RatePlanInstance
@@ -663,7 +694,31 @@ class RatePlanContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, unique_name=values.unset, friendly_name=values.unset):
+        """
+        Asynchronous coroutine to update the RatePlanInstance
         
+        :params str unique_name: 
+        :params str friendly_name: 
+
+        :returns: The updated RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return RatePlanInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

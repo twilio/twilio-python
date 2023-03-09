@@ -90,7 +90,7 @@ class NewFactorList(ListResource):
 
     async def create_async(self, friendly_name, factor_type, binding_alg=values.unset, binding_public_key=values.unset, config_app_id=values.unset, config_notification_platform=values.unset, config_notification_token=values.unset, config_sdk_version=values.unset, binding_secret=values.unset, config_time_step=values.unset, config_skew=values.unset, config_code_length=values.unset, config_alg=values.unset, metadata=values.unset):
         """
-        Asynchronous coroutine to create the NewFactorInstance
+        Asynchronously create the NewFactorInstance
 
         :param str friendly_name: The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
         :param NewFactorInstance.FactorTypes factor_type: 

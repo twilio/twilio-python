@@ -85,7 +85,7 @@ class WorkspaceList(ListResource):
 
     async def create_async(self, friendly_name, event_callback_url=values.unset, events_filter=values.unset, multi_task_enabled=values.unset, template=values.unset, prioritize_queue_order=values.unset):
         """
-        Asynchronous coroutine to create the WorkspaceInstance
+        Asynchronously create the WorkspaceInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
         :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
@@ -139,7 +139,7 @@ class WorkspaceList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams WorkspaceInstance records from the API as a generator stream.
+        Asynchronously streams WorkspaceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -161,7 +161,7 @@ class WorkspaceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -188,7 +188,7 @@ class WorkspaceList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists WorkspaceInstance records from the API as a list.
+        Asynchronously lists WorkspaceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -234,7 +234,7 @@ class WorkspaceList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of WorkspaceInstance records from the API.
+        Asynchronously retrieve a single page of WorkspaceInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
@@ -273,7 +273,7 @@ class WorkspaceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of WorkspaceInstance records from the API.
+        Asynchronously retrieve a specific page of WorkspaceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -751,6 +751,7 @@ class WorkspaceContext(InstanceContext):
         self._real_time_statistics = None
         self._statistics = None
     
+    
     def delete(self):
         """
         Deletes the WorkspaceInstance
@@ -760,7 +761,18 @@ class WorkspaceContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the WorkspaceInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the WorkspaceInstance
@@ -778,7 +790,26 @@ class WorkspaceContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WorkspaceInstance
         
+
+        :returns: The fetched WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return WorkspaceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, default_activity_sid=values.unset, event_callback_url=values.unset, events_filter=values.unset, friendly_name=values.unset, multi_task_enabled=values.unset, timeout_activity_sid=values.unset, prioritize_queue_order=values.unset):
         """
         Update the WorkspaceInstance
@@ -812,7 +843,41 @@ class WorkspaceContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, default_activity_sid=values.unset, event_callback_url=values.unset, events_filter=values.unset, friendly_name=values.unset, multi_task_enabled=values.unset, timeout_activity_sid=values.unset, prioritize_queue_order=values.unset):
+        """
+        Asynchronous coroutine to update the WorkspaceInstance
         
+        :params str default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :params str event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :params str events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :params str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :params bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :params str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :params WorkspaceInstance.QueueOrder prioritize_queue_order: 
+
+        :returns: The updated WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        """
+        data = values.of({ 
+            'DefaultActivitySid': default_activity_sid,
+            'EventCallbackUrl': event_callback_url,
+            'EventsFilter': events_filter,
+            'FriendlyName': friendly_name,
+            'MultiTaskEnabled': multi_task_enabled,
+            'TimeoutActivitySid': timeout_activity_sid,
+            'PrioritizeQueueOrder': prioritize_queue_order,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return WorkspaceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def activities(self):

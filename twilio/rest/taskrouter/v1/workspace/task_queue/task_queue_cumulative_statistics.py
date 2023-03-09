@@ -362,6 +362,7 @@ class TaskQueueCumulativeStatisticsContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{task_queue_sid}/CumulativeStatistics'.format(**self._solution)
         
     
+    
     def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset):
         """
         Fetch the TaskQueueCumulativeStatisticsInstance
@@ -393,7 +394,39 @@ class TaskQueueCumulativeStatisticsContext(InstanceContext):
             task_queue_sid=self._solution['task_queue_sid'],
             
         )
+
+    async def fetch_async(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset):
+        """
+        Asynchronous coroutine to fetch the TaskQueueCumulativeStatisticsInstance
         
+        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :params int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :params str split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. TaskRouter will calculate statistics on up to 10,000 Tasks/Reservations for any given threshold.
+
+        :returns: The fetched TaskQueueCumulativeStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics.TaskQueueCumulativeStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return TaskQueueCumulativeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            task_queue_sid=self._solution['task_queue_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

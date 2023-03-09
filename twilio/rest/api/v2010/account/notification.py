@@ -79,7 +79,7 @@ class NotificationList(ListResource):
 
     async def stream_async(self, log=values.unset, message_date=values.unset, message_date_before=values.unset, message_date_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams NotificationInstance records from the API as a generator stream.
+        Asynchronously streams NotificationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -107,7 +107,7 @@ class NotificationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, log=values.unset, message_date=values.unset, message_date_before=values.unset, message_date_after=values.unset, limit=None, page_size=None):
         """
@@ -140,7 +140,7 @@ class NotificationList(ListResource):
 
     async def list_async(self, log=values.unset, message_date=values.unset, message_date_before=values.unset, message_date_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists NotificationInstance records from the API as a list.
+        Asynchronously lists NotificationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -198,7 +198,7 @@ class NotificationList(ListResource):
 
     async def page_async(self, log=values.unset, message_date=values.unset, message_date_before=values.unset, message_date_after=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of NotificationInstance records from the API.
+        Asynchronously retrieve a single page of NotificationInstance records from the API.
         Request is executed immediately
         
         :param int log: Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
@@ -243,7 +243,7 @@ class NotificationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of NotificationInstance records from the API.
+        Asynchronously retrieve a specific page of NotificationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -566,6 +566,7 @@ class NotificationContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Notifications/{sid}.json'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the NotificationInstance
@@ -584,7 +585,26 @@ class NotificationContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the NotificationInstance
         
+
+        :returns: The fetched NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return NotificationInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

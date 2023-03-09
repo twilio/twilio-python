@@ -76,7 +76,7 @@ class ShortCodeList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, short_code=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ShortCodeInstance records from the API as a generator stream.
+        Asynchronously streams ShortCodeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -100,7 +100,7 @@ class ShortCodeList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, short_code=values.unset, limit=None, page_size=None):
         """
@@ -129,7 +129,7 @@ class ShortCodeList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, short_code=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ShortCodeInstance records from the API as a list.
+        Asynchronously lists ShortCodeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -179,7 +179,7 @@ class ShortCodeList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, short_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ShortCodeInstance records from the API.
+        Asynchronously retrieve a single page of ShortCodeInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The string that identifies the ShortCode resources to read.
@@ -220,7 +220,7 @@ class ShortCodeList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ShortCodeInstance records from the API.
+        Asynchronously retrieve a specific page of ShortCodeInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -533,6 +533,7 @@ class ShortCodeContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the ShortCodeInstance
@@ -551,7 +552,27 @@ class ShortCodeContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ShortCodeInstance
         
+
+        :returns: The fetched ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, api_version=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset):
         """
         Update the ShortCodeInstance
@@ -584,7 +605,40 @@ class ShortCodeContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, api_version=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset):
+        """
+        Asynchronous coroutine to update the ShortCodeInstance
         
+        :params str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+        :params str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+        :params str sms_url: The URL we should call when receiving an incoming SMS message to this short code.
+        :params str sms_method: The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+        :params str sms_fallback_url: The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :params str sms_fallback_method: The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
+
+        :returns: The updated ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ApiVersion': api_version,
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

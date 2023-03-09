@@ -75,7 +75,7 @@ class TaskList(ListResource):
 
     async def create_async(self, timeout=values.unset, priority=values.unset, task_channel=values.unset, workflow_sid=values.unset, attributes=values.unset):
         """
-        Asynchronous coroutine to create the TaskInstance
+        Asynchronously create the TaskInstance
 
         :param int timeout: The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
         :param int priority: The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
@@ -143,7 +143,7 @@ class TaskList(ListResource):
 
     async def stream_async(self, priority=values.unset, assignment_status=values.unset, workflow_sid=values.unset, workflow_name=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, evaluate_task_attributes=values.unset, ordering=values.unset, has_addons=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams TaskInstance records from the API as a generator stream.
+        Asynchronously streams TaskInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -181,7 +181,7 @@ class TaskList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, priority=values.unset, assignment_status=values.unset, workflow_sid=values.unset, workflow_name=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, evaluate_task_attributes=values.unset, ordering=values.unset, has_addons=values.unset, limit=None, page_size=None):
         """
@@ -224,7 +224,7 @@ class TaskList(ListResource):
 
     async def list_async(self, priority=values.unset, assignment_status=values.unset, workflow_sid=values.unset, workflow_name=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, evaluate_task_attributes=values.unset, ordering=values.unset, has_addons=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists TaskInstance records from the API as a list.
+        Asynchronously lists TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -302,7 +302,7 @@ class TaskList(ListResource):
 
     async def page_async(self, priority=values.unset, assignment_status=values.unset, workflow_sid=values.unset, workflow_name=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, evaluate_task_attributes=values.unset, ordering=values.unset, has_addons=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of TaskInstance records from the API.
+        Asynchronously retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
         
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
@@ -323,7 +323,7 @@ class TaskList(ListResource):
         """
         data = values.of({ 
             'Priority': priority,
-            'AssignmentStatus': serialize.map(assignment_status),
+            'AssignmentStatus': serialize.map(assignment_status, lambda e: e),
             'WorkflowSid': workflow_sid,
             'WorkflowName': workflow_name,
             'TaskQueueSid': task_queue_sid,
@@ -357,7 +357,7 @@ class TaskList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of TaskInstance records from the API.
+        Asynchronously retrieve a specific page of TaskInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -796,6 +796,7 @@ class TaskContext(InstanceContext):
         
         self._reservations = None
     
+    
     def delete(self, if_match=values.unset):
         """
         Deletes the TaskInstance
@@ -808,7 +809,21 @@ class TaskContext(InstanceContext):
         headers = values.of({'If-Match': if_match, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, if_match=values.unset):
+        """
+        Asynchronous coroutine that deletes the TaskInstance
+
+        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'If-Match': if_match, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self):
         """
         Fetch the TaskInstance
@@ -827,7 +842,27 @@ class TaskContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TaskInstance
         
+
+        :returns: The fetched TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return TaskInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, if_match=values.unset, attributes=values.unset, assignment_status=values.unset, reason=values.unset, priority=values.unset, task_channel=values.unset):
         """
         Update the TaskInstance
@@ -859,7 +894,39 @@ class TaskContext(InstanceContext):
             workspace_sid=self._solution['workspace_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, if_match=values.unset, attributes=values.unset, assignment_status=values.unset, reason=values.unset, priority=values.unset, task_channel=values.unset):
+        """
+        Asynchronous coroutine to update the TaskInstance
         
+        :params str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :params str attributes: The JSON string that describes the custom attributes of the task.
+        :params TaskInstance.Status assignment_status: 
+        :params str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
+        :params int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+        :params str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The updated TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        """
+        data = values.of({ 
+            'Attributes': attributes,
+            'AssignmentStatus': assignment_status,
+            'Reason': reason,
+            'Priority': priority,
+            'TaskChannel': task_channel,
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return TaskInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def reservations(self):

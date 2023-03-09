@@ -63,7 +63,7 @@ class ReplaceItemsList(ListResource):
 
     async def create_async(self, from_bundle_sid):
         """
-        Asynchronous coroutine to create the ReplaceItemsInstance
+        Asynchronously create the ReplaceItemsInstance
 
         :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
         

@@ -64,7 +64,7 @@ class StreamMessageList(ListResource):
 
     async def create_async(self, data):
         """
-        Asynchronous coroutine to create the StreamMessageInstance
+        Asynchronously create the StreamMessageInstance
 
         :param object data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
         

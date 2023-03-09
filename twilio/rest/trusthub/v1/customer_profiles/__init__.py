@@ -74,7 +74,7 @@ class CustomerProfilesList(ListResource):
 
     async def create_async(self, friendly_name, email, policy_sid, status_callback=values.unset):
         """
-        Asynchronous coroutine to create the CustomerProfilesInstance
+        Asynchronously create the CustomerProfilesInstance
 
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
@@ -128,7 +128,7 @@ class CustomerProfilesList(ListResource):
 
     async def stream_async(self, status=values.unset, friendly_name=values.unset, policy_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CustomerProfilesInstance records from the API as a generator stream.
+        Asynchronously streams CustomerProfilesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -154,7 +154,7 @@ class CustomerProfilesList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, friendly_name=values.unset, policy_sid=values.unset, limit=None, page_size=None):
         """
@@ -185,7 +185,7 @@ class CustomerProfilesList(ListResource):
 
     async def list_async(self, status=values.unset, friendly_name=values.unset, policy_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CustomerProfilesInstance records from the API as a list.
+        Asynchronously lists CustomerProfilesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -239,7 +239,7 @@ class CustomerProfilesList(ListResource):
 
     async def page_async(self, status=values.unset, friendly_name=values.unset, policy_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CustomerProfilesInstance records from the API.
+        Asynchronously retrieve a single page of CustomerProfilesInstance records from the API.
         Request is executed immediately
         
         :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
@@ -282,7 +282,7 @@ class CustomerProfilesList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CustomerProfilesInstance records from the API.
+        Asynchronously retrieve a specific page of CustomerProfilesInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -653,6 +653,7 @@ class CustomerProfilesContext(InstanceContext):
         self._customer_profiles_entity_assignments = None
         self._customer_profiles_evaluations = None
     
+    
     def delete(self):
         """
         Deletes the CustomerProfilesInstance
@@ -662,7 +663,18 @@ class CustomerProfilesContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CustomerProfilesInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the CustomerProfilesInstance
@@ -680,7 +692,26 @@ class CustomerProfilesContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CustomerProfilesInstance
         
+
+        :returns: The fetched CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CustomerProfilesInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
         """
         Update the CustomerProfilesInstance
@@ -708,7 +739,35 @@ class CustomerProfilesContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
+        """
+        Asynchronous coroutine to update the CustomerProfilesInstance
         
+        :params CustomerProfilesInstance.Status status: 
+        :params str status_callback: The URL we call to inform your application of status changes.
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params str email: The email address that will receive updates when the Customer-Profile resource changes status.
+
+        :returns: The updated CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'StatusCallback': status_callback,
+            'FriendlyName': friendly_name,
+            'Email': email,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return CustomerProfilesInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def customer_profiles_channel_endpoint_assignment(self):

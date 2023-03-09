@@ -68,7 +68,7 @@ class WebChannelsList(ListResource):
 
     async def create_async(self, address_sid, chat_friendly_name=values.unset, customer_friendly_name=values.unset, pre_engagement_data=values.unset):
         """
-        Asynchronous coroutine to create the WebChannelsInstance
+        Asynchronously create the WebChannelsInstance
 
         :param str address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
         :param str chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.

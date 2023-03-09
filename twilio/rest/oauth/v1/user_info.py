@@ -202,6 +202,7 @@ class UserInfoContext(InstanceContext):
         self._uri = '/userinfo'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the UserInfoInstance
@@ -218,7 +219,24 @@ class UserInfoContext(InstanceContext):
             payload,
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserInfoInstance
         
+
+        :returns: The fetched UserInfoInstance
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return UserInfoInstance(
+            self._version,
+            payload,
+            
+        )
+    
     
     def __repr__(self):
         """

@@ -80,7 +80,7 @@ class FleetList(ListResource):
 
     async def create_async(self, network_access_profile, unique_name=values.unset, data_enabled=values.unset, data_limit=values.unset, ip_commands_url=values.unset, ip_commands_method=values.unset, sms_commands_enabled=values.unset, sms_commands_url=values.unset, sms_commands_method=values.unset):
         """
-        Asynchronous coroutine to create the FleetInstance
+        Asynchronously create the FleetInstance
 
         :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
@@ -140,7 +140,7 @@ class FleetList(ListResource):
 
     async def stream_async(self, network_access_profile=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams FleetInstance records from the API as a generator stream.
+        Asynchronously streams FleetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -162,7 +162,7 @@ class FleetList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, network_access_profile=values.unset, limit=None, page_size=None):
         """
@@ -189,7 +189,7 @@ class FleetList(ListResource):
 
     async def list_async(self, network_access_profile=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists FleetInstance records from the API as a list.
+        Asynchronously lists FleetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -235,7 +235,7 @@ class FleetList(ListResource):
 
     async def page_async(self, network_access_profile=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of FleetInstance records from the API.
+        Asynchronously retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
         
         :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
@@ -274,7 +274,7 @@ class FleetList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of FleetInstance records from the API.
+        Asynchronously retrieve a specific page of FleetInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -619,6 +619,7 @@ class FleetContext(InstanceContext):
         self._uri = '/Fleets/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the FleetInstance
@@ -636,7 +637,26 @@ class FleetContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FleetInstance
         
+
+        :returns: The fetched FleetInstance
+        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, unique_name=values.unset, network_access_profile=values.unset, ip_commands_url=values.unset, ip_commands_method=values.unset, sms_commands_url=values.unset, sms_commands_method=values.unset, data_limit=values.unset):
         """
         Update the FleetInstance
@@ -670,7 +690,41 @@ class FleetContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, unique_name=values.unset, network_access_profile=values.unset, ip_commands_url=values.unset, ip_commands_method=values.unset, sms_commands_url=values.unset, sms_commands_method=values.unset, data_limit=values.unset):
+        """
+        Asynchronous coroutine to update the FleetInstance
         
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :params str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :params str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :params str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :params str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :params str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :params int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+
+        :returns: The updated FleetInstance
+        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'NetworkAccessProfile': network_access_profile,
+            'IpCommandsUrl': ip_commands_url,
+            'IpCommandsMethod': ip_commands_method,
+            'SmsCommandsUrl': sms_commands_url,
+            'SmsCommandsMethod': sms_commands_method,
+            'DataLimit': data_limit,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

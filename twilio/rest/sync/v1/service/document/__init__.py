@@ -71,7 +71,7 @@ class DocumentList(ListResource):
 
     async def create_async(self, unique_name=values.unset, data=values.unset, ttl=values.unset):
         """
-        Asynchronous coroutine to create the DocumentInstance
+        Asynchronously create the DocumentInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the Sync Document
         :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
@@ -117,7 +117,7 @@ class DocumentList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams DocumentInstance records from the API as a generator stream.
+        Asynchronously streams DocumentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -137,7 +137,7 @@ class DocumentList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -162,7 +162,7 @@ class DocumentList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists DocumentInstance records from the API as a list.
+        Asynchronously lists DocumentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -204,7 +204,7 @@ class DocumentList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of DocumentInstance records from the API.
+        Asynchronously retrieve a single page of DocumentInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -241,7 +241,7 @@ class DocumentList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of DocumentInstance records from the API.
+        Asynchronously retrieve a specific page of DocumentInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -583,6 +583,7 @@ class DocumentContext(InstanceContext):
         
         self._document_permissions = None
     
+    
     def delete(self):
         """
         Deletes the DocumentInstance
@@ -592,7 +593,18 @@ class DocumentContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DocumentInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the DocumentInstance
@@ -611,7 +623,27 @@ class DocumentContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DocumentInstance
         
+
+        :returns: The fetched DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, if_match=values.unset, data=values.unset, ttl=values.unset):
         """
         Update the DocumentInstance
@@ -637,7 +669,33 @@ class DocumentContext(InstanceContext):
             service_sid=self._solution['service_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, if_match=values.unset, data=values.unset, ttl=values.unset):
+        """
+        Asynchronous coroutine to update the DocumentInstance
         
+        :params str if_match: The If-Match HTTP request header
+        :params object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :params int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+
+        :returns: The updated DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def document_permissions(self):

@@ -73,7 +73,7 @@ class WorkerChannelList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams WorkerChannelInstance records from the API as a generator stream.
+        Asynchronously streams WorkerChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -93,7 +93,7 @@ class WorkerChannelList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -118,7 +118,7 @@ class WorkerChannelList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists WorkerChannelInstance records from the API as a list.
+        Asynchronously lists WorkerChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -160,7 +160,7 @@ class WorkerChannelList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of WorkerChannelInstance records from the API.
+        Asynchronously retrieve a single page of WorkerChannelInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -197,7 +197,7 @@ class WorkerChannelList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of WorkerChannelInstance records from the API.
+        Asynchronously retrieve a specific page of WorkerChannelInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -513,6 +513,7 @@ class WorkerChannelContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the WorkerChannelInstance
@@ -532,7 +533,28 @@ class WorkerChannelContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WorkerChannelInstance
         
+
+        :returns: The fetched WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return WorkerChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, capacity=values.unset, available=values.unset):
         """
         Update the WorkerChannelInstance
@@ -558,7 +580,33 @@ class WorkerChannelContext(InstanceContext):
             worker_sid=self._solution['worker_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, capacity=values.unset, available=values.unset):
+        """
+        Asynchronous coroutine to update the WorkerChannelInstance
         
+        :params int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+        :params bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+
+        :returns: The updated WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        """
+        data = values.of({ 
+            'Capacity': capacity,
+            'Available': available,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return WorkerChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

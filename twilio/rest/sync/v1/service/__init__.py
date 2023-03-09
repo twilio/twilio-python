@@ -81,7 +81,7 @@ class ServiceList(ListResource):
 
     async def create_async(self, friendly_name=values.unset, webhook_url=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset, reachability_debouncing_enabled=values.unset, reachability_debouncing_window=values.unset, webhooks_from_rest_enabled=values.unset):
         """
-        Asynchronous coroutine to create the ServiceInstance
+        Asynchronously create the ServiceInstance
 
         :param str friendly_name: A string that you assign to describe the resource.
         :param str webhook_url: The URL we should call when Sync objects are manipulated.
@@ -135,7 +135,7 @@ class ServiceList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ServiceInstance records from the API as a generator stream.
+        Asynchronously streams ServiceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -155,7 +155,7 @@ class ServiceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -180,7 +180,7 @@ class ServiceList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ServiceInstance records from the API as a list.
+        Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -222,7 +222,7 @@ class ServiceList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ServiceInstance records from the API.
+        Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -259,7 +259,7 @@ class ServiceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ServiceInstance records from the API.
+        Asynchronously retrieve a specific page of ServiceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -658,6 +658,7 @@ class ServiceContext(InstanceContext):
         self._sync_maps = None
         self._sync_streams = None
     
+    
     def delete(self):
         """
         Deletes the ServiceInstance
@@ -667,7 +668,18 @@ class ServiceContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ServiceInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ServiceInstance
@@ -685,7 +697,26 @@ class ServiceContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ServiceInstance
         
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.sync.v1.service.ServiceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset, reachability_debouncing_enabled=values.unset, reachability_debouncing_window=values.unset, webhooks_from_rest_enabled=values.unset):
         """
         Update the ServiceInstance
@@ -719,7 +750,41 @@ class ServiceContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset, reachability_debouncing_enabled=values.unset, reachability_debouncing_window=values.unset, webhooks_from_rest_enabled=values.unset):
+        """
+        Asynchronous coroutine to update the ServiceInstance
         
+        :params str webhook_url: The URL we should call when Sync objects are manipulated.
+        :params str friendly_name: A string that you assign to describe the resource.
+        :params bool reachability_webhooks_enabled: Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
+        :params bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
+        :params bool reachability_debouncing_enabled: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
+        :params int reachability_debouncing_window: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
+        :params bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.sync.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'WebhookUrl': webhook_url,
+            'FriendlyName': friendly_name,
+            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
+            'AclEnabled': acl_enabled,
+            'ReachabilityDebouncingEnabled': reachability_debouncing_enabled,
+            'ReachabilityDebouncingWindow': reachability_debouncing_window,
+            'WebhooksFromRestEnabled': webhooks_from_rest_enabled,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def documents(self):

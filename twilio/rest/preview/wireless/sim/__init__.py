@@ -80,6 +80,40 @@ class SimList(ListResource):
 
         return self._version.stream(page, limits['limit'])
 
+    async def stream_async(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously streams SimInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+        
+        :param str status: 
+        :param str iccid: 
+        :param str rate_plan: 
+        :param str e_id: 
+        :param str sim_registration_code: 
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.wireless.sim.SimInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            page_size=limits['page_size']
+        )
+
+        return await self._version.stream_async(page, limits['limit'])
+
     def list(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
         """
         Lists SimInstance records from the API as a list.
@@ -102,6 +136,37 @@ class SimList(ListResource):
         :rtype: list[twilio.rest.preview.wireless.sim.SimInstance]
         """
         return list(self.stream(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            limit=limit,
+            page_size=page_size,
+        ))
+
+    async def list_async(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously lists SimInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+        
+        :param str status: 
+        :param str iccid: 
+        :param str rate_plan: 
+        :param str e_id: 
+        :param str sim_registration_code: 
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.wireless.sim.SimInstance]
+        """
+        return list(await self.stream_async(
             status=status,
             iccid=iccid,
             rate_plan=rate_plan,
@@ -142,15 +207,15 @@ class SimList(ListResource):
         response = self._version.page(method='GET', uri=self._uri, params=data)
         return SimPage(self._version, response, self._solution)
 
-    async def page_async(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SimInstance records from the API.
+        Asynchronously retrieve a single page of SimInstance records from the API.
         Request is executed immediately
         
         :param str status: 
         :param str iccid: 
         :param str rate_plan: 
-        :param str eid: 
+        :param str e_id: 
         :param str sim_registration_code: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -163,7 +228,7 @@ class SimList(ListResource):
             'Status': status,
             'Iccid': iccid,
             'RatePlan': rate_plan,
-            'EId': eid,
+            'EId': e_id,
             'SimRegistrationCode': sim_registration_code,
             'PageToken': page_token,
             'Page': page_number,
@@ -191,7 +256,7 @@ class SimList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SimInstance records from the API.
+        Asynchronously retrieve a specific page of SimInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -623,6 +688,7 @@ class SimContext(InstanceContext):
         
         self._usage = None
     
+    
     def fetch(self):
         """
         Fetch the SimInstance
@@ -640,7 +706,26 @@ class SimContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SimInstance
         
+
+        :returns: The fetched SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset):
         """
         Update the SimInstance
@@ -692,7 +777,59 @@ class SimContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset):
+        """
+        Asynchronous coroutine to update the SimInstance
         
+        :params str unique_name: 
+        :params str callback_method: 
+        :params str callback_url: 
+        :params str friendly_name: 
+        :params str rate_plan: 
+        :params str status: 
+        :params str commands_callback_method: 
+        :params str commands_callback_url: 
+        :params str sms_fallback_method: 
+        :params str sms_fallback_url: 
+        :params str sms_method: 
+        :params str sms_url: 
+        :params str voice_fallback_method: 
+        :params str voice_fallback_url: 
+        :params str voice_method: 
+        :params str voice_url: 
+
+        :returns: The updated SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+            'RatePlan': rate_plan,
+            'Status': status,
+            'CommandsCallbackMethod': commands_callback_method,
+            'CommandsCallbackUrl': commands_callback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def usage(self):

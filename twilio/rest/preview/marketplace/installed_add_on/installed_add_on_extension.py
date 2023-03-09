@@ -72,7 +72,7 @@ class InstalledAddOnExtensionList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams InstalledAddOnExtensionInstance records from the API as a generator stream.
+        Asynchronously streams InstalledAddOnExtensionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -92,7 +92,7 @@ class InstalledAddOnExtensionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -117,7 +117,7 @@ class InstalledAddOnExtensionList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists InstalledAddOnExtensionInstance records from the API as a list.
+        Asynchronously lists InstalledAddOnExtensionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -159,7 +159,7 @@ class InstalledAddOnExtensionList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of InstalledAddOnExtensionInstance records from the API.
+        Asynchronously retrieve a single page of InstalledAddOnExtensionInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -196,7 +196,7 @@ class InstalledAddOnExtensionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of InstalledAddOnExtensionInstance records from the API.
+        Asynchronously retrieve a specific page of InstalledAddOnExtensionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -454,6 +454,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the InstalledAddOnExtensionInstance
@@ -472,7 +473,27 @@ class InstalledAddOnExtensionContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the InstalledAddOnExtensionInstance
         
+
+        :returns: The fetched InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return InstalledAddOnExtensionInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution['installed_add_on_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, enabled):
         """
         Update the InstalledAddOnExtensionInstance
@@ -495,7 +516,30 @@ class InstalledAddOnExtensionContext(InstanceContext):
             installed_add_on_sid=self._solution['installed_add_on_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, enabled):
+        """
+        Asynchronous coroutine to update the InstalledAddOnExtensionInstance
         
+        :params bool enabled: Whether the Extension should be invoked.
+
+        :returns: The updated InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        """
+        data = values.of({ 
+            'Enabled': enabled,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return InstalledAddOnExtensionInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution['installed_add_on_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

@@ -86,7 +86,7 @@ class VerificationAttemptList(ListResource):
 
     async def stream_async(self, date_created_after=values.unset, date_created_before=values.unset, channel_data_to=values.unset, country=values.unset, channel=values.unset, verify_service_sid=values.unset, verification_sid=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams VerificationAttemptInstance records from the API as a generator stream.
+        Asynchronously streams VerificationAttemptInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -122,7 +122,7 @@ class VerificationAttemptList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, date_created_after=values.unset, date_created_before=values.unset, channel_data_to=values.unset, country=values.unset, channel=values.unset, verify_service_sid=values.unset, verification_sid=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -163,7 +163,7 @@ class VerificationAttemptList(ListResource):
 
     async def list_async(self, date_created_after=values.unset, date_created_before=values.unset, channel_data_to=values.unset, country=values.unset, channel=values.unset, verify_service_sid=values.unset, verification_sid=values.unset, status=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists VerificationAttemptInstance records from the API as a list.
+        Asynchronously lists VerificationAttemptInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -237,7 +237,7 @@ class VerificationAttemptList(ListResource):
 
     async def page_async(self, date_created_after=values.unset, date_created_before=values.unset, channel_data_to=values.unset, country=values.unset, channel=values.unset, verify_service_sid=values.unset, verification_sid=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of VerificationAttemptInstance records from the API.
+        Asynchronously retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
         
         :param datetime date_created_after: Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
@@ -290,7 +290,7 @@ class VerificationAttemptList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of VerificationAttemptInstance records from the API.
+        Asynchronously retrieve a specific page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -567,6 +567,7 @@ class VerificationAttemptContext(InstanceContext):
         self._uri = '/Attempts/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the VerificationAttemptInstance
@@ -584,7 +585,25 @@ class VerificationAttemptContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptInstance
         
+
+        :returns: The fetched VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return VerificationAttemptInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

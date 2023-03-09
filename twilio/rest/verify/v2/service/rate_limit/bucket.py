@@ -69,7 +69,7 @@ class BucketList(ListResource):
 
     async def create_async(self, max, interval):
         """
-        Asynchronous coroutine to create the BucketInstance
+        Asynchronously create the BucketInstance
 
         :param int max: Maximum number of requests permitted in during the interval.
         :param int interval: Number of seconds that the rate limit will be enforced over.
@@ -113,7 +113,7 @@ class BucketList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams BucketInstance records from the API as a generator stream.
+        Asynchronously streams BucketInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -133,7 +133,7 @@ class BucketList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -158,7 +158,7 @@ class BucketList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists BucketInstance records from the API as a list.
+        Asynchronously lists BucketInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -200,7 +200,7 @@ class BucketList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of BucketInstance records from the API.
+        Asynchronously retrieve a single page of BucketInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -237,7 +237,7 @@ class BucketList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of BucketInstance records from the API.
+        Asynchronously retrieve a specific page of BucketInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -541,6 +541,7 @@ class BucketContext(InstanceContext):
         self._uri = '/Services/{service_sid}/RateLimits/{rate_limit_sid}/Buckets/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the BucketInstance
@@ -550,7 +551,18 @@ class BucketContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BucketInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the BucketInstance
@@ -570,7 +582,28 @@ class BucketContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BucketInstance
         
+
+        :returns: The fetched BucketInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return BucketInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            rate_limit_sid=self._solution['rate_limit_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, max=values.unset, interval=values.unset):
         """
         Update the BucketInstance
@@ -596,7 +629,33 @@ class BucketContext(InstanceContext):
             rate_limit_sid=self._solution['rate_limit_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, max=values.unset, interval=values.unset):
+        """
+        Asynchronous coroutine to update the BucketInstance
         
+        :params int max: Maximum number of requests permitted in during the interval.
+        :params int interval: Number of seconds that the rate limit will be enforced over.
+
+        :returns: The updated BucketInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        """
+        data = values.of({ 
+            'Max': max,
+            'Interval': interval,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return BucketInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            rate_limit_sid=self._solution['rate_limit_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

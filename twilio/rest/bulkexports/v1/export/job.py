@@ -283,6 +283,7 @@ class JobContext(InstanceContext):
         self._uri = '/Exports/Jobs/{job_sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the JobInstance
@@ -292,7 +293,18 @@ class JobContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the JobInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the JobInstance
@@ -310,7 +322,25 @@ class JobContext(InstanceContext):
             job_sid=self._solution['job_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the JobInstance
         
+
+        :returns: The fetched JobInstance
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return JobInstance(
+            self._version,
+            payload,
+            job_sid=self._solution['job_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

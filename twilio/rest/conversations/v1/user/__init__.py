@@ -73,7 +73,7 @@ class UserList(ListResource):
 
     async def create_async(self, identity, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, attributes=values.unset, role_sid=values.unset):
         """
-        Asynchronous coroutine to create the UserInstance
+        Asynchronously create the UserInstance
 
         :param str identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
         :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
@@ -122,7 +122,7 @@ class UserList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams UserInstance records from the API as a generator stream.
+        Asynchronously streams UserInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -142,7 +142,7 @@ class UserList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -167,7 +167,7 @@ class UserList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists UserInstance records from the API as a list.
+        Asynchronously lists UserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -209,7 +209,7 @@ class UserList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of UserInstance records from the API.
+        Asynchronously retrieve a single page of UserInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -246,7 +246,7 @@ class UserList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of UserInstance records from the API.
+        Asynchronously retrieve a specific page of UserInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -603,6 +603,7 @@ class UserContext(InstanceContext):
         
         self._user_conversations = None
     
+    
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the UserInstance
@@ -615,7 +616,21 @@ class UserContext(InstanceContext):
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Asynchronous coroutine that deletes the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self):
         """
         Fetch the UserInstance
@@ -633,7 +648,26 @@ class UserContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserInstance
         
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.conversations.v1.user.UserInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return UserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, attributes=values.unset, role_sid=values.unset):
         """
         Update the UserInstance
@@ -660,7 +694,34 @@ class UserContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, attributes=values.unset, role_sid=values.unset):
+        """
+        Asynchronous coroutine to update the UserInstance
         
+        :params UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :params str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.conversations.v1.user.UserInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Attributes': attributes,
+            'RoleSid': role_sid,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return UserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def user_conversations(self):

@@ -211,6 +211,7 @@ class SchemaContext(InstanceContext):
         
         self._versions = None
     
+    
     def fetch(self):
         """
         Fetch the SchemaInstance
@@ -228,7 +229,25 @@ class SchemaContext(InstanceContext):
             id=self._solution['id'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SchemaInstance
         
+
+        :returns: The fetched SchemaInstance
+        :rtype: twilio.rest.events.v1.schema.SchemaInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SchemaInstance(
+            self._version,
+            payload,
+            id=self._solution['id'],
+            
+        )
+    
     
     @property
     def versions(self):

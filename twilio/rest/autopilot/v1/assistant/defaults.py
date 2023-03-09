@@ -211,6 +211,7 @@ class DefaultsContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/Defaults'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the DefaultsInstance
@@ -228,7 +229,26 @@ class DefaultsContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DefaultsInstance
         
+
+        :returns: The fetched DefaultsInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DefaultsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+    
+    
     def update(self, defaults=values.unset):
         """
         Update the DefaultsInstance
@@ -250,7 +270,29 @@ class DefaultsContext(InstanceContext):
             payload,
             assistant_sid=self._solution['assistant_sid']
         )
+
+    async def update_async(self, defaults=values.unset):
+        """
+        Asynchronous coroutine to update the DefaultsInstance
         
+        :params object defaults: A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
+
+        :returns: The updated DefaultsInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
+        """
+        data = values.of({ 
+            'Defaults': serialize.object(defaults),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return DefaultsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+    
     
     def __repr__(self):
         """

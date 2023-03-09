@@ -73,7 +73,7 @@ class ValidationRequestList(ListResource):
 
     async def create_async(self, phone_number, friendly_name=values.unset, call_delay=values.unset, extension=values.unset, status_callback=values.unset, status_callback_method=values.unset):
         """
-        Asynchronous coroutine to create the ValidationRequestInstance
+        Asynchronously create the ValidationRequestInstance
 
         :param str phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
         :param str friendly_name: A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.

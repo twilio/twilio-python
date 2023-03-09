@@ -265,6 +265,7 @@ class OpenidDiscoveryContext(InstanceContext):
         self._uri = '/.well-known/openid-configuration'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the OpenidDiscoveryInstance
@@ -281,7 +282,24 @@ class OpenidDiscoveryContext(InstanceContext):
             payload,
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the OpenidDiscoveryInstance
         
+
+        :returns: The fetched OpenidDiscoveryInstance
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return OpenidDiscoveryInstance(
+            self._version,
+            payload,
+            
+        )
+    
     
     def __repr__(self):
         """

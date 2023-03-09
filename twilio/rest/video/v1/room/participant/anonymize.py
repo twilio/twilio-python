@@ -257,6 +257,7 @@ class AnonymizeContext(InstanceContext):
         self._uri = '/Rooms/{room_sid}/Participants/{sid}/Anonymize'.format(**self._solution)
         
     
+    
     def update(self):
         """
         Update the AnonymizeInstance
@@ -277,7 +278,28 @@ class AnonymizeContext(InstanceContext):
             room_sid=self._solution['room_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self):
+        """
+        Asynchronous coroutine to update the AnonymizeInstance
         
+
+        :returns: The updated AnonymizeInstance
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
+        """
+        data = values.of({ 
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AnonymizeInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

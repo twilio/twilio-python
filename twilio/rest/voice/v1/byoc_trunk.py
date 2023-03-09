@@ -83,7 +83,7 @@ class ByocTrunkList(ListResource):
 
     async def create_async(self, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, cnam_lookup_enabled=values.unset, connection_policy_sid=values.unset, from_domain_sid=values.unset):
         """
-        Asynchronous coroutine to create the ByocTrunkInstance
+        Asynchronously create the ByocTrunkInstance
 
         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         :param str voice_url: The URL we should call when the BYOC Trunk receives a call.
@@ -143,7 +143,7 @@ class ByocTrunkList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ByocTrunkInstance records from the API as a generator stream.
+        Asynchronously streams ByocTrunkInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -163,7 +163,7 @@ class ByocTrunkList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -188,7 +188,7 @@ class ByocTrunkList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ByocTrunkInstance records from the API as a list.
+        Asynchronously lists ByocTrunkInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -230,7 +230,7 @@ class ByocTrunkList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ByocTrunkInstance records from the API.
+        Asynchronously retrieve a single page of ByocTrunkInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -267,7 +267,7 @@ class ByocTrunkList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ByocTrunkInstance records from the API.
+        Asynchronously retrieve a specific page of ByocTrunkInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -637,6 +637,7 @@ class ByocTrunkContext(InstanceContext):
         self._uri = '/ByocTrunks/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the ByocTrunkInstance
@@ -646,7 +647,18 @@ class ByocTrunkContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ByocTrunkInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ByocTrunkInstance
@@ -664,7 +676,26 @@ class ByocTrunkContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ByocTrunkInstance
         
+
+        :returns: The fetched ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ByocTrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, cnam_lookup_enabled=values.unset, connection_policy_sid=values.unset, from_domain_sid=values.unset):
         """
         Update the ByocTrunkInstance
@@ -704,7 +735,47 @@ class ByocTrunkContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, cnam_lookup_enabled=values.unset, connection_policy_sid=values.unset, from_domain_sid=values.unset):
+        """
+        Asynchronous coroutine to update the ByocTrunkInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params str voice_url: The URL we should call when the BYOC Trunk receives a call.
+        :params str voice_method: The HTTP method we should use to call `voice_url`
+        :params str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+        :params str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :params str status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :params str status_callback_method: The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
+        :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :params str connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
+        :params str from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
+
+        :returns: The updated ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'VoiceUrl': voice_url,
+            'VoiceMethod': voice_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'StatusCallbackUrl': status_callback_url,
+            'StatusCallbackMethod': status_callback_method,
+            'CnamLookupEnabled': cnam_lookup_enabled,
+            'ConnectionPolicySid': connection_policy_sid,
+            'FromDomainSid': from_domain_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ByocTrunkInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

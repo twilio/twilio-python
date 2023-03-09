@@ -236,6 +236,7 @@ class UsageContext(InstanceContext):
         self._uri = '/Sims/{sim_sid}/Usage'.format(**self._solution)
         
     
+    
     def fetch(self, end=values.unset, start=values.unset):
         """
         Fetch the UsageInstance
@@ -260,7 +261,32 @@ class UsageContext(InstanceContext):
             sim_sid=self._solution['sim_sid'],
             
         )
+
+    async def fetch_async(self, end=values.unset, start=values.unset):
+        """
+        Asynchronous coroutine to fetch the UsageInstance
         
+        :params str end: 
+        :params str start: 
+
+        :returns: The fetched UsageInstance
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
+        """
+        
+        data = values.of({ 
+            'End': end,
+            'Start': start,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return UsageInstance(
+            self._version,
+            payload,
+            sim_sid=self._solution['sim_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

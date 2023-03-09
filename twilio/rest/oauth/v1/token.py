@@ -76,7 +76,7 @@ class TokenList(ListResource):
 
     async def create_async(self, grant_type, client_sid, client_secret=values.unset, code=values.unset, code_verifier=values.unset, device_code=values.unset, refresh_token=values.unset, device_id=values.unset):
         """
-        Asynchronous coroutine to create the TokenInstance
+        Asynchronously create the TokenInstance
 
         :param str grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
         :param str client_sid: A 34 character string that uniquely identifies this OAuth App.

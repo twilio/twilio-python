@@ -68,7 +68,7 @@ class MessageInteractionList(ListResource):
 
     async def create_async(self, body=values.unset, media_url=values.unset):
         """
-        Asynchronous coroutine to create the MessageInteractionInstance
+        Asynchronously create the MessageInteractionInstance
 
         :param str body: The message to send to the participant
         :param list[str] media_url: Reserved. Not currently supported.
@@ -112,7 +112,7 @@ class MessageInteractionList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams MessageInteractionInstance records from the API as a generator stream.
+        Asynchronously streams MessageInteractionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -132,7 +132,7 @@ class MessageInteractionList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -157,7 +157,7 @@ class MessageInteractionList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists MessageInteractionInstance records from the API as a list.
+        Asynchronously lists MessageInteractionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -199,7 +199,7 @@ class MessageInteractionList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of MessageInteractionInstance records from the API.
+        Asynchronously retrieve a single page of MessageInteractionInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -236,7 +236,7 @@ class MessageInteractionList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of MessageInteractionInstance records from the API.
+        Asynchronously retrieve a specific page of MessageInteractionInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -620,6 +620,7 @@ class MessageInteractionContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the MessageInteractionInstance
@@ -640,7 +641,28 @@ class MessageInteractionContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the MessageInteractionInstance
         
+
+        :returns: The fetched MessageInteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return MessageInteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            session_sid=self._solution['session_sid'],
+            participant_sid=self._solution['participant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

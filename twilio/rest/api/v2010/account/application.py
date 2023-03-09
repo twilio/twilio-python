@@ -96,7 +96,7 @@ class ApplicationList(ListResource):
 
     async def create_async(self, api_version=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_caller_id_lookup=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, sms_status_callback=values.unset, message_status_callback=values.unset, friendly_name=values.unset, public_application_connect_enabled=values.unset):
         """
-        Asynchronous coroutine to create the ApplicationInstance
+        Asynchronously create the ApplicationInstance
 
         :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
         :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
@@ -170,7 +170,7 @@ class ApplicationList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ApplicationInstance records from the API as a generator stream.
+        Asynchronously streams ApplicationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -192,7 +192,7 @@ class ApplicationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -219,7 +219,7 @@ class ApplicationList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ApplicationInstance records from the API as a list.
+        Asynchronously lists ApplicationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -265,7 +265,7 @@ class ApplicationList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ApplicationInstance records from the API.
+        Asynchronously retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The string that identifies the Application resources to read.
@@ -304,7 +304,7 @@ class ApplicationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ApplicationInstance records from the API.
+        Asynchronously retrieve a specific page of ApplicationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -742,6 +742,7 @@ class ApplicationContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Applications/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the ApplicationInstance
@@ -751,7 +752,18 @@ class ApplicationContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ApplicationInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ApplicationInstance
@@ -770,7 +782,27 @@ class ApplicationContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ApplicationInstance
         
+
+        :returns: The fetched ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ApplicationInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, api_version=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_caller_id_lookup=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, sms_status_callback=values.unset, message_status_callback=values.unset, public_application_connect_enabled=values.unset):
         """
         Update the ApplicationInstance
@@ -823,7 +855,60 @@ class ApplicationContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, api_version=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_caller_id_lookup=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, sms_status_callback=values.unset, message_status_callback=values.unset, public_application_connect_enabled=values.unset):
+        """
+        Asynchronous coroutine to update the ApplicationInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :params str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
+        :params str voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :params str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :params str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :params str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :params str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :params str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :params bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :params str sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :params str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :params str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :params str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :params str sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
+        :params str message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :params bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+
+        :returns: The updated ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ApiVersion': api_version,
+            'VoiceUrl': voice_url,
+            'VoiceMethod': voice_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceCallerIdLookup': voice_caller_id_lookup,
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsStatusCallback': sms_status_callback,
+            'MessageStatusCallback': message_status_callback,
+            'PublicApplicationConnectEnabled': public_application_connect_enabled,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ApplicationInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

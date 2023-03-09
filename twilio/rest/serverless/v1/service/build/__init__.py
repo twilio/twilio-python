@@ -72,7 +72,7 @@ class BuildList(ListResource):
 
     async def create_async(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset):
         """
-        Asynchronous coroutine to create the BuildInstance
+        Asynchronously create the BuildInstance
 
         :param list[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
         :param list[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
@@ -120,7 +120,7 @@ class BuildList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams BuildInstance records from the API as a generator stream.
+        Asynchronously streams BuildInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -140,7 +140,7 @@ class BuildList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -165,7 +165,7 @@ class BuildList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists BuildInstance records from the API as a list.
+        Asynchronously lists BuildInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -207,7 +207,7 @@ class BuildList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of BuildInstance records from the API.
+        Asynchronously retrieve a single page of BuildInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -244,7 +244,7 @@ class BuildList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of BuildInstance records from the API.
+        Asynchronously retrieve a specific page of BuildInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -569,6 +569,7 @@ class BuildContext(InstanceContext):
         
         self._build_status = None
     
+    
     def delete(self):
         """
         Deletes the BuildInstance
@@ -578,7 +579,18 @@ class BuildContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BuildInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the BuildInstance
@@ -597,7 +609,26 @@ class BuildContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BuildInstance
         
+
+        :returns: The fetched BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return BuildInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     @property
     def build_status(self):

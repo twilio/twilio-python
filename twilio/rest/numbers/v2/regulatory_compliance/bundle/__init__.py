@@ -81,7 +81,7 @@ class BundleList(ListResource):
 
     async def create_async(self, friendly_name, email, status_callback=values.unset, regulation_sid=values.unset, iso_country=values.unset, end_user_type=values.unset, number_type=values.unset):
         """
-        Asynchronous coroutine to create the BundleInstance
+        Asynchronously create the BundleInstance
 
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Bundle resource changes status.
@@ -157,7 +157,7 @@ class BundleList(ListResource):
 
     async def stream_async(self, status=values.unset, friendly_name=values.unset, regulation_sid=values.unset, iso_country=values.unset, number_type=values.unset, has_valid_until_date=values.unset, sort_by=values.unset, sort_direction=values.unset, valid_until_date=values.unset, valid_until_date_before=values.unset, valid_until_date_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams BundleInstance records from the API as a generator stream.
+        Asynchronously streams BundleInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -199,7 +199,7 @@ class BundleList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, friendly_name=values.unset, regulation_sid=values.unset, iso_country=values.unset, number_type=values.unset, has_valid_until_date=values.unset, sort_by=values.unset, sort_direction=values.unset, valid_until_date=values.unset, valid_until_date_before=values.unset, valid_until_date_after=values.unset, limit=None, page_size=None):
         """
@@ -246,7 +246,7 @@ class BundleList(ListResource):
 
     async def list_async(self, status=values.unset, friendly_name=values.unset, regulation_sid=values.unset, iso_country=values.unset, number_type=values.unset, has_valid_until_date=values.unset, sort_by=values.unset, sort_direction=values.unset, valid_until_date=values.unset, valid_until_date_before=values.unset, valid_until_date_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists BundleInstance records from the API as a list.
+        Asynchronously lists BundleInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -332,7 +332,7 @@ class BundleList(ListResource):
 
     async def page_async(self, status=values.unset, friendly_name=values.unset, regulation_sid=values.unset, iso_country=values.unset, number_type=values.unset, has_valid_until_date=values.unset, sort_by=values.unset, sort_direction=values.unset, valid_until_date=values.unset, valid_until_date_before=values.unset, valid_until_date_after=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of BundleInstance records from the API.
+        Asynchronously retrieve a single page of BundleInstance records from the API.
         Request is executed immediately
         
         :param BundleInstance.Status status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
@@ -391,7 +391,7 @@ class BundleList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of BundleInstance records from the API.
+        Asynchronously retrieve a specific page of BundleInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -782,6 +782,7 @@ class BundleContext(InstanceContext):
         self._item_assignments = None
         self._replace_items = None
     
+    
     def delete(self):
         """
         Deletes the BundleInstance
@@ -791,7 +792,18 @@ class BundleContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BundleInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the BundleInstance
@@ -809,7 +821,26 @@ class BundleContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BundleInstance
         
+
+        :returns: The fetched BundleInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return BundleInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
         """
         Update the BundleInstance
@@ -837,7 +868,35 @@ class BundleContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
+        """
+        Asynchronous coroutine to update the BundleInstance
         
+        :params BundleInstance.Status status: 
+        :params str status_callback: The URL we call to inform your application of status changes.
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params str email: The email address that will receive updates when the Bundle resource changes status.
+
+        :returns: The updated BundleInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'StatusCallback': status_callback,
+            'FriendlyName': friendly_name,
+            'Email': email,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return BundleInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def bundle_copies(self):

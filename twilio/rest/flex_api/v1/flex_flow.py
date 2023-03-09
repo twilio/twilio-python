@@ -97,7 +97,7 @@ class FlexFlowList(ListResource):
 
     async def create_async(self, friendly_name, chat_service_sid, channel_type, contact_identity=values.unset, enabled=values.unset, integration_type=values.unset, integration_flow_sid=values.unset, integration_url=values.unset, integration_workspace_sid=values.unset, integration_workflow_sid=values.unset, integration_channel=values.unset, integration_timeout=values.unset, integration_priority=values.unset, integration_creation_on_message=values.unset, long_lived=values.unset, janitor_enabled=values.unset, integration_retry_count=values.unset):
         """
-        Asynchronous coroutine to create the FlexFlowInstance
+        Asynchronously create the FlexFlowInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
@@ -173,7 +173,7 @@ class FlexFlowList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams FlexFlowInstance records from the API as a generator stream.
+        Asynchronously streams FlexFlowInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -195,7 +195,7 @@ class FlexFlowList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -222,7 +222,7 @@ class FlexFlowList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists FlexFlowInstance records from the API as a list.
+        Asynchronously lists FlexFlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -268,7 +268,7 @@ class FlexFlowList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of FlexFlowInstance records from the API.
+        Asynchronously retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
@@ -307,7 +307,7 @@ class FlexFlowList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of FlexFlowInstance records from the API.
+        Asynchronously retrieve a specific page of FlexFlowInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -695,6 +695,7 @@ class FlexFlowContext(InstanceContext):
         self._uri = '/FlexFlows/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the FlexFlowInstance
@@ -704,7 +705,18 @@ class FlexFlowContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the FlexFlowInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the FlexFlowInstance
@@ -722,7 +734,26 @@ class FlexFlowContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FlexFlowInstance
         
+
+        :returns: The fetched FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FlexFlowInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, chat_service_sid=values.unset, channel_type=values.unset, contact_identity=values.unset, enabled=values.unset, integration_type=values.unset, integration_flow_sid=values.unset, integration_url=values.unset, integration_workspace_sid=values.unset, integration_workflow_sid=values.unset, integration_channel=values.unset, integration_timeout=values.unset, integration_priority=values.unset, integration_creation_on_message=values.unset, long_lived=values.unset, janitor_enabled=values.unset, integration_retry_count=values.unset):
         """
         Update the FlexFlowInstance
@@ -776,7 +807,61 @@ class FlexFlowContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, chat_service_sid=values.unset, channel_type=values.unset, contact_identity=values.unset, enabled=values.unset, integration_type=values.unset, integration_flow_sid=values.unset, integration_url=values.unset, integration_workspace_sid=values.unset, integration_workflow_sid=values.unset, integration_channel=values.unset, integration_timeout=values.unset, integration_priority=values.unset, integration_creation_on_message=values.unset, long_lived=values.unset, janitor_enabled=values.unset, integration_retry_count=values.unset):
+        """
+        Asynchronous coroutine to update the FlexFlowInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :params str chat_service_sid: The SID of the chat service.
+        :params FlexFlowInstance.ChannelType channel_type: 
+        :params str contact_identity: The channel contact's Identity.
+        :params bool enabled: Whether the new Flex Flow is enabled.
+        :params FlexFlowInstance.IntegrationType integration_type: 
+        :params str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :params str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :params str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :params str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :params str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :params int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :params int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :params bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :params bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :params bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :params int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: The updated FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ChatServiceSid': chat_service_sid,
+            'ChannelType': channel_type,
+            'ContactIdentity': contact_identity,
+            'Enabled': enabled,
+            'IntegrationType': integration_type,
+            'Integration.FlowSid': integration_flow_sid,
+            'Integration.Url': integration_url,
+            'Integration.WorkspaceSid': integration_workspace_sid,
+            'Integration.WorkflowSid': integration_workflow_sid,
+            'Integration.Channel': integration_channel,
+            'Integration.Timeout': integration_timeout,
+            'Integration.Priority': integration_priority,
+            'Integration.CreationOnMessage': integration_creation_on_message,
+            'LongLived': long_lived,
+            'JanitorEnabled': janitor_enabled,
+            'Integration.RetryCount': integration_retry_count,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return FlexFlowInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

@@ -95,7 +95,7 @@ class RoomList(ListResource):
 
     async def create_async(self, enable_turn=values.unset, type=values.unset, unique_name=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_participants=values.unset, record_participants_on_connect=values.unset, video_codecs=values.unset, media_region=values.unset, recording_rules=values.unset, audio_only=values.unset, max_participant_duration=values.unset, empty_room_timeout=values.unset, unused_room_timeout=values.unset, large_room=values.unset):
         """
-        Asynchronous coroutine to create the RoomInstance
+        Asynchronously create the RoomInstance
 
         :param bool enable_turn: Deprecated, now always considered to be true.
         :param RoomInstance.RoomType type: 
@@ -173,7 +173,7 @@ class RoomList(ListResource):
 
     async def stream_async(self, status=values.unset, unique_name=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams RoomInstance records from the API as a generator stream.
+        Asynchronously streams RoomInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -201,7 +201,7 @@ class RoomList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, unique_name=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
@@ -234,7 +234,7 @@ class RoomList(ListResource):
 
     async def list_async(self, status=values.unset, unique_name=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists RoomInstance records from the API as a list.
+        Asynchronously lists RoomInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -292,7 +292,7 @@ class RoomList(ListResource):
 
     async def page_async(self, status=values.unset, unique_name=values.unset, date_created_after=values.unset, date_created_before=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of RoomInstance records from the API.
+        Asynchronously retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
         
         :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
@@ -337,7 +337,7 @@ class RoomList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of RoomInstance records from the API.
+        Asynchronously retrieve a specific page of RoomInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -796,6 +796,7 @@ class RoomContext(InstanceContext):
         self._recording_rules = None
         self._recordings = None
     
+    
     def fetch(self):
         """
         Fetch the RoomInstance
@@ -813,7 +814,26 @@ class RoomContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RoomInstance
         
+
+        :returns: The fetched RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status):
         """
         Update the RoomInstance
@@ -835,7 +855,29 @@ class RoomContext(InstanceContext):
             payload,
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status):
+        """
+        Asynchronous coroutine to update the RoomInstance
         
+        :params RoomInstance.RoomStatus status: 
+
+        :returns: The updated RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def participants(self):

@@ -65,6 +65,29 @@ class FlowValidateList(ListResource):
         payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FlowValidateInstance(self._version, payload)
+
+    async def update_async(self, friendly_name, status, definition, commit_message=values.unset):
+        """
+        Asynchronously update the FlowValidateInstance
+
+        :param str friendly_name: The string that you assigned to describe the Flow.
+        :param FlowValidateInstance.Status status: 
+        :param object definition: JSON representation of flow definition.
+        :param str commit_message: Description of change made in the revision.
+        
+        :returns: The created FlowValidateInstance
+        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+            'Definition': serialize.object(definition),
+            'CommitMessage': commit_message,
+        })
+        
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return FlowValidateInstance(self._version, payload)
     
 
 

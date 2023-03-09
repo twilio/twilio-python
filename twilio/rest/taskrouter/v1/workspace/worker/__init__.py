@@ -79,7 +79,7 @@ class WorkerList(ListResource):
 
     async def create_async(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
         """
-        Asynchronous coroutine to create the WorkerInstance
+        Asynchronously create the WorkerInstance
 
         :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
         :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
@@ -141,7 +141,7 @@ class WorkerList(ListResource):
 
     async def stream_async(self, activity_name=values.unset, activity_sid=values.unset, available=values.unset, friendly_name=values.unset, target_workers_expression=values.unset, task_queue_name=values.unset, task_queue_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams WorkerInstance records from the API as a generator stream.
+        Asynchronously streams WorkerInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -177,7 +177,7 @@ class WorkerList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, activity_name=values.unset, activity_sid=values.unset, available=values.unset, friendly_name=values.unset, target_workers_expression=values.unset, task_queue_name=values.unset, task_queue_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
         """
@@ -218,7 +218,7 @@ class WorkerList(ListResource):
 
     async def list_async(self, activity_name=values.unset, activity_sid=values.unset, available=values.unset, friendly_name=values.unset, target_workers_expression=values.unset, task_queue_name=values.unset, task_queue_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists WorkerInstance records from the API as a list.
+        Asynchronously lists WorkerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -292,7 +292,7 @@ class WorkerList(ListResource):
 
     async def page_async(self, activity_name=values.unset, activity_sid=values.unset, available=values.unset, friendly_name=values.unset, target_workers_expression=values.unset, task_queue_name=values.unset, task_queue_sid=values.unset, ordering=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of WorkerInstance records from the API.
+        Asynchronously retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
         
         :param str activity_name: The `activity_name` of the Worker resources to read.
@@ -345,7 +345,7 @@ class WorkerList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of WorkerInstance records from the API.
+        Asynchronously retrieve a specific page of WorkerInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -760,6 +760,7 @@ class WorkerContext(InstanceContext):
         self._worker_channels = None
         self._statistics = None
     
+    
     def delete(self, if_match=values.unset):
         """
         Deletes the WorkerInstance
@@ -772,7 +773,21 @@ class WorkerContext(InstanceContext):
         headers = values.of({'If-Match': if_match, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, if_match=values.unset):
+        """
+        Asynchronous coroutine that deletes the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'If-Match': if_match, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self):
         """
         Fetch the WorkerInstance
@@ -791,7 +806,27 @@ class WorkerContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WorkerInstance
         
+
+        :returns: The fetched WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, if_match=values.unset, activity_sid=values.unset, attributes=values.unset, friendly_name=values.unset, reject_pending_reservations=values.unset):
         """
         Update the WorkerInstance
@@ -821,7 +856,37 @@ class WorkerContext(InstanceContext):
             workspace_sid=self._solution['workspace_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, if_match=values.unset, activity_sid=values.unset, attributes=values.unset, friendly_name=values.unset, reject_pending_reservations=values.unset):
+        """
+        Asynchronous coroutine to update the WorkerInstance
         
+        :params str if_match: The If-Match HTTP request header
+        :params str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :params str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :params str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :params bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: The updated WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        data = values.of({ 
+            'ActivitySid': activity_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
+            'RejectPendingReservations': reject_pending_reservations,
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def reservations(self):

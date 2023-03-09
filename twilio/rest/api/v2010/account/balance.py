@@ -46,12 +46,23 @@ class BalanceList(ListResource):
     
     def fetch(self):
         """
-        Fetch the BalanceInstance
+        Asynchronously fetch the BalanceInstance
 
         :returns: The fetched BalanceInstance
         :rtype: twilio.rest.api.v2010.account.balance.BalanceInstance
         """
-        payload = self._version.create(method='GET', uri=self._uri)
+        payload = self._version.fetch(method='GET', uri=self._uri)
+
+        return BalanceInstance(self._version, payload, account_sid=self._solution['account_sid'])
+
+    async def fetch_async(self):
+        """
+        Asynchronously fetch the BalanceInstance
+
+        :returns: The fetched BalanceInstance
+        :rtype: twilio.rest.api.v2010.account.balance.BalanceInstance
+        """
+        payload = await self._version.fetch_async(method='GET', uri=self._uri)
 
         return BalanceInstance(self._version, payload, account_sid=self._solution['account_sid'])
     

@@ -68,7 +68,7 @@ class DeploymentList(ListResource):
 
     async def create_async(self, friendly_name=values.unset, sync_service_sid=values.unset):
         """
-        Asynchronous coroutine to create the DeploymentInstance
+        Asynchronously create the DeploymentInstance
 
         :param str friendly_name: Provides a human readable descriptive text for this Deployment, up to 256 characters long.
         :param str sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
@@ -112,7 +112,7 @@ class DeploymentList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams DeploymentInstance records from the API as a generator stream.
+        Asynchronously streams DeploymentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -132,7 +132,7 @@ class DeploymentList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -157,7 +157,7 @@ class DeploymentList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists DeploymentInstance records from the API as a list.
+        Asynchronously lists DeploymentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -199,7 +199,7 @@ class DeploymentList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of DeploymentInstance records from the API.
+        Asynchronously retrieve a single page of DeploymentInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -236,7 +236,7 @@ class DeploymentList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of DeploymentInstance records from the API.
+        Asynchronously retrieve a specific page of DeploymentInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -529,6 +529,7 @@ class DeploymentContext(InstanceContext):
         self._uri = '/Fleets/{fleet_sid}/Deployments/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the DeploymentInstance
@@ -538,7 +539,18 @@ class DeploymentContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DeploymentInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the DeploymentInstance
@@ -557,7 +569,27 @@ class DeploymentContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DeploymentInstance
         
+
+        :returns: The fetched DeploymentInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DeploymentInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, sync_service_sid=values.unset):
         """
         Update the DeploymentInstance
@@ -582,7 +614,32 @@ class DeploymentContext(InstanceContext):
             fleet_sid=self._solution['fleet_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, sync_service_sid=values.unset):
+        """
+        Asynchronous coroutine to update the DeploymentInstance
         
+        :params str friendly_name: Provides a human readable descriptive text for this Deployment, up to 64 characters long
+        :params str sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
+
+        :returns: The updated DeploymentInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'SyncServiceSid': sync_service_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return DeploymentInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

@@ -237,6 +237,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/RealTimeStatistics'.format(**self._solution)
         
     
+    
     def fetch(self, task_channel=values.unset):
         """
         Fetch the WorkflowRealTimeStatisticsInstance
@@ -260,7 +261,31 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
             workflow_sid=self._solution['workflow_sid'],
             
         )
+
+    async def fetch_async(self, task_channel=values.unset):
+        """
+        Asynchronous coroutine to fetch the WorkflowRealTimeStatisticsInstance
         
+        :params str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched WorkflowRealTimeStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'TaskChannel': task_channel,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return WorkflowRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            workflow_sid=self._solution['workflow_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

@@ -252,6 +252,7 @@ class TrunkContext(InstanceContext):
         self._uri = '/Trunks/{sip_trunk_domain}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the TrunkInstance
@@ -269,7 +270,26 @@ class TrunkContext(InstanceContext):
             sip_trunk_domain=self._solution['sip_trunk_domain'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TrunkInstance
         
+
+        :returns: The fetched TrunkInstance
+        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return TrunkInstance(
+            self._version,
+            payload,
+            sip_trunk_domain=self._solution['sip_trunk_domain'],
+            
+        )
+    
+    
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the TrunkInstance
@@ -293,7 +313,31 @@ class TrunkContext(InstanceContext):
             payload,
             sip_trunk_domain=self._solution['sip_trunk_domain']
         )
+
+    async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
+        """
+        Asynchronous coroutine to update the TrunkInstance
         
+        :params str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :returns: The updated TrunkInstance
+        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
+        """
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return TrunkInstance(
+            self._version,
+            payload,
+            sip_trunk_domain=self._solution['sip_trunk_domain']
+        )
+    
     
     def __repr__(self):
         """

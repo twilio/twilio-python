@@ -166,6 +166,7 @@ class OauthContext(InstanceContext):
         self._uri = '/certs'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the OauthInstance
@@ -182,7 +183,24 @@ class OauthContext(InstanceContext):
             payload,
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the OauthInstance
         
+
+        :returns: The fetched OauthInstance
+        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return OauthInstance(
+            self._version,
+            payload,
+            
+        )
+    
     
     def __repr__(self):
         """

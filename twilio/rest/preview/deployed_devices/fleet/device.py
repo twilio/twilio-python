@@ -74,7 +74,7 @@ class DeviceList(ListResource):
 
     async def create_async(self, unique_name=values.unset, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
         """
-        Asynchronous coroutine to create the DeviceInstance
+        Asynchronously create the DeviceInstance
 
         :param str unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
         :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
@@ -126,7 +126,7 @@ class DeviceList(ListResource):
 
     async def stream_async(self, deployment_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams DeviceInstance records from the API as a generator stream.
+        Asynchronously streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -148,7 +148,7 @@ class DeviceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, deployment_sid=values.unset, limit=None, page_size=None):
         """
@@ -175,7 +175,7 @@ class DeviceList(ListResource):
 
     async def list_async(self, deployment_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists DeviceInstance records from the API as a list.
+        Asynchronously lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -221,7 +221,7 @@ class DeviceList(ListResource):
 
     async def page_async(self, deployment_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of DeviceInstance records from the API.
+        Asynchronously retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
         
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
@@ -260,7 +260,7 @@ class DeviceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of DeviceInstance records from the API.
+        Asynchronously retrieve a specific page of DeviceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -593,6 +593,7 @@ class DeviceContext(InstanceContext):
         self._uri = '/Fleets/{fleet_sid}/Devices/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the DeviceInstance
@@ -602,7 +603,18 @@ class DeviceContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DeviceInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the DeviceInstance
@@ -621,7 +633,27 @@ class DeviceContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DeviceInstance
         
+
+        :returns: The fetched DeviceInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DeviceInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
         """
         Update the DeviceInstance
@@ -650,7 +682,36 @@ class DeviceContext(InstanceContext):
             fleet_sid=self._solution['fleet_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+        """
+        Asynchronous coroutine to update the DeviceInstance
         
+        :params str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :params str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :params str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :params bool enabled: 
+
+        :returns: The updated DeviceInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Identity': identity,
+            'DeploymentSid': deployment_sid,
+            'Enabled': enabled,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return DeviceInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

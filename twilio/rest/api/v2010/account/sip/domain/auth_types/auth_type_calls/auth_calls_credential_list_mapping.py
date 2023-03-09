@@ -66,7 +66,7 @@ class AuthCallsCredentialListMappingList(ListResource):
 
     async def create_async(self, credential_list_sid):
         """
-        Asynchronous coroutine to create the AuthCallsCredentialListMappingInstance
+        Asynchronously create the AuthCallsCredentialListMappingInstance
 
         :param str credential_list_sid: The SID of the CredentialList resource to map to the SIP domain.
         
@@ -108,7 +108,7 @@ class AuthCallsCredentialListMappingList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AuthCallsCredentialListMappingInstance records from the API as a generator stream.
+        Asynchronously streams AuthCallsCredentialListMappingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -128,7 +128,7 @@ class AuthCallsCredentialListMappingList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -153,7 +153,7 @@ class AuthCallsCredentialListMappingList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AuthCallsCredentialListMappingInstance records from the API as a list.
+        Asynchronously lists AuthCallsCredentialListMappingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -195,7 +195,7 @@ class AuthCallsCredentialListMappingList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AuthCallsCredentialListMappingInstance records from the API.
+        Asynchronously retrieve a single page of AuthCallsCredentialListMappingInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -232,7 +232,7 @@ class AuthCallsCredentialListMappingList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AuthCallsCredentialListMappingInstance records from the API.
+        Asynchronously retrieve a specific page of AuthCallsCredentialListMappingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -473,6 +473,7 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Calls/CredentialListMappings/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the AuthCallsCredentialListMappingInstance
@@ -482,7 +483,18 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AuthCallsCredentialListMappingInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the AuthCallsCredentialListMappingInstance
@@ -502,7 +514,27 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AuthCallsCredentialListMappingInstance
         
+
+        :returns: The fetched AuthCallsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AuthCallsCredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            domain_sid=self._solution['domain_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

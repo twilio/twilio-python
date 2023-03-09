@@ -68,7 +68,7 @@ class MessagingConfigurationList(ListResource):
 
     async def create_async(self, country, messaging_service_sid):
         """
-        Asynchronous coroutine to create the MessagingConfigurationInstance
+        Asynchronously create the MessagingConfigurationInstance
 
         :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
         :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
@@ -112,7 +112,7 @@ class MessagingConfigurationList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams MessagingConfigurationInstance records from the API as a generator stream.
+        Asynchronously streams MessagingConfigurationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -132,7 +132,7 @@ class MessagingConfigurationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -157,7 +157,7 @@ class MessagingConfigurationList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists MessagingConfigurationInstance records from the API as a list.
+        Asynchronously lists MessagingConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -199,7 +199,7 @@ class MessagingConfigurationList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of MessagingConfigurationInstance records from the API.
+        Asynchronously retrieve a single page of MessagingConfigurationInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -236,7 +236,7 @@ class MessagingConfigurationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of MessagingConfigurationInstance records from the API.
+        Asynchronously retrieve a specific page of MessagingConfigurationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -518,6 +518,7 @@ class MessagingConfigurationContext(InstanceContext):
         self._uri = '/Services/{service_sid}/MessagingConfigurations/{country}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the MessagingConfigurationInstance
@@ -527,7 +528,18 @@ class MessagingConfigurationContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the MessagingConfigurationInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the MessagingConfigurationInstance
@@ -546,7 +558,27 @@ class MessagingConfigurationContext(InstanceContext):
             country=self._solution['country'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the MessagingConfigurationInstance
         
+
+        :returns: The fetched MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            country=self._solution['country'],
+            
+        )
+    
+    
     def update(self, messaging_service_sid):
         """
         Update the MessagingConfigurationInstance
@@ -569,7 +601,30 @@ class MessagingConfigurationContext(InstanceContext):
             service_sid=self._solution['service_sid'],
             country=self._solution['country']
         )
+
+    async def update_async(self, messaging_service_sid):
+        """
+        Asynchronous coroutine to update the MessagingConfigurationInstance
         
+        :params str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+
+        :returns: The updated MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        data = values.of({ 
+            'MessagingServiceSid': messaging_service_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            country=self._solution['country']
+        )
+    
     
     def __repr__(self):
         """

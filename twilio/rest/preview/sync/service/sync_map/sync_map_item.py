@@ -69,7 +69,7 @@ class SyncMapItemList(ListResource):
 
     async def create_async(self, key, data):
         """
-        Asynchronous coroutine to create the SyncMapItemInstance
+        Asynchronously create the SyncMapItemInstance
 
         :param str key: 
         :param object data: 
@@ -119,7 +119,7 @@ class SyncMapItemList(ListResource):
 
     async def stream_async(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SyncMapItemInstance records from the API as a generator stream.
+        Asynchronously streams SyncMapItemInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -145,7 +145,7 @@ class SyncMapItemList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
         """
@@ -176,7 +176,7 @@ class SyncMapItemList(ListResource):
 
     async def list_async(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SyncMapItemInstance records from the API as a list.
+        Asynchronously lists SyncMapItemInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -230,7 +230,7 @@ class SyncMapItemList(ListResource):
 
     async def page_async(self, order=values.unset, from_=values.unset, bounds=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SyncMapItemInstance records from the API.
+        Asynchronously retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
         
         :param SyncMapItemInstance.QueryResultOrder order: 
@@ -273,7 +273,7 @@ class SyncMapItemList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SyncMapItemInstance records from the API.
+        Asynchronously retrieve a specific page of SyncMapItemInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -596,6 +596,7 @@ class SyncMapItemContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items/{key}'.format(**self._solution)
         
     
+    
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncMapItemInstance
@@ -608,7 +609,21 @@ class SyncMapItemContext(InstanceContext):
         headers = values.of({'If-Match': if_match, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, if_match=values.unset):
+        """
+        Asynchronous coroutine that deletes the SyncMapItemInstance
+
+        :param str if_match: The If-Match HTTP request header
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'If-Match': if_match, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self):
         """
         Fetch the SyncMapItemInstance
@@ -628,7 +643,28 @@ class SyncMapItemContext(InstanceContext):
             key=self._solution['key'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SyncMapItemInstance
         
+
+        :returns: The fetched SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SyncMapItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            key=self._solution['key'],
+            
+        )
+    
+    
     def update(self, data, if_match=values.unset):
         """
         Update the SyncMapItemInstance
@@ -653,7 +689,32 @@ class SyncMapItemContext(InstanceContext):
             map_sid=self._solution['map_sid'],
             key=self._solution['key']
         )
+
+    async def update_async(self, data, if_match=values.unset):
+        """
+        Asynchronous coroutine to update the SyncMapItemInstance
         
+        :params object data: 
+        :params str if_match: The If-Match HTTP request header
+
+        :returns: The updated SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return SyncMapItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            key=self._solution['key']
+        )
+    
     
     def __repr__(self):
         """

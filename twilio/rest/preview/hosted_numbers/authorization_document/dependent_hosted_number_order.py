@@ -80,7 +80,7 @@ class DependentHostedNumberOrderList(ListResource):
 
     async def stream_async(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams DependentHostedNumberOrderInstance records from the API as a generator stream.
+        Asynchronously streams DependentHostedNumberOrderInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -110,7 +110,7 @@ class DependentHostedNumberOrderList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
@@ -145,7 +145,7 @@ class DependentHostedNumberOrderList(ListResource):
 
     async def list_async(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists DependentHostedNumberOrderInstance records from the API as a list.
+        Asynchronously lists DependentHostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -207,7 +207,7 @@ class DependentHostedNumberOrderList(ListResource):
 
     async def page_async(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of DependentHostedNumberOrderInstance records from the API.
+        Asynchronously retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
         
         :param DependentHostedNumberOrderInstance.Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
@@ -254,7 +254,7 @@ class DependentHostedNumberOrderList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of DependentHostedNumberOrderInstance records from the API.
+        Asynchronously retrieve a specific page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page

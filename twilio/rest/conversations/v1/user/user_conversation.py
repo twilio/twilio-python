@@ -73,7 +73,7 @@ class UserConversationList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams UserConversationInstance records from the API as a generator stream.
+        Asynchronously streams UserConversationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -93,7 +93,7 @@ class UserConversationList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -118,7 +118,7 @@ class UserConversationList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists UserConversationInstance records from the API as a list.
+        Asynchronously lists UserConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -160,7 +160,7 @@ class UserConversationList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of UserConversationInstance records from the API.
+        Asynchronously retrieve a single page of UserConversationInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -197,7 +197,7 @@ class UserConversationList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of UserConversationInstance records from the API.
+        Asynchronously retrieve a specific page of UserConversationInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -589,6 +589,7 @@ class UserConversationContext(InstanceContext):
         self._uri = '/Users/{user_sid}/Conversations/{conversation_sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the UserConversationInstance
@@ -598,7 +599,18 @@ class UserConversationContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the UserConversationInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the UserConversationInstance
@@ -617,7 +629,27 @@ class UserConversationContext(InstanceContext):
             conversation_sid=self._solution['conversation_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserConversationInstance
         
+
+        :returns: The fetched UserConversationInstance
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return UserConversationInstance(
+            self._version,
+            payload,
+            user_sid=self._solution['user_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            
+        )
+    
+    
     def update(self, notification_level=values.unset, last_read_timestamp=values.unset, last_read_message_index=values.unset):
         """
         Update the UserConversationInstance
@@ -644,7 +676,34 @@ class UserConversationContext(InstanceContext):
             user_sid=self._solution['user_sid'],
             conversation_sid=self._solution['conversation_sid']
         )
+
+    async def update_async(self, notification_level=values.unset, last_read_timestamp=values.unset, last_read_message_index=values.unset):
+        """
+        Asynchronous coroutine to update the UserConversationInstance
         
+        :params UserConversationInstance.NotificationLevel notification_level: 
+        :params datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
+        :params int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
+
+        :returns: The updated UserConversationInstance
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
+        """
+        data = values.of({ 
+            'NotificationLevel': notification_level,
+            'LastReadTimestamp': serialize.iso8601_datetime(last_read_timestamp),
+            'LastReadMessageIndex': last_read_message_index,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return UserConversationInstance(
+            self._version,
+            payload,
+            user_sid=self._solution['user_sid'],
+            conversation_sid=self._solution['conversation_sid']
+        )
+    
     
     def __repr__(self):
         """

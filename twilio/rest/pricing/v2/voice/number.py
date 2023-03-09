@@ -228,6 +228,7 @@ class NumberContext(InstanceContext):
         self._uri = '/Voice/Numbers/{destination_number}'.format(**self._solution)
         
     
+    
     def fetch(self, origination_number=values.unset):
         """
         Fetch the NumberInstance
@@ -250,7 +251,30 @@ class NumberContext(InstanceContext):
             destination_number=self._solution['destination_number'],
             
         )
+
+    async def fetch_async(self, origination_number=values.unset):
+        """
+        Asynchronous coroutine to fetch the NumberInstance
         
+        :params str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: The fetched NumberInstance
+        :rtype: twilio.rest.pricing.v2.voice.number.NumberInstance
+        """
+        
+        data = values.of({ 
+            'OriginationNumber': origination_number,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return NumberInstance(
+            self._version,
+            payload,
+            destination_number=self._solution['destination_number'],
+            
+        )
+    
     
     def __repr__(self):
         """

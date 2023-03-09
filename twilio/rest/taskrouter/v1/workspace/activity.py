@@ -68,7 +68,7 @@ class ActivityList(ListResource):
 
     async def create_async(self, friendly_name, available=values.unset):
         """
-        Asynchronous coroutine to create the ActivityInstance
+        Asynchronously create the ActivityInstance
 
         :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
         :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
@@ -116,7 +116,7 @@ class ActivityList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, available=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ActivityInstance records from the API as a generator stream.
+        Asynchronously streams ActivityInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -140,7 +140,7 @@ class ActivityList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, available=values.unset, limit=None, page_size=None):
         """
@@ -169,7 +169,7 @@ class ActivityList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, available=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ActivityInstance records from the API as a list.
+        Asynchronously lists ActivityInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -219,7 +219,7 @@ class ActivityList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, available=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ActivityInstance records from the API.
+        Asynchronously retrieve a single page of ActivityInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The `friendly_name` of the Activity resources to read.
@@ -260,7 +260,7 @@ class ActivityList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ActivityInstance records from the API.
+        Asynchronously retrieve a specific page of ActivityInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -560,6 +560,7 @@ class ActivityContext(InstanceContext):
         self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the ActivityInstance
@@ -569,7 +570,18 @@ class ActivityContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ActivityInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the ActivityInstance
@@ -588,7 +600,27 @@ class ActivityContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ActivityInstance
         
+
+        :returns: The fetched ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset):
         """
         Update the ActivityInstance
@@ -611,7 +643,30 @@ class ActivityContext(InstanceContext):
             workspace_sid=self._solution['workspace_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset):
+        """
+        Asynchronous coroutine to update the ActivityInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+
+        :returns: The updated ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

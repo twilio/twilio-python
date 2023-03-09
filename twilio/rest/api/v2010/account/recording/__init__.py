@@ -86,7 +86,7 @@ class RecordingList(ListResource):
 
     async def stream_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, call_sid=values.unset, conference_sid=values.unset, include_soft_deleted=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams RecordingInstance records from the API as a generator stream.
+        Asynchronously streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -118,7 +118,7 @@ class RecordingList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, call_sid=values.unset, conference_sid=values.unset, include_soft_deleted=values.unset, limit=None, page_size=None):
         """
@@ -155,7 +155,7 @@ class RecordingList(ListResource):
 
     async def list_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, call_sid=values.unset, conference_sid=values.unset, include_soft_deleted=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists RecordingInstance records from the API as a list.
+        Asynchronously lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -221,7 +221,7 @@ class RecordingList(ListResource):
 
     async def page_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, call_sid=values.unset, conference_sid=values.unset, include_soft_deleted=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of RecordingInstance records from the API.
+        Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
         
         :param datetime date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
@@ -270,7 +270,7 @@ class RecordingList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of RecordingInstance records from the API.
+        Asynchronously retrieve a specific page of RecordingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -675,6 +675,7 @@ class RecordingContext(InstanceContext):
         self._add_on_results = None
         self._transcriptions = None
     
+    
     def delete(self):
         """
         Deletes the RecordingInstance
@@ -684,7 +685,18 @@ class RecordingContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the RecordingInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self, include_soft_deleted=values.unset):
         """
         Fetch the RecordingInstance
@@ -708,7 +720,31 @@ class RecordingContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self, include_soft_deleted=values.unset):
+        """
+        Asynchronous coroutine to fetch the RecordingInstance
         
+        :params bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
+        """
+        
+        data = values.of({ 
+            'IncludeSoftDeleted': include_soft_deleted,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     @property
     def add_on_results(self):

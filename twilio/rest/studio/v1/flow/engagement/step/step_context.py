@@ -211,6 +211,7 @@ class StepContextContext(InstanceContext):
         self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{step_sid}/Context'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the StepContextInstance
@@ -230,7 +231,27 @@ class StepContextContext(InstanceContext):
             step_sid=self._solution['step_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the StepContextInstance
         
+
+        :returns: The fetched StepContextInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return StepContextInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution['flow_sid'],
+            engagement_sid=self._solution['engagement_sid'],
+            step_sid=self._solution['step_sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

@@ -71,7 +71,7 @@ class SampleList(ListResource):
 
     async def create_async(self, language, tagged_text, source_channel=values.unset):
         """
-        Asynchronous coroutine to create the SampleInstance
+        Asynchronously create the SampleInstance
 
         :param str language: An ISO language-country string of the sample.
         :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
@@ -119,7 +119,7 @@ class SampleList(ListResource):
 
     async def stream_async(self, language=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SampleInstance records from the API as a generator stream.
+        Asynchronously streams SampleInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -141,7 +141,7 @@ class SampleList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, language=values.unset, limit=None, page_size=None):
         """
@@ -168,7 +168,7 @@ class SampleList(ListResource):
 
     async def list_async(self, language=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SampleInstance records from the API as a list.
+        Asynchronously lists SampleInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -214,7 +214,7 @@ class SampleList(ListResource):
 
     async def page_async(self, language=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SampleInstance records from the API.
+        Asynchronously retrieve a single page of SampleInstance records from the API.
         Request is executed immediately
         
         :param str language: An ISO language-country string of the sample.
@@ -253,7 +253,7 @@ class SampleList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SampleInstance records from the API.
+        Asynchronously retrieve a specific page of SampleInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -568,6 +568,7 @@ class SampleContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the SampleInstance
@@ -577,7 +578,18 @@ class SampleContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SampleInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the SampleInstance
@@ -597,7 +609,28 @@ class SampleContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SampleInstance
         
+
+        :returns: The fetched SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
         """
         Update the SampleInstance
@@ -625,7 +658,35 @@ class SampleContext(InstanceContext):
             task_sid=self._solution['task_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
+        """
+        Asynchronous coroutine to update the SampleInstance
         
+        :params str language: An ISO language-country string of the sample.
+        :params str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :params str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+
+        :returns: The updated SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        data = values.of({ 
+            'Language': language,
+            'TaggedText': tagged_text,
+            'SourceChannel': source_channel,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

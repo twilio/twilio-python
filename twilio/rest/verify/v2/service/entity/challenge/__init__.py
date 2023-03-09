@@ -77,7 +77,7 @@ class ChallengeList(ListResource):
 
     async def create_async(self, factor_sid, expiration_date=values.unset, details_message=values.unset, details_fields=values.unset, hidden_details=values.unset, auth_payload=values.unset):
         """
-        Asynchronous coroutine to create the ChallengeInstance
+        Asynchronously create the ChallengeInstance
 
         :param str factor_sid: The unique SID identifier of the Factor.
         :param datetime expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
@@ -93,7 +93,7 @@ class ChallengeList(ListResource):
             'FactorSid': factor_sid,
             'ExpirationDate': serialize.iso8601_datetime(expiration_date),
             'Details.Message': details_message,
-            'Details.Fields': serialize.map(details_fields, lambda e: e),
+            'Details.Fields': serialize.map(details_fields, lambda e: serialize.object(e)),
             'HiddenDetails': serialize.object(hidden_details),
             'AuthPayload': auth_payload,
         })
@@ -135,7 +135,7 @@ class ChallengeList(ListResource):
 
     async def stream_async(self, factor_sid=values.unset, status=values.unset, order=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ChallengeInstance records from the API as a generator stream.
+        Asynchronously streams ChallengeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -161,7 +161,7 @@ class ChallengeList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, factor_sid=values.unset, status=values.unset, order=values.unset, limit=None, page_size=None):
         """
@@ -192,7 +192,7 @@ class ChallengeList(ListResource):
 
     async def list_async(self, factor_sid=values.unset, status=values.unset, order=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ChallengeInstance records from the API as a list.
+        Asynchronously lists ChallengeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -246,7 +246,7 @@ class ChallengeList(ListResource):
 
     async def page_async(self, factor_sid=values.unset, status=values.unset, order=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ChallengeInstance records from the API.
+        Asynchronously retrieve a single page of ChallengeInstance records from the API.
         Request is executed immediately
         
         :param str factor_sid: The unique SID identifier of the Factor.
@@ -289,7 +289,7 @@ class ChallengeList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ChallengeInstance records from the API.
+        Asynchronously retrieve a specific page of ChallengeInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -682,6 +682,7 @@ class ChallengeContext(InstanceContext):
         
         self._notifications = None
     
+    
     def fetch(self):
         """
         Fetch the ChallengeInstance
@@ -701,7 +702,28 @@ class ChallengeContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ChallengeInstance
         
+
+        :returns: The fetched ChallengeInstance
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            identity=self._solution['identity'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, auth_payload=values.unset, metadata=values.unset):
         """
         Update the ChallengeInstance
@@ -727,7 +749,33 @@ class ChallengeContext(InstanceContext):
             identity=self._solution['identity'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, auth_payload=values.unset, metadata=values.unset):
+        """
+        Asynchronous coroutine to update the ChallengeInstance
         
+        :params str auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :params object metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+
+        :returns: The updated ChallengeInstance
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
+        """
+        data = values.of({ 
+            'AuthPayload': auth_payload,
+            'Metadata': serialize.object(metadata),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            identity=self._solution['identity'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def notifications(self):

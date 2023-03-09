@@ -77,7 +77,7 @@ class BindingList(ListResource):
 
     async def create_async(self, identity, binding_type, address, tag=values.unset, notification_protocol_version=values.unset, credential_sid=values.unset, endpoint=values.unset):
         """
-        Asynchronous coroutine to create the BindingInstance
+        Asynchronously create the BindingInstance
 
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
         :param BindingInstance.BindingType binding_type: 
@@ -139,7 +139,7 @@ class BindingList(ListResource):
 
     async def stream_async(self, start_date=values.unset, end_date=values.unset, identity=values.unset, tag=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams BindingInstance records from the API as a generator stream.
+        Asynchronously streams BindingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -167,7 +167,7 @@ class BindingList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, start_date=values.unset, end_date=values.unset, identity=values.unset, tag=values.unset, limit=None, page_size=None):
         """
@@ -200,7 +200,7 @@ class BindingList(ListResource):
 
     async def list_async(self, start_date=values.unset, end_date=values.unset, identity=values.unset, tag=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists BindingInstance records from the API as a list.
+        Asynchronously lists BindingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -258,7 +258,7 @@ class BindingList(ListResource):
 
     async def page_async(self, start_date=values.unset, end_date=values.unset, identity=values.unset, tag=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of BindingInstance records from the API.
+        Asynchronously retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
         
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
@@ -275,8 +275,8 @@ class BindingList(ListResource):
         data = values.of({ 
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
-            'Identity': serialize.map(identity),
-            'Tag': serialize.map(tag),
+            'Identity': serialize.map(identity, lambda e: e),
+            'Tag': serialize.map(tag, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -303,7 +303,7 @@ class BindingList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of BindingInstance records from the API.
+        Asynchronously retrieve a specific page of BindingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -623,6 +623,7 @@ class BindingContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the BindingInstance
@@ -632,7 +633,18 @@ class BindingContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BindingInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the BindingInstance
@@ -651,7 +663,26 @@ class BindingContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BindingInstance
         
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return BindingInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

@@ -145,7 +145,7 @@ class CallList(ListResource):
 
     async def create_async(self, to, from_, method=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_event=values.unset, status_callback_method=values.unset, send_digits=values.unset, timeout=values.unset, record=values.unset, recording_channels=values.unset, recording_status_callback=values.unset, recording_status_callback_method=values.unset, sip_auth_username=values.unset, sip_auth_password=values.unset, machine_detection=values.unset, machine_detection_timeout=values.unset, recording_status_callback_event=values.unset, trim=values.unset, caller_id=values.unset, machine_detection_speech_threshold=values.unset, machine_detection_speech_end_threshold=values.unset, machine_detection_silence_timeout=values.unset, async_amd=values.unset, async_amd_status_callback=values.unset, async_amd_status_callback_method=values.unset, byoc=values.unset, call_reason=values.unset, call_token=values.unset, recording_track=values.unset, time_limit=values.unset, url=values.unset, twiml=values.unset, application_sid=values.unset):
         """
-        Asynchronous coroutine to create the CallInstance
+        Asynchronously create the CallInstance
 
         :param str to: The phone number, SIP address, or client identifier to call.
         :param str from_: The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
@@ -275,7 +275,7 @@ class CallList(ListResource):
 
     async def stream_async(self, to=values.unset, from_=values.unset, parent_call_sid=values.unset, status=values.unset, start_time=values.unset, start_time_before=values.unset, start_time_after=values.unset, end_time=values.unset, end_time_before=values.unset, end_time_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams CallInstance records from the API as a generator stream.
+        Asynchronously streams CallInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -315,7 +315,7 @@ class CallList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, to=values.unset, from_=values.unset, parent_call_sid=values.unset, status=values.unset, start_time=values.unset, start_time_before=values.unset, start_time_after=values.unset, end_time=values.unset, end_time_before=values.unset, end_time_after=values.unset, limit=None, page_size=None):
         """
@@ -360,7 +360,7 @@ class CallList(ListResource):
 
     async def list_async(self, to=values.unset, from_=values.unset, parent_call_sid=values.unset, status=values.unset, start_time=values.unset, start_time_before=values.unset, start_time_after=values.unset, end_time=values.unset, end_time_before=values.unset, end_time_after=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists CallInstance records from the API as a list.
+        Asynchronously lists CallInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -442,7 +442,7 @@ class CallList(ListResource):
 
     async def page_async(self, to=values.unset, from_=values.unset, parent_call_sid=values.unset, status=values.unset, start_time=values.unset, start_time_before=values.unset, start_time_after=values.unset, end_time=values.unset, end_time_before=values.unset, end_time_after=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of CallInstance records from the API.
+        Asynchronously retrieve a single page of CallInstance records from the API.
         Request is executed immediately
         
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
@@ -499,7 +499,7 @@ class CallList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of CallInstance records from the API.
+        Asynchronously retrieve a specific page of CallInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -1089,6 +1089,7 @@ class CallContext(InstanceContext):
         self._user_defined_messages = None
         self._user_defined_message_subscriptions = None
     
+    
     def delete(self):
         """
         Deletes the CallInstance
@@ -1098,7 +1099,18 @@ class CallContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CallInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the CallInstance
@@ -1117,7 +1129,27 @@ class CallContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CallInstance
         
+
+        :returns: The fetched CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return CallInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, url=values.unset, method=values.unset, status=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, twiml=values.unset, time_limit=values.unset):
         """
         Update the CallInstance
@@ -1156,7 +1188,46 @@ class CallContext(InstanceContext):
             account_sid=self._solution['account_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, url=values.unset, method=values.unset, status=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, twiml=values.unset, time_limit=values.unset):
+        """
+        Asynchronous coroutine to update the CallInstance
         
+        :params str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :params str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params CallInstance.UpdateStatus status: 
+        :params str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :params str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+        :params int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+
+        :returns: The updated CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
+        """
+        data = values.of({ 
+            'Url': url,
+            'Method': method,
+            'Status': status,
+            'FallbackUrl': fallback_url,
+            'FallbackMethod': fallback_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'Twiml': twiml,
+            'TimeLimit': time_limit,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return CallInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def events(self):

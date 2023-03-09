@@ -84,7 +84,7 @@ class ParticipantList(ListResource):
 
     async def stream_async(self, status=values.unset, identity=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ParticipantInstance records from the API as a generator stream.
+        Asynchronously streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -112,7 +112,7 @@ class ParticipantList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, status=values.unset, identity=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
@@ -145,7 +145,7 @@ class ParticipantList(ListResource):
 
     async def list_async(self, status=values.unset, identity=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ParticipantInstance records from the API as a list.
+        Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -203,7 +203,7 @@ class ParticipantList(ListResource):
 
     async def page_async(self, status=values.unset, identity=values.unset, date_created_after=values.unset, date_created_before=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ParticipantInstance records from the API.
+        Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
         
         :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
@@ -248,7 +248,7 @@ class ParticipantList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ParticipantInstance records from the API.
+        Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -599,6 +599,7 @@ class ParticipantContext(InstanceContext):
         self._subscribe_rules = None
         self._subscribed_tracks = None
     
+    
     def fetch(self):
         """
         Fetch the ParticipantInstance
@@ -617,7 +618,27 @@ class ParticipantContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance
         
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, status=values.unset):
         """
         Update the ParticipantInstance
@@ -640,7 +661,30 @@ class ParticipantContext(InstanceContext):
             room_sid=self._solution['room_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, status=values.unset):
+        """
+        Asynchronous coroutine to update the ParticipantInstance
         
+        :params ParticipantInstance.Status status: 
+
+        :returns: The updated ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def anonymize(self):

@@ -79,7 +79,7 @@ class MediaRecordingList(ListResource):
 
     async def stream_async(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams MediaRecordingInstance records from the API as a generator stream.
+        Asynchronously streams MediaRecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -107,7 +107,7 @@ class MediaRecordingList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
         """
@@ -140,7 +140,7 @@ class MediaRecordingList(ListResource):
 
     async def list_async(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists MediaRecordingInstance records from the API as a list.
+        Asynchronously lists MediaRecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -198,7 +198,7 @@ class MediaRecordingList(ListResource):
 
     async def page_async(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of MediaRecordingInstance records from the API.
+        Asynchronously retrieve a single page of MediaRecordingInstance records from the API.
         Request is executed immediately
         
         :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
@@ -243,7 +243,7 @@ class MediaRecordingList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of MediaRecordingInstance records from the API.
+        Asynchronously retrieve a specific page of MediaRecordingInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -582,6 +582,7 @@ class MediaRecordingContext(InstanceContext):
         self._uri = '/MediaRecordings/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the MediaRecordingInstance
@@ -591,7 +592,18 @@ class MediaRecordingContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the MediaRecordingInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the MediaRecordingInstance
@@ -609,7 +621,25 @@ class MediaRecordingContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the MediaRecordingInstance
         
+
+        :returns: The fetched MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return MediaRecordingInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

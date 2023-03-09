@@ -72,7 +72,7 @@ class SyncListList(ListResource):
 
     async def create_async(self, unique_name=values.unset, ttl=values.unset, collection_ttl=values.unset):
         """
-        Asynchronous coroutine to create the SyncListInstance
+        Asynchronously create the SyncListInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
         :param int ttl: Alias for collection_ttl. If both are provided, this value is ignored.
@@ -118,7 +118,7 @@ class SyncListList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams SyncListInstance records from the API as a generator stream.
+        Asynchronously streams SyncListInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -138,7 +138,7 @@ class SyncListList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -163,7 +163,7 @@ class SyncListList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists SyncListInstance records from the API as a list.
+        Asynchronously lists SyncListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -205,7 +205,7 @@ class SyncListList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of SyncListInstance records from the API.
+        Asynchronously retrieve a single page of SyncListInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -242,7 +242,7 @@ class SyncListList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of SyncListInstance records from the API.
+        Asynchronously retrieve a specific page of SyncListInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -584,6 +584,7 @@ class SyncListContext(InstanceContext):
         self._sync_list_items = None
         self._sync_list_permissions = None
     
+    
     def delete(self):
         """
         Deletes the SyncListInstance
@@ -593,7 +594,18 @@ class SyncListContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SyncListInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the SyncListInstance
@@ -612,7 +624,27 @@ class SyncListContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SyncListInstance
         
+
+        :returns: The fetched SyncListInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return SyncListInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, ttl=values.unset, collection_ttl=values.unset):
         """
         Update the SyncListInstance
@@ -637,7 +669,32 @@ class SyncListContext(InstanceContext):
             service_sid=self._solution['service_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, ttl=values.unset, collection_ttl=values.unset):
+        """
+        Asynchronous coroutine to update the SyncListInstance
         
+        :params int ttl: An alias for `collection_ttl`. If both are provided, this value is ignored.
+        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+
+        :returns: The updated SyncListInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
+        """
+        data = values.of({ 
+            'Ttl': ttl,
+            'CollectionTtl': collection_ttl,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SyncListInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def sync_list_items(self):

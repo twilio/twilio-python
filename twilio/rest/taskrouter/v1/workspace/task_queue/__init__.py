@@ -81,7 +81,7 @@ class TaskQueueList(ListResource):
 
     async def create_async(self, friendly_name, target_workers=values.unset, max_reserved_workers=values.unset, task_order=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset):
         """
-        Asynchronous coroutine to create the TaskQueueInstance
+        Asynchronously create the TaskQueueInstance
 
         :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
         :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
@@ -141,7 +141,7 @@ class TaskQueueList(ListResource):
 
     async def stream_async(self, friendly_name=values.unset, evaluate_worker_attributes=values.unset, worker_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams TaskQueueInstance records from the API as a generator stream.
+        Asynchronously streams TaskQueueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -169,7 +169,7 @@ class TaskQueueList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, evaluate_worker_attributes=values.unset, worker_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
         """
@@ -202,7 +202,7 @@ class TaskQueueList(ListResource):
 
     async def list_async(self, friendly_name=values.unset, evaluate_worker_attributes=values.unset, worker_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists TaskQueueInstance records from the API as a list.
+        Asynchronously lists TaskQueueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -260,7 +260,7 @@ class TaskQueueList(ListResource):
 
     async def page_async(self, friendly_name=values.unset, evaluate_worker_attributes=values.unset, worker_sid=values.unset, ordering=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of TaskQueueInstance records from the API.
+        Asynchronously retrieve a single page of TaskQueueInstance records from the API.
         Request is executed immediately
         
         :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
@@ -305,7 +305,7 @@ class TaskQueueList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of TaskQueueInstance records from the API.
+        Asynchronously retrieve a specific page of TaskQueueInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -718,6 +718,7 @@ class TaskQueueContext(InstanceContext):
         self._real_time_statistics = None
         self._statistics = None
     
+    
     def delete(self):
         """
         Deletes the TaskQueueInstance
@@ -727,7 +728,18 @@ class TaskQueueContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the TaskQueueInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the TaskQueueInstance
@@ -746,7 +758,27 @@ class TaskQueueContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TaskQueueInstance
         
+
+        :returns: The fetched TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, target_workers=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset, max_reserved_workers=values.unset, task_order=values.unset):
         """
         Update the TaskQueueInstance
@@ -779,7 +811,40 @@ class TaskQueueContext(InstanceContext):
             workspace_sid=self._solution['workspace_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, target_workers=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset, max_reserved_workers=values.unset, task_order=values.unset):
+        """
+        Asynchronous coroutine to update the TaskQueueInstance
         
+        :params str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :params str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :params str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :params str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :params int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :params TaskQueueInstance.TaskOrder task_order: 
+
+        :returns: The updated TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'TargetWorkers': target_workers,
+            'ReservationActivitySid': reservation_activity_sid,
+            'AssignmentActivitySid': assignment_activity_sid,
+            'MaxReservedWorkers': max_reserved_workers,
+            'TaskOrder': task_order,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def cumulative_statistics(self):

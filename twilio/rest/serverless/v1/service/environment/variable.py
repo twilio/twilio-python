@@ -69,7 +69,7 @@ class VariableList(ListResource):
 
     async def create_async(self, key, value):
         """
-        Asynchronous coroutine to create the VariableInstance
+        Asynchronously create the VariableInstance
 
         :param str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
         :param str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
@@ -113,7 +113,7 @@ class VariableList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams VariableInstance records from the API as a generator stream.
+        Asynchronously streams VariableInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -133,7 +133,7 @@ class VariableList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -158,7 +158,7 @@ class VariableList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists VariableInstance records from the API as a list.
+        Asynchronously lists VariableInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -200,7 +200,7 @@ class VariableList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of VariableInstance records from the API.
+        Asynchronously retrieve a single page of VariableInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -237,7 +237,7 @@ class VariableList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of VariableInstance records from the API.
+        Asynchronously retrieve a specific page of VariableInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -541,6 +541,7 @@ class VariableContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Variables/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the VariableInstance
@@ -550,7 +551,18 @@ class VariableContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the VariableInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the VariableInstance
@@ -570,7 +582,28 @@ class VariableContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the VariableInstance
         
+
+        :returns: The fetched VariableInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return VariableInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            environment_sid=self._solution['environment_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, key=values.unset, value=values.unset):
         """
         Update the VariableInstance
@@ -596,7 +629,33 @@ class VariableContext(InstanceContext):
             environment_sid=self._solution['environment_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, key=values.unset, value=values.unset):
+        """
+        Asynchronous coroutine to update the VariableInstance
         
+        :params str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
+        :params str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
+
+        :returns: The updated VariableInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return VariableInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            environment_sid=self._solution['environment_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

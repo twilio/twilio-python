@@ -72,7 +72,7 @@ class EventTypeList(ListResource):
 
     async def stream_async(self, schema_id=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EventTypeInstance records from the API as a generator stream.
+        Asynchronously streams EventTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -94,7 +94,7 @@ class EventTypeList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, schema_id=values.unset, limit=None, page_size=None):
         """
@@ -121,7 +121,7 @@ class EventTypeList(ListResource):
 
     async def list_async(self, schema_id=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EventTypeInstance records from the API as a list.
+        Asynchronously lists EventTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -167,7 +167,7 @@ class EventTypeList(ListResource):
 
     async def page_async(self, schema_id=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EventTypeInstance records from the API.
+        Asynchronously retrieve a single page of EventTypeInstance records from the API.
         Request is executed immediately
         
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
@@ -206,7 +206,7 @@ class EventTypeList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EventTypeInstance records from the API.
+        Asynchronously retrieve a specific page of EventTypeInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -437,6 +437,7 @@ class EventTypeContext(InstanceContext):
         self._uri = '/Types/{type}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the EventTypeInstance
@@ -454,7 +455,25 @@ class EventTypeContext(InstanceContext):
             type=self._solution['type'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EventTypeInstance
         
+
+        :returns: The fetched EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EventTypeInstance(
+            self._version,
+            payload,
+            type=self._solution['type'],
+            
+        )
+    
     
     def __repr__(self):
         """

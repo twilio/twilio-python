@@ -57,6 +57,20 @@ class SinkTestList(ListResource):
         payload = self._version.create(method='POST', uri=self._uri, )
 
         return SinkTestInstance(self._version, payload, sid=self._solution['sid'])
+
+    async def create_async(self):
+        """
+        Asynchronously create the SinkTestInstance
+
+        
+        :returns: The created SinkTestInstance
+        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
+        """
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, )
+
+        return SinkTestInstance(self._version, payload, sid=self._solution['sid'])
     
 
 

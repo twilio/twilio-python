@@ -81,7 +81,7 @@ class ParticipantList(ListResource):
 
     async def create_async(self, x_twilio_webhook_enabled=values.unset, identity=values.unset, messaging_binding_address=values.unset, messaging_binding_proxy_address=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, messaging_binding_projected_address=values.unset, role_sid=values.unset):
         """
-        Asynchronous coroutine to create the ParticipantInstance
+        Asynchronously create the ParticipantInstance
 
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
@@ -138,7 +138,7 @@ class ParticipantList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ParticipantInstance records from the API as a generator stream.
+        Asynchronously streams ParticipantInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -158,7 +158,7 @@ class ParticipantList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -183,7 +183,7 @@ class ParticipantList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ParticipantInstance records from the API as a list.
+        Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -225,7 +225,7 @@ class ParticipantList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ParticipantInstance records from the API.
+        Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -262,7 +262,7 @@ class ParticipantList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ParticipantInstance records from the API.
+        Asynchronously retrieve a specific page of ParticipantInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -613,6 +613,7 @@ class ParticipantContext(InstanceContext):
         self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._solution)
         
     
+    
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ParticipantInstance
@@ -625,7 +626,21 @@ class ParticipantContext(InstanceContext):
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
         
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Asynchronous coroutine that deletes the ParticipantInstance
+
+        :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self):
         """
         Fetch the ParticipantInstance
@@ -644,7 +659,27 @@ class ParticipantContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance
         
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, x_twilio_webhook_enabled=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, role_sid=values.unset, messaging_binding_proxy_address=values.unset, messaging_binding_projected_address=values.unset, identity=values.unset, last_read_message_index=values.unset, last_read_timestamp=values.unset):
         """
         Update the ParticipantInstance
@@ -684,7 +719,47 @@ class ParticipantContext(InstanceContext):
             conversation_sid=self._solution['conversation_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, x_twilio_webhook_enabled=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, role_sid=values.unset, messaging_binding_proxy_address=values.unset, messaging_binding_projected_address=values.unset, identity=values.unset, last_read_message_index=values.unset, last_read_timestamp=values.unset):
+        """
+        Asynchronous coroutine to update the ParticipantInstance
         
+        :params ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params datetime date_created: The date that this resource was created.
+        :params datetime date_updated: The date that this resource was last updated.
+        :params str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :params str role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+        :params str messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
+        :params str messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
+        :params str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
+        :params int last_read_message_index: Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+        :params str last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+
+        :returns: The updated ParticipantInstance
+        :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
+        """
+        data = values.of({ 
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'RoleSid': role_sid,
+            'MessagingBinding.ProxyAddress': messaging_binding_proxy_address,
+            'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
+            'Identity': identity,
+            'LastReadMessageIndex': last_read_message_index,
+            'LastReadTimestamp': last_read_timestamp,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

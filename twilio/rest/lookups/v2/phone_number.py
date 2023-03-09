@@ -321,6 +321,7 @@ class PhoneNumberContext(InstanceContext):
         self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
         
     
+    
     def fetch(self, fields=values.unset, country_code=values.unset, first_name=values.unset, last_name=values.unset, address_line1=values.unset, address_line2=values.unset, city=values.unset, state=values.unset, postal_code=values.unset, address_country_code=values.unset, national_id=values.unset, date_of_birth=values.unset):
         """
         Fetch the PhoneNumberInstance
@@ -365,7 +366,52 @@ class PhoneNumberContext(InstanceContext):
             phone_number=self._solution['phone_number'],
             
         )
+
+    async def fetch_async(self, fields=values.unset, country_code=values.unset, first_name=values.unset, last_name=values.unset, address_line1=values.unset, address_line2=values.unset, city=values.unset, state=values.unset, postal_code=values.unset, address_country_code=values.unset, national_id=values.unset, date_of_birth=values.unset):
+        """
+        Asynchronous coroutine to fetch the PhoneNumberInstance
         
+        :params str fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match.
+        :params str country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
+        :params str first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
+        :params str last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
+        :params str address_line1: User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
+        :params str address_line2: User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
+        :params str city: User’s city. This query parameter is only used (optionally) for identity_match package requests.
+        :params str state: User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
+        :params str postal_code: User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
+        :params str address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
+        :params str national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
+        :params str date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+
+        :returns: The fetched PhoneNumberInstance
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberInstance
+        """
+        
+        data = values.of({ 
+            'Fields': fields,
+            'CountryCode': country_code,
+            'FirstName': first_name,
+            'LastName': last_name,
+            'AddressLine1': address_line1,
+            'AddressLine2': address_line2,
+            'City': city,
+            'State': state,
+            'PostalCode': postal_code,
+            'AddressCountryCode': address_country_code,
+            'NationalId': national_id,
+            'DateOfBirth': date_of_birth,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number'],
+            
+        )
+    
     
     def __repr__(self):
         """

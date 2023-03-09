@@ -70,7 +70,7 @@ class FieldValueList(ListResource):
 
     async def create_async(self, language, value, synonym_of=values.unset):
         """
-        Asynchronous coroutine to create the FieldValueInstance
+        Asynchronously create the FieldValueInstance
 
         :param str language: An ISO language-country string of the value.
         :param str value: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
@@ -118,7 +118,7 @@ class FieldValueList(ListResource):
 
     async def stream_async(self, language=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams FieldValueInstance records from the API as a generator stream.
+        Asynchronously streams FieldValueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -140,7 +140,7 @@ class FieldValueList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, language=values.unset, limit=None, page_size=None):
         """
@@ -167,7 +167,7 @@ class FieldValueList(ListResource):
 
     async def list_async(self, language=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists FieldValueInstance records from the API as a list.
+        Asynchronously lists FieldValueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -213,7 +213,7 @@ class FieldValueList(ListResource):
 
     async def page_async(self, language=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of FieldValueInstance records from the API.
+        Asynchronously retrieve a single page of FieldValueInstance records from the API.
         Request is executed immediately
         
         :param str language: An ISO language-country string of the value. For example: *en-US*
@@ -252,7 +252,7 @@ class FieldValueList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of FieldValueInstance records from the API.
+        Asynchronously retrieve a specific page of FieldValueInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -538,6 +538,7 @@ class FieldValueContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the FieldValueInstance
@@ -547,7 +548,18 @@ class FieldValueContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the FieldValueInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the FieldValueInstance
@@ -567,7 +579,27 @@ class FieldValueContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FieldValueInstance
         
+
+        :returns: The fetched FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return FieldValueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            field_type_sid=self._solution['field_type_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

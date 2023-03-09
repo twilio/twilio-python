@@ -97,7 +97,7 @@ class NotificationList(ListResource):
 
     async def create_async(self, body=values.unset, priority=values.unset, ttl=values.unset, title=values.unset, sound=values.unset, action=values.unset, data=values.unset, apn=values.unset, gcm=values.unset, sms=values.unset, facebook_messenger=values.unset, fcm=values.unset, segment=values.unset, alexa=values.unset, to_binding=values.unset, delivery_callback_url=values.unset, identity=values.unset, tag=values.unset):
         """
-        Asynchronous coroutine to create the NotificationInstance
+        Asynchronously create the NotificationInstance
 
         :param str body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
         :param NotificationInstance.Priority priority: 

@@ -74,7 +74,7 @@ class UserChannelList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams UserChannelInstance records from the API as a generator stream.
+        Asynchronously streams UserChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -94,7 +94,7 @@ class UserChannelList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -119,7 +119,7 @@ class UserChannelList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists UserChannelInstance records from the API as a list.
+        Asynchronously lists UserChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -161,7 +161,7 @@ class UserChannelList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of UserChannelInstance records from the API.
+        Asynchronously retrieve a single page of UserChannelInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -198,7 +198,7 @@ class UserChannelList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of UserChannelInstance records from the API.
+        Asynchronously retrieve a specific page of UserChannelInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -529,6 +529,7 @@ class UserChannelContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels/{channel_sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the UserChannelInstance
@@ -538,7 +539,18 @@ class UserChannelContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the UserChannelInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the UserChannelInstance
@@ -558,7 +570,28 @@ class UserChannelContext(InstanceContext):
             channel_sid=self._solution['channel_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserChannelInstance
         
+
+        :returns: The fetched UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            channel_sid=self._solution['channel_sid'],
+            
+        )
+    
+    
     def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
         """
         Update the UserChannelInstance
@@ -586,7 +619,35 @@ class UserChannelContext(InstanceContext):
             user_sid=self._solution['user_sid'],
             channel_sid=self._solution['channel_sid']
         )
+
+    async def update_async(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
+        """
+        Asynchronous coroutine to update the UserChannelInstance
         
+        :params UserChannelInstance.NotificationLevel notification_level: 
+        :params int last_consumed_message_index: 
+        :params datetime last_consumption_timestamp: 
+
+        :returns: The updated UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
+        """
+        data = values.of({ 
+            'NotificationLevel': notification_level,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            channel_sid=self._solution['channel_sid']
+        )
+    
     
     def __repr__(self):
         """

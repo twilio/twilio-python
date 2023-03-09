@@ -70,7 +70,7 @@ class EnvironmentList(ListResource):
 
     async def create_async(self, unique_name, domain_suffix=values.unset):
         """
-        Asynchronous coroutine to create the EnvironmentInstance
+        Asynchronously create the EnvironmentInstance
 
         :param str unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
         :param str domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
@@ -114,7 +114,7 @@ class EnvironmentList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams EnvironmentInstance records from the API as a generator stream.
+        Asynchronously streams EnvironmentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -134,7 +134,7 @@ class EnvironmentList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -159,7 +159,7 @@ class EnvironmentList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists EnvironmentInstance records from the API as a list.
+        Asynchronously lists EnvironmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -201,7 +201,7 @@ class EnvironmentList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of EnvironmentInstance records from the API.
+        Asynchronously retrieve a single page of EnvironmentInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -238,7 +238,7 @@ class EnvironmentList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of EnvironmentInstance records from the API.
+        Asynchronously retrieve a specific page of EnvironmentInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -564,6 +564,7 @@ class EnvironmentContext(InstanceContext):
         self._logs = None
         self._variables = None
     
+    
     def delete(self):
         """
         Deletes the EnvironmentInstance
@@ -573,7 +574,18 @@ class EnvironmentContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the EnvironmentInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the EnvironmentInstance
@@ -592,7 +604,26 @@ class EnvironmentContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EnvironmentInstance
         
+
+        :returns: The fetched EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return EnvironmentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     @property
     def deployments(self):

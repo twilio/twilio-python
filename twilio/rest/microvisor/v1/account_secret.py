@@ -45,6 +45,7 @@ class AccountSecretList(ListResource):
     
     
     
+    
     def create(self, key, value):
         """
         Create the AccountSecretInstance
@@ -66,7 +67,7 @@ class AccountSecretList(ListResource):
 
     async def create_async(self, key, value):
         """
-        Asynchronous coroutine to create the AccountSecretInstance
+        Asynchronously create the AccountSecretInstance
 
         :param str key: The secret key; up to 100 characters.
         :param str value: The secret value; up to 4096 characters.
@@ -110,7 +111,7 @@ class AccountSecretList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams AccountSecretInstance records from the API as a generator stream.
+        Asynchronously streams AccountSecretInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -130,7 +131,7 @@ class AccountSecretList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -155,7 +156,7 @@ class AccountSecretList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists AccountSecretInstance records from the API as a list.
+        Asynchronously lists AccountSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -197,7 +198,7 @@ class AccountSecretList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of AccountSecretInstance records from the API.
+        Asynchronously retrieve a single page of AccountSecretInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -234,7 +235,7 @@ class AccountSecretList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of AccountSecretInstance records from the API.
+        Asynchronously retrieve a specific page of AccountSecretInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -278,6 +279,8 @@ class AccountSecretList(ListResource):
         :rtype: str
         """
         return '<Twilio.Microvisor.V1.AccountSecretList>'
+
+
 
 
 
@@ -424,6 +427,28 @@ class AccountSecretInstance(InstanceResource):
         return await self._proxy.fetch_async()
     
     
+    def update(self, value):
+        """
+        Update the AccountSecretInstance
+        
+        :params str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        return self._proxy.update(value=value, )
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the AccountSecretInstance
+        
+        :params str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        return await self._proxy.update_async(value=value, )
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -454,6 +479,7 @@ class AccountSecretContext(InstanceContext):
         self._uri = '/Secrets/{key}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the AccountSecretInstance
@@ -463,7 +489,18 @@ class AccountSecretContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AccountSecretInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the AccountSecretInstance
@@ -481,7 +518,70 @@ class AccountSecretContext(InstanceContext):
             key=self._solution['key'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AccountSecretInstance
         
+
+        :returns: The fetched AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return AccountSecretInstance(
+            self._version,
+            payload,
+            key=self._solution['key'],
+            
+        )
+    
+    
+    def update(self, value):
+        """
+        Update the AccountSecretInstance
+        
+        :params str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of({ 
+            'Value': value,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AccountSecretInstance(
+            self._version,
+            payload,
+            key=self._solution['key']
+        )
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the AccountSecretInstance
+        
+        :params str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of({ 
+            'Value': value,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AccountSecretInstance(
+            self._version,
+            payload,
+            key=self._solution['key']
+        )
+    
     
     def __repr__(self):
         """

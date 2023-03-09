@@ -63,7 +63,7 @@ class SinkValidateList(ListResource):
 
     async def create_async(self, test_id):
         """
-        Asynchronous coroutine to create the SinkValidateInstance
+        Asynchronously create the SinkValidateInstance
 
         :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
         

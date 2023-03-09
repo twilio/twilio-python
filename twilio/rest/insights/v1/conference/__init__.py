@@ -91,7 +91,7 @@ class ConferenceList(ListResource):
 
     async def stream_async(self, conference_sid=values.unset, friendly_name=values.unset, status=values.unset, created_after=values.unset, created_before=values.unset, mixer_region=values.unset, tags=values.unset, subaccount=values.unset, detected_issues=values.unset, end_reason=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams ConferenceInstance records from the API as a generator stream.
+        Asynchronously streams ConferenceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -131,7 +131,7 @@ class ConferenceList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, conference_sid=values.unset, friendly_name=values.unset, status=values.unset, created_after=values.unset, created_before=values.unset, mixer_region=values.unset, tags=values.unset, subaccount=values.unset, detected_issues=values.unset, end_reason=values.unset, limit=None, page_size=None):
         """
@@ -176,7 +176,7 @@ class ConferenceList(ListResource):
 
     async def list_async(self, conference_sid=values.unset, friendly_name=values.unset, status=values.unset, created_after=values.unset, created_before=values.unset, mixer_region=values.unset, tags=values.unset, subaccount=values.unset, detected_issues=values.unset, end_reason=values.unset, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists ConferenceInstance records from the API as a list.
+        Asynchronously lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -258,7 +258,7 @@ class ConferenceList(ListResource):
 
     async def page_async(self, conference_sid=values.unset, friendly_name=values.unset, status=values.unset, created_after=values.unset, created_before=values.unset, mixer_region=values.unset, tags=values.unset, subaccount=values.unset, detected_issues=values.unset, end_reason=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of ConferenceInstance records from the API.
+        Asynchronously retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
         
         :param str conference_sid: The SID of the conference.
@@ -315,7 +315,7 @@ class ConferenceList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of ConferenceInstance records from the API.
+        Asynchronously retrieve a specific page of ConferenceInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -741,6 +741,7 @@ class ConferenceContext(InstanceContext):
         
         self._conference_participants = None
     
+    
     def fetch(self):
         """
         Fetch the ConferenceInstance
@@ -758,7 +759,25 @@ class ConferenceContext(InstanceContext):
             conference_sid=self._solution['conference_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ConferenceInstance
         
+
+        :returns: The fetched ConferenceInstance
+        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return ConferenceInstance(
+            self._version,
+            payload,
+            conference_sid=self._solution['conference_sid'],
+            
+        )
+    
     
     @property
     def conference_participants(self):

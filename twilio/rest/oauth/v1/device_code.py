@@ -66,7 +66,7 @@ class DeviceCodeList(ListResource):
 
     async def create_async(self, client_sid, scopes, audiences=values.unset):
         """
-        Asynchronous coroutine to create the DeviceCodeInstance
+        Asynchronously create the DeviceCodeInstance
 
         :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
         :param list[str] scopes: An Array of scopes for authorization request

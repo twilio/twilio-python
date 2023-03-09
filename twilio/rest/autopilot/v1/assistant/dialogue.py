@@ -202,6 +202,7 @@ class DialogueContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/Dialogues/{sid}'.format(**self._solution)
         
     
+    
     def fetch(self):
         """
         Fetch the DialogueInstance
@@ -220,7 +221,26 @@ class DialogueContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DialogueInstance
         
+
+        :returns: The fetched DialogueInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DialogueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
     
     def __repr__(self):
         """

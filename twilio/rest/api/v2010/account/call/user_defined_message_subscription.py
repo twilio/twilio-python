@@ -69,7 +69,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
     async def create_async(self, callback, idempotency_key=values.unset, method=values.unset):
         """
-        Asynchronous coroutine to create the UserDefinedMessageSubscriptionInstance
+        Asynchronously create the UserDefinedMessageSubscriptionInstance
 
         :param str callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
@@ -247,6 +247,7 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/UserDefinedMessageSubscriptions/{sid}.json'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the UserDefinedMessageSubscriptionInstance
@@ -256,7 +257,17 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the UserDefinedMessageSubscriptionInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
     
     def __repr__(self):
         """

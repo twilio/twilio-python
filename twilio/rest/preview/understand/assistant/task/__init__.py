@@ -76,7 +76,7 @@ class TaskList(ListResource):
 
     async def create_async(self, unique_name, friendly_name=values.unset, actions=values.unset, actions_url=values.unset):
         """
-        Asynchronous coroutine to create the TaskInstance
+        Asynchronously create the TaskInstance
 
         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
@@ -124,7 +124,7 @@ class TaskList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams TaskInstance records from the API as a generator stream.
+        Asynchronously streams TaskInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -144,7 +144,7 @@ class TaskList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -169,7 +169,7 @@ class TaskList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists TaskInstance records from the API as a list.
+        Asynchronously lists TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -211,7 +211,7 @@ class TaskList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of TaskInstance records from the API.
+        Asynchronously retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -248,7 +248,7 @@ class TaskList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of TaskInstance records from the API.
+        Asynchronously retrieve a specific page of TaskInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -607,6 +607,7 @@ class TaskContext(InstanceContext):
         self._task_actions = None
         self._statistics = None
     
+    
     def delete(self):
         """
         Deletes the TaskInstance
@@ -616,7 +617,18 @@ class TaskContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the TaskInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the TaskInstance
@@ -635,7 +647,27 @@ class TaskContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TaskInstance
         
+
+        :returns: The fetched TaskInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return TaskInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, friendly_name=values.unset, unique_name=values.unset, actions=values.unset, actions_url=values.unset):
         """
         Update the TaskInstance
@@ -664,7 +696,36 @@ class TaskContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, friendly_name=values.unset, unique_name=values.unset, actions=values.unset, actions_url=values.unset):
+        """
+        Asynchronous coroutine to update the TaskInstance
         
+        :params str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :params object actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
+        :params str actions_url: User-provided HTTP endpoint where from the assistant fetches actions
+
+        :returns: The updated TaskInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Actions': serialize.object(actions),
+            'ActionsUrl': actions_url,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return TaskInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     @property
     def fields(self):

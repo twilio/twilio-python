@@ -72,7 +72,7 @@ class WebhookList(ListResource):
 
     async def create_async(self, unique_name, events, webhook_url, webhook_method=values.unset):
         """
-        Asynchronous coroutine to create the WebhookInstance
+        Asynchronously create the WebhookInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
         :param str events: The list of space-separated events that this Webhook will subscribe to.
@@ -120,7 +120,7 @@ class WebhookList(ListResource):
 
     async def stream_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that streams WebhookInstance records from the API as a generator stream.
+        Asynchronously streams WebhookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -140,7 +140,7 @@ class WebhookList(ListResource):
             page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits['limit'])
 
     def list(self, limit=None, page_size=None):
         """
@@ -165,7 +165,7 @@ class WebhookList(ListResource):
 
     async def list_async(self, limit=None, page_size=None):
         """
-        Asynchronous coroutine that lists WebhookInstance records from the API as a list.
+        Asynchronously lists WebhookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
@@ -207,7 +207,7 @@ class WebhookList(ListResource):
 
     async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
-        Asynchronous coroutine that retrieve a single page of WebhookInstance records from the API.
+        Asynchronously retrieve a single page of WebhookInstance records from the API.
         Request is executed immediately
         
         :param str page_token: PageToken provided by the API
@@ -244,7 +244,7 @@ class WebhookList(ListResource):
 
     async def get_page_async(self, target_url):
         """
-        Asynchronous coroutine that retrieve a specific page of WebhookInstance records from the API.
+        Asynchronously retrieve a specific page of WebhookInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
@@ -559,6 +559,7 @@ class WebhookContext(InstanceContext):
         self._uri = '/Assistants/{assistant_sid}/Webhooks/{sid}'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the WebhookInstance
@@ -568,7 +569,18 @@ class WebhookContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the WebhookInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the WebhookInstance
@@ -587,7 +599,27 @@ class WebhookContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WebhookInstance
         
+
+        :returns: The fetched WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
     def update(self, unique_name=values.unset, events=values.unset, webhook_url=values.unset, webhook_method=values.unset):
         """
         Update the WebhookInstance
@@ -616,7 +648,36 @@ class WebhookContext(InstanceContext):
             assistant_sid=self._solution['assistant_sid'],
             sid=self._solution['sid']
         )
+
+    async def update_async(self, unique_name=values.unset, events=values.unset, webhook_url=values.unset, webhook_method=values.unset):
+        """
+        Asynchronous coroutine to update the WebhookInstance
         
+        :params str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+        :params str events: The list of space-separated events that this Webhook will subscribe to.
+        :params str webhook_url: The URL associated with this Webhook.
+        :params str webhook_method: The method to be used when calling the webhook's URL.
+
+        :returns: The updated WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Events': events,
+            'WebhookUrl': webhook_url,
+            'WebhookMethod': webhook_method,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+    
     
     def __repr__(self):
         """

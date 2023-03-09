@@ -61,7 +61,7 @@ class InsightsSessionList(ListResource):
 
     async def create_async(self, authorization=values.unset):
         """
-        Asynchronous coroutine to create the InsightsSessionInstance
+        Asynchronously create the InsightsSessionInstance
 
         :param str authorization: The Authorization HTTP request header
         
@@ -226,6 +226,7 @@ class InsightsSessionContext(InstanceContext):
         self._uri = '/Insights/Session'.format(**self._solution)
         
     
+    
     def create(self, authorization=values.unset):
         """
         Create the InsightsSessionInstance
@@ -240,6 +241,26 @@ class InsightsSessionContext(InstanceContext):
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)
+
+        return InsightsSessionInstance(
+            self._version,
+            payload
+        )
+
+    async def create_async(self, authorization=values.unset):
+        """
+        Asynchronous coroutine to create the InsightsSessionInstance
+        
+        :param str authorization: The Authorization HTTP request header
+
+        :returns: The created InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
+        """
+        data = values.of({ 
+            'Authorization': authorization,
+        })
+
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data)
 
         return InsightsSessionInstance(
             self._version,

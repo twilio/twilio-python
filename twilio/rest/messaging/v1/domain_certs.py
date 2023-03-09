@@ -271,6 +271,7 @@ class DomainCertsContext(InstanceContext):
         self._uri = '/LinkShortening/Domains/{domain_sid}/Certificate'.format(**self._solution)
         
     
+    
     def delete(self):
         """
         Deletes the DomainCertsInstance
@@ -280,7 +281,18 @@ class DomainCertsContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DomainCertsInstance
+
         
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self):
         """
         Fetch the DomainCertsInstance
@@ -298,7 +310,26 @@ class DomainCertsContext(InstanceContext):
             domain_sid=self._solution['domain_sid'],
             
         )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DomainCertsInstance
         
+
+        :returns: The fetched DomainCertsInstance
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return DomainCertsInstance(
+            self._version,
+            payload,
+            domain_sid=self._solution['domain_sid'],
+            
+        )
+    
+    
     def update(self, tls_cert):
         """
         Update the DomainCertsInstance
@@ -320,7 +351,29 @@ class DomainCertsContext(InstanceContext):
             payload,
             domain_sid=self._solution['domain_sid']
         )
+
+    async def update_async(self, tls_cert):
+        """
+        Asynchronous coroutine to update the DomainCertsInstance
         
+        :params str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+
+        :returns: The updated DomainCertsInstance
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
+        """
+        data = values.of({ 
+            'TlsCert': tls_cert,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return DomainCertsInstance(
+            self._version,
+            payload,
+            domain_sid=self._solution['domain_sid']
+        )
+    
     
     def __repr__(self):
         """
