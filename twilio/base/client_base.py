@@ -106,8 +106,6 @@ class ClientBase(object):
         :returns: Response from the Twilio API
         :rtype: twilio.http.response.Response
         """
-        print('Called ClientBase.request_async method...')
-
         if not self.http_client.is_async:
             raise RuntimeError('http_client must be asynchronous to support async API requests')
 

@@ -20,11 +20,10 @@ class MockResponse(object):
 
 class TestAsyncHttpClientRequest(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
-        self.session_patcher = patch('twilio.http.async_http_client.aiohttp.ClientSession')
-
         self.session_mock = AsyncMock(wraps=ClientSession)
         self.session_mock.request.return_value = MockResponse('test', 200)
 
+        self.session_patcher = patch('twilio.http.async_http_client.aiohttp.ClientSession')
         session_constructor_mock = self.session_patcher.start()
         session_constructor_mock.return_value = self.session_mock
 
@@ -58,12 +57,11 @@ class TestAsyncHttpClientRequest(unittest.IsolatedAsyncioTestCase):
 
 class TestAsyncHttpClientRetries(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
-        self.session_patcher = patch('twilio.http.async_http_client.aiohttp.ClientSession')
-
         self.session_mock = AsyncMock(wraps=ClientSession)
         self.session_mock.request.side_effect = [MockResponse('Error', 500), MockResponse('Error', 500),
                                                  MockResponse('Success', 200)]
 
+        self.session_patcher = patch('twilio.http.async_http_client.aiohttp.ClientSession')
         session_constructor_mock = self.session_patcher.start()
         session_constructor_mock.return_value = self.session_mock
 
@@ -126,4 +124,3 @@ class TestAsyncHttpClientSession(unittest.IsolatedAsyncioTestCase):
         # No session used, responses should be different (not cached)
         self.assertEqual(response_1.content, 'response_1')
         self.assertEqual(response_2.content, 'response_2')
-

@@ -100,6 +100,9 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         return self._test_only_last_response
 
     async def close(self):
+        """
+        Closes the HTTP client session
+        """
         if self.session:
             await self.session.close()
 

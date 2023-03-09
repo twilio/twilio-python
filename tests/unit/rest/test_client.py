@@ -103,7 +103,6 @@ class TestClientAsyncRequest(unittest.IsolatedAsyncioTestCase):
             await client.request_async('doesnt matter', 'doesnt matter')
 
     async def test_request_async_called_with_method_and_url(self):
-        await self.client.request_async('GET', 'https://mock.twilio.com')
+        await self.client.request_async('GET', 'http://mock.twilio.com')
         self.assertEqual(self.mock_async_http_client.request.call_args.args[0], 'GET')
-        self.assertEqual(self.mock_async_http_client.request.call_args.args[1], 'https://mock.twilio.com')
-
+        self.assertEqual(self.mock_async_http_client.request.call_args.args[1], 'http://mock.twilio.com')
