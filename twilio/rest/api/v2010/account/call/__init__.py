@@ -813,7 +813,6 @@ class CallContext(InstanceContext):
         
         self._events = None
         self._feedback = None
-        self._feedback_summaries = None
         self._notifications = None
         self._payments = None
         self._recordings = None
@@ -922,21 +921,6 @@ class CallContext(InstanceContext):
                 self._solution['sid'],
             )
         return self._feedback
-    
-    @property
-    def feedback_summaries(self):
-        """
-        Access the feedback_summaries
-
-        :returns: twilio.rest.api.v2010.account.call.FeedbackSummaryList
-        :rtype: twilio.rest.api.v2010.account.call.FeedbackSummaryList
-        """
-        if self._feedback_summaries is None:
-            self._feedback_summaries = FeedbackSummaryList(
-                self._version, 
-                self._solution['account_sid'],
-            )
-        return self._feedback_summaries
     
     @property
     def notifications(self):

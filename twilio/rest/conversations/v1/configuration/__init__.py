@@ -228,7 +228,6 @@ class ConfigurationContext(InstanceContext):
         }
         self._uri = '/Configuration'.format(**self._solution)
         
-        self._webhooks = None
     
     def fetch(self):
         """
@@ -274,20 +273,6 @@ class ConfigurationContext(InstanceContext):
             payload
         )
         
-    
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.conversations.v1.configuration.WebhookList
-        :rtype: twilio.rest.conversations.v1.configuration.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(
-                self._version, 
-            )
-        return self._webhooks
     
     def __repr__(self):
         """

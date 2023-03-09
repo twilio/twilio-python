@@ -546,7 +546,6 @@ class TaskQueueContext(InstanceContext):
         self._cumulative_statistics = None
         self._real_time_statistics = None
         self._statistics = None
-        self._statistics = None
     
     def delete(self):
         """
@@ -656,21 +655,6 @@ class TaskQueueContext(InstanceContext):
                 self._version, 
                 self._solution['workspace_sid'],
                 self._solution['sid'],
-            )
-        return self._statistics
-    
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = TaskQueuesStatisticsList(
-                self._version, 
-                self._solution['workspace_sid'],
             )
         return self._statistics
     

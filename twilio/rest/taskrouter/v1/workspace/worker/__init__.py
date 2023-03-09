@@ -570,9 +570,6 @@ class WorkerContext(InstanceContext):
         self._reservations = None
         self._worker_channels = None
         self._statistics = None
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
     
     def delete(self, if_match=values.unset):
         """
@@ -682,51 +679,6 @@ class WorkerContext(InstanceContext):
                 self._version, 
                 self._solution['workspace_sid'],
                 self._solution['sid'],
-            )
-        return self._statistics
-    
-    @property
-    def cumulative_statistics(self):
-        """
-        Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
-        """
-        if self._cumulative_statistics is None:
-            self._cumulative_statistics = WorkersCumulativeStatisticsList(
-                self._version, 
-                self._solution['workspace_sid'],
-            )
-        return self._cumulative_statistics
-    
-    @property
-    def real_time_statistics(self):
-        """
-        Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
-        """
-        if self._real_time_statistics is None:
-            self._real_time_statistics = WorkersRealTimeStatisticsList(
-                self._version, 
-                self._solution['workspace_sid'],
-            )
-        return self._real_time_statistics
-    
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = WorkersStatisticsList(
-                self._version, 
-                self._solution['workspace_sid'],
             )
         return self._statistics
     

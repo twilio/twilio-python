@@ -245,8 +245,6 @@ class ConfigurationContext(InstanceContext):
         }
         self._uri = '/Services/{chat_service_sid}/Configuration'.format(**self._solution)
         
-        self._notifications = None
-        self._webhooks = None
     
     def fetch(self):
         """
@@ -294,36 +292,6 @@ class ConfigurationContext(InstanceContext):
             chat_service_sid=self._solution['chat_service_sid']
         )
         
-    
-    @property
-    def notifications(self):
-        """
-        Access the notifications
-
-        :returns: twilio.rest.conversations.v1.service.configuration.NotificationList
-        :rtype: twilio.rest.conversations.v1.service.configuration.NotificationList
-        """
-        if self._notifications is None:
-            self._notifications = NotificationList(
-                self._version, 
-                self._solution['chat_service_sid'],
-            )
-        return self._notifications
-    
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.conversations.v1.service.configuration.WebhookList
-        :rtype: twilio.rest.conversations.v1.service.configuration.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(
-                self._version, 
-                self._solution['chat_service_sid'],
-            )
-        return self._webhooks
     
     def __repr__(self):
         """
