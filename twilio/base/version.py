@@ -110,7 +110,7 @@ class Version(object):
         return self._parse_fetch(method, uri, response)
 
     async def fetch_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-              allow_redirects=False):
+                          allow_redirects=False):
         """
         Asynchronously fetch a resource instance.
         """
@@ -155,7 +155,7 @@ class Version(object):
         return self._parse_update(method, uri, response)
 
     async def update_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-               allow_redirects=False):
+                           allow_redirects=False):
         """
         Asynchronously update a resource instance.
         """
@@ -200,7 +200,7 @@ class Version(object):
         return self._parse_delete(method, uri, response)
 
     async def delete_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-               allow_redirects=False):
+                           allow_redirects=False):
         """
         Asynchronously delete a resource.
         """
@@ -251,7 +251,7 @@ class Version(object):
         )
 
     async def page_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-             allow_redirects=False):
+                         allow_redirects=False):
         """
         Makes an asynchronous HTTP request.
         """

@@ -77,6 +77,7 @@ class TestUserAgentClients(unittest.TestCase):
         user_agent_extensions = user_agent_headers.split(" ")[-len(expected_user_agent_extensions):]
         self.assertEqual(user_agent_extensions, expected_user_agent_extensions)
 
+
 class TestClientAsyncRequest(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.mock_async_http_client = AsyncMock()
