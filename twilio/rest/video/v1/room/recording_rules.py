@@ -51,7 +51,7 @@ class RecordingRulesList(ListResource):
         :returns: The fetched RecordingRulesInstance
         :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
         """
-        payload = self._version.create(method='GET', uri=self._uri)
+        payload = self._version.fetch(method='GET', uri=self._uri)
 
         return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
     
