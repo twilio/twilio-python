@@ -46,7 +46,7 @@ class SimList(ListResource):
     
     
     
-    def stream(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+    def stream(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
         """
         Streams SimInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -56,7 +56,7 @@ class SimList(ListResource):
         :param str status: 
         :param str iccid: 
         :param str rate_plan: 
-        :param str eid: 
+        :param str e_id: 
         :param str sim_registration_code: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -73,14 +73,14 @@ class SimList(ListResource):
             status=status,
             iccid=iccid,
             rate_plan=rate_plan,
-            eid=eid,
+            e_id=e_id,
             sim_registration_code=sim_registration_code,
             page_size=limits['page_size']
         )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+    def list(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
         """
         Lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -89,7 +89,7 @@ class SimList(ListResource):
         :param str status: 
         :param str iccid: 
         :param str rate_plan: 
-        :param str eid: 
+        :param str e_id: 
         :param str sim_registration_code: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -105,13 +105,13 @@ class SimList(ListResource):
             status=status,
             iccid=iccid,
             rate_plan=rate_plan,
-            eid=eid,
+            e_id=e_id,
             sim_registration_code=sim_registration_code,
             limit=limit,
             page_size=page_size,
         ))
 
-    def page(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
@@ -119,7 +119,7 @@ class SimList(ListResource):
         :param str status: 
         :param str iccid: 
         :param str rate_plan: 
-        :param str eid: 
+        :param str e_id: 
         :param str sim_registration_code: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -132,7 +132,7 @@ class SimList(ListResource):
             'Status': status,
             'Iccid': iccid,
             'RatePlan': rate_plan,
-            'EId': eid,
+            'EId': e_id,
             'SimRegistrationCode': sim_registration_code,
             'PageToken': page_token,
             'Page': page_number,
