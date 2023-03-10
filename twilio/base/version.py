@@ -312,7 +312,7 @@ class Version(object):
             if page_limit and page_limit is not values.unset and page_limit < current_page:
                 return
 
-            page = page.next_page_async()
+            page = await page.next_page_async()
 
     def _parse_create(self, method, uri, response):
         """
