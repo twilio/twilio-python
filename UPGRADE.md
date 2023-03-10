@@ -3,6 +3,51 @@
 _`MAJOR` version bumps will have upgrade notes
 posted here._
 
+[2023-03-22] 7.x.x to 8.x.x
+---------------------------
+
+- **Supported Python versions updated**
+    - Dropped support for Python 3.6 (https://github.com/twilio/twilio-python/pull/632)
+    - Python 3.7 is the new required minimum version to use twilio-python helper library
+- **Deletion of TwiML Voice Deprecated Methods (https://github.com/twilio/twilio-python/pull/643)**
+    - `Refer.refer_sip()` replaced by `Refer.sip()`
+    - `ssml_break()` replaced by `break_()`
+    - `ssml_emphasis()` replaced by `emphasis()`
+    - `ssml_lang()` replaced by `lang()`
+    - `ssml_p()` replaced by `p()`
+    - `ssml_phoneme()` replaced by `phoneme()`
+    - `ssml_prosody()` replaced by `prosody()`
+    - `ssml_s()` replaced by `s()`
+    - `ssml_say_as()` replaced by `say_as()`
+    - `ssml_sub()` replaced by `sub()`
+    - `ssml_w()` replaced by `w()`
+    - **Old:**
+    ```python
+    from twilio.twiml.voice_response import VoiceResponse
+    resp = VoiceResponse()
+    say = resp.say("Hello")
+    say.ssml_emphasis("you")
+    ```
+    - **New:**
+    ```python
+    from twilio.twiml.voice_response import VoiceResponse
+    resp = VoiceResponse()
+    say = resp.say("Hello")
+    say.emphasis("you")
+    ```
+- **JWT token building deprecations (https://github.com/twilio/twilio-python/pull/644)**
+    - `ConversationsGrant` has been deprecated in favor of `VoiceGrant`
+    - `IpMessagingGrant` has been removed
+- `twilio.rest.api.v2010.account.available_phone_number` has been renamed to `twilio.rest.api.v2010.account.available_phone_number_country`
+- **[TaskRouter Workers Statistics](https://www.twilio.com/docs/taskrouter/api/worker/statistics) operations updated (https://github.com/twilio/twilio-python/pull/653)**
+    - Cumulative and Real-Time Workers Statistics no longer accept a WorkerSid
+    - `GET /v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics`
+        - Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).cumulativeStatistics()`
+        - New: `client.taskrouter.v1.workspaces('WS...').workers.cumulativeStatistics()`
+    - `GET /v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics`
+        - Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).realTimeStatistics()`
+        - New: `client.taskrouter.v1.workspaces('WS...').workers.realTimeStatistics()`
+
 [2021-09-22] 6.x.x to 7.x.x
 ---------------------------
 ### Overview
