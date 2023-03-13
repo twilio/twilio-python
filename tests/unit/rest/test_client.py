@@ -1,4 +1,5 @@
 import unittest
+import aiounittest
 
 from mock import AsyncMock, Mock
 from twilio.http.response import Response
@@ -78,7 +79,7 @@ class TestUserAgentClients(unittest.TestCase):
         self.assertEqual(user_agent_extensions, expected_user_agent_extensions)
 
 
-class TestClientAsyncRequest(unittest.IsolatedAsyncioTestCase):
+class TestClientAsyncRequest(aiounittest.AsyncTestCase):
     def setUp(self):
         self.mock_async_http_client = AsyncMock()
         self.mock_async_http_client.request.return_value = Response(200, 'test')

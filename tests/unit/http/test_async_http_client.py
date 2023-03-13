@@ -1,4 +1,5 @@
 import unittest
+import aiounittest
 
 from aiohttp import ClientSession
 from mock import patch, AsyncMock
@@ -18,7 +19,7 @@ class MockResponse(object):
         return self._text
 
 
-class TestAsyncHttpClientRequest(unittest.IsolatedAsyncioTestCase):
+class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
     def setUp(self):
         self.session_mock = AsyncMock(wraps=ClientSession)
         self.session_mock.request.return_value = MockResponse('test', 200)
@@ -55,7 +56,7 @@ class TestAsyncHttpClientRequest(unittest.IsolatedAsyncioTestCase):
             await self.client.request('doesnt matter', 'doesnt matter', timeout=-1)
 
 
-class TestAsyncHttpClientRetries(unittest.IsolatedAsyncioTestCase):
+class TestAsyncHttpClientRetries(aiounittest.AsyncTestCase):
     def setUp(self):
         self.session_mock = AsyncMock(wraps=ClientSession)
         self.session_mock.request.side_effect = [MockResponse('Error', 500), MockResponse('Error', 500),
@@ -85,7 +86,7 @@ class TestAsyncHttpClientRetries(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(response.text, 'Error')
 
 
-class TestAsyncHttpClientSession(unittest.IsolatedAsyncioTestCase):
+class TestAsyncHttpClientSession(aiounittest.AsyncTestCase):
     def setUp(self):
         self.session_patcher = patch('twilio.http.async_http_client.aiohttp.ClientSession')
         self.session_constructor_mock = self.session_patcher.start()
