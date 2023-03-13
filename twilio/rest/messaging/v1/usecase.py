@@ -53,6 +53,17 @@ class UsecaseList(ListResource):
         payload = self._version.fetch(method='GET', uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
+
+    async def fetch_async(self):
+        """
+        Asynchronously fetch the UsecaseInstance
+
+        :returns: The fetched UsecaseInstance
+        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
+        """
+        payload = await self._version.fetch_async(method='GET', uri=self._uri)
+
+        return UsecaseInstance(self._version, payload)
     
 
 

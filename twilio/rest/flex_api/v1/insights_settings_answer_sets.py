@@ -53,6 +53,17 @@ class InsightsSettingsAnswerSetsList(ListResource):
         payload = self._version.fetch(method='GET', uri=self._uri)
 
         return InsightsSettingsAnswerSetsInstance(self._version, payload)
+
+    async def fetch_async(self):
+        """
+        Asynchronously fetch the InsightsSettingsAnswerSetsInstance
+
+        :returns: The fetched InsightsSettingsAnswerSetsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsInstance
+        """
+        payload = await self._version.fetch_async(method='GET', uri=self._uri)
+
+        return InsightsSettingsAnswerSetsInstance(self._version, payload)
     
 
 
