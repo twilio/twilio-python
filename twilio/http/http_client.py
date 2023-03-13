@@ -2,7 +2,6 @@ import logging
 
 from requests import Request, Session, hooks
 from requests.adapters import HTTPAdapter
-from urllib.parse import urlencode
 from twilio.http import HttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
@@ -28,18 +27,12 @@ class TwilioHttpClient(HttpClient):
         :param dict proxy: Http proxy for the requests session
         :param int max_retries: Maximum number of retries each request should attempt
         """
-        self.is_async = False
+        super().__init__(logger, False, timeout)
         self.session = Session() if pool_connections else None
         if self.session and max_retries is not None:
             self.session.mount('https://', HTTPAdapter(max_retries=max_retries))
-        self._test_only_last_request = None
-        self._test_only_last_response = None
-        self.logger = logger
-        self.request_hooks = request_hooks or hooks.default_hooks()
 
-        if timeout is not None and timeout <= 0:
-            raise ValueError(timeout)
-        self.timeout = timeout
+        self.request_hooks = request_hooks or hooks.default_hooks()
         self.proxy = proxy if proxy else {}
 
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
@@ -73,7 +66,7 @@ class TwilioHttpClient(HttpClient):
             'hooks': self.request_hooks
         }
 
-        self._log_request(kwargs)
+        self.log_request(kwargs)
 
         self._test_only_last_response = None
         session = self.session or Session()
@@ -89,30 +82,8 @@ class TwilioHttpClient(HttpClient):
 
         response = session.send(prepped_request, **settings)
 
-        self._log_response(response)
+        self.log_response(response.status_code, response)
 
         self._test_only_last_response = Response(int(response.status_code), response.text, response.headers)
 
         return self._test_only_last_response
-
-    def _log_request(self, kwargs):
-        self.logger.info('-- BEGIN Twilio API Request --')
-
-        if kwargs['params']:
-            self.logger.info('{} Request: {}?{}'.format(kwargs['method'], kwargs['url'], urlencode(kwargs['params'])))
-            self.logger.info('Query Params: {}'.format(kwargs['params']))
-        else:
-            self.logger.info('{} Request: {}'.format(kwargs['method'], kwargs['url']))
-
-        if kwargs['headers']:
-            self.logger.info('Headers:')
-            for key, value in kwargs['headers'].items():
-                # Do not log authorization headers
-                if 'authorization' not in key.lower():
-                    self.logger.info('{} : {}'.format(key, value))
-
-        self.logger.info('-- END Twilio API Request --')
-
-    def _log_response(self, response):
-        self.logger.info('Response Status Code: {}'.format(response.status_code))
-        self.logger.info('Response Headers: {}'.format(response.headers))
