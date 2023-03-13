@@ -13,10 +13,6 @@
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
 
 
 from twilio.base.list_resource import ListResource
