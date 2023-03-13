@@ -10,7 +10,7 @@ from twilio.http.response import Response
 _logger = logging.getLogger('twilio.async_http_client')
 
 
-class AsyncTwilioHttpClient(HttpClient, AsyncHttpClient):
+class AsyncTwilioHttpClient(AsyncHttpClient):
     """
     General purpose asynchronous HTTP Client for interacting with the Twilio API
     """

@@ -62,7 +62,7 @@ class HttpClient(object):
         self.logger.info('Response Headers: {}'.format(response.headers))
 
 
-class AsyncHttpClient(object):
+class AsyncHttpClient(HttpClient):
     """
     An abstract class representing an asynchronous HTTP client.
     """
