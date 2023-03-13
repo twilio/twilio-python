@@ -54,17 +54,6 @@ class RecordingRulesList(ListResource):
         payload = self._version.fetch(method='GET', uri=self._uri)
 
         return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
-
-    async def fetch_async(self):
-        """
-        Asynchronously fetch the RecordingRulesInstance
-
-        :returns: The fetched RecordingRulesInstance
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
-        """
-        payload = await self._version.fetch_async(method='GET', uri=self._uri)
-
-        return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
     
     
     def update(self, rules=values.unset):

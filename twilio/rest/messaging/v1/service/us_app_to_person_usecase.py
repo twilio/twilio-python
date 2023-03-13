@@ -54,17 +54,6 @@ class UsAppToPersonUsecaseList(ListResource):
         payload = self._version.fetch(method='GET', uri=self._uri)
 
         return UsAppToPersonUsecaseInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
-
-    async def fetch_async(self):
-        """
-        Asynchronously fetch the UsAppToPersonUsecaseInstance
-
-        :returns: The fetched UsAppToPersonUsecaseInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
-        """
-        payload = await self._version.fetch_async(method='GET', uri=self._uri)
-
-        return UsAppToPersonUsecaseInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
     
 
 
