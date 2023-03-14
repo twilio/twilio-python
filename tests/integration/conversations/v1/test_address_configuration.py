@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class AddressConfigurationTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.address_configurations.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/Configuration/Addresses',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/Configuration/Addresses",
+            )
+        )
 
     def test_read_all_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -94,17 +96,19 @@ class AddressConfigurationTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.conversations.v1.address_configurations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_blank_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -117,17 +121,19 @@ class AddressConfigurationTestCase(IntegrationTestCase):
                 },
                 "address_configurations": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.conversations.v1.address_configurations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_by_address_type_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -193,28 +199,34 @@ class AddressConfigurationTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.conversations.v1.address_configurations.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.address_configurations("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.conversations.v1.address_configurations(
+                "IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "IGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -236,31 +248,42 @@ class AddressConfigurationTestCase(IntegrationTestCase):
                 "date_updated": "2016-03-24T21:05:50Z",
                 "url": "https://conversations.twilio.com/v1/Configuration/Addresses/IGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.address_configurations("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.conversations.v1.address_configurations(
+            "IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.address_configurations.create(type="sms", address="address")
+            self.client.conversations.v1.address_configurations.create(
+                type="sms", address="address"
+            )
 
-        values = {'Type': "sms", 'Address': "address", }
+        values = {
+            "Type": "sms",
+            "Address": "address",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://conversations.twilio.com/v1/Configuration/Addresses',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://conversations.twilio.com/v1/Configuration/Addresses",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "IGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -282,28 +305,36 @@ class AddressConfigurationTestCase(IntegrationTestCase):
                 "date_updated": "2016-03-24T21:05:50Z",
                 "url": "https://conversations.twilio.com/v1/Configuration/Addresses/IGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.address_configurations.create(type="sms", address="address")
+        actual = self.client.conversations.v1.address_configurations.create(
+            type="sms", address="address"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.address_configurations("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.conversations.v1.address_configurations(
+                "IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "IGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -321,30 +352,41 @@ class AddressConfigurationTestCase(IntegrationTestCase):
                 "date_updated": "2016-03-24T21:05:51Z",
                 "url": "https://conversations.twilio.com/v1/Configuration/Addresses/IGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.address_configurations("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.conversations.v1.address_configurations(
+            "IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.address_configurations("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.conversations.v1.address_configurations(
+                "IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://conversations.twilio.com/v1/Configuration/Addresses/IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.conversations.v1.address_configurations("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.conversations.v1.address_configurations(
+            "IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

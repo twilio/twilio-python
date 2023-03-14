@@ -15,30 +15,34 @@ from twilio.http.response import Response
 
 
 class FeedbackSummaryTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls \
-                                 .feedback_summaries.create(start_date=date(2008, 1, 2), end_date=date(2008, 1, 2))
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).calls.feedback_summaries.create(
+                start_date=date(2008, 1, 2), end_date=date(2008, 1, 2)
+            )
 
         values = {
-            'StartDate': serialize.iso8601_date(date(2008, 1, 2)),
-            'EndDate': serialize.iso8601_date(date(2008, 1, 2)),
+            "StartDate": serialize.iso8601_date(date(2008, 1, 2)),
+            "EndDate": serialize.iso8601_date(date(2008, 1, 2)),
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary.json',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary.json",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "include_subaccounts": false,
                 "call_feedback_count": 729,
@@ -61,32 +65,38 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls \
-                                      .feedback_summaries.create(start_date=date(2008, 1, 2), end_date=date(2008, 1, 2))
+        actual = self.client.api.v2010.accounts(
+            "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).calls.feedback_summaries.create(
+            start_date=date(2008, 1, 2), end_date=date(2008, 1, 2)
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls \
-                                 .feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).calls.feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "include_subaccounts": false,
                 "call_feedback_count": 729,
@@ -109,36 +119,45 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls \
-                                      .feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls.feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls \
-                                 .feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).calls.feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/FeedbackSummary/FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls \
-                                      .feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls.feedback_summaries("FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

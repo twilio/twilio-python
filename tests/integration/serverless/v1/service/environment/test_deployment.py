@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class DeploymentTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .deployments.list()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").deployments.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "deployments": [],
                 "meta": {
@@ -43,32 +45,40 @@ class DeploymentTestCase(IntegrationTestCase):
                     "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Deployments?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .deployments.list()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .deployments.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .deployments("ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").deployments(
+                "ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments/ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments/ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ZD00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -79,32 +89,39 @@ class DeploymentTestCase(IntegrationTestCase):
                 "date_updated": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Deployments/ZD00000000000000000000000000000000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .deployments("ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .deployments("ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .deployments.create()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").deployments.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "ZD00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -115,11 +132,14 @@ class DeploymentTestCase(IntegrationTestCase):
                 "date_updated": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Deployments/ZD00000000000000000000000000000000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .deployments.create()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .deployments.create()
+        )
 
         self.assertIsNotNone(actual)

@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class SyncListTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.sync.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
@@ -45,53 +48,69 @@ class SyncListTestCase(IntegrationTestCase):
                 "unique_name": "unique_name",
                 "url": "https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.preview.sync.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists.create()
+            self.client.preview.sync.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sync_lists.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
@@ -107,30 +126,36 @@ class SyncListTestCase(IntegrationTestCase):
                 "unique_name": "unique_name",
                 "url": "https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .sync_lists.create()
+        actual = self.client.preview.sync.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).sync_lists.create()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists.list()
+            self.client.preview.sync.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sync_lists.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "lists": [],
                 "meta": {
@@ -143,18 +168,21 @@ class SyncListTestCase(IntegrationTestCase):
                     "url": "https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .sync_lists.list()
+        actual = self.client.preview.sync.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).sync_lists.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "lists": [
                     {
@@ -183,10 +211,12 @@ class SyncListTestCase(IntegrationTestCase):
                     "url": "https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.sync.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .sync_lists.list()
+        actual = self.client.preview.sync.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).sync_lists.list()
 
         self.assertIsNotNone(actual)

@@ -13,24 +13,30 @@ from twilio.http.response import Response
 
 
 class AssignedAddOnTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .assigned_add_ons("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).incoming_phone_numbers(
+                "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).assigned_add_ons(
+                "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -48,32 +54,41 @@ class AssignedAddOnTestCase(IntegrationTestCase):
                     "extensions": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions.json"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .assigned_add_ons("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .assigned_add_ons("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .assigned_add_ons.list()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).incoming_phone_numbers(
+                "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).assigned_add_ons.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json?PageSize=50&Page=0",
@@ -103,19 +118,23 @@ class AssignedAddOnTestCase(IntegrationTestCase):
                 "start": 0,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json?PageSize=50&Page=0"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .assigned_add_ons.list()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .assigned_add_ons.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json?PageSize=50&Page=0",
@@ -127,35 +146,47 @@ class AssignedAddOnTestCase(IntegrationTestCase):
                 "start": 0,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json?PageSize=50&Page=0"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .assigned_add_ons.list()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .assigned_add_ons.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .assigned_add_ons.create(installed_add_on_sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).incoming_phone_numbers(
+                "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).assigned_add_ons.create(
+                installed_add_on_sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'InstalledAddOnSid': "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "InstalledAddOnSid": "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns.json',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns.json",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -173,36 +204,52 @@ class AssignedAddOnTestCase(IntegrationTestCase):
                     "extensions": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions.json"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .assigned_add_ons.create(installed_add_on_sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .assigned_add_ons.create(
+                installed_add_on_sid="XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .assigned_add_ons("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).incoming_phone_numbers(
+                "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).assigned_add_ons(
+                "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AssignedAddOns/XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .assigned_add_ons("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .incoming_phone_numbers("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .assigned_add_ons("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

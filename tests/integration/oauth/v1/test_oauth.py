@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class OauthTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.oauth.v1.oauth().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://oauth.twilio.com/v1/certs',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://oauth.twilio.com/v1/certs",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "keys": [
                     {
@@ -44,8 +46,9 @@ class OauthTestCase(IntegrationTestCase):
                 ],
                 "url": "https://oauth.twilio.com/v1/certs"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.oauth.v1.oauth().fetch()
 

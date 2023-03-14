@@ -19,10 +19,19 @@ class Domain(object):
         :param string uri: The relative uri to make absolute.
         :return: An absolute url (based off this domain)
         """
-        return '{}/{}'.format(self.base_url.strip('/'), uri.strip('/'))
+        return "{}/{}".format(self.base_url.strip("/"), uri.strip("/"))
 
-    def request(self, method, uri, params=None, data=None, headers=None,
-                auth=None, timeout=None, allow_redirects=False):
+    def request(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Makes an HTTP request to this domain.
         :param string method: The HTTP method.
@@ -44,11 +53,20 @@ class Domain(object):
             headers=headers,
             auth=auth,
             timeout=timeout,
-            allow_redirects=allow_redirects
+            allow_redirects=allow_redirects,
         )
 
-    async def request_async(self, method, uri, params=None, data=None, headers=None,
-                            auth=None, timeout=None, allow_redirects=False):
+    async def request_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Makes an asynchronous HTTP request to this domain.
         :param string method: The HTTP method.
@@ -70,5 +88,5 @@ class Domain(object):
             headers=headers,
             auth=auth,
             timeout=timeout,
-            allow_redirects=allow_redirects
+            allow_redirects=allow_redirects,
         )

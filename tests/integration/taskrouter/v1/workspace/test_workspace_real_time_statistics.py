@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class WorkspaceRealTimeStatisticsTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .real_time_statistics().fetch()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).real_time_statistics().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RealTimeStatistics",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RealTimeStatistics",
                 "tasks_by_priority": {},
@@ -63,10 +66,14 @@ class WorkspaceRealTimeStatisticsTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "tasks_by_status": {}
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .real_time_statistics().fetch()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .real_time_statistics()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

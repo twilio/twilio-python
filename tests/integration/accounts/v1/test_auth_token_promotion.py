@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class AuthTokenPromotionTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.accounts.v1.auth_token_promotion().update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://accounts.twilio.com/v1/AuthTokens/Promote',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://accounts.twilio.com/v1/AuthTokens/Promote",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "auth_token": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
@@ -36,8 +38,9 @@ class AuthTokenPromotionTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-31T04:00:00Z",
                 "url": "https://accounts.twilio.com/v1/AuthTokens/Promote"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.accounts.v1.auth_token_promotion().update()
 

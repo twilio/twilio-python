@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class DocumentTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.sync.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
@@ -46,53 +49,69 @@ class DocumentTestCase(IntegrationTestCase):
                     "permissions": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.sync.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .documents.create()
+            self.client.sync.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).documents.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
@@ -109,30 +128,36 @@ class DocumentTestCase(IntegrationTestCase):
                     "permissions": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents.create()
+        actual = self.client.sync.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).documents.create()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .documents.list()
+            self.client.sync.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).documents.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "documents": [],
                 "meta": {
@@ -145,18 +170,21 @@ class DocumentTestCase(IntegrationTestCase):
                     "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents.list()
+        actual = self.client.sync.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).documents.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "documents": [
                     {
@@ -186,32 +214,42 @@ class DocumentTestCase(IntegrationTestCase):
                     "url": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents.list()
+        actual = self.client.sync.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).documents.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(if_match="if_match")
+            self.client.sync.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(
+                if_match="if_match"
+            )
 
-        headers = {'If-Match': "if_match", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
-        ))
+        headers = {
+            "If-Match": "if_match",
+        }
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                headers=headers,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "created_by": "created_by",
@@ -228,10 +266,14 @@ class DocumentTestCase(IntegrationTestCase):
                     "permissions": "https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .documents("ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)

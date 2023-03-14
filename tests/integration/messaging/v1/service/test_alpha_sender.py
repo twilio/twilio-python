@@ -13,26 +13,31 @@ from twilio.http.response import Response
 
 
 class AlphaSenderTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .alpha_senders.create(alpha_sender="alpha_sender")
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).alpha_senders.create(alpha_sender="alpha_sender")
 
-        values = {'AlphaSender': "alpha_sender", }
+        values = {
+            "AlphaSender": "alpha_sender",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -45,30 +50,36 @@ class AlphaSenderTestCase(IntegrationTestCase):
                 ],
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .alpha_senders.create(alpha_sender="alpha_sender")
+        actual = self.client.messaging.v1.services(
+            "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).alpha_senders.create(alpha_sender="alpha_sender")
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .alpha_senders.list()
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).alpha_senders.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -94,30 +105,36 @@ class AlphaSenderTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .alpha_senders.list()
+        actual = self.client.messaging.v1.services(
+            "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).alpha_senders.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -130,33 +147,45 @@ class AlphaSenderTestCase(IntegrationTestCase):
                 ],
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AlphaSenders/AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .alpha_senders("AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

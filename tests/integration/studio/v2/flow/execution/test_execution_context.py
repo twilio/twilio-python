@@ -13,24 +13,28 @@ from twilio.http.response import Response
 
 
 class ExecutionContextTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .execution_context().fetch()
+            self.client.studio.v2.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).executions(
+                "FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).execution_context().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Context',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Context",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "context": {
@@ -40,11 +44,15 @@ class ExecutionContextTestCase(IntegrationTestCase):
                 "execution_sid": "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .execution_context().fetch()
+        actual = (
+            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .execution_context()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

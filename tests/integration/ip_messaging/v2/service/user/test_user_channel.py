@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class UserChannelTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .user_channels.list()
+            self.client.ip_messaging.v2.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").user_channels.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -60,19 +62,23 @@ class UserChannelTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .user_channels.list()
+        actual = (
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -85,32 +91,40 @@ class UserChannelTestCase(IntegrationTestCase):
                 },
                 "channels": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .user_channels.list()
+        actual = (
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.ip_messaging.v2.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").user_channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -127,57 +141,75 @@ class UserChannelTestCase(IntegrationTestCase):
                     "member": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.ip_messaging.v2.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").user_channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.ip_messaging.v2.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").user_channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_notification_level_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -194,19 +226,24 @@ class UserChannelTestCase(IntegrationTestCase):
                     "member": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_last_consumed_message_index_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -223,11 +260,15 @@ class UserChannelTestCase(IntegrationTestCase):
                     "member": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)

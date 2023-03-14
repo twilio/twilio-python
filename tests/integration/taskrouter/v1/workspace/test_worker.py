@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class WorkerTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers.list()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -69,18 +72,21 @@ class WorkerTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers.list()
+        actual = self.client.taskrouter.v1.workspaces(
+            "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).workers.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?Available=available&TargetWorkersExpression=target_workers_expression&TaskQueueName=task_queue_name&ActivityName=activity_name&ActivitySid=WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&TaskQueueSid=WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&FriendlyName=friendly_name&PageSize=50&Page=0",
@@ -93,33 +99,41 @@ class WorkerTestCase(IntegrationTestCase):
                 },
                 "workers": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers.list()
+        actual = self.client.taskrouter.v1.workspaces(
+            "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).workers.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers.create(friendly_name="friendly_name")
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name", }
+        values = {
+            "FriendlyName": "friendly_name",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "NewWorker",
@@ -146,30 +160,36 @@ class WorkerTestCase(IntegrationTestCase):
                     "reservations": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers.create(friendly_name="friendly_name")
+        actual = self.client.taskrouter.v1.workspaces(
+            "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).workers.create(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "activity_name": "available",
@@ -196,32 +216,42 @@ class WorkerTestCase(IntegrationTestCase):
                     "reservations": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(if_match="if_match")
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(if_match="if_match")
 
-        headers = {'If-Match': "if_match", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
-        ))
+        headers = {
+            "If-Match": "if_match",
+        }
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                headers=headers,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "blah",
@@ -248,35 +278,49 @@ class WorkerTestCase(IntegrationTestCase):
                     "reservations": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(if_match="if_match")
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(if_match="if_match")
 
-        headers = {'If-Match': "if_match", }
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
-        ))
+        headers = {
+            "If-Match": "if_match",
+        }
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                headers=headers,
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

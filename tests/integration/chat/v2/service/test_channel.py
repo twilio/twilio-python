@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class ChannelTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -52,57 +55,77 @@ class ChannelTestCase(IntegrationTestCase):
                     "last_message": null
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete(x_twilio_webhook_enabled="true")
 
-        headers = {'X-Twilio-Webhook-Enabled': "true", }
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
-        ))
+        headers = {
+            "X-Twilio-Webhook-Enabled": "true",
+        }
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                headers=headers,
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels.create(x_twilio_webhook_enabled="true")
+            self.client.chat.v2.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).channels.create(x_twilio_webhook_enabled="true")
 
-        headers = {'X-Twilio-Webhook-Enabled': "true", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
-            headers=headers,
-        ))
+        headers = {
+            "X-Twilio-Webhook-Enabled": "true",
+        }
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+                headers=headers,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -125,30 +148,36 @@ class ChannelTestCase(IntegrationTestCase):
                     "last_message": null
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels.create()
+        actual = self.client.chat.v2.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).channels.create()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels.list()
+            self.client.chat.v2.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).channels.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "channels": [
                     {
@@ -184,18 +213,21 @@ class ChannelTestCase(IntegrationTestCase):
                     "key": "channels"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels.list()
+        actual = self.client.chat.v2.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).channels.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "channels": [],
                 "meta": {
@@ -208,32 +240,40 @@ class ChannelTestCase(IntegrationTestCase):
                     "key": "channels"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels.list()
+        actual = self.client.chat.v2.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).channels.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update(x_twilio_webhook_enabled="true")
 
-        headers = {'X-Twilio-Webhook-Enabled': "true", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
-        ))
+        headers = {
+            "X-Twilio-Webhook-Enabled": "true",
+        }
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                headers=headers,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -256,10 +296,14 @@ class ChannelTestCase(IntegrationTestCase):
                     "last_message": null
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)

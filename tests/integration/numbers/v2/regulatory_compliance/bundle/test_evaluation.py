@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class EvaluationTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .evaluations.create()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).evaluations.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "ELaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -191,32 +193,36 @@ class EvaluationTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .evaluations.create()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).evaluations.create()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .evaluations.list()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).evaluations.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -229,19 +235,21 @@ class EvaluationTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .evaluations.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).evaluations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -415,32 +423,36 @@ class EvaluationTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .evaluations.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).evaluations.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations/ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations/ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ELaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -601,11 +613,16 @@ class EvaluationTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class RoomTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -61,28 +63,34 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.rooms(
+            "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.video.v1.rooms.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://video.twilio.com/v1/Rooms',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://video.twilio.com/v1/Rooms",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -115,17 +123,19 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_webrtc_go_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -158,17 +168,19 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_group_rooms_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -201,17 +213,19 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_group_rooms_with_audio_only_enabled_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -242,17 +256,19 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_small_group_rooms_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -285,17 +301,19 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_large_group_rooms_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -328,17 +346,19 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_large_group_rooms_with_audio_only_enabled_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -369,28 +389,32 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.create()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.video.v1.rooms.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Rooms',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Rooms",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "rooms": [],
                 "meta": {
@@ -403,17 +427,19 @@ class RoomTestCase(IntegrationTestCase):
                     "key": "rooms"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_status_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "rooms": [
                     {
@@ -459,31 +485,39 @@ class RoomTestCase(IntegrationTestCase):
                     "key": "rooms"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.rooms.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(
+                status="in-progress"
+            )
 
-        values = {'Status': "in-progress", }
+        values = {
+            "Status": "in-progress",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -516,9 +550,12 @@ class RoomTestCase(IntegrationTestCase):
                     "recording_rules": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RecordingRules"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
+        actual = self.client.video.v1.rooms(
+            "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(status="in-progress")
 
         self.assertIsNotNone(actual)

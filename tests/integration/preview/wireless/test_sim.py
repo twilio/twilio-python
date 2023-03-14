@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class SimTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.wireless.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.wireless.sims(
+                "DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
@@ -56,28 +60,34 @@ class SimTestCase(IntegrationTestCase):
                 "status": "status",
                 "url": "https://preview.twilio.com/wireless/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.wireless.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.preview.wireless.sims(
+            "DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.preview.wireless.sims.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/wireless/Sims',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/wireless/Sims",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sims": [],
                 "meta": {
@@ -90,17 +100,19 @@ class SimTestCase(IntegrationTestCase):
                     "url": "https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.wireless.sims.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sims": [
                     {
@@ -141,28 +153,34 @@ class SimTestCase(IntegrationTestCase):
                     "url": "https://preview.twilio.com/wireless/Sims?Status=status&Iccid=iccid&RatePlan=rate_plan&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.wireless.sims.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.wireless.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.preview.wireless.sims(
+                "DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/wireless/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
@@ -190,9 +208,12 @@ class SimTestCase(IntegrationTestCase):
                 "voice_url": "http://www.example.com",
                 "url": "https://preview.twilio.com/wireless/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.wireless.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.preview.wireless.sims(
+            "DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)

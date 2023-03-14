@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class WorkspaceCumulativeStatisticsTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .cumulative_statistics().fetch()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).cumulative_statistics().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CumulativeStatistics",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "reservations_accepted": 100,
                 "tasks_completed": 100,
@@ -84,10 +87,14 @@ class WorkspaceCumulativeStatisticsTestCase(IntegrationTestCase):
                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .cumulative_statistics().fetch()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .cumulative_statistics()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

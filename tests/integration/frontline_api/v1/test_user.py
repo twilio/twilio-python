@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class UserTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.frontline_api.v1.users("sid").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://frontline-api.twilio.com/v1/Users/sid',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://frontline-api.twilio.com/v1/Users/sid",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "identity": "john@example.com",
@@ -38,28 +40,32 @@ class UserTestCase(IntegrationTestCase):
                 "is_available": true,
                 "url": "https://frontline-api.twilio.com/v1/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.frontline_api.v1.users("sid").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.frontline_api.v1.users("sid").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://frontline-api.twilio.com/v1/Users/sid',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://frontline-api.twilio.com/v1/Users/sid",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "identity": "john@example.com",
@@ -69,8 +75,9 @@ class UserTestCase(IntegrationTestCase):
                 "is_available": true,
                 "url": "https://frontline-api.twilio.com/v1/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.frontline_api.v1.users("sid").update()
 

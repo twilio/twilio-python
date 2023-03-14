@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class FeedbackTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .feedback.create()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").feedback.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Feedback.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Feedback.json",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Thu, 30 Jul 2015 20:00:00 +0000",
@@ -39,11 +41,14 @@ class FeedbackTestCase(IntegrationTestCase):
                 "outcome": "confirmed",
                 "uri": "uri"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .feedback.create()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .feedback.create()
+        )
 
         self.assertIsNotNone(actual)

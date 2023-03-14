@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class EndUserTypeTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .end_user_types.list()
+            self.client.numbers.v2.regulatory_compliance.end_user_types.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/EndUserTypes',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/EndUserTypes",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "end_user_types": [],
                 "meta": {
@@ -42,18 +43,19 @@ class EndUserTypeTestCase(IntegrationTestCase):
                     "key": "end_user_types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .end_user_types.list()
+        actual = self.client.numbers.v2.regulatory_compliance.end_user_types.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "end_user_types": [
                     {
@@ -85,30 +87,34 @@ class EndUserTypeTestCase(IntegrationTestCase):
                     "key": "end_user_types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .end_user_types.list()
+        actual = self.client.numbers.v2.regulatory_compliance.end_user_types.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .end_user_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.numbers.v2.regulatory_compliance.end_user_types(
+                "OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/EndUserTypes/OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/EndUserTypes/OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "friendly_name",
@@ -127,10 +133,12 @@ class EndUserTypeTestCase(IntegrationTestCase):
                 ],
                 "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/EndUserTypes/OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .end_user_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.numbers.v2.regulatory_compliance.end_user_types(
+            "OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)

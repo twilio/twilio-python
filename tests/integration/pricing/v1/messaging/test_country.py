@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class CountryTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.pricing.v1.messaging \
-                                  .countries.list()
+            self.client.pricing.v1.messaging.countries.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://pricing.twilio.com/v1/Messaging/Countries',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://pricing.twilio.com/v1/Messaging/Countries",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "countries": [],
                 "meta": {
@@ -42,18 +43,19 @@ class CountryTestCase(IntegrationTestCase):
                     "url": "https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.pricing.v1.messaging \
-                                       .countries.list()
+        actual = self.client.pricing.v1.messaging.countries.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "countries": [
                     {
@@ -72,30 +74,32 @@ class CountryTestCase(IntegrationTestCase):
                     "url": "https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.pricing.v1.messaging \
-                                       .countries.list()
+        actual = self.client.pricing.v1.messaging.countries.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.pricing.v1.messaging \
-                                  .countries("US").fetch()
+            self.client.pricing.v1.messaging.countries("US").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://pricing.twilio.com/v1/Messaging/Countries/US',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://pricing.twilio.com/v1/Messaging/Countries/US",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "country": "country",
                 "inbound_sms_prices": [
@@ -123,10 +127,10 @@ class CountryTestCase(IntegrationTestCase):
                 "price_unit": "USD",
                 "url": "https://pricing.twilio.com/v1/Messaging/Countries/US"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.pricing.v1.messaging \
-                                       .countries("US").fetch()
+        actual = self.client.pricing.v1.messaging.countries("US").fetch()
 
         self.assertIsNotNone(actual)

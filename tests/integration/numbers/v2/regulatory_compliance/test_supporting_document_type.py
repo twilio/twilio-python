@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class SupportingDocumentTypeTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .supporting_document_types.list()
+            self.client.numbers.v2.regulatory_compliance.supporting_document_types.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocumentTypes',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocumentTypes",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "supporting_document_types": [],
                 "meta": {
@@ -42,18 +43,21 @@ class SupportingDocumentTypeTestCase(IntegrationTestCase):
                     "key": "supporting_document_types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .supporting_document_types.list()
+        actual = (
+            self.client.numbers.v2.regulatory_compliance.supporting_document_types.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "supporting_document_types": [
                     {
@@ -80,30 +84,36 @@ class SupportingDocumentTypeTestCase(IntegrationTestCase):
                     "key": "supporting_document_types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .supporting_document_types.list()
+        actual = (
+            self.client.numbers.v2.regulatory_compliance.supporting_document_types.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .supporting_document_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.numbers.v2.regulatory_compliance.supporting_document_types(
+                "OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocumentTypes/OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocumentTypes/OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "Passport",
@@ -117,10 +127,12 @@ class SupportingDocumentTypeTestCase(IntegrationTestCase):
                 ],
                 "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocumentTypes/OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .supporting_document_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.numbers.v2.regulatory_compliance.supporting_document_types(
+            "OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)

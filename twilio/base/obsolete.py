@@ -3,8 +3,7 @@ import functools
 
 
 class ObsoleteException(Exception):
-    """ Base class for warnings about obsolete features. """
-    pass
+    """Base class for warnings about obsolete features."""
 
 
 def obsolete_client(func):
@@ -16,8 +15,7 @@ def obsolete_client(func):
     def new_func(*args, **kwargs):
         raise ObsoleteException(
             "{} has been removed from this version of the library. "
-            "Please refer to current documentation for guidance."
-            .format(func.__name__)
+            "Please refer to current documentation for guidance.".format(func.__name__)
         )
 
     return new_func
@@ -30,13 +28,17 @@ def deprecated_method(new_func=None):
     """
 
     def deprecated_method_wrapper(func):
-
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            msg = 'Function method .{}() is deprecated'.format(func.__name__)
-            msg += ' in favor of .{}()'.format(new_func) if isinstance(new_func, str) else ''
+            msg = "Function method .{}() is deprecated".format(func.__name__)
+            msg += (
+                " in favor of .{}()".format(new_func)
+                if isinstance(new_func, str)
+                else ""
+            )
             warnings.warn(msg, DeprecationWarning)
             return func(*args, **kwargs)
+
         return wrapper
 
     if callable(new_func):

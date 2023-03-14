@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class SiprecTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .siprec.create()
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).siprec.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Siprec.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Siprec.json",
+            )
+        )
 
     def test_create_no_args_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -40,19 +42,23 @@ class SiprecTestCase(IntegrationTestCase):
                 "date_updated": "Thu, 30 Jul 2015 20:00:00 +0000",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .siprec.create()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .siprec.create()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_with_args_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -62,35 +68,43 @@ class SiprecTestCase(IntegrationTestCase):
                 "date_updated": "Thu, 30 Jul 2015 20:00:00 +0000",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .siprec.create()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .siprec.create()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .siprec("SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="stopped")
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).siprec("SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="stopped")
 
-        values = {'Status': "stopped", }
+        values = {
+            "Status": "stopped",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Siprec/SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Siprec/SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+                data=values,
+            )
+        )
 
     def test_update_by_sid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -100,19 +114,24 @@ class SiprecTestCase(IntegrationTestCase):
                 "date_updated": "Thu, 30 Jul 2015 20:00:00 +0000",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .siprec("SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="stopped")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .siprec("SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(status="stopped")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_by_name_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -122,11 +141,15 @@ class SiprecTestCase(IntegrationTestCase):
                 "date_updated": "Thu, 30 Jul 2015 20:00:00 +0000",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .siprec("SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="stopped")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .siprec("SRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(status="stopped")
+        )
 
         self.assertIsNotNone(actual)

@@ -14,30 +14,37 @@ from twilio.http.response import Response
 
 
 class WebhookTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .webhooks.create(friendly_name="friendly_name", event_types=['event_types'], webhook_url="webhook_url")
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).webhooks.create(
+                friendly_name="friendly_name",
+                event_types=["event_types"],
+                webhook_url="webhook_url",
+            )
 
         values = {
-            'FriendlyName': "friendly_name",
-            'EventTypes': serialize.map(['event_types'], lambda e: e),
-            'WebhookUrl': "webhook_url",
+            "FriendlyName": "friendly_name",
+            "EventTypes": serialize.map(["event_types"], lambda e: e),
+            "WebhookUrl": "webhook_url",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/YWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "YWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -55,30 +62,40 @@ class WebhookTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .webhooks.create(friendly_name="friendly_name", event_types=['event_types'], webhook_url="webhook_url")
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).webhooks.create(
+            friendly_name="friendly_name",
+            event_types=["event_types"],
+            webhook_url="webhook_url",
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/YWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "YWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -96,53 +113,69 @@ class WebhookTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks/YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/YWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "YWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -160,30 +193,38 @@ class WebhookTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .webhooks("YWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .webhooks.list()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).webhooks.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "webhooks": [],
                 "meta": {
@@ -196,18 +237,21 @@ class WebhookTestCase(IntegrationTestCase):
                     "key": "webhooks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .webhooks.list()
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).webhooks.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "webhooks": [
                     {
@@ -238,10 +282,12 @@ class WebhookTestCase(IntegrationTestCase):
                     "key": "webhooks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .webhooks.list()
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).webhooks.list()
 
         self.assertIsNotNone(actual)

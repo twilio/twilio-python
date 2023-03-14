@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class VariableTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .variables.list()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").variables.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "variables": [],
                 "meta": {
@@ -43,32 +45,40 @@ class VariableTestCase(IntegrationTestCase):
                     "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .variables.list()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .variables.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").variables(
+                "ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ZV00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -80,35 +90,47 @@ class VariableTestCase(IntegrationTestCase):
                 "date_updated": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables/ZV00000000000000000000000000000000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .variables.create(key="key", value="value")
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").variables.create(
+                key="key", value="value"
+            )
 
-        values = {'Key': "key", 'Value': "value", }
+        values = {
+            "Key": "key",
+            "Value": "value",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "ZV00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -120,32 +142,40 @@ class VariableTestCase(IntegrationTestCase):
                 "date_updated": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables/ZV00000000000000000000000000000000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .variables.create(key="key", value="value")
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .variables.create(key="key", value="value")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").variables(
+                "ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ZV00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -157,36 +187,49 @@ class VariableTestCase(IntegrationTestCase):
                 "date_updated": "2018-11-11T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments/ZE00000000000000000000000000000000/Variables/ZV00000000000000000000000000000000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").variables(
+                "ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Variables/ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .variables("ZVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

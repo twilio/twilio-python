@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class PhoneNumberTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://lookups.twilio.com/v1/PhoneNumbers/+15017122661',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://lookups.twilio.com/v1/PhoneNumbers/+15017122661",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": null,
                 "carrier": null,
@@ -39,17 +41,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "phone_number": "+15108675310",
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+15108675310"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_carrier_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": null,
                 "carrier": {
@@ -66,17 +70,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "add_ons": null,
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+15108675310"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_carrier_international_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": null,
                 "carrier": {
@@ -93,17 +99,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "add_ons": null,
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+4402077651182"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_caller_name_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": {
                     "caller_name": "Delicious Cheese Cake",
@@ -118,17 +126,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "add_ons": null,
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+15108675310"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_carrier_and_caller_name_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": {
                     "caller_name": "Delicious Cheese Cake",
@@ -154,17 +164,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+15108675310"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_addons_whitepages_pro_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": {
                     "caller_name": "EMPIRE STATE BUILDING",
@@ -228,17 +240,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+12127363100"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_addons_nomorobo_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": null,
                 "country_code": "US",
@@ -272,17 +286,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+19892008374"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_addons_payfone_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "caller_name": null,
                 "country_code": "US",
@@ -321,8 +337,9 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "url": "https://lookups.twilio.com/v1/PhoneNumbers/+16502530000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 

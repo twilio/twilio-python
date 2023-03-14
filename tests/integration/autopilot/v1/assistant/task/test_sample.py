@@ -13,24 +13,28 @@ from twilio.http.response import Response
 
 
 class SampleTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").samples(
+                "UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Samples/UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "task_sid": "UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -43,32 +47,39 @@ class SampleTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "source_channel": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples.list()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").samples.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "samples": [],
                 "meta": {
@@ -81,19 +92,23 @@ class SampleTestCase(IntegrationTestCase):
                     "page_size": 50
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples.list()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .samples.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "samples": [
                     {
@@ -119,35 +134,46 @@ class SampleTestCase(IntegrationTestCase):
                     "page_size": 50
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples.list()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .samples.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples.create(language="language", tagged_text="tagged_text")
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").samples.create(
+                language="language", tagged_text="tagged_text"
+            )
 
-        values = {'Language': "language", 'TaggedText': "tagged_text", }
+        values = {
+            "Language": "language",
+            "TaggedText": "tagged_text",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "url": "https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Samples/UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "task_sid": "UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -160,32 +186,40 @@ class SampleTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "source_channel": "alexa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples.create(language="language", tagged_text="tagged_text")
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .samples.create(language="language", tagged_text="tagged_text")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").samples(
+                "UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://autopilot.twilio.com/v1/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Samples/UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "task_sid": "UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -198,36 +232,49 @@ class SampleTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "source_channel": "alexa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").samples(
+                "UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Samples/UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

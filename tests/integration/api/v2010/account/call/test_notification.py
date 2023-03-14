@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class NotificationTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .notifications("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).notifications("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications/NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2008-08-01",
@@ -50,32 +52,39 @@ class NotificationTestCase(IntegrationTestCase):
                 "sid": "NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .notifications("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .notifications.list()
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).notifications.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications.json",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "notifications": [
                     {
@@ -104,19 +113,23 @@ class NotificationTestCase(IntegrationTestCase):
                 "start": 0,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications.list()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .notifications.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "notifications": [],
                 "page": 0,
@@ -128,11 +141,14 @@ class NotificationTestCase(IntegrationTestCase):
                 "start": 0,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications.list()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .notifications.list()
+        )
 
         self.assertIsNotNone(actual)

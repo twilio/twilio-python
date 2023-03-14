@@ -13,30 +13,35 @@ from twilio.http.response import Response
 
 
 class AuthCallsCredentialListMappingTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .sip \
-                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .auth \
-                                 .calls \
-                                 .credential_list_mappings.create(credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sip.domains(
+                "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).auth.calls.credential_list_mappings.create(
+                credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'CredentialListSid': "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "CredentialListSid": "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Thu, 30 Jul 2015 20:00:00 +0000",
@@ -44,38 +49,42 @@ class AuthCallsCredentialListMappingTestCase(IntegrationTestCase):
                 "friendly_name": "friendly_name",
                 "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .sip \
-                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .auth \
-                                      .calls \
-                                      .credential_list_mappings.create(credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sip.domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .auth.calls.credential_list_mappings.create(
+                credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .sip \
-                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .auth \
-                                 .calls \
-                                 .credential_list_mappings.list()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sip.domains(
+                "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).auth.calls.credential_list_mappings.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings.json",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Calls/CredentialListMappings.json?PageSize=50&Page=0",
                 "end": 0,
@@ -87,22 +96,23 @@ class AuthCallsCredentialListMappingTestCase(IntegrationTestCase):
                 "next_page_uri": null,
                 "page": 0
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .sip \
-                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .auth \
-                                      .calls \
-                                      .credential_list_mappings.list()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sip.domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .auth.calls.credential_list_mappings.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/Domains/SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Auth/Calls/CredentialListMappings.json?PageSize=50&Page=0",
                 "end": 0,
@@ -122,38 +132,42 @@ class AuthCallsCredentialListMappingTestCase(IntegrationTestCase):
                 "next_page_uri": null,
                 "page": 0
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .sip \
-                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .auth \
-                                      .calls \
-                                      .credential_list_mappings.list()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sip.domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .auth.calls.credential_list_mappings.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .sip \
-                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .auth \
-                                 .calls \
-                                 .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sip.domains(
+                "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).auth.calls.credential_list_mappings(
+                "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Thu, 30 Jul 2015 20:00:00 +0000",
@@ -161,45 +175,51 @@ class AuthCallsCredentialListMappingTestCase(IntegrationTestCase):
                 "friendly_name": "friendly_name",
                 "sid": "CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .sip \
-                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .auth \
-                                      .calls \
-                                      .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sip.domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .auth.calls.credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .sip \
-                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .auth \
-                                 .calls \
-                                 .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.api.v2010.accounts(
+                "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sip.domains(
+                "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).auth.calls.credential_list_mappings(
+                "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SIP/Domains/SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Auth/Calls/CredentialListMappings/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .sip \
-                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .auth \
-                                      .calls \
-                                      .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sip.domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .auth.calls.credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

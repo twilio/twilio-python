@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class AwsTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .aws.list()
+            self.client.accounts.v1.credentials.aws.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://accounts.twilio.com/v1/Credentials/AWS',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://accounts.twilio.com/v1/Credentials/AWS",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "credentials": [],
                 "meta": {
@@ -42,18 +43,19 @@ class AwsTestCase(IntegrationTestCase):
                     "url": "https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .aws.list()
+        actual = self.client.accounts.v1.credentials.aws.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "credentials": [
                     {
@@ -75,33 +77,39 @@ class AwsTestCase(IntegrationTestCase):
                     "url": "https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .aws.list()
+        actual = self.client.accounts.v1.credentials.aws.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .aws.create(credentials="AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
+            self.client.accounts.v1.credentials.aws.create(
+                credentials="AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+            )
 
-        values = {'Credentials': "AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY", }
+        values = {
+            "Credentials": "AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://accounts.twilio.com/v1/Credentials/AWS',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://accounts.twilio.com/v1/Credentials/AWS",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-31T04:00:00Z",
@@ -110,30 +118,36 @@ class AwsTestCase(IntegrationTestCase):
                 "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .aws.create(credentials="AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
+        actual = self.client.accounts.v1.credentials.aws.create(
+            credentials="AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .aws("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.accounts.v1.credentials.aws(
+                "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://accounts.twilio.com/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://accounts.twilio.com/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-31T04:00:00Z",
@@ -142,30 +156,36 @@ class AwsTestCase(IntegrationTestCase):
                 "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .aws("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.accounts.v1.credentials.aws(
+            "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .aws("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.accounts.v1.credentials.aws(
+                "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://accounts.twilio.com/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://accounts.twilio.com/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-31T04:00:00Z",
@@ -174,33 +194,41 @@ class AwsTestCase(IntegrationTestCase):
                 "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .aws("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.accounts.v1.credentials.aws(
+            "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .aws("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.accounts.v1.credentials.aws(
+                "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://accounts.twilio.com/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://accounts.twilio.com/v1/Credentials/AWS/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .aws("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.accounts.v1.credentials.aws(
+            "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

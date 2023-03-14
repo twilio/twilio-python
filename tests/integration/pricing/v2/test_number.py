@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class NumberTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.pricing.v2.numbers("+15017122661").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://pricing.twilio.com/v2/Trunking/Numbers/+15017122661',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://pricing.twilio.com/v2/Trunking/Numbers/+15017122661",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "country": "United States",
                 "destination_number": "+18001234567",
@@ -55,17 +57,19 @@ class NumberTestCase(IntegrationTestCase):
                 "price_unit": "USD",
                 "url": "https://pricing.twilio.com/v2/Trunking/Numbers/+18001234567"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.pricing.v2.numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_with_origination_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "country": "United States",
                 "destination_number": "+18001234567",
@@ -92,8 +96,9 @@ class NumberTestCase(IntegrationTestCase):
                 "price_unit": "USD",
                 "url": "https://pricing.twilio.com/v2/Trunking/Numbers/+18001234567"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.pricing.v2.numbers("+15017122661").fetch()
 

@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class DataSessionTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .data_sessions.list()
+            self.client.wireless.v1.sims(
+                "DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).data_sessions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://wireless.twilio.com/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DataSessions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://wireless.twilio.com/v1/Sims/DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DataSessions",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "data_sessions": [
                     {
@@ -79,10 +82,12 @@ class DataSessionTestCase(IntegrationTestCase):
                     "url": "https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DataSessions?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.wireless.v1.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .data_sessions.list()
+        actual = self.client.wireless.v1.sims(
+            "DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).data_sessions.list()
 
         self.assertIsNotNone(actual)

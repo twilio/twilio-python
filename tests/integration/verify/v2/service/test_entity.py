@@ -13,26 +13,31 @@ from twilio.http.response import Response
 
 
 class EntityTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities.create(identity="identity")
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities.create(identity="identity")
 
-        values = {'Identity': "identity", }
+        values = {
+            "Identity": "identity",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "identity": "ff483d1ff591898a9942916050d2ca3f",
@@ -47,53 +52,67 @@ class EntityTestCase(IntegrationTestCase):
                     "challenges": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities.create(identity="identity")
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).entities.create(identity="identity")
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity").delete()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities("identity").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity").delete()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity").fetch()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities("identity").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "identity": "ff483d1ff591898a9942916050d2ca3f",
@@ -108,30 +127,38 @@ class EntityTestCase(IntegrationTestCase):
                     "challenges": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity").fetch()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities.list()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "entities": [],
                 "meta": {
@@ -144,18 +171,21 @@ class EntityTestCase(IntegrationTestCase):
                     "key": "entities"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities.list()
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).entities.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "entities": [
                     {
@@ -183,10 +213,12 @@ class EntityTestCase(IntegrationTestCase):
                     "key": "entities"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities.list()
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).entities.list()
 
         self.assertIsNotNone(actual)

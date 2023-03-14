@@ -6,7 +6,7 @@ from twilio.http import HttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
 
-_logger = logging.getLogger('twilio.http_client')
+_logger = logging.getLogger("twilio.http_client")
 
 
 class TwilioHttpClient(HttpClient):
@@ -14,8 +14,15 @@ class TwilioHttpClient(HttpClient):
     General purpose HTTP Client for interacting with the Twilio API
     """
 
-    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger, proxy=None,
-                 max_retries=None):
+    def __init__(
+        self,
+        pool_connections=True,
+        request_hooks=None,
+        timeout=None,
+        logger=_logger,
+        proxy=None,
+        max_retries=None,
+    ):
         """
         Constructor for the TwilioHttpClient
 
@@ -30,13 +37,22 @@ class TwilioHttpClient(HttpClient):
         super().__init__(logger, False, timeout)
         self.session = Session() if pool_connections else None
         if self.session and max_retries is not None:
-            self.session.mount('https://', HTTPAdapter(max_retries=max_retries))
+            self.session.mount("https://", HTTPAdapter(max_retries=max_retries))
 
         self.request_hooks = request_hooks or hooks.default_hooks()
         self.proxy = proxy if proxy else {}
 
-    def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
-                allow_redirects=False):
+    def request(
+        self,
+        method,
+        url,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Make an HTTP Request with parameters provided.
 
@@ -57,13 +73,13 @@ class TwilioHttpClient(HttpClient):
             raise ValueError(timeout)
 
         kwargs = {
-            'method': method.upper(),
-            'url': url,
-            'params': params,
-            'data': data,
-            'headers': headers,
-            'auth': auth,
-            'hooks': self.request_hooks
+            "method": method.upper(),
+            "url": url,
+            "params": params,
+            "data": data,
+            "headers": headers,
+            "auth": auth,
+            "hooks": self.request_hooks,
         }
 
         self.log_request(kwargs)
@@ -75,15 +91,19 @@ class TwilioHttpClient(HttpClient):
 
         prepped_request = session.prepare_request(request)
 
-        settings = session.merge_environment_settings(prepped_request.url, self.proxy, None, None, None)
+        settings = session.merge_environment_settings(
+            prepped_request.url, self.proxy, None, None, None
+        )
 
-        settings['allow_redirects'] = allow_redirects
-        settings['timeout'] = timeout if timeout is not None else self.timeout
+        settings["allow_redirects"] = allow_redirects
+        settings["timeout"] = timeout if timeout is not None else self.timeout
 
         response = session.send(prepped_request, **settings)
 
         self.log_response(response.status_code, response)
 
-        self._test_only_last_response = Response(int(response.status_code), response.text, response.headers)
+        self._test_only_last_response = Response(
+            int(response.status_code), response.text, response.headers
+        )
 
         return self._test_only_last_response

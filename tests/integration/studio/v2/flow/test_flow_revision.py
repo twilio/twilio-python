@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class FlowRevisionTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .revisions.list()
+            self.client.studio.v2.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).revisions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "previous_page_url": null,
@@ -57,30 +60,36 @@ class FlowRevisionTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .revisions.list()
+        actual = self.client.studio.v2.flows(
+            "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).revisions.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .revisions("revision").fetch()
+            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").revisions(
+                "revision"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions/revision',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v2/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Revisions/revision",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -97,10 +106,14 @@ class FlowRevisionTestCase(IntegrationTestCase):
                 "date_updated": null,
                 "url": "https://studio.twilio.com/v2/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Revisions/1"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .revisions("revision").fetch()
+        actual = (
+            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .revisions("revision")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

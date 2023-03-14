@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class FunctionTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .functions.list()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).functions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "functions": [],
                 "meta": {
@@ -42,30 +45,36 @@ class FunctionTestCase(IntegrationTestCase):
                     "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .functions.list()
+        actual = self.client.serverless.v1.services(
+            "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).functions.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ZH00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -78,56 +87,74 @@ class FunctionTestCase(IntegrationTestCase):
                     "function_versions": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .functions.create(friendly_name="friendly_name")
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).functions.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name", }
+        values = {
+            "FriendlyName": "friendly_name",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "ZH00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -140,33 +167,43 @@ class FunctionTestCase(IntegrationTestCase):
                     "function_versions": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .functions.create(friendly_name="friendly_name")
+        actual = self.client.serverless.v1.services(
+            "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).functions.create(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(
+                friendly_name="friendly_name"
+            )
 
-        values = {'FriendlyName': "friendly_name", }
+        values = {
+            "FriendlyName": "friendly_name",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ZH00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -179,10 +216,14 @@ class FunctionTestCase(IntegrationTestCase):
                     "function_versions": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(friendly_name="friendly_name")
+        )
 
         self.assertIsNotNone(actual)

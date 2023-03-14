@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class WorkerChannelTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .worker_channels.list()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").worker_channels.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0",
@@ -59,19 +61,23 @@ class WorkerChannelTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .worker_channels.list()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .worker_channels.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0",
@@ -84,32 +90,40 @@ class WorkerChannelTestCase(IntegrationTestCase):
                 },
                 "channels": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .worker_channels.list()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .worker_channels.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .worker_channels("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").worker_channels(
+                "WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_sid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "assigned_tasks": 0,
@@ -125,32 +139,41 @@ class WorkerChannelTestCase(IntegrationTestCase):
                 "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .worker_channels("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .worker_channels("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .worker_channels("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").worker_channels(
+                "WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "assigned_tasks": 0,
@@ -166,11 +189,15 @@ class WorkerChannelTestCase(IntegrationTestCase):
                 "worker_sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .worker_channels("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .worker_channels("WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)

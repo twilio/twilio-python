@@ -13,24 +13,28 @@ from twilio.http.response import Response
 
 
 class InteractionTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.proxy.v1.services(
+                "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").interactions(
+                "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "data": "{\\"body\\":\\"some message\\"}",
@@ -52,32 +56,39 @@ class InteractionTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "session_sid": "KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .interactions.list()
+            self.client.proxy.v1.services(
+                "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").interactions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "interactions": [],
                 "meta": {
@@ -90,36 +101,48 @@ class InteractionTestCase(IntegrationTestCase):
                     "key": "interactions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .interactions.list()
+        actual = (
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .interactions.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.proxy.v1.services(
+                "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").interactions(
+                "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Interactions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

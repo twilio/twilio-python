@@ -13,63 +13,82 @@ from twilio.http.response import Response
 
 
 class StyleSheetTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .style_sheet().fetch()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).style_sheet().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "assistant_sid": "UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "data": {},
                 "url": "https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/StyleSheet"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .style_sheet().fetch()
+        actual = (
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .style_sheet()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .style_sheet().update()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).style_sheet().update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/StyleSheet",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "assistant_sid": "UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/StyleSheet",
                 "data": {}
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .style_sheet().update()
+        actual = (
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .style_sheet()
+            .update()
+        )
 
         self.assertIsNotNone(actual)

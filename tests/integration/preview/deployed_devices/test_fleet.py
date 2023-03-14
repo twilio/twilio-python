@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class FleetTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.deployed_devices.fleets(
+                "FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
@@ -45,49 +49,63 @@ class FleetTestCase(IntegrationTestCase):
                     "keys": "https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.deployed_devices.fleets("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.preview.deployed_devices.fleets(
+            "FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.preview.deployed_devices.fleets(
+                "FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.preview.deployed_devices.fleets("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.preview.deployed_devices.fleets(
+            "FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.preview.deployed_devices.fleets.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/DeployedDevices/Fleets',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/DeployedDevices/Fleets",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
@@ -104,28 +122,32 @@ class FleetTestCase(IntegrationTestCase):
                     "keys": "https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.deployed_devices.fleets.create()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.preview.deployed_devices.fleets.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/DeployedDevices/Fleets',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/DeployedDevices/Fleets",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "fleets": [],
                 "meta": {
@@ -138,17 +160,19 @@ class FleetTestCase(IntegrationTestCase):
                     "url": "https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.deployed_devices.fleets.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "fleets": [
                     {
@@ -178,28 +202,34 @@ class FleetTestCase(IntegrationTestCase):
                     "url": "https://preview.twilio.com/DeployedDevices/Fleets?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.deployed_devices.fleets.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.deployed_devices.fleets("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.preview.deployed_devices.fleets(
+                "FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/DeployedDevices/Fleets/FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
@@ -216,9 +246,12 @@ class FleetTestCase(IntegrationTestCase):
                     "keys": "https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.deployed_devices.fleets("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.preview.deployed_devices.fleets(
+            "FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)

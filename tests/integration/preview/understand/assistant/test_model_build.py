@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class ModelBuildTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_updated": "2015-07-30T20:00:00Z",
@@ -42,30 +45,40 @@ class ModelBuildTestCase(IntegrationTestCase):
                 "build_duration": null,
                 "error_code": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .model_builds.list()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).model_builds.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -78,18 +91,21 @@ class ModelBuildTestCase(IntegrationTestCase):
                 },
                 "model_builds": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .model_builds.list()
+        actual = self.client.preview.understand.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).model_builds.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -115,30 +131,36 @@ class ModelBuildTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .model_builds.list()
+        actual = self.client.preview.understand.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).model_builds.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .model_builds.create()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).model_builds.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_updated": "2015-07-30T20:00:00Z",
@@ -151,30 +173,36 @@ class ModelBuildTestCase(IntegrationTestCase):
                 "build_duration": null,
                 "error_code": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .model_builds.create()
+        actual = self.client.preview.understand.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).model_builds.create()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_updated": "2015-07-30T20:00:00Z",
@@ -187,33 +215,49 @@ class ModelBuildTestCase(IntegrationTestCase):
                 "build_duration": 100,
                 "error_code": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ModelBuilds/UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .model_builds("UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class ApprovalFetchTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.content.v1.contents("HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .approval_fetch().fetch()
+            self.client.content.v1.contents(
+                "HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).approval_fetch().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://content.twilio.com/v1/Content/HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ApprovalRequests',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://content.twilio.com/v1/Content/HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ApprovalRequests",
+            )
+        )
 
     def test_get_approval_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -43,10 +46,14 @@ class ApprovalFetchTestCase(IntegrationTestCase):
                 },
                 "url": "https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ApprovalRequests"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.content.v1.contents("HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .approval_fetch().fetch()
+        actual = (
+            self.client.content.v1.contents("HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .approval_fetch()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

@@ -14,27 +14,31 @@ from twilio.http.response import Response
 
 
 class InteractionChannelInviteTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .invites.create(routing={})
+            self.client.flex_api.v1.interaction(
+                "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").invites.create(routing={})
 
-        values = {'Routing': serialize.object({}), }
+        values = {
+            "Routing": serialize.object({}),
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "channel_sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -68,32 +72,38 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                 },
                 "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .invites.create(routing={})
+        actual = (
+            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .invites.create(routing={})
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .invites.list()
+            self.client.flex_api.v1.interaction(
+                "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").invites.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites",
+            )
+        )
 
     def test_read_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "invites": [
                     {
@@ -173,11 +183,14 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                     "key": "invites"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .invites.list()
+        actual = (
+            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .invites.list()
+        )
 
         self.assertIsNotNone(actual)

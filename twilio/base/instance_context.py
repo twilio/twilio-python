@@ -5,4 +5,3 @@ class InstanceContext(object):
         """
         self._version = version
         """ :type: Version """
-

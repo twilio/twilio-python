@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class StepTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .steps.list()
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").steps.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "previous_page_url": null,
@@ -43,32 +45,40 @@ class StepTestCase(IntegrationTestCase):
                 },
                 "steps": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .steps.list()
+        actual = (
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .steps.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .steps("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").steps(
+                "FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps/FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Steps/FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -85,11 +95,15 @@ class StepTestCase(IntegrationTestCase):
                     "step_context": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps/FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .steps("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .steps("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

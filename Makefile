@@ -57,12 +57,12 @@ nopyc:
 	find . -name \*.pyc -delete
 
 prettier:
-	. venv/bin/activate; black twilio/
-	. venv/bin/activate; autoflake --remove-all-unused-imports -i -r twilio/
+	. venv/bin/activate; black .
+	. venv/bin/activate; autoflake --remove-all-unused-imports -i -r .
 
 prettier-check:
-	. venv/bin/activate; black --check twilio/
-	. venv/bin/activate; autoflake --check-diff --quiet --remove-all-unused-imports -r twilio/
+	. venv/bin/activate; black --check .
+	. venv/bin/activate; autoflake --check-diff --quiet --remove-all-unused-imports -r .
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
 CURRENT_TAG=$(shell expr "${GITHUB_TAG}" : ".*-rc.*" >/dev/null && echo "rc" || echo "latest")

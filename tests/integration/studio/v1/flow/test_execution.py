@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class ExecutionTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions.list()
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).executions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "previous_page_url": null,
@@ -42,30 +45,36 @@ class ExecutionTestCase(IntegrationTestCase):
                 },
                 "executions": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions.list()
+        actual = self.client.studio.v1.flows(
+            "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).executions.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -82,33 +91,44 @@ class ExecutionTestCase(IntegrationTestCase):
                     "execution_context": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions.create(to="+15558675310", from_="+15017122661")
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).executions.create(to="+15558675310", from_="+15017122661")
 
-        values = {'To': "+15558675310", 'From': "+15017122661", }
+        values = {
+            "To": "+15558675310",
+            "From": "+15017122661",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -125,56 +145,72 @@ class ExecutionTestCase(IntegrationTestCase):
                     "execution_context": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions.create(to="+15558675310", from_="+15017122661")
+        actual = self.client.studio.v1.flows(
+            "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).executions.create(to="+15558675310", from_="+15017122661")
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="active")
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="active")
 
-        values = {'Status': "active", }
+        values = {
+            "Status": "active",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -191,10 +227,14 @@ class ExecutionTestCase(IntegrationTestCase):
                     "execution_context": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="active")
+        actual = (
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(status="active")
+        )
 
         self.assertIsNotNone(actual)

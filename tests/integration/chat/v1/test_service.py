@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class ServiceTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "consumption_report_interval": 100,
@@ -61,52 +63,66 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_method": "webhook_method",
                 "webhooks": {}
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.chat.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.chat.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.chat.v1.services.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name", }
+        values = {
+            "FriendlyName": "friendly_name",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://chat.twilio.com/v1/Services',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://chat.twilio.com/v1/Services",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "consumption_report_interval": 100,
@@ -139,28 +155,32 @@ class ServiceTestCase(IntegrationTestCase):
                 "webhook_method": "webhook_method",
                 "webhooks": {}
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.chat.v1.services.create(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.chat.v1.services.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v1/Services',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v1/Services",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://chat.twilio.com/v1/Services?PageSize=50&Page=0",
@@ -173,17 +193,19 @@ class ServiceTestCase(IntegrationTestCase):
                 },
                 "services": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.chat.v1.services.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://chat.twilio.com/v1/Services?PageSize=50&Page=0",
@@ -329,28 +351,32 @@ class ServiceTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.chat.v1.services.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "consumption_report_interval": 100,
@@ -481,9 +507,12 @@ class ServiceTestCase(IntegrationTestCase):
                     }
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.chat.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)

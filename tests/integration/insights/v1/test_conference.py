@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class ConferenceTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.insights.v1.conferences(
+                "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -74,28 +78,34 @@ class ConferenceTestCase(IntegrationTestCase):
                     "conference_participants": "https://insights.twilio.com/v1/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.insights.v1.conferences(
+            "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.insights.v1.conferences.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Conferences',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Conferences",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -174,17 +184,19 @@ class ConferenceTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.conferences.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_region_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -266,17 +278,19 @@ class ConferenceTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.conferences.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_friendlyname_startfailure_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -328,17 +342,19 @@ class ConferenceTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.conferences.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_duplicate_identity_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -397,17 +413,19 @@ class ConferenceTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.conferences.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_detected_issue_endreason_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -459,8 +477,9 @@ class ConferenceTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.conferences.list()
 

@@ -14,22 +14,24 @@ from twilio.http.response import Response
 
 
 class SinkTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "status": "initialized",
                 "sink_configuration": {
@@ -48,35 +50,43 @@ class SinkTestCase(IntegrationTestCase):
                     "sink_validate": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Validate"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.events.v1.sinks(
+            "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.sinks.create(description="description", sink_configuration={}, sink_type="kinesis")
+            self.client.events.v1.sinks.create(
+                description="description", sink_configuration={}, sink_type="kinesis"
+            )
 
         values = {
-            'Description': "description",
-            'SinkConfiguration': serialize.object({}),
-            'SinkType': "kinesis",
+            "Description": "description",
+            "SinkConfiguration": serialize.object({}),
+            "SinkType": "kinesis",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://events.twilio.com/v1/Sinks',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://events.twilio.com/v1/Sinks",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "status": "initialized",
                 "sink_configuration": {
@@ -95,17 +105,21 @@ class SinkTestCase(IntegrationTestCase):
                     "sink_validate": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Validate"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.sinks.create(description="description", sink_configuration={}, sink_type="kinesis")
+        actual = self.client.events.v1.sinks.create(
+            description="description", sink_configuration={}, sink_type="kinesis"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_segment_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "status": "initialized",
                 "sink_configuration": {
@@ -122,49 +136,61 @@ class SinkTestCase(IntegrationTestCase):
                     "sink_validate": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Validate"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.sinks.create(description="description", sink_configuration={}, sink_type="kinesis")
+        actual = self.client.events.v1.sinks.create(
+            description="description", sink_configuration={}, sink_type="kinesis"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.events.v1.sinks(
+            "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.events.v1.sinks.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Sinks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Sinks",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sinks": [],
                 "meta": {
@@ -177,17 +203,19 @@ class SinkTestCase(IntegrationTestCase):
                     "key": "sinks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.sinks.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sinks": [
                     {
@@ -255,17 +283,19 @@ class SinkTestCase(IntegrationTestCase):
                     "key": "sinks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.sinks.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_in_use_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sinks": [
                     {
@@ -333,17 +363,19 @@ class SinkTestCase(IntegrationTestCase):
                     "key": "sinks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.sinks.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_status_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sinks": [
                     {
@@ -375,31 +407,39 @@ class SinkTestCase(IntegrationTestCase):
                     "key": "sinks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.sinks.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(description="description")
+            self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(
+                description="description"
+            )
 
-        values = {'Description': "description", }
+        values = {
+            "Description": "description",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "status": "initialized",
                 "sink_configuration": {
@@ -418,9 +458,12 @@ class SinkTestCase(IntegrationTestCase):
                     "sink_validate": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Validate"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(description="description")
+        actual = self.client.events.v1.sinks(
+            "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(description="description")
 
         self.assertIsNotNone(actual)

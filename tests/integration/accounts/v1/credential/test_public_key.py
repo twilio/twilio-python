@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class PublicKeyTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .public_key.list()
+            self.client.accounts.v1.credentials.public_key.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://accounts.twilio.com/v1/Credentials/PublicKeys",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "credentials": [],
                 "meta": {
@@ -42,18 +43,19 @@ class PublicKeyTestCase(IntegrationTestCase):
                     "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .public_key.list()
+        actual = self.client.accounts.v1.credentials.public_key.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "credentials": [
                     {
@@ -75,33 +77,39 @@ class PublicKeyTestCase(IntegrationTestCase):
                     "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .public_key.list()
+        actual = self.client.accounts.v1.credentials.public_key.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .public_key.create(public_key="publickey")
+            self.client.accounts.v1.credentials.public_key.create(
+                public_key="publickey"
+            )
 
-        values = {'PublicKey': "publickey", }
+        values = {
+            "PublicKey": "publickey",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://accounts.twilio.com/v1/Credentials/PublicKeys",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-31T04:00:00Z",
@@ -110,30 +118,36 @@ class PublicKeyTestCase(IntegrationTestCase):
                 "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .public_key.create(public_key="publickey")
+        actual = self.client.accounts.v1.credentials.public_key.create(
+            public_key="publickey"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.accounts.v1.credentials.public_key(
+                "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-31T04:00:00Z",
@@ -142,30 +156,36 @@ class PublicKeyTestCase(IntegrationTestCase):
                 "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.accounts.v1.credentials.public_key(
+            "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.accounts.v1.credentials.public_key(
+                "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-31T04:00:00Z",
@@ -174,33 +194,41 @@ class PublicKeyTestCase(IntegrationTestCase):
                 "sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.accounts.v1.credentials.public_key(
+            "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.accounts.v1.credentials \
-                                   .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.accounts.v1.credentials.public_key(
+                "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://accounts.twilio.com/v1/Credentials/PublicKeys/CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.accounts.v1.credentials \
-                                        .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.accounts.v1.credentials.public_key(
+            "CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

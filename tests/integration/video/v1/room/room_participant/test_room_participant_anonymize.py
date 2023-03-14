@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class AnonymizeTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .anonymize().update()
+            self.client.video.v1.rooms(
+                "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").anonymize().update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Anonymize',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Anonymize",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -44,11 +46,15 @@ class AnonymizeTestCase(IntegrationTestCase):
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Anonymize",
                 "duration": 1
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .anonymize().update()
+        actual = (
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .anonymize()
+            .update()
+        )
 
         self.assertIsNotNone(actual)

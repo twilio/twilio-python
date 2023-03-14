@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class SchemaVersionTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.schemas("id") \
-                                 .versions.list()
+            self.client.events.v1.schemas("id").versions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Schemas/id/Versions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Schemas/id/Versions",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "schema_versions": [],
                 "meta": {
@@ -42,18 +43,19 @@ class SchemaVersionTestCase(IntegrationTestCase):
                     "key": "schema_versions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.schemas("id") \
-                                      .versions.list()
+        actual = self.client.events.v1.schemas("id").versions.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "schema_versions": [
                     {
@@ -83,30 +85,32 @@ class SchemaVersionTestCase(IntegrationTestCase):
                     "key": "schema_versions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.schemas("id") \
-                                      .versions.list()
+        actual = self.client.events.v1.schemas("id").versions.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.schemas("id") \
-                                 .versions(1).fetch()
+            self.client.events.v1.schemas("id").versions(1).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Schemas/id/Versions/1',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Schemas/id/Versions/1",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "id": "Messaging.MessageStatus",
                 "schema_version": 1,
@@ -115,10 +119,10 @@ class SchemaVersionTestCase(IntegrationTestCase):
                 "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1",
                 "raw": "https://events-schemas.twilio.com/Messaging.MessageStatus/1"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.schemas("id") \
-                                      .versions(1).fetch()
+        actual = self.client.events.v1.schemas("id").versions(1).fetch()
 
         self.assertIsNotNone(actual)

@@ -27,7 +27,7 @@ def iso8601_datetime(d):
     if d == values.unset:
         return d
     elif isinstance(d, datetime.datetime) or isinstance(d, datetime.date):
-        return d.strftime('%Y-%m-%dT%H:%M:%SZ')
+        return d.strftime("%Y-%m-%dT%H:%M:%SZ")
     elif isinstance(d, str):
         return d
 
@@ -40,7 +40,6 @@ def prefixed_collapsible_map(m, prefix):
         return {}
 
     def flatten_dict(d, result=None, prv_keys=None):
-
         if result is None:
             result = {}
 
@@ -51,13 +50,13 @@ def prefixed_collapsible_map(m, prefix):
             if isinstance(v, dict):
                 flatten_dict(v, result, prv_keys + [k])
             else:
-                result['.'.join(prv_keys + [k])] = v
+                result[".".join(prv_keys + [k])] = v
 
         return result
 
     if isinstance(m, dict):
         flattened = flatten_dict(m)
-        return {'{}.{}'.format(prefix, k): v for k, v in flattened.items()}
+        return {"{}.{}".format(prefix, k): v for k, v in flattened.items()}
 
     return {}
 
@@ -79,4 +78,3 @@ def map(lst, serialize_func):
     if not isinstance(lst, list):
         return lst
     return [serialize_func(e) for e in lst]
-

@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class RoomTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Video/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Video/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "room_type": "go",
                 "unique_participant_identities": 0,
@@ -61,28 +63,34 @@ class RoomTestCase(IntegrationTestCase):
                     "participants": "https://insights.twilio.com/v1/Video/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.insights.v1.rooms(
+            "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.insights.v1.rooms.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Video/Rooms',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Video/Rooms",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://insights.twilio.com/v1/Video/Rooms?PageSize=50&Page=0",
@@ -95,17 +103,19 @@ class RoomTestCase(IntegrationTestCase):
                 },
                 "rooms": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.rooms.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://insights.twilio.com/v1/Video/Rooms?PageSize=50&Page=0",
@@ -151,8 +161,9 @@ class RoomTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.rooms.list()
 

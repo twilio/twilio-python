@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class NotificationTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.notify.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .notifications.create()
+            self.client.notify.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).notifications.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://notify.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "NTb8021351170b4e1286adaac3fdd6d082",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -54,18 +57,21 @@ class NotificationTestCase(IntegrationTestCase):
                 "facebook_messenger": null,
                 "alexa": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.notify.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications.create()
+        actual = self.client.notify.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).notifications.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_direct_notification_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "NTb8021351170b4e1286adaac3fdd6d082",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -88,10 +94,12 @@ class NotificationTestCase(IntegrationTestCase):
                 "facebook_messenger": null,
                 "alexa": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.notify.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications.create()
+        actual = self.client.notify.v1.services(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).notifications.create()
 
         self.assertIsNotNone(actual)

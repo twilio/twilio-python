@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class UsecaseTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.messaging.v1.usecases.fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Services/Usecases',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Services/Usecases",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usecases": [
                     {
@@ -43,8 +45,9 @@ class UsecaseTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.messaging.v1.usecases.fetch()
 

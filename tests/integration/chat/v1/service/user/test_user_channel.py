@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class UserChannelTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_channels.list()
+            self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_channels.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -57,19 +59,23 @@ class UserChannelTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_channels.list()
+        actual = (
+            self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -82,11 +88,14 @@ class UserChannelTestCase(IntegrationTestCase):
                 },
                 "channels": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_channels.list()
+        actual = (
+            self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_channels.list()
+        )
 
         self.assertIsNotNone(actual)

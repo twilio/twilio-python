@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class UserConversationTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.conversations.v1.users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "chat_service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -56,53 +59,69 @@ class UserConversationTestCase(IntegrationTestCase):
                     "conversation": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.conversations.v1.users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.conversations.v1.users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "chat_service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -129,30 +148,38 @@ class UserConversationTestCase(IntegrationTestCase):
                     "conversation": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .user_conversations.list()
+            self.client.conversations.v1.users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_conversations.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "conversations": [],
                 "meta": {
@@ -165,18 +192,21 @@ class UserConversationTestCase(IntegrationTestCase):
                     "key": "conversations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .user_conversations.list()
+        actual = self.client.conversations.v1.users(
+            "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).user_conversations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "conversations": [
                     {
@@ -216,10 +246,12 @@ class UserConversationTestCase(IntegrationTestCase):
                     "key": "conversations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .user_conversations.list()
+        actual = self.client.conversations.v1.users(
+            "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).user_conversations.list()
 
         self.assertIsNotNone(actual)

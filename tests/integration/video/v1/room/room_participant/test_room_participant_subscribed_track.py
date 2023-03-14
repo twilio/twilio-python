@@ -13,24 +13,28 @@ from twilio.http.response import Response
 
 
 class SubscribedTrackTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .subscribed_tracks("MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.rooms(
+                "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").subscribed_tracks(
+                "MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks/MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks/MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -43,32 +47,41 @@ class SubscribedTrackTestCase(IntegrationTestCase):
                 "enabled": true,
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks/MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .subscribed_tracks("MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .subscribed_tracks("MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .subscribed_tracks.list()
+            self.client.video.v1.rooms(
+                "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).participants(
+                "PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).subscribed_tracks.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedTracks",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "subscribed_tracks": [],
                 "meta": {
@@ -81,11 +94,14 @@ class SubscribedTrackTestCase(IntegrationTestCase):
                     "key": "subscribed_tracks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .subscribed_tracks.list()
+        actual = (
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .subscribed_tracks.list()
+        )
 
         self.assertIsNotNone(actual)

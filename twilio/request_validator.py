@@ -34,7 +34,7 @@ def remove_port(uri):
     if not uri.port:
         return uri.geturl()
 
-    new_netloc = uri.netloc.split(':')[0]
+    new_netloc = uri.netloc.split(":")[0]
     new_uri = uri._replace(netloc=new_netloc)
 
     return new_uri.geturl()
@@ -59,7 +59,6 @@ def add_port(uri):
 
 
 class RequestValidator(object):
-
     def __init__(self, token):
         self.token = token.encode("utf-8")
 
@@ -82,7 +81,7 @@ class RequestValidator(object):
         # compute signature and compare signatures
         mac = hmac.new(self.token, s.encode("utf-8"), sha1)
         computed = base64.b64encode(mac.digest())
-        computed = computed.decode('utf-8')
+        computed = computed.decode("utf-8")
 
         return computed.strip()
 
@@ -128,7 +127,11 @@ class RequestValidator(object):
 
         #  check signature of uri with and without port,
         #  since sig generation on back end is inconsistent
-        valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
-        valid_signature_with_port = compare(self.compute_signature(uri_with_port, params), signature)
+        valid_signature = compare(
+            self.compute_signature(uri_without_port, params), signature
+        )
+        valid_signature_with_port = compare(
+            self.compute_signature(uri_with_port, params), signature
+        )
 
         return valid_body_hash and (valid_signature or valid_signature_with_port)

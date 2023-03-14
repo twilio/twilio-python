@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class RecordingRulesTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .recording_rules.fetch()
+            self.client.video.v1.rooms(
+                "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).recording_rules.fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RecordingRules',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RecordingRules",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -41,30 +44,36 @@ class RecordingRulesTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .recording_rules.fetch()
+        actual = self.client.video.v1.rooms(
+            "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).recording_rules.fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .recording_rules.update()
+            self.client.video.v1.rooms(
+                "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).recording_rules.update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RecordingRules',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://video.twilio.com/v1/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RecordingRules",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -76,10 +85,12 @@ class RecordingRulesTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .recording_rules.update()
+        actual = self.client.video.v1.rooms(
+            "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).recording_rules.update()
 
         self.assertIsNotNone(actual)

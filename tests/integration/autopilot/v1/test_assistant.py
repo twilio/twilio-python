@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class AssistantTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2017-07-04T08:34:00Z",
@@ -54,28 +58,34 @@ class AssistantTestCase(IntegrationTestCase):
                 "callback_url": "https://example.com/callback_url",
                 "callback_events": "model_build_completed model_build_failed"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.autopilot.v1.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.autopilot.v1.assistants.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://autopilot.twilio.com/v1/Assistants',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://autopilot.twilio.com/v1/Assistants",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "assistants": [],
                 "meta": {
@@ -88,17 +98,19 @@ class AssistantTestCase(IntegrationTestCase):
                     "url": "https://autopilot.twilio.com/v1/Assistants?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.autopilot.v1.assistants.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "assistants": [
                     {
@@ -137,28 +149,32 @@ class AssistantTestCase(IntegrationTestCase):
                     "url": "https://autopilot.twilio.com/v1/Assistants?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.autopilot.v1.assistants.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.autopilot.v1.assistants.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://autopilot.twilio.com/v1/Assistants',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://autopilot.twilio.com/v1/Assistants",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2017-07-04T08:34:00Z",
@@ -184,28 +200,34 @@ class AssistantTestCase(IntegrationTestCase):
                 "callback_url": "https://example.com/callback_url",
                 "callback_events": "model_build_completed model_build_failed"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.autopilot.v1.assistants.create()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2017-07-04T08:34:00Z",
@@ -231,30 +253,41 @@ class AssistantTestCase(IntegrationTestCase):
                 "callback_url": "https://example.com/callback_url",
                 "callback_events": "model_build_completed model_build_failed"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.autopilot.v1.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.autopilot.v1.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

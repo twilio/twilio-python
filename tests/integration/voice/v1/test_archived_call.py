@@ -14,24 +14,31 @@ from twilio.http.response import Response
 
 
 class ArchivedCallTestCase(IntegrationTestCase):
-
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.archived_calls(date(2008, 1, 2), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.voice.v1.archived_calls(
+                date(2008, 1, 2), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://voice.twilio.com/v1/Archives/2008-01-02/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://voice.twilio.com/v1/Archives/2008-01-02/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.voice.v1.archived_calls(date(2008, 1, 2), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.voice.v1.archived_calls(
+            date(2008, 1, 2), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

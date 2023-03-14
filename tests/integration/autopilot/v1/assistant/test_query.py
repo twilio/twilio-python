@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class QueryTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "language": "language",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -55,30 +58,38 @@ class QueryTestCase(IntegrationTestCase):
                 "source_channel": "voice",
                 "dialogue_sid": "UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .queries.list()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).queries.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "queries": [],
                 "meta": {
@@ -91,18 +102,21 @@ class QueryTestCase(IntegrationTestCase):
                     "page_size": 50
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .queries.list()
+        actual = self.client.autopilot.v1.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).queries.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "queries": [
                     {
@@ -141,33 +155,42 @@ class QueryTestCase(IntegrationTestCase):
                     "page_size": 50
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .queries.list()
+        actual = self.client.autopilot.v1.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).queries.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .queries.create(language="language", query="query")
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).queries.create(language="language", query="query")
 
-        values = {'Language': "language", 'Query': "query", }
+        values = {
+            "Language": "language",
+            "Query": "query",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "language": "language",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -193,30 +216,36 @@ class QueryTestCase(IntegrationTestCase):
                 "source_channel": "voice",
                 "dialogue_sid": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .queries.create(language="language", query="query")
+        actual = self.client.autopilot.v1.assistants(
+            "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).queries.create(language="language", query="query")
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "language": "language",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -242,33 +271,45 @@ class QueryTestCase(IntegrationTestCase):
                 "source_channel": "sms",
                 "dialogue_sid": "UKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.autopilot.v1.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Queries/UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .queries("UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

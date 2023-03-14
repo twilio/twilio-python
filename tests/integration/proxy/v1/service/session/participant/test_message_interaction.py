@@ -13,25 +13,28 @@ from twilio.http.response import Response
 
 
 class MessageInteractionTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .message_interactions.create()
+            self.client.proxy.v1.services(
+                "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").participants(
+                "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).message_interactions.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "data": "{\\"body\\":\\"some message\\"}",
@@ -54,34 +57,43 @@ class MessageInteractionTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "session_sid": "KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .message_interactions.create()
+        actual = (
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .message_interactions.create()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .message_interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.proxy.v1.services(
+                "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").participants(
+                "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).message_interactions(
+                "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions/KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "service_sid": "KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "data": "{\\"body\\":\\"some message\\"}",
@@ -104,34 +116,42 @@ class MessageInteractionTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "session_sid": "KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .message_interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .message_interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .message_interactions.list()
+            self.client.proxy.v1.services(
+                "KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").participants(
+                "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).message_interactions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://proxy.twilio.com/v1/Services/KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Sessions/KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/MessageInteractions",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "interactions": [],
                 "meta": {
@@ -144,12 +164,15 @@ class MessageInteractionTestCase(IntegrationTestCase):
                     "key": "interactions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .message_interactions.list()
+        actual = (
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .message_interactions.list()
+        )
 
         self.assertIsNotNone(actual)

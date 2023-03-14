@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class HighriskSpecialPrefixTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.dialing_permissions \
-                                .countries("US") \
-                                .highrisk_special_prefixes.list()
+            self.client.voice.v1.dialing_permissions.countries(
+                "US"
+            ).highrisk_special_prefixes.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes",
+            )
+        )
 
     def test_read_lv_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "content": [
                     {
@@ -50,11 +52,12 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
                     "url": "https://voice.twilio.com/v1/DialingPermissions/Countries/LV/HighRiskSpecialPrefixes?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.dialing_permissions \
-                                     .countries("US") \
-                                     .highrisk_special_prefixes.list()
+        actual = self.client.voice.v1.dialing_permissions.countries(
+            "US"
+        ).highrisk_special_prefixes.list()
 
         self.assertIsNotNone(actual)

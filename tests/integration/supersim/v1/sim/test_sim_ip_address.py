@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class SimIpAddressTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .sim_ip_addresses.list()
+            self.client.supersim.v1.sims(
+                "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sim_ip_addresses.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/Sims/HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/Sims/HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAddresses",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "key": "ip_addresses",
@@ -42,18 +45,21 @@ class SimIpAddressTestCase(IntegrationTestCase):
                 },
                 "ip_addresses": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .sim_ip_addresses.list()
+        actual = self.client.supersim.v1.sims(
+            "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).sim_ip_addresses.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_non_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "key": "ip_addresses",
@@ -71,10 +77,12 @@ class SimIpAddressTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .sim_ip_addresses.list()
+        actual = self.client.supersim.v1.sims(
+            "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).sim_ip_addresses.list()
 
         self.assertIsNotNone(actual)

@@ -13,28 +13,33 @@ from twilio.http.response import Response
 
 
 class SourceIpMappingTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.source_ip_mappings.create(ip_record_sid="ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.voice.v1.source_ip_mappings.create(
+                ip_record_sid="ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
 
         values = {
-            'IpRecordSid': "ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            'SipDomainSid': "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "IpRecordSid": "ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "SipDomainSid": "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://voice.twilio.com/v1/SourceIpMappings',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://voice.twilio.com/v1/SourceIpMappings",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "IBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "ip_record_sid": "ILaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -43,28 +48,37 @@ class SourceIpMappingTestCase(IntegrationTestCase):
                 "date_updated": "2020-03-18T23:31:36Z",
                 "url": "https://voice.twilio.com/v1/SourceIpMappings/IBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.source_ip_mappings.create(ip_record_sid="ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.voice.v1.source_ip_mappings.create(
+            ip_record_sid="ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.source_ip_mappings("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.voice.v1.source_ip_mappings(
+                "IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/SourceIpMappings/IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/SourceIpMappings/IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "IBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "ip_record_sid": "ILaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -73,28 +87,34 @@ class SourceIpMappingTestCase(IntegrationTestCase):
                 "date_updated": "2020-03-18T23:31:37Z",
                 "url": "https://voice.twilio.com/v1/SourceIpMappings/IBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.source_ip_mappings("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.voice.v1.source_ip_mappings(
+            "IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.voice.v1.source_ip_mappings.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/SourceIpMappings',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/SourceIpMappings",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -116,17 +136,19 @@ class SourceIpMappingTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.voice.v1.source_ip_mappings.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -139,31 +161,39 @@ class SourceIpMappingTestCase(IntegrationTestCase):
                 },
                 "source_ip_mappings": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.voice.v1.source_ip_mappings.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.source_ip_mappings("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.voice.v1.source_ip_mappings(
+                "IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update(sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'SipDomainSid': "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "SipDomainSid": "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://voice.twilio.com/v1/SourceIpMappings/IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://voice.twilio.com/v1/SourceIpMappings/IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "IBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "ip_record_sid": "ILaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -172,30 +202,41 @@ class SourceIpMappingTestCase(IntegrationTestCase):
                 "date_updated": "2020-03-18T23:31:37Z",
                 "url": "https://voice.twilio.com/v1/SourceIpMappings/IBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.source_ip_mappings("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.voice.v1.source_ip_mappings(
+            "IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(sip_domain_sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.source_ip_mappings("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.voice.v1.source_ip_mappings(
+                "IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://voice.twilio.com/v1/SourceIpMappings/IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://voice.twilio.com/v1/SourceIpMappings/IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.voice.v1.source_ip_mappings("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.voice.v1.source_ip_mappings(
+            "IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

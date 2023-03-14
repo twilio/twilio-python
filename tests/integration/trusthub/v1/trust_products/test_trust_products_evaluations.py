@@ -13,26 +13,33 @@ from twilio.http.response import Response
 
 
 class TrustProductsEvaluationsTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .trust_products_evaluations.create(policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.trusthub.v1.trust_products(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).trust_products_evaluations.create(
+                policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'PolicySid': "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "PolicySid": "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trusthub.twilio.com/v1/TrustProducts/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trusthub.twilio.com/v1/TrustProducts/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "ELaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -193,30 +200,38 @@ class TrustProductsEvaluationsTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .trust_products_evaluations.create(policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.trusthub.v1.trust_products(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).trust_products_evaluations.create(
+            policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .trust_products_evaluations.list()
+            self.client.trusthub.v1.trust_products(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).trust_products_evaluations.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/TrustProducts/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/TrustProducts/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -229,18 +244,21 @@ class TrustProductsEvaluationsTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .trust_products_evaluations.list()
+        actual = self.client.trusthub.v1.trust_products(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).trust_products_evaluations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -414,30 +432,36 @@ class TrustProductsEvaluationsTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .trust_products_evaluations.list()
+        actual = self.client.trusthub.v1.trust_products(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).trust_products_evaluations.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .trust_products_evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trusthub.v1.trust_products(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).trust_products_evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/TrustProducts/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations/ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/TrustProducts/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations/ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ELaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -598,10 +622,14 @@ class TrustProductsEvaluationsTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .trust_products_evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .trust_products_evaluations("ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

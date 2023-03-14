@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class CountryTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.dialing_permissions \
-                                .countries("US").fetch()
+            self.client.voice.v1.dialing_permissions.countries("US").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/DialingPermissions/Countries/US',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/DialingPermissions/Countries/US",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "iso_code": "US",
                 "name": "United States/Canada",
@@ -45,30 +46,32 @@ class CountryTestCase(IntegrationTestCase):
                     "highrisk_special_prefixes": "https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.dialing_permissions \
-                                     .countries("US").fetch()
+        actual = self.client.voice.v1.dialing_permissions.countries("US").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.dialing_permissions \
-                                .countries.list()
+            self.client.voice.v1.dialing_permissions.countries.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/DialingPermissions/Countries',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/DialingPermissions/Countries",
+            )
+        )
 
     def test_read_us_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "content": [
                     {
@@ -97,10 +100,10 @@ class CountryTestCase(IntegrationTestCase):
                     "url": "https://voice.twilio.com/v1/DialingPermissions/Countries?IsoCode=US&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.dialing_permissions \
-                                     .countries.list()
+        actual = self.client.voice.v1.dialing_permissions.countries.list()
 
         self.assertIsNotNone(actual)

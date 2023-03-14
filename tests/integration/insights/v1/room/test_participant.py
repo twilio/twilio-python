@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class ParticipantTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.insights.v1.rooms(
+                "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Video/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Video/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "publisher_info": {},
                 "edge_location": "ashburn",
@@ -51,30 +54,38 @@ class ParticipantTestCase(IntegrationTestCase):
                 "participant_identity": "participant_identity",
                 "url": "https://insights.twilio.com/v1/Video/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .participants.list()
+            self.client.insights.v1.rooms(
+                "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).participants.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Video/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Video/Rooms/RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "url": "https://insights.twilio.com/v1/Video/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0",
@@ -87,18 +98,21 @@ class ParticipantTestCase(IntegrationTestCase):
                 },
                 "participants": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .participants.list()
+        actual = self.client.insights.v1.rooms(
+            "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).participants.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "url": "https://insights.twilio.com/v1/Video/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0",
@@ -133,10 +147,12 @@ class ParticipantTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .participants.list()
+        actual = self.client.insights.v1.rooms(
+            "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).participants.list()
 
         self.assertIsNotNone(actual)

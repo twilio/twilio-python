@@ -2,12 +2,7 @@ import unittest
 
 from pytest import raises
 
-from twilio.twiml import (
-    format_language,
-    lower_camel,
-    TwiMLException,
-    TwiML
-)
+from twilio.twiml import format_language, lower_camel, TwiMLException, TwiML
 
 
 class TwilioTest(unittest.TestCase):
@@ -24,34 +19,34 @@ class TwilioTest(unittest.TestCase):
         self.assertEqual(language, format_language(language))
 
     def test_format_language_valid(self):
-        language = 'en-US'
+        language = "en-US"
         self.assertEqual(language, format_language(language))
 
     def test_format_language_coerced(self):
-        language = 'EN_us'
-        self.assertEqual('en-US', format_language(language))
+        language = "EN_us"
+        self.assertEqual("en-US", format_language(language))
 
     def test_format_language_fail(self):
         with raises(TwiMLException):
-            format_language('this is invalid')
+            format_language("this is invalid")
 
     def test_lower_camel_empty_string(self):
-        self.assertEqual('', lower_camel(''))
+        self.assertEqual("", lower_camel(""))
 
     def test_lower_camel_none(self):
         self.assertEqual(None, lower_camel(None))
 
     def test_lower_camel_single_word(self):
-        self.assertEqual('foo', lower_camel('foo'))
+        self.assertEqual("foo", lower_camel("foo"))
 
     def test_lower_camel_double_word(self):
-        self.assertEqual('fooBar', lower_camel('foo_bar'))
+        self.assertEqual("fooBar", lower_camel("foo_bar"))
 
     def test_lower_camel_multi_word(self):
-        self.assertEqual('fooBarBaz', lower_camel('foo_bar_baz'))
+        self.assertEqual("fooBarBaz", lower_camel("foo_bar_baz"))
 
     def test_lower_camel_multi_word_mixed_case(self):
-        self.assertEqual('fooBarBaz', lower_camel('foO_Bar_baz'))
+        self.assertEqual("fooBarBaz", lower_camel("foO_Bar_baz"))
 
     def test_lower_camel_camel_cased(self):
-        self.assertEqual('fooBar', lower_camel('fooBar'))
+        self.assertEqual("fooBar", lower_camel("fooBar"))

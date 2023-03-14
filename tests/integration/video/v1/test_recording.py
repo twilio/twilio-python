@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class RecordingTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.recordings("RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.recordings(
+                "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "processing",
@@ -56,28 +60,34 @@ class RecordingTestCase(IntegrationTestCase):
                     "media": "https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.recordings("RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.recordings(
+            "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.video.v1.recordings.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Recordings',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Recordings",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "recordings": [],
                 "meta": {
@@ -90,17 +100,19 @@ class RecordingTestCase(IntegrationTestCase):
                     "key": "recordings"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.recordings.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "recordings": [
                     {
@@ -142,30 +154,39 @@ class RecordingTestCase(IntegrationTestCase):
                     "key": "recordings"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.recordings.list()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.recordings("RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.video.v1.recordings(
+                "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://video.twilio.com/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://video.twilio.com/v1/Recordings/RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.video.v1.recordings("RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.video.v1.recordings(
+            "RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

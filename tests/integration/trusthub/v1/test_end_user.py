@@ -13,25 +13,32 @@ from twilio.http.response import Response
 
 
 class EndUserTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.end_users.create(friendly_name="friendly_name", type="type")
+            self.client.trusthub.v1.end_users.create(
+                friendly_name="friendly_name", type="type"
+            )
 
-        values = {'FriendlyName': "friendly_name", 'Type': "type", }
+        values = {
+            "FriendlyName": "friendly_name",
+            "Type": "type",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trusthub.twilio.com/v1/EndUsers',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trusthub.twilio.com/v1/EndUsers",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "date_updated": "2021-02-16T20:40:57Z",
                 "sid": "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -49,28 +56,34 @@ class EndUserTestCase(IntegrationTestCase):
                 },
                 "type": "authorized_representative_1"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.end_users.create(friendly_name="friendly_name", type="type")
+        actual = self.client.trusthub.v1.end_users.create(
+            friendly_name="friendly_name", type="type"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.trusthub.v1.end_users.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/EndUsers',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/EndUsers",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -83,17 +96,19 @@ class EndUserTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.trusthub.v1.end_users.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -124,28 +139,34 @@ class EndUserTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.trusthub.v1.end_users.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trusthub.v1.end_users(
+                "ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "date_updated": "2021-02-16T20:40:57Z",
                 "sid": "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -163,28 +184,36 @@ class EndUserTestCase(IntegrationTestCase):
                 },
                 "type": "authorized_representative_1"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.trusthub.v1.end_users(
+            "ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.trusthub.v1.end_users(
+                "ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trusthub.twilio.com/v1/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trusthub.twilio.com/v1/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "date_updated": "2021-02-16T20:40:57Z",
                 "sid": "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -202,30 +231,41 @@ class EndUserTestCase(IntegrationTestCase):
                 },
                 "type": "authorized_representative_1"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.trusthub.v1.end_users(
+            "ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.trusthub.v1.end_users(
+                "ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://trusthub.twilio.com/v1/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://trusthub.twilio.com/v1/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.trusthub.v1.end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.trusthub.v1.end_users(
+            "ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class UsageRecordTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.wireless.v1.usage_records.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://wireless.twilio.com/v1/UsageRecords',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://wireless.twilio.com/v1/UsageRecords",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -102,8 +104,9 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://wireless.twilio.com/v1/UsageRecords?Start=2015-07-30T20%3A00%3A00Z&End=2015-07-30T20%3A00%3A00Z&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.wireless.v1.usage_records.list()
 

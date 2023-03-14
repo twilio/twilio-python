@@ -11,4 +11,4 @@ class Response(object):
         return self.content
 
     def __repr__(self):
-        return 'HTTP {} {}'.format(self.status_code, self.content)
+        return "HTTP {} {}".format(self.status_code, self.content)

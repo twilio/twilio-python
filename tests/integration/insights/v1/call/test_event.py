@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class EventTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .events.list()
+            self.client.insights.v1.calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).events.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Voice/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Events',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Voice/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Events",
+            )
+        )
 
     def test_read_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -87,18 +90,21 @@ class EventTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .events.list()
+        actual = self.client.insights.v1.calls(
+            "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).events.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_deep_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 10,
@@ -156,10 +162,12 @@ class EventTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .events.list()
+        actual = self.client.insights.v1.calls(
+            "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).events.list()
 
         self.assertIsNotNone(actual)

@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class ContentTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.content.v1.contents("HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.content.v1.contents(
+                "HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://content.twilio.com/v1/Content/HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://content.twilio.com/v1/Content/HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -55,49 +59,63 @@ class ContentTestCase(IntegrationTestCase):
                     "approval_fetch": "https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ApprovalRequests"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.content.v1.contents("HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.content.v1.contents(
+            "HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.content.v1.contents("HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.content.v1.contents(
+                "HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://content.twilio.com/v1/Content/HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://content.twilio.com/v1/Content/HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.content.v1.contents("HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.content.v1.contents(
+            "HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.content.v1.contents.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://content.twilio.com/v1/Content',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://content.twilio.com/v1/Content",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "contents": [],
                 "meta": {
@@ -110,17 +128,19 @@ class ContentTestCase(IntegrationTestCase):
                     "key": "contents"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.content.v1.contents.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "contents": [
                     {
@@ -212,8 +232,9 @@ class ContentTestCase(IntegrationTestCase):
                     "key": "contents"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.content.v1.contents.list()
 

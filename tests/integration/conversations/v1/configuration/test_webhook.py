@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class WebhookTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.configuration \
-                                        .webhooks().fetch()
+            self.client.conversations.v1.configuration.webhooks().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/Configuration/Webhooks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/Configuration/Webhooks",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "pre_webhook_url": "https://example.com/pre",
@@ -42,30 +43,32 @@ class WebhookTestCase(IntegrationTestCase):
                 "target": "webhook",
                 "url": "https://conversations.twilio.com/v1/Configuration/Webhooks"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.configuration \
-                                             .webhooks().fetch()
+        actual = self.client.conversations.v1.configuration.webhooks().fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.configuration \
-                                        .webhooks().update()
+            self.client.conversations.v1.configuration.webhooks().update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://conversations.twilio.com/v1/Configuration/Webhooks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://conversations.twilio.com/v1/Configuration/Webhooks",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "pre_webhook_url": "https://example.com/pre",
@@ -77,10 +80,10 @@ class WebhookTestCase(IntegrationTestCase):
                 "target": "webhook",
                 "url": "https://conversations.twilio.com/v1/Configuration/Webhooks"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.configuration \
-                                             .webhooks().update()
+        actual = self.client.conversations.v1.configuration.webhooks().update()
 
         self.assertIsNotNone(actual)

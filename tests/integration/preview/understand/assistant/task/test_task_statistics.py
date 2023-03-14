@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class TaskStatisticsTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .statistics().fetch()
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").statistics().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/understand/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Statistics",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -39,11 +41,17 @@ class TaskStatisticsTestCase(IntegrationTestCase):
                 "samples_count": 0,
                 "fields_count": 0
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .statistics().fetch()
+        actual = (
+            self.client.preview.understand.assistants(
+                "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .statistics()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

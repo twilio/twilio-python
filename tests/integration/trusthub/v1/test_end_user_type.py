@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class EndUserTypeTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.trusthub.v1.end_user_types.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/EndUserTypes',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/EndUserTypes",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "end_user_types": [],
                 "meta": {
@@ -41,17 +43,19 @@ class EndUserTypeTestCase(IntegrationTestCase):
                     "key": "end_user_types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.trusthub.v1.end_user_types.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -103,28 +107,34 @@ class EndUserTypeTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.trusthub.v1.end_user_types.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.end_user_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trusthub.v1.end_user_types(
+                "OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/EndUserTypes/OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/EndUserTypes/OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://trusthub.twilio.com/v1/EndUserTypes/OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "fields": [
@@ -163,9 +173,12 @@ class EndUserTypeTestCase(IntegrationTestCase):
                 "friendly_name": "Authorized Representative one",
                 "sid": "OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.end_user_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.trusthub.v1.end_user_types(
+            "OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)

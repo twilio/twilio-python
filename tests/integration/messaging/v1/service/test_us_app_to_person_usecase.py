@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class UsAppToPersonUsecaseTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .us_app_to_person_usecases.fetch()
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).us_app_to_person_usecases.fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/Usecases',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/Usecases",
+            )
+        )
 
     def test_fetch_with_brand_registration_sid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "us_app_to_person_usecases": [
                     {
@@ -154,18 +157,21 @@ class UsAppToPersonUsecaseTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person_usecases.fetch()
+        actual = self.client.messaging.v1.services(
+            "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).us_app_to_person_usecases.fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_without_brand_registration_sid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "us_app_to_person_usecases": [
                     {
@@ -290,10 +296,12 @@ class UsAppToPersonUsecaseTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person_usecases.fetch()
+        actual = self.client.messaging.v1.services(
+            "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).us_app_to_person_usecases.fetch()
 
         self.assertIsNotNone(actual)

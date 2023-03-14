@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class OriginationUrlTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "weight": 1,
                 "date_updated": "2018-05-07T20:20:46Z",
@@ -43,62 +46,84 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls.create(weight=1, priority=1, enabled=True, friendly_name="friendly_name", sip_url="https://example.com")
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).origination_urls.create(
+                weight=1,
+                priority=1,
+                enabled=True,
+                friendly_name="friendly_name",
+                sip_url="https://example.com",
+            )
 
         values = {
-            'Weight': 1,
-            'Priority': 1,
-            'Enabled': True,
-            'FriendlyName': "friendly_name",
-            'SipUrl': "https://example.com",
+            "Weight": 1,
+            "Priority": 1,
+            "Enabled": True,
+            "FriendlyName": "friendly_name",
+            "SipUrl": "https://example.com",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "weight": 1,
                 "date_updated": "2018-05-07T20:50:58Z",
@@ -112,30 +137,42 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls.create(weight=1, priority=1, enabled=True, friendly_name="friendly_name", sip_url="https://example.com")
+        actual = self.client.trunking.v1.trunks(
+            "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).origination_urls.create(
+            weight=1,
+            priority=1,
+            enabled=True,
+            friendly_name="friendly_name",
+            sip_url="https://example.com",
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls.list()
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).origination_urls.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0",
@@ -162,18 +199,21 @@ class OriginationUrlTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls.list()
+        actual = self.client.trunking.v1.trunks(
+            "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).origination_urls.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0",
@@ -186,30 +226,36 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 },
                 "origination_urls": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls.list()
+        actual = self.client.trunking.v1.trunks(
+            "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).origination_urls.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "weight": 2,
                 "date_updated": "2018-05-07T20:50:58Z",
@@ -223,10 +269,14 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)

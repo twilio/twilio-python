@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class DeviceTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.microvisor.v1.devices.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://microvisor.twilio.com/v1/Devices',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://microvisor.twilio.com/v1/Devices",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "devices": [],
                 "meta": {
@@ -41,17 +43,19 @@ class DeviceTestCase(IntegrationTestCase):
                     "key": "devices"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.microvisor.v1.devices.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "devices": [
                     {
@@ -90,28 +94,34 @@ class DeviceTestCase(IntegrationTestCase):
                     "key": "devices"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.microvisor.v1.devices.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.microvisor.v1.devices("UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.microvisor.v1.devices(
+                "UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://microvisor.twilio.com/v1/Devices/UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://microvisor.twilio.com/v1/Devices/UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "This is my device; there are many like it.",
@@ -137,28 +147,36 @@ class DeviceTestCase(IntegrationTestCase):
                     "device_secrets": "https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.microvisor.v1.devices("UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.microvisor.v1.devices(
+            "UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.microvisor.v1.devices("UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.microvisor.v1.devices(
+                "UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://microvisor.twilio.com/v1/Devices/UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://microvisor.twilio.com/v1/Devices/UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "UniqueName",
@@ -184,9 +202,12 @@ class DeviceTestCase(IntegrationTestCase):
                     "device_secrets": "https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.microvisor.v1.devices("UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.microvisor.v1.devices(
+            "UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)

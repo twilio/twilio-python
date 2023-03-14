@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class EsimProfileTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.supersim.v1.esim_profiles.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://supersim.twilio.com/v1/ESimProfiles',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://supersim.twilio.com/v1/ESimProfiles",
+            )
+        )
 
     def test_create_default_smdp_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -45,17 +47,19 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "date_updated": "2020-09-01T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.esim_profiles.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_activation_code_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -72,17 +76,19 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "date_updated": "2020-09-01T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.esim_profiles.create()
 
         self.assertIsNotNone(actual)
 
     def test_create_with_callback_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -99,28 +105,34 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "date_updated": "2020-09-01T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.esim_profiles.create()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.esim_profiles("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.supersim.v1.esim_profiles(
+                "HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/ESimProfiles/HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/ESimProfiles/HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_default_smdp_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -137,17 +149,21 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "date_updated": "2020-09-01T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.esim_profiles("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.supersim.v1.esim_profiles(
+            "HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_activation_code_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -164,28 +180,34 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "date_updated": "2020-09-01T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.esim_profiles("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.supersim.v1.esim_profiles(
+            "HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.supersim.v1.esim_profiles.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/ESimProfiles',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/ESimProfiles",
+            )
+        )
 
     def test_read_all_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "esim_profiles": [
                     {
@@ -215,17 +237,19 @@ class EsimProfileTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/ESimProfiles?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.esim_profiles.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_by_eid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "esim_profiles": [
                     {
@@ -255,17 +279,19 @@ class EsimProfileTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/ESimProfiles?Eid=89049032005008882600033489aaaaaa&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.esim_profiles.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_by_sim_sid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "esim_profiles": [
                     {
@@ -295,17 +321,19 @@ class EsimProfileTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/ESimProfiles?SimSid=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.esim_profiles.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_by_status_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "esim_profiles": [
                     {
@@ -335,8 +363,9 @@ class EsimProfileTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/ESimProfiles?Status=downloaded&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.esim_profiles.list()
 

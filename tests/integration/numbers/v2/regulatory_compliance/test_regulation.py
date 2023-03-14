@@ -13,23 +13,24 @@ from twilio.http.response import Response
 
 
 class RegulationTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .regulations.list()
+            self.client.numbers.v2.regulatory_compliance.regulations.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Regulations',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Regulations",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -42,18 +43,19 @@ class RegulationTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .regulations.list()
+        actual = self.client.numbers.v2.regulatory_compliance.regulations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -105,30 +107,34 @@ class RegulationTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .regulations.list()
+        actual = self.client.numbers.v2.regulatory_compliance.regulations.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .regulations("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.numbers.v2.regulatory_compliance.regulations(
+                "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Regulations/RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Regulations/RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "Australia: Local - Individual",
@@ -167,10 +173,12 @@ class RegulationTestCase(IntegrationTestCase):
                 },
                 "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Regulations/RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .regulations("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.numbers.v2.regulatory_compliance.regulations(
+            "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)

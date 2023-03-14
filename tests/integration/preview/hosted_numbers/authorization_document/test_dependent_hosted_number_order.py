@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class DependentHostedNumberOrderTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.authorization_documents("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                              .dependent_hosted_number_orders.list()
+            self.client.preview.hosted_numbers.authorization_documents(
+                "PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).dependent_hosted_number_orders.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DependentHostedNumberOrders',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/DependentHostedNumberOrders",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0",
@@ -42,18 +45,21 @@ class DependentHostedNumberOrderTestCase(IntegrationTestCase):
                 },
                 "items": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.authorization_documents("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                                   .dependent_hosted_number_orders.list()
+        actual = self.client.preview.hosted_numbers.authorization_documents(
+            "PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).dependent_hosted_number_orders.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0",
@@ -100,10 +106,12 @@ class DependentHostedNumberOrderTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.authorization_documents("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                                   .dependent_hosted_number_orders.list()
+        actual = self.client.preview.hosted_numbers.authorization_documents(
+            "PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).dependent_hosted_number_orders.list()
 
         self.assertIsNotNone(actual)

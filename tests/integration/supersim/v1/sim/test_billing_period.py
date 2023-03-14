@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class BillingPeriodTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .billing_periods.list()
+            self.client.supersim.v1.sims(
+                "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).billing_periods.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/Sims/HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/BillingPeriods',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/Sims/HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/BillingPeriods",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "billing_periods": [],
                 "meta": {
@@ -42,18 +45,21 @@ class BillingPeriodTestCase(IntegrationTestCase):
                     "key": "billing_periods"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .billing_periods.list()
+        actual = self.client.supersim.v1.sims(
+            "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).billing_periods.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_active_period_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "billing_periods": [
                     {
@@ -77,18 +83,21 @@ class BillingPeriodTestCase(IntegrationTestCase):
                     "key": "billing_periods"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .billing_periods.list()
+        actual = self.client.supersim.v1.sims(
+            "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).billing_periods.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_ready_period_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "billing_periods": [
                     {
@@ -112,10 +121,12 @@ class BillingPeriodTestCase(IntegrationTestCase):
                     "key": "billing_periods"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .billing_periods.list()
+        actual = self.client.supersim.v1.sims(
+            "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).billing_periods.list()
 
         self.assertIsNotNone(actual)

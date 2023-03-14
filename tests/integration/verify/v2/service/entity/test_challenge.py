@@ -13,27 +13,33 @@ from twilio.http.response import Response
 
 
 class ChallengeTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity") \
-                                 .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities("identity").challenges.create(
+                factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'FactorSid': "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "FactorSid": "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges",
+                data=values,
+            )
+        )
 
     def test_create_push_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -67,19 +73,23 @@ class ChallengeTestCase(IntegrationTestCase):
                     "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_totp_without_auth_payload_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -113,19 +123,23 @@ class ChallengeTestCase(IntegrationTestCase):
                     "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_totp_with_auth_payload_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -159,32 +173,40 @@ class ChallengeTestCase(IntegrationTestCase):
                     "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity") \
-                                 .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities("identity").challenges(
+                "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_sid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -220,32 +242,39 @@ class ChallengeTestCase(IntegrationTestCase):
                     "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity") \
-                                 .challenges.list()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities("identity").challenges.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "challenges": [],
                 "meta": {
@@ -258,19 +287,23 @@ class ChallengeTestCase(IntegrationTestCase):
                     "key": "challenges"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges.list()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "challenges": [
                     {
@@ -350,32 +383,40 @@ class ChallengeTestCase(IntegrationTestCase):
                     "key": "challenges"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges.list()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity") \
-                                 .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities("identity").challenges(
+                "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_verify_push_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -411,19 +452,24 @@ class ChallengeTestCase(IntegrationTestCase):
                     "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_verify_totp_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -457,11 +503,15 @@ class ChallengeTestCase(IntegrationTestCase):
                     "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YC02aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)

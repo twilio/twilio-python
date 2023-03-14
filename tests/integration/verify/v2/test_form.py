@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class FormTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.verify.v2.forms("form-push").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Forms/form-push',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Forms/form-push",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "form_type": "form-push",
                 "forms": {
@@ -39,8 +41,9 @@ class FormTestCase(IntegrationTestCase):
                 "form_meta": {},
                 "url": "https://verify.twilio.com/v2/Forms/form-push"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.verify.v2.forms("form-push").fetch()
 

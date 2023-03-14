@@ -13,26 +13,32 @@ from twilio.http.response import Response
 
 
 class BundleTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles.create(friendly_name="friendly_name", email="email")
+            self.client.numbers.v2.regulatory_compliance.bundles.create(
+                friendly_name="friendly_name", email="email"
+            )
 
-        values = {'FriendlyName': "friendly_name", 'Email': "email", }
+        values = {
+            "FriendlyName": "friendly_name",
+            "Email": "email",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -51,30 +57,34 @@ class BundleTestCase(IntegrationTestCase):
                     "bundle_copies": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Copies"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles.create(friendly_name="friendly_name", email="email")
+        actual = self.client.numbers.v2.regulatory_compliance.bundles.create(
+            friendly_name="friendly_name", email="email"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles.list()
+            self.client.numbers.v2.regulatory_compliance.bundles.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -87,18 +97,19 @@ class BundleTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -130,18 +141,19 @@ class BundleTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_approved_au_mobile_with_date_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -173,18 +185,19 @@ class BundleTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_approved_au_mobile_date_less_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -216,18 +229,19 @@ class BundleTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_approved_japan_tollfree_date_between_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -259,30 +273,34 @@ class BundleTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -301,30 +319,36 @@ class BundleTestCase(IntegrationTestCase):
                     "bundle_copies": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Copies"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -343,33 +367,41 @@ class BundleTestCase(IntegrationTestCase):
                     "bundle_copies": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Copies"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

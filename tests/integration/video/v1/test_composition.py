@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class CompositionTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.compositions(
+                "CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "completed",
@@ -93,28 +97,34 @@ class CompositionTestCase(IntegrationTestCase):
                     "media": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.compositions(
+            "CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.video.v1.compositions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/Compositions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/Compositions",
+            )
+        )
 
     def test_read_enqueued_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "compositions": [],
                 "meta": {
@@ -127,17 +137,19 @@ class CompositionTestCase(IntegrationTestCase):
                     "key": "compositions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.compositions.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "compositions": [],
                 "meta": {
@@ -150,17 +162,19 @@ class CompositionTestCase(IntegrationTestCase):
                     "key": "compositions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.compositions.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "compositions": [
                     {
@@ -234,52 +248,68 @@ class CompositionTestCase(IntegrationTestCase):
                     "key": "compositions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.compositions.list()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.video.v1.compositions(
+                "CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://video.twilio.com/v1/Compositions/CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.video.v1.compositions(
+            "CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions.create(room_sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.video.v1.compositions.create(
+                room_sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'RoomSid': "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "RoomSid": "RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://video.twilio.com/v1/Compositions',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://video.twilio.com/v1/Compositions",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "processing",
@@ -332,9 +362,12 @@ class CompositionTestCase(IntegrationTestCase):
                     "media": "https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.compositions.create(room_sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.video.v1.compositions.create(
+            room_sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        )
 
         self.assertIsNotNone(actual)

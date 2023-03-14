@@ -13,26 +13,31 @@ from twilio.http.response import Response
 
 
 class ConnectionPolicyTargetTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .targets.create(target="https://example.com")
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).targets.create(target="https://example.com")
 
-        values = {'Target': "https://example.com", }
+        values = {
+            "Target": "https://example.com",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "connection_policy_sid": "NYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -46,30 +51,36 @@ class ConnectionPolicyTargetTestCase(IntegrationTestCase):
                 "date_updated": "2020-03-18T23:31:36Z",
                 "url": "https://voice.twilio.com/v1/ConnectionPolicies/NYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Targets/NEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .targets.create(target="https://example.com")
+        actual = self.client.voice.v1.connection_policies(
+            "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).targets.create(target="https://example.com")
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets/NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets/NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "connection_policy_sid": "NYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -83,30 +94,40 @@ class ConnectionPolicyTargetTestCase(IntegrationTestCase):
                 "date_updated": "2020-03-18T23:31:37Z",
                 "url": "https://voice.twilio.com/v1/ConnectionPolicies/NYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Targets/NEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .targets.list()
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).targets.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -133,18 +154,21 @@ class ConnectionPolicyTargetTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .targets.list()
+        actual = self.client.voice.v1.connection_policies(
+            "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).targets.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -157,30 +181,36 @@ class ConnectionPolicyTargetTestCase(IntegrationTestCase):
                 },
                 "targets": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .targets.list()
+        actual = self.client.voice.v1.connection_policies(
+            "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).targets.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets/NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets/NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "connection_policy_sid": "NYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -194,33 +224,49 @@ class ConnectionPolicyTargetTestCase(IntegrationTestCase):
                 "date_updated": "2020-03-18T23:31:37Z",
                 "url": "https://voice.twilio.com/v1/ConnectionPolicies/NYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Targets/NEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets/NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://voice.twilio.com/v1/ConnectionPolicies/NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Targets/NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.voice.v1.connection_policies("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.voice.v1.connection_policies(
+                "NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .targets("NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

@@ -13,27 +13,34 @@ from twilio.http.response import Response
 
 
 class PaymentTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .payments.create(idempotency_key="idempotency_key", status_callback="https://example.com")
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).payments.create(
+                idempotency_key="idempotency_key", status_callback="https://example.com"
+            )
 
-        values = {'IdempotencyKey': "idempotency_key", 'StatusCallback': "https://example.com", }
+        values = {
+            "IdempotencyKey": "idempotency_key",
+            "StatusCallback": "https://example.com",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Payments.json',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Payments.json",
+                data=values,
+            )
+        )
 
     def test_start_payment_session_success_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -42,35 +49,48 @@ class PaymentTestCase(IntegrationTestCase):
                 "sid": "PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Payments/PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .payments.create(idempotency_key="idempotency_key", status_callback="https://example.com")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .payments.create(
+                idempotency_key="idempotency_key", status_callback="https://example.com"
+            )
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(idempotency_key="idempotency_key", status_callback="https://example.com")
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(
+                idempotency_key="idempotency_key", status_callback="https://example.com"
+            )
 
-        values = {'IdempotencyKey': "idempotency_key", 'StatusCallback': "https://example.com", }
+        values = {
+            "IdempotencyKey": "idempotency_key",
+            "StatusCallback": "https://example.com",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Payments/PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Payments/PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json",
+                data=values,
+            )
+        )
 
     def test_collect_credit_card_number_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -79,19 +99,26 @@ class PaymentTestCase(IntegrationTestCase):
                 "sid": "PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Payments/PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(idempotency_key="idempotency_key", status_callback="https://example.com")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(
+                idempotency_key="idempotency_key", status_callback="https://example.com"
+            )
+        )
 
         self.assertIsNotNone(actual)
 
     def test_collect_credit_card_expiry_date_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -100,19 +127,26 @@ class PaymentTestCase(IntegrationTestCase):
                 "sid": "PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Payments/PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(idempotency_key="idempotency_key", status_callback="https://example.com")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(
+                idempotency_key="idempotency_key", status_callback="https://example.com"
+            )
+        )
 
         self.assertIsNotNone(actual)
 
     def test_complete_payment_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -121,11 +155,17 @@ class PaymentTestCase(IntegrationTestCase):
                 "sid": "PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Payments/PKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(idempotency_key="idempotency_key", status_callback="https://example.com")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .payments("PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(
+                idempotency_key="idempotency_key", status_callback="https://example.com"
+            )
+        )
 
         self.assertIsNotNone(actual)

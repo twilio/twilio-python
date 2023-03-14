@@ -13,27 +13,31 @@ from twilio.http.response import Response
 
 
 class ItemAssignmentTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .item_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).item_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'ObjectSid': "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "ObjectSid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -42,32 +46,36 @@ class ItemAssignmentTestCase(IntegrationTestCase):
                 "date_created": "2019-07-31T02:34:41Z",
                 "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ItemAssignments/BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .item_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).item_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .item_assignments.list()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).item_assignments.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -80,19 +88,21 @@ class ItemAssignmentTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .item_assignments.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).item_assignments.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -114,32 +124,36 @@ class ItemAssignmentTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .item_assignments.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).item_assignments.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -148,36 +162,49 @@ class ItemAssignmentTestCase(IntegrationTestCase):
                 "date_created": "2019-07-31T02:34:41Z",
                 "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ItemAssignments/BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ItemAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

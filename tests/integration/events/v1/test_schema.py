@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class SchemaTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.events.v1.schemas("id").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Schemas/id',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Schemas/id",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "id": "Messaging.MessageStatus",
                 "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus",
@@ -38,8 +40,9 @@ class SchemaTestCase(IntegrationTestCase):
                     "versions": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.schemas("id").fetch()
 

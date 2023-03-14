@@ -13,38 +13,45 @@ from twilio.http.response import Response
 
 
 class UserDefinedMessageTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .user_defined_messages.create(content="content")
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").calls(
+                "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_defined_messages.create(content="content")
 
-        values = {'Content': "content", }
+        values = {
+            "Content": "content",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/UserDefinedMessages.json',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/UserDefinedMessages.json",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "KXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Wed, 18 Dec 2019 20:02:01 +0000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .user_defined_messages.create(content="content")
+        actual = (
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_defined_messages.create(content="content")
+        )
 
         self.assertIsNotNone(actual)

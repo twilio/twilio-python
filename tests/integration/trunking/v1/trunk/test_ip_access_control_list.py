@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class IpAccessControlListTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2018-05-02T17:29:34Z",
@@ -39,56 +42,76 @@ class IpAccessControlListTestCase(IntegrationTestCase):
                 "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists/ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .ip_access_control_lists.create(ip_access_control_list_sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).ip_access_control_lists.create(
+                ip_access_control_list_sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'IpAccessControlListSid': "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "IpAccessControlListSid": "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2018-04-30T20:59:06Z",
@@ -98,30 +121,38 @@ class IpAccessControlListTestCase(IntegrationTestCase):
                 "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .ip_access_control_lists.create(ip_access_control_list_sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.trunking.v1.trunks(
+            "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).ip_access_control_lists.create(
+            ip_access_control_list_sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .ip_access_control_lists.list()
+            self.client.trunking.v1.trunks(
+                "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).ip_access_control_lists.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IpAccessControlLists",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "ip_access_control_lists": [],
                 "meta": {
@@ -134,18 +165,21 @@ class IpAccessControlListTestCase(IntegrationTestCase):
                     "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .ip_access_control_lists.list()
+        actual = self.client.trunking.v1.trunks(
+            "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).ip_access_control_lists.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "ip_access_control_lists": [
                     {
@@ -168,10 +202,12 @@ class IpAccessControlListTestCase(IntegrationTestCase):
                     "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .ip_access_control_lists.list()
+        actual = self.client.trunking.v1.trunks(
+            "TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).ip_access_control_lists.list()
 
         self.assertIsNotNone(actual)

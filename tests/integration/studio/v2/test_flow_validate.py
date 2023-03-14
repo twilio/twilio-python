@@ -14,31 +14,42 @@ from twilio.http.response import Response
 
 
 class FlowValidateTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v2.flow_validate.update(friendly_name="friendly_name", status="draft", definition={})
+            self.client.studio.v2.flow_validate.update(
+                friendly_name="friendly_name", status="draft", definition={}
+            )
 
-        values = {'FriendlyName': "friendly_name", 'Status': "draft", 'Definition': serialize.object({}), }
+        values = {
+            "FriendlyName": "friendly_name",
+            "Status": "draft",
+            "Definition": serialize.object({}),
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://studio.twilio.com/v2/Flows/Validate',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://studio.twilio.com/v2/Flows/Validate",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "valid": true
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v2.flow_validate.update(friendly_name="friendly_name", status="draft", definition={})
+        actual = self.client.studio.v2.flow_validate.update(
+            friendly_name="friendly_name", status="draft", definition={}
+        )
 
         self.assertIsNotNone(actual)

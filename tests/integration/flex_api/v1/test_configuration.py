@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class ConfigurationTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.flex_api.v1.configuration().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Configuration',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://flex-api.twilio.com/v1/Configuration",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2016-08-01T22:10:40Z",
@@ -253,11 +255,10 @@ class ConfigurationTestCase(IntegrationTestCase):
                     "enabled": false
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.flex_api.v1.configuration().fetch()
 
         self.assertIsNotNone(actual)
-
-
