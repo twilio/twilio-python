@@ -134,6 +134,26 @@ message = client.messages.create(to="+12316851234", from_="+15555555555",
                                  body="Hello there!")
 ```
 
+### Asynchronous API Requests
+
+By default, the Twilio Client will make synchronous requests to the Twilio API. To allow for asynchronous, non-blocking requests, we've included an optional asynchronous HTTP client. When used with the Client and the accompanying `*_async` methods, requests made to the Twilio API will be performed asynchronously.
+
+```python
+from twilio.http.async_http_client import AsyncTwilioHttpClient
+from twilio.rest import Client
+
+async def main():
+    account = "ACXXXXXXXXXXXXXXXXX"
+    token = "YYYYYYYYYYYYYYYYYY"
+    http_client = AsyncTwilioHttpClient()
+    client = Client(account, token, http_client=http_client)
+
+    message = await client.messages.create_async(to="+12316851234", from_="+15555555555",
+                                                 body="Hello there!")
+
+asyncio.run(main())
+```
+
 ### Enable Debug Logging
 
 Log the API request and response data to the console:

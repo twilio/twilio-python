@@ -8,7 +8,7 @@
   https://openapi-generator.tech
   Do not edit the class manually.
 """
-from twilio.base import ClientBase
+from twilio.base.client_base import ClientBase
 
 
 class Client(ClientBase):
