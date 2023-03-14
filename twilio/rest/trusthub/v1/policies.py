@@ -13,9 +13,6 @@ r"""
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,32 +22,28 @@ from twilio.base.page import Page
 
 
 class PoliciesList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the PoliciesList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.trusthub.v1.policies.PoliciesList
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Policies'.format(**self._solution)
-        
-        
-    
-    
+        self._solution = {}
+        self._uri = "/Policies".format(**self._solution)
+
     def stream(self, limit=None, page_size=None):
         """
         Streams PoliciesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,11 +55,9 @@ class PoliciesList(ListResource):
         :rtype: list[twilio.rest.trusthub.v1.policies.PoliciesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     async def stream_async(self, limit=None, page_size=None):
         """
@@ -74,7 +65,7 @@ class PoliciesList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -86,18 +77,16 @@ class PoliciesList(ListResource):
         :rtype: list[twilio.rest.trusthub.v1.policies.PoliciesInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists PoliciesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -108,17 +97,19 @@ class PoliciesList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.trusthub.v1.policies.PoliciesInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
     async def list_async(self, limit=None, page_size=None):
         """
         Asynchronously lists PoliciesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -129,16 +120,20 @@ class PoliciesList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.trusthub.v1.policies.PoliciesInstance]
         """
-        return list(await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of PoliciesInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -146,20 +141,24 @@ class PoliciesList(ListResource):
         :returns: Page of PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return PoliciesPage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Asynchronously retrieve a single page of PoliciesInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -167,13 +166,17 @@ class PoliciesList(ListResource):
         :returns: Page of PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return PoliciesPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -186,10 +189,7 @@ class PoliciesList(ListResource):
         :returns: Page of PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return PoliciesPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -202,19 +202,15 @@ class PoliciesList(ListResource):
         :returns: Page of PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return PoliciesPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a PoliciesContext
-        
+
         :param sid: The unique string that identifies the Policy resource.
-        
+
         :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
         """
@@ -223,9 +219,9 @@ class PoliciesList(ListResource):
     def __call__(self, sid):
         """
         Constructs a PoliciesContext
-        
+
         :param sid: The unique string that identifies the Policy resource.
-        
+
         :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
         """
@@ -234,16 +230,14 @@ class PoliciesList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trusthub.V1.PoliciesList>'
-
-
+        return "<Twilio.Trusthub.V1.PoliciesList>"
 
 
 class PoliciesPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the PoliciesPage
@@ -277,31 +271,31 @@ class PoliciesPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trusthub.V1.PoliciesPage>'
-
-
+        return "<Twilio.Trusthub.V1.PoliciesPage>"
 
 
 class PoliciesInstance(InstanceResource):
-
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the PoliciesInstance
+
         :returns: twilio.rest.trusthub.v1.policies.PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'requirements': payload.get('requirements'),
-            'url': payload.get('url'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "requirements": payload.get("requirements"),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -312,46 +306,48 @@ class PoliciesInstance(InstanceResource):
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
         """
         if self._context is None:
-            self._context = PoliciesContext(self._version, sid=self._solution['sid'],)
+            self._context = PoliciesContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that identifies the Policy resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: A human-readable description that is assigned to describe the Policy resource. Examples can include Primary Customer profile policy
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def requirements(self):
         """
         :returns: The SID of an object that holds the policy information
         :rtype: dict
         """
-        return self._properties['requirements']
-    
+        return self._properties["requirements"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the Policy resource.
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the PoliciesInstance
-        
+
 
         :returns: The fetched PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
@@ -361,24 +357,25 @@ class PoliciesInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the PoliciesInstance
-        
+
 
         :returns: The fetched PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.PoliciesInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.PoliciesInstance {}>".format(context)
+
 
 class PoliciesContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PoliciesContext
@@ -392,57 +389,57 @@ class PoliciesContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Policies/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Policies/{sid}".format(**self._solution)
+
     def fetch(self):
         """
         Fetch the PoliciesInstance
-        
+
 
         :returns: The fetched PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return PoliciesInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the PoliciesInstance
-        
+
 
         :returns: The fetched PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return PoliciesInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.PoliciesContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.PoliciesContext {}>".format(context)

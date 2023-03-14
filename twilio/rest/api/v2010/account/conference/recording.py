@@ -13,7 +13,6 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -25,7 +24,6 @@ from twilio.base.page import Page
 
 
 class RecordingList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, conference_sid: str):
         """
         Initialize the RecordingList
@@ -33,28 +31,35 @@ class RecordingList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read.
         :param conference_sid: The Conference SID that identifies the conference associated with the recording to read.
-        
+
         :returns: twilio.rest.api.v2010.account.conference.recording.RecordingList
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'conference_sid': conference_sid,  }
-        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def stream(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
+        self._solution = {
+            "account_sid": account_sid,
+            "conference_sid": conference_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
+        date_created=values.unset,
+        date_created_before=values.unset,
+        date_created_after=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -73,18 +78,25 @@ class RecordingList(ListResource):
             date_created=date_created,
             date_created_before=date_created_before,
             date_created_after=date_created_after,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self,
+        date_created=values.unset,
+        date_created_before=values.unset,
+        date_created_after=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -103,17 +115,24 @@ class RecordingList(ListResource):
             date_created=date_created,
             date_created_before=date_created_before,
             date_created_after=date_created_after,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        date_created=values.unset,
+        date_created_before=values.unset,
+        date_created_after=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -127,20 +146,29 @@ class RecordingList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.conference.recording.RecordingInstance]
         """
-        return list(self.stream(
-            date_created=date_created,
-            date_created_before=date_created_before,
-            date_created_after=date_created_after,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                date_created=date_created,
+                date_created_before=date_created_before,
+                date_created_after=date_created_after,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self,
+        date_created=values.unset,
+        date_created_before=values.unset,
+        date_created_after=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -154,19 +182,29 @@ class RecordingList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.conference.recording.RecordingInstance]
         """
-        return list(await self.stream_async(
-            date_created=date_created,
-            date_created_before=date_created_before,
-            date_created_after=date_created_after,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                date_created=date_created,
+                date_created_before=date_created_before,
+                date_created_after=date_created_after,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        date_created=values.unset,
+        date_created_before=values.unset,
+        date_created_after=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
-        
+
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -177,23 +215,33 @@ class RecordingList(ListResource):
         :returns: Page of RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingPage
         """
-        data = values.of({ 
-            'DateCreated': serialize.iso8601_date(date_created),
-            'DateCreated<': serialize.iso8601_date(date_created_before),
-            'DateCreated>': serialize.iso8601_date(date_created_after),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DateCreated": serialize.iso8601_date(date_created),
+                "DateCreated<": serialize.iso8601_date(date_created_before),
+                "DateCreated>": serialize.iso8601_date(date_created_after),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return RecordingPage(self._version, response, self._solution)
 
-    async def page_async(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        date_created=values.unset,
+        date_created_before=values.unset,
+        date_created_after=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
-        
+
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
         :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -204,16 +252,20 @@ class RecordingList(ListResource):
         :returns: Page of RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingPage
         """
-        data = values.of({ 
-            'DateCreated': serialize.iso8601_date(date_created),
-            'DateCreated<': serialize.iso8601_date(date_created_before),
-            'DateCreated>': serialize.iso8601_date(date_created_after),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DateCreated": serialize.iso8601_date(date_created),
+                "DateCreated<": serialize.iso8601_date(date_created_before),
+                "DateCreated>": serialize.iso8601_date(date_created_after),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return RecordingPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -226,10 +278,7 @@ class RecordingList(ListResource):
         :returns: Page of RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -242,52 +291,52 @@ class RecordingList(ListResource):
         :returns: Page of RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return RecordingPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a RecordingContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
-        
+
         :returns: twilio.rest.api.v2010.account.conference.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingContext
         """
-        return RecordingContext(self._version, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'], sid=sid)
+        return RecordingContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
         Constructs a RecordingContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
-        
+
         :returns: twilio.rest.api.v2010.account.conference.recording.RecordingContext
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingContext
         """
-        return RecordingContext(self._version, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'], sid=sid)
+        return RecordingContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.RecordingList>'
-
-
-
-
-
-
+        return "<Twilio.Api.V2010.RecordingList>"
 
 
 class RecordingPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the RecordingPage
@@ -312,7 +361,12 @@ class RecordingPage(Page):
         :returns: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'])
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+        )
 
     def __repr__(self):
         """
@@ -321,13 +375,10 @@ class RecordingPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.RecordingPage>'
-
-
+        return "<Twilio.Api.V2010.RecordingPage>"
 
 
 class RecordingInstance(InstanceResource):
-
     class Source(object):
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
@@ -345,37 +396,44 @@ class RecordingInstance(InstanceResource):
         COMPLETED = "completed"
         ABSENT = "absent"
 
-    def __init__(self, version, payload, account_sid: str, conference_sid: str, sid: str=None):
+    def __init__(
+        self, version, payload, account_sid: str, conference_sid: str, sid: str = None
+    ):
         """
         Initialize the RecordingInstance
+
         :returns: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'api_version': payload.get('api_version'),
-            'call_sid': payload.get('call_sid'),
-            'conference_sid': payload.get('conference_sid'),
-            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
-            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
-            'start_time': deserialize.rfc2822_datetime(payload.get('start_time')),
-            'duration': payload.get('duration'),
-            'sid': payload.get('sid'),
-            'price': payload.get('price'),
-            'price_unit': payload.get('price_unit'),
-            'status': payload.get('status'),
-            'channels': deserialize.integer(payload.get('channels')),
-            'source': payload.get('source'),
-            'error_code': deserialize.integer(payload.get('error_code')),
-            'encryption_details': payload.get('encryption_details'),
-            'uri': payload.get('uri'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "api_version": payload.get("api_version"),
+            "call_sid": payload.get("call_sid"),
+            "conference_sid": payload.get("conference_sid"),
+            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
+            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
+            "start_time": deserialize.rfc2822_datetime(payload.get("start_time")),
+            "duration": payload.get("duration"),
+            "sid": payload.get("sid"),
+            "price": payload.get("price"),
+            "price_unit": payload.get("price_unit"),
+            "status": payload.get("status"),
+            "channels": deserialize.integer(payload.get("channels")),
+            "source": payload.get("source"),
+            "error_code": deserialize.integer(payload.get("error_code")),
+            "encryption_details": payload.get("encryption_details"),
+            "uri": payload.get("uri"),
         }
 
         self._context = None
-        self._solution = { 'account_sid': account_sid, 'conference_sid': conference_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "account_sid": account_sid,
+            "conference_sid": conference_sid,
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -386,170 +444,174 @@ class RecordingInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingContext
         """
         if self._context is None:
-            self._context = RecordingContext(self._version, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'], sid=self._solution['sid'],)
+            self._context = RecordingContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                conference_sid=self._solution["conference_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def api_version(self):
         """
         :returns: The API version used to create the recording.
         :rtype: str
         """
-        return self._properties['api_version']
-    
+        return self._properties["api_version"]
+
     @property
     def call_sid(self):
         """
         :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Conference Recording resource is associated with.
         :rtype: str
         """
-        return self._properties['call_sid']
-    
+        return self._properties["call_sid"]
+
     @property
     def conference_sid(self):
         """
         :returns: The Conference SID that identifies the conference associated with the recording.
         :rtype: str
         """
-        return self._properties['conference_sid']
-    
+        return self._properties["conference_sid"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT that the resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def start_time(self):
         """
         :returns: The start time of the recording in GMT and in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
         :rtype: datetime
         """
-        return self._properties['start_time']
-    
+        return self._properties["start_time"]
+
     @property
     def duration(self):
         """
         :returns: The length of the recording in seconds.
         :rtype: str
         """
-        return self._properties['duration']
-    
+        return self._properties["duration"]
+
     @property
     def sid(self):
         """
         :returns: The unique string that that we created to identify the Conference Recording resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def price(self):
         """
         :returns: The one-time cost of creating the recording in the `price_unit` currency.
         :rtype: str
         """
-        return self._properties['price']
-    
+        return self._properties["price"]
+
     @property
     def price_unit(self):
         """
         :returns: The currency used in the `price` property. Example: `USD`.
         :rtype: str
         """
-        return self._properties['price_unit']
-    
+        return self._properties["price_unit"]
+
     @property
     def status(self):
         """
-        :returns: 
+        :returns:
         :rtype: RecordingInstance.Status
         """
-        return self._properties['status']
-    
+        return self._properties["status"]
+
     @property
     def channels(self):
         """
         :returns: The number of channels in the final recording file.  Can be: `1`, or `2`. Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/voice/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/voice/make-calls) record options.
         :rtype: int
         """
-        return self._properties['channels']
-    
+        return self._properties["channels"]
+
     @property
     def source(self):
         """
-        :returns: 
+        :returns:
         :rtype: RecordingInstance.Source
         """
-        return self._properties['source']
-    
+        return self._properties["source"]
+
     @property
     def error_code(self):
         """
         :returns: The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
         :rtype: int
         """
-        return self._properties['error_code']
-    
+        return self._properties["error_code"]
+
     @property
     def encryption_details(self):
         """
         :returns: How to decrypt the recording if it was encrypted using [Call Recording Encryption](https://www.twilio.com/docs/voice/tutorials/voice-recording-encryption) feature.
         :rtype: dict
         """
-        return self._properties['encryption_details']
-    
+        return self._properties["encryption_details"]
+
     @property
     def uri(self):
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         :rtype: str
         """
-        return self._properties['uri']
-    
-    
+        return self._properties["uri"]
+
     def delete(self):
         """
         Deletes the RecordingInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
+
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the RecordingInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self):
         """
         Fetch the RecordingInstance
-        
+
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
@@ -559,50 +621,58 @@ class RecordingInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the RecordingInstance
-        
+
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
         return await self._proxy.fetch_async()
-    
-    
+
     def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
-        
-        :params RecordingInstance.Status status: 
-        :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+
+        :param RecordingInstance.Status status:
+        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        return self._proxy.update(status=status, pause_behavior=pause_behavior, )
+        return self._proxy.update(
+            status=status,
+            pause_behavior=pause_behavior,
+        )
 
     async def update_async(self, status, pause_behavior=values.unset):
         """
         Asynchronous coroutine to update the RecordingInstance
-        
-        :params RecordingInstance.Status status: 
-        :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+
+        :param RecordingInstance.Status status:
+        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        return await self._proxy.update_async(status=status, pause_behavior=pause_behavior, )
-    
+        return await self._proxy.update_async(
+            status=status,
+            pause_behavior=pause_behavior,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.RecordingInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.RecordingInstance {}>".format(context)
+
 
 class RecordingContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, conference_sid: str, sid: str):
+    def __init__(
+        self, version: Version, account_sid: str, conference_sid: str, sid: str
+    ):
         """
         Initialize the RecordingContext
 
@@ -617,137 +687,153 @@ class RecordingContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'conference_sid': conference_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "conference_sid": conference_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings/{sid}.json'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings/{sid}.json".format(
+            **self._solution
+        )
+
     def delete(self):
         """
         Deletes the RecordingInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the RecordingInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the RecordingInstance
-        
+
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RecordingInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            conference_sid=self._solution['conference_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the RecordingInstance
-        
+
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RecordingInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            conference_sid=self._solution['conference_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
-        
-        :params RecordingInstance.Status status: 
-        :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+
+        :param RecordingInstance.Status status:
+        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'PauseBehavior': pause_behavior,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+                "PauseBehavior": pause_behavior,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return RecordingInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            conference_sid=self._solution['conference_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            sid=self._solution["sid"],
         )
 
     async def update_async(self, status, pause_behavior=values.unset):
         """
         Asynchronous coroutine to update the RecordingInstance
-        
-        :params RecordingInstance.Status status: 
-        :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+
+        :param RecordingInstance.Status status:
+        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'PauseBehavior': pause_behavior,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+                "PauseBehavior": pause_behavior,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return RecordingInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            conference_sid=self._solution['conference_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.RecordingContext {}>".format(context)

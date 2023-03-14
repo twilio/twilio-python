@@ -13,9 +13,6 @@ r"""
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,32 +22,35 @@ from twilio.base.page import Page
 
 
 class RegulationList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RegulationList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationList
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/RegulatoryCompliance/Regulations'.format(**self._solution)
-        
-        
-    
-    
-    def stream(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, limit=None, page_size=None):
+        self._solution = {}
+        self._uri = "/RegulatoryCompliance/Regulations".format(**self._solution)
+
+    def stream(
+        self,
+        end_user_type=values.unset,
+        iso_country=values.unset,
+        number_type=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams RegulationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param RegulationInstance.EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -69,18 +69,25 @@ class RegulationList(ListResource):
             end_user_type=end_user_type,
             iso_country=iso_country,
             number_type=number_type,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self,
+        end_user_type=values.unset,
+        iso_country=values.unset,
+        number_type=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously streams RegulationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param RegulationInstance.EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -99,17 +106,24 @@ class RegulationList(ListResource):
             end_user_type=end_user_type,
             iso_country=iso_country,
             number_type=number_type,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        end_user_type=values.unset,
+        iso_country=values.unset,
+        number_type=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists RegulationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param RegulationInstance.EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -123,20 +137,29 @@ class RegulationList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance]
         """
-        return list(self.stream(
-            end_user_type=end_user_type,
-            iso_country=iso_country,
-            number_type=number_type,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                end_user_type=end_user_type,
+                iso_country=iso_country,
+                number_type=number_type,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self,
+        end_user_type=values.unset,
+        iso_country=values.unset,
+        number_type=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously lists RegulationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param RegulationInstance.EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -150,19 +173,29 @@ class RegulationList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance]
         """
-        return list(await self.stream_async(
-            end_user_type=end_user_type,
-            iso_country=iso_country,
-            number_type=number_type,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                end_user_type=end_user_type,
+                iso_country=iso_country,
+                number_type=number_type,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        end_user_type=values.unset,
+        iso_country=values.unset,
+        number_type=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of RegulationInstance records from the API.
         Request is executed immediately
-        
+
         :param RegulationInstance.EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -173,23 +206,33 @@ class RegulationList(ListResource):
         :returns: Page of RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
-        data = values.of({ 
-            'EndUserType': end_user_type,
-            'IsoCountry': iso_country,
-            'NumberType': number_type,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "EndUserType": end_user_type,
+                "IsoCountry": iso_country,
+                "NumberType": number_type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return RegulationPage(self._version, response, self._solution)
 
-    async def page_async(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        end_user_type=values.unset,
+        iso_country=values.unset,
+        number_type=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of RegulationInstance records from the API.
         Request is executed immediately
-        
+
         :param RegulationInstance.EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -200,16 +243,20 @@ class RegulationList(ListResource):
         :returns: Page of RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
-        data = values.of({ 
-            'EndUserType': end_user_type,
-            'IsoCountry': iso_country,
-            'NumberType': number_type,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "EndUserType": end_user_type,
+                "IsoCountry": iso_country,
+                "NumberType": number_type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return RegulationPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -222,10 +269,7 @@ class RegulationList(ListResource):
         :returns: Page of RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return RegulationPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -238,19 +282,15 @@ class RegulationList(ListResource):
         :returns: Page of RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return RegulationPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a RegulationContext
-        
+
         :param sid: The unique string that identifies the Regulation resource.
-        
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
         """
@@ -259,9 +299,9 @@ class RegulationList(ListResource):
     def __call__(self, sid):
         """
         Constructs a RegulationContext
-        
+
         :param sid: The unique string that identifies the Regulation resource.
-        
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
         """
@@ -270,16 +310,14 @@ class RegulationList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2.RegulationList>'
-
-
+        return "<Twilio.Numbers.V2.RegulationList>"
 
 
 class RegulationPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the RegulationPage
@@ -313,38 +351,38 @@ class RegulationPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2.RegulationPage>'
-
-
+        return "<Twilio.Numbers.V2.RegulationPage>"
 
 
 class RegulationInstance(InstanceResource):
-
     class EndUserType(object):
         INDIVIDUAL = "individual"
         BUSINESS = "business"
 
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the RegulationInstance
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'iso_country': payload.get('iso_country'),
-            'number_type': payload.get('number_type'),
-            'end_user_type': payload.get('end_user_type'),
-            'requirements': payload.get('requirements'),
-            'url': payload.get('url'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "iso_country": payload.get("iso_country"),
+            "number_type": payload.get("number_type"),
+            "end_user_type": payload.get("end_user_type"),
+            "requirements": payload.get("requirements"),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -355,70 +393,72 @@ class RegulationInstance(InstanceResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
         """
         if self._context is None:
-            self._context = RegulationContext(self._version, sid=self._solution['sid'],)
+            self._context = RegulationContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that identifies the Regulation resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: A human-readable description that is assigned to describe the Regulation resource. Examples can include Germany: Mobile - Business.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def iso_country(self):
         """
         :returns: The ISO country code of the phone number's country.
         :rtype: str
         """
-        return self._properties['iso_country']
-    
+        return self._properties["iso_country"]
+
     @property
     def number_type(self):
         """
         :returns: The type of phone number restricted by the regulatory requirement. For example, Germany mobile phone numbers provisioned by businesses require a business name with commercial register proof from the Handelsregisterauszug and a proof of address from Handelsregisterauszug or a trade license by Gewerbeanmeldung.
         :rtype: str
         """
-        return self._properties['number_type']
-    
+        return self._properties["number_type"]
+
     @property
     def end_user_type(self):
         """
-        :returns: 
+        :returns:
         :rtype: RegulationInstance.EndUserType
         """
-        return self._properties['end_user_type']
-    
+        return self._properties["end_user_type"]
+
     @property
     def requirements(self):
         """
         :returns: The SID of an object that holds the regulatory information of the phone number country, phone number type, and end user type.
         :rtype: dict
         """
-        return self._properties['requirements']
-    
+        return self._properties["requirements"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the Regulation resource.
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the RegulationInstance
-        
+
 
         :returns: The fetched RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
@@ -428,24 +468,25 @@ class RegulationInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the RegulationInstance
-        
+
 
         :returns: The fetched RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.RegulationInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.RegulationInstance {}>".format(context)
+
 
 class RegulationContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RegulationContext
@@ -459,57 +500,57 @@ class RegulationContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/RegulatoryCompliance/Regulations/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/RegulatoryCompliance/Regulations/{sid}".format(**self._solution)
+
     def fetch(self):
         """
         Fetch the RegulationInstance
-        
+
 
         :returns: The fetched RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RegulationInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the RegulationInstance
-        
+
 
         :returns: The fetched RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RegulationInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.RegulationContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.RegulationContext {}>".format(context)

@@ -13,9 +13,6 @@ r"""
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,27 +20,29 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class WebChannelsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the WebChannelsList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.flex_api.v2.web_channels.WebChannelsList
         :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/WebChats'.format(**self._solution)
-        
-        
-    
-    def create(self, address_sid, chat_friendly_name=values.unset, customer_friendly_name=values.unset, pre_engagement_data=values.unset):
+        self._solution = {}
+        self._uri = "/WebChats".format(**self._solution)
+
+    def create(
+        self,
+        address_sid,
+        chat_friendly_name=values.unset,
+        customer_friendly_name=values.unset,
+        pre_engagement_data=values.unset,
+    ):
         """
         Create the WebChannelsInstance
 
@@ -51,22 +50,34 @@ class WebChannelsList(ListResource):
         :param str chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
         :param str customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
         :param str pre_engagement_data: The pre-engagement data.
-        
+
         :returns: The created WebChannelsInstance
         :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
         """
-        data = values.of({ 
-            'AddressSid': address_sid,
-            'ChatFriendlyName': chat_friendly_name,
-            'CustomerFriendlyName': customer_friendly_name,
-            'PreEngagementData': pre_engagement_data,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "AddressSid": address_sid,
+                "ChatFriendlyName": chat_friendly_name,
+                "CustomerFriendlyName": customer_friendly_name,
+                "PreEngagementData": pre_engagement_data,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return WebChannelsInstance(self._version, payload)
 
-    async def create_async(self, address_sid, chat_friendly_name=values.unset, customer_friendly_name=values.unset, pre_engagement_data=values.unset):
+    async def create_async(
+        self,
+        address_sid,
+        chat_friendly_name=values.unset,
+        customer_friendly_name=values.unset,
+        pre_engagement_data=values.unset,
+    ):
         """
         Asynchronously create the WebChannelsInstance
 
@@ -74,74 +85,77 @@ class WebChannelsList(ListResource):
         :param str chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
         :param str customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
         :param str pre_engagement_data: The pre-engagement data.
-        
+
         :returns: The created WebChannelsInstance
         :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
         """
-        data = values.of({ 
-            'AddressSid': address_sid,
-            'ChatFriendlyName': chat_friendly_name,
-            'CustomerFriendlyName': customer_friendly_name,
-            'PreEngagementData': pre_engagement_data,
-        })
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "AddressSid": address_sid,
+                "ChatFriendlyName": chat_friendly_name,
+                "CustomerFriendlyName": customer_friendly_name,
+                "PreEngagementData": pre_engagement_data,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return WebChannelsInstance(self._version, payload)
-    
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V2.WebChannelsList>'
+        return "<Twilio.FlexApi.V2.WebChannelsList>"
+
 
 class WebChannelsInstance(InstanceResource):
-
     def __init__(self, version, payload):
         """
         Initialize the WebChannelsInstance
+
         :returns: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
         :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'conversation_sid': payload.get('conversation_sid'),
-            'identity': payload.get('identity'),
+        self._properties = {
+            "conversation_sid": payload.get("conversation_sid"),
+            "identity": payload.get("identity"),
         }
 
         self._context = None
-        self._solution = {  }
-    
-    
+        self._solution = {}
+
     @property
     def conversation_sid(self):
         """
         :returns: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
         :rtype: str
         """
-        return self._properties['conversation_sid']
-    
+        return self._properties["conversation_sid"]
+
     @property
     def identity(self):
         """
         :returns: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
         :rtype: str
         """
-        return self._properties['identity']
-    
+        return self._properties["identity"]
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V2.WebChannelsInstance {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V2.WebChannelsInstance {}>".format(context)

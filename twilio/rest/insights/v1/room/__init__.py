@@ -13,7 +13,6 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -26,32 +25,37 @@ from twilio.rest.insights.v1.room.participant import ParticipantList
 
 
 class RoomList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RoomList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.insights.v1.room.RoomList
         :rtype: twilio.rest.insights.v1.room.RoomList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Video/Rooms'.format(**self._solution)
-        
-        
-    
-    
-    def stream(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
+        self._solution = {}
+        self._uri = "/Video/Rooms".format(**self._solution)
+
+    def stream(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams RoomInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
         :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
@@ -74,18 +78,27 @@ class RoomList(ListResource):
             room_name=room_name,
             created_after=created_after,
             created_before=created_before,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously streams RoomInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
         :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
@@ -108,17 +121,26 @@ class RoomList(ListResource):
             room_name=room_name,
             created_after=created_after,
             created_before=created_before,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists RoomInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
         :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
@@ -134,22 +156,33 @@ class RoomList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
         """
-        return list(self.stream(
-            room_type=room_type,
-            codec=codec,
-            room_name=room_name,
-            created_after=created_after,
-            created_before=created_before,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                room_type=room_type,
+                codec=codec,
+                room_name=room_name,
+                created_after=created_after,
+                created_before=created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously lists RoomInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
         :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
@@ -165,21 +198,33 @@ class RoomList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
         """
-        return list(await self.stream_async(
-            room_type=room_type,
-            codec=codec,
-            room_name=room_name,
-            created_after=created_after,
-            created_before=created_before,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                room_type=room_type,
+                codec=codec,
+                room_name=room_name,
+                created_after=created_after,
+                created_before=created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
-        
+
         :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
         :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
@@ -192,25 +237,37 @@ class RoomList(ListResource):
         :returns: Page of RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
-        data = values.of({ 
-            'RoomType': serialize.map(room_type, lambda e: e),
-            'Codec': serialize.map(codec, lambda e: e),
-            'RoomName': room_name,
-            'CreatedAfter': serialize.iso8601_datetime(created_after),
-            'CreatedBefore': serialize.iso8601_datetime(created_before),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "RoomType": serialize.map(room_type, lambda e: e),
+                "Codec": serialize.map(codec, lambda e: e),
+                "RoomName": room_name,
+                "CreatedAfter": serialize.iso8601_datetime(created_after),
+                "CreatedBefore": serialize.iso8601_datetime(created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return RoomPage(self._version, response, self._solution)
 
-    async def page_async(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
-        
+
         :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
         :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
@@ -223,18 +280,22 @@ class RoomList(ListResource):
         :returns: Page of RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
-        data = values.of({ 
-            'RoomType': serialize.map(room_type, lambda e: e),
-            'Codec': serialize.map(codec, lambda e: e),
-            'RoomName': room_name,
-            'CreatedAfter': serialize.iso8601_datetime(created_after),
-            'CreatedBefore': serialize.iso8601_datetime(created_before),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "RoomType": serialize.map(room_type, lambda e: e),
+                "Codec": serialize.map(codec, lambda e: e),
+                "RoomName": room_name,
+                "CreatedAfter": serialize.iso8601_datetime(created_after),
+                "CreatedBefore": serialize.iso8601_datetime(created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return RoomPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -247,10 +308,7 @@ class RoomList(ListResource):
         :returns: Page of RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return RoomPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -263,19 +321,15 @@ class RoomList(ListResource):
         :returns: Page of RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return RoomPage(self._version, response, self._solution)
-
 
     def get(self, room_sid):
         """
         Constructs a RoomContext
-        
+
         :param room_sid: The SID of the Room resource.
-        
+
         :returns: twilio.rest.insights.v1.room.RoomContext
         :rtype: twilio.rest.insights.v1.room.RoomContext
         """
@@ -284,9 +338,9 @@ class RoomList(ListResource):
     def __call__(self, room_sid):
         """
         Constructs a RoomContext
-        
+
         :param room_sid: The SID of the Room resource.
-        
+
         :returns: twilio.rest.insights.v1.room.RoomContext
         :rtype: twilio.rest.insights.v1.room.RoomContext
         """
@@ -295,16 +349,14 @@ class RoomList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Insights.V1.RoomList>'
-
-
+        return "<Twilio.Insights.V1.RoomList>"
 
 
 class RoomPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the RoomPage
@@ -338,13 +390,10 @@ class RoomPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Insights.V1.RoomPage>'
-
-
+        return "<Twilio.Insights.V1.RoomPage>"
 
 
 class RoomInstance(InstanceResource):
-
     class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
@@ -396,46 +445,59 @@ class RoomInstance(InstanceResource):
         DE1 = "de1"
         GLL = "gll"
 
-    def __init__(self, version, payload, room_sid: str=None):
+    def __init__(self, version, payload, room_sid: str = None):
         """
         Initialize the RoomInstance
+
         :returns: twilio.rest.insights.v1.room.RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'room_sid': payload.get('room_sid'),
-            'room_name': payload.get('room_name'),
-            'create_time': deserialize.iso8601_datetime(payload.get('create_time')),
-            'end_time': deserialize.iso8601_datetime(payload.get('end_time')),
-            'room_type': payload.get('room_type'),
-            'room_status': payload.get('room_status'),
-            'status_callback': payload.get('status_callback'),
-            'status_callback_method': payload.get('status_callback_method'),
-            'created_method': payload.get('created_method'),
-            'end_reason': payload.get('end_reason'),
-            'max_participants': deserialize.integer(payload.get('max_participants')),
-            'unique_participants': deserialize.integer(payload.get('unique_participants')),
-            'unique_participant_identities': deserialize.integer(payload.get('unique_participant_identities')),
-            'concurrent_participants': deserialize.integer(payload.get('concurrent_participants')),
-            'max_concurrent_participants': deserialize.integer(payload.get('max_concurrent_participants')),
-            'codecs': payload.get('codecs'),
-            'media_region': payload.get('media_region'),
-            'duration_sec': payload.get('duration_sec'),
-            'total_participant_duration_sec': payload.get('total_participant_duration_sec'),
-            'total_recording_duration_sec': payload.get('total_recording_duration_sec'),
-            'processing_state': payload.get('processing_state'),
-            'recording_enabled': payload.get('recording_enabled'),
-            'edge_location': payload.get('edge_location'),
-            'url': payload.get('url'),
-            'links': payload.get('links'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "room_sid": payload.get("room_sid"),
+            "room_name": payload.get("room_name"),
+            "create_time": deserialize.iso8601_datetime(payload.get("create_time")),
+            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
+            "room_type": payload.get("room_type"),
+            "room_status": payload.get("room_status"),
+            "status_callback": payload.get("status_callback"),
+            "status_callback_method": payload.get("status_callback_method"),
+            "created_method": payload.get("created_method"),
+            "end_reason": payload.get("end_reason"),
+            "max_participants": deserialize.integer(payload.get("max_participants")),
+            "unique_participants": deserialize.integer(
+                payload.get("unique_participants")
+            ),
+            "unique_participant_identities": deserialize.integer(
+                payload.get("unique_participant_identities")
+            ),
+            "concurrent_participants": deserialize.integer(
+                payload.get("concurrent_participants")
+            ),
+            "max_concurrent_participants": deserialize.integer(
+                payload.get("max_concurrent_participants")
+            ),
+            "codecs": payload.get("codecs"),
+            "media_region": payload.get("media_region"),
+            "duration_sec": payload.get("duration_sec"),
+            "total_participant_duration_sec": payload.get(
+                "total_participant_duration_sec"
+            ),
+            "total_recording_duration_sec": payload.get("total_recording_duration_sec"),
+            "processing_state": payload.get("processing_state"),
+            "recording_enabled": payload.get("recording_enabled"),
+            "edge_location": payload.get("edge_location"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
         }
 
         self._context = None
-        self._solution = { 'room_sid': room_sid or self._properties['room_sid'],  }
-    
+        self._solution = {
+            "room_sid": room_sid or self._properties["room_sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -446,222 +508,224 @@ class RoomInstance(InstanceResource):
         :rtype: twilio.rest.insights.v1.room.RoomContext
         """
         if self._context is None:
-            self._context = RoomContext(self._version, room_sid=self._solution['room_sid'],)
+            self._context = RoomContext(
+                self._version,
+                room_sid=self._solution["room_sid"],
+            )
         return self._context
-    
+
     @property
     def account_sid(self):
         """
         :returns: Account SID associated with this room.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def room_sid(self):
         """
         :returns: Unique identifier for the room.
         :rtype: str
         """
-        return self._properties['room_sid']
-    
+        return self._properties["room_sid"]
+
     @property
     def room_name(self):
         """
         :returns: Room friendly name.
         :rtype: str
         """
-        return self._properties['room_name']
-    
+        return self._properties["room_name"]
+
     @property
     def create_time(self):
         """
         :returns: Creation time of the room.
         :rtype: datetime
         """
-        return self._properties['create_time']
-    
+        return self._properties["create_time"]
+
     @property
     def end_time(self):
         """
         :returns: End time for the room.
         :rtype: datetime
         """
-        return self._properties['end_time']
-    
+        return self._properties["end_time"]
+
     @property
     def room_type(self):
         """
-        :returns: 
+        :returns:
         :rtype: RoomInstance.RoomType
         """
-        return self._properties['room_type']
-    
+        return self._properties["room_type"]
+
     @property
     def room_status(self):
         """
-        :returns: 
+        :returns:
         :rtype: RoomInstance.RoomStatus
         """
-        return self._properties['room_status']
-    
+        return self._properties["room_status"]
+
     @property
     def status_callback(self):
         """
         :returns: Webhook provided for status callbacks.
         :rtype: str
         """
-        return self._properties['status_callback']
-    
+        return self._properties["status_callback"]
+
     @property
     def status_callback_method(self):
         """
         :returns: HTTP method provided for status callback URL.
         :rtype: str
         """
-        return self._properties['status_callback_method']
-    
+        return self._properties["status_callback_method"]
+
     @property
     def created_method(self):
         """
-        :returns: 
+        :returns:
         :rtype: RoomInstance.CreatedMethod
         """
-        return self._properties['created_method']
-    
+        return self._properties["created_method"]
+
     @property
     def end_reason(self):
         """
-        :returns: 
+        :returns:
         :rtype: RoomInstance.EndReason
         """
-        return self._properties['end_reason']
-    
+        return self._properties["end_reason"]
+
     @property
     def max_participants(self):
         """
         :returns: Max number of total participants allowed by the application settings.
         :rtype: int
         """
-        return self._properties['max_participants']
-    
+        return self._properties["max_participants"]
+
     @property
     def unique_participants(self):
         """
         :returns: Number of participants. May include duplicate identities for participants who left and rejoined.
         :rtype: int
         """
-        return self._properties['unique_participants']
-    
+        return self._properties["unique_participants"]
+
     @property
     def unique_participant_identities(self):
         """
         :returns: Unique number of participant identities.
         :rtype: int
         """
-        return self._properties['unique_participant_identities']
-    
+        return self._properties["unique_participant_identities"]
+
     @property
     def concurrent_participants(self):
         """
         :returns: Actual number of concurrent participants.
         :rtype: int
         """
-        return self._properties['concurrent_participants']
-    
+        return self._properties["concurrent_participants"]
+
     @property
     def max_concurrent_participants(self):
         """
         :returns: Maximum number of participants allowed in the room at the same time allowed by the application settings.
         :rtype: int
         """
-        return self._properties['max_concurrent_participants']
-    
+        return self._properties["max_concurrent_participants"]
+
     @property
     def codecs(self):
         """
         :returns: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :rtype: list[RoomInstance.Codec]
         """
-        return self._properties['codecs']
-    
+        return self._properties["codecs"]
+
     @property
     def media_region(self):
         """
-        :returns: 
+        :returns:
         :rtype: RoomInstance.TwilioRealm
         """
-        return self._properties['media_region']
-    
+        return self._properties["media_region"]
+
     @property
     def duration_sec(self):
         """
         :returns: Total room duration from create time to end time.
         :rtype: int
         """
-        return self._properties['duration_sec']
-    
+        return self._properties["duration_sec"]
+
     @property
     def total_participant_duration_sec(self):
         """
         :returns: Combined amount of participant time in the room.
         :rtype: int
         """
-        return self._properties['total_participant_duration_sec']
-    
+        return self._properties["total_participant_duration_sec"]
+
     @property
     def total_recording_duration_sec(self):
         """
         :returns: Combined amount of recorded seconds for participants in the room.
         :rtype: int
         """
-        return self._properties['total_recording_duration_sec']
-    
+        return self._properties["total_recording_duration_sec"]
+
     @property
     def processing_state(self):
         """
-        :returns: 
+        :returns:
         :rtype: RoomInstance.ProcessingState
         """
-        return self._properties['processing_state']
-    
+        return self._properties["processing_state"]
+
     @property
     def recording_enabled(self):
         """
         :returns: Boolean indicating if recording is enabled for the room.
         :rtype: bool
         """
-        return self._properties['recording_enabled']
-    
+        return self._properties["recording_enabled"]
+
     @property
     def edge_location(self):
         """
-        :returns: 
+        :returns:
         :rtype: RoomInstance.EdgeLocation
         """
-        return self._properties['edge_location']
-    
+        return self._properties["edge_location"]
+
     @property
     def url(self):
         """
         :returns: URL for the room resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def links(self):
         """
         :returns: Room subresources.
         :rtype: dict
         """
-        return self._properties['links']
-    
-    
+        return self._properties["links"]
+
     def fetch(self):
         """
         Fetch the RoomInstance
-        
+
 
         :returns: The fetched RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomInstance
@@ -671,13 +735,13 @@ class RoomInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the RoomInstance
-        
+
 
         :returns: The fetched RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomInstance
         """
         return await self._proxy.fetch_async()
-    
+
     @property
     def participants(self):
         """
@@ -687,18 +751,19 @@ class RoomInstance(InstanceResource):
         :rtype: twilio.rest.insights.v1.room.ParticipantList
         """
         return self._proxy.participants
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.RoomInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.RoomInstance {}>".format(context)
+
 
 class RoomContext(InstanceContext):
-
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the RoomContext
@@ -712,51 +777,53 @@ class RoomContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
+        self._solution = {
+            "room_sid": room_sid,
         }
-        self._uri = '/Video/Rooms/{room_sid}'.format(**self._solution)
-        
+        self._uri = "/Video/Rooms/{room_sid}".format(**self._solution)
+
         self._participants = None
-    
-    
+
     def fetch(self):
         """
         Fetch the RoomInstance
-        
+
 
         :returns: The fetched RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RoomInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            
+            room_sid=self._solution["room_sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the RoomInstance
-        
+
 
         :returns: The fetched RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RoomInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            
+            room_sid=self._solution["room_sid"],
         )
-    
-    
+
     @property
     def participants(self):
         """
@@ -767,18 +834,17 @@ class RoomContext(InstanceContext):
         """
         if self._participants is None:
             self._participants = ParticipantList(
-                self._version, 
-                self._solution['room_sid'],
+                self._version,
+                self._solution["room_sid"],
             )
         return self._participants
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.RoomContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.RoomContext {}>".format(context)

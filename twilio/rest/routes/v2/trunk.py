@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,34 +21,27 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class TrunkList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the TrunkList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.routes.v2.trunk.TrunkList
         :rtype: twilio.rest.routes.v2.trunk.TrunkList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        
-        
-        
-    
-    
+        self._solution = {}
 
     def get(self, sip_trunk_domain):
         """
         Constructs a TrunkContext
-        
+
         :param sip_trunk_domain: The absolute URL of the SIP Trunk
-        
+
         :returns: twilio.rest.routes.v2.trunk.TrunkContext
         :rtype: twilio.rest.routes.v2.trunk.TrunkContext
         """
@@ -59,9 +50,9 @@ class TrunkList(ListResource):
     def __call__(self, sip_trunk_domain):
         """
         Constructs a TrunkContext
-        
+
         :param sip_trunk_domain: The absolute URL of the SIP Trunk
-        
+
         :returns: twilio.rest.routes.v2.trunk.TrunkContext
         :rtype: twilio.rest.routes.v2.trunk.TrunkContext
         """
@@ -70,35 +61,40 @@ class TrunkList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Routes.V2.TrunkList>'
+        return "<Twilio.Routes.V2.TrunkList>"
+
 
 class TrunkInstance(InstanceResource):
-
-    def __init__(self, version, payload, sip_trunk_domain: str=None):
+    def __init__(self, version, payload, sip_trunk_domain: str = None):
         """
         Initialize the TrunkInstance
+
         :returns: twilio.rest.routes.v2.trunk.TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sip_trunk_domain': payload.get('sip_trunk_domain'),
-            'url': payload.get('url'),
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'voice_region': payload.get('voice_region'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+        self._properties = {
+            "sip_trunk_domain": payload.get("sip_trunk_domain"),
+            "url": payload.get("url"),
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "voice_region": payload.get("voice_region"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
         self._context = None
-        self._solution = { 'sip_trunk_domain': sip_trunk_domain or self._properties['sip_trunk_domain'],  }
-    
+        self._solution = {
+            "sip_trunk_domain": sip_trunk_domain
+            or self._properties["sip_trunk_domain"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -109,78 +105,80 @@ class TrunkInstance(InstanceResource):
         :rtype: twilio.rest.routes.v2.trunk.TrunkContext
         """
         if self._context is None:
-            self._context = TrunkContext(self._version, sip_trunk_domain=self._solution['sip_trunk_domain'],)
+            self._context = TrunkContext(
+                self._version,
+                sip_trunk_domain=self._solution["sip_trunk_domain"],
+            )
         return self._context
-    
+
     @property
     def sip_trunk_domain(self):
         """
         :returns: The absolute URL of the SIP Trunk
         :rtype: str
         """
-        return self._properties['sip_trunk_domain']
-    
+        return self._properties["sip_trunk_domain"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def sid(self):
         """
         :returns: A 34 character string that uniquely identifies the Inbound Processing Region assignments for this SIP Trunk.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def account_sid(self):
         """
         :returns: The unique SID identifier of the Account.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: A human readable description of the Inbound Processing Region assignments for this SIP Trunk, up to 64 characters.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def voice_region(self):
         """
         :returns: The Inbound Processing Region used for this SIP Trunk for voice.
         :rtype: str
         """
-        return self._properties['voice_region']
-    
+        return self._properties["voice_region"]
+
     @property
     def date_created(self):
         """
         :returns: The date that this SIP Trunk was assigned an Inbound Processing Region, given in ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date that the Inbound Processing Region was updated for this SIP Trunk, given in ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
-    
+        return self._properties["date_updated"]
+
     def fetch(self):
         """
         Fetch the TrunkInstance
-        
+
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
@@ -190,49 +188,55 @@ class TrunkInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the TrunkInstance
-        
+
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
         return await self._proxy.fetch_async()
-    
-    
+
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the TrunkInstance
-        
-        :params str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
-        return self._proxy.update(voice_region=voice_region, friendly_name=friendly_name, )
+        return self._proxy.update(
+            voice_region=voice_region,
+            friendly_name=friendly_name,
+        )
 
     async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Asynchronous coroutine to update the TrunkInstance
-        
-        :params str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
-        return await self._proxy.update_async(voice_region=voice_region, friendly_name=friendly_name, )
-    
+        return await self._proxy.update_async(
+            voice_region=voice_region,
+            friendly_name=friendly_name,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Routes.V2.TrunkInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Routes.V2.TrunkInstance {}>".format(context)
+
 
 class TrunkContext(InstanceContext):
-
     def __init__(self, version: Version, sip_trunk_domain: str):
         """
         Initialize the TrunkContext
@@ -246,106 +250,111 @@ class TrunkContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sip_trunk_domain': sip_trunk_domain,
+        self._solution = {
+            "sip_trunk_domain": sip_trunk_domain,
         }
-        self._uri = '/Trunks/{sip_trunk_domain}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Trunks/{sip_trunk_domain}".format(**self._solution)
+
     def fetch(self):
         """
         Fetch the TrunkInstance
-        
+
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TrunkInstance(
             self._version,
             payload,
-            sip_trunk_domain=self._solution['sip_trunk_domain'],
-            
+            sip_trunk_domain=self._solution["sip_trunk_domain"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the TrunkInstance
-        
+
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TrunkInstance(
             self._version,
             payload,
-            sip_trunk_domain=self._solution['sip_trunk_domain'],
-            
+            sip_trunk_domain=self._solution["sip_trunk_domain"],
         )
-    
-    
+
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the TrunkInstance
-        
-        :params str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
-        data = values.of({ 
-            'VoiceRegion': voice_region,
-            'FriendlyName': friendly_name,
-        })
-        
+        data = values.of(
+            {
+                "VoiceRegion": voice_region,
+                "FriendlyName": friendly_name,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return TrunkInstance(
-            self._version,
-            payload,
-            sip_trunk_domain=self._solution['sip_trunk_domain']
+            self._version, payload, sip_trunk_domain=self._solution["sip_trunk_domain"]
         )
 
     async def update_async(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Asynchronous coroutine to update the TrunkInstance
-        
-        :params str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :params str friendly_name: A human readable description of this resource, up to 64 characters.
+
+        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
-        data = values.of({ 
-            'VoiceRegion': voice_region,
-            'FriendlyName': friendly_name,
-        })
-        
+        data = values.of(
+            {
+                "VoiceRegion": voice_region,
+                "FriendlyName": friendly_name,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return TrunkInstance(
-            self._version,
-            payload,
-            sip_trunk_domain=self._solution['sip_trunk_domain']
+            self._version, payload, sip_trunk_domain=self._solution["sip_trunk_domain"]
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Routes.V2.TrunkContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Routes.V2.TrunkContext {}>".format(context)

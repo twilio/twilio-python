@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -27,42 +25,43 @@ from twilio.rest.supersim.v1.sim.sim_ip_address import SimIpAddressList
 
 
 class SimList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SimList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.supersim.v1.sim.SimList
         :rtype: twilio.rest.supersim.v1.sim.SimList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Sims'.format(**self._solution)
-        
-        
-    
-    
-    
+        self._solution = {}
+        self._uri = "/Sims".format(**self._solution)
+
     def create(self, iccid, registration_code):
         """
         Create the SimInstance
 
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
         :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
-        
+
         :returns: The created SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        data = values.of({ 
-            'Iccid': iccid,
-            'RegistrationCode': registration_code,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Iccid": iccid,
+                "RegistrationCode": registration_code,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return SimInstance(self._version, payload)
 
@@ -72,27 +71,39 @@ class SimList(ListResource):
 
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
         :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
-        
+
         :returns: The created SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        data = values.of({ 
-            'Iccid': iccid,
-            'RegistrationCode': registration_code,
-        })
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Iccid": iccid,
+                "RegistrationCode": registration_code,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return SimInstance(self._version, payload)
-    
-    
-    def stream(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
+
+    def stream(
+        self,
+        status=values.unset,
+        fleet=values.unset,
+        iccid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams SimInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param SimInstance.Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
@@ -108,21 +119,25 @@ class SimList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            status=status,
-            fleet=fleet,
-            iccid=iccid,
-            page_size=limits['page_size']
+            status=status, fleet=fleet, iccid=iccid, page_size=limits["page_size"]
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self,
+        status=values.unset,
+        fleet=values.unset,
+        iccid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously streams SimInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param SimInstance.Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
@@ -138,20 +153,24 @@ class SimList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            status=status,
-            fleet=fleet,
-            iccid=iccid,
-            page_size=limits['page_size']
+            status=status, fleet=fleet, iccid=iccid, page_size=limits["page_size"]
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        status=values.unset,
+        fleet=values.unset,
+        iccid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param SimInstance.Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
@@ -165,20 +184,29 @@ class SimList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.supersim.v1.sim.SimInstance]
         """
-        return list(self.stream(
-            status=status,
-            fleet=fleet,
-            iccid=iccid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                status=status,
+                fleet=fleet,
+                iccid=iccid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self,
+        status=values.unset,
+        fleet=values.unset,
+        iccid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param SimInstance.Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
@@ -192,19 +220,29 @@ class SimList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.supersim.v1.sim.SimInstance]
         """
-        return list(await self.stream_async(
-            status=status,
-            fleet=fleet,
-            iccid=iccid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                status=status,
+                fleet=fleet,
+                iccid=iccid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, status=values.unset, fleet=values.unset, iccid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        status=values.unset,
+        fleet=values.unset,
+        iccid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
-        
+
         :param SimInstance.Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
@@ -215,23 +253,33 @@ class SimList(ListResource):
         :returns: Page of SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimPage
         """
-        data = values.of({ 
-            'Status': status,
-            'Fleet': fleet,
-            'Iccid': iccid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "Fleet": fleet,
+                "Iccid": iccid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return SimPage(self._version, response, self._solution)
 
-    async def page_async(self, status=values.unset, fleet=values.unset, iccid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        status=values.unset,
+        fleet=values.unset,
+        iccid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of SimInstance records from the API.
         Request is executed immediately
-        
+
         :param SimInstance.Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
@@ -242,16 +290,20 @@ class SimList(ListResource):
         :returns: Page of SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimPage
         """
-        data = values.of({ 
-            'Status': status,
-            'Fleet': fleet,
-            'Iccid': iccid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "Fleet": fleet,
+                "Iccid": iccid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return SimPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -264,10 +316,7 @@ class SimList(ListResource):
         :returns: Page of SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return SimPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -280,19 +329,15 @@ class SimList(ListResource):
         :returns: Page of SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return SimPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a SimContext
-        
+
         :param sid: The SID of the Sim resource to update.
-        
+
         :returns: twilio.rest.supersim.v1.sim.SimContext
         :rtype: twilio.rest.supersim.v1.sim.SimContext
         """
@@ -301,9 +346,9 @@ class SimList(ListResource):
     def __call__(self, sid):
         """
         Constructs a SimContext
-        
+
         :param sid: The SID of the Sim resource to update.
-        
+
         :returns: twilio.rest.supersim.v1.sim.SimContext
         :rtype: twilio.rest.supersim.v1.sim.SimContext
         """
@@ -312,20 +357,14 @@ class SimList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Supersim.V1.SimList>'
-
-
-
-
-
-
+        return "<Twilio.Supersim.V1.SimList>"
 
 
 class SimPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the SimPage
@@ -359,13 +398,10 @@ class SimPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Supersim.V1.SimPage>'
-
-
+        return "<Twilio.Supersim.V1.SimPage>"
 
 
 class SimInstance(InstanceResource):
-
     class Status(object):
         NEW = "new"
         READY = "ready"
@@ -373,30 +409,33 @@ class SimInstance(InstanceResource):
         INACTIVE = "inactive"
         SCHEDULED = "scheduled"
 
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the SimInstance
+
         :returns: twilio.rest.supersim.v1.sim.SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'unique_name': payload.get('unique_name'),
-            'account_sid': payload.get('account_sid'),
-            'iccid': payload.get('iccid'),
-            'status': payload.get('status'),
-            'fleet_sid': payload.get('fleet_sid'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'url': payload.get('url'),
-            'links': payload.get('links'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "unique_name": payload.get("unique_name"),
+            "account_sid": payload.get("account_sid"),
+            "iccid": payload.get("iccid"),
+            "status": payload.get("status"),
+            "fleet_sid": payload.get("fleet_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -407,94 +446,96 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.supersim.v1.sim.SimContext
         """
         if self._context is None:
-            self._context = SimContext(self._version, sid=self._solution['sid'],)
+            self._context = SimContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that identifies the Sim resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def unique_name(self):
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :rtype: str
         """
-        return self._properties['unique_name']
-    
+        return self._properties["unique_name"]
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Super SIM belongs to.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def iccid(self):
         """
         :returns: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the SIM.
         :rtype: str
         """
-        return self._properties['iccid']
-    
+        return self._properties["iccid"]
+
     @property
     def status(self):
         """
-        :returns: 
+        :returns:
         :rtype: SimInstance.Status
         """
-        return self._properties['status']
-    
+        return self._properties["status"]
+
     @property
     def fleet_sid(self):
         """
         :returns: The unique ID of the Fleet configured for this SIM.
         :rtype: str
         """
-        return self._properties['fleet_sid']
-    
+        return self._properties["fleet_sid"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the Sim Resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def links(self):
         """
-        :returns: 
+        :returns:
         :rtype: dict
         """
-        return self._properties['links']
-    
-    
+        return self._properties["links"]
+
     def fetch(self):
         """
         Fetch the SimInstance
-        
+
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
@@ -504,46 +545,75 @@ class SimInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the SimInstance
-        
+
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
+
+    def update(
+        self,
+        unique_name=values.unset,
+        status=values.unset,
+        fleet=values.unset,
+        callback_url=values.unset,
+        callback_method=values.unset,
+        account_sid=values.unset,
+    ):
         """
         Update the SimInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params SimInstance.StatusUpdate status: 
-        :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :params str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param SimInstance.StatusUpdate status:
+        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        return self._proxy.update(unique_name=unique_name, status=status, fleet=fleet, callback_url=callback_url, callback_method=callback_method, account_sid=account_sid, )
+        return self._proxy.update(
+            unique_name=unique_name,
+            status=status,
+            fleet=fleet,
+            callback_url=callback_url,
+            callback_method=callback_method,
+            account_sid=account_sid,
+        )
 
-    async def update_async(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
+    async def update_async(
+        self,
+        unique_name=values.unset,
+        status=values.unset,
+        fleet=values.unset,
+        callback_url=values.unset,
+        callback_method=values.unset,
+        account_sid=values.unset,
+    ):
         """
         Asynchronous coroutine to update the SimInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params SimInstance.StatusUpdate status: 
-        :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :params str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param SimInstance.StatusUpdate status:
+        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        return await self._proxy.update_async(unique_name=unique_name, status=status, fleet=fleet, callback_url=callback_url, callback_method=callback_method, account_sid=account_sid, )
-    
+        return await self._proxy.update_async(
+            unique_name=unique_name,
+            status=status,
+            fleet=fleet,
+            callback_url=callback_url,
+            callback_method=callback_method,
+            account_sid=account_sid,
+        )
+
     @property
     def billing_periods(self):
         """
@@ -553,7 +623,7 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.supersim.v1.sim.BillingPeriodList
         """
         return self._proxy.billing_periods
-    
+
     @property
     def sim_ip_addresses(self):
         """
@@ -563,18 +633,19 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.supersim.v1.sim.SimIpAddressList
         """
         return self._proxy.sim_ip_addresses
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.SimInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.SimInstance {}>".format(context)
+
 
 class SimContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SimContext
@@ -588,117 +659,136 @@ class SimContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Sims/{sid}'.format(**self._solution)
-        
+        self._uri = "/Sims/{sid}".format(**self._solution)
+
         self._billing_periods = None
         self._sim_ip_addresses = None
-    
-    
+
     def fetch(self):
         """
         Fetch the SimInstance
-        
+
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SimInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the SimInstance
-        
+
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SimInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
+
+    def update(
+        self,
+        unique_name=values.unset,
+        status=values.unset,
+        fleet=values.unset,
+        callback_url=values.unset,
+        callback_method=values.unset,
+        account_sid=values.unset,
+    ):
         """
         Update the SimInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params SimInstance.StatusUpdate status: 
-        :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :params str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param SimInstance.StatusUpdate status:
+        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Status': status,
-            'Fleet': fleet,
-            'CallbackUrl': callback_url,
-            'CallbackMethod': callback_method,
-            'AccountSid': account_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "Status": status,
+                "Fleet": fleet,
+                "CallbackUrl": callback_url,
+                "CallbackMethod": callback_method,
+                "AccountSid": account_sid,
+            }
         )
 
-    async def update_async(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SimInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self,
+        unique_name=values.unset,
+        status=values.unset,
+        fleet=values.unset,
+        callback_url=values.unset,
+        callback_method=values.unset,
+        account_sid=values.unset,
+    ):
         """
         Asynchronous coroutine to update the SimInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params SimInstance.StatusUpdate status: 
-        :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :params str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param SimInstance.StatusUpdate status:
+        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Status': status,
-            'Fleet': fleet,
-            'CallbackUrl': callback_url,
-            'CallbackMethod': callback_method,
-            'AccountSid': account_sid,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "Status": status,
+                "Fleet": fleet,
+                "CallbackUrl": callback_url,
+                "CallbackMethod": callback_method,
+                "AccountSid": account_sid,
+            }
         )
-    
-    
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SimInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def billing_periods(self):
         """
@@ -709,11 +799,11 @@ class SimContext(InstanceContext):
         """
         if self._billing_periods is None:
             self._billing_periods = BillingPeriodList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._billing_periods
-    
+
     @property
     def sim_ip_addresses(self):
         """
@@ -724,18 +814,17 @@ class SimContext(InstanceContext):
         """
         if self._sim_ip_addresses is None:
             self._sim_ip_addresses = SimIpAddressList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._sim_ip_addresses
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.SimContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.SimContext {}>".format(context)

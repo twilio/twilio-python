@@ -13,7 +13,6 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -23,34 +22,27 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class DomainConfigList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.messaging.v1.domain_config.DomainConfigList
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        
-        
-        
-    
-    
+        self._solution = {}
 
     def get(self, domain_sid):
         """
         Constructs a DomainConfigContext
-        
+
         :param domain_sid: Unique string used to identify the domain that this config should be associated with.
-        
+
         :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
         """
@@ -59,9 +51,9 @@ class DomainConfigList(ListResource):
     def __call__(self, domain_sid):
         """
         Constructs a DomainConfigContext
-        
+
         :param domain_sid: Unique string used to identify the domain that this config should be associated with.
-        
+
         :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
         """
@@ -70,35 +62,39 @@ class DomainConfigList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Messaging.V1.DomainConfigList>'
+        return "<Twilio.Messaging.V1.DomainConfigList>"
+
 
 class DomainConfigInstance(InstanceResource):
-
-    def __init__(self, version, payload, domain_sid: str=None):
+    def __init__(self, version, payload, domain_sid: str = None):
         """
         Initialize the DomainConfigInstance
+
         :returns: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'domain_sid': payload.get('domain_sid'),
-            'config_sid': payload.get('config_sid'),
-            'messaging_service_sids': payload.get('messaging_service_sids'),
-            'fallback_url': payload.get('fallback_url'),
-            'callback_url': payload.get('callback_url'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'url': payload.get('url'),
+        self._properties = {
+            "domain_sid": payload.get("domain_sid"),
+            "config_sid": payload.get("config_sid"),
+            "messaging_service_sids": payload.get("messaging_service_sids"),
+            "fallback_url": payload.get("fallback_url"),
+            "callback_url": payload.get("callback_url"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'domain_sid': domain_sid or self._properties['domain_sid'],  }
-    
+        self._solution = {
+            "domain_sid": domain_sid or self._properties["domain_sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -109,78 +105,80 @@ class DomainConfigInstance(InstanceResource):
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
         """
         if self._context is None:
-            self._context = DomainConfigContext(self._version, domain_sid=self._solution['domain_sid'],)
+            self._context = DomainConfigContext(
+                self._version,
+                domain_sid=self._solution["domain_sid"],
+            )
         return self._context
-    
+
     @property
     def domain_sid(self):
         """
         :returns: The unique string that we created to identify the Domain resource.
         :rtype: str
         """
-        return self._properties['domain_sid']
-    
+        return self._properties["domain_sid"]
+
     @property
     def config_sid(self):
         """
         :returns: The unique string that we created to identify the Domain config (prefix ZK).
         :rtype: str
         """
-        return self._properties['config_sid']
-    
+        return self._properties["config_sid"]
+
     @property
     def messaging_service_sids(self):
         """
         :returns: A list of messagingServiceSids (with prefix MG).
         :rtype: list[str]
         """
-        return self._properties['messaging_service_sids']
-    
+        return self._properties["messaging_service_sids"]
+
     @property
     def fallback_url(self):
         """
         :returns: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :rtype: str
         """
-        return self._properties['fallback_url']
-    
+        return self._properties["fallback_url"]
+
     @property
     def callback_url(self):
         """
         :returns: URL to receive click events to your webhook whenever the recipients click on the shortened links.
         :rtype: str
         """
-        return self._properties['callback_url']
-    
+        return self._properties["callback_url"]
+
     @property
     def date_created(self):
         """
         :returns: Date this Domain Config was created.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: Date that this Domain Config was last updated.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def url(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
@@ -190,53 +188,75 @@ class DomainConfigInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, messaging_service_sids, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
+
+    def update(
+        self,
+        messaging_service_sids,
+        fallback_url=values.unset,
+        callback_url=values.unset,
+        messaging_service_sids_action=values.unset,
+    ):
         """
         Update the DomainConfigInstance
-        
-        :params list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
-        :params str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-        :params str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :params str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
+
+        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
-        return self._proxy.update(messaging_service_sids=messaging_service_sids, fallback_url=fallback_url, callback_url=callback_url, messaging_service_sids_action=messaging_service_sids_action, )
+        return self._proxy.update(
+            messaging_service_sids=messaging_service_sids,
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            messaging_service_sids_action=messaging_service_sids_action,
+        )
 
-    async def update_async(self, messaging_service_sids, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
+    async def update_async(
+        self,
+        messaging_service_sids,
+        fallback_url=values.unset,
+        callback_url=values.unset,
+        messaging_service_sids_action=values.unset,
+    ):
         """
         Asynchronous coroutine to update the DomainConfigInstance
-        
-        :params list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
-        :params str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-        :params str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :params str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
+
+        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
-        return await self._proxy.update_async(messaging_service_sids=messaging_service_sids, fallback_url=fallback_url, callback_url=callback_url, messaging_service_sids_action=messaging_service_sids_action, )
-    
+        return await self._proxy.update_async(
+            messaging_service_sids=messaging_service_sids,
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            messaging_service_sids_action=messaging_service_sids_action,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.DomainConfigInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.DomainConfigInstance {}>".format(context)
+
 
 class DomainConfigContext(InstanceContext):
-
     def __init__(self, version: Version, domain_sid: str):
         """
         Initialize the DomainConfigContext
@@ -250,114 +270,137 @@ class DomainConfigContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'domain_sid': domain_sid,
+        self._solution = {
+            "domain_sid": domain_sid,
         }
-        self._uri = '/LinkShortening/Domains/{domain_sid}/Config'.format(**self._solution)
-        
-    
-    
+        self._uri = "/LinkShortening/Domains/{domain_sid}/Config".format(
+            **self._solution
+        )
+
     def fetch(self):
         """
         Fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DomainConfigInstance(
             self._version,
             payload,
-            domain_sid=self._solution['domain_sid'],
-            
+            domain_sid=self._solution["domain_sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DomainConfigInstance(
             self._version,
             payload,
-            domain_sid=self._solution['domain_sid'],
-            
+            domain_sid=self._solution["domain_sid"],
         )
-    
-    
-    def update(self, messaging_service_sids, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
+
+    def update(
+        self,
+        messaging_service_sids,
+        fallback_url=values.unset,
+        callback_url=values.unset,
+        messaging_service_sids_action=values.unset,
+    ):
         """
         Update the DomainConfigInstance
-        
-        :params list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
-        :params str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-        :params str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :params str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
+
+        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
-        data = values.of({ 
-            'MessagingServiceSids': serialize.map(messaging_service_sids, lambda e: e),
-            'FallbackUrl': fallback_url,
-            'CallbackUrl': callback_url,
-            'MessagingServiceSidsAction': messaging_service_sids_action,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DomainConfigInstance(
-            self._version,
-            payload,
-            domain_sid=self._solution['domain_sid']
+        data = values.of(
+            {
+                "MessagingServiceSids": serialize.map(
+                    messaging_service_sids, lambda e: e
+                ),
+                "FallbackUrl": fallback_url,
+                "CallbackUrl": callback_url,
+                "MessagingServiceSidsAction": messaging_service_sids_action,
+            }
         )
 
-    async def update_async(self, messaging_service_sids, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return DomainConfigInstance(
+            self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+
+    async def update_async(
+        self,
+        messaging_service_sids,
+        fallback_url=values.unset,
+        callback_url=values.unset,
+        messaging_service_sids_action=values.unset,
+    ):
         """
         Asynchronous coroutine to update the DomainConfigInstance
-        
-        :params list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
-        :params str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-        :params str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :params str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
+
+        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
 
         :returns: The updated DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
-        data = values.of({ 
-            'MessagingServiceSids': serialize.map(messaging_service_sids, lambda e: e),
-            'FallbackUrl': fallback_url,
-            'CallbackUrl': callback_url,
-            'MessagingServiceSidsAction': messaging_service_sids_action,
-        })
-        
+        data = values.of(
+            {
+                "MessagingServiceSids": serialize.map(
+                    messaging_service_sids, lambda e: e
+                ),
+                "FallbackUrl": fallback_url,
+                "CallbackUrl": callback_url,
+                "MessagingServiceSidsAction": messaging_service_sids_action,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DomainConfigInstance(
-            self._version,
-            payload,
-            domain_sid=self._solution['domain_sid']
+            self._version, payload, domain_sid=self._solution["domain_sid"]
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.DomainConfigContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.DomainConfigContext {}>".format(context)

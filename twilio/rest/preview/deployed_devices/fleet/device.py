@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,29 +23,32 @@ from twilio.base.page import Page
 
 
 class DeviceList(ListResource):
-
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the DeviceList
 
         :param Version version: Version that contains the resource
-        :param fleet_sid: 
-        
+        :param fleet_sid:
+
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceList
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'fleet_sid': fleet_sid,  }
-        self._uri = '/Fleets/{fleet_sid}/Devices'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, unique_name=values.unset, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+        self._solution = {
+            "fleet_sid": fleet_sid,
+        }
+        self._uri = "/Fleets/{fleet_sid}/Devices".format(**self._solution)
+
+    def create(
+        self,
+        unique_name=values.unset,
+        friendly_name=values.unset,
+        identity=values.unset,
+        deployment_sid=values.unset,
+        enabled=values.unset,
+    ):
         """
         Create the DeviceInstance
 
@@ -55,24 +56,39 @@ class DeviceList(ListResource):
         :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
         :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
         :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled: 
-        
+        :param bool enabled:
+
         :returns: The created DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'FriendlyName': friendly_name,
-            'Identity': identity,
-            'DeploymentSid': deployment_sid,
-            'Enabled': enabled,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "FriendlyName": friendly_name,
+                "Identity": identity,
+                "DeploymentSid": deployment_sid,
+                "Enabled": enabled,
+            }
+        )
 
-        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
-    async def create_async(self, unique_name=values.unset, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+        return DeviceInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    async def create_async(
+        self,
+        unique_name=values.unset,
+        friendly_name=values.unset,
+        identity=values.unset,
+        deployment_sid=values.unset,
+        enabled=values.unset,
+    ):
         """
         Asynchronously create the DeviceInstance
 
@@ -80,31 +96,38 @@ class DeviceList(ListResource):
         :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
         :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
         :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled: 
-        
+        :param bool enabled:
+
         :returns: The created DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'FriendlyName': friendly_name,
-            'Identity': identity,
-            'DeploymentSid': deployment_sid,
-            'Enabled': enabled,
-        })
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "FriendlyName": friendly_name,
+                "Identity": identity,
+                "DeploymentSid": deployment_sid,
+                "Enabled": enabled,
+            }
+        )
 
-        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
-    
-    
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return DeviceInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
     def stream(self, deployment_sid=values.unset, limit=None, page_size=None):
         """
         Streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -117,20 +140,19 @@ class DeviceList(ListResource):
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            deployment_sid=deployment_sid,
-            page_size=limits['page_size']
-        )
+        page = self.page(deployment_sid=deployment_sid, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, deployment_sid=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self, deployment_sid=values.unset, limit=None, page_size=None
+    ):
         """
         Asynchronously streams DeviceInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -144,18 +166,17 @@ class DeviceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            deployment_sid=deployment_sid,
-            page_size=limits['page_size']
+            deployment_sid=deployment_sid, page_size=limits["page_size"]
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
     def list(self, deployment_sid=values.unset, limit=None, page_size=None):
         """
         Lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -167,18 +188,20 @@ class DeviceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance]
         """
-        return list(self.stream(
-            deployment_sid=deployment_sid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                deployment_sid=deployment_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
     async def list_async(self, deployment_sid=values.unset, limit=None, page_size=None):
         """
         Asynchronously lists DeviceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -190,17 +213,25 @@ class DeviceList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance]
         """
-        return list(await self.stream_async(
-            deployment_sid=deployment_sid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                deployment_sid=deployment_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, deployment_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        deployment_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
-        
+
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -209,21 +240,29 @@ class DeviceList(ListResource):
         :returns: Page of DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
-        data = values.of({ 
-            'DeploymentSid': deployment_sid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DeploymentSid": deployment_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return DevicePage(self._version, response, self._solution)
 
-    async def page_async(self, deployment_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        deployment_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of DeviceInstance records from the API.
         Request is executed immediately
-        
+
         :param str deployment_sid: Filters the resulting list of Devices by a unique string identifier of the Deployment they are associated with.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -232,14 +271,18 @@ class DeviceList(ListResource):
         :returns: Page of DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
-        data = values.of({ 
-            'DeploymentSid': deployment_sid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DeploymentSid": deployment_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return DevicePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -252,10 +295,7 @@ class DeviceList(ListResource):
         :returns: Page of DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return DevicePage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -268,54 +308,46 @@ class DeviceList(ListResource):
         :returns: Page of DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return DevicePage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a DeviceContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
-        
+
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         """
-        return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return DeviceContext(
+            self._version, fleet_sid=self._solution["fleet_sid"], sid=sid
+        )
 
     def __call__(self, sid):
         """
         Constructs a DeviceContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
-        
+
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         """
-        return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return DeviceContext(
+            self._version, fleet_sid=self._solution["fleet_sid"], sid=sid
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.DeployedDevices.DeviceList>'
-
-
-
-
-
-
-
-
+        return "<Twilio.Preview.DeployedDevices.DeviceList>"
 
 
 class DevicePage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the DevicePage
@@ -340,7 +372,9 @@ class DevicePage(Page):
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        return DeviceInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
 
     def __repr__(self):
         """
@@ -349,39 +383,42 @@ class DevicePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.DeployedDevices.DevicePage>'
-
-
+        return "<Twilio.Preview.DeployedDevices.DevicePage>"
 
 
 class DeviceInstance(InstanceResource):
-
-    def __init__(self, version, payload, fleet_sid: str, sid: str=None):
+    def __init__(self, version, payload, fleet_sid: str, sid: str = None):
         """
         Initialize the DeviceInstance
+
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'url': payload.get('url'),
-            'unique_name': payload.get('unique_name'),
-            'friendly_name': payload.get('friendly_name'),
-            'fleet_sid': payload.get('fleet_sid'),
-            'enabled': payload.get('enabled'),
-            'account_sid': payload.get('account_sid'),
-            'identity': payload.get('identity'),
-            'deployment_sid': payload.get('deployment_sid'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'date_authenticated': deserialize.iso8601_datetime(payload.get('date_authenticated')),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "url": payload.get("url"),
+            "unique_name": payload.get("unique_name"),
+            "friendly_name": payload.get("friendly_name"),
+            "fleet_sid": payload.get("fleet_sid"),
+            "enabled": payload.get("enabled"),
+            "account_sid": payload.get("account_sid"),
+            "identity": payload.get("identity"),
+            "deployment_sid": payload.get("deployment_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "date_authenticated": deserialize.iso8601_datetime(
+                payload.get("date_authenticated")
+            ),
         }
 
         self._context = None
-        self._solution = { 'fleet_sid': fleet_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "fleet_sid": fleet_sid,
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -392,130 +429,133 @@ class DeviceInstance(InstanceResource):
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         """
         if self._context is None:
-            self._context = DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=self._solution['sid'],)
+            self._context = DeviceContext(
+                self._version,
+                fleet_sid=self._solution["fleet_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: Contains a 34 character string that uniquely identifies this Device resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def url(self):
         """
         :returns: Contains an absolute URL for this Device resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def unique_name(self):
         """
         :returns: Contains a unique and addressable name of this Device, assigned by the developer, up to 128 characters long.
         :rtype: str
         """
-        return self._properties['unique_name']
-    
+        return self._properties["unique_name"]
+
     @property
     def friendly_name(self):
         """
         :returns: Contains a human readable descriptive text for this Device, up to 256 characters long
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def fleet_sid(self):
         """
         :returns: Specifies the unique string identifier of the Fleet that the given Device belongs to.
         :rtype: str
         """
-        return self._properties['fleet_sid']
-    
+        return self._properties["fleet_sid"]
+
     @property
     def enabled(self):
         """
         :returns: Contains a boolean flag indicating whether the device is enabled or not, blocks device connectivity if set to false.
         :rtype: bool
         """
-        return self._properties['enabled']
-    
+        return self._properties["enabled"]
+
     @property
     def account_sid(self):
         """
         :returns: Specifies the unique string identifier of the Account responsible for this Device.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def identity(self):
         """
         :returns: Contains an arbitrary string identifier representing a human user associated with this Device, assigned by the developer, up to 256 characters long.
         :rtype: str
         """
-        return self._properties['identity']
-    
+        return self._properties["identity"]
+
     @property
     def deployment_sid(self):
         """
         :returns: Specifies the unique string identifier of the Deployment group that this Device is associated with.
         :rtype: str
         """
-        return self._properties['deployment_sid']
-    
+        return self._properties["deployment_sid"]
+
     @property
     def date_created(self):
         """
         :returns: Specifies the date this Device was created, given in UTC ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: Specifies the date this Device was last updated, given in UTC ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def date_authenticated(self):
         """
         :returns: Specifies the date this Device was last authenticated, given in UTC ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_authenticated']
-    
-    
+        return self._properties["date_authenticated"]
+
     def delete(self):
         """
         Deletes the DeviceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
+
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the DeviceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self):
         """
         Fetch the DeviceInstance
-        
+
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
@@ -525,59 +565,81 @@ class DeviceInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the DeviceInstance
-        
+
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+
+    def update(
+        self,
+        friendly_name=values.unset,
+        identity=values.unset,
+        deployment_sid=values.unset,
+        enabled=values.unset,
+    ):
         """
         Update the DeviceInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :params str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :params str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :params bool enabled: 
+
+        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param bool enabled:
 
         :returns: The updated DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, identity=identity, deployment_sid=deployment_sid, enabled=enabled, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            identity=identity,
+            deployment_sid=deployment_sid,
+            enabled=enabled,
+        )
 
-    async def update_async(self, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+    async def update_async(
+        self,
+        friendly_name=values.unset,
+        identity=values.unset,
+        deployment_sid=values.unset,
+        enabled=values.unset,
+    ):
         """
         Asynchronous coroutine to update the DeviceInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :params str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :params str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :params bool enabled: 
+
+        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param bool enabled:
 
         :returns: The updated DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, identity=identity, deployment_sid=deployment_sid, enabled=enabled, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            identity=identity,
+            deployment_sid=deployment_sid,
+            enabled=enabled,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.DeviceInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.DeviceInstance {}>".format(context)
+
 
 class DeviceContext(InstanceContext):
-
     def __init__(self, version: Version, fleet_sid: str, sid: str):
         """
         Initialize the DeviceContext
 
         :param Version version: Version that contains the resource
-        :param fleet_sid: 
+        :param fleet_sid:
         :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
 
         :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
@@ -586,140 +648,166 @@ class DeviceContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'fleet_sid': fleet_sid,
-            'sid': sid,
+        self._solution = {
+            "fleet_sid": fleet_sid,
+            "sid": sid,
         }
-        self._uri = '/Fleets/{fleet_sid}/Devices/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Fleets/{fleet_sid}/Devices/{sid}".format(**self._solution)
+
     def delete(self):
         """
         Deletes the DeviceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the DeviceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the DeviceInstance
-        
+
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DeviceInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the DeviceInstance
-        
+
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DeviceInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+
+    def update(
+        self,
+        friendly_name=values.unset,
+        identity=values.unset,
+        deployment_sid=values.unset,
+        enabled=values.unset,
+    ):
         """
         Update the DeviceInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :params str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :params str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :params bool enabled: 
+
+        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param bool enabled:
 
         :returns: The updated DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Identity': identity,
-            'DeploymentSid': deployment_sid,
-            'Enabled': enabled,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Identity": identity,
+                "DeploymentSid": deployment_sid,
+                "Enabled": enabled,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DeviceInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+    async def update_async(
+        self,
+        friendly_name=values.unset,
+        identity=values.unset,
+        deployment_sid=values.unset,
+        enabled=values.unset,
+    ):
         """
         Asynchronous coroutine to update the DeviceInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :params str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :params str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :params bool enabled: 
+
+        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param bool enabled:
 
         :returns: The updated DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Identity': identity,
-            'DeploymentSid': deployment_sid,
-            'Enabled': enabled,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Identity": identity,
+                "DeploymentSid": deployment_sid,
+                "Enabled": enabled,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DeviceInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.DeviceContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.DeviceContext {}>".format(context)

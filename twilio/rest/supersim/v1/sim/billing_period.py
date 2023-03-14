@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -25,32 +23,31 @@ from twilio.base.page import Page
 
 
 class BillingPeriodList(ListResource):
-
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the BillingPeriodList
 
         :param Version version: Version that contains the resource
         :param sim_sid: The SID of the Super SIM to list Billing Periods for.
-        
+
         :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'sim_sid': sim_sid,  }
-        self._uri = '/Sims/{sim_sid}/BillingPeriods'.format(**self._solution)
-        
-        
-    
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+        self._uri = "/Sims/{sim_sid}/BillingPeriods".format(**self._solution)
+
     def stream(self, limit=None, page_size=None):
         """
         Streams BillingPeriodInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,11 +59,9 @@ class BillingPeriodList(ListResource):
         :rtype: list[twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     async def stream_async(self, limit=None, page_size=None):
         """
@@ -74,7 +69,7 @@ class BillingPeriodList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -86,18 +81,16 @@ class BillingPeriodList(ListResource):
         :rtype: list[twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists BillingPeriodInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -108,17 +101,19 @@ class BillingPeriodList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
     async def list_async(self, limit=None, page_size=None):
         """
         Asynchronously lists BillingPeriodInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -129,16 +124,20 @@ class BillingPeriodList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance]
         """
-        return list(await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of BillingPeriodInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -146,20 +145,24 @@ class BillingPeriodList(ListResource):
         :returns: Page of BillingPeriodInstance
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return BillingPeriodPage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Asynchronously retrieve a single page of BillingPeriodInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -167,13 +170,17 @@ class BillingPeriodList(ListResource):
         :returns: Page of BillingPeriodInstance
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return BillingPeriodPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -186,10 +193,7 @@ class BillingPeriodList(ListResource):
         :returns: Page of BillingPeriodInstance
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return BillingPeriodPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -202,25 +206,20 @@ class BillingPeriodList(ListResource):
         :returns: Page of BillingPeriodInstance
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return BillingPeriodPage(self._version, response, self._solution)
-
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Supersim.V1.BillingPeriodList>'
+        return "<Twilio.Supersim.V1.BillingPeriodList>"
 
 
 class BillingPeriodPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the BillingPeriodPage
@@ -245,7 +244,9 @@ class BillingPeriodPage(Page):
         :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
         """
-        return BillingPeriodInstance(self._version, payload, sim_sid=self._solution['sim_sid'])
+        return BillingPeriodInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
 
     def __repr__(self):
         """
@@ -254,13 +255,10 @@ class BillingPeriodPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Supersim.V1.BillingPeriodPage>'
-
-
+        return "<Twilio.Supersim.V1.BillingPeriodPage>"
 
 
 class BillingPeriodInstance(InstanceResource):
-
     class BpType(object):
         READY = "ready"
         ACTIVE = "active"
@@ -268,98 +266,98 @@ class BillingPeriodInstance(InstanceResource):
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the BillingPeriodInstance
+
         :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'sim_sid': payload.get('sim_sid'),
-            'start_time': deserialize.iso8601_datetime(payload.get('start_time')),
-            'end_time': deserialize.iso8601_datetime(payload.get('end_time')),
-            'period_type': payload.get('period_type'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
+            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
+            "period_type": payload.get("period_type"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
         self._context = None
-        self._solution = { 'sim_sid': sim_sid,  }
-    
-    
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+
     @property
     def sid(self):
         """
         :returns: The SID of the Billing Period.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) the Super SIM belongs to.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def sim_sid(self):
         """
         :returns: The SID of the Super SIM the Billing Period belongs to.
         :rtype: str
         """
-        return self._properties['sim_sid']
-    
+        return self._properties["sim_sid"]
+
     @property
     def start_time(self):
         """
         :returns: The start time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['start_time']
-    
+        return self._properties["start_time"]
+
     @property
     def end_time(self):
         """
         :returns: The end time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['end_time']
-    
+        return self._properties["end_time"]
+
     @property
     def period_type(self):
         """
-        :returns: 
+        :returns:
         :rtype: BillingPeriodInstance.BpType
         """
-        return self._properties['period_type']
-    
+        return self._properties["period_type"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.BillingPeriodInstance {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.BillingPeriodInstance {}>".format(context)
