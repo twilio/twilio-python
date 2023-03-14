@@ -13,25 +13,31 @@ from twilio.http.response import Response
 
 
 class DomainCertsTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.domain_certs("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tls_cert="tls_cert")
+            self.client.messaging.v1.domain_certs(
+                "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update(tls_cert="tls_cert")
 
-        values = {'TlsCert': "tls_cert", }
+        values = {
+            "TlsCert": "tls_cert",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificate',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificate",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "certificate_sid": "CWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "domain_name": "https://api.example.com",
@@ -42,17 +48,21 @@ class DomainCertsTestCase(IntegrationTestCase):
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificate",
                 "validated": true
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.domain_certs("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tls_cert="tls_cert")
+        actual = self.client.messaging.v1.domain_certs(
+            "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(tls_cert="tls_cert")
 
         self.assertIsNotNone(actual)
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "certificate_sid": "CWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "domain_name": "https://api.example.com",
@@ -63,28 +73,36 @@ class DomainCertsTestCase(IntegrationTestCase):
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificate",
                 "validated": true
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.domain_certs("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tls_cert="tls_cert")
+        actual = self.client.messaging.v1.domain_certs(
+            "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(tls_cert="tls_cert")
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.domain_certs("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.messaging.v1.domain_certs(
+                "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificate',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificate",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "certificate_sid": "CWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "domain_name": "https://api.example.com",
@@ -95,30 +113,41 @@ class DomainCertsTestCase(IntegrationTestCase):
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificate",
                 "validated": true
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.domain_certs("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.messaging.v1.domain_certs(
+            "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.domain_certs("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.messaging.v1.domain_certs(
+                "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificate',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Certificate",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.messaging.v1.domain_certs("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.messaging.v1.domain_certs(
+            "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

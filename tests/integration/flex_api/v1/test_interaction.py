@@ -14,22 +14,26 @@ from twilio.http.response import Response
 
 
 class InteractionTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.flex_api.v1.interaction(
+                "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "channel": {
@@ -50,31 +54,40 @@ class InteractionTestCase(IntegrationTestCase):
                     "channels": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.flex_api.v1.interaction(
+            "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.flex_api.v1.interaction.create(channel={}, routing={})
 
-        values = {'Channel': serialize.object({}), 'Routing': serialize.object({}), }
+        values = {
+            "Channel": serialize.object({}),
+            "Routing": serialize.object({}),
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://flex-api.twilio.com/v1/Interactions',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://flex-api.twilio.com/v1/Interactions",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "channel": {
@@ -113,8 +126,9 @@ class InteractionTestCase(IntegrationTestCase):
                     "channels": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.flex_api.v1.interaction.create(channel={}, routing={})
 

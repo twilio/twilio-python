@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class ChannelTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.flex_api.v1.channel.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Channels',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://flex-api.twilio.com/v1/Channels",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -52,17 +54,19 @@ class ChannelTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.flex_api.v1.channel.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -75,28 +79,34 @@ class ChannelTestCase(IntegrationTestCase):
                 },
                 "flex_chat_channels": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.flex_api.v1.channel.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.flex_api.v1.channel(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://flex-api.twilio.com/v1/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "flex_flow_sid": "FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -107,36 +117,47 @@ class ChannelTestCase(IntegrationTestCase):
                 "date_updated": "2016-08-01T22:10:40Z",
                 "url": "https://flex-api.twilio.com/v1/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.flex_api.v1.channel(
+            "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.channel.create(flex_flow_sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", identity="identity", chat_user_friendly_name="chat_user_friendly_name", chat_friendly_name="chat_friendly_name")
+            self.client.flex_api.v1.channel.create(
+                flex_flow_sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                identity="identity",
+                chat_user_friendly_name="chat_user_friendly_name",
+                chat_friendly_name="chat_friendly_name",
+            )
 
         values = {
-            'FlexFlowSid': "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            'Identity': "identity",
-            'ChatUserFriendlyName': "chat_user_friendly_name",
-            'ChatFriendlyName': "chat_friendly_name",
+            "FlexFlowSid": "FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "Identity": "identity",
+            "ChatUserFriendlyName": "chat_user_friendly_name",
+            "ChatFriendlyName": "chat_friendly_name",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://flex-api.twilio.com/v1/Channels',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://flex-api.twilio.com/v1/Channels",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "flex_flow_sid": "FOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -147,30 +168,44 @@ class ChannelTestCase(IntegrationTestCase):
                 "date_updated": "2016-08-01T22:10:40Z",
                 "url": "https://flex-api.twilio.com/v1/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.channel.create(flex_flow_sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", identity="identity", chat_user_friendly_name="chat_user_friendly_name", chat_friendly_name="chat_friendly_name")
+        actual = self.client.flex_api.v1.channel.create(
+            flex_flow_sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            identity="identity",
+            chat_user_friendly_name="chat_user_friendly_name",
+            chat_friendly_name="chat_friendly_name",
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.flex_api.v1.channel(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://flex-api.twilio.com/v1/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://flex-api.twilio.com/v1/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.flex_api.v1.channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.flex_api.v1.channel(
+            "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

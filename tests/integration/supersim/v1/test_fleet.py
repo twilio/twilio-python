@@ -13,25 +13,31 @@ from twilio.http.response import Response
 
 
 class FleetTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.fleets.create(network_access_profile="HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.supersim.v1.fleets.create(
+                network_access_profile="HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'NetworkAccessProfile': "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "NetworkAccessProfile": "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://supersim.twilio.com/v1/Fleets',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://supersim.twilio.com/v1/Fleets",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
@@ -49,28 +55,34 @@ class FleetTestCase(IntegrationTestCase):
                 "sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.fleets.create(network_access_profile="HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.supersim.v1.fleets.create(
+            network_access_profile="HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.supersim.v1.fleets("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/Fleets/HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/Fleets/HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
@@ -88,28 +100,34 @@ class FleetTestCase(IntegrationTestCase):
                 "sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.fleets("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.supersim.v1.fleets(
+            "HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.supersim.v1.fleets.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/Fleets',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/Fleets",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "fleets": [],
                 "meta": {
@@ -122,17 +140,19 @@ class FleetTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/Fleets?NetworkAccessProfile=HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.fleets.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://supersim.twilio.com/v1/Fleets?NetworkAccessProfile=HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0",
@@ -163,28 +183,34 @@ class FleetTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.fleets.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.fleets("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.supersim.v1.fleets(
+                "HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://supersim.twilio.com/v1/Fleets/HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://supersim.twilio.com/v1/Fleets/HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_unique_name_and_data_limit_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "GPS Trackers Fleet 5GB",
@@ -202,9 +228,12 @@ class FleetTestCase(IntegrationTestCase):
                 "sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.fleets("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.supersim.v1.fleets(
+            "HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)

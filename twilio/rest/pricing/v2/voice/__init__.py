@@ -13,12 +13,6 @@ r"""
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
-
-
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -27,25 +21,23 @@ from twilio.rest.pricing.v2.voice.number import NumberList
 
 
 class VoiceList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the VoiceList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.pricing.v2.voice.VoiceList
         :rtype: twilio.rest.pricing.v2.voice.VoiceList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Voice'.format(**self._solution)
-        
+        self._solution = {}
+        self._uri = "/Voice".format(**self._solution)
+
         self._countries = None
         self._numbers = None
-        
 
     @property
     def countries(self):
@@ -71,15 +63,11 @@ class VoiceList(ListResource):
             self._numbers = NumberList(self._version)
         return self._numbers
 
-
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Pricing.V2.VoiceList>'
-
-
-
-
+        return "<Twilio.Pricing.V2.VoiceList>"

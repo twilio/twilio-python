@@ -13,27 +13,34 @@ from twilio.http.response import Response
 
 
 class BucketTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets.create(max=1, interval=1)
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").buckets.create(
+                max=1, interval=1
+            )
 
-        values = {'Max': 1, 'Interval': 1, }
+        values = {
+            "Max": 1,
+            "Interval": 1,
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets",
+                data=values,
+            )
+        )
 
     def test_create_bucket_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "rate_limit_sid": "RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -45,32 +52,40 @@ class BucketTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets/BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets.create(max=1, interval=1)
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .buckets.create(max=1, interval=1)
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").buckets(
+                "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_bucket_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "rate_limit_sid": "RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -82,32 +97,41 @@ class BucketTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets/BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").buckets(
+                "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_bucket_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "rate_limit_sid": "RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -119,32 +143,39 @@ class BucketTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/RateLimits/RKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Buckets/BLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets.list()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").buckets.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "buckets": [],
                 "meta": {
@@ -157,19 +188,23 @@ class BucketTestCase(IntegrationTestCase):
                     "key": "buckets"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets.list()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .buckets.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "buckets": [
                     {
@@ -194,36 +229,48 @@ class BucketTestCase(IntegrationTestCase):
                     "key": "buckets"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets.list()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .buckets.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").buckets(
+                "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/RateLimits/RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Buckets/BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

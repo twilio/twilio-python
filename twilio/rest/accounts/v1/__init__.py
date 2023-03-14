@@ -20,7 +20,6 @@ from twilio.rest.accounts.v1.secondary_auth_token import SecondaryAuthTokenList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Accounts
@@ -28,11 +27,11 @@ class V1(Version):
         :param domain: The Twilio.accounts domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._auth_token_promotion = None
         self._credentials = None
         self._secondary_auth_token = None
-        
+
     @property
     def auth_token_promotion(self) -> AuthTokenPromotionList:
         """
@@ -66,4 +65,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Accounts.V1>'
+        return "<Twilio.Accounts.V1>"

@@ -14,7 +14,6 @@ from twilio.rest.taskrouter.v1 import V1
 
 
 class TaskrouterBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Taskrouter Domain
@@ -23,7 +22,7 @@ class TaskrouterBase(Domain):
         :rtype: twilio.rest.taskrouter.Taskrouter
         """
         super().__init__(twilio)
-        self.base_url = 'https://taskrouter.twilio.com'
+        self.base_url = "https://taskrouter.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class TaskrouterBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Taskrouter>'
+        return "<Twilio.Taskrouter>"

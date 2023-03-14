@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class PhoneNumberTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.routes.v2.phone_numbers("phone_number").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://routes.twilio.com/v2/PhoneNumbers/phone_number',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://routes.twilio.com/v2/PhoneNumbers/phone_number",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "phone_number": "+18001234567",
                 "url": "https://routes.twilio.com/v2/PhoneNumbers/+18001234567",
@@ -39,28 +41,32 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.routes.v2.phone_numbers("phone_number").update()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.routes.v2.phone_numbers("phone_number").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://routes.twilio.com/v2/PhoneNumbers/phone_number',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://routes.twilio.com/v2/PhoneNumbers/phone_number",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "phone_number": "+18001234567",
                 "url": "https://routes.twilio.com/v2/PhoneNumbers/+18001234567",
@@ -71,8 +77,9 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.routes.v2.phone_numbers("phone_number").fetch()
 

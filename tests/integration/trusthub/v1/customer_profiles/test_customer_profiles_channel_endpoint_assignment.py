@@ -13,29 +13,35 @@ from twilio.http.response import Response
 
 
 class CustomerProfilesChannelEndpointAssignmentTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_channel_endpoint_assignment.create(channel_endpoint_type="channel_endpoint_type", channel_endpoint_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_channel_endpoint_assignment.create(
+                channel_endpoint_type="channel_endpoint_type",
+                channel_endpoint_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
 
         values = {
-            'ChannelEndpointType': "channel_endpoint_type",
-            'ChannelEndpointSid': "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "ChannelEndpointType": "channel_endpoint_type",
+            "ChannelEndpointSid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "RAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "customer_profile_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -45,30 +51,39 @@ class CustomerProfilesChannelEndpointAssignmentTestCase(IntegrationTestCase):
                 "date_created": "2019-07-31T02:34:41Z",
                 "url": "https://trusthub.twilio.com/v1/CustomerProfiles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ChannelEndpointAssignments/RAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_channel_endpoint_assignment.create(channel_endpoint_type="channel_endpoint_type", channel_endpoint_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.trusthub.v1.customer_profiles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).customer_profiles_channel_endpoint_assignment.create(
+            channel_endpoint_type="channel_endpoint_type",
+            channel_endpoint_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_channel_endpoint_assignment.list()
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_channel_endpoint_assignment.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -81,18 +96,21 @@ class CustomerProfilesChannelEndpointAssignmentTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_channel_endpoint_assignment.list()
+        actual = self.client.trusthub.v1.customer_profiles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).customer_profiles_channel_endpoint_assignment.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -115,30 +133,38 @@ class CustomerProfilesChannelEndpointAssignmentTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_channel_endpoint_assignment.list()
+        actual = self.client.trusthub.v1.customer_profiles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).customer_profiles_channel_endpoint_assignment.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_channel_endpoint_assignment("RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_channel_endpoint_assignment(
+                "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments/RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments/RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "RAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "customer_profile_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -148,33 +174,55 @@ class CustomerProfilesChannelEndpointAssignmentTestCase(IntegrationTestCase):
                 "date_created": "2019-07-31T02:34:41Z",
                 "url": "https://trusthub.twilio.com/v1/CustomerProfiles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ChannelEndpointAssignments/RAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_channel_endpoint_assignment("RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .customer_profiles_channel_endpoint_assignment(
+                "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_channel_endpoint_assignment("RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_channel_endpoint_assignment(
+                "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments/RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/ChannelEndpointAssignments/RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_channel_endpoint_assignment("RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .customer_profiles_channel_endpoint_assignment(
+                "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .delete()
+        )
 
         self.assertTrue(actual)

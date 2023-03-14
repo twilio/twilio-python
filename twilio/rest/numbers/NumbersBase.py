@@ -14,7 +14,6 @@ from twilio.rest.numbers.v2 import V2
 
 
 class NumbersBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Numbers Domain
@@ -23,7 +22,7 @@ class NumbersBase(Domain):
         :rtype: twilio.rest.numbers.Numbers
         """
         super().__init__(twilio)
-        self.base_url = 'https://numbers.twilio.com'
+        self.base_url = "https://numbers.twilio.com"
         self._v2 = None
 
     @property
@@ -42,4 +41,4 @@ class NumbersBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers>'
+        return "<Twilio.Numbers>"

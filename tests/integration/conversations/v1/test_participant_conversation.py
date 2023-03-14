@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class ParticipantConversationTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.participant_conversations.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/ParticipantConversations',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/ParticipantConversations",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "conversations": [],
                 "meta": {
@@ -41,17 +43,19 @@ class ParticipantConversationTestCase(IntegrationTestCase):
                     "key": "conversations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.conversations.v1.participant_conversations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_by_identity_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "conversations": [
                     {
@@ -89,17 +93,19 @@ class ParticipantConversationTestCase(IntegrationTestCase):
                     "key": "conversations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.conversations.v1.participant_conversations.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_by_address_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "conversations": [
                     {
@@ -144,8 +150,9 @@ class ParticipantConversationTestCase(IntegrationTestCase):
                     "key": "conversations"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.conversations.v1.participant_conversations.list()
 

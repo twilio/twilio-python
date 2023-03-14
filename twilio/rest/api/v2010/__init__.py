@@ -19,7 +19,6 @@ from twilio.rest.api.v2010.account import AccountContext
 
 
 class V2010(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2010 version of Api
@@ -27,10 +26,10 @@ class V2010(Version):
         :param domain: The Twilio.api domain
         """
         super().__init__(domain)
-        self.version = '2010-04-01'
+        self.version = "2010-04-01"
         self._accounts = None
         self._account = None
-        
+
     @property
     def accounts(self) -> AccountList:
         """
@@ -63,4 +62,4 @@ class V2010(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010>'
+        return "<Twilio.Api.V2010>"

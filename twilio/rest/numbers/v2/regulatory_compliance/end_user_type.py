@@ -13,9 +13,6 @@ r"""
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,32 +22,28 @@ from twilio.base.page import Page
 
 
 class EndUserTypeList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the EndUserTypeList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeList
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/RegulatoryCompliance/EndUserTypes'.format(**self._solution)
-        
-        
-    
-    
+        self._solution = {}
+        self._uri = "/RegulatoryCompliance/EndUserTypes".format(**self._solution)
+
     def stream(self, limit=None, page_size=None):
         """
         Streams EndUserTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,11 +55,9 @@ class EndUserTypeList(ListResource):
         :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     async def stream_async(self, limit=None, page_size=None):
         """
@@ -74,7 +65,7 @@ class EndUserTypeList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -86,18 +77,16 @@ class EndUserTypeList(ListResource):
         :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists EndUserTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -108,17 +97,19 @@ class EndUserTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
     async def list_async(self, limit=None, page_size=None):
         """
         Asynchronously lists EndUserTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -129,16 +120,20 @@ class EndUserTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance]
         """
-        return list(await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of EndUserTypeInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -146,20 +141,24 @@ class EndUserTypeList(ListResource):
         :returns: Page of EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return EndUserTypePage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Asynchronously retrieve a single page of EndUserTypeInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -167,13 +166,17 @@ class EndUserTypeList(ListResource):
         :returns: Page of EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return EndUserTypePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -186,10 +189,7 @@ class EndUserTypeList(ListResource):
         :returns: Page of EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return EndUserTypePage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -202,19 +202,15 @@ class EndUserTypeList(ListResource):
         :returns: Page of EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return EndUserTypePage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a EndUserTypeContext
-        
+
         :param sid: The unique string that identifies the End-User Type resource.
-        
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
         """
@@ -223,9 +219,9 @@ class EndUserTypeList(ListResource):
     def __call__(self, sid):
         """
         Constructs a EndUserTypeContext
-        
+
         :param sid: The unique string that identifies the End-User Type resource.
-        
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
         """
@@ -234,16 +230,14 @@ class EndUserTypeList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2.EndUserTypeList>'
-
-
+        return "<Twilio.Numbers.V2.EndUserTypeList>"
 
 
 class EndUserTypePage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the EndUserTypePage
@@ -277,32 +271,32 @@ class EndUserTypePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2.EndUserTypePage>'
-
-
+        return "<Twilio.Numbers.V2.EndUserTypePage>"
 
 
 class EndUserTypeInstance(InstanceResource):
-
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the EndUserTypeInstance
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'machine_name': payload.get('machine_name'),
-            'fields': payload.get('fields'),
-            'url': payload.get('url'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "machine_name": payload.get("machine_name"),
+            "fields": payload.get("fields"),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -313,54 +307,56 @@ class EndUserTypeInstance(InstanceResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
         """
         if self._context is None:
-            self._context = EndUserTypeContext(self._version, sid=self._solution['sid'],)
+            self._context = EndUserTypeContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that identifies the End-User Type resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: A human-readable description that is assigned to describe the End-User Type resource. Examples can include first name, last name, email, business name, etc
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def machine_name(self):
         """
         :returns: A machine-readable description of the End-User Type resource. Examples can include first_name, last_name, email, business_name, etc.
         :rtype: str
         """
-        return self._properties['machine_name']
-    
+        return self._properties["machine_name"]
+
     @property
     def fields(self):
         """
         :returns: The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
         :rtype: list[object]
         """
-        return self._properties['fields']
-    
+        return self._properties["fields"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the End-User Type resource.
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the EndUserTypeInstance
-        
+
 
         :returns: The fetched EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
@@ -370,24 +366,25 @@ class EndUserTypeInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the EndUserTypeInstance
-        
+
 
         :returns: The fetched EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.EndUserTypeInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.EndUserTypeInstance {}>".format(context)
+
 
 class EndUserTypeContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the EndUserTypeContext
@@ -401,57 +398,57 @@ class EndUserTypeContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/RegulatoryCompliance/EndUserTypes/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/RegulatoryCompliance/EndUserTypes/{sid}".format(**self._solution)
+
     def fetch(self):
         """
         Fetch the EndUserTypeInstance
-        
+
 
         :returns: The fetched EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EndUserTypeInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the EndUserTypeInstance
-        
+
 
         :returns: The fetched EndUserTypeInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EndUserTypeInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.EndUserTypeContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.EndUserTypeContext {}>".format(context)

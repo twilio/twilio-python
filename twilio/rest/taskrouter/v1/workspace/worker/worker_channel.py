@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class WorkerChannelList(ListResource):
-
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
         Initialize the WorkerChannelList
@@ -33,27 +30,28 @@ class WorkerChannelList(ListResource):
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the WorkerChannels to read.
         :param worker_sid: The SID of the Worker with the WorkerChannels to read.
-        
+
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'workspace_sid': workspace_sid, 'worker_sid': worker_sid,  }
-        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels'.format(**self._solution)
-        
-        
-    
-    
-    
+        self._solution = {
+            "workspace_sid": workspace_sid,
+            "worker_sid": worker_sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels".format(
+            **self._solution
+        )
+
     def stream(self, limit=None, page_size=None):
         """
         Streams WorkerChannelInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -65,11 +63,9 @@ class WorkerChannelList(ListResource):
         :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     async def stream_async(self, limit=None, page_size=None):
         """
@@ -77,7 +73,7 @@ class WorkerChannelList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -89,18 +85,16 @@ class WorkerChannelList(ListResource):
         :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists WorkerChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,17 +105,19 @@ class WorkerChannelList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
     async def list_async(self, limit=None, page_size=None):
         """
         Asynchronously lists WorkerChannelInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -132,16 +128,20 @@ class WorkerChannelList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
-        return list(await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of WorkerChannelInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -149,20 +149,24 @@ class WorkerChannelList(ListResource):
         :returns: Page of WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return WorkerChannelPage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Asynchronously retrieve a single page of WorkerChannelInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -170,13 +174,17 @@ class WorkerChannelList(ListResource):
         :returns: Page of WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return WorkerChannelPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -189,10 +197,7 @@ class WorkerChannelList(ListResource):
         :returns: Page of WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return WorkerChannelPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -205,50 +210,52 @@ class WorkerChannelList(ListResource):
         :returns: Page of WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return WorkerChannelPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a WorkerChannelContext
-        
+
         :param sid: The SID of the WorkerChannel to update.
-        
+
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
-        return WorkerChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
+        return WorkerChannelContext(
+            self._version,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
         Constructs a WorkerChannelContext
-        
+
         :param sid: The SID of the WorkerChannel to update.
-        
+
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
-        return WorkerChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
+        return WorkerChannelContext(
+            self._version,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Taskrouter.V1.WorkerChannelList>'
-
-
-
-
+        return "<Twilio.Taskrouter.V1.WorkerChannelList>"
 
 
 class WorkerChannelPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the WorkerChannelPage
@@ -273,7 +280,12 @@ class WorkerChannelPage(Page):
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        return WorkerChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'])
+        return WorkerChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+        )
 
     def __repr__(self):
         """
@@ -282,40 +294,48 @@ class WorkerChannelPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Taskrouter.V1.WorkerChannelPage>'
-
-
+        return "<Twilio.Taskrouter.V1.WorkerChannelPage>"
 
 
 class WorkerChannelInstance(InstanceResource):
-
-    def __init__(self, version, payload, workspace_sid: str, worker_sid: str, sid: str=None):
+    def __init__(
+        self, version, payload, workspace_sid: str, worker_sid: str, sid: str = None
+    ):
         """
         Initialize the WorkerChannelInstance
+
         :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'assigned_tasks': deserialize.integer(payload.get('assigned_tasks')),
-            'available': payload.get('available'),
-            'available_capacity_percentage': deserialize.integer(payload.get('available_capacity_percentage')),
-            'configured_capacity': deserialize.integer(payload.get('configured_capacity')),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'sid': payload.get('sid'),
-            'task_channel_sid': payload.get('task_channel_sid'),
-            'task_channel_unique_name': payload.get('task_channel_unique_name'),
-            'worker_sid': payload.get('worker_sid'),
-            'workspace_sid': payload.get('workspace_sid'),
-            'url': payload.get('url'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "assigned_tasks": deserialize.integer(payload.get("assigned_tasks")),
+            "available": payload.get("available"),
+            "available_capacity_percentage": deserialize.integer(
+                payload.get("available_capacity_percentage")
+            ),
+            "configured_capacity": deserialize.integer(
+                payload.get("configured_capacity")
+            ),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "sid": payload.get("sid"),
+            "task_channel_sid": payload.get("task_channel_sid"),
+            "task_channel_unique_name": payload.get("task_channel_unique_name"),
+            "worker_sid": payload.get("worker_sid"),
+            "workspace_sid": payload.get("workspace_sid"),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'workspace_sid': workspace_sid, 'worker_sid': worker_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "workspace_sid": workspace_sid,
+            "worker_sid": worker_sid,
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -326,118 +346,122 @@ class WorkerChannelInstance(InstanceResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
         if self._context is None:
-            self._context = WorkerChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=self._solution['sid'],)
+            self._context = WorkerChannelContext(
+                self._version,
+                workspace_sid=self._solution["workspace_sid"],
+                worker_sid=self._solution["worker_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def assigned_tasks(self):
         """
         :returns: The total number of Tasks assigned to Worker for the TaskChannel type.
         :rtype: int
         """
-        return self._properties['assigned_tasks']
-    
+        return self._properties["assigned_tasks"]
+
     @property
     def available(self):
         """
         :returns: Whether the Worker should receive Tasks of the TaskChannel type.
         :rtype: bool
         """
-        return self._properties['available']
-    
+        return self._properties["available"]
+
     @property
     def available_capacity_percentage(self):
         """
         :returns: The current percentage of capacity the TaskChannel has available. Can be a number between `0` and `100`. A value of `0` indicates that TaskChannel has no capacity available and a value of `100` means the  Worker is available to receive any Tasks of this TaskChannel type.
         :rtype: int
         """
-        return self._properties['available_capacity_percentage']
-    
+        return self._properties["available_capacity_percentage"]
+
     @property
     def configured_capacity(self):
         """
         :returns: The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations after the assigned Tasks for the Worker reaches the value.
         :rtype: int
         """
-        return self._properties['configured_capacity']
-    
+        return self._properties["configured_capacity"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def sid(self):
         """
         :returns: The unique string that we created to identify the WorkerChannel resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def task_channel_sid(self):
         """
         :returns: The SID of the TaskChannel.
         :rtype: str
         """
-        return self._properties['task_channel_sid']
-    
+        return self._properties["task_channel_sid"]
+
     @property
     def task_channel_unique_name(self):
         """
         :returns: The unique name of the TaskChannel, such as `voice` or `sms`.
         :rtype: str
         """
-        return self._properties['task_channel_unique_name']
-    
+        return self._properties["task_channel_unique_name"]
+
     @property
     def worker_sid(self):
         """
         :returns: The SID of the Worker that contains the WorkerChannel.
         :rtype: str
         """
-        return self._properties['worker_sid']
-    
+        return self._properties["worker_sid"]
+
     @property
     def workspace_sid(self):
         """
         :returns: The SID of the Workspace that contains the WorkerChannel.
         :rtype: str
         """
-        return self._properties['workspace_sid']
-    
+        return self._properties["workspace_sid"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the WorkerChannel resource.
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the WorkerChannelInstance
-        
+
 
         :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
@@ -447,49 +471,55 @@ class WorkerChannelInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the WorkerChannelInstance
-        
+
 
         :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         return await self._proxy.fetch_async()
-    
-    
+
     def update(self, capacity=values.unset, available=values.unset):
         """
         Update the WorkerChannelInstance
-        
-        :params int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
-        :params bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+
+        :param int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+        :param bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
 
         :returns: The updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        return self._proxy.update(capacity=capacity, available=available, )
+        return self._proxy.update(
+            capacity=capacity,
+            available=available,
+        )
 
     async def update_async(self, capacity=values.unset, available=values.unset):
         """
         Asynchronous coroutine to update the WorkerChannelInstance
-        
-        :params int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
-        :params bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+
+        :param int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+        :param bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
 
         :returns: The updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        return await self._proxy.update_async(capacity=capacity, available=available, )
-    
+        return await self._proxy.update_async(
+            capacity=capacity,
+            available=available,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.WorkerChannelInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Taskrouter.V1.WorkerChannelInstance {}>".format(context)
+
 
 class WorkerChannelContext(InstanceContext):
-
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str, sid: str):
         """
         Initialize the WorkerChannelContext
@@ -505,116 +535,129 @@ class WorkerChannelContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'worker_sid': worker_sid,
-            'sid': sid,
+        self._solution = {
+            "workspace_sid": workspace_sid,
+            "worker_sid": worker_sid,
+            "sid": sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = (
+            "/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}".format(
+                **self._solution
+            )
+        )
+
     def fetch(self):
         """
         Fetch the WorkerChannelInstance
-        
+
 
         :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return WorkerChannelInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            worker_sid=self._solution['worker_sid'],
-            sid=self._solution['sid'],
-            
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the WorkerChannelInstance
-        
+
 
         :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return WorkerChannelInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            worker_sid=self._solution['worker_sid'],
-            sid=self._solution['sid'],
-            
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def update(self, capacity=values.unset, available=values.unset):
         """
         Update the WorkerChannelInstance
-        
-        :params int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
-        :params bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+
+        :param int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+        :param bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
 
         :returns: The updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        data = values.of({ 
-            'Capacity': capacity,
-            'Available': available,
-        })
-        
+        data = values.of(
+            {
+                "Capacity": capacity,
+                "Available": available,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return WorkerChannelInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            worker_sid=self._solution['worker_sid'],
-            sid=self._solution['sid']
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+            sid=self._solution["sid"],
         )
 
     async def update_async(self, capacity=values.unset, available=values.unset):
         """
         Asynchronous coroutine to update the WorkerChannelInstance
-        
-        :params int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
-        :params bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+
+        :param int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+        :param bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
 
         :returns: The updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        data = values.of({ 
-            'Capacity': capacity,
-            'Available': available,
-        })
-        
+        data = values.of(
+            {
+                "Capacity": capacity,
+                "Available": available,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return WorkerChannelInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            worker_sid=self._solution['worker_sid'],
-            sid=self._solution['sid']
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.WorkerChannelContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Taskrouter.V1.WorkerChannelContext {}>".format(context)

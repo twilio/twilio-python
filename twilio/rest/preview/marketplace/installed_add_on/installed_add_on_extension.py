@@ -13,9 +13,6 @@ r"""
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,34 +22,33 @@ from twilio.base.page import Page
 
 
 class InstalledAddOnExtensionList(ListResource):
-
     def __init__(self, version: Version, installed_add_on_sid: str):
         """
         Initialize the InstalledAddOnExtensionList
 
         :param Version version: Version that contains the resource
         :param installed_add_on_sid: The SID of the InstalledAddOn resource with the extensions to read.
-        
+
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'installed_add_on_sid': installed_add_on_sid,  }
-        self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions'.format(**self._solution)
-        
-        
-    
-    
-    
+        self._solution = {
+            "installed_add_on_sid": installed_add_on_sid,
+        }
+        self._uri = "/InstalledAddOns/{installed_add_on_sid}/Extensions".format(
+            **self._solution
+        )
+
     def stream(self, limit=None, page_size=None):
         """
         Streams InstalledAddOnExtensionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -64,11 +60,9 @@ class InstalledAddOnExtensionList(ListResource):
         :rtype: list[twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     async def stream_async(self, limit=None, page_size=None):
         """
@@ -76,7 +70,7 @@ class InstalledAddOnExtensionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -88,18 +82,16 @@ class InstalledAddOnExtensionList(ListResource):
         :rtype: list[twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists InstalledAddOnExtensionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -110,17 +102,19 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
     async def list_async(self, limit=None, page_size=None):
         """
         Asynchronously lists InstalledAddOnExtensionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -131,16 +125,20 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance]
         """
-        return list(await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -148,20 +146,24 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Page of InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return InstalledAddOnExtensionPage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Asynchronously retrieve a single page of InstalledAddOnExtensionInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -169,13 +171,17 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Page of InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return InstalledAddOnExtensionPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -188,10 +194,7 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Page of InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return InstalledAddOnExtensionPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -204,50 +207,50 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Page of InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return InstalledAddOnExtensionPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a InstalledAddOnExtensionContext
-        
+
         :param sid: The SID of the InstalledAddOn Extension resource to update.
-        
+
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         """
-        return InstalledAddOnExtensionContext(self._version, installed_add_on_sid=self._solution['installed_add_on_sid'], sid=sid)
+        return InstalledAddOnExtensionContext(
+            self._version,
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
         Constructs a InstalledAddOnExtensionContext
-        
+
         :param sid: The SID of the InstalledAddOn Extension resource to update.
-        
+
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         """
-        return InstalledAddOnExtensionContext(self._version, installed_add_on_sid=self._solution['installed_add_on_sid'], sid=sid)
+        return InstalledAddOnExtensionContext(
+            self._version,
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Marketplace.InstalledAddOnExtensionList>'
-
-
-
-
+        return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionList>"
 
 
 class InstalledAddOnExtensionPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the InstalledAddOnExtensionPage
@@ -272,7 +275,11 @@ class InstalledAddOnExtensionPage(Page):
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        return InstalledAddOnExtensionInstance(self._version, payload, installed_add_on_sid=self._solution['installed_add_on_sid'])
+        return InstalledAddOnExtensionInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+        )
 
     def __repr__(self):
         """
@@ -281,34 +288,35 @@ class InstalledAddOnExtensionPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Marketplace.InstalledAddOnExtensionPage>'
-
-
+        return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionPage>"
 
 
 class InstalledAddOnExtensionInstance(InstanceResource):
-
-    def __init__(self, version, payload, installed_add_on_sid: str, sid: str=None):
+    def __init__(self, version, payload, installed_add_on_sid: str, sid: str = None):
         """
         Initialize the InstalledAddOnExtensionInstance
+
         :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'installed_add_on_sid': payload.get('installed_add_on_sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'product_name': payload.get('product_name'),
-            'unique_name': payload.get('unique_name'),
-            'enabled': payload.get('enabled'),
-            'url': payload.get('url'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "installed_add_on_sid": payload.get("installed_add_on_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "product_name": payload.get("product_name"),
+            "unique_name": payload.get("unique_name"),
+            "enabled": payload.get("enabled"),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'installed_add_on_sid': installed_add_on_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "installed_add_on_sid": installed_add_on_sid,
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -319,70 +327,73 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
         """
         if self._context is None:
-            self._context = InstalledAddOnExtensionContext(self._version, installed_add_on_sid=self._solution['installed_add_on_sid'], sid=self._solution['sid'],)
+            self._context = InstalledAddOnExtensionContext(
+                self._version,
+                installed_add_on_sid=self._solution["installed_add_on_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that we created to identify the InstalledAddOn Extension resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def installed_add_on_sid(self):
         """
         :returns: The SID of the InstalledAddOn resource to which this extension applies.
         :rtype: str
         """
-        return self._properties['installed_add_on_sid']
-    
+        return self._properties["installed_add_on_sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: The string that you assigned to describe the resource.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def product_name(self):
         """
         :returns: The name of the Product this Extension is used within.
         :rtype: str
         """
-        return self._properties['product_name']
-    
+        return self._properties["product_name"]
+
     @property
     def unique_name(self):
         """
         :returns: An application-defined string that uniquely identifies the resource.
         :rtype: str
         """
-        return self._properties['unique_name']
-    
+        return self._properties["unique_name"]
+
     @property
     def enabled(self):
         """
         :returns: Whether the Extension will be invoked.
         :rtype: bool
         """
-        return self._properties['enabled']
-    
+        return self._properties["enabled"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the resource.
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the InstalledAddOnExtensionInstance
-        
+
 
         :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
@@ -392,47 +403,53 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the InstalledAddOnExtensionInstance
-        
+
 
         :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         return await self._proxy.fetch_async()
-    
-    
+
     def update(self, enabled):
         """
         Update the InstalledAddOnExtensionInstance
-        
-        :params bool enabled: Whether the Extension should be invoked.
+
+        :param bool enabled: Whether the Extension should be invoked.
 
         :returns: The updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        return self._proxy.update(enabled=enabled, )
+        return self._proxy.update(
+            enabled=enabled,
+        )
 
     async def update_async(self, enabled):
         """
         Asynchronous coroutine to update the InstalledAddOnExtensionInstance
-        
-        :params bool enabled: Whether the Extension should be invoked.
+
+        :param bool enabled: Whether the Extension should be invoked.
 
         :returns: The updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        return await self._proxy.update_async(enabled=enabled, )
-    
+        return await self._proxy.update_async(
+            enabled=enabled,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Marketplace.InstalledAddOnExtensionInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionInstance {}>".format(
+            context
+        )
+
 
 class InstalledAddOnExtensionContext(InstanceContext):
-
     def __init__(self, version: Version, installed_add_on_sid: str, sid: str):
         """
         Initialize the InstalledAddOnExtensionContext
@@ -447,107 +464,120 @@ class InstalledAddOnExtensionContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'installed_add_on_sid': installed_add_on_sid,
-            'sid': sid,
+        self._solution = {
+            "installed_add_on_sid": installed_add_on_sid,
+            "sid": sid,
         }
-        self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/InstalledAddOns/{installed_add_on_sid}/Extensions/{sid}".format(
+            **self._solution
+        )
+
     def fetch(self):
         """
         Fetch the InstalledAddOnExtensionInstance
-        
+
 
         :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return InstalledAddOnExtensionInstance(
             self._version,
             payload,
-            installed_add_on_sid=self._solution['installed_add_on_sid'],
-            sid=self._solution['sid'],
-            
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the InstalledAddOnExtensionInstance
-        
+
 
         :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return InstalledAddOnExtensionInstance(
             self._version,
             payload,
-            installed_add_on_sid=self._solution['installed_add_on_sid'],
-            sid=self._solution['sid'],
-            
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def update(self, enabled):
         """
         Update the InstalledAddOnExtensionInstance
-        
-        :params bool enabled: Whether the Extension should be invoked.
+
+        :param bool enabled: Whether the Extension should be invoked.
 
         :returns: The updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        data = values.of({ 
-            'Enabled': enabled,
-        })
-        
+        data = values.of(
+            {
+                "Enabled": enabled,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return InstalledAddOnExtensionInstance(
             self._version,
             payload,
-            installed_add_on_sid=self._solution['installed_add_on_sid'],
-            sid=self._solution['sid']
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+            sid=self._solution["sid"],
         )
 
     async def update_async(self, enabled):
         """
         Asynchronous coroutine to update the InstalledAddOnExtensionInstance
-        
-        :params bool enabled: Whether the Extension should be invoked.
+
+        :param bool enabled: Whether the Extension should be invoked.
 
         :returns: The updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        data = values.of({ 
-            'Enabled': enabled,
-        })
-        
+        data = values.of(
+            {
+                "Enabled": enabled,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return InstalledAddOnExtensionInstance(
             self._version,
             payload,
-            installed_add_on_sid=self._solution['installed_add_on_sid'],
-            sid=self._solution['sid']
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Marketplace.InstalledAddOnExtensionContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionContext {}>".format(
+            context
+        )

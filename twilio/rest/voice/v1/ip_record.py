@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,77 +23,86 @@ from twilio.base.page import Page
 
 
 class IpRecordList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the IpRecordList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.voice.v1.ip_record.IpRecordList
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/IpRecords'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset):
+        self._solution = {}
+        self._uri = "/IpRecords".format(**self._solution)
+
+    def create(
+        self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset
+    ):
         """
         Create the IpRecordInstance
 
         :param str ip_address: An IP address in dotted decimal notation, IPv4 only.
         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         :param int cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-        
+
         :returns: The created IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        data = values.of({ 
-            'IpAddress': ip_address,
-            'FriendlyName': friendly_name,
-            'CidrPrefixLength': cidr_prefix_length,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "IpAddress": ip_address,
+                "FriendlyName": friendly_name,
+                "CidrPrefixLength": cidr_prefix_length,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return IpRecordInstance(self._version, payload)
 
-    async def create_async(self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset):
+    async def create_async(
+        self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset
+    ):
         """
         Asynchronously create the IpRecordInstance
 
         :param str ip_address: An IP address in dotted decimal notation, IPv4 only.
         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         :param int cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-        
+
         :returns: The created IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        data = values.of({ 
-            'IpAddress': ip_address,
-            'FriendlyName': friendly_name,
-            'CidrPrefixLength': cidr_prefix_length,
-        })
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "IpAddress": ip_address,
+                "FriendlyName": friendly_name,
+                "CidrPrefixLength": cidr_prefix_length,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return IpRecordInstance(self._version, payload)
-    
-    
+
     def stream(self, limit=None, page_size=None):
         """
         Streams IpRecordInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,11 +114,9 @@ class IpRecordList(ListResource):
         :rtype: list[twilio.rest.voice.v1.ip_record.IpRecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     async def stream_async(self, limit=None, page_size=None):
         """
@@ -119,7 +124,7 @@ class IpRecordList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -131,18 +136,16 @@ class IpRecordList(ListResource):
         :rtype: list[twilio.rest.voice.v1.ip_record.IpRecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists IpRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -153,17 +156,19 @@ class IpRecordList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.voice.v1.ip_record.IpRecordInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
     async def list_async(self, limit=None, page_size=None):
         """
         Asynchronously lists IpRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -174,16 +179,20 @@ class IpRecordList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.voice.v1.ip_record.IpRecordInstance]
         """
-        return list(await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of IpRecordInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -191,20 +200,24 @@ class IpRecordList(ListResource):
         :returns: Page of IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return IpRecordPage(self._version, response, self._solution)
 
-    async def page_async(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Asynchronously retrieve a single page of IpRecordInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -212,13 +225,17 @@ class IpRecordList(ListResource):
         :returns: Page of IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return IpRecordPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -231,10 +248,7 @@ class IpRecordList(ListResource):
         :returns: Page of IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return IpRecordPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -247,19 +261,15 @@ class IpRecordList(ListResource):
         :returns: Page of IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return IpRecordPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a IpRecordContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
-        
+
         :returns: twilio.rest.voice.v1.ip_record.IpRecordContext
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordContext
         """
@@ -268,9 +278,9 @@ class IpRecordList(ListResource):
     def __call__(self, sid):
         """
         Constructs a IpRecordContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
-        
+
         :returns: twilio.rest.voice.v1.ip_record.IpRecordContext
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordContext
         """
@@ -279,22 +289,14 @@ class IpRecordList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Voice.V1.IpRecordList>'
-
-
-
-
-
-
-
-
+        return "<Twilio.Voice.V1.IpRecordList>"
 
 
 class IpRecordPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the IpRecordPage
@@ -328,35 +330,37 @@ class IpRecordPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Voice.V1.IpRecordPage>'
-
-
+        return "<Twilio.Voice.V1.IpRecordPage>"
 
 
 class IpRecordInstance(InstanceResource):
-
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the IpRecordInstance
+
         :returns: twilio.rest.voice.v1.ip_record.IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'sid': payload.get('sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'ip_address': payload.get('ip_address'),
-            'cidr_prefix_length': deserialize.integer(payload.get('cidr_prefix_length')),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'url': payload.get('url'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "ip_address": payload.get("ip_address"),
+            "cidr_prefix_length": deserialize.integer(
+                payload.get("cidr_prefix_length")
+            ),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -367,98 +371,100 @@ class IpRecordInstance(InstanceResource):
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordContext
         """
         if self._context is None:
-            self._context = IpRecordContext(self._version, sid=self._solution['sid'],)
+            self._context = IpRecordContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Record resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def sid(self):
         """
         :returns: The unique string that we created to identify the IP Record resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: The string that you assigned to describe the resource.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def ip_address(self):
         """
         :returns: An IP address in dotted decimal notation, IPv4 only.
         :rtype: str
         """
-        return self._properties['ip_address']
-    
+        return self._properties["ip_address"]
+
     @property
     def cidr_prefix_length(self):
         """
         :returns: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
         :rtype: int
         """
-        return self._properties['cidr_prefix_length']
-    
+        return self._properties["cidr_prefix_length"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the resource.
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def delete(self):
         """
         Deletes the IpRecordInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
+
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the IpRecordInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self):
         """
         Fetch the IpRecordInstance
-        
+
 
         :returns: The fetched IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
@@ -468,47 +474,51 @@ class IpRecordInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the IpRecordInstance
-        
+
 
         :returns: The fetched IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
         return await self._proxy.fetch_async()
-    
-    
+
     def update(self, friendly_name=values.unset):
         """
         Update the IpRecordInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+        )
 
     async def update_async(self, friendly_name=values.unset):
         """
         Asynchronous coroutine to update the IpRecordInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.IpRecordInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Voice.V1.IpRecordInstance {}>".format(context)
+
 
 class IpRecordContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the IpRecordContext
@@ -522,123 +532,129 @@ class IpRecordContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/IpRecords/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/IpRecords/{sid}".format(**self._solution)
+
     def delete(self):
         """
         Deletes the IpRecordInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the IpRecordInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the IpRecordInstance
-        
+
 
         :returns: The fetched IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return IpRecordInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the IpRecordInstance
-        
+
 
         :returns: The fetched IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return IpRecordInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def update(self, friendly_name=values.unset):
         """
         Update the IpRecordInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return IpRecordInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
         )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return IpRecordInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(self, friendly_name=values.unset):
         """
         Asynchronous coroutine to update the IpRecordInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return IpRecordInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
         )
-    
-    
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return IpRecordInstance(self._version, payload, sid=self._solution["sid"])
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.IpRecordContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Voice.V1.IpRecordContext {}>".format(context)

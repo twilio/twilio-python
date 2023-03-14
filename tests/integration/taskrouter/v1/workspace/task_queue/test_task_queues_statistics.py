@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class TaskQueuesStatisticsTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .task_queues \
-                                     .statistics.list()
+            self.client.taskrouter.v1.workspaces(
+                "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).task_queues.statistics.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/Statistics',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/TaskQueues/Statistics",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0",
@@ -109,19 +111,21 @@ class TaskQueuesStatisticsTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .task_queues \
-                                          .statistics.list()
+        actual = self.client.taskrouter.v1.workspaces(
+            "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).task_queues.statistics.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/Statistics?FriendlyName=friendly_name&StartDate=2008-01-02T00%3A00%3A00Z&EndDate=2008-01-02T00%3A00%3A00Z&Minutes=1&PageSize=50&Page=0",
@@ -134,11 +138,12 @@ class TaskQueuesStatisticsTestCase(IntegrationTestCase):
                 },
                 "task_queues_statistics": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .task_queues \
-                                          .statistics.list()
+        actual = self.client.taskrouter.v1.workspaces(
+            "WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).task_queues.statistics.list()
 
         self.assertIsNotNone(actual)

@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class UserBindingTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_bindings.list()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_bindings.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -63,19 +65,23 @@ class UserBindingTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_bindings.list()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_bindings.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -88,32 +94,38 @@ class UserBindingTestCase(IntegrationTestCase):
                 },
                 "bindings": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_bindings.list()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_bindings.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -133,36 +145,47 @@ class UserBindingTestCase(IntegrationTestCase):
                 ],
                 "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").users(
+                "USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

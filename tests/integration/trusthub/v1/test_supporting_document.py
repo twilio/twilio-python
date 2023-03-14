@@ -13,25 +13,32 @@ from twilio.http.response import Response
 
 
 class SupportingDocumentTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.supporting_documents.create(friendly_name="friendly_name", type="type")
+            self.client.trusthub.v1.supporting_documents.create(
+                friendly_name="friendly_name", type="type"
+            )
 
-        values = {'FriendlyName': "friendly_name", 'Type': "type", }
+        values = {
+            "FriendlyName": "friendly_name",
+            "Type": "type",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trusthub.twilio.com/v1/SupportingDocuments',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trusthub.twilio.com/v1/SupportingDocuments",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "status": "draft",
                 "date_updated": "2021-02-11T17:23:00Z",
@@ -46,28 +53,34 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                 "type": "customer_profile_address",
                 "mime_type": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.supporting_documents.create(friendly_name="friendly_name", type="type")
+        actual = self.client.trusthub.v1.supporting_documents.create(
+            friendly_name="friendly_name", type="type"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.trusthub.v1.supporting_documents.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/SupportingDocuments',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/SupportingDocuments",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -80,17 +93,19 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.trusthub.v1.supporting_documents.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -118,28 +133,34 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.trusthub.v1.supporting_documents.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trusthub.v1.supporting_documents(
+                "RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/SupportingDocuments/RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/SupportingDocuments/RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "status": "draft",
                 "date_updated": "2021-02-11T17:23:00Z",
@@ -154,28 +175,36 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                 "type": "customer_profile_address",
                 "mime_type": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.trusthub.v1.supporting_documents(
+            "RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.trusthub.v1.supporting_documents(
+                "RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trusthub.twilio.com/v1/SupportingDocuments/RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trusthub.twilio.com/v1/SupportingDocuments/RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "status": "draft",
                 "date_updated": "2021-02-11T17:23:00Z",
@@ -190,30 +219,41 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                 "type": "customer_profile_address",
                 "mime_type": null
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.trusthub.v1.supporting_documents(
+            "RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.trusthub.v1.supporting_documents(
+                "RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://trusthub.twilio.com/v1/SupportingDocuments/RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://trusthub.twilio.com/v1/SupportingDocuments/RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.trusthub.v1.supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.trusthub.v1.supporting_documents(
+            "RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

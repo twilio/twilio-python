@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class AppTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.microvisor.v1.apps.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://microvisor.twilio.com/v1/Apps',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://microvisor.twilio.com/v1/Apps",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "apps": [],
                 "meta": {
@@ -41,17 +43,19 @@ class AppTestCase(IntegrationTestCase):
                     "key": "apps"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.microvisor.v1.apps.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "apps": [
                     {
@@ -74,28 +78,32 @@ class AppTestCase(IntegrationTestCase):
                     "key": "apps"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.microvisor.v1.apps.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.microvisor.v1.apps("KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://microvisor.twilio.com/v1/Apps/KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://microvisor.twilio.com/v1/Apps/KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "KAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -105,30 +113,41 @@ class AppTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://microvisor.twilio.com/v1/Apps/KAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.microvisor.v1.apps("KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.microvisor.v1.apps(
+            "KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.microvisor.v1.apps("KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.microvisor.v1.apps(
+                "KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://microvisor.twilio.com/v1/Apps/KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://microvisor.twilio.com/v1/Apps/KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.microvisor.v1.apps("KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.microvisor.v1.apps(
+            "KAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

@@ -13,24 +13,31 @@ from twilio.http.response import Response
 
 
 class ChannelTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v3.channels("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
+            self.client.chat.v3.channels(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ).update(x_twilio_webhook_enabled="true")
 
-        headers = {'X-Twilio-Webhook-Enabled': "true", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://chat.twilio.com/v3/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
-        ))
+        headers = {
+            "X-Twilio-Webhook-Enabled": "true",
+        }
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://chat.twilio.com/v3/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                headers=headers,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -47,9 +54,12 @@ class ChannelTestCase(IntegrationTestCase):
                 "messages_count": 0,
                 "url": "https://chat.twilio.com/v3/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v3.channels("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.chat.v3.channels(
+            "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)

@@ -13,25 +13,31 @@ from twilio.http.response import Response
 
 
 class RestoreAssistantTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.restore_assistant.update(assistant="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.autopilot.v1.restore_assistant.update(
+                assistant="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'Assistant': "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "Assistant": "UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://autopilot.twilio.com/v1/Assistants/Restore',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://autopilot.twilio.com/v1/Assistants/Restore",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "sid": "UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -46,9 +52,12 @@ class RestoreAssistantTestCase(IntegrationTestCase):
                 "callback_url": "https://example.com/callback_url",
                 "callback_events": "model_build_completed model_build_failed"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.autopilot.v1.restore_assistant.update(assistant="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.autopilot.v1.restore_assistant.update(
+            assistant="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        )
 
         self.assertIsNotNone(actual)

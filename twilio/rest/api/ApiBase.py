@@ -8,13 +8,11 @@
   https://openapi-generator.tech
   Do not edit the class manually.
 """
-
 from twilio.base.domain import Domain
 from twilio.rest.api.v2010 import V2010
 
 
 class ApiBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Api Domain
@@ -23,7 +21,7 @@ class ApiBase(Domain):
         :rtype: twilio.rest.api.Api
         """
         super().__init__(twilio)
-        self.base_url = 'https://api.twilio.com'
+        self.base_url = "https://api.twilio.com"
         self._v2010 = None
 
     @property
@@ -42,4 +40,4 @@ class ApiBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api>'
+        return "<Twilio.Api>"

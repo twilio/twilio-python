@@ -14,7 +14,6 @@ from twilio.rest.messaging.v1 import V1
 
 
 class MessagingBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Messaging Domain
@@ -23,7 +22,7 @@ class MessagingBase(Domain):
         :rtype: twilio.rest.messaging.Messaging
         """
         super().__init__(twilio)
-        self.base_url = 'https://messaging.twilio.com'
+        self.base_url = "https://messaging.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class MessagingBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Messaging>'
+        return "<Twilio.Messaging>"

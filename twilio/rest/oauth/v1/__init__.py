@@ -22,7 +22,6 @@ from twilio.rest.oauth.v1.user_info import UserInfoList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Oauth
@@ -30,13 +29,13 @@ class V1(Version):
         :param domain: The Twilio.oauth domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._device_code = None
         self._oauth = None
         self._openid_discovery = None
         self._token = None
         self._user_info = None
-        
+
     @property
     def device_code(self) -> DeviceCodeList:
         """
@@ -88,4 +87,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Oauth.V1>'
+        return "<Twilio.Oauth.V1>"

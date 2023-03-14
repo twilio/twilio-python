@@ -2,7 +2,6 @@ import os
 import platform
 from twilio import __version__
 from twilio.base.exceptions import TwilioException
-from twilio.base.obsolete import obsolete_client
 from twilio.http.http_client import TwilioHttpClient
 from urllib.parse import (
     urlparse,
@@ -11,11 +10,19 @@ from urllib.parse import (
 
 
 class ClientBase(object):
-    """ A client for accessing the Twilio API. """
+    """A client for accessing the Twilio API."""
 
-    def __init__(self, username=None, password=None, account_sid=None, region=None,
-                 http_client=None, environment=None, edge=None,
-                 user_agent_extensions=None):
+    def __init__(
+        self,
+        username=None,
+        password=None,
+        account_sid=None,
+        region=None,
+        http_client=None,
+        environment=None,
+        edge=None,
+        user_agent_extensions=None,
+    ):
         """
         Initializes the Twilio Client
 
@@ -33,15 +40,15 @@ class ClientBase(object):
         """
         environment = environment or os.environ
 
-        self.username = username or environment.get('TWILIO_ACCOUNT_SID')
+        self.username = username or environment.get("TWILIO_ACCOUNT_SID")
         """ :type : str """
-        self.password = password or environment.get('TWILIO_AUTH_TOKEN')
+        self.password = password or environment.get("TWILIO_AUTH_TOKEN")
         """ :type : str """
         self.account_sid = account_sid or self.username
         """ :type : str """
-        self.edge = edge or environment.get('TWILIO_EDGE')
+        self.edge = edge or environment.get("TWILIO_EDGE")
         """ :type : str """
-        self.region = region or environment.get('TWILIO_REGION')
+        self.region = region or environment.get("TWILIO_REGION")
         """ :type : str """
         self.user_agent_extensions = user_agent_extensions or []
         """ :type : list[str] """
@@ -54,8 +61,17 @@ class ClientBase(object):
         self.http_client = http_client or TwilioHttpClient()
         """ :type : HttpClient """
 
-    def request(self, method, uri, params=None, data=None, headers=None, auth=None,
-                timeout=None, allow_redirects=False):
+    def request(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Makes a request to the Twilio API using the configured http client
         Authentication information is automatically added if none is provided
@@ -84,11 +100,20 @@ class ClientBase(object):
             headers=headers,
             auth=auth,
             timeout=timeout,
-            allow_redirects=allow_redirects
+            allow_redirects=allow_redirects,
         )
 
-    async def request_async(self, method, uri, params=None, data=None, headers=None, auth=None,
-                            timeout=None, allow_redirects=False):
+    async def request_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Asynchronously makes a request to the Twilio API  using the configured http client
         The configured http client must be an asynchronous http client
@@ -107,7 +132,9 @@ class ClientBase(object):
         :rtype: twilio.http.response.Response
         """
         if not self.http_client.is_async:
-            raise RuntimeError('http_client must be asynchronous to support async API requests')
+            raise RuntimeError(
+                "http_client must be asynchronous to support async API requests"
+            )
 
         auth = self.get_auth(auth)
         headers = self.get_headers(method, headers)
@@ -121,7 +148,7 @@ class ClientBase(object):
             headers=headers,
             auth=auth,
             timeout=timeout,
-            allow_redirects=allow_redirects
+            allow_redirects=allow_redirects,
         )
 
     def get_auth(self, auth):
@@ -148,7 +175,7 @@ class ClientBase(object):
         os_name = platform.system()
         os_arch = platform.machine()
         python_version = platform.python_version()
-        headers['User-Agent'] = 'twilio-python/{} ({} {}) Python/{}'.format(
+        headers["User-Agent"] = "twilio-python/{} ({} {}) Python/{}".format(
             pkg_version,
             os_name,
             os_arch,
@@ -156,15 +183,15 @@ class ClientBase(object):
         )
         # Extensions
         for extension in self.user_agent_extensions:
-            headers['User-Agent'] += ' {}'.format(extension)
-        headers['X-Twilio-Client'] = 'python-{}'.format(__version__)
+            headers["User-Agent"] += " {}".format(extension)
+        headers["X-Twilio-Client"] = "python-{}".format(__version__)
 
         # Types, encodings, etc.
-        headers['Accept-Charset'] = 'utf-8'
-        if method == 'POST' and 'Content-Type' not in headers:
-            headers['Content-Type'] = 'application/x-www-form-urlencoded'
-        if 'Accept' not in headers:
-            headers['Accept'] = 'application/json'
+        headers["Accept-Charset"] = "utf-8"
+        if method == "POST" and "Content-Type" not in headers:
+            headers["Content-Type"] = "application/x-www-form-urlencoded"
+        if "Accept" not in headers:
+            headers["Accept"] = "application/json"
 
         return headers
 
@@ -182,9 +209,9 @@ class ClientBase(object):
             return uri
 
         parsed_url = urlparse(uri)
-        pieces = parsed_url.netloc.split('.')
+        pieces = parsed_url.netloc.split(".")
         prefix = pieces[0]
-        suffix = '.'.join(pieces[-2:])
+        suffix = ".".join(pieces[-2:])
         region = None
         edge = None
         if len(pieces) == 4:
@@ -196,10 +223,10 @@ class ClientBase(object):
             region = pieces[2]
 
         edge = self.edge or edge
-        region = self.region or region or (edge and 'us1')
+        region = self.region or region or (edge and "us1")
 
         parsed_url = parsed_url._replace(
-            netloc='.'.join([part for part in [prefix, edge, region, suffix] if part])
+            netloc=".".join([part for part in [prefix, edge, region, suffix] if part])
         )
         return urlunparse(parsed_url)
 
@@ -210,4 +237,4 @@ class ClientBase(object):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio {}>'.format(self.account_sid)
+        return "<Twilio {}>".format(self.account_sid)

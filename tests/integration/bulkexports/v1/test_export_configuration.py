@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class ExportConfigurationTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.bulkexports.v1.export_configuration("resource_type").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://bulkexports.twilio.com/v1/Exports/resource_type/Configuration',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://bulkexports.twilio.com/v1/Exports/resource_type/Configuration",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://bulkexports.twilio.com/v1/Exports/Messages/Configuration",
                 "enabled": true,
@@ -36,28 +38,34 @@ class ExportConfigurationTestCase(IntegrationTestCase):
                 "webhook_method": "",
                 "resource_type": "Messages"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.export_configuration("resource_type").fetch()
+        actual = self.client.bulkexports.v1.export_configuration(
+            "resource_type"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.bulkexports.v1.export_configuration("resource_type").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://bulkexports.twilio.com/v1/Exports/resource_type/Configuration',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://bulkexports.twilio.com/v1/Exports/resource_type/Configuration",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://bulkexports.twilio.com/v1/Exports/Messages/Configuration",
                 "enabled": true,
@@ -65,9 +73,12 @@ class ExportConfigurationTestCase(IntegrationTestCase):
                 "resource_type": "Messages",
                 "webhook_method": ""
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.export_configuration("resource_type").update()
+        actual = self.client.bulkexports.v1.export_configuration(
+            "resource_type"
+        ).update()
 
         self.assertIsNotNone(actual)

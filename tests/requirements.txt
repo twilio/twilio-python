@@ -10,3 +10,5 @@ recommonmark
 django
 multidict
 pyngrok
+black
+autoflake

@@ -15,7 +15,6 @@ from twilio.rest.ip_messaging.v2 import V2
 
 
 class IpMessagingBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the IpMessaging Domain
@@ -24,7 +23,7 @@ class IpMessagingBase(Domain):
         :rtype: twilio.rest.ip_messaging.IpMessaging
         """
         super().__init__(twilio)
-        self.base_url = 'https://ip-messaging.twilio.com'
+        self.base_url = "https://ip-messaging.twilio.com"
         self._v1 = None
         self._v2 = None
 
@@ -54,4 +53,4 @@ class IpMessagingBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging>'
+        return "<Twilio.IpMessaging>"

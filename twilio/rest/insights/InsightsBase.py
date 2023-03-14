@@ -14,7 +14,6 @@ from twilio.rest.insights.v1 import V1
 
 
 class InsightsBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Insights Domain
@@ -23,7 +22,7 @@ class InsightsBase(Domain):
         :rtype: twilio.rest.insights.Insights
         """
         super().__init__(twilio)
-        self.base_url = 'https://insights.twilio.com'
+        self.base_url = "https://insights.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class InsightsBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Insights>'
+        return "<Twilio.Insights>"

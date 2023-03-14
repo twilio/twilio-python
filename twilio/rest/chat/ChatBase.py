@@ -16,7 +16,6 @@ from twilio.rest.chat.v3 import V3
 
 
 class ChatBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Chat Domain
@@ -25,7 +24,7 @@ class ChatBase(Domain):
         :rtype: twilio.rest.chat.Chat
         """
         super().__init__(twilio)
-        self.base_url = 'https://chat.twilio.com'
+        self.base_url = "https://chat.twilio.com"
         self._v1 = None
         self._v2 = None
         self._v3 = None
@@ -66,4 +65,4 @@ class ChatBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Chat>'
+        return "<Twilio.Chat>"

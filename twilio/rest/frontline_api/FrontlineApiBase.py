@@ -14,7 +14,6 @@ from twilio.rest.frontline_api.v1 import V1
 
 
 class FrontlineApiBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the FrontlineApi Domain
@@ -23,7 +22,7 @@ class FrontlineApiBase(Domain):
         :rtype: twilio.rest.frontline_api.FrontlineApi
         """
         super().__init__(twilio)
-        self.base_url = 'https://frontline-api.twilio.com'
+        self.base_url = "https://frontline-api.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class FrontlineApiBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FrontlineApi>'
+        return "<Twilio.FrontlineApi>"

@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-with open('README.md') as f:
+with open("README.md") as f:
     long_description = f.read()
 
 # To install the twilio-python library, open a Terminal shell, then run this
@@ -19,16 +19,16 @@ setup(
     author_email="help@twilio.com",
     url="https://github.com/twilio/twilio-python/",
     keywords=["twilio", "twiml"],
-    python_requires='>=3.7.0',
+    python_requires=">=3.7.0",
     install_requires=[
         "pytz",
         "requests >= 2.0.0",
         "PyJWT >= 2.0.0, < 3.0.0",
         "asyncio>=3.4.3",
         "aiohttp>=3.8.4",
-        "aiohttp-retry>=2.8.3"
+        "aiohttp-retry>=2.8.3",
     ],
-    packages=find_packages(exclude=['tests', 'tests.*']),
+    packages=find_packages(exclude=["tests", "tests.*"]),
     include_package_data=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -46,5 +46,5 @@ setup(
         "Topic :: Communications :: Telephony",
     ],
     long_description=long_description,
-    long_description_content_type='text/markdown'
+    long_description_content_type="text/markdown",
 )

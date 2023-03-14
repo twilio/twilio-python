@@ -14,7 +14,6 @@ from twilio.rest.trusthub.v1 import V1
 
 
 class TrusthubBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Trusthub Domain
@@ -23,7 +22,7 @@ class TrusthubBase(Domain):
         :rtype: twilio.rest.trusthub.Trusthub
         """
         super().__init__(twilio)
-        self.base_url = 'https://trusthub.twilio.com'
+        self.base_url = "https://trusthub.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class TrusthubBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trusthub>'
+        return "<Twilio.Trusthub>"

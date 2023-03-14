@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class CallSummariesTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.insights.v1.call_summaries.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Voice/Summaries',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Voice/Summaries",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -41,17 +43,19 @@ class CallSummariesTestCase(IntegrationTestCase):
                 },
                 "call_summaries": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.call_summaries.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_carrier_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -240,17 +244,19 @@ class CallSummariesTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.call_summaries.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_subaccount_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -413,17 +419,19 @@ class CallSummariesTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.call_summaries.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_trust_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -681,17 +689,19 @@ class CallSummariesTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.call_summaries.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_abnormal_session_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -879,8 +889,9 @@ class CallSummariesTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.insights.v1.call_summaries.list()
 

@@ -18,7 +18,6 @@ from twilio.rest.preview.deployed_devices.fleet import FleetList
 
 
 class DeployedDevices(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the DeployedDevices version of Preview
@@ -26,9 +25,9 @@ class DeployedDevices(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain)
-        self.version = 'DeployedDevices'
+        self.version = "DeployedDevices"
         self._fleets = None
-        
+
     @property
     def fleets(self) -> FleetList:
         """
@@ -44,4 +43,4 @@ class DeployedDevices(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.DeployedDevices>'
+        return "<Twilio.Preview.DeployedDevices>"

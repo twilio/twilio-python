@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class InviteTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites/INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites/INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -43,35 +45,44 @@ class InviteTestCase(IntegrationTestCase):
                 "sid": "INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .invites.create(identity="identity")
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).invites.create(identity="identity")
 
-        values = {'Identity': "identity", }
+        values = {
+            "Identity": "identity",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -84,32 +95,38 @@ class InviteTestCase(IntegrationTestCase):
                 "sid": "INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .invites.create(identity="identity")
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .invites.create(identity="identity")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .invites.list()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).invites.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "invites": [],
                 "meta": {
@@ -122,19 +139,23 @@ class InviteTestCase(IntegrationTestCase):
                     "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?Identity=identity&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .invites.list()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .invites.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "invites": [
                     {
@@ -160,36 +181,46 @@ class InviteTestCase(IntegrationTestCase):
                     "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?Identity=identity&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .invites.list()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .invites.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").channels(
+                "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites/INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Invites/INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

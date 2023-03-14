@@ -18,14 +18,15 @@ from twilio.rest.conversations.v1.address_configuration import AddressConfigurat
 from twilio.rest.conversations.v1.configuration import ConfigurationList
 from twilio.rest.conversations.v1.conversation import ConversationList
 from twilio.rest.conversations.v1.credential import CredentialList
-from twilio.rest.conversations.v1.participant_conversation import ParticipantConversationList
+from twilio.rest.conversations.v1.participant_conversation import (
+    ParticipantConversationList,
+)
 from twilio.rest.conversations.v1.role import RoleList
 from twilio.rest.conversations.v1.service import ServiceList
 from twilio.rest.conversations.v1.user import UserList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Conversations
@@ -33,7 +34,7 @@ class V1(Version):
         :param domain: The Twilio.conversations domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._address_configurations = None
         self._configuration = None
         self._conversations = None
@@ -42,7 +43,7 @@ class V1(Version):
         self._roles = None
         self._services = None
         self._users = None
-        
+
     @property
     def address_configurations(self) -> AddressConfigurationList:
         """
@@ -121,4 +122,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Conversations.V1>'
+        return "<Twilio.Conversations.V1>"

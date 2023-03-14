@@ -13,59 +13,62 @@ from twilio.http.response import Response
 
 
 class SettingsTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.dialing_permissions \
-                                .settings().fetch()
+            self.client.voice.v1.dialing_permissions.settings().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://voice.twilio.com/v1/Settings',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://voice.twilio.com/v1/Settings",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "dialing_permissions_inheritance": true,
                 "url": "https://voice.twilio.com/v1/Settings"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.dialing_permissions \
-                                     .settings().fetch()
+        actual = self.client.voice.v1.dialing_permissions.settings().fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.voice.v1.dialing_permissions \
-                                .settings().update()
+            self.client.voice.v1.dialing_permissions.settings().update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://voice.twilio.com/v1/Settings',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://voice.twilio.com/v1/Settings",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "dialing_permissions_inheritance": true,
                 "url": "https://voice.twilio.com/v1/Settings"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.voice.v1.dialing_permissions \
-                                     .settings().update()
+        actual = self.client.voice.v1.dialing_permissions.settings().update()
 
         self.assertIsNotNone(actual)

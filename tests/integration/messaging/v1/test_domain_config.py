@@ -14,27 +14,33 @@ from twilio.http.response import Response
 
 
 class DomainConfigTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.domain_config("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(messaging_service_sids=['MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'])
+            self.client.messaging.v1.domain_config(
+                "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update(messaging_service_sids=["MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"])
 
         values = {
-            'MessagingServiceSids': serialize.map(['MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'], lambda e: e),
+            "MessagingServiceSids": serialize.map(
+                ["MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"], lambda e: e
+            ),
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Config',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Config",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "domain_sid": "DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "messaging_service_sids": [
@@ -48,17 +54,21 @@ class DomainConfigTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Config"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.domain_config("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(messaging_service_sids=['MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'])
+        actual = self.client.messaging.v1.domain_config(
+            "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(messaging_service_sids=["MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"])
 
         self.assertIsNotNone(actual)
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "domain_sid": "DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "messaging_service_sids": [
@@ -72,28 +82,36 @@ class DomainConfigTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Config"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.domain_config("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(messaging_service_sids=['MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'])
+        actual = self.client.messaging.v1.domain_config(
+            "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(messaging_service_sids=["MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"])
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.domain_config("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.messaging.v1.domain_config(
+                "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Config',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/LinkShortening/Domains/DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Config",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "domain_sid": "DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "config_sid": "ZKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -107,9 +125,12 @@ class DomainConfigTestCase(IntegrationTestCase):
                 ],
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Config"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.domain_config("DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.messaging.v1.domain_config(
+            "DNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)

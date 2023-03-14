@@ -13,25 +13,30 @@ from twilio.http.response import Response
 
 
 class DeliveryReceiptTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .delivery_receipts("DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.conversations.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").messages(
+                "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delivery_receipts(
+                "DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts/DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts/DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -46,34 +51,42 @@ class DeliveryReceiptTestCase(IntegrationTestCase):
                 "date_updated": "2016-03-24T20:37:57Z",
                 "url": "https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts/DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .delivery_receipts("DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delivery_receipts("DYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .delivery_receipts.list()
+            self.client.conversations.v1.services(
+                "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").messages(
+                "IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delivery_receipts.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Receipts",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -129,12 +142,15 @@ class DeliveryReceiptTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .delivery_receipts.list()
+        actual = (
+            self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delivery_receipts.list()
+        )
 
         self.assertIsNotNone(actual)

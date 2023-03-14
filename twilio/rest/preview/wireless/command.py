@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,95 +23,128 @@ from twilio.base.page import Page
 
 
 class CommandList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the CommandList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.preview.wireless.command.CommandList
         :rtype: twilio.rest.preview.wireless.command.CommandList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Commands'.format(**self._solution)
-        
-        
-    
-    
-    def create(self, command, device=values.unset, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset):
+        self._solution = {}
+        self._uri = "/Commands".format(**self._solution)
+
+    def create(
+        self,
+        command,
+        device=values.unset,
+        sim=values.unset,
+        callback_method=values.unset,
+        callback_url=values.unset,
+        command_mode=values.unset,
+        include_sid=values.unset,
+    ):
         """
         Create the CommandInstance
 
-        :param str command: 
-        :param str device: 
-        :param str sim: 
-        :param str callback_method: 
-        :param str callback_url: 
-        :param str command_mode: 
-        :param str include_sid: 
-        
+        :param str command:
+        :param str device:
+        :param str sim:
+        :param str callback_method:
+        :param str callback_url:
+        :param str command_mode:
+        :param str include_sid:
+
         :returns: The created CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
-        data = values.of({ 
-            'Command': command,
-            'Device': device,
-            'Sim': sim,
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'CommandMode': command_mode,
-            'IncludeSid': include_sid,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Command": command,
+                "Device": device,
+                "Sim": sim,
+                "CallbackMethod": callback_method,
+                "CallbackUrl": callback_url,
+                "CommandMode": command_mode,
+                "IncludeSid": include_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return CommandInstance(self._version, payload)
 
-    async def create_async(self, command, device=values.unset, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset):
+    async def create_async(
+        self,
+        command,
+        device=values.unset,
+        sim=values.unset,
+        callback_method=values.unset,
+        callback_url=values.unset,
+        command_mode=values.unset,
+        include_sid=values.unset,
+    ):
         """
         Asynchronously create the CommandInstance
 
-        :param str command: 
-        :param str device: 
-        :param str sim: 
-        :param str callback_method: 
-        :param str callback_url: 
-        :param str command_mode: 
-        :param str include_sid: 
-        
+        :param str command:
+        :param str device:
+        :param str sim:
+        :param str callback_method:
+        :param str callback_url:
+        :param str command_mode:
+        :param str include_sid:
+
         :returns: The created CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
-        data = values.of({ 
-            'Command': command,
-            'Device': device,
-            'Sim': sim,
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'CommandMode': command_mode,
-            'IncludeSid': include_sid,
-        })
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Command": command,
+                "Device": device,
+                "Sim": sim,
+                "CallbackMethod": callback_method,
+                "CallbackUrl": callback_url,
+                "CommandMode": command_mode,
+                "IncludeSid": include_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return CommandInstance(self._version, payload)
-    
-    
-    def stream(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
+
+    def stream(
+        self,
+        device=values.unset,
+        sim=values.unset,
+        status=values.unset,
+        direction=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams CommandInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
-        :param str device: 
-        :param str sim: 
-        :param str status: 
-        :param str direction: 
+
+        :param str device:
+        :param str sim:
+        :param str status:
+        :param str direction:
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -130,22 +161,30 @@ class CommandList(ListResource):
             sim=sim,
             status=status,
             direction=direction,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self,
+        device=values.unset,
+        sim=values.unset,
+        status=values.unset,
+        direction=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously streams CommandInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
-        :param str device: 
-        :param str sim: 
-        :param str status: 
-        :param str direction: 
+
+        :param str device:
+        :param str sim:
+        :param str status:
+        :param str direction:
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -162,21 +201,29 @@ class CommandList(ListResource):
             sim=sim,
             status=status,
             direction=direction,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        device=values.unset,
+        sim=values.unset,
+        status=values.unset,
+        direction=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists CommandInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
-        :param str device: 
-        :param str sim: 
-        :param str status: 
-        :param str direction: 
+
+        :param str device:
+        :param str sim:
+        :param str status:
+        :param str direction:
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -187,25 +234,35 @@ class CommandList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.wireless.command.CommandInstance]
         """
-        return list(self.stream(
-            device=device,
-            sim=sim,
-            status=status,
-            direction=direction,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                device=device,
+                sim=sim,
+                status=status,
+                direction=direction,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self,
+        device=values.unset,
+        sim=values.unset,
+        status=values.unset,
+        direction=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously lists CommandInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
-        :param str device: 
-        :param str sim: 
-        :param str status: 
-        :param str direction: 
+
+        :param str device:
+        :param str sim:
+        :param str status:
+        :param str direction:
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -216,24 +273,35 @@ class CommandList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.wireless.command.CommandInstance]
         """
-        return list(await self.stream_async(
-            device=device,
-            sim=sim,
-            status=status,
-            direction=direction,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                device=device,
+                sim=sim,
+                status=status,
+                direction=direction,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        device=values.unset,
+        sim=values.unset,
+        status=values.unset,
+        direction=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
-        
-        :param str device: 
-        :param str sim: 
-        :param str status: 
-        :param str direction: 
+
+        :param str device:
+        :param str sim:
+        :param str status:
+        :param str direction:
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -241,28 +309,39 @@ class CommandList(ListResource):
         :returns: Page of CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandPage
         """
-        data = values.of({ 
-            'Device': device,
-            'Sim': sim,
-            'Status': status,
-            'Direction': direction,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Device": device,
+                "Sim": sim,
+                "Status": status,
+                "Direction": direction,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return CommandPage(self._version, response, self._solution)
 
-    async def page_async(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        device=values.unset,
+        sim=values.unset,
+        status=values.unset,
+        direction=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of CommandInstance records from the API.
         Request is executed immediately
-        
-        :param str device: 
-        :param str sim: 
-        :param str status: 
-        :param str direction: 
+
+        :param str device:
+        :param str sim:
+        :param str status:
+        :param str direction:
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -270,17 +349,21 @@ class CommandList(ListResource):
         :returns: Page of CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandPage
         """
-        data = values.of({ 
-            'Device': device,
-            'Sim': sim,
-            'Status': status,
-            'Direction': direction,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Device": device,
+                "Sim": sim,
+                "Status": status,
+                "Direction": direction,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return CommandPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -293,10 +376,7 @@ class CommandList(ListResource):
         :returns: Page of CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return CommandPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -309,19 +389,15 @@ class CommandList(ListResource):
         :returns: Page of CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return CommandPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a CommandContext
-        
-        :param sid: 
-        
+
+        :param sid:
+
         :returns: twilio.rest.preview.wireless.command.CommandContext
         :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
@@ -330,9 +406,9 @@ class CommandList(ListResource):
     def __call__(self, sid):
         """
         Constructs a CommandContext
-        
-        :param sid: 
-        
+
+        :param sid:
+
         :returns: twilio.rest.preview.wireless.command.CommandContext
         :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
@@ -341,18 +417,14 @@ class CommandList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Wireless.CommandList>'
-
-
-
-
+        return "<Twilio.Preview.Wireless.CommandList>"
 
 
 class CommandPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the CommandPage
@@ -386,38 +458,38 @@ class CommandPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Wireless.CommandPage>'
-
-
+        return "<Twilio.Preview.Wireless.CommandPage>"
 
 
 class CommandInstance(InstanceResource):
-
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the CommandInstance
+
         :returns: twilio.rest.preview.wireless.command.CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'device_sid': payload.get('device_sid'),
-            'sim_sid': payload.get('sim_sid'),
-            'command': payload.get('command'),
-            'command_mode': payload.get('command_mode'),
-            'status': payload.get('status'),
-            'direction': payload.get('direction'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'url': payload.get('url'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "device_sid": payload.get("device_sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "command": payload.get("command"),
+            "command_mode": payload.get("command_mode"),
+            "status": payload.get("status"),
+            "direction": payload.get("direction"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -428,102 +500,104 @@ class CommandInstance(InstanceResource):
         :rtype: twilio.rest.preview.wireless.command.CommandContext
         """
         if self._context is None:
-            self._context = CommandContext(self._version, sid=self._solution['sid'],)
+            self._context = CommandContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def account_sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def device_sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['device_sid']
-    
+        return self._properties["device_sid"]
+
     @property
     def sim_sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['sim_sid']
-    
+        return self._properties["sim_sid"]
+
     @property
     def command(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['command']
-    
+        return self._properties["command"]
+
     @property
     def command_mode(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['command_mode']
-    
+        return self._properties["command_mode"]
+
     @property
     def status(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['status']
-    
+        return self._properties["status"]
+
     @property
     def direction(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['direction']
-    
+        return self._properties["direction"]
+
     @property
     def date_created(self):
         """
-        :returns: 
+        :returns:
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
-        :returns: 
+        :returns:
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def url(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the CommandInstance
-        
+
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
@@ -533,30 +607,31 @@ class CommandInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the CommandInstance
-        
+
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Wireless.CommandInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Wireless.CommandInstance {}>".format(context)
+
 
 class CommandContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CommandContext
 
         :param Version version: Version that contains the resource
-        :param sid: 
+        :param sid:
 
         :returns: twilio.rest.preview.wireless.command.CommandContext
         :rtype: twilio.rest.preview.wireless.command.CommandContext
@@ -564,57 +639,57 @@ class CommandContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Commands/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Commands/{sid}".format(**self._solution)
+
     def fetch(self):
         """
         Fetch the CommandInstance
-        
+
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return CommandInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the CommandInstance
-        
+
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return CommandInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Wireless.CommandContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Wireless.CommandContext {}>".format(context)

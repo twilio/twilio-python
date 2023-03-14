@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class PhoneNumberTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://lookups.twilio.com/v2/PhoneNumbers/phone_number',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://lookups.twilio.com/v2/PhoneNumbers/phone_number",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "1",
                 "country_code": "US",
@@ -44,17 +46,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+14159929960"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_invalid_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": null,
                 "country_code": null,
@@ -72,17 +76,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+141599299600"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_caller_name_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "1",
                 "country_code": "US",
@@ -102,17 +108,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+14159929960"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_sim_swap_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -138,17 +146,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_sim_swap_without_last_sim_swap_date_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -174,17 +184,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_sim_swap_with_false_swapped_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -210,17 +222,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_call_forwarding_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -242,17 +256,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_sim_swap_and_call_forwarding_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -284,17 +300,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_live_activity_connectivity_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -322,17 +340,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_live_activity_porting_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -364,17 +384,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_live_activity_roaming_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "44",
                 "country_code": "GB",
@@ -407,17 +429,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_line_type_intelligence_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "1",
                 "country_code": "US",
@@ -439,17 +463,19 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "identity_match": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+14159929960"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_identity_match_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "calling_country_code": "1",
                 "country_code": "US",
@@ -478,8 +504,9 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+14159929960"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
 

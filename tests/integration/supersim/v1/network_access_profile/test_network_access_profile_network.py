@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class NetworkAccessProfileNetworkTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .networks.list()
+            self.client.supersim.v1.network_access_profiles(
+                "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).networks.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks?PageSize=50&Page=0",
@@ -56,33 +59,41 @@ class NetworkAccessProfileNetworkTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .networks.list()
+        actual = self.client.supersim.v1.network_access_profiles(
+            "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).networks.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .networks.create(network="HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.supersim.v1.network_access_profiles(
+                "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).networks.create(network="HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'Network': "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "Network": "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "network_access_profile_sid": "HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -96,53 +107,69 @@ class NetworkAccessProfileNetworkTestCase(IntegrationTestCase):
                 ],
                 "url": "https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks/HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .networks.create(network="HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.supersim.v1.network_access_profiles(
+            "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).networks.create(network="HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.supersim.v1.network_access_profiles(
+                "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks/HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks/HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.supersim.v1.network_access_profiles(
+                "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.supersim.v1.network_access_profiles(
+                "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks/HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/NetworkAccessProfiles/HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Networks/HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "network_access_profile_sid": "HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -156,10 +183,16 @@ class NetworkAccessProfileNetworkTestCase(IntegrationTestCase):
                 ],
                 "url": "https://supersim.twilio.com/v1/NetworkAccessProfiles/HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Networks/HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.network_access_profiles("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.supersim.v1.network_access_profiles(
+                "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

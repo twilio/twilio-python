@@ -19,7 +19,6 @@ from twilio.rest.bulkexports.v1.export_configuration import ExportConfigurationL
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Bulkexports
@@ -27,10 +26,10 @@ class V1(Version):
         :param domain: The Twilio.bulkexports domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._exports = None
         self._export_configuration = None
-        
+
     @property
     def exports(self) -> ExportList:
         """
@@ -55,4 +54,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Bulkexports.V1>'
+        return "<Twilio.Bulkexports.V1>"

@@ -13,25 +13,28 @@ from twilio.http.response import Response
 
 
 class NotificationTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity") \
-                                 .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .notifications.create()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).entities("identity").challenges(
+                "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).notifications.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Notifications",
+            )
+        )
 
     def test_create_with_ttl_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "NTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -43,20 +46,24 @@ class NotificationTestCase(IntegrationTestCase):
                 "priority": "high",
                 "ttl": 150
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications.create()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .notifications.create()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_without_ttl_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "NTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -68,12 +75,15 @@ class NotificationTestCase(IntegrationTestCase):
                 "priority": "high",
                 "ttl": 300
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .notifications.create()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .entities("identity")
+            .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .notifications.create()
+        )
 
         self.assertIsNotNone(actual)

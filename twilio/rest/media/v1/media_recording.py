@@ -13,9 +13,7 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
-from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -25,33 +23,36 @@ from twilio.base.page import Page
 
 
 class MediaRecordingList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the MediaRecordingList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.media.v1.media_recording.MediaRecordingList
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/MediaRecordings'.format(**self._solution)
-        
-        
-    
-    
-    
-    def stream(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
+        self._solution = {}
+        self._uri = "/MediaRecordings".format(**self._solution)
+
+    def stream(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams MediaRecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
@@ -72,18 +73,26 @@ class MediaRecordingList(ListResource):
             status=status,
             processor_sid=processor_sid,
             source_sid=source_sid,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously streams MediaRecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
@@ -104,17 +113,25 @@ class MediaRecordingList(ListResource):
             status=status,
             processor_sid=processor_sid,
             source_sid=source_sid,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists MediaRecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
@@ -129,21 +146,31 @@ class MediaRecordingList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
         """
-        return list(self.stream(
-            order=order,
-            status=status,
-            processor_sid=processor_sid,
-            source_sid=source_sid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                order=order,
+                status=status,
+                processor_sid=processor_sid,
+                source_sid=source_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously lists MediaRecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
@@ -158,20 +185,31 @@ class MediaRecordingList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
         """
-        return list(await self.stream_async(
-            order=order,
-            status=status,
-            processor_sid=processor_sid,
-            source_sid=source_sid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                order=order,
+                status=status,
+                processor_sid=processor_sid,
+                source_sid=source_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of MediaRecordingInstance records from the API.
         Request is executed immediately
-        
+
         :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
@@ -183,24 +221,35 @@ class MediaRecordingList(ListResource):
         :returns: Page of MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
         """
-        data = values.of({ 
-            'Order': order,
-            'Status': status,
-            'ProcessorSid': processor_sid,
-            'SourceSid': source_sid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Order": order,
+                "Status": status,
+                "ProcessorSid": processor_sid,
+                "SourceSid": source_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return MediaRecordingPage(self._version, response, self._solution)
 
-    async def page_async(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of MediaRecordingInstance records from the API.
         Request is executed immediately
-        
+
         :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
         :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
@@ -212,17 +261,21 @@ class MediaRecordingList(ListResource):
         :returns: Page of MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
         """
-        data = values.of({ 
-            'Order': order,
-            'Status': status,
-            'ProcessorSid': processor_sid,
-            'SourceSid': source_sid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Order": order,
+                "Status": status,
+                "ProcessorSid": processor_sid,
+                "SourceSid": source_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return MediaRecordingPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -235,10 +288,7 @@ class MediaRecordingList(ListResource):
         :returns: Page of MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return MediaRecordingPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -251,19 +301,15 @@ class MediaRecordingList(ListResource):
         :returns: Page of MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return MediaRecordingPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a MediaRecordingContext
-        
+
         :param sid: The SID of the MediaRecording resource to fetch.
-        
+
         :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
         """
@@ -272,9 +318,9 @@ class MediaRecordingList(ListResource):
     def __call__(self, sid):
         """
         Constructs a MediaRecordingContext
-        
+
         :param sid: The SID of the MediaRecording resource to fetch.
-        
+
         :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
         """
@@ -283,18 +329,14 @@ class MediaRecordingList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Media.V1.MediaRecordingList>'
-
-
-
-
+        return "<Twilio.Media.V1.MediaRecordingList>"
 
 
 class MediaRecordingPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the MediaRecordingPage
@@ -328,13 +370,10 @@ class MediaRecordingPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Media.V1.MediaRecordingPage>'
-
-
+        return "<Twilio.Media.V1.MediaRecordingPage>"
 
 
 class MediaRecordingInstance(InstanceResource):
-
     class Format(object):
         MP4 = "mp4"
         WEBM = "webm"
@@ -349,35 +388,38 @@ class MediaRecordingInstance(InstanceResource):
         DELETED = "deleted"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the MediaRecordingInstance
+
         :returns: twilio.rest.media.v1.media_recording.MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'duration': deserialize.integer(payload.get('duration')),
-            'format': payload.get('format'),
-            'links': payload.get('links'),
-            'processor_sid': payload.get('processor_sid'),
-            'resolution': payload.get('resolution'),
-            'source_sid': payload.get('source_sid'),
-            'sid': payload.get('sid'),
-            'media_size': payload.get('media_size'),
-            'status': payload.get('status'),
-            'status_callback': payload.get('status_callback'),
-            'status_callback_method': payload.get('status_callback_method'),
-            'url': payload.get('url'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "duration": deserialize.integer(payload.get("duration")),
+            "format": payload.get("format"),
+            "links": payload.get("links"),
+            "processor_sid": payload.get("processor_sid"),
+            "resolution": payload.get("resolution"),
+            "source_sid": payload.get("source_sid"),
+            "sid": payload.get("sid"),
+            "media_size": payload.get("media_size"),
+            "status": payload.get("status"),
+            "status_callback": payload.get("status_callback"),
+            "status_callback_method": payload.get("status_callback_method"),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -388,154 +430,156 @@ class MediaRecordingInstance(InstanceResource):
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
         """
         if self._context is None:
-            self._context = MediaRecordingContext(self._version, sid=self._solution['sid'],)
+            self._context = MediaRecordingContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def duration(self):
         """
         :returns: The duration of the MediaRecording in seconds.
         :rtype: int
         """
-        return self._properties['duration']
-    
+        return self._properties["duration"]
+
     @property
     def format(self):
         """
-        :returns: 
+        :returns:
         :rtype: MediaRecordingInstance.Format
         """
-        return self._properties['format']
-    
+        return self._properties["format"]
+
     @property
     def links(self):
         """
         :returns: The URLs of related resources.
         :rtype: dict
         """
-        return self._properties['links']
-    
+        return self._properties["links"]
+
     @property
     def processor_sid(self):
         """
         :returns: The SID of the MediaProcessor resource which produced the MediaRecording.
         :rtype: str
         """
-        return self._properties['processor_sid']
-    
+        return self._properties["processor_sid"]
+
     @property
     def resolution(self):
         """
         :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height).
         :rtype: str
         """
-        return self._properties['resolution']
-    
+        return self._properties["resolution"]
+
     @property
     def source_sid(self):
         """
         :returns: The SID of the resource that generated the original media track(s) of the MediaRecording.
         :rtype: str
         """
-        return self._properties['source_sid']
-    
+        return self._properties["source_sid"]
+
     @property
     def sid(self):
         """
         :returns: The unique string generated to identify the MediaRecording resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def media_size(self):
         """
         :returns: The size of the recording media in bytes.
         :rtype: int
         """
-        return self._properties['media_size']
-    
+        return self._properties["media_size"]
+
     @property
     def status(self):
         """
-        :returns: 
+        :returns:
         :rtype: MediaRecordingInstance.Status
         """
-        return self._properties['status']
-    
+        return self._properties["status"]
+
     @property
     def status_callback(self):
         """
         :returns: The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
         :rtype: str
         """
-        return self._properties['status_callback']
-    
+        return self._properties["status_callback"]
+
     @property
     def status_callback_method(self):
         """
         :returns: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
         :rtype: str
         """
-        return self._properties['status_callback_method']
-    
+        return self._properties["status_callback_method"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the resource.
         :rtype: str
         """
-        return self._properties['url']
-    
-    
+        return self._properties["url"]
+
     def delete(self):
         """
         Deletes the MediaRecordingInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
+
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the MediaRecordingInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self):
         """
         Fetch the MediaRecordingInstance
-        
+
 
         :returns: The fetched MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
@@ -545,24 +589,25 @@ class MediaRecordingInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the MediaRecordingInstance
-        
+
 
         :returns: The fetched MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Media.V1.MediaRecordingInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Media.V1.MediaRecordingInstance {}>".format(context)
+
 
 class MediaRecordingContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the MediaRecordingContext
@@ -576,78 +621,83 @@ class MediaRecordingContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/MediaRecordings/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/MediaRecordings/{sid}".format(**self._solution)
+
     def delete(self):
         """
         Deletes the MediaRecordingInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self):
         """
         Asynchronous coroutine that deletes the MediaRecordingInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the MediaRecordingInstance
-        
+
 
         :returns: The fetched MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return MediaRecordingInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the MediaRecordingInstance
-        
+
 
         :returns: The fetched MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return MediaRecordingInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Media.V1.MediaRecordingContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Media.V1.MediaRecordingContext {}>".format(context)

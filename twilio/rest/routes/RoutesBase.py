@@ -14,7 +14,6 @@ from twilio.rest.routes.v2 import V2
 
 
 class RoutesBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Routes Domain
@@ -23,7 +22,7 @@ class RoutesBase(Domain):
         :rtype: twilio.rest.routes.Routes
         """
         super().__init__(twilio)
-        self.base_url = 'https://routes.twilio.com'
+        self.base_url = "https://routes.twilio.com"
         self._v2 = None
 
     @property
@@ -42,4 +41,4 @@ class RoutesBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Routes>'
+        return "<Twilio.Routes>"

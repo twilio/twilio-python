@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class CompositionHookTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.composition_hooks(
+                "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "My composition hook",
@@ -83,28 +87,34 @@ class CompositionHookTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "url": "https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.composition_hooks(
+            "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.video.v1.composition_hooks.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://video.twilio.com/v1/CompositionHooks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://video.twilio.com/v1/CompositionHooks",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "composition_hooks": [],
                 "meta": {
@@ -117,17 +127,19 @@ class CompositionHookTestCase(IntegrationTestCase):
                     "key": "composition_hooks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.composition_hooks.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "composition_hooks": [
                     {
@@ -193,52 +205,66 @@ class CompositionHookTestCase(IntegrationTestCase):
                     "key": "composition_hooks"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.video.v1.composition_hooks.list()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.video.v1.composition_hooks(
+                "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.video.v1.composition_hooks(
+            "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.video.v1.composition_hooks.create(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name", }
+        values = {
+            "FriendlyName": "friendly_name",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://video.twilio.com/v1/CompositionHooks',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://video.twilio.com/v1/CompositionHooks",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "friendly_name": "My composition hook",
                 "enabled": false,
@@ -282,31 +308,41 @@ class CompositionHookTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "url": "https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.composition_hooks.create(friendly_name="friendly_name")
+        actual = self.client.video.v1.composition_hooks.create(
+            friendly_name="friendly_name"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+            self.client.video.v1.composition_hooks(
+                "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update(friendly_name="friendly_name")
 
-        values = {'FriendlyName': "friendly_name", }
+        values = {
+            "FriendlyName": "friendly_name",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://video.twilio.com/v1/CompositionHooks/HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_all_fields_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "friendly_name": "My composition hook",
                 "enabled": true,
@@ -350,17 +386,21 @@ class CompositionHookTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "url": "https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+        actual = self.client.video.v1.composition_hooks(
+            "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)
 
     def test_update_with_defaults_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "friendly_name": "My composition hook",
                 "enabled": true,
@@ -383,9 +423,12 @@ class CompositionHookTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "url": "https://video.twilio.com/v1/CompositionHooks/HKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+        actual = self.client.video.v1.composition_hooks(
+            "HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)

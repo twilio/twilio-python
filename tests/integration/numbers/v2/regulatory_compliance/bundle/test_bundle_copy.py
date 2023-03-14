@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class BundleCopyTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .bundle_copies.create()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).bundle_copies.create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Copies',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Copies",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -43,32 +45,36 @@ class BundleCopyTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .bundle_copies.create()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).bundle_copies.create()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.numbers.v2.regulatory_compliance \
-                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .bundle_copies.list()
+            self.client.numbers.v2.regulatory_compliance.bundles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).bundle_copies.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Copies',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Copies",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -81,19 +87,21 @@ class BundleCopyTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .bundle_copies.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).bundle_copies.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -119,11 +127,12 @@ class BundleCopyTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .bundle_copies.list()
+        actual = self.client.numbers.v2.regulatory_compliance.bundles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).bundle_copies.list()
 
         self.assertIsNotNone(actual)

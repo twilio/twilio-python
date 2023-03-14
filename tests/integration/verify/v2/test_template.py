@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class TemplateTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.verify.v2.templates.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Templates',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Templates",
+            )
+        )
 
     def test_list_verification_templates_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "templates": [
                     {
@@ -79,8 +81,9 @@ class TemplateTestCase(IntegrationTestCase):
                     "key": "templates"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.verify.v2.templates.list()
 

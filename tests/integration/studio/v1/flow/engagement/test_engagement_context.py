@@ -13,24 +13,28 @@ from twilio.http.response import Response
 
 
 class EngagementContextTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .engagement_context().fetch()
+            self.client.studio.v1.flows(
+                "FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).engagements(
+                "FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).engagement_context().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Context',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Engagements/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Context",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "context": {
@@ -40,11 +44,15 @@ class EngagementContextTestCase(IntegrationTestCase):
                 "engagement_sid": "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Engagements/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .engagement_context().fetch()
+        actual = (
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .engagement_context()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

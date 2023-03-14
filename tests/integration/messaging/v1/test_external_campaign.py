@@ -13,25 +13,33 @@ from twilio.http.response import Response
 
 
 class ExternalCampaignTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.external_campaign.create(campaign_id="campaign_id", messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.messaging.v1.external_campaign.create(
+                campaign_id="campaign_id",
+                messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
 
-        values = {'CampaignId': "campaign_id", 'MessagingServiceSid': "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "CampaignId": "campaign_id",
+            "MessagingServiceSid": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://messaging.twilio.com/v1/Services/PreregisteredUsa2p',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://messaging.twilio.com/v1/Services/PreregisteredUsa2p",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "QE2c6890da8086d771620e9b13fadeba0b",
                 "messaging_service_sid": "MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -39,9 +47,13 @@ class ExternalCampaignTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2021-03-21T21:31:00Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.external_campaign.create(campaign_id="campaign_id", messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.messaging.v1.external_campaign.create(
+            campaign_id="campaign_id",
+            messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        )
 
         self.assertIsNotNone(actual)

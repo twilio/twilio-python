@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class ConferenceParticipantTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .conference_participants("CPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.insights.v1.conferences(
+                "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).conference_participants("CPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/CPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "participant_sid": "CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "label": null,
@@ -99,30 +102,38 @@ class ConferenceParticipantTestCase(IntegrationTestCase):
                 },
                 "url": "https://insights.twilio.com/v1/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .conference_participants("CPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .conference_participants("CPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .conference_participants.list()
+            self.client.insights.v1.conferences(
+                "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).conference_participants.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://insights.twilio.com/v1/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://insights.twilio.com/v1/Conferences/CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -273,18 +284,21 @@ class ConferenceParticipantTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .conference_participants.list()
+        actual = self.client.insights.v1.conferences(
+            "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).conference_participants.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_label_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -363,10 +377,12 @@ class ConferenceParticipantTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.insights.v1.conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .conference_participants.list()
+        actual = self.client.insights.v1.conferences(
+            "CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).conference_participants.list()
 
         self.assertIsNotNone(actual)

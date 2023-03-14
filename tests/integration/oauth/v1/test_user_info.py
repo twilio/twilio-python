@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class UserInfoTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.oauth.v1.user_info().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://oauth.twilio.com/v1/userinfo',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://oauth.twilio.com/v1/userinfo",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "user_sid": "US57cc2449f1b38ed85cf1a43cd8166349",
                 "first_name": "Mafalda",
@@ -37,8 +39,9 @@ class UserInfoTestCase(IntegrationTestCase):
                 "email": "mafalda.rolfson+oBgz@ct.sink.twilio.com",
                 "url": "https://oauth.twilio.com/v1/userinfo"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.oauth.v1.user_info().fetch()
 

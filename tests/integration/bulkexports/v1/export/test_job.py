@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class JobTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.bulkexports.v1.exports \
-                                      .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.bulkexports.v1.exports.jobs(
+                "JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://bulkexports.twilio.com/v1/Exports/Jobs/JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://bulkexports.twilio.com/v1/Exports/Jobs/JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "start_day": "start_day",
                 "job_sid": "JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -44,33 +47,41 @@ class JobTestCase(IntegrationTestCase):
                 "job_queue_position": "1",
                 "estimated_completion_time": "2021-03-15T20:20:14.547"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports \
-                                           .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.bulkexports.v1.exports.jobs(
+            "JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.bulkexports.v1.exports \
-                                      .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.bulkexports.v1.exports.jobs(
+                "JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://bulkexports.twilio.com/v1/Exports/Jobs/JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://bulkexports.twilio.com/v1/Exports/Jobs/JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports \
-                                           .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.bulkexports.v1.exports.jobs(
+            "JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)

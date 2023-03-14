@@ -13,24 +13,26 @@ from twilio.http.response import Response
 
 
 class AssetVersionTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .asset_versions.list()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").asset_versions.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "asset_versions": [],
                 "meta": {
@@ -43,32 +45,40 @@ class AssetVersionTestCase(IntegrationTestCase):
                     "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets/ZH00000000000000000000000000000000/Versions?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .asset_versions.list()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .asset_versions.list()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .asset_versions("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services(
+                "ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").asset_versions(
+                "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Assets/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions/ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "ZN00000000000000000000000000000000",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -79,11 +89,15 @@ class AssetVersionTestCase(IntegrationTestCase):
                 "date_created": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .asset_versions("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .asset_versions("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

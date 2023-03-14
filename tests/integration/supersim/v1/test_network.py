@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class NetworkTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.supersim.v1.networks(
+                "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/Networks/HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/Networks/HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "friendly_name": "AT&T",
                 "iso_country": "US",
@@ -41,28 +45,34 @@ class NetworkTestCase(IntegrationTestCase):
                 "sid": "HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://supersim.twilio.com/v1/Networks/HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.networks("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.supersim.v1.networks(
+            "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.supersim.v1.networks.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/Networks',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/Networks",
+            )
+        )
 
     def test_read_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://supersim.twilio.com/v1/Networks?PageSize=50&Page=0",
@@ -88,17 +98,19 @@ class NetworkTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.networks.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_with_filters_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://supersim.twilio.com/v1/Networks?IsoCountry=US&Mnc=410&Mcc=310&PageSize=50&Page=0",
@@ -124,8 +136,9 @@ class NetworkTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.networks.list()
 

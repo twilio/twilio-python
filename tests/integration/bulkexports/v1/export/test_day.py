@@ -13,50 +13,53 @@ from twilio.http.response import Response
 
 
 class DayTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.bulkexports.v1.exports("resource_type") \
-                                      .days("day").fetch()
+            self.client.bulkexports.v1.exports("resource_type").days("day").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://bulkexports.twilio.com/v1/Exports/resource_type/Days/day',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://bulkexports.twilio.com/v1/Exports/resource_type/Days/day",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "redirect_to": "https://www.twilio.com"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports("resource_type") \
-                                           .days("day").fetch()
+        actual = self.client.bulkexports.v1.exports("resource_type").days("day").fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.bulkexports.v1.exports("resource_type") \
-                                      .days.list()
+            self.client.bulkexports.v1.exports("resource_type").days.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://bulkexports.twilio.com/v1/Exports/resource_type/Days',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://bulkexports.twilio.com/v1/Exports/resource_type/Days",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "days": [],
                 "meta": {
@@ -69,18 +72,19 @@ class DayTestCase(IntegrationTestCase):
                     "key": "days"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports("resource_type") \
-                                           .days.list()
+        actual = self.client.bulkexports.v1.exports("resource_type").days.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "days": [
                     {
@@ -101,10 +105,10 @@ class DayTestCase(IntegrationTestCase):
                     "key": "days"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports("resource_type") \
-                                           .days.list()
+        actual = self.client.bulkexports.v1.exports("resource_type").days.list()
 
         self.assertIsNotNone(actual)

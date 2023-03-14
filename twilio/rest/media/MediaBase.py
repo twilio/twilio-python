@@ -14,7 +14,6 @@ from twilio.rest.media.v1 import V1
 
 
 class MediaBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Media Domain
@@ -23,7 +22,7 @@ class MediaBase(Domain):
         :rtype: twilio.rest.media.Media
         """
         super().__init__(twilio)
-        self.base_url = 'https://media.twilio.com'
+        self.base_url = "https://media.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class MediaBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Media>'
+        return "<Twilio.Media>"

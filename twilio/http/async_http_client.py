@@ -3,11 +3,11 @@ import logging
 
 from aiohttp import BasicAuth
 from aiohttp_retry import ExponentialRetry, RetryClient
-from twilio.http import HttpClient, AsyncHttpClient
+from twilio.http import AsyncHttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
 
-_logger = logging.getLogger('twilio.async_http_client')
+_logger = logging.getLogger("twilio.async_http_client")
 
 
 class AsyncTwilioHttpClient(AsyncHttpClient):
@@ -15,8 +15,15 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
     General purpose asynchronous HTTP Client for interacting with the Twilio API
     """
 
-    def __init__(self, pool_connections=True, trace_configs=None, timeout=None, logger=_logger, proxy_url=None,
-                 max_retries=None):
+    def __init__(
+        self,
+        pool_connections=True,
+        trace_configs=None,
+        timeout=None,
+        logger=_logger,
+        proxy_url=None,
+        max_retries=None,
+    ):
         """
         Constructor for the AsyncTwilioHttpClient
 
@@ -31,13 +38,28 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         super().__init__(logger, True, timeout)
         self.proxy_url = proxy_url
         self.trace_configs = trace_configs
-        self.session = aiohttp.ClientSession(trace_configs=self.trace_configs) if pool_connections else None
+        self.session = (
+            aiohttp.ClientSession(trace_configs=self.trace_configs)
+            if pool_connections
+            else None
+        )
         if max_retries is not None:
             retry_options = ExponentialRetry(attempts=max_retries)
-            self.session = RetryClient(client_session=self.session, retry_options=retry_options)
+            self.session = RetryClient(
+                client_session=self.session, retry_options=retry_options
+            )
 
-    async def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
-                      allow_redirects=False):
+    async def request(
+        self,
+        method,
+        url,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Make an asynchronous HTTP Request with parameters provided.
 
@@ -62,14 +84,14 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
             basic_auth = BasicAuth(login=auth[0], password=auth[1])
 
         kwargs = {
-            'method': method.upper(),
-            'url': url,
-            'params': params,
-            'data': data,
-            'headers': headers,
-            'auth': basic_auth,
-            'timeout': timeout,
-            'allow_redirects': allow_redirects
+            "method": method.upper(),
+            "url": url,
+            "params": params,
+            "data": data,
+            "headers": headers,
+            "auth": basic_auth,
+            "timeout": timeout,
+            "allow_redirects": allow_redirects,
         }
 
         self.log_request(kwargs)
@@ -85,7 +107,9 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         self._test_only_last_request = TwilioRequest(**kwargs)
         response = await session.request(**kwargs)
         self.log_response(response.status, response)
-        self._test_only_last_response = Response(response.status, await response.text(), response.headers)
+        self._test_only_last_response = Response(
+            response.status, await response.text(), response.headers
+        )
         if temp:
             await session.close()
         return self._test_only_last_response

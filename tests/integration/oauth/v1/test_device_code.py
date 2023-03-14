@@ -14,25 +14,32 @@ from twilio.http.response import Response
 
 
 class DeviceCodeTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.oauth.v1.device_code.create(client_sid="client_sid", scopes=['scopes'])
+            self.client.oauth.v1.device_code.create(
+                client_sid="client_sid", scopes=["scopes"]
+            )
 
-        values = {'ClientSid': "client_sid", 'Scopes': serialize.map(['scopes'], lambda e: e), }
+        values = {
+            "ClientSid": "client_sid",
+            "Scopes": serialize.map(["scopes"], lambda e: e),
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://oauth.twilio.com/v1/device/code',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://oauth.twilio.com/v1/device/code",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "device_code": "LiwuhE0bIhqemK6sd34tXfobVCR9yrk0",
                 "user_code": "Hkf1WaID3",
@@ -41,9 +48,12 @@ class DeviceCodeTestCase(IntegrationTestCase):
                 "expires_in": 299,
                 "interval": 5
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.oauth.v1.device_code.create(client_sid="client_sid", scopes=['scopes'])
+        actual = self.client.oauth.v1.device_code.create(
+            client_sid="client_sid", scopes=["scopes"]
+        )
 
         self.assertIsNotNone(actual)

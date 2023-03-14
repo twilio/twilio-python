@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class OpenidDiscoveryTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.oauth.v1.openid_discovery().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://oauth.twilio.com/v1/.well-known/openid-configuration',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://oauth.twilio.com/v1/.well-known/openid-configuration",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "issuer": "https://iam.twilio.com",
                 "authorization_endpoint": "https://oauth.twilio.com/oauth2/authorize",
@@ -69,8 +71,9 @@ class OpenidDiscoveryTestCase(IntegrationTestCase):
                 ],
                 "url": "https://oauth.twilio.com/v1/.well-known/openid-configuration"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.oauth.v1.openid_discovery().fetch()
 

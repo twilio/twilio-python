@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class PlaybackGrantTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.media.v1.player_streamer("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .playback_grant().create()
+            self.client.media.v1.player_streamer(
+                "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).playback_grant().create()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://media.twilio.com/v1/PlayerStreamers/VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PlaybackGrant',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://media.twilio.com/v1/PlayerStreamers/VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PlaybackGrant",
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "VJcafebabecafebabecafebabecafebabe",
                 "url": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/PlaybackGrant",
@@ -41,30 +44,38 @@ class PlaybackGrantTestCase(IntegrationTestCase):
                     "requestCredentials": null
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.media.v1.player_streamer("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .playback_grant().create()
+        actual = (
+            self.client.media.v1.player_streamer("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .playback_grant()
+            .create()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.media.v1.player_streamer("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .playback_grant().fetch()
+            self.client.media.v1.player_streamer(
+                "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).playback_grant().fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://media.twilio.com/v1/PlayerStreamers/VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PlaybackGrant',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://media.twilio.com/v1/PlayerStreamers/VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/PlaybackGrant",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -76,10 +87,14 @@ class PlaybackGrantTestCase(IntegrationTestCase):
                     "requestCredentials": null
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.media.v1.player_streamer("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .playback_grant().fetch()
+        actual = (
+            self.client.media.v1.player_streamer("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .playback_grant()
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class SubscribedEventTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .subscribed_events.list()
+            self.client.events.v1.subscriptions(
+                "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).subscribed_events.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "types": [],
                 "meta": {
@@ -42,18 +45,21 @@ class SubscribedEventTestCase(IntegrationTestCase):
                     "key": "types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .subscribed_events.list()
+        actual = self.client.events.v1.subscriptions(
+            "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).subscribed_events.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "types": [
                     {
@@ -81,33 +87,41 @@ class SubscribedEventTestCase(IntegrationTestCase):
                     "key": "types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .subscribed_events.list()
+        actual = self.client.events.v1.subscriptions(
+            "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).subscribed_events.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .subscribed_events.create(type="type")
+            self.client.events.v1.subscriptions(
+                "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).subscribed_events.create(type="type")
 
-        values = {'Type': "type", }
+        values = {
+            "Type": "type",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -115,30 +129,36 @@ class SubscribedEventTestCase(IntegrationTestCase):
                 "schema_version": 2,
                 "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.delivered"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .subscribed_events.create(type="type")
+        actual = self.client.events.v1.subscriptions(
+            "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).subscribed_events.create(type="type")
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .subscribed_events("type").fetch()
+            self.client.events.v1.subscriptions(
+                "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).subscribed_events("type").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -146,30 +166,38 @@ class SubscribedEventTestCase(IntegrationTestCase):
                 "schema_version": 2,
                 "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.delivered"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .subscribed_events("type").fetch()
+        actual = (
+            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .subscribed_events("type")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .subscribed_events("type").update()
+            self.client.events.v1.subscriptions(
+                "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).subscribed_events("type").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -177,33 +205,45 @@ class SubscribedEventTestCase(IntegrationTestCase):
                 "schema_version": 2,
                 "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.delivered"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .subscribed_events("type").update()
+        actual = (
+            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .subscribed_events("type")
+            .update()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .subscribed_events("type").delete()
+            self.client.events.v1.subscriptions(
+                "DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).subscribed_events("type").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .subscribed_events("type").delete()
+        actual = (
+            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .subscribed_events("type")
+            .delete()
+        )
 
         self.assertTrue(actual)

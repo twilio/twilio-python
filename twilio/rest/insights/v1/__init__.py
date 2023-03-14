@@ -22,7 +22,6 @@ from twilio.rest.insights.v1.setting import SettingList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Insights
@@ -30,13 +29,13 @@ class V1(Version):
         :param domain: The Twilio.insights domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._calls = None
         self._call_summaries = None
         self._conferences = None
         self._rooms = None
         self._settings = None
-        
+
     @property
     def calls(self) -> CallList:
         """
@@ -88,4 +87,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Insights.V1>'
+        return "<Twilio.Insights.V1>"

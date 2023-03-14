@@ -21,7 +21,6 @@ from twilio.rest.microvisor.v1.device import DeviceList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Microvisor
@@ -29,12 +28,12 @@ class V1(Version):
         :param domain: The Twilio.microvisor domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._account_configs = None
         self._account_secrets = None
         self._apps = None
         self._devices = None
-        
+
     @property
     def account_configs(self) -> AccountConfigList:
         """
@@ -77,4 +76,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Microvisor.V1>'
+        return "<Twilio.Microvisor.V1>"

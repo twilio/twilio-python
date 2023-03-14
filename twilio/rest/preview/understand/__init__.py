@@ -18,7 +18,6 @@ from twilio.rest.preview.understand.assistant import AssistantList
 
 
 class Understand(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the Understand version of Preview
@@ -26,9 +25,9 @@ class Understand(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain)
-        self.version = 'understand'
+        self.version = "understand"
         self._assistants = None
-        
+
     @property
     def assistants(self) -> AssistantList:
         """
@@ -44,4 +43,4 @@ class Understand(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand>'
+        return "<Twilio.Preview.Understand>"

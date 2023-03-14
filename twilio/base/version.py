@@ -1,5 +1,4 @@
 import json
-from math import ceil
 
 from twilio.base import values
 from twilio.base.exceptions import TwilioRestException
@@ -28,10 +27,19 @@ class Version(object):
         """
         Turns a relative uri into a versioned relative uri.
         """
-        return '{}/{}'.format(self.version.strip('/'), uri.strip('/'))
+        return "{}/{}".format(self.version.strip("/"), uri.strip("/"))
 
-    def request(self, method, uri, params=None, data=None, headers=None,
-                auth=None, timeout=None, allow_redirects=False):
+    def request(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Make an HTTP request.
         """
@@ -44,11 +52,20 @@ class Version(object):
             headers=headers,
             auth=auth,
             timeout=timeout,
-            allow_redirects=allow_redirects
+            allow_redirects=allow_redirects,
         )
 
-    async def request_async(self, method, uri, params=None, data=None, headers=None,
-                            auth=None, timeout=None, allow_redirects=False):
+    async def request_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Make an asynchronous HTTP request
         """
@@ -61,7 +78,7 @@ class Version(object):
             headers=headers,
             auth=auth,
             timeout=timeout,
-            allow_redirects=allow_redirects
+            allow_redirects=allow_redirects,
         )
 
     @classmethod
@@ -72,14 +89,17 @@ class Version(object):
         # noinspection PyBroadException
         try:
             error_payload = json.loads(response.text)
-            if 'message' in error_payload:
-                message = '{}: {}'.format(message, error_payload['message'])
-            details = error_payload.get('details')
-            code = error_payload.get('code', response.status_code)
-            return TwilioRestException(response.status_code, uri, message, code, method, details)
+            if "message" in error_payload:
+                message = "{}: {}".format(message, error_payload["message"])
+            details = error_payload.get("details")
+            code = error_payload.get("code", response.status_code)
+            return TwilioRestException(
+                response.status_code, uri, message, code, method, details
+            )
         except Exception:
-            return TwilioRestException(response.status_code, uri, message, response.status_code,
-                                       method)
+            return TwilioRestException(
+                response.status_code, uri, message, response.status_code, method
+            )
 
     def _parse_fetch(self, method, uri, response):
         """
@@ -87,12 +107,21 @@ class Version(object):
         """
         # Note that 3XX response codes are allowed for fetches.
         if response.status_code < 200 or response.status_code >= 400:
-            raise self.exception(method, uri, response, 'Unable to fetch record')
+            raise self.exception(method, uri, response, "Unable to fetch record")
 
         return json.loads(response.text)
 
-    def fetch(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-              allow_redirects=False):
+    def fetch(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Fetch a resource instance.
         """
@@ -109,8 +138,17 @@ class Version(object):
 
         return self._parse_fetch(method, uri, response)
 
-    async def fetch_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-                          allow_redirects=False):
+    async def fetch_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Asynchronously fetch a resource instance.
         """
@@ -132,12 +170,21 @@ class Version(object):
         Parses update response JSON
         """
         if response.status_code < 200 or response.status_code >= 300:
-            raise self.exception(method, uri, response, 'Unable to update record')
+            raise self.exception(method, uri, response, "Unable to update record")
 
         return json.loads(response.text)
 
-    def update(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-               allow_redirects=False):
+    def update(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Update a resource instance.
         """
@@ -154,8 +201,17 @@ class Version(object):
 
         return self._parse_update(method, uri, response)
 
-    async def update_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-                           allow_redirects=False):
+    async def update_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Asynchronously update a resource instance.
         """
@@ -177,12 +233,21 @@ class Version(object):
         Parses delete response JSON
         """
         if response.status_code < 200 or response.status_code >= 300:
-            raise self.exception(method, uri, response, 'Unable to delete record')
+            raise self.exception(method, uri, response, "Unable to delete record")
 
         return response.status_code == 204
 
-    def delete(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-               allow_redirects=False):
+    def delete(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Delete a resource.
         """
@@ -199,8 +264,17 @@ class Version(object):
 
         return self._parse_delete(method, uri, response)
 
-    async def delete_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-                           allow_redirects=False):
+    async def delete_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Asynchronously delete a resource.
         """
@@ -230,12 +304,21 @@ class Version(object):
             page_size = limit
 
         return {
-            'limit': limit or values.unset,
-            'page_size': page_size or values.unset,
+            "limit": limit or values.unset,
+            "page_size": page_size or values.unset,
         }
 
-    def page(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-             allow_redirects=False):
+    def page(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Makes an HTTP request.
         """
@@ -250,8 +333,17 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
 
-    async def page_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-                         allow_redirects=False):
+    async def page_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Makes an asynchronous HTTP request.
         """
@@ -285,7 +377,11 @@ class Version(object):
                     return
 
             current_page += 1
-            if page_limit and page_limit is not values.unset and page_limit < current_page:
+            if (
+                page_limit
+                and page_limit is not values.unset
+                and page_limit < current_page
+            ):
                 return
 
             page = page.next_page()
@@ -309,7 +405,11 @@ class Version(object):
                     return
 
             current_page += 1
-            if page_limit and page_limit is not values.unset and page_limit < current_page:
+            if (
+                page_limit
+                and page_limit is not values.unset
+                and page_limit < current_page
+            ):
                 return
 
             page = await page.next_page_async()
@@ -319,12 +419,21 @@ class Version(object):
         Parse create response JSON
         """
         if response.status_code < 200 or response.status_code >= 300:
-            raise self.exception(method, uri, response, 'Unable to create record')
+            raise self.exception(method, uri, response, "Unable to create record")
 
         return json.loads(response.text)
 
-    def create(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-               allow_redirects=False):
+    def create(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Create a resource instance.
         """
@@ -341,8 +450,17 @@ class Version(object):
 
         return self._parse_create(method, uri, response)
 
-    async def create_async(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
-                           allow_redirects=False):
+    async def create_async(
+        self,
+        method,
+        uri,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
         """
         Asynchronously create a resource instance.
         """

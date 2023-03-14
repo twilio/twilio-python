@@ -13,7 +13,6 @@ r"""
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -25,7 +24,6 @@ from twilio.base.page import Page
 
 
 class SyncMapItemList(ListResource):
-
     def __init__(self, version: Version, service_sid: str, map_sid: str):
         """
         Initialize the SyncMapItemList
@@ -33,22 +31,29 @@ class SyncMapItemList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Map Item resources to read.
         :param map_sid: The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`.
-        
+
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemList
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'map_sid': map_sid,  }
-        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, key, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        self._solution = {
+            "service_sid": service_sid,
+            "map_sid": map_sid,
+        }
+        self._uri = "/Services/{service_sid}/Maps/{map_sid}/Items".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        key,
+        data,
+        ttl=values.unset,
+        item_ttl=values.unset,
+        collection_ttl=values.unset,
+    ):
         """
         Create the SyncMapItemInstance
 
@@ -57,23 +62,41 @@ class SyncMapItemList(ListResource):
         :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
         :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
         :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
-        
+
         :returns: The created SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({ 
-            'Key': key,
-            'Data': serialize.object(data),
-            'Ttl': ttl,
-            'ItemTtl': item_ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Key": key,
+                "Data": serialize.object(data),
+                "Ttl": ttl,
+                "ItemTtl": item_ttl,
+                "CollectionTtl": collection_ttl,
+            }
+        )
 
-        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
-    async def create_async(self, key, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        return SyncMapItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+        )
+
+    async def create_async(
+        self,
+        key,
+        data,
+        ttl=values.unset,
+        item_ttl=values.unset,
+        collection_ttl=values.unset,
+    ):
         """
         Asynchronously create the SyncMapItemInstance
 
@@ -82,30 +105,47 @@ class SyncMapItemList(ListResource):
         :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
         :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
         :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
-        
+
         :returns: The created SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({ 
-            'Key': key,
-            'Data': serialize.object(data),
-            'Ttl': ttl,
-            'ItemTtl': item_ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Key": key,
+                "Data": serialize.object(data),
+                "Ttl": ttl,
+                "ItemTtl": item_ttl,
+                "CollectionTtl": collection_ttl,
+            }
+        )
 
-        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
-    
-    
-    def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SyncMapItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+        )
+
+    def stream(
+        self,
+        order=values.unset,
+        from_=values.unset,
+        bounds=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams SyncMapItemInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
@@ -121,21 +161,25 @@ class SyncMapItemList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            order=order,
-            from_=from_,
-            bounds=bounds,
-            page_size=limits['page_size']
+            order=order, from_=from_, bounds=bounds, page_size=limits["page_size"]
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
+    async def stream_async(
+        self,
+        order=values.unset,
+        from_=values.unset,
+        bounds=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously streams SyncMapItemInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
@@ -151,20 +195,24 @@ class SyncMapItemList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            order=order,
-            from_=from_,
-            bounds=bounds,
-            page_size=limits['page_size']
+            order=order, from_=from_, bounds=bounds, page_size=limits["page_size"]
         )
 
-        return await self._version.stream_async(page, limits['limit'])
+        return await self._version.stream_async(page, limits["limit"])
 
-    def list(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        order=values.unset,
+        from_=values.unset,
+        bounds=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists SyncMapItemInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
@@ -178,20 +226,29 @@ class SyncMapItemList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
-        return list(self.stream(
-            order=order,
-            from_=from_,
-            bounds=bounds,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                order=order,
+                from_=from_,
+                bounds=bounds,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
+    async def list_async(
+        self,
+        order=values.unset,
+        from_=values.unset,
+        bounds=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Asynchronously lists SyncMapItemInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
@@ -205,19 +262,29 @@ class SyncMapItemList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
-        return list(await self.stream_async(
-            order=order,
-            from_=from_,
-            bounds=bounds,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            await self.stream_async(
+                order=order,
+                from_=from_,
+                bounds=bounds,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, order=values.unset, from_=values.unset, bounds=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        order=values.unset,
+        from_=values.unset,
+        bounds=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
-        
+
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
@@ -228,23 +295,33 @@ class SyncMapItemList(ListResource):
         :returns: Page of SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemPage
         """
-        data = values.of({ 
-            'Order': order,
-            'From': from_,
-            'Bounds': bounds,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Order": order,
+                "From": from_,
+                "Bounds": bounds,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return SyncMapItemPage(self._version, response, self._solution)
 
-    async def page_async(self, order=values.unset, from_=values.unset, bounds=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    async def page_async(
+        self,
+        order=values.unset,
+        from_=values.unset,
+        bounds=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Asynchronously retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
-        
+
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
         :param str from_: The `key` of the first Sync Map Item resource to read. See also `bounds`.
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
@@ -255,16 +332,20 @@ class SyncMapItemList(ListResource):
         :returns: Page of SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemPage
         """
-        data = values.of({ 
-            'Order': order,
-            'From': from_,
-            'Bounds': bounds,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Order": order,
+                "From": from_,
+                "Bounds": bounds,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return SyncMapItemPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -277,10 +358,7 @@ class SyncMapItemList(ListResource):
         :returns: Page of SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return SyncMapItemPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url):
@@ -293,54 +371,52 @@ class SyncMapItemList(ListResource):
         :returns: Page of SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemPage
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return SyncMapItemPage(self._version, response, self._solution)
-
 
     def get(self, key):
         """
         Constructs a SyncMapItemContext
-        
-        :param key: The `key` value of the Sync Map Item resource to update. 
-        
+
+        :param key: The `key` value of the Sync Map Item resource to update.
+
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
         """
-        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
+        return SyncMapItemContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+            key=key,
+        )
 
     def __call__(self, key):
         """
         Constructs a SyncMapItemContext
-        
-        :param key: The `key` value of the Sync Map Item resource to update. 
-        
+
+        :param key: The `key` value of the Sync Map Item resource to update.
+
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
         """
-        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
+        return SyncMapItemContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+            key=key,
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Sync.V1.SyncMapItemList>'
-
-
-
-
-
-
-
-
+        return "<Twilio.Sync.V1.SyncMapItemList>"
 
 
 class SyncMapItemPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the SyncMapItemPage
@@ -365,7 +441,12 @@ class SyncMapItemPage(Page):
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
+        return SyncMapItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+        )
 
     def __repr__(self):
         """
@@ -374,13 +455,10 @@ class SyncMapItemPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Sync.V1.SyncMapItemPage>'
-
-
+        return "<Twilio.Sync.V1.SyncMapItemPage>"
 
 
 class SyncMapItemInstance(InstanceResource):
-
     class QueryFromBoundType(object):
         INCLUSIVE = "inclusive"
         EXCLUSIVE = "exclusive"
@@ -389,31 +467,38 @@ class SyncMapItemInstance(InstanceResource):
         ASC = "asc"
         DESC = "desc"
 
-    def __init__(self, version, payload, service_sid: str, map_sid: str, key: str=None):
+    def __init__(
+        self, version, payload, service_sid: str, map_sid: str, key: str = None
+    ):
         """
         Initialize the SyncMapItemInstance
+
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'key': payload.get('key'),
-            'account_sid': payload.get('account_sid'),
-            'service_sid': payload.get('service_sid'),
-            'map_sid': payload.get('map_sid'),
-            'url': payload.get('url'),
-            'revision': payload.get('revision'),
-            'data': payload.get('data'),
-            'date_expires': deserialize.iso8601_datetime(payload.get('date_expires')),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'created_by': payload.get('created_by'),
+        self._properties = {
+            "key": payload.get("key"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "map_sid": payload.get("map_sid"),
+            "url": payload.get("url"),
+            "revision": payload.get("revision"),
+            "data": payload.get("data"),
+            "date_expires": deserialize.iso8601_datetime(payload.get("date_expires")),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "created_by": payload.get("created_by"),
         }
 
         self._context = None
-        self._solution = { 'service_sid': service_sid, 'map_sid': map_sid, 'key': key or self._properties['key'],  }
-    
+        self._solution = {
+            "service_sid": service_sid,
+            "map_sid": map_sid,
+            "key": key or self._properties["key"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -424,124 +509,132 @@ class SyncMapItemInstance(InstanceResource):
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
         """
         if self._context is None:
-            self._context = SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=self._solution['key'],)
+            self._context = SyncMapItemContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                map_sid=self._solution["map_sid"],
+                key=self._solution["key"],
+            )
         return self._context
-    
+
     @property
     def key(self):
         """
         :returns: The unique, user-defined key for the Map Item.
         :rtype: str
         """
-        return self._properties['key']
-    
+        return self._properties["key"]
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Map Item resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def service_sid(self):
         """
         :returns: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) the resource is associated with.
         :rtype: str
         """
-        return self._properties['service_sid']
-    
+        return self._properties["service_sid"]
+
     @property
     def map_sid(self):
         """
         :returns: The SID of the Sync Map that contains the Map Item.
         :rtype: str
         """
-        return self._properties['map_sid']
-    
+        return self._properties["map_sid"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the Map Item resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def revision(self):
         """
         :returns: The current revision of the Map Item, represented as a string.
         :rtype: str
         """
-        return self._properties['revision']
-    
+        return self._properties["revision"]
+
     @property
     def data(self):
         """
         :returns: An arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
         :rtype: dict
         """
-        return self._properties['data']
-    
+        return self._properties["data"]
+
     @property
     def date_expires(self):
         """
         :returns: The date and time in GMT when the Map Item expires and will be deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. If the Map Item does not expire, this value is `null`.  The Map Item might not be deleted immediately after it expires.
         :rtype: datetime
         """
-        return self._properties['date_expires']
-    
+        return self._properties["date_expires"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def created_by(self):
         """
         :returns: The identity of the Map Item's creator. If the Map Item is created from the client SDK, the value matches the Access Token's `identity` field. If the Map Item was created from the REST API, the value is `system`.
         :rtype: str
         """
-        return self._properties['created_by']
-    
-    
+        return self._properties["created_by"]
+
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncMapItemInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(if_match=if_match, )
+        return self._proxy.delete(
+            if_match=if_match,
+        )
+
     async def delete_async(self, if_match=values.unset):
         """
         Asynchronous coroutine that deletes the SyncMapItemInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return await self._proxy.delete_async(if_match=if_match, )
-    
-    
+        return await self._proxy.delete_async(
+            if_match=if_match,
+        )
+
     def fetch(self):
         """
         Fetch the SyncMapItemInstance
-        
+
 
         :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
@@ -551,55 +644,81 @@ class SyncMapItemInstance(InstanceResource):
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the SyncMapItemInstance
-        
+
 
         :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+
+    def update(
+        self,
+        if_match=values.unset,
+        data=values.unset,
+        ttl=values.unset,
+        item_ttl=values.unset,
+        collection_ttl=values.unset,
+    ):
         """
         Update the SyncMapItemInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :params object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        return self._proxy.update(if_match=if_match, data=data, ttl=ttl, item_ttl=item_ttl, collection_ttl=collection_ttl, )
+        return self._proxy.update(
+            if_match=if_match,
+            data=data,
+            ttl=ttl,
+            item_ttl=item_ttl,
+            collection_ttl=collection_ttl,
+        )
 
-    async def update_async(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+    async def update_async(
+        self,
+        if_match=values.unset,
+        data=values.unset,
+        ttl=values.unset,
+        item_ttl=values.unset,
+        collection_ttl=values.unset,
+    ):
         """
         Asynchronous coroutine to update the SyncMapItemInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :params object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        return await self._proxy.update_async(if_match=if_match, data=data, ttl=ttl, item_ttl=item_ttl, collection_ttl=collection_ttl, )
-    
+        return await self._proxy.update_async(
+            if_match=if_match,
+            data=data,
+            ttl=ttl,
+            item_ttl=item_ttl,
+            collection_ttl=collection_ttl,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.SyncMapItemInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Sync.V1.SyncMapItemInstance {}>".format(context)
+
 
 class SyncMapItemContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, map_sid: str, key: str):
         """
         Initialize the SyncMapItemContext
@@ -607,7 +726,7 @@ class SyncMapItemContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update.
         :param map_sid: The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.
-        :param key: The `key` value of the Sync Map Item resource to update. 
+        :param key: The `key` value of the Sync Map Item resource to update.
 
         :returns: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemContext
@@ -615,153 +734,193 @@ class SyncMapItemContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'map_sid': map_sid,
-            'key': key,
+        self._solution = {
+            "service_sid": service_sid,
+            "map_sid": map_sid,
+            "key": key,
         }
-        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items/{key}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Services/{service_sid}/Maps/{map_sid}/Items/{key}".format(
+            **self._solution
+        )
+
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncMapItemInstance
 
         :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'If-Match': if_match, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self, if_match=values.unset):
         """
         Asynchronous coroutine that deletes the SyncMapItemInstance
 
         :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'If-Match': if_match, })
-        
-        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
-    
-    
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def fetch(self):
         """
         Fetch the SyncMapItemInstance
-        
+
 
         :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SyncMapItemInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            key=self._solution['key'],
-            
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+            key=self._solution["key"],
         )
 
     async def fetch_async(self):
         """
         Asynchronous coroutine to fetch the SyncMapItemInstance
-        
+
 
         :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SyncMapItemInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            key=self._solution['key'],
-            
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+            key=self._solution["key"],
         )
-    
-    
-    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+
+    def update(
+        self,
+        if_match=values.unset,
+        data=values.unset,
+        ttl=values.unset,
+        item_ttl=values.unset,
+        collection_ttl=values.unset,
+    ):
         """
         Update the SyncMapItemInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :params object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({ 
-            'Data': serialize.object(data),
-            'Ttl': ttl,
-            'ItemTtl': item_ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        headers = values.of({'If-Match': if_match, })
+        data = values.of(
+            {
+                "Data": serialize.object(data),
+                "Ttl": ttl,
+                "ItemTtl": item_ttl,
+                "CollectionTtl": collection_ttl,
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return SyncMapItemInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            key=self._solution['key']
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+            key=self._solution["key"],
         )
 
-    async def update_async(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+    async def update_async(
+        self,
+        if_match=values.unset,
+        data=values.unset,
+        ttl=values.unset,
+        item_ttl=values.unset,
+        collection_ttl=values.unset,
+    ):
         """
         Asynchronous coroutine to update the SyncMapItemInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :params object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 
         :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        data = values.of({ 
-            'Data': serialize.object(data),
-            'Ttl': ttl,
-            'ItemTtl': item_ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        headers = values.of({'If-Match': if_match, })
+        data = values.of(
+            {
+                "Data": serialize.object(data),
+                "Ttl": ttl,
+                "ItemTtl": item_ttl,
+                "CollectionTtl": collection_ttl,
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return SyncMapItemInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            key=self._solution['key']
+            service_sid=self._solution["service_sid"],
+            map_sid=self._solution["map_sid"],
+            key=self._solution["key"],
         )
-    
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.SyncMapItemContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Sync.V1.SyncMapItemContext {}>".format(context)

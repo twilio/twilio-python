@@ -14,22 +14,26 @@ from twilio.http.response import Response
 
 
 class AuthorizationDocumentTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.authorization_documents("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.hosted_numbers.authorization_documents(
+                "PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "address_sid": "AD11111111111111111111111111111111",
                 "cc_emails": [
@@ -46,28 +50,36 @@ class AuthorizationDocumentTestCase(IntegrationTestCase):
                 "status": "signing",
                 "url": "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.authorization_documents("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.preview.hosted_numbers.authorization_documents(
+            "PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.authorization_documents("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.preview.hosted_numbers.authorization_documents(
+                "PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "cc_emails": [
@@ -84,28 +96,34 @@ class AuthorizationDocumentTestCase(IntegrationTestCase):
                 "status": "signing",
                 "url": "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.authorization_documents("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.preview.hosted_numbers.authorization_documents(
+            "PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.preview.hosted_numbers.authorization_documents.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?Status=signed&Email=test%2Bhosted%40twilio.com&PageSize=50&Page=0",
@@ -118,17 +136,19 @@ class AuthorizationDocumentTestCase(IntegrationTestCase):
                 },
                 "items": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.hosted_numbers.authorization_documents.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0",
@@ -158,37 +178,49 @@ class AuthorizationDocumentTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.hosted_numbers.authorization_documents.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.authorization_documents.create(hosted_number_order_sids=['hosted_number_order_sids'], address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", email="email", contact_title="contact_title", contact_phone_number="contact_phone_number")
+            self.client.preview.hosted_numbers.authorization_documents.create(
+                hosted_number_order_sids=["hosted_number_order_sids"],
+                address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                email="email",
+                contact_title="contact_title",
+                contact_phone_number="contact_phone_number",
+            )
 
         values = {
-            'HostedNumberOrderSids': serialize.map(['hosted_number_order_sids'], lambda e: e),
-            'AddressSid': "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            'Email': "email",
-            'ContactTitle': "contact_title",
-            'ContactPhoneNumber': "contact_phone_number",
+            "HostedNumberOrderSids": serialize.map(
+                ["hosted_number_order_sids"], lambda e: e
+            ),
+            "AddressSid": "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "Email": "email",
+            "ContactTitle": "contact_title",
+            "ContactPhoneNumber": "contact_phone_number",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "cc_emails": [
@@ -205,9 +237,16 @@ class AuthorizationDocumentTestCase(IntegrationTestCase):
                 "status": "signing",
                 "url": "https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.authorization_documents.create(hosted_number_order_sids=['hosted_number_order_sids'], address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", email="email", contact_title="contact_title", contact_phone_number="contact_phone_number")
+        actual = self.client.preview.hosted_numbers.authorization_documents.create(
+            hosted_number_order_sids=["hosted_number_order_sids"],
+            address_sid="ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            email="email",
+            contact_title="contact_title",
+            contact_phone_number="contact_phone_number",
+        )
 
         self.assertIsNotNone(actual)

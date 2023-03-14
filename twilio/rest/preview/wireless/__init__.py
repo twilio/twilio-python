@@ -20,7 +20,6 @@ from twilio.rest.preview.wireless.sim import SimList
 
 
 class Wireless(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the Wireless version of Preview
@@ -28,11 +27,11 @@ class Wireless(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain)
-        self.version = 'wireless'
+        self.version = "wireless"
         self._commands = None
         self._rate_plans = None
         self._sims = None
-        
+
     @property
     def commands(self) -> CommandList:
         """
@@ -66,4 +65,4 @@ class Wireless(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Wireless>'
+        return "<Twilio.Preview.Wireless>"

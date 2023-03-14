@@ -14,7 +14,6 @@ from twilio.rest.microvisor.v1 import V1
 
 
 class MicrovisorBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Microvisor Domain
@@ -23,7 +22,7 @@ class MicrovisorBase(Domain):
         :rtype: twilio.rest.microvisor.Microvisor
         """
         super().__init__(twilio)
-        self.base_url = 'https://microvisor.twilio.com'
+        self.base_url = "https://microvisor.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class MicrovisorBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Microvisor>'
+        return "<Twilio.Microvisor>"

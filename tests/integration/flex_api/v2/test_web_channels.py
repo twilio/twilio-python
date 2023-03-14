@@ -13,31 +13,36 @@ from twilio.http.response import Response
 
 
 class WebChannelsTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.flex_api.v2.web_channels.create(address_sid="address_sid")
 
-        values = {'AddressSid': "address_sid", }
+        values = {
+            "AddressSid": "address_sid",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://flex-api.twilio.com/v2/WebChats',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://flex-api.twilio.com/v2/WebChats",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "identity": "seinfeld"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.flex_api.v2.web_channels.create(address_sid="address_sid")
 

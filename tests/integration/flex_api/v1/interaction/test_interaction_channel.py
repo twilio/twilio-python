@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class InteractionChannelTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.flex_api.v1.interaction(
+                "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
                 "type": "chat",
@@ -43,30 +46,38 @@ class InteractionChannelTestCase(IntegrationTestCase):
                     "invites": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .channels.list()
+            self.client.flex_api.v1.interaction(
+                "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).channels.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels",
+            )
+        )
 
     def test_read_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "channels": [
                     {
@@ -145,33 +156,41 @@ class InteractionChannelTestCase(IntegrationTestCase):
                     "key": "channels"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels.list()
+        actual = self.client.flex_api.v1.interaction(
+            "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).channels.list()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="closed")
+            self.client.flex_api.v1.interaction(
+                "KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="closed")
 
-        values = {'Status': "closed", }
+        values = {
+            "Status": "closed",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://flex-api.twilio.com/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
                 "interaction_sid": "KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -185,18 +204,23 @@ class InteractionChannelTestCase(IntegrationTestCase):
                     "invites": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="closed")
+        actual = (
+            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(status="closed")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_update_status_closed_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
                 "interaction_sid": "KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -210,10 +234,14 @@ class InteractionChannelTestCase(IntegrationTestCase):
                     "invites": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="closed")
+        actual = (
+            self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .update(status="closed")
+        )
 
         self.assertIsNotNone(actual)

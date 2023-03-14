@@ -13,22 +13,26 @@ from twilio.http.response import Response
 
 
 class HostedNumberOrderTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.hosted_numbers.hosted_number_orders(
+                "HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": "AD11111111111111111111111111111111",
@@ -63,49 +67,65 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "verification_document_sid": null,
                 "verification_type": "phone-call"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.preview.hosted_numbers.hosted_number_orders(
+            "HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.preview.hosted_numbers.hosted_number_orders(
+                "HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.preview.hosted_numbers.hosted_number_orders(
+            "HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.preview.hosted_numbers.hosted_number_orders(
+                "HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": "AD11111111111111111111111111111111",
@@ -140,28 +160,34 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "verification_document_sid": null,
                 "verification_type": "phone-call"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.preview.hosted_numbers.hosted_number_orders(
+            "HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.preview.hosted_numbers.hosted_number_orders.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://preview.twilio.com/HostedNumbers/HostedNumberOrders",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders?Status=completed&FriendlyName=example&PhoneNumber=%2B19193608000&UniqueName=something123&IncomingPhoneNumberSid=PNzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz&PageSize=50&Page=0",
@@ -174,17 +200,19 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 },
                 "items": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.hosted_numbers.hosted_number_orders.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://preview.twilio.com/HostedNumbers/HostedNumberOrders?PageSize=50&Page=0",
@@ -232,31 +260,40 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.preview.hosted_numbers.hosted_number_orders.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
+            self.client.preview.hosted_numbers.hosted_number_orders.create(
+                phone_number="+15017122661", sms_capability=True
+            )
 
-        values = {'PhoneNumber': "+15017122661", 'SmsCapability': True, }
+        values = {
+            "PhoneNumber": "+15017122661",
+            "SmsCapability": True,
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/HostedNumbers/HostedNumberOrders',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://preview.twilio.com/HostedNumbers/HostedNumberOrders",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": "AD11111111111111111111111111111111",
@@ -285,17 +322,21 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "verification_document_sid": null,
                 "verification_type": "phone-call"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(
+            phone_number="+15017122661", sms_capability=True
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_without_optional_loa_fields_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": null,
@@ -324,17 +365,21 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "verification_document_sid": null,
                 "verification_type": "phone-call"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(
+            phone_number="+15017122661", sms_capability=True
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_with_phone_bill_verification_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "address_sid": null,
@@ -363,9 +408,12 @@ class HostedNumberOrderTestCase(IntegrationTestCase):
                 "verification_document_sid": "RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "verification_type": "phone-bill"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(phone_number="+15017122661", sms_capability=True)
+        actual = self.client.preview.hosted_numbers.hosted_number_orders.create(
+            phone_number="+15017122661", sms_capability=True
+        )
 
         self.assertIsNotNone(actual)

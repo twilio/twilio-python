@@ -13,26 +13,32 @@ from twilio.http.response import Response
 
 
 class VerificationTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .verifications.create(to="to", channel="channel")
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).verifications.create(to="to", channel="channel")
 
-        values = {'To': "to", 'Channel': "channel", }
+        values = {
+            "To": "to",
+            "Channel": "channel",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications",
+                data=values,
+            )
+        )
 
     def test_create_verification_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -56,18 +62,21 @@ class VerificationTestCase(IntegrationTestCase):
                 "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications.create(to="to", channel="channel")
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
 
     def test_create_verification_whatsapp_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -91,18 +100,21 @@ class VerificationTestCase(IntegrationTestCase):
                 "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications.create(to="to", channel="channel")
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
 
     def test_create_verification_email_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -126,18 +138,21 @@ class VerificationTestCase(IntegrationTestCase):
                 "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications.create(to="to", channel="channel")
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
 
     def test_create_verification_with_rate_limits_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -161,18 +176,21 @@ class VerificationTestCase(IntegrationTestCase):
                 "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications.create(to="to", channel="channel")
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
 
     def test_create_verification_sna_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -206,33 +224,41 @@ class VerificationTestCase(IntegrationTestCase):
                 },
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications.create(to="to", channel="channel")
+        actual = self.client.verify.v2.services(
+            "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .verifications("sid").update(status="canceled")
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).verifications("sid").update(status="canceled")
 
-        values = {'Status': "canceled", }
+        values = {
+            "Status": "canceled",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/sid',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/sid",
+                data=values,
+            )
+        )
 
     def test_update_verification_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -256,18 +282,23 @@ class VerificationTestCase(IntegrationTestCase):
                 "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications("sid").update(status="canceled")
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .verifications("sid")
+            .update(status="canceled")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_approve_verification_with_pn_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -291,30 +322,38 @@ class VerificationTestCase(IntegrationTestCase):
                 "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications("sid").update(status="canceled")
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .verifications("sid")
+            .update(status="canceled")
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .verifications("sid").fetch()
+            self.client.verify.v2.services(
+                "VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).verifications("sid").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/sid',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Verifications/sid",
+            )
+        )
 
     def test_fetch_verification_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -338,10 +377,14 @@ class VerificationTestCase(IntegrationTestCase):
                 "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications("sid").fetch()
+        actual = (
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .verifications("sid")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

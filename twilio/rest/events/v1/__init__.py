@@ -21,7 +21,6 @@ from twilio.rest.events.v1.subscription import SubscriptionList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Events
@@ -29,12 +28,12 @@ class V1(Version):
         :param domain: The Twilio.events domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._event_types = None
         self._schemas = None
         self._sinks = None
         self._subscriptions = None
-        
+
     @property
     def event_types(self) -> EventTypeList:
         """
@@ -77,4 +76,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Events.V1>'
+        return "<Twilio.Events.V1>"

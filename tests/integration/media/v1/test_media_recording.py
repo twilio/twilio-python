@@ -13,43 +13,55 @@ from twilio.http.response import Response
 
 
 class MediaRecordingTestCase(IntegrationTestCase):
-
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.media.v1.media_recording("KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.media.v1.media_recording(
+                "KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://media.twilio.com/v1/MediaRecordings/KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://media.twilio.com/v1/MediaRecordings/KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.media.v1.media_recording("KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.media.v1.media_recording(
+            "KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).delete()
 
         self.assertTrue(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.media.v1.media_recording("KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.media.v1.media_recording(
+                "KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://media.twilio.com/v1/MediaRecordings/KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://media.twilio.com/v1/MediaRecordings/KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -70,28 +82,34 @@ class MediaRecordingTestCase(IntegrationTestCase):
                 "status_callback_method": "POST",
                 "url": "https://media.twilio.com/v1/MediaRecordings/KVcafebabecafebabecafebabecafebabe"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.media.v1.media_recording("KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.media.v1.media_recording(
+            "KVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.media.v1.media_recording.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://media.twilio.com/v1/MediaRecordings',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://media.twilio.com/v1/MediaRecordings",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -104,17 +122,19 @@ class MediaRecordingTestCase(IntegrationTestCase):
                 },
                 "media_recordings": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.media.v1.media_recording.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_items_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -148,8 +168,9 @@ class MediaRecordingTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.media.v1.media_recording.list()
 

@@ -13,25 +13,32 @@ from twilio.http.response import Response
 
 
 class MediaProcessorTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.media.v1.media_processor.create(extension="extension", extension_context="extension_context")
+            self.client.media.v1.media_processor.create(
+                extension="extension", extension_context="extension_context"
+            )
 
-        values = {'Extension': "extension", 'ExtensionContext': "extension_context", }
+        values = {
+            "Extension": "extension",
+            "ExtensionContext": "extension_context",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://media.twilio.com/v1/MediaProcessors',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://media.twilio.com/v1/MediaProcessors",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -46,28 +53,36 @@ class MediaProcessorTestCase(IntegrationTestCase):
                 "url": "https://media.twilio.com/v1/MediaProcessors/ZXdeadbeefdeadbeefdeadbeefdeadbeef",
                 "max_duration": 300
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.media.v1.media_processor.create(extension="extension", extension_context="extension_context")
+        actual = self.client.media.v1.media_processor.create(
+            extension="extension", extension_context="extension_context"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.media.v1.media_processor("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.media.v1.media_processor(
+                "ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://media.twilio.com/v1/MediaProcessors/ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://media.twilio.com/v1/MediaProcessors/ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -82,31 +97,41 @@ class MediaProcessorTestCase(IntegrationTestCase):
                 "url": "https://media.twilio.com/v1/MediaProcessors/ZXdeadbeefdeadbeefdeadbeefdeadbeef",
                 "max_duration": 300
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.media.v1.media_processor("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.media.v1.media_processor(
+            "ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.media.v1.media_processor("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="ended")
+            self.client.media.v1.media_processor(
+                "ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).update(status="ended")
 
-        values = {'Status': "ended", }
+        values = {
+            "Status": "ended",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://media.twilio.com/v1/MediaProcessors/ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://media.twilio.com/v1/MediaProcessors/ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                data=values,
+            )
+        )
 
     def test_update_ended_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
@@ -121,28 +146,34 @@ class MediaProcessorTestCase(IntegrationTestCase):
                 "url": "https://media.twilio.com/v1/MediaProcessors/ZXdeadbeefdeadbeefdeadbeefdeadbeef",
                 "max_duration": 300
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.media.v1.media_processor("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="ended")
+        actual = self.client.media.v1.media_processor(
+            "ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).update(status="ended")
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.media.v1.media_processor.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://media.twilio.com/v1/MediaProcessors',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://media.twilio.com/v1/MediaProcessors",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -155,17 +186,19 @@ class MediaProcessorTestCase(IntegrationTestCase):
                 },
                 "media_processors": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.media.v1.media_processor.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_items_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -193,17 +226,19 @@ class MediaProcessorTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.media.v1.media_processor.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_items_using_page_token_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -231,17 +266,19 @@ class MediaProcessorTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.media.v1.media_processor.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_items_page_larger_than_max_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -269,8 +306,9 @@ class MediaProcessorTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.media.v1.media_processor.list()
 

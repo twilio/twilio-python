@@ -14,22 +14,26 @@ from twilio.http.response import Response
 
 
 class TollfreeVerificationTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.tollfree_verifications("HHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.messaging.v1.tollfree_verifications(
+                "HHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Tollfree/Verifications/HHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Tollfree/Verifications/HHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "HHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -73,28 +77,34 @@ class TollfreeVerificationTestCase(IntegrationTestCase):
                     "channel_endpoint_assignment": "https://trusthub.twilio.com/v1/TrustProducts/BU3344409f7e067e279523808d267e2d88/ChannelEndpointAssignments/RA3344409f7e067e279523808d267e2d89"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.tollfree_verifications("HHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.messaging.v1.tollfree_verifications(
+            "HHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.messaging.v1.tollfree_verifications.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Tollfree/Verifications',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Tollfree/Verifications",
+            )
+        )
 
     def test_read_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "page": 0,
@@ -151,42 +161,57 @@ class TollfreeVerificationTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.messaging.v1.tollfree_verifications.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.tollfree_verifications.create(business_name="business_name", business_website="business_website", notification_email="notification_email", use_case_categories=['use_case_categories'], use_case_summary="use_case_summary", production_message_sample="production_message_sample", opt_in_image_urls=['opt_in_image_urls'], opt_in_type="VERBAL", message_volume="message_volume", tollfree_phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.messaging.v1.tollfree_verifications.create(
+                business_name="business_name",
+                business_website="business_website",
+                notification_email="notification_email",
+                use_case_categories=["use_case_categories"],
+                use_case_summary="use_case_summary",
+                production_message_sample="production_message_sample",
+                opt_in_image_urls=["opt_in_image_urls"],
+                opt_in_type="VERBAL",
+                message_volume="message_volume",
+                tollfree_phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
 
         values = {
-            'BusinessName': "business_name",
-            'BusinessWebsite': "business_website",
-            'NotificationEmail': "notification_email",
-            'UseCaseCategories': serialize.map(['use_case_categories'], lambda e: e),
-            'UseCaseSummary': "use_case_summary",
-            'ProductionMessageSample': "production_message_sample",
-            'OptInImageUrls': serialize.map(['opt_in_image_urls'], lambda e: e),
-            'OptInType': "VERBAL",
-            'MessageVolume': "message_volume",
-            'TollfreePhoneNumberSid': "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "BusinessName": "business_name",
+            "BusinessWebsite": "business_website",
+            "NotificationEmail": "notification_email",
+            "UseCaseCategories": serialize.map(["use_case_categories"], lambda e: e),
+            "UseCaseSummary": "use_case_summary",
+            "ProductionMessageSample": "production_message_sample",
+            "OptInImageUrls": serialize.map(["opt_in_image_urls"], lambda e: e),
+            "OptInType": "VERBAL",
+            "MessageVolume": "message_volume",
+            "TollfreePhoneNumberSid": "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://messaging.twilio.com/v1/Tollfree/Verifications',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://messaging.twilio.com/v1/Tollfree/Verifications",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "HHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -226,9 +251,21 @@ class TollfreeVerificationTestCase(IntegrationTestCase):
                 "resource_links": {},
                 "url": "https://messaging.twilio.com/v1/Tollfree/Verifications/HHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.tollfree_verifications.create(business_name="business_name", business_website="business_website", notification_email="notification_email", use_case_categories=['use_case_categories'], use_case_summary="use_case_summary", production_message_sample="production_message_sample", opt_in_image_urls=['opt_in_image_urls'], opt_in_type="VERBAL", message_volume="message_volume", tollfree_phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.messaging.v1.tollfree_verifications.create(
+            business_name="business_name",
+            business_website="business_website",
+            notification_email="notification_email",
+            use_case_categories=["use_case_categories"],
+            use_case_summary="use_case_summary",
+            production_message_sample="production_message_sample",
+            opt_in_image_urls=["opt_in_image_urls"],
+            opt_in_type="VERBAL",
+            message_volume="message_volume",
+            tollfree_phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        )
 
         self.assertIsNotNone(actual)

@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class SipDomainTestCase(IntegrationTestCase):
-
     def test_update_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.routes.v2.sip_domains("sip_domain").update()
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://routes.twilio.com/v2/SipDomains/sip_domain',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://routes.twilio.com/v2/SipDomains/sip_domain",
+            )
+        )
 
     def test_update_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://routes.twilio.com/v2/SipDomains/test.sip.twilio.com",
                 "sip_domain": "test.sip.twilio.com",
@@ -39,28 +41,32 @@ class SipDomainTestCase(IntegrationTestCase):
                 "date_created": "2020-08-07T22:29:24Z",
                 "date_updated": "2020-08-07T22:29:24Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.routes.v2.sip_domains("sip_domain").update()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.routes.v2.sip_domains("sip_domain").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://routes.twilio.com/v2/SipDomains/sip_domain',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://routes.twilio.com/v2/SipDomains/sip_domain",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "url": "https://routes.twilio.com/v2/SipDomains/test.sip.twilio.com",
                 "account_sid": "AC00000000000000000000000000000000",
@@ -71,8 +77,9 @@ class SipDomainTestCase(IntegrationTestCase):
                 "date_created": "2022-06-02T22:33:47Z",
                 "date_updated": "2022-06-02T22:33:47Z"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.routes.v2.sip_domains("sip_domain").fetch()
 

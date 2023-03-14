@@ -5,4 +5,3 @@ class InstanceResource(object):
         """
         self._version = version
         """ :type: Version """
-

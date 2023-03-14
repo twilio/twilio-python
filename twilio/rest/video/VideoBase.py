@@ -14,7 +14,6 @@ from twilio.rest.video.v1 import V1
 
 
 class VideoBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Video Domain
@@ -23,7 +22,7 @@ class VideoBase(Domain):
         :rtype: twilio.rest.video.Video
         """
         super().__init__(twilio)
-        self.base_url = 'https://video.twilio.com'
+        self.base_url = "https://video.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class VideoBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video>'
+        return "<Twilio.Video>"

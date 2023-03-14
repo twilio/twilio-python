@@ -1,4 +1,4 @@
-.PHONY: clean install analysis test test-install test-docker develop docs docs-install
+.PHONY: clean install analysis test test-install test-docker develop docs docs-install prettier prettier-check
 
 venv:
 	@python --version || (echo "Python is not installed, Python 3.7+"; exit 1);
@@ -22,10 +22,10 @@ analysis:
 	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501,W391,W291,W293,F401 tests
 	. venv/bin/activate; flake8 --ignore=E402,F401,W391,W291,W293 twilio --max-line-length=300
 
-test: analysis
+test: analysis prettier-check
 	. venv/bin/activate; pytest tests --ignore=tests/cluster
 
-test-with-coverage:
+test-with-coverage: prettier-check
 	. venv/bin/activate; \
   	pytest --cov-config=setup.cfg --cov-report xml --cov=twilio tests --ignore=tests/cluster
 
@@ -55,6 +55,14 @@ clean:
 
 nopyc:
 	find . -name \*.pyc -delete
+
+prettier:
+	. venv/bin/activate; black .
+	. venv/bin/activate; autoflake --remove-all-unused-imports -i -r --exclude venv .
+
+prettier-check:
+	. venv/bin/activate; black --check .
+	. venv/bin/activate; autoflake --check-diff --quiet --remove-all-unused-imports -r --exclude venv .
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
 CURRENT_TAG=$(shell expr "${GITHUB_TAG}" : ".*-rc.*" >/dev/null && echo "rc" || echo "latest")

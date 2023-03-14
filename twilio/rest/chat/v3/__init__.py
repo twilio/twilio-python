@@ -18,7 +18,6 @@ from twilio.rest.chat.v3.channel import ChannelList
 
 
 class V3(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V3 version of Chat
@@ -26,9 +25,9 @@ class V3(Version):
         :param domain: The Twilio.chat domain
         """
         super().__init__(domain)
-        self.version = 'v3'
+        self.version = "v3"
         self._channels = None
-        
+
     @property
     def channels(self) -> ChannelList:
         """
@@ -44,4 +43,4 @@ class V3(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Chat.V3>'
+        return "<Twilio.Chat.V3>"

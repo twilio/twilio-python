@@ -13,26 +13,33 @@ from twilio.http.response import Response
 
 
 class CustomerProfilesEntityAssignmentsTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_entity_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_entity_assignments.create(
+                object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
 
-        values = {'ObjectSid': "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {
+            "ObjectSid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "customer_profile_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -41,30 +48,38 @@ class CustomerProfilesEntityAssignmentsTestCase(IntegrationTestCase):
                 "date_created": "2019-07-31T02:34:41Z",
                 "url": "https://trusthub.twilio.com/v1/CustomerProfiles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/EntityAssignments/BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_entity_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.trusthub.v1.customer_profiles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).customer_profiles_entity_assignments.create(
+            object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        )
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_entity_assignments.list()
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_entity_assignments.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [],
                 "meta": {
@@ -77,18 +92,21 @@ class CustomerProfilesEntityAssignmentsTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_entity_assignments.list()
+        actual = self.client.trusthub.v1.customer_profiles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).customer_profiles_entity_assignments.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "results": [
                     {
@@ -110,30 +128,38 @@ class CustomerProfilesEntityAssignmentsTestCase(IntegrationTestCase):
                     "key": "results"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_entity_assignments.list()
+        actual = self.client.trusthub.v1.customer_profiles(
+            "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).customer_profiles_entity_assignments.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_entity_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_entity_assignments(
+                "BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "customer_profile_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -142,33 +168,51 @@ class CustomerProfilesEntityAssignmentsTestCase(IntegrationTestCase):
                 "date_created": "2019-07-31T02:34:41Z",
                 "url": "https://trusthub.twilio.com/v1/CustomerProfiles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/EntityAssignments/BVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_entity_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .customer_profiles_entity_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_entity_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).customer_profiles_entity_assignments(
+                "BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://trusthub.twilio.com/v1/CustomerProfiles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/EntityAssignments/BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_entity_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.trusthub.v1.customer_profiles(
+                "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            )
+            .customer_profiles_entity_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)

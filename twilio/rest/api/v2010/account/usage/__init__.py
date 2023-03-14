@@ -13,12 +13,6 @@ r"""
 """
 
 
-from datetime import date
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
-
-
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -27,26 +21,26 @@ from twilio.rest.api.v2010.account.usage.trigger import TriggerList
 
 
 class UsageList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the UsageList
 
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-        
+
         :returns: twilio.rest.api.v2010.account.usage.UsageList
         :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/Usage.json'.format(**self._solution)
-        
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Usage.json".format(**self._solution)
+
         self._records = None
         self._triggers = None
-        
 
     @property
     def records(self):
@@ -57,7 +51,9 @@ class UsageList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.RecordList
         """
         if self._records is None:
-            self._records = RecordList(self._version, account_sid=self._solution['account_sid'])
+            self._records = RecordList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
         return self._records
 
     @property
@@ -69,18 +65,16 @@ class UsageList(ListResource):
         :rtype: twilio.rest.api.v2010.account.usage.TriggerList
         """
         if self._triggers is None:
-            self._triggers = TriggerList(self._version, account_sid=self._solution['account_sid'])
+            self._triggers = TriggerList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
         return self._triggers
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.UsageList>'
-
-
-
-
+        return "<Twilio.Api.V2010.UsageList>"

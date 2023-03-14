@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class EventTestCase(IntegrationTestCase):
-
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.monitor.v1.events("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://monitor.twilio.com/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://monitor.twilio.com/v1/Events/AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "actor_sid": "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -53,28 +55,34 @@ class EventTestCase(IntegrationTestCase):
                 "source_ip_address": "10.86.6.250",
                 "url": "https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.monitor.v1.events("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.monitor.v1.events(
+            "AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.monitor.v1.events.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://monitor.twilio.com/v1/Events',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://monitor.twilio.com/v1/Events",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "events": [
                     {
@@ -112,17 +120,19 @@ class EventTestCase(IntegrationTestCase):
                     "url": "https://monitor.twilio.com/v1/Events?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.monitor.v1.events.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "events": [],
                 "meta": {
@@ -135,8 +145,9 @@ class EventTestCase(IntegrationTestCase):
                     "url": "https://monitor.twilio.com/v1/Events?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.monitor.v1.events.list()
 

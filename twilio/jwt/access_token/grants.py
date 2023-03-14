@@ -4,16 +4,19 @@ import functools
 
 
 def deprecated(func):
-    '''This is a decorator which can be used to mark functions
+    """This is a decorator which can be used to mark functions
     as deprecated. It will result in a warning being emitted
-    when the function is used.'''
+    when the function is used."""
 
     @functools.wraps(func)
     def new_func(*args, **kwargs):
-        warnings.simplefilter('always', DeprecationWarning)
-        warnings.warn("Call to deprecated function {}.".format(func.__name__), category=DeprecationWarning,
-                      stacklevel=2)
-        warnings.simplefilter('default', DeprecationWarning)
+        warnings.simplefilter("always", DeprecationWarning)
+        warnings.warn(
+            "Call to deprecated function {}.".format(func.__name__),
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
+        warnings.simplefilter("default", DeprecationWarning)
         return func(*args, **kwargs)
 
     return new_func
@@ -22,8 +25,13 @@ def deprecated(func):
 class ChatGrant(AccessTokenGrant):
     """Grant to access Twilio Chat"""
 
-    def __init__(self, service_sid=None, endpoint_id=None,
-                 deployment_role_sid=None, push_credential_sid=None):
+    def __init__(
+        self,
+        service_sid=None,
+        endpoint_id=None,
+        deployment_role_sid=None,
+        push_credential_sid=None,
+    ):
         self.service_sid = service_sid
         self.endpoint_id = endpoint_id
         self.deployment_role_sid = deployment_role_sid
@@ -36,13 +44,13 @@ class ChatGrant(AccessTokenGrant):
     def to_payload(self):
         grant = {}
         if self.service_sid:
-            grant['service_sid'] = self.service_sid
+            grant["service_sid"] = self.service_sid
         if self.endpoint_id:
-            grant['endpoint_id'] = self.endpoint_id
+            grant["endpoint_id"] = self.endpoint_id
         if self.deployment_role_sid:
-            grant['deployment_role_sid'] = self.deployment_role_sid
+            grant["deployment_role_sid"] = self.deployment_role_sid
         if self.push_credential_sid:
-            grant['push_credential_sid'] = self.push_credential_sid
+            grant["push_credential_sid"] = self.push_credential_sid
 
         return grant
 
@@ -61,9 +69,9 @@ class SyncGrant(AccessTokenGrant):
     def to_payload(self):
         grant = {}
         if self.service_sid:
-            grant['service_sid'] = self.service_sid
+            grant["service_sid"] = self.service_sid
         if self.endpoint_id:
-            grant['endpoint_id'] = self.endpoint_id
+            grant["endpoint_id"] = self.endpoint_id
 
         return grant
 
@@ -71,12 +79,14 @@ class SyncGrant(AccessTokenGrant):
 class VoiceGrant(AccessTokenGrant):
     """Grant to access Twilio Programmable Voice"""
 
-    def __init__(self,
-                 incoming_allow=None,
-                 outgoing_application_sid=None,
-                 outgoing_application_params=None,
-                 push_credential_sid=None,
-                 endpoint_id=None):
+    def __init__(
+        self,
+        incoming_allow=None,
+        outgoing_application_sid=None,
+        outgoing_application_params=None,
+        push_credential_sid=None,
+        endpoint_id=None,
+    ):
         self.incoming_allow = incoming_allow
         """ :type : bool """
         self.outgoing_application_sid = outgoing_application_sid
@@ -95,21 +105,21 @@ class VoiceGrant(AccessTokenGrant):
     def to_payload(self):
         grant = {}
         if self.incoming_allow is True:
-            grant['incoming'] = {}
-            grant['incoming']['allow'] = True
+            grant["incoming"] = {}
+            grant["incoming"]["allow"] = True
 
         if self.outgoing_application_sid:
-            grant['outgoing'] = {}
-            grant['outgoing']['application_sid'] = self.outgoing_application_sid
+            grant["outgoing"] = {}
+            grant["outgoing"]["application_sid"] = self.outgoing_application_sid
 
             if self.outgoing_application_params:
-                grant['outgoing']['params'] = self.outgoing_application_params
+                grant["outgoing"]["params"] = self.outgoing_application_params
 
         if self.push_credential_sid:
-            grant['push_credential_sid'] = self.push_credential_sid
+            grant["push_credential_sid"] = self.push_credential_sid
 
         if self.endpoint_id:
-            grant['endpoint_id'] = self.endpoint_id
+            grant["endpoint_id"] = self.endpoint_id
 
         return grant
 
@@ -127,7 +137,7 @@ class VideoGrant(AccessTokenGrant):
     def to_payload(self):
         grant = {}
         if self.room:
-            grant['room'] = self.room
+            grant["room"] = self.room
 
         return grant
 
@@ -147,11 +157,11 @@ class TaskRouterGrant(AccessTokenGrant):
     def to_payload(self):
         grant = {}
         if self.workspace_sid:
-            grant['workspace_sid'] = self.workspace_sid
+            grant["workspace_sid"] = self.workspace_sid
         if self.worker_sid:
-            grant['worker_sid'] = self.worker_sid
+            grant["worker_sid"] = self.worker_sid
         if self.role:
-            grant['role'] = self.role
+            grant["role"] = self.role
 
         return grant
 

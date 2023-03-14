@@ -14,7 +14,6 @@ from twilio.rest.sync.v1 import V1
 
 
 class SyncBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Sync Domain
@@ -23,7 +22,7 @@ class SyncBase(Domain):
         :rtype: twilio.rest.sync.Sync
         """
         super().__init__(twilio)
-        self.base_url = 'https://sync.twilio.com'
+        self.base_url = "https://sync.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class SyncBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Sync>'
+        return "<Twilio.Sync>"

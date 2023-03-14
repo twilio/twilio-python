@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class VerificationAttemptTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.verify.v2.verification_attempts.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Attempts',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Attempts",
+            )
+        )
 
     def test_list_verification_attempts_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "attempts": [],
                 "meta": {
@@ -41,17 +43,19 @@ class VerificationAttemptTestCase(IntegrationTestCase):
                     "next_page_url": null
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.verify.v2.verification_attempts.list()
 
         self.assertIsNotNone(actual)
 
     def test_list_verification_attempts_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "attempts": [
                     {
@@ -93,28 +97,34 @@ class VerificationAttemptTestCase(IntegrationTestCase):
                     "next_page_url": null
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.verify.v2.verification_attempts.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.verification_attempts("VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.verify.v2.verification_attempts(
+                "VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://verify.twilio.com/v2/Attempts/VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://verify.twilio.com/v2/Attempts/VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_verification_attempt_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -143,9 +153,12 @@ class VerificationAttemptTestCase(IntegrationTestCase):
                 },
                 "url": "https://verify.twilio.com/v2/Attempts/VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.verify.v2.verification_attempts("VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.verify.v2.verification_attempts(
+            "VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)

@@ -18,21 +18,30 @@ from twilio.rest.flex_api.v1.assessments import AssessmentsList
 from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList
 from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
-from twilio.rest.flex_api.v1.insights_assessments_comment import InsightsAssessmentsCommentList
+from twilio.rest.flex_api.v1.insights_assessments_comment import (
+    InsightsAssessmentsCommentList,
+)
 from twilio.rest.flex_api.v1.insights_questionnaires import InsightsQuestionnairesList
-from twilio.rest.flex_api.v1.insights_questionnaires_category import InsightsQuestionnairesCategoryList
-from twilio.rest.flex_api.v1.insights_questionnaires_question import InsightsQuestionnairesQuestionList
+from twilio.rest.flex_api.v1.insights_questionnaires_category import (
+    InsightsQuestionnairesCategoryList,
+)
+from twilio.rest.flex_api.v1.insights_questionnaires_question import (
+    InsightsQuestionnairesQuestionList,
+)
 from twilio.rest.flex_api.v1.insights_segments import InsightsSegmentsList
 from twilio.rest.flex_api.v1.insights_session import InsightsSessionList
-from twilio.rest.flex_api.v1.insights_settings_answer_sets import InsightsSettingsAnswerSetsList
-from twilio.rest.flex_api.v1.insights_settings_comment import InsightsSettingsCommentList
+from twilio.rest.flex_api.v1.insights_settings_answer_sets import (
+    InsightsSettingsAnswerSetsList,
+)
+from twilio.rest.flex_api.v1.insights_settings_comment import (
+    InsightsSettingsCommentList,
+)
 from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesList
 from twilio.rest.flex_api.v1.interaction import InteractionList
 from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of FlexApi
@@ -40,7 +49,7 @@ class V1(Version):
         :param domain: The Twilio.flex_api domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._assessments = None
         self._channel = None
         self._configuration = None
@@ -56,7 +65,7 @@ class V1(Version):
         self._insights_user_roles = None
         self._interaction = None
         self._web_channel = None
-        
+
     @property
     def assessments(self) -> AssessmentsList:
         """
@@ -117,7 +126,9 @@ class V1(Version):
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryList
         """
         if self._insights_questionnaires_category is None:
-            self._insights_questionnaires_category = InsightsQuestionnairesCategoryList(self)
+            self._insights_questionnaires_category = InsightsQuestionnairesCategoryList(
+                self
+            )
         return self._insights_questionnaires_category
 
     @property
@@ -126,7 +137,9 @@ class V1(Version):
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
         """
         if self._insights_questionnaires_question is None:
-            self._insights_questionnaires_question = InsightsQuestionnairesQuestionList(self)
+            self._insights_questionnaires_question = InsightsQuestionnairesQuestionList(
+                self
+            )
         return self._insights_questionnaires_question
 
     @property
@@ -198,4 +211,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V1>'
+        return "<Twilio.FlexApi.V1>"

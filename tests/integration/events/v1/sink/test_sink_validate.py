@@ -13,33 +13,40 @@ from twilio.http.response import Response
 
 
 class SinkValidateTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .sink_validate.create(test_id="test_id")
+            self.client.events.v1.sinks(
+                "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).sink_validate.create(test_id="test_id")
 
-        values = {'TestId': "test_id", }
+        values = {
+            "TestId": "test_id",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Validate',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://events.twilio.com/v1/Sinks/DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Validate",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "result": "valid"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.events.v1.sinks("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .sink_validate.create(test_id="test_id")
+        actual = self.client.events.v1.sinks(
+            "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).sink_validate.create(test_id="test_id")
 
         self.assertIsNotNone(actual)

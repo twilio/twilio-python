@@ -14,34 +14,45 @@ from twilio.http.response import Response
 
 
 class UsAppToPersonTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).us_app_to_person.create(
+                brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                description="description",
+                message_flow="message_flow",
+                message_samples=["message_samples"],
+                us_app_to_person_usecase="us_app_to_person_usecase",
+                has_embedded_links=True,
+                has_embedded_phone=True,
+            )
 
         values = {
-            'BrandRegistrationSid': "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            'Description': "description",
-            'MessageFlow': "message_flow",
-            'MessageSamples': serialize.map(['message_samples'], lambda e: e),
-            'UsAppToPersonUsecase': "us_app_to_person_usecase",
-            'HasEmbeddedLinks': True,
-            'HasEmbeddedPhone': True,
+            "BrandRegistrationSid": "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "Description": "description",
+            "MessageFlow": "message_flow",
+            "MessageSamples": serialize.map(["message_samples"], lambda e: e),
+            "UsAppToPersonUsecase": "us_app_to_person_usecase",
+            "HasEmbeddedLinks": True,
+            "HasEmbeddedPhone": True,
         }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "QE2c6890da8086d771620e9b13fadeba0b",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -85,18 +96,29 @@ class UsAppToPersonTestCase(IntegrationTestCase):
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b",
                 "mock": false
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+        actual = self.client.messaging.v1.services(
+            "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).us_app_to_person.create(
+            brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            description="description",
+            message_flow="message_flow",
+            message_samples=["message_samples"],
+            us_app_to_person_usecase="us_app_to_person_usecase",
+            has_embedded_links=True,
+            has_embedded_phone=True,
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_with_defaults_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "QE2c6890da8086d771620e9b13fadeba0b",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -146,53 +168,75 @@ class UsAppToPersonTestCase(IntegrationTestCase):
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b",
                 "mock": false
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+        actual = self.client.messaging.v1.services(
+            "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).us_app_to_person.create(
+            brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            description="description",
+            message_flow="message_flow",
+            message_samples=["message_samples"],
+            us_app_to_person_usecase="us_app_to_person_usecase",
+            has_embedded_links=True,
+            has_embedded_phone=True,
+        )
 
         self.assertIsNotNone(actual)
 
     def test_delete_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        self.holodeck.assert_has_request(Request(
-            'delete',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "delete",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_delete_response(self):
-        self.holodeck.mock(Response(
-            204,
-            None,
-        ))
+        self.holodeck.mock(
+            Response(
+                204,
+                None,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = (
+            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .delete()
+        )
 
         self.assertTrue(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .us_app_to_person.list()
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).us_app_to_person.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p",
+            )
+        )
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "compliance": [
                     {
@@ -249,30 +293,36 @@ class UsAppToPersonTestCase(IntegrationTestCase):
                     "key": "compliance"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person.list()
+        actual = self.client.messaging.v1.services(
+            "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).us_app_to_person.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.messaging.v1.services(
+                "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "QE2c6890da8086d771620e9b13fadeba0b",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -316,10 +366,14 @@ class UsAppToPersonTestCase(IntegrationTestCase):
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b",
                 "mock": false
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = (
+            self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .us_app_to_person("QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .fetch()
+        )
 
         self.assertIsNotNone(actual)

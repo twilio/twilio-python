@@ -18,7 +18,6 @@ from twilio.rest.flex_api.v2.web_channels import WebChannelsList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of FlexApi
@@ -26,9 +25,9 @@ class V2(Version):
         :param domain: The Twilio.flex_api domain
         """
         super().__init__(domain)
-        self.version = 'v2'
+        self.version = "v2"
         self._web_channels = None
-        
+
     @property
     def web_channels(self) -> WebChannelsList:
         """
@@ -44,4 +43,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V2>'
+        return "<Twilio.FlexApi.V2>"

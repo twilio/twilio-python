@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class EventTypeTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.events.v1.event_types.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Types',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Types",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "types": [],
                 "meta": {
@@ -41,17 +43,19 @@ class EventTypeTestCase(IntegrationTestCase):
                     "key": "types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.event_types.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "types": [
                     {
@@ -89,17 +93,19 @@ class EventTypeTestCase(IntegrationTestCase):
                     "key": "types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.event_types.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_results_with_schema_id_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "types": [
                     {
@@ -137,28 +143,32 @@ class EventTypeTestCase(IntegrationTestCase):
                     "key": "types"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.event_types.list()
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.events.v1.event_types("type").fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://events.twilio.com/v1/Types/type',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://events.twilio.com/v1/Types/type",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "date_created": "2020-08-13T13:28:20Z",
                 "date_updated": "2020-08-13T13:28:20Z",
@@ -171,8 +181,9 @@ class EventTypeTestCase(IntegrationTestCase):
                     "schema": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.events.v1.event_types("type").fetch()
 

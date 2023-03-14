@@ -19,7 +19,6 @@ from twilio.rest.studio.v2.flow_validate import FlowValidateList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Studio
@@ -27,10 +26,10 @@ class V2(Version):
         :param domain: The Twilio.studio domain
         """
         super().__init__(domain)
-        self.version = 'v2'
+        self.version = "v2"
         self._flows = None
         self._flow_validate = None
-        
+
     @property
     def flows(self) -> FlowList:
         """
@@ -55,4 +54,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Studio.V2>'
+        return "<Twilio.Studio.V2>"

@@ -13,23 +13,26 @@ from twilio.http.response import Response
 
 
 class ExportCustomJobTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.bulkexports.v1.exports("resource_type") \
-                                      .export_custom_jobs.list()
+            self.client.bulkexports.v1.exports(
+                "resource_type"
+            ).export_custom_jobs.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://bulkexports.twilio.com/v1/Exports/resource_type/Jobs',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://bulkexports.twilio.com/v1/Exports/resource_type/Jobs",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "previous_page_url": null,
@@ -42,18 +45,21 @@ class ExportCustomJobTestCase(IntegrationTestCase):
                 },
                 "jobs": []
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports("resource_type") \
-                                           .export_custom_jobs.list()
+        actual = self.client.bulkexports.v1.exports(
+            "resource_type"
+        ).export_custom_jobs.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "previous_page_url": null,
@@ -80,33 +86,45 @@ class ExportCustomJobTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports("resource_type") \
-                                           .export_custom_jobs.list()
+        actual = self.client.bulkexports.v1.exports(
+            "resource_type"
+        ).export_custom_jobs.list()
 
         self.assertIsNotNone(actual)
 
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.bulkexports.v1.exports("resource_type") \
-                                      .export_custom_jobs.create(start_day="start_day", end_day="end_day", friendly_name="friendly_name")
+            self.client.bulkexports.v1.exports(
+                "resource_type"
+            ).export_custom_jobs.create(
+                start_day="start_day", end_day="end_day", friendly_name="friendly_name"
+            )
 
-        values = {'StartDay': "start_day", 'EndDay': "end_day", 'FriendlyName': "friendly_name", }
+        values = {
+            "StartDay": "start_day",
+            "EndDay": "end_day",
+            "FriendlyName": "friendly_name",
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://bulkexports.twilio.com/v1/Exports/resource_type/Jobs',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://bulkexports.twilio.com/v1/Exports/resource_type/Jobs",
+                data=values,
+            )
+        )
 
     def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "start_day": "start_day",
                 "job_sid": "JSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -120,10 +138,14 @@ class ExportCustomJobTestCase(IntegrationTestCase):
                 "job_queue_position": "1",
                 "estimated_completion_time": "2021-03-15T20:20:14.547"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.bulkexports.v1.exports("resource_type") \
-                                           .export_custom_jobs.create(start_day="start_day", end_day="end_day", friendly_name="friendly_name")
+        actual = self.client.bulkexports.v1.exports(
+            "resource_type"
+        ).export_custom_jobs.create(
+            start_day="start_day", end_day="end_day", friendly_name="friendly_name"
+        )
 
         self.assertIsNotNone(actual)

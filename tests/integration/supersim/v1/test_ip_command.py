@@ -13,25 +13,33 @@ from twilio.http.response import Response
 
 
 class IpCommandTestCase(IntegrationTestCase):
-
     def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.ip_commands.create(sim="sim", payload="payload", device_port=1)
+            self.client.supersim.v1.ip_commands.create(
+                sim="sim", payload="payload", device_port=1
+            )
 
-        values = {'Sim': "sim", 'Payload': "payload", 'DevicePort': 1, }
+        values = {
+            "Sim": "sim",
+            "Payload": "payload",
+            "DevicePort": 1,
+        }
 
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://supersim.twilio.com/v1/IpCommands',
-            data=values,
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "post",
+                "https://supersim.twilio.com/v1/IpCommands",
+                data=values,
+            )
+        )
 
     def test_create_full_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "HGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -47,17 +55,21 @@ class IpCommandTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/IpCommands/HGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.ip_commands.create(sim="sim", payload="payload", device_port=1)
+        actual = self.client.supersim.v1.ip_commands.create(
+            sim="sim", payload="payload", device_port=1
+        )
 
         self.assertIsNotNone(actual)
 
     def test_create_minimal_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
+        self.holodeck.mock(
+            Response(
+                201,
+                """
             {
                 "sid": "HGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -73,28 +85,36 @@ class IpCommandTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/IpCommands/HGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.ip_commands.create(sim="sim", payload="payload", device_port=1)
+        actual = self.client.supersim.v1.ip_commands.create(
+            sim="sim", payload="payload", device_port=1
+        )
 
         self.assertIsNotNone(actual)
 
     def test_fetch_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.ip_commands("HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.supersim.v1.ip_commands(
+                "HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            ).fetch()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/IpCommands/HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/IpCommands/HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            )
+        )
 
     def test_fetch_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "sid": "HGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -110,28 +130,34 @@ class IpCommandTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/IpCommands/HGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
-            '''
-        ))
+            """,
+            )
+        )
 
-        actual = self.client.supersim.v1.ip_commands("HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.supersim.v1.ip_commands(
+            "HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        ).fetch()
 
         self.assertIsNotNone(actual)
 
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.supersim.v1.ip_commands.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/IpCommands',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/IpCommands",
+            )
+        )
 
     def test_read_empty_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "ip_commands": [],
                 "meta": {
@@ -144,17 +170,19 @@ class IpCommandTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/IpCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.ip_commands.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_full_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "meta": {
                     "first_page_url": "https://supersim.twilio.com/v1/IpCommands?Status=received&Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0",
@@ -183,8 +211,9 @@ class IpCommandTestCase(IntegrationTestCase):
                     }
                 ]
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.ip_commands.list()
 

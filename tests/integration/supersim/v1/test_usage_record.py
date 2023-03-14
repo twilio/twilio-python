@@ -13,22 +13,24 @@ from twilio.http.response import Response
 
 
 class UsageRecordTestCase(IntegrationTestCase):
-
     def test_list_request(self):
-        self.holodeck.mock(Response(500, ''))
+        self.holodeck.mock(Response(500, ""))
 
         with self.assertRaises(TwilioException):
             self.client.supersim.v1.usage_records.list()
 
-        self.holodeck.assert_has_request(Request(
-            'get',
-            'https://supersim.twilio.com/v1/UsageRecords',
-        ))
+        self.holodeck.assert_has_request(
+            Request(
+                "get",
+                "https://supersim.twilio.com/v1/UsageRecords",
+            )
+        )
 
     def test_read_all_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -58,17 +60,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_all_day_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -114,17 +118,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Granularity=day&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_all_hour_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -170,17 +176,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Granularity=hour&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_sim_filter_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -226,17 +234,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_network_filter_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -282,17 +292,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Network=HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_country_filter_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -338,17 +350,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?IsoCountry=FR&Granularity=day&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_fleet_filter_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -394,17 +408,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_group_by_sim_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -450,17 +466,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Group=sim&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_group_by_fleet_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -506,17 +524,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Group=fleet&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_group_by_network_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -562,17 +582,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Group=network&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_group_by_iso_country_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -618,17 +640,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?Group=isoCountry&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_day_group_by_sim_and_filter_by_country_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -674,17 +698,19 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?IsoCountry=FR&Group=sim&PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 
         self.assertIsNotNone(actual)
 
     def test_read_all_no_billing_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
+        self.holodeck.mock(
+            Response(
+                200,
+                """
             {
                 "usage_records": [
                     {
@@ -714,8 +740,9 @@ class UsageRecordTestCase(IntegrationTestCase):
                     "url": "https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0"
                 }
             }
-            '''
-        ))
+            """,
+            )
+        )
 
         actual = self.client.supersim.v1.usage_records.list()
 

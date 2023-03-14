@@ -25,7 +25,6 @@ from twilio.rest.messaging.v1.usecase import UsecaseList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Messaging
@@ -33,7 +32,7 @@ class V1(Version):
         :param domain: The Twilio.messaging domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._brand_registrations = None
         self._deactivations = None
         self._domain_certs = None
@@ -42,7 +41,7 @@ class V1(Version):
         self._services = None
         self._tollfree_verifications = None
         self._usecases = None
-        
+
     @property
     def brand_registrations(self) -> BrandRegistrationList:
         """
@@ -121,4 +120,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Messaging.V1>'
+        return "<Twilio.Messaging.V1>"
