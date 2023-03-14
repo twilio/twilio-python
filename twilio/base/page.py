@@ -120,6 +120,18 @@ class Page(object):
         cls = type(self)
         return cls(self._version, response, self._solution)
 
+    async def next_page_async(self):
+        """
+        Asynchronously return the `Page` after this one.
+        :return Page: The next page.
+        """
+        if not self.next_page_url:
+            return None
+
+        response = await self._version.domain.twilio.request_async('GET', self.next_page_url)
+        cls = type(self)
+        return cls(self._version, response, self._solution)
+
     def previous_page(self):
         """
         Return the `Page` before this one.
@@ -129,6 +141,18 @@ class Page(object):
             return None
 
         response = self._version.domain.twilio.request('GET', self.previous_page_url)
+        cls = type(self)
+        return cls(self._version, response, self._solution)
+
+    async def previous_page_async(self):
+        """
+        Asynchronously return the `Page` before this one.
+        :return Page: The previous page.
+        """
+        if not self.previous_page_url:
+            return None
+
+        response = await self._version.domain.twilio.request_async('GET', self.previous_page_url)
         cls = type(self)
         return cls(self._version, response, self._solution)
 

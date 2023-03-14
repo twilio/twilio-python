@@ -47,3 +47,28 @@ class Domain(object):
             allow_redirects=allow_redirects
         )
 
+    async def request_async(self, method, uri, params=None, data=None, headers=None,
+                            auth=None, timeout=None, allow_redirects=False):
+        """
+        Makes an asynchronous HTTP request to this domain.
+        :param string method: The HTTP method.
+        :param string uri: The HTTP uri.
+        :param dict params: Query parameters.
+        :param object data: The request body.
+        :param dict headers: The HTTP headers.
+        :param tuple auth: Basic auth tuple of (username, password)
+        :param float timeout: The request timeout.
+        :param bool allow_redirects: True if the client should follow HTTP
+        redirects.
+        """
+        url = self.absolute_url(uri)
+        return await self.twilio.request_async(
+            method,
+            url,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects
+        )
