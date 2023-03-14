@@ -8,7 +8,6 @@
   https://openapi-generator.tech
   Do not edit the class manually.
 """
-
 from twilio.base.domain import Domain
 from twilio.rest.api.v2010 import V2010
 
