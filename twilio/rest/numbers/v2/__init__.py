@@ -18,7 +18,6 @@ from twilio.rest.numbers.v2.regulatory_compliance import RegulatoryComplianceLis
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Numbers
@@ -26,9 +25,9 @@ class V2(Version):
         :param domain: The Twilio.numbers domain
         """
         super().__init__(domain)
-        self.version = 'v2'
+        self.version = "v2"
         self._regulatory_compliance = None
-        
+
     @property
     def regulatory_compliance(self) -> RegulatoryComplianceList:
         """
@@ -44,4 +43,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2>'
+        return "<Twilio.Numbers.V2>"

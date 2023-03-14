@@ -13,91 +13,89 @@
 """
 
 
-
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class SinkTestList(ListResource):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkTestList
 
         :param Version version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies the Sink to be Tested.
-        
+
         :returns: twilio.rest.events.v1.sink.sink_test.SinkTestList
         :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'sid': sid,  }
-        self._uri = '/Sinks/{sid}/Test'.format(**self._solution)
-        
-        
-    
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Sinks/{sid}/Test".format(**self._solution)
+
     def create(self):
         """
         Create the SinkTestInstance
 
-        
+
         :returns: The created SinkTestInstance
         :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
         """
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, )
 
-        return SinkTestInstance(self._version, payload, sid=self._solution['sid'])
-    
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+        )
 
+        return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Events.V1.SinkTestList>'
+        return "<Twilio.Events.V1.SinkTestList>"
+
 
 class SinkTestInstance(InstanceResource):
-
     def __init__(self, version, payload, sid: str):
         """
         Initialize the SinkTestInstance
+
         :returns: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
         :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'result': payload.get('result'),
+        self._properties = {
+            "result": payload.get("result"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid,  }
-    
-    
+        self._solution = {
+            "sid": sid,
+        }
+
     @property
     def result(self):
         """
         :returns: Feedback indicating whether the test event was generated.
         :rtype: str
         """
-        return self._properties['result']
-    
+        return self._properties["result"]
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SinkTestInstance {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.SinkTestInstance {}>".format(context)

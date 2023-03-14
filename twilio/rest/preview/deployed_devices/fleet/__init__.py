@@ -28,52 +28,51 @@ from twilio.rest.preview.deployed_devices.fleet.key import KeyList
 
 
 class FleetList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the FleetList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.preview.deployed_devices.fleet.FleetList
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Fleets'.format(**self._solution)
-        
-        
-    
-    
-    
-    
+        self._solution = {}
+        self._uri = "/Fleets".format(**self._solution)
+
     def create(self, friendly_name=values.unset):
         """
         Create the FleetInstance
 
         :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        
+
         :returns: The created FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return FleetInstance(self._version, payload)
-    
-    
+
     def stream(self, limit=None, page_size=None):
         """
         Streams FleetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,18 +84,16 @@ class FleetList(ListResource):
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.FleetInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists FleetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,16 +104,20 @@ class FleetList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.preview.deployed_devices.fleet.FleetInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -124,13 +125,15 @@ class FleetList(ListResource):
         :returns: Page of FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return FleetPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -143,19 +146,15 @@ class FleetList(ListResource):
         :returns: Page of FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return FleetPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a FleetContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Fleet resource.
-        
+
         :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
         """
@@ -164,9 +163,9 @@ class FleetList(ListResource):
     def __call__(self, sid):
         """
         Constructs a FleetContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Fleet resource.
-        
+
         :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
         """
@@ -175,22 +174,14 @@ class FleetList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.DeployedDevices.FleetList>'
-
-
-
-
-
-
-
-
+        return "<Twilio.Preview.DeployedDevices.FleetList>"
 
 
 class FleetPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the FleetPage
@@ -224,36 +215,36 @@ class FleetPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.DeployedDevices.FleetPage>'
-
-
+        return "<Twilio.Preview.DeployedDevices.FleetPage>"
 
 
 class FleetInstance(InstanceResource):
-
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the FleetInstance
+
         :returns: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'url': payload.get('url'),
-            'unique_name': payload.get('unique_name'),
-            'friendly_name': payload.get('friendly_name'),
-            'account_sid': payload.get('account_sid'),
-            'default_deployment_sid': payload.get('default_deployment_sid'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'links': payload.get('links'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "url": payload.get("url"),
+            "unique_name": payload.get("unique_name"),
+            "friendly_name": payload.get("friendly_name"),
+            "account_sid": payload.get("account_sid"),
+            "default_deployment_sid": payload.get("default_deployment_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "links": payload.get("links"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -264,113 +255,119 @@ class FleetInstance(InstanceResource):
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
         """
         if self._context is None:
-            self._context = FleetContext(self._version, sid=self._solution['sid'],)
+            self._context = FleetContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: Contains a 34 character string that uniquely identifies this Fleet resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def url(self):
         """
         :returns: Contains an absolute URL for this Fleet resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def unique_name(self):
         """
         :returns: Contains a unique and addressable name of this Fleet, e.g. 'default', up to 128 characters long.
         :rtype: str
         """
-        return self._properties['unique_name']
-    
+        return self._properties["unique_name"]
+
     @property
     def friendly_name(self):
         """
         :returns: Contains a human readable descriptive text for this Fleet, up to 256 characters long.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def account_sid(self):
         """
         :returns: Speicifies the unique string identifier of the Account responsible for this Fleet.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def default_deployment_sid(self):
         """
         :returns: Contains the string identifier of the automatically provisioned default Deployment of this Fleet.
         :rtype: str
         """
-        return self._properties['default_deployment_sid']
-    
+        return self._properties["default_deployment_sid"]
+
     @property
     def date_created(self):
         """
         :returns: Specifies the date this Fleet was created, given in UTC ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: Specifies the date this Fleet was last updated, given in UTC ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def links(self):
         """
         :returns: Contains a dictionary of URL links to nested resources of this Fleet.
         :rtype: dict
         """
-        return self._properties['links']
-    
+        return self._properties["links"]
+
     def delete(self):
         """
         Deletes the FleetInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
-    
+
     def fetch(self):
         """
         Fetch the FleetInstance
-        
+
 
         :returns: The fetched FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
         return self._proxy.fetch()
-    
+
     def update(self, friendly_name=values.unset, default_deployment_sid=values.unset):
         """
         Update the FleetInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        :params str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+
+        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
 
         :returns: The updated FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, default_deployment_sid=default_deployment_sid, )
-    
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            default_deployment_sid=default_deployment_sid,
+        )
+
     @property
     def certificates(self):
         """
@@ -380,7 +377,7 @@ class FleetInstance(InstanceResource):
         :rtype: twilio.rest.preview.deployed_devices.fleet.CertificateList
         """
         return self._proxy.certificates
-    
+
     @property
     def deployments(self):
         """
@@ -390,7 +387,7 @@ class FleetInstance(InstanceResource):
         :rtype: twilio.rest.preview.deployed_devices.fleet.DeploymentList
         """
         return self._proxy.deployments
-    
+
     @property
     def devices(self):
         """
@@ -400,7 +397,7 @@ class FleetInstance(InstanceResource):
         :rtype: twilio.rest.preview.deployed_devices.fleet.DeviceList
         """
         return self._proxy.devices
-    
+
     @property
     def keys(self):
         """
@@ -410,18 +407,19 @@ class FleetInstance(InstanceResource):
         :rtype: twilio.rest.preview.deployed_devices.fleet.KeyList
         """
         return self._proxy.keys
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.FleetInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.FleetInstance {}>".format(context)
+
 
 class FleetContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FleetContext
@@ -435,69 +433,74 @@ class FleetContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Fleets/{sid}'.format(**self._solution)
-        
+        self._uri = "/Fleets/{sid}".format(**self._solution)
+
         self._certificates = None
         self._deployments = None
         self._devices = None
         self._keys = None
-    
+
     def delete(self):
         """
         Deletes the FleetInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the FleetInstance
-        
+
 
         :returns: The fetched FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return FleetInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-        
+
     def update(self, friendly_name=values.unset, default_deployment_sid=values.unset):
         """
         Update the FleetInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        :params str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+
+        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
 
         :returns: The updated FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DefaultDeploymentSid': default_deployment_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FleetInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DefaultDeploymentSid": default_deployment_sid,
+            }
         )
-        
-    
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FleetInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def certificates(self):
         """
@@ -508,11 +511,11 @@ class FleetContext(InstanceContext):
         """
         if self._certificates is None:
             self._certificates = CertificateList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._certificates
-    
+
     @property
     def deployments(self):
         """
@@ -523,11 +526,11 @@ class FleetContext(InstanceContext):
         """
         if self._deployments is None:
             self._deployments = DeploymentList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._deployments
-    
+
     @property
     def devices(self):
         """
@@ -538,11 +541,11 @@ class FleetContext(InstanceContext):
         """
         if self._devices is None:
             self._devices = DeviceList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._devices
-    
+
     @property
     def keys(self):
         """
@@ -553,18 +556,17 @@ class FleetContext(InstanceContext):
         """
         if self._keys is None:
             self._keys = KeyList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._keys
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.FleetContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.FleetContext {}>".format(context)

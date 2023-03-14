@@ -24,32 +24,28 @@ from twilio.base.page import Page
 
 
 class EventTypeList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the EventTypeList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.events.v1.event_type.EventTypeList
         :rtype: twilio.rest.events.v1.event_type.EventTypeList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Types'.format(**self._solution)
-        
-        
-    
-    
+        self._solution = {}
+        self._uri = "/Types".format(**self._solution)
+
     def stream(self, schema_id=values.unset, limit=None, page_size=None):
         """
         Streams EventTypeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -62,19 +58,16 @@ class EventTypeList(ListResource):
         :rtype: list[twilio.rest.events.v1.event_type.EventTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            schema_id=schema_id,
-            page_size=limits['page_size']
-        )
+        page = self.page(schema_id=schema_id, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     def list(self, schema_id=values.unset, limit=None, page_size=None):
         """
         Lists EventTypeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -86,17 +79,25 @@ class EventTypeList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.events.v1.event_type.EventTypeInstance]
         """
-        return list(self.stream(
-            schema_id=schema_id,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                schema_id=schema_id,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, schema_id=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        schema_id=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of EventTypeInstance records from the API.
         Request is executed immediately
-        
+
         :param str schema_id: A string parameter filtering the results to return only the Event Types using a given schema.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -105,14 +106,16 @@ class EventTypeList(ListResource):
         :returns: Page of EventTypeInstance
         :rtype: twilio.rest.events.v1.event_type.EventTypePage
         """
-        data = values.of({ 
-            'SchemaId': schema_id,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "SchemaId": schema_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return EventTypePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -125,19 +128,15 @@ class EventTypeList(ListResource):
         :returns: Page of EventTypeInstance
         :rtype: twilio.rest.events.v1.event_type.EventTypePage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return EventTypePage(self._version, response, self._solution)
-
 
     def get(self, type):
         """
         Constructs a EventTypeContext
-        
+
         :param type: A string that uniquely identifies this Event Type.
-        
+
         :returns: twilio.rest.events.v1.event_type.EventTypeContext
         :rtype: twilio.rest.events.v1.event_type.EventTypeContext
         """
@@ -146,9 +145,9 @@ class EventTypeList(ListResource):
     def __call__(self, type):
         """
         Constructs a EventTypeContext
-        
+
         :param type: A string that uniquely identifies this Event Type.
-        
+
         :returns: twilio.rest.events.v1.event_type.EventTypeContext
         :rtype: twilio.rest.events.v1.event_type.EventTypeContext
         """
@@ -157,16 +156,14 @@ class EventTypeList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Events.V1.EventTypeList>'
-
-
+        return "<Twilio.Events.V1.EventTypeList>"
 
 
 class EventTypePage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the EventTypePage
@@ -200,34 +197,34 @@ class EventTypePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Events.V1.EventTypePage>'
-
-
+        return "<Twilio.Events.V1.EventTypePage>"
 
 
 class EventTypeInstance(InstanceResource):
-
-    def __init__(self, version, payload, type: str=None):
+    def __init__(self, version, payload, type: str = None):
         """
         Initialize the EventTypeInstance
+
         :returns: twilio.rest.events.v1.event_type.EventTypeInstance
         :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'type': payload.get('type'),
-            'schema_id': payload.get('schema_id'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'description': payload.get('description'),
-            'url': payload.get('url'),
-            'links': payload.get('links'),
+        self._properties = {
+            "type": payload.get("type"),
+            "schema_id": payload.get("schema_id"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "description": payload.get("description"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
         }
 
         self._context = None
-        self._solution = { 'type': type or self._properties['type'],  }
-    
+        self._solution = {
+            "type": type or self._properties["type"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -238,86 +235,90 @@ class EventTypeInstance(InstanceResource):
         :rtype: twilio.rest.events.v1.event_type.EventTypeContext
         """
         if self._context is None:
-            self._context = EventTypeContext(self._version, type=self._solution['type'],)
+            self._context = EventTypeContext(
+                self._version,
+                type=self._solution["type"],
+            )
         return self._context
-    
+
     @property
     def type(self):
         """
         :returns: A string that uniquely identifies this Event Type.
         :rtype: str
         """
-        return self._properties['type']
-    
+        return self._properties["type"]
+
     @property
     def schema_id(self):
         """
         :returns: A string that uniquely identifies the Schema this Event Type adheres to.
         :rtype: str
         """
-        return self._properties['schema_id']
-    
+        return self._properties["schema_id"]
+
     @property
     def date_created(self):
         """
         :returns: The date that this Event Type was created, given in ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date that this Event Type was updated, given in ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def description(self):
         """
         :returns: A human readable description for this Event Type.
         :rtype: str
         """
-        return self._properties['description']
-    
+        return self._properties["description"]
+
     @property
     def url(self):
         """
         :returns: The URL of this resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def links(self):
         """
-        :returns: 
+        :returns:
         :rtype: dict
         """
-        return self._properties['links']
-    
+        return self._properties["links"]
+
     def fetch(self):
         """
         Fetch the EventTypeInstance
-        
+
 
         :returns: The fetched EventTypeInstance
         :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
         """
         return self._proxy.fetch()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.EventTypeInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.EventTypeInstance {}>".format(context)
+
 
 class EventTypeContext(InstanceContext):
-
     def __init__(self, version: Version, type: str):
         """
         Initialize the EventTypeContext
@@ -331,38 +332,37 @@ class EventTypeContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'type': type,
+        self._solution = {
+            "type": type,
         }
-        self._uri = '/Types/{type}'.format(**self._solution)
-        
-    
+        self._uri = "/Types/{type}".format(**self._solution)
+
     def fetch(self):
         """
         Fetch the EventTypeInstance
-        
+
 
         :returns: The fetched EventTypeInstance
         :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EventTypeInstance(
             self._version,
             payload,
-            type=self._solution['type'],
-            
+            type=self._solution["type"],
         )
-        
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.EventTypeContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.EventTypeContext {}>".format(context)

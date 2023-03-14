@@ -14,7 +14,6 @@ from twilio.rest.notify.v1 import V1
 
 
 class NotifyBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Notify Domain
@@ -23,7 +22,7 @@ class NotifyBase(Domain):
         :rtype: twilio.rest.notify.Notify
         """
         super().__init__(twilio)
-        self.base_url = 'https://notify.twilio.com'
+        self.base_url = "https://notify.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class NotifyBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Notify>'
+        return "<Twilio.Notify>"

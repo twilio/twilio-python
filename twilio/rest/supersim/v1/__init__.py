@@ -26,7 +26,6 @@ from twilio.rest.supersim.v1.usage_record import UsageRecordList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Supersim
@@ -34,7 +33,7 @@ class V1(Version):
         :param domain: The Twilio.supersim domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._esim_profiles = None
         self._fleets = None
         self._ip_commands = None
@@ -44,7 +43,7 @@ class V1(Version):
         self._sims = None
         self._sms_commands = None
         self._usage_records = None
-        
+
     @property
     def esim_profiles(self) -> EsimProfileList:
         """
@@ -132,4 +131,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Supersim.V1>'
+        return "<Twilio.Supersim.V1>"

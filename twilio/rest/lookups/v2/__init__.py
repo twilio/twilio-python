@@ -18,7 +18,6 @@ from twilio.rest.lookups.v2.phone_number import PhoneNumberList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Lookups
@@ -26,9 +25,9 @@ class V2(Version):
         :param domain: The Twilio.lookups domain
         """
         super().__init__(domain)
-        self.version = 'v2'
+        self.version = "v2"
         self._phone_numbers = None
-        
+
     @property
     def phone_numbers(self) -> PhoneNumberList:
         """
@@ -44,4 +43,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Lookups.V2>'
+        return "<Twilio.Lookups.V2>"

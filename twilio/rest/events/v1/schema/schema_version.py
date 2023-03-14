@@ -24,33 +24,31 @@ from twilio.base.page import Page
 
 
 class SchemaVersionList(ListResource):
-
     def __init__(self, version: Version, id: str):
         """
         Initialize the SchemaVersionList
 
         :param Version version: Version that contains the resource
         :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-        
+
         :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionList
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'id': id,  }
-        self._uri = '/Schemas/{id}/Versions'.format(**self._solution)
-        
-        
-    
-    
+        self._solution = {
+            "id": id,
+        }
+        self._uri = "/Schemas/{id}/Versions".format(**self._solution)
+
     def stream(self, limit=None, page_size=None):
         """
         Streams SchemaVersionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,18 +60,16 @@ class SchemaVersionList(ListResource):
         :rtype: list[twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists SchemaVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -84,16 +80,20 @@ class SchemaVersionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of SchemaVersionInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -101,13 +101,15 @@ class SchemaVersionList(ListResource):
         :returns: Page of SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return SchemaVersionPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -120,48 +122,46 @@ class SchemaVersionList(ListResource):
         :returns: Page of SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return SchemaVersionPage(self._version, response, self._solution)
-
 
     def get(self, schema_version):
         """
         Constructs a SchemaVersionContext
-        
+
         :param schema_version: The version of the schema
-        
+
         :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
         """
-        return SchemaVersionContext(self._version, id=self._solution['id'], schema_version=schema_version)
+        return SchemaVersionContext(
+            self._version, id=self._solution["id"], schema_version=schema_version
+        )
 
     def __call__(self, schema_version):
         """
         Constructs a SchemaVersionContext
-        
+
         :param schema_version: The version of the schema
-        
+
         :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
         """
-        return SchemaVersionContext(self._version, id=self._solution['id'], schema_version=schema_version)
+        return SchemaVersionContext(
+            self._version, id=self._solution["id"], schema_version=schema_version
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Events.V1.SchemaVersionList>'
-
-
+        return "<Twilio.Events.V1.SchemaVersionList>"
 
 
 class SchemaVersionPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the SchemaVersionPage
@@ -186,7 +186,7 @@ class SchemaVersionPage(Page):
         :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
         """
-        return SchemaVersionInstance(self._version, payload, id=self._solution['id'])
+        return SchemaVersionInstance(self._version, payload, id=self._solution["id"])
 
     def __repr__(self):
         """
@@ -195,32 +195,33 @@ class SchemaVersionPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Events.V1.SchemaVersionPage>'
-
-
+        return "<Twilio.Events.V1.SchemaVersionPage>"
 
 
 class SchemaVersionInstance(InstanceResource):
-
-    def __init__(self, version, payload, id: str, schema_version: int=None):
+    def __init__(self, version, payload, id: str, schema_version: int = None):
         """
         Initialize the SchemaVersionInstance
+
         :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'id': payload.get('id'),
-            'schema_version': deserialize.integer(payload.get('schema_version')),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'url': payload.get('url'),
-            'raw': payload.get('raw'),
+        self._properties = {
+            "id": payload.get("id"),
+            "schema_version": deserialize.integer(payload.get("schema_version")),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "url": payload.get("url"),
+            "raw": payload.get("raw"),
         }
 
         self._context = None
-        self._solution = { 'id': id, 'schema_version': schema_version or self._properties['schema_version'],  }
-    
+        self._solution = {
+            "id": id,
+            "schema_version": schema_version or self._properties["schema_version"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -231,70 +232,75 @@ class SchemaVersionInstance(InstanceResource):
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionContext
         """
         if self._context is None:
-            self._context = SchemaVersionContext(self._version, id=self._solution['id'], schema_version=self._solution['schema_version'],)
+            self._context = SchemaVersionContext(
+                self._version,
+                id=self._solution["id"],
+                schema_version=self._solution["schema_version"],
+            )
         return self._context
-    
+
     @property
     def id(self):
         """
         :returns: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
         :rtype: str
         """
-        return self._properties['id']
-    
+        return self._properties["id"]
+
     @property
     def schema_version(self):
         """
         :returns: The version of this schema.
         :rtype: int
         """
-        return self._properties['schema_version']
-    
+        return self._properties["schema_version"]
+
     @property
     def date_created(self):
         """
         :returns: The date the schema version was created, given in ISO 8601 format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def url(self):
         """
         :returns: The URL of this resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def raw(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['raw']
-    
+        return self._properties["raw"]
+
     def fetch(self):
         """
         Fetch the SchemaVersionInstance
-        
+
 
         :returns: The fetched SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
         """
         return self._proxy.fetch()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SchemaVersionInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.SchemaVersionInstance {}>".format(context)
+
 
 class SchemaVersionContext(InstanceContext):
-
     def __init__(self, version: Version, id: str, schema_version: int):
         """
         Initialize the SchemaVersionContext
@@ -309,40 +315,39 @@ class SchemaVersionContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'id': id,
-            'schema_version': schema_version,
+        self._solution = {
+            "id": id,
+            "schema_version": schema_version,
         }
-        self._uri = '/Schemas/{id}/Versions/{schema_version}'.format(**self._solution)
-        
-    
+        self._uri = "/Schemas/{id}/Versions/{schema_version}".format(**self._solution)
+
     def fetch(self):
         """
         Fetch the SchemaVersionInstance
-        
+
 
         :returns: The fetched SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SchemaVersionInstance(
             self._version,
             payload,
-            id=self._solution['id'],
-            schema_version=self._solution['schema_version'],
-            
+            id=self._solution["id"],
+            schema_version=self._solution["schema_version"],
         )
-        
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SchemaVersionContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.SchemaVersionContext {}>".format(context)

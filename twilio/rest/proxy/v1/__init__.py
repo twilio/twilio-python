@@ -18,7 +18,6 @@ from twilio.rest.proxy.v1.service import ServiceList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Proxy
@@ -26,9 +25,9 @@ class V1(Version):
         :param domain: The Twilio.proxy domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._services = None
-        
+
     @property
     def services(self) -> ServiceList:
         """
@@ -44,4 +43,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Proxy.V1>'
+        return "<Twilio.Proxy.V1>"

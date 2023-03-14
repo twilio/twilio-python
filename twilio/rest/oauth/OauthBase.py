@@ -14,7 +14,6 @@ from twilio.rest.oauth.v1 import V1
 
 
 class OauthBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Oauth Domain
@@ -23,7 +22,7 @@ class OauthBase(Domain):
         :rtype: twilio.rest.oauth.Oauth
         """
         super().__init__(twilio)
-        self.base_url = 'https://oauth.twilio.com'
+        self.base_url = "https://oauth.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class OauthBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Oauth>'
+        return "<Twilio.Oauth>"

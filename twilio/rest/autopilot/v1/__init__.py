@@ -19,7 +19,6 @@ from twilio.rest.autopilot.v1.restore_assistant import RestoreAssistantList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Autopilot
@@ -27,10 +26,10 @@ class V1(Version):
         :param domain: The Twilio.autopilot domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._assistants = None
         self._restore_assistant = None
-        
+
     @property
     def assistants(self) -> AssistantList:
         """
@@ -55,4 +54,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Autopilot.V1>'
+        return "<Twilio.Autopilot.V1>"

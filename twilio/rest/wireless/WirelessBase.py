@@ -14,7 +14,6 @@ from twilio.rest.wireless.v1 import V1
 
 
 class WirelessBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Wireless Domain
@@ -23,7 +22,7 @@ class WirelessBase(Domain):
         :rtype: twilio.rest.wireless.Wireless
         """
         super().__init__(twilio)
-        self.base_url = 'https://wireless.twilio.com'
+        self.base_url = "https://wireless.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class WirelessBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Wireless>'
+        return "<Twilio.Wireless>"

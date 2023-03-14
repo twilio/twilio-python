@@ -15,7 +15,6 @@ from twilio.rest.studio.v2 import V2
 
 
 class StudioBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Studio Domain
@@ -24,7 +23,7 @@ class StudioBase(Domain):
         :rtype: twilio.rest.studio.Studio
         """
         super().__init__(twilio)
-        self.base_url = 'https://studio.twilio.com'
+        self.base_url = "https://studio.twilio.com"
         self._v1 = None
         self._v2 = None
 
@@ -54,4 +53,4 @@ class StudioBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Studio>'
+        return "<Twilio.Studio>"

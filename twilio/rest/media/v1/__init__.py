@@ -20,7 +20,6 @@ from twilio.rest.media.v1.player_streamer import PlayerStreamerList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Media
@@ -28,11 +27,11 @@ class V1(Version):
         :param domain: The Twilio.media domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._media_processor = None
         self._media_recording = None
         self._player_streamer = None
-        
+
     @property
     def media_processor(self) -> MediaProcessorList:
         """
@@ -66,4 +65,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Media.V1>'
+        return "<Twilio.Media.V1>"

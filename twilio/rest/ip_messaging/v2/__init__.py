@@ -19,7 +19,6 @@ from twilio.rest.ip_messaging.v2.service import ServiceList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of IpMessaging
@@ -27,10 +26,10 @@ class V2(Version):
         :param domain: The Twilio.ip_messaging domain
         """
         super().__init__(domain)
-        self.version = 'v2'
+        self.version = "v2"
         self._credentials = None
         self._services = None
-        
+
     @property
     def credentials(self) -> CredentialList:
         """
@@ -55,4 +54,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V2>'
+        return "<Twilio.IpMessaging.V2>"

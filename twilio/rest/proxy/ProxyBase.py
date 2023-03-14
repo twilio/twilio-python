@@ -14,7 +14,6 @@ from twilio.rest.proxy.v1 import V1
 
 
 class ProxyBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Proxy Domain
@@ -23,7 +22,7 @@ class ProxyBase(Domain):
         :rtype: twilio.rest.proxy.Proxy
         """
         super().__init__(twilio)
-        self.base_url = 'https://proxy.twilio.com'
+        self.base_url = "https://proxy.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class ProxyBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Proxy>'
+        return "<Twilio.Proxy>"

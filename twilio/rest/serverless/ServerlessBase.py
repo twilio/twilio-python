@@ -14,7 +14,6 @@ from twilio.rest.serverless.v1 import V1
 
 
 class ServerlessBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Serverless Domain
@@ -23,7 +22,7 @@ class ServerlessBase(Domain):
         :rtype: twilio.rest.serverless.Serverless
         """
         super().__init__(twilio)
-        self.base_url = 'https://serverless.twilio.com'
+        self.base_url = "https://serverless.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class ServerlessBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Serverless>'
+        return "<Twilio.Serverless>"

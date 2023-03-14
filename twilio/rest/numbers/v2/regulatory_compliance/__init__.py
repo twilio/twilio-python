@@ -13,8 +13,6 @@
 """
 
 
-
-
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -22,34 +20,36 @@ from twilio.rest.numbers.v2.regulatory_compliance.bundle import BundleList
 from twilio.rest.numbers.v2.regulatory_compliance.end_user import EndUserList
 from twilio.rest.numbers.v2.regulatory_compliance.end_user_type import EndUserTypeList
 from twilio.rest.numbers.v2.regulatory_compliance.regulation import RegulationList
-from twilio.rest.numbers.v2.regulatory_compliance.supporting_document import SupportingDocumentList
-from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type import SupportingDocumentTypeList
+from twilio.rest.numbers.v2.regulatory_compliance.supporting_document import (
+    SupportingDocumentList,
+)
+from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type import (
+    SupportingDocumentTypeList,
+)
 
 
 class RegulatoryComplianceList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the RegulatoryComplianceList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.numbers.v2.regulatory_compliance.RegulatoryComplianceList
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.RegulatoryComplianceList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/RegulatoryCompliance'.format(**self._solution)
-        
+        self._solution = {}
+        self._uri = "/RegulatoryCompliance".format(**self._solution)
+
         self._bundles = None
         self._end_users = None
         self._end_user_types = None
         self._regulations = None
         self._supporting_documents = None
         self._supporting_document_types = None
-        
 
     @property
     def bundles(self):
@@ -123,15 +123,11 @@ class RegulatoryComplianceList(ListResource):
             self._supporting_document_types = SupportingDocumentTypeList(self._version)
         return self._supporting_document_types
 
-
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Numbers.V2.RegulatoryComplianceList>'
-
-
-
-
+        return "<Twilio.Numbers.V2.RegulatoryComplianceList>"

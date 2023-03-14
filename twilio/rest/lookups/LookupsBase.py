@@ -15,7 +15,6 @@ from twilio.rest.lookups.v2 import V2
 
 
 class LookupsBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Lookups Domain
@@ -24,7 +23,7 @@ class LookupsBase(Domain):
         :rtype: twilio.rest.lookups.Lookups
         """
         super().__init__(twilio)
-        self.base_url = 'https://lookups.twilio.com'
+        self.base_url = "https://lookups.twilio.com"
         self._v1 = None
         self._v2 = None
 
@@ -54,4 +53,4 @@ class LookupsBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Lookups>'
+        return "<Twilio.Lookups>"

@@ -20,7 +20,6 @@ from twilio.rest.pricing.v1.voice import VoiceList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Pricing
@@ -28,11 +27,11 @@ class V1(Version):
         :param domain: The Twilio.pricing domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._messaging = None
         self._phone_numbers = None
         self._voice = None
-        
+
     @property
     def messaging(self) -> MessagingList:
         """
@@ -66,4 +65,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Pricing.V1>'
+        return "<Twilio.Pricing.V1>"

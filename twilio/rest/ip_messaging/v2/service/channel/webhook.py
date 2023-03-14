@@ -24,66 +24,88 @@ from twilio.base.page import Page
 
 
 class WebhookList(ListResource):
-
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the WebhookList
 
         :param Version version: Version that contains the resource
-        :param service_sid: 
-        :param channel_sid: 
-        
+        :param service_sid:
+        :param channel_sid:
+
         :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookList
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Webhooks'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, type, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_retry_count=values.unset):
+        self._solution = {
+            "service_sid": service_sid,
+            "channel_sid": channel_sid,
+        }
+        self._uri = "/Services/{service_sid}/Channels/{channel_sid}/Webhooks".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        type,
+        configuration_url=values.unset,
+        configuration_method=values.unset,
+        configuration_filters=values.unset,
+        configuration_triggers=values.unset,
+        configuration_flow_sid=values.unset,
+        configuration_retry_count=values.unset,
+    ):
         """
         Create the WebhookInstance
 
-        :param WebhookInstance.Type type: 
-        :param str configuration_url: 
-        :param WebhookInstance.Method configuration_method: 
-        :param list[str] configuration_filters: 
-        :param list[str] configuration_triggers: 
-        :param str configuration_flow_sid: 
-        :param int configuration_retry_count: 
-        
+        :param WebhookInstance.Type type:
+        :param str configuration_url:
+        :param WebhookInstance.Method configuration_method:
+        :param list[str] configuration_filters:
+        :param list[str] configuration_triggers:
+        :param str configuration_flow_sid:
+        :param int configuration_retry_count:
+
         :returns: The created WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         """
-        data = values.of({ 
-            'Type': type,
-            'Configuration.Url': configuration_url,
-            'Configuration.Method': configuration_method,
-            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
-            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
-            'Configuration.FlowSid': configuration_flow_sid,
-            'Configuration.RetryCount': configuration_retry_count,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Type": type,
+                "Configuration.Url": configuration_url,
+                "Configuration.Method": configuration_method,
+                "Configuration.Filters": serialize.map(
+                    configuration_filters, lambda e: e
+                ),
+                "Configuration.Triggers": serialize.map(
+                    configuration_triggers, lambda e: e
+                ),
+                "Configuration.FlowSid": configuration_flow_sid,
+                "Configuration.RetryCount": configuration_retry_count,
+            }
+        )
 
-        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
-    
-    
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
     def stream(self, limit=None, page_size=None):
         """
         Streams WebhookInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -95,18 +117,16 @@ class WebhookList(ListResource):
         :rtype: list[twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists WebhookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -117,16 +137,20 @@ class WebhookList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of WebhookInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -134,13 +158,15 @@ class WebhookList(ListResource):
         :returns: Page of WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return WebhookPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -153,54 +179,52 @@ class WebhookList(ListResource):
         :returns: Page of WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return WebhookPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a WebhookContext
-        
-        :param sid: 
-        
+
+        :param sid:
+
         :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
         """
-        return WebhookContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+        return WebhookContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
         Constructs a WebhookContext
-        
-        :param sid: 
-        
+
+        :param sid:
+
         :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
         """
-        return WebhookContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+        return WebhookContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V2.WebhookList>'
-
-
-
-
-
-
-
-
+        return "<Twilio.IpMessaging.V2.WebhookList>"
 
 
 class WebhookPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the WebhookPage
@@ -225,7 +249,12 @@ class WebhookPage(Page):
         :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         """
-        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
 
     def __repr__(self):
         """
@@ -234,36 +263,40 @@ class WebhookPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.IpMessaging.V2.WebhookPage>'
-
-
+        return "<Twilio.IpMessaging.V2.WebhookPage>"
 
 
 class WebhookInstance(InstanceResource):
-
-    def __init__(self, version, payload, service_sid: str, channel_sid: str, sid: str=None):
+    def __init__(
+        self, version, payload, service_sid: str, channel_sid: str, sid: str = None
+    ):
         """
         Initialize the WebhookInstance
+
         :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'service_sid': payload.get('service_sid'),
-            'channel_sid': payload.get('channel_sid'),
-            'type': payload.get('type'),
-            'url': payload.get('url'),
-            'configuration': payload.get('configuration'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "channel_sid": payload.get("channel_sid"),
+            "type": payload.get("type"),
+            "url": payload.get("url"),
+            "configuration": payload.get("configuration"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
         self._context = None
-        self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "service_sid": service_sid,
+            "channel_sid": channel_sid,
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -274,136 +307,157 @@ class WebhookInstance(InstanceResource):
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
         """
         if self._context is None:
-            self._context = WebhookContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=self._solution['sid'],)
+            self._context = WebhookContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                channel_sid=self._solution["channel_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def account_sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def service_sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['service_sid']
-    
+        return self._properties["service_sid"]
+
     @property
     def channel_sid(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['channel_sid']
-    
+        return self._properties["channel_sid"]
+
     @property
     def type(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['type']
-    
+        return self._properties["type"]
+
     @property
     def url(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def configuration(self):
         """
-        :returns: 
+        :returns:
         :rtype: dict
         """
-        return self._properties['configuration']
-    
+        return self._properties["configuration"]
+
     @property
     def date_created(self):
         """
-        :returns: 
+        :returns:
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
-        :returns: 
+        :returns:
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     def delete(self):
         """
         Deletes the WebhookInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
-    
+
     def fetch(self):
         """
         Fetch the WebhookInstance
-        
+
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         """
         return self._proxy.fetch()
-    
-    def update(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_retry_count=values.unset):
+
+    def update(
+        self,
+        configuration_url=values.unset,
+        configuration_method=values.unset,
+        configuration_filters=values.unset,
+        configuration_triggers=values.unset,
+        configuration_flow_sid=values.unset,
+        configuration_retry_count=values.unset,
+    ):
         """
         Update the WebhookInstance
-        
-        :params str configuration_url: 
-        :params WebhookInstance.Method configuration_method: 
-        :params list[str] configuration_filters: 
-        :params list[str] configuration_triggers: 
-        :params str configuration_flow_sid: 
-        :params int configuration_retry_count: 
+
+        :param str configuration_url:
+        :param WebhookInstance.Method configuration_method:
+        :param list[str] configuration_filters:
+        :param list[str] configuration_triggers:
+        :param str configuration_flow_sid:
+        :param int configuration_retry_count:
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         """
-        return self._proxy.update(configuration_url=configuration_url, configuration_method=configuration_method, configuration_filters=configuration_filters, configuration_triggers=configuration_triggers, configuration_flow_sid=configuration_flow_sid, configuration_retry_count=configuration_retry_count, )
-    
+        return self._proxy.update(
+            configuration_url=configuration_url,
+            configuration_method=configuration_method,
+            configuration_filters=configuration_filters,
+            configuration_triggers=configuration_triggers,
+            configuration_flow_sid=configuration_flow_sid,
+            configuration_retry_count=configuration_retry_count,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.WebhookInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.IpMessaging.V2.WebhookInstance {}>".format(context)
+
 
 class WebhookContext(InstanceContext):
-
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
         """
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: 
-        :param channel_sid: 
-        :param sid: 
+        :param service_sid:
+        :param channel_sid:
+        :param sid:
 
         :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookContext
@@ -411,86 +465,109 @@ class WebhookContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "channel_sid": channel_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Webhooks/{sid}'.format(**self._solution)
-        
-    
+        self._uri = (
+            "/Services/{service_sid}/Channels/{channel_sid}/Webhooks/{sid}".format(
+                **self._solution
+            )
+        )
+
     def delete(self):
         """
         Deletes the WebhookInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the WebhookInstance
-        
+
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return WebhookInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
         )
-        
-    def update(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_retry_count=values.unset):
+
+    def update(
+        self,
+        configuration_url=values.unset,
+        configuration_method=values.unset,
+        configuration_filters=values.unset,
+        configuration_triggers=values.unset,
+        configuration_flow_sid=values.unset,
+        configuration_retry_count=values.unset,
+    ):
         """
         Update the WebhookInstance
-        
-        :params str configuration_url: 
-        :params WebhookInstance.Method configuration_method: 
-        :params list[str] configuration_filters: 
-        :params list[str] configuration_triggers: 
-        :params str configuration_flow_sid: 
-        :params int configuration_retry_count: 
+
+        :param str configuration_url:
+        :param WebhookInstance.Method configuration_method:
+        :param list[str] configuration_filters:
+        :param list[str] configuration_triggers:
+        :param str configuration_flow_sid:
+        :param int configuration_retry_count:
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
         """
-        data = values.of({ 
-            'Configuration.Url': configuration_url,
-            'Configuration.Method': configuration_method,
-            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
-            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
-            'Configuration.FlowSid': configuration_flow_sid,
-            'Configuration.RetryCount': configuration_retry_count,
-        })
-        
+        data = values.of(
+            {
+                "Configuration.Url": configuration_url,
+                "Configuration.Method": configuration_method,
+                "Configuration.Filters": serialize.map(
+                    configuration_filters, lambda e: e
+                ),
+                "Configuration.Triggers": serialize.map(
+                    configuration_triggers, lambda e: e
+                ),
+                "Configuration.FlowSid": configuration_flow_sid,
+                "Configuration.RetryCount": configuration_retry_count,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return WebhookInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid']
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
         )
-        
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.WebhookContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.IpMessaging.V2.WebhookContext {}>".format(context)

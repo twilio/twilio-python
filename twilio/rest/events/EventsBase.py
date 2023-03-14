@@ -14,7 +14,6 @@ from twilio.rest.events.v1 import V1
 
 
 class EventsBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Events Domain
@@ -23,7 +22,7 @@ class EventsBase(Domain):
         :rtype: twilio.rest.events.Events
         """
         super().__init__(twilio)
-        self.base_url = 'https://events.twilio.com'
+        self.base_url = "https://events.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class EventsBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Events>'
+        return "<Twilio.Events>"

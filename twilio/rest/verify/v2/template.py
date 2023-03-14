@@ -23,31 +23,28 @@ from twilio.base.page import Page
 
 
 class TemplateList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the TemplateList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.verify.v2.template.TemplateList
         :rtype: twilio.rest.verify.v2.template.TemplateList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Templates'.format(**self._solution)
-        
-        
-    
+        self._solution = {}
+        self._uri = "/Templates".format(**self._solution)
+
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
         Streams TemplateInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: String filter used to query templates with a given friendly name
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -60,19 +57,16 @@ class TemplateList(ListResource):
         :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            friendly_name=friendly_name,
-            page_size=limits['page_size']
-        )
+        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
         Lists TemplateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: String filter used to query templates with a given friendly name
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -84,17 +78,25 @@ class TemplateList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, friendly_name=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
-        
+
         :param str friendly_name: String filter used to query templates with a given friendly name
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
@@ -103,14 +105,16 @@ class TemplateList(ListResource):
         :returns: Page of TemplateInstance
         :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return TemplatePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -123,25 +127,20 @@ class TemplateList(ListResource):
         :returns: Page of TemplateInstance
         :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return TemplatePage(self._version, response, self._solution)
-
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Verify.V2.TemplateList>'
+        return "<Twilio.Verify.V2.TemplateList>"
 
 
 class TemplatePage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the TemplatePage
@@ -175,81 +174,76 @@ class TemplatePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Verify.V2.TemplatePage>'
-
-
+        return "<Twilio.Verify.V2.TemplatePage>"
 
 
 class TemplateInstance(InstanceResource):
-
     def __init__(self, version, payload):
         """
         Initialize the TemplateInstance
+
         :returns: twilio.rest.verify.v2.template.TemplateInstance
         :rtype: twilio.rest.verify.v2.template.TemplateInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'channels': payload.get('channels'),
-            'translations': payload.get('translations'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "channels": payload.get("channels"),
+            "translations": payload.get("translations"),
         }
 
         self._context = None
-        self._solution = {  }
-    
-    
+        self._solution = {}
+
     @property
     def sid(self):
         """
         :returns: A 34 character string that uniquely identifies a Verification Template.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def account_sid(self):
         """
         :returns: The unique SID identifier of the Account.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: A descriptive string that you create to describe a Template.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def channels(self):
         """
         :returns: A list of channels that support the Template. Can include: sms, voice
         :rtype: list[str]
         """
-        return self._properties['channels']
-    
+        return self._properties["channels"]
+
     @property
     def translations(self):
         """
         :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
         :rtype: dict
         """
-        return self._properties['translations']
-    
+        return self._properties["translations"]
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.TemplateInstance {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.TemplateInstance {}>".format(context)

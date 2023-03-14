@@ -14,7 +14,6 @@ from twilio.rest.autopilot.v1 import V1
 
 
 class AutopilotBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Autopilot Domain
@@ -23,7 +22,7 @@ class AutopilotBase(Domain):
         :rtype: twilio.rest.autopilot.Autopilot
         """
         super().__init__(twilio)
-        self.base_url = 'https://autopilot.twilio.com'
+        self.base_url = "https://autopilot.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class AutopilotBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Autopilot>'
+        return "<Twilio.Autopilot>"

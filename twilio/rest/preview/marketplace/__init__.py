@@ -19,7 +19,6 @@ from twilio.rest.preview.marketplace.installed_add_on import InstalledAddOnList
 
 
 class Marketplace(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the Marketplace version of Preview
@@ -27,10 +26,10 @@ class Marketplace(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain)
-        self.version = 'marketplace'
+        self.version = "marketplace"
         self._available_add_ons = None
         self._installed_add_ons = None
-        
+
     @property
     def available_add_ons(self) -> AvailableAddOnList:
         """
@@ -55,4 +54,4 @@ class Marketplace(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Marketplace>'
+        return "<Twilio.Preview.Marketplace>"

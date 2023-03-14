@@ -19,11 +19,12 @@ from twilio.rest.verify.v2.safelist import SafelistList
 from twilio.rest.verify.v2.service import ServiceList
 from twilio.rest.verify.v2.template import TemplateList
 from twilio.rest.verify.v2.verification_attempt import VerificationAttemptList
-from twilio.rest.verify.v2.verification_attempts_summary import VerificationAttemptsSummaryList
+from twilio.rest.verify.v2.verification_attempts_summary import (
+    VerificationAttemptsSummaryList,
+)
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Verify
@@ -31,14 +32,14 @@ class V2(Version):
         :param domain: The Twilio.verify domain
         """
         super().__init__(domain)
-        self.version = 'v2'
+        self.version = "v2"
         self._forms = None
         self._safelist = None
         self._services = None
         self._templates = None
         self._verification_attempts = None
         self._verification_attempts_summary = None
-        
+
     @property
     def forms(self) -> FormList:
         """
@@ -99,4 +100,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Verify.V2>'
+        return "<Twilio.Verify.V2>"

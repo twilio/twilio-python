@@ -23,7 +23,6 @@ from twilio.rest.voice.v1.source_ip_mapping import SourceIpMappingList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Voice
@@ -31,14 +30,14 @@ class V1(Version):
         :param domain: The Twilio.voice domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._archived_calls = None
         self._byoc_trunks = None
         self._connection_policies = None
         self._dialing_permissions = None
         self._ip_records = None
         self._source_ip_mappings = None
-        
+
     @property
     def archived_calls(self) -> ArchivedCallList:
         """
@@ -99,4 +98,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Voice.V1>'
+        return "<Twilio.Voice.V1>"

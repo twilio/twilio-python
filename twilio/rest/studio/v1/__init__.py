@@ -18,7 +18,6 @@ from twilio.rest.studio.v1.flow import FlowList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Studio
@@ -26,9 +25,9 @@ class V1(Version):
         :param domain: The Twilio.studio domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._flows = None
-        
+
     @property
     def flows(self) -> FlowList:
         """
@@ -44,4 +43,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Studio.V1>'
+        return "<Twilio.Studio.V1>"

@@ -25,32 +25,41 @@ from twilio.base.page import Page
 
 
 class ThisMonthList(ListResource):
-
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ThisMonthList
 
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-        
+
         :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
         :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/Usage/Records/ThisMonth.json'.format(**self._solution)
-        
-        
-    
-    def stream(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Usage/Records/ThisMonth.json".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams ThisMonthInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param ThisMonthInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -71,17 +80,25 @@ class ThisMonthList(ListResource):
             start_date=start_date,
             end_date=end_date,
             include_subaccounts=include_subaccounts,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    def list(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists ThisMonthInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param ThisMonthInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -96,20 +113,31 @@ class ThisMonthList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance]
         """
-        return list(self.stream(
-            category=category,
-            start_date=start_date,
-            end_date=end_date,
-            include_subaccounts=include_subaccounts,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                category=category,
+                start_date=start_date,
+                end_date=end_date,
+                include_subaccounts=include_subaccounts,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of ThisMonthInstance records from the API.
         Request is executed immediately
-        
+
         :param ThisMonthInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -121,17 +149,19 @@ class ThisMonthList(ListResource):
         :returns: Page of ThisMonthInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthPage
         """
-        data = values.of({ 
-            'Category': category,
-            'StartDate': serialize.iso8601_date(start_date),
-            'EndDate': serialize.iso8601_date(end_date),
-            'IncludeSubaccounts': include_subaccounts,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Category": category,
+                "StartDate": serialize.iso8601_date(start_date),
+                "EndDate": serialize.iso8601_date(end_date),
+                "IncludeSubaccounts": include_subaccounts,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ThisMonthPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -144,25 +174,20 @@ class ThisMonthList(ListResource):
         :returns: Page of ThisMonthInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ThisMonthPage(self._version, response, self._solution)
-
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.ThisMonthList>'
+        return "<Twilio.Api.V2010.ThisMonthList>"
 
 
 class ThisMonthPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the ThisMonthPage
@@ -187,7 +212,9 @@ class ThisMonthPage(Page):
         :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
         """
-        return ThisMonthInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        return ThisMonthInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self):
         """
@@ -196,13 +223,10 @@ class ThisMonthPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.ThisMonthPage>'
-
-
+        return "<Twilio.Api.V2010.ThisMonthPage>"
 
 
 class ThisMonthInstance(InstanceResource):
-
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
@@ -253,45 +277,89 @@ class ThisMonthInstance(InstanceResource):
         IMP_V1_USAGE = "imp-v1-usage"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
-        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = "marketplace-algorithmia-named-entity-recognition"
+        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = (
+            "marketplace-algorithmia-named-entity-recognition"
+        )
         MARKETPLACE_CADENCE_TRANSCRIPTION = "marketplace-cadence-transcription"
         MARKETPLACE_CADENCE_TRANSLATION = "marketplace-cadence-translation"
         MARKETPLACE_CAPIO_SPEECH_TO_TEXT = "marketplace-capio-speech-to-text"
         MARKETPLACE_CONVRIZA_ABABA = "marketplace-convriza-ababa"
         MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR = "marketplace-deepgram-phrase-detector"
-        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO = "marketplace-digital-segment-business-info"
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS = "marketplace-facebook-offline-conversions"
+        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO = (
+            "marketplace-digital-segment-business-info"
+        )
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS = (
+            "marketplace-facebook-offline-conversions"
+        )
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT = "marketplace-google-speech-to-text"
-        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS = "marketplace-ibm-watson-message-insights"
-        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT = "marketplace-ibm-watson-message-sentiment"
-        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS = "marketplace-ibm-watson-recording-analysis"
+        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS = (
+            "marketplace-ibm-watson-message-insights"
+        )
+        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT = (
+            "marketplace-ibm-watson-message-sentiment"
+        )
+        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS = (
+            "marketplace-ibm-watson-recording-analysis"
+        )
         MARKETPLACE_IBM_WATSON_TONE_ANALYZER = "marketplace-ibm-watson-tone-analyzer"
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT = "marketplace-icehook-systems-scout"
-        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO = "marketplace-infogroup-dataaxle-bizinfo"
-        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS = "marketplace-keen-io-contact-center-analytics"
+        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO = (
+            "marketplace-infogroup-dataaxle-bizinfo"
+        )
+        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS = (
+            "marketplace-keen-io-contact-center-analytics"
+        )
         MARKETPLACE_MARCHEX_CLEANCALL = "marketplace-marchex-cleancall"
-        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = "marketplace-marchex-sentiment-analysis-for-sms"
-        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID = "marketplace-marketplace-nextcaller-social-id"
-        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER = "marketplace-mobile-commons-opt-out-classifier"
-        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT = "marketplace-nexiwave-voicemail-to-text"
-        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION = "marketplace-nextcaller-advanced-caller-identification"
+        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = (
+            "marketplace-marchex-sentiment-analysis-for-sms"
+        )
+        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID = (
+            "marketplace-marketplace-nextcaller-social-id"
+        )
+        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER = (
+            "marketplace-mobile-commons-opt-out-classifier"
+        )
+        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT = (
+            "marketplace-nexiwave-voicemail-to-text"
+        )
+        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION = (
+            "marketplace-nextcaller-advanced-caller-identification"
+        )
         MARKETPLACE_NOMOROBO_SPAM_SCORE = "marketplace-nomorobo-spam-score"
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE = "marketplace-payfone-tcpa-compliance"
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = "marketplace-remeeting-automatic-speech-recognition"
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = "marketplace-tcpa-defense-solutions-blacklist-feed"
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = (
+            "marketplace-remeeting-automatic-speech-recognition"
+        )
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = (
+            "marketplace-tcpa-defense-solutions-blacklist-feed"
+        )
         MARKETPLACE_TELO_OPENCNAM = "marketplace-telo-opencnam"
         MARKETPLACE_TRUECNAM_TRUE_SPAM = "marketplace-truecnam-true-spam"
-        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US = "marketplace-twilio-caller-name-lookup-us"
-        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP = "marketplace-twilio-carrier-information-lookup"
+        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US = (
+            "marketplace-twilio-caller-name-lookup-us"
+        )
+        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP = (
+            "marketplace-twilio-carrier-information-lookup"
+        )
         MARKETPLACE_VOICEBASE_PCI = "marketplace-voicebase-pci"
         MARKETPLACE_VOICEBASE_TRANSCRIPTION = "marketplace-voicebase-transcription"
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = "marketplace-voicebase-transcription-custom-vocabulary"
-        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION = "marketplace-whitepages-pro-caller-identification"
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE = "marketplace-whitepages-pro-phone-intelligence"
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION = "marketplace-whitepages-pro-phone-reputation"
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = (
+            "marketplace-voicebase-transcription-custom-vocabulary"
+        )
+        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION = (
+            "marketplace-whitepages-pro-caller-identification"
+        )
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE = (
+            "marketplace-whitepages-pro-phone-intelligence"
+        )
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION = (
+            "marketplace-whitepages-pro-phone-reputation"
+        )
         MARKETPLACE_WOLFARM_SPOKEN_RESULTS = "marketplace-wolfarm-spoken-results"
         MARKETPLACE_WOLFRAM_SHORT_ANSWER = "marketplace-wolfram-short-answer"
-        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = "marketplace-ytica-contact-center-reporting-analytics"
+        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = (
+            "marketplace-ytica-contact-center-reporting-analytics"
+        )
         MEDIASTORAGE = "mediastorage"
         MMS = "mms"
         MMS_INBOUND = "mms-inbound"
@@ -310,7 +378,9 @@ class ThisMonthInstance(InstanceResource):
         NUMBER_FORMAT_LOOKUPS = "number-format-lookups"
         PCHAT = "pchat"
         PCHAT_USERS = "pchat-users"
-        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = "peer-to-peer-rooms-participant-minutes"
+        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = (
+            "peer-to-peer-rooms-participant-minutes"
+        )
         PFAX = "pfax"
         PFAX_MINUTES = "pfax-minutes"
         PFAX_MINUTES_INBOUND = "pfax-minutes-inbound"
@@ -400,14 +470,24 @@ class ThisMonthInstance(InstanceResource):
         TWILIO_INTERCONNECT = "twilio-interconnect"
         VERIFY_PUSH = "verify-push"
         VERIFY_TOTP = "verify-totp"
-        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = "verify-whatsapp-conversations-business-initiated"
+        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = (
+            "verify-whatsapp-conversations-business-initiated"
+        )
         VIDEO_RECORDINGS = "video-recordings"
         VIRTUAL_AGENT = "virtual-agent"
         VOICE_INSIGHTS = "voice-insights"
-        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-client-insights-on-demand-minute"
-        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-ptsn-insights-on-demand-minute"
-        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-sip-interface-insights-on-demand-minute"
-        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-sip-trunking-insights-on-demand-minute"
+        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-client-insights-on-demand-minute"
+        )
+        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-ptsn-insights-on-demand-minute"
+        )
+        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-sip-interface-insights-on-demand-minute"
+        )
+        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-sip-trunking-insights-on-demand-minute"
+        )
         WIRELESS = "wireless"
         WIRELESS_ORDERS = "wireless-orders"
         WIRELESS_ORDERS_ARTWORK = "wireless-orders-artwork"
@@ -418,7 +498,9 @@ class ThisMonthInstance(InstanceResource):
         WIRELESS_USAGE_COMMANDS = "wireless-usage-commands"
         WIRELESS_USAGE_COMMANDS_AFRICA = "wireless-usage-commands-africa"
         WIRELESS_USAGE_COMMANDS_ASIA = "wireless-usage-commands-asia"
-        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA = "wireless-usage-commands-centralandsouthamerica"
+        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA = (
+            "wireless-usage-commands-centralandsouthamerica"
+        )
         WIRELESS_USAGE_COMMANDS_EUROPE = "wireless-usage-commands-europe"
         WIRELESS_USAGE_COMMANDS_HOME = "wireless-usage-commands-home"
         WIRELESS_USAGE_COMMANDS_NORTHAMERICA = "wireless-usage-commands-northamerica"
@@ -427,16 +509,30 @@ class ThisMonthInstance(InstanceResource):
         WIRELESS_USAGE_DATA = "wireless-usage-data"
         WIRELESS_USAGE_DATA_AFRICA = "wireless-usage-data-africa"
         WIRELESS_USAGE_DATA_ASIA = "wireless-usage-data-asia"
-        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA = "wireless-usage-data-centralandsouthamerica"
-        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB = "wireless-usage-data-custom-additionalmb"
+        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA = (
+            "wireless-usage-data-centralandsouthamerica"
+        )
+        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB = (
+            "wireless-usage-data-custom-additionalmb"
+        )
         WIRELESS_USAGE_DATA_CUSTOM_FIRST5MB = "wireless-usage-data-custom-first5mb"
         WIRELESS_USAGE_DATA_DOMESTIC_ROAMING = "wireless-usage-data-domestic-roaming"
         WIRELESS_USAGE_DATA_EUROPE = "wireless-usage-data-europe"
-        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB = "wireless-usage-data-individual-additionalgb"
-        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB = "wireless-usage-data-individual-firstgb"
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA = "wireless-usage-data-international-roaming-canada"
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA = "wireless-usage-data-international-roaming-india"
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO = "wireless-usage-data-international-roaming-mexico"
+        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB = (
+            "wireless-usage-data-individual-additionalgb"
+        )
+        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB = (
+            "wireless-usage-data-individual-firstgb"
+        )
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA = (
+            "wireless-usage-data-international-roaming-canada"
+        )
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA = (
+            "wireless-usage-data-international-roaming-india"
+        )
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO = (
+            "wireless-usage-data-international-roaming-mexico"
+        )
         WIRELESS_USAGE_DATA_NORTHAMERICA = "wireless-usage-data-northamerica"
         WIRELESS_USAGE_DATA_OCEANIA = "wireless-usage-data-oceania"
         WIRELESS_USAGE_DATA_POOLED = "wireless-usage-data-pooled"
@@ -453,161 +549,161 @@ class ThisMonthInstance(InstanceResource):
     def __init__(self, version, payload, account_sid: str):
         """
         Initialize the ThisMonthInstance
+
         :returns: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'api_version': payload.get('api_version'),
-            'as_of': payload.get('as_of'),
-            'category': payload.get('category'),
-            'count': payload.get('count'),
-            'count_unit': payload.get('count_unit'),
-            'description': payload.get('description'),
-            'end_date': deserialize.iso8601_date(payload.get('end_date')),
-            'price': deserialize.decimal(payload.get('price')),
-            'price_unit': payload.get('price_unit'),
-            'start_date': deserialize.iso8601_date(payload.get('start_date')),
-            'subresource_uris': payload.get('subresource_uris'),
-            'uri': payload.get('uri'),
-            'usage': payload.get('usage'),
-            'usage_unit': payload.get('usage_unit'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "api_version": payload.get("api_version"),
+            "as_of": payload.get("as_of"),
+            "category": payload.get("category"),
+            "count": payload.get("count"),
+            "count_unit": payload.get("count_unit"),
+            "description": payload.get("description"),
+            "end_date": deserialize.iso8601_date(payload.get("end_date")),
+            "price": deserialize.decimal(payload.get("price")),
+            "price_unit": payload.get("price_unit"),
+            "start_date": deserialize.iso8601_date(payload.get("start_date")),
+            "subresource_uris": payload.get("subresource_uris"),
+            "uri": payload.get("uri"),
+            "usage": payload.get("usage"),
+            "usage_unit": payload.get("usage_unit"),
         }
 
         self._context = None
-        self._solution = { 'account_sid': account_sid,  }
-    
-    
+        self._solution = {
+            "account_sid": account_sid,
+        }
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def api_version(self):
         """
         :returns: The API version used to create the resource.
         :rtype: str
         """
-        return self._properties['api_version']
-    
+        return self._properties["api_version"]
+
     @property
     def as_of(self):
         """
         :returns: Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
         :rtype: str
         """
-        return self._properties['as_of']
-    
+        return self._properties["as_of"]
+
     @property
     def category(self):
         """
-        :returns: 
+        :returns:
         :rtype: ThisMonthInstance.Category
         """
-        return self._properties['category']
-    
+        return self._properties["category"]
+
     @property
     def count(self):
         """
         :returns: The number of usage events, such as the number of calls.
         :rtype: str
         """
-        return self._properties['count']
-    
+        return self._properties["count"]
+
     @property
     def count_unit(self):
         """
         :returns: The units in which `count` is measured, such as `calls` for calls or `messages` for SMS.
         :rtype: str
         """
-        return self._properties['count_unit']
-    
+        return self._properties["count_unit"]
+
     @property
     def description(self):
         """
         :returns: A plain-language description of the usage category.
         :rtype: str
         """
-        return self._properties['description']
-    
+        return self._properties["description"]
+
     @property
     def end_date(self):
         """
         :returns: The last date for which usage is included in the UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
         :rtype: date
         """
-        return self._properties['end_date']
-    
+        return self._properties["end_date"]
+
     @property
     def price(self):
         """
         :returns: The total price of the usage in the currency specified in `price_unit` and associated with the account.
         :rtype: float
         """
-        return self._properties['price']
-    
+        return self._properties["price"]
+
     @property
     def price_unit(self):
         """
         :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format, such as `usd`, `eur`, and `jpy`.
         :rtype: str
         """
-        return self._properties['price_unit']
-    
+        return self._properties["price_unit"]
+
     @property
     def start_date(self):
         """
         :returns: The first date for which usage is included in this UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
         :rtype: date
         """
-        return self._properties['start_date']
-    
+        return self._properties["start_date"]
+
     @property
     def subresource_uris(self):
         """
         :returns: A list of related resources identified by their URIs. For more information, see [List Subresources](https://www.twilio.com/docs/usage/api/usage-record#list-subresources).
         :rtype: dict
         """
-        return self._properties['subresource_uris']
-    
+        return self._properties["subresource_uris"]
+
     @property
     def uri(self):
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`.
         :rtype: str
         """
-        return self._properties['uri']
-    
+        return self._properties["uri"]
+
     @property
     def usage(self):
         """
         :returns: The amount used to bill usage and measured in units described in `usage_unit`.
         :rtype: str
         """
-        return self._properties['usage']
-    
+        return self._properties["usage"]
+
     @property
     def usage_unit(self):
         """
         :returns: The units in which `usage` is measured, such as `minutes` for calls or `messages` for SMS.
         :rtype: str
         """
-        return self._properties['usage_unit']
-    
+        return self._properties["usage_unit"]
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ThisMonthInstance {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.ThisMonthInstance {}>".format(context)

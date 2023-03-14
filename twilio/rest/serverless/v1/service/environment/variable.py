@@ -24,7 +24,6 @@ from twilio.base.page import Page
 
 
 class VariableList(ListResource):
-
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the VariableList
@@ -32,48 +31,60 @@ class VariableList(ListResource):
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Variable resources from.
         :param environment_sid: The SID of the Environment with the Variable resources to read.
-        
+
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableList
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
-        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Variables'.format(**self._solution)
-        
-        
-    
-    
-    
-    
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+        }
+        self._uri = (
+            "/Services/{service_sid}/Environments/{environment_sid}/Variables".format(
+                **self._solution
+            )
+        )
+
     def create(self, key, value):
         """
         Create the VariableInstance
 
         :param str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
         :param str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
-        
+
         :returns: The created VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
-        data = values.of({ 
-            'Key': key,
-            'Value': value,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Key": key,
+                "Value": value,
+            }
+        )
 
-        return VariableInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
-    
-    
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return VariableInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+        )
+
     def stream(self, limit=None, page_size=None):
         """
         Streams VariableInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -85,18 +96,16 @@ class VariableList(ListResource):
         :rtype: list[twilio.rest.serverless.v1.service.environment.variable.VariableInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists VariableInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,16 +116,20 @@ class VariableList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.serverless.v1.service.environment.variable.VariableInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of VariableInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -124,13 +137,15 @@ class VariableList(ListResource):
         :returns: Page of VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return VariablePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -143,54 +158,52 @@ class VariableList(ListResource):
         :returns: Page of VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return VariablePage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a VariableContext
-        
+
         :param sid: The SID of the Variable resource to update.
-        
+
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         """
-        return VariableContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+        return VariableContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
         Constructs a VariableContext
-        
+
         :param sid: The SID of the Variable resource to update.
-        
+
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         """
-        return VariableContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+        return VariableContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Serverless.V1.VariableList>'
-
-
-
-
-
-
-
-
+        return "<Twilio.Serverless.V1.VariableList>"
 
 
 class VariablePage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the VariablePage
@@ -215,7 +228,12 @@ class VariablePage(Page):
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
-        return VariableInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
+        return VariableInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+        )
 
     def __repr__(self):
         """
@@ -224,36 +242,40 @@ class VariablePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Serverless.V1.VariablePage>'
-
-
+        return "<Twilio.Serverless.V1.VariablePage>"
 
 
 class VariableInstance(InstanceResource):
-
-    def __init__(self, version, payload, service_sid: str, environment_sid: str, sid: str=None):
+    def __init__(
+        self, version, payload, service_sid: str, environment_sid: str, sid: str = None
+    ):
         """
         Initialize the VariableInstance
+
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'service_sid': payload.get('service_sid'),
-            'environment_sid': payload.get('environment_sid'),
-            'key': payload.get('key'),
-            'value': payload.get('value'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'url': payload.get('url'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "environment_sid": payload.get("environment_sid"),
+            "key": payload.get("key"),
+            "value": payload.get("value"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -264,125 +286,136 @@ class VariableInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
         """
         if self._context is None:
-            self._context = VariableContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=self._solution['sid'],)
+            self._context = VariableContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                environment_sid=self._solution["environment_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that we created to identify the Variable resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Variable resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def service_sid(self):
         """
         :returns: The SID of the Service that the Variable resource is associated with.
         :rtype: str
         """
-        return self._properties['service_sid']
-    
+        return self._properties["service_sid"]
+
     @property
     def environment_sid(self):
         """
         :returns: The SID of the Environment in which the Variable exists.
         :rtype: str
         """
-        return self._properties['environment_sid']
-    
+        return self._properties["environment_sid"]
+
     @property
     def key(self):
         """
         :returns: A string by which the Variable resource can be referenced.
         :rtype: str
         """
-        return self._properties['key']
-    
+        return self._properties["key"]
+
     @property
     def value(self):
         """
         :returns: A string that contains the actual value of the Variable.
         :rtype: str
         """
-        return self._properties['value']
-    
+        return self._properties["value"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the Variable resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT when the Variable resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the Variable resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     def delete(self):
         """
         Deletes the VariableInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
-    
+
     def fetch(self):
         """
         Fetch the VariableInstance
-        
+
 
         :returns: The fetched VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
         return self._proxy.fetch()
-    
+
     def update(self, key=values.unset, value=values.unset):
         """
         Update the VariableInstance
-        
-        :params str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
-        :params str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
+
+        :param str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
+        :param str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
 
         :returns: The updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
-        return self._proxy.update(key=key, value=value, )
-    
+        return self._proxy.update(
+            key=key,
+            value=value,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.VariableInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.VariableInstance {}>".format(context)
+
 
 class VariableContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, environment_sid: str, sid: str):
+    def __init__(
+        self, version: Version, service_sid: str, environment_sid: str, sid: str
+    ):
         """
         Initialize the VariableContext
 
@@ -397,78 +430,87 @@ class VariableContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'environment_sid': environment_sid,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Variables/{sid}'.format(**self._solution)
-        
-    
+        self._uri = "/Services/{service_sid}/Environments/{environment_sid}/Variables/{sid}".format(
+            **self._solution
+        )
+
     def delete(self):
         """
         Deletes the VariableInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the VariableInstance
-        
+
 
         :returns: The fetched VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return VariableInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            environment_sid=self._solution['environment_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
         )
-        
+
     def update(self, key=values.unset, value=values.unset):
         """
         Update the VariableInstance
-        
-        :params str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
-        :params str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
+
+        :param str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
+        :param str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
 
         :returns: The updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
-        data = values.of({ 
-            'Key': key,
-            'Value': value,
-        })
-        
+        data = values.of(
+            {
+                "Key": key,
+                "Value": value,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return VariableInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            environment_sid=self._solution['environment_sid'],
-            sid=self._solution['sid']
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
         )
-        
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.VariableContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.VariableContext {}>".format(context)

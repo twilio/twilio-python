@@ -14,7 +14,6 @@ from twilio.rest.verify.v2 import V2
 
 
 class VerifyBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Verify Domain
@@ -23,7 +22,7 @@ class VerifyBase(Domain):
         :rtype: twilio.rest.verify.Verify
         """
         super().__init__(twilio)
-        self.base_url = 'https://verify.twilio.com'
+        self.base_url = "https://verify.twilio.com"
         self._v2 = None
 
     @property
@@ -42,4 +41,4 @@ class VerifyBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Verify>'
+        return "<Twilio.Verify>"

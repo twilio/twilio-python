@@ -13,17 +13,18 @@
 """
 
 
-
-
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping import AuthCallsCredentialListMappingList
-from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping import AuthCallsIpAccessControlListMappingList
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping import (
+    AuthCallsCredentialListMappingList,
+)
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping import (
+    AuthCallsIpAccessControlListMappingList,
+)
 
 
 class AuthTypeCallsList(ListResource):
-
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthTypeCallsList
@@ -31,19 +32,25 @@ class AuthTypeCallsList(ListResource):
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
         :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
-        
+
         :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthTypeCallsList
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthTypeCallsList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
-        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Calls.json'.format(**self._solution)
-        
+        self._solution = {
+            "account_sid": account_sid,
+            "domain_sid": domain_sid,
+        }
+        self._uri = (
+            "/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Calls.json".format(
+                **self._solution
+            )
+        )
+
         self._credential_list_mappings = None
         self._ip_access_control_list_mappings = None
-        
 
     @property
     def credential_list_mappings(self):
@@ -54,7 +61,11 @@ class AuthTypeCallsList(ListResource):
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthCallsCredentialListMappingList
         """
         if self._credential_list_mappings is None:
-            self._credential_list_mappings = AuthCallsCredentialListMappingList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
+            self._credential_list_mappings = AuthCallsCredentialListMappingList(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                domain_sid=self._solution["domain_sid"],
+            )
         return self._credential_list_mappings
 
     @property
@@ -66,18 +77,20 @@ class AuthTypeCallsList(ListResource):
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.AuthCallsIpAccessControlListMappingList
         """
         if self._ip_access_control_list_mappings is None:
-            self._ip_access_control_list_mappings = AuthCallsIpAccessControlListMappingList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
+            self._ip_access_control_list_mappings = (
+                AuthCallsIpAccessControlListMappingList(
+                    self._version,
+                    account_sid=self._solution["account_sid"],
+                    domain_sid=self._solution["domain_sid"],
+                )
+            )
         return self._ip_access_control_list_mappings
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.AuthTypeCallsList>'
-
-
-
-
+        return "<Twilio.Api.V2010.AuthTypeCallsList>"

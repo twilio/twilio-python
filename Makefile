@@ -1,4 +1,4 @@
-.PHONY: clean install analysis test test-install test-docker develop docs docs-install
+.PHONY: clean install analysis test test-install test-docker develop docs docs-install prettier
 
 venv:
 	@python --version || (echo "Python is not installed, Python 3.7+"; exit 1);
@@ -55,6 +55,9 @@ clean:
 
 nopyc:
 	find . -name \*.pyc -delete
+
+prettier:
+	. venv/bin/activate; black twilio/rest
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
 CURRENT_TAG=$(shell expr "${GITHUB_TAG}" : ".*-rc.*" >/dev/null && echo "rc" || echo "latest")

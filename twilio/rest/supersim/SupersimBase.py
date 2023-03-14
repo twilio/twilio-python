@@ -14,7 +14,6 @@ from twilio.rest.supersim.v1 import V1
 
 
 class SupersimBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Supersim Domain
@@ -23,7 +22,7 @@ class SupersimBase(Domain):
         :rtype: twilio.rest.supersim.Supersim
         """
         super().__init__(twilio)
-        self.base_url = 'https://supersim.twilio.com'
+        self.base_url = "https://supersim.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class SupersimBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Supersim>'
+        return "<Twilio.Supersim>"

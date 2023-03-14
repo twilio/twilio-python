@@ -23,7 +23,6 @@ from twilio.rest.video.v1.room import RoomList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Video
@@ -31,14 +30,14 @@ class V1(Version):
         :param domain: The Twilio.video domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._compositions = None
         self._composition_hooks = None
         self._composition_settings = None
         self._recordings = None
         self._recording_settings = None
         self._rooms = None
-        
+
     @property
     def compositions(self) -> CompositionList:
         """
@@ -99,4 +98,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Video.V1>'
+        return "<Twilio.Video.V1>"

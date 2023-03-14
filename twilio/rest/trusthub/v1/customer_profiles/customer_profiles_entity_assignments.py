@@ -24,52 +24,60 @@ from twilio.base.page import Page
 
 
 class CustomerProfilesEntityAssignmentsList(ListResource):
-
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesEntityAssignmentsList
 
         :param Version version: Version that contains the resource
         :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
-        
+
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsList
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'customer_profile_sid': customer_profile_sid,  }
-        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments'.format(**self._solution)
-        
-        
-    
-    
-    
+        self._solution = {
+            "customer_profile_sid": customer_profile_sid,
+        }
+        self._uri = "/CustomerProfiles/{customer_profile_sid}/EntityAssignments".format(
+            **self._solution
+        )
+
     def create(self, object_sid):
         """
         Create the CustomerProfilesEntityAssignmentsInstance
 
         :param str object_sid: The SID of an object bag that holds information of the different items.
-        
+
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
-        data = values.of({ 
-            'ObjectSid': object_sid,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "ObjectSid": object_sid,
+            }
+        )
 
-        return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
-    
-    
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CustomerProfilesEntityAssignmentsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+        )
+
     def stream(self, limit=None, page_size=None):
         """
         Streams CustomerProfilesEntityAssignmentsInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,18 +89,16 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
     def list(self, limit=None, page_size=None):
         """
         Lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,16 +109,20 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance]
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
         """
         Retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
-        
+
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -120,14 +130,18 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
-        return CustomerProfilesEntityAssignmentsPage(self._version, response, self._solution)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return CustomerProfilesEntityAssignmentsPage(
+            self._version, response, self._solution
+        )
 
     def get_page(self, target_url):
         """
@@ -139,52 +153,52 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
+        response = self._version.domain.twilio.request("GET", target_url)
+        return CustomerProfilesEntityAssignmentsPage(
+            self._version, response, self._solution
         )
-        return CustomerProfilesEntityAssignmentsPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a CustomerProfilesEntityAssignmentsContext
-        
+
         :param sid: The unique string that we created to identify the Identity resource.
-        
+
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         """
-        return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
+        return CustomerProfilesEntityAssignmentsContext(
+            self._version,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid):
         """
         Constructs a CustomerProfilesEntityAssignmentsContext
-        
+
         :param sid: The unique string that we created to identify the Identity resource.
-        
+
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         """
-        return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
+        return CustomerProfilesEntityAssignmentsContext(
+            self._version,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+            sid=sid,
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsList>'
-
-
-
-
-
-
+        return "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsList>"
 
 
 class CustomerProfilesEntityAssignmentsPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the CustomerProfilesEntityAssignmentsPage
@@ -209,7 +223,11 @@ class CustomerProfilesEntityAssignmentsPage(Page):
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
-        return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
+        return CustomerProfilesEntityAssignmentsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+        )
 
     def __repr__(self):
         """
@@ -218,33 +236,34 @@ class CustomerProfilesEntityAssignmentsPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsPage>'
-
-
+        return "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsPage>"
 
 
 class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
-
-    def __init__(self, version, payload, customer_profile_sid: str, sid: str=None):
+    def __init__(self, version, payload, customer_profile_sid: str, sid: str = None):
         """
         Initialize the CustomerProfilesEntityAssignmentsInstance
+
         :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'customer_profile_sid': payload.get('customer_profile_sid'),
-            'account_sid': payload.get('account_sid'),
-            'object_sid': payload.get('object_sid'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'url': payload.get('url'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "customer_profile_sid": payload.get("customer_profile_sid"),
+            "account_sid": payload.get("account_sid"),
+            "object_sid": payload.get("object_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'customer_profile_sid': customer_profile_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "customer_profile_sid": customer_profile_sid,
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -255,88 +274,97 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         """
         if self._context is None:
-            self._context = CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=self._solution['sid'],)
+            self._context = CustomerProfilesEntityAssignmentsContext(
+                self._version,
+                customer_profile_sid=self._solution["customer_profile_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that we created to identify the Item Assignment resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def customer_profile_sid(self):
         """
         :returns: The unique string that we created to identify the CustomerProfile resource.
         :rtype: str
         """
-        return self._properties['customer_profile_sid']
-    
+        return self._properties["customer_profile_sid"]
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Item Assignment resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def object_sid(self):
         """
         :returns: The SID of an object bag that holds information of the different items.
         :rtype: str
         """
-        return self._properties['object_sid']
-    
+        return self._properties["object_sid"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the Identity resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     def delete(self):
         """
         Deletes the CustomerProfilesEntityAssignmentsInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
-    
+
     def fetch(self):
         """
         Fetch the CustomerProfilesEntityAssignmentsInstance
-        
+
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
         return self._proxy.fetch()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return (
+            "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsInstance {}>".format(
+                context
+            )
+        )
+
 
 class CustomerProfilesEntityAssignmentsContext(InstanceContext):
-
     def __init__(self, version: Version, customer_profile_sid: str, sid: str):
         """
         Initialize the CustomerProfilesEntityAssignmentsContext
@@ -351,50 +379,60 @@ class CustomerProfilesEntityAssignmentsContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'customer_profile_sid': customer_profile_sid,
-            'sid': sid,
+        self._solution = {
+            "customer_profile_sid": customer_profile_sid,
+            "sid": sid,
         }
-        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments/{sid}'.format(**self._solution)
-        
-    
+        self._uri = (
+            "/CustomerProfiles/{customer_profile_sid}/EntityAssignments/{sid}".format(
+                **self._solution
+            )
+        )
+
     def delete(self):
         """
         Deletes the CustomerProfilesEntityAssignmentsInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the CustomerProfilesEntityAssignmentsInstance
-        
+
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return CustomerProfilesEntityAssignmentsInstance(
             self._version,
             payload,
-            customer_profile_sid=self._solution['customer_profile_sid'],
-            sid=self._solution['sid'],
-            
+            customer_profile_sid=self._solution["customer_profile_sid"],
+            sid=self._solution["sid"],
         )
-        
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return (
+            "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsContext {}>".format(
+                context
+            )
+        )

@@ -14,12 +14,13 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.hosted_numbers.authorization_document import AuthorizationDocumentList
+from twilio.rest.preview.hosted_numbers.authorization_document import (
+    AuthorizationDocumentList,
+)
 from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberOrderList
 
 
 class HostedNumbers(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the HostedNumbers version of Preview
@@ -27,10 +28,10 @@ class HostedNumbers(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain)
-        self.version = 'HostedNumbers'
+        self.version = "HostedNumbers"
         self._authorization_documents = None
         self._hosted_number_orders = None
-        
+
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
         """
@@ -55,4 +56,4 @@ class HostedNumbers(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.HostedNumbers>'
+        return "<Twilio.Preview.HostedNumbers>"

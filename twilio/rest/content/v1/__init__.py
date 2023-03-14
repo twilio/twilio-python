@@ -19,7 +19,6 @@ from twilio.rest.content.v1.legacy_content import LegacyContentList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Content
@@ -27,10 +26,10 @@ class V1(Version):
         :param domain: The Twilio.content domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._contents = None
         self._legacy_contents = None
-        
+
     @property
     def contents(self) -> ContentList:
         """
@@ -55,4 +54,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Content.V1>'
+        return "<Twilio.Content.V1>"

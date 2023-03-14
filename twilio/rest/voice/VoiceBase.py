@@ -14,7 +14,6 @@ from twilio.rest.voice.v1 import V1
 
 
 class VoiceBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Voice Domain
@@ -23,7 +22,7 @@ class VoiceBase(Domain):
         :rtype: twilio.rest.voice.Voice
         """
         super().__init__(twilio)
-        self.base_url = 'https://voice.twilio.com'
+        self.base_url = "https://voice.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class VoiceBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Voice>'
+        return "<Twilio.Voice>"

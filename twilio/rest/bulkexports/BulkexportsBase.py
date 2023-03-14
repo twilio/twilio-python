@@ -14,7 +14,6 @@ from twilio.rest.bulkexports.v1 import V1
 
 
 class BulkexportsBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Bulkexports Domain
@@ -23,7 +22,7 @@ class BulkexportsBase(Domain):
         :rtype: twilio.rest.bulkexports.Bulkexports
         """
         super().__init__(twilio)
-        self.base_url = 'https://bulkexports.twilio.com'
+        self.base_url = "https://bulkexports.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class BulkexportsBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Bulkexports>'
+        return "<Twilio.Bulkexports>"

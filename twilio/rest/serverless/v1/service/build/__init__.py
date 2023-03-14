@@ -159,7 +159,7 @@ class BuildList(ListResource):
         Constructs a BuildContext
         
         :param sid: The SID of the Build resource to fetch.
-        
+
         :returns: twilio.rest.serverless.v1.service.build.BuildContext
         :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
@@ -170,7 +170,7 @@ class BuildList(ListResource):
         Constructs a BuildContext
         
         :param sid: The SID of the Build resource to fetch.
-        
+
         :returns: twilio.rest.serverless.v1.service.build.BuildContext
         :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
@@ -179,6 +179,7 @@ class BuildList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
@@ -248,6 +249,7 @@ class BuildInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the BuildInstance
+
         :returns: twilio.rest.serverless.v1.service.build.BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
@@ -413,6 +415,7 @@ class BuildInstance(InstanceResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
@@ -492,6 +495,7 @@ class BuildContext(InstanceContext):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """

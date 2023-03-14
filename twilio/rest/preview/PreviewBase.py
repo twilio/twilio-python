@@ -19,7 +19,6 @@ from twilio.rest.preview.wireless import Wireless
 
 
 class PreviewBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Preview Domain
@@ -28,7 +27,7 @@ class PreviewBase(Domain):
         :rtype: twilio.rest.preview.Preview
         """
         super().__init__(twilio)
-        self.base_url = 'https://preview.twilio.com'
+        self.base_url = "https://preview.twilio.com"
         self._deployed_devices = None
         self._hosted_numbers = None
         self._sync = None
@@ -102,4 +101,4 @@ class PreviewBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview>'
+        return "<Twilio.Preview>"

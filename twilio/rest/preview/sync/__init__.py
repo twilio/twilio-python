@@ -18,7 +18,6 @@ from twilio.rest.preview.sync.service import ServiceList
 
 
 class Sync(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the Sync version of Preview
@@ -26,9 +25,9 @@ class Sync(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain)
-        self.version = 'Sync'
+        self.version = "Sync"
         self._services = None
-        
+
     @property
     def services(self) -> ServiceList:
         """
@@ -44,4 +43,4 @@ class Sync(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Sync>'
+        return "<Twilio.Preview.Sync>"

@@ -13,37 +13,35 @@
 """
 
 
-
-
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.voice.v1.dialing_permissions.bulk_country_update import BulkCountryUpdateList
+from twilio.rest.voice.v1.dialing_permissions.bulk_country_update import (
+    BulkCountryUpdateList,
+)
 from twilio.rest.voice.v1.dialing_permissions.country import CountryList
 from twilio.rest.voice.v1.dialing_permissions.settings import SettingsList
 
 
 class DialingPermissionsList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the DialingPermissionsList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.voice.v1.dialing_permissions.DialingPermissionsList
         :rtype: twilio.rest.voice.v1.dialing_permissions.DialingPermissionsList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/DialingPermissions'.format(**self._solution)
-        
+        self._solution = {}
+        self._uri = "/DialingPermissions".format(**self._solution)
+
         self._bulk_country_updates = None
         self._countries = None
         self._settings = None
-        
 
     @property
     def bulk_country_updates(self):
@@ -81,15 +79,11 @@ class DialingPermissionsList(ListResource):
             self._settings = SettingsList(self._version)
         return self._settings
 
-
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Voice.V1.DialingPermissionsList>'
-
-
-
-
+        return "<Twilio.Voice.V1.DialingPermissionsList>"

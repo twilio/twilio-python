@@ -22,27 +22,33 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class TokenList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the TokenList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.oauth.v1.token.TokenList
         :rtype: twilio.rest.oauth.v1.token.TokenList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/token'.format(**self._solution)
-        
-        
-    
-    def create(self, grant_type, client_sid, client_secret=values.unset, code=values.unset, code_verifier=values.unset, device_code=values.unset, refresh_token=values.unset, device_id=values.unset):
+        self._solution = {}
+        self._uri = "/token".format(**self._solution)
+
+    def create(
+        self,
+        grant_type,
+        client_sid,
+        client_secret=values.unset,
+        code=values.unset,
+        code_verifier=values.unset,
+        device_code=values.unset,
+        refresh_token=values.unset,
+        device_id=values.unset,
+    ):
         """
         Create the TokenInstance
 
@@ -54,105 +60,112 @@ class TokenList(ListResource):
         :param str device_code: JWT token related to the device code grant type.
         :param str refresh_token: JWT token related to the refresh token grant type.
         :param str device_id: The Id of the device associated with the token (refresh token).
-        
+
         :returns: The created TokenInstance
         :rtype: twilio.rest.oauth.v1.token.TokenInstance
         """
-        data = values.of({ 
-            'GrantType': grant_type,
-            'ClientSid': client_sid,
-            'ClientSecret': client_secret,
-            'Code': code,
-            'CodeVerifier': code_verifier,
-            'DeviceCode': device_code,
-            'RefreshToken': refresh_token,
-            'DeviceId': device_id,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "GrantType": grant_type,
+                "ClientSid": client_sid,
+                "ClientSecret": client_secret,
+                "Code": code,
+                "CodeVerifier": code_verifier,
+                "DeviceCode": device_code,
+                "RefreshToken": refresh_token,
+                "DeviceId": device_id,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return TokenInstance(self._version, payload)
-    
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Oauth.V1.TokenList>'
+        return "<Twilio.Oauth.V1.TokenList>"
+
 
 class TokenInstance(InstanceResource):
-
     def __init__(self, version, payload):
         """
         Initialize the TokenInstance
+
         :returns: twilio.rest.oauth.v1.token.TokenInstance
         :rtype: twilio.rest.oauth.v1.token.TokenInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'access_token': payload.get('access_token'),
-            'refresh_token': payload.get('refresh_token'),
-            'id_token': payload.get('id_token'),
-            'refresh_token_expires_at': deserialize.iso8601_datetime(payload.get('refresh_token_expires_at')),
-            'access_token_expires_at': deserialize.iso8601_datetime(payload.get('access_token_expires_at')),
+        self._properties = {
+            "access_token": payload.get("access_token"),
+            "refresh_token": payload.get("refresh_token"),
+            "id_token": payload.get("id_token"),
+            "refresh_token_expires_at": deserialize.iso8601_datetime(
+                payload.get("refresh_token_expires_at")
+            ),
+            "access_token_expires_at": deserialize.iso8601_datetime(
+                payload.get("access_token_expires_at")
+            ),
         }
 
         self._context = None
-        self._solution = {  }
-    
-    
+        self._solution = {}
+
     @property
     def access_token(self):
         """
         :returns: Token which carries the necessary information to access a Twilio resource directly.
         :rtype: str
         """
-        return self._properties['access_token']
-    
+        return self._properties["access_token"]
+
     @property
     def refresh_token(self):
         """
         :returns: Token which carries the information necessary to get a new access token.
         :rtype: str
         """
-        return self._properties['refresh_token']
-    
+        return self._properties["refresh_token"]
+
     @property
     def id_token(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['id_token']
-    
+        return self._properties["id_token"]
+
     @property
     def refresh_token_expires_at(self):
         """
         :returns: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['refresh_token_expires_at']
-    
+        return self._properties["refresh_token_expires_at"]
+
     @property
     def access_token_expires_at(self):
         """
         :returns: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
         :rtype: datetime
         """
-        return self._properties['access_token_expires_at']
-    
+        return self._properties["access_token_expires_at"]
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Oauth.V1.TokenInstance {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Oauth.V1.TokenInstance {}>".format(context)

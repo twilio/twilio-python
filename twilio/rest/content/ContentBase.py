@@ -14,7 +14,6 @@ from twilio.rest.content.v1 import V1
 
 
 class ContentBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Content Domain
@@ -23,7 +22,7 @@ class ContentBase(Domain):
         :rtype: twilio.rest.content.Content
         """
         super().__init__(twilio)
-        self.base_url = 'https://content.twilio.com'
+        self.base_url = "https://content.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class ContentBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Content>'
+        return "<Twilio.Content>"

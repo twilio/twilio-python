@@ -24,7 +24,6 @@ from twilio.rest.trusthub.v1.trust_products import TrustProductsList
 
 
 class V1(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Trusthub
@@ -32,7 +31,7 @@ class V1(Version):
         :param domain: The Twilio.trusthub domain
         """
         super().__init__(domain)
-        self.version = 'v1'
+        self.version = "v1"
         self._customer_profiles = None
         self._end_users = None
         self._end_user_types = None
@@ -40,7 +39,7 @@ class V1(Version):
         self._supporting_documents = None
         self._supporting_document_types = None
         self._trust_products = None
-        
+
     @property
     def customer_profiles(self) -> CustomerProfilesList:
         """
@@ -110,4 +109,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trusthub.V1>'
+        return "<Twilio.Trusthub.V1>"

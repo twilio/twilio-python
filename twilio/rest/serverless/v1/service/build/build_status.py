@@ -46,6 +46,7 @@ class BuildStatusList(ListResource):
         """
         Constructs a BuildStatusContext
         
+
         :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         """
@@ -55,6 +56,7 @@ class BuildStatusList(ListResource):
         """
         Constructs a BuildStatusContext
         
+
         :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
         """
@@ -63,6 +65,7 @@ class BuildStatusList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
@@ -78,6 +81,7 @@ class BuildStatusInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, sid: str):
         """
         Initialize the BuildStatusInstance
+
         :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         """
@@ -160,6 +164,7 @@ class BuildStatusInstance(InstanceResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
@@ -212,6 +217,7 @@ class BuildStatusContext(InstanceContext):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """

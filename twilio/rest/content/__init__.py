@@ -6,13 +6,20 @@ from twilio.rest.content.v1.legacy_content import LegacyContentList
 
 
 class Content(ContentBase):
-
     @property
     def contents(self) -> ContentList:
-        warn('contents is deprecated. Use v1.contents instead.', DeprecationWarning, stacklevel=2)
+        warn(
+            "contents is deprecated. Use v1.contents instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return self.v1.contents
 
     @property
     def legacy_contents(self) -> LegacyContentList:
-        warn('legacy_contents is deprecated. Use v1.legacy_contents instead.', DeprecationWarning, stacklevel=2)
+        warn(
+            "legacy_contents is deprecated. Use v1.legacy_contents instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return self.v1.legacy_contents

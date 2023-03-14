@@ -20,7 +20,6 @@ from twilio.rest.routes.v2.trunk import TrunkList
 
 
 class V2(Version):
-
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Routes
@@ -28,11 +27,11 @@ class V2(Version):
         :param domain: The Twilio.routes domain
         """
         super().__init__(domain)
-        self.version = 'v2'
+        self.version = "v2"
         self._phone_numbers = None
         self._sip_domains = None
         self._trunks = None
-        
+
     @property
     def phone_numbers(self) -> PhoneNumberList:
         """
@@ -66,4 +65,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Routes.V2>'
+        return "<Twilio.Routes.V2>"

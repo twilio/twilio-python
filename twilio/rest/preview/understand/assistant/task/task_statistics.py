@@ -20,9 +20,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class TaskStatisticsList(ListResource):
-
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskStatisticsList
@@ -30,67 +28,81 @@ class TaskStatisticsList(ListResource):
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the parent Assistant.
         :param task_sid: The unique ID of the Task associated with this Field.
-        
+
         :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsList
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-        
-        
-        
-    
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "task_sid": task_sid,
+        }
 
     def get(self):
         """
         Constructs a TaskStatisticsContext
-        
+
+
         :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
         """
-        return TaskStatisticsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+        return TaskStatisticsContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
 
     def __call__(self):
         """
         Constructs a TaskStatisticsContext
-        
+
+
         :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
         """
-        return TaskStatisticsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+        return TaskStatisticsContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Understand.TaskStatisticsList>'
+        return "<Twilio.Preview.Understand.TaskStatisticsList>"
+
 
 class TaskStatisticsInstance(InstanceResource):
-
     def __init__(self, version, payload, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskStatisticsInstance
+
         :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsInstance
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'assistant_sid': payload.get('assistant_sid'),
-            'task_sid': payload.get('task_sid'),
-            'samples_count': deserialize.integer(payload.get('samples_count')),
-            'fields_count': deserialize.integer(payload.get('fields_count')),
-            'url': payload.get('url'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "assistant_sid": payload.get("assistant_sid"),
+            "task_sid": payload.get("task_sid"),
+            "samples_count": deserialize.integer(payload.get("samples_count")),
+            "fields_count": deserialize.integer(payload.get("fields_count")),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-    
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "task_sid": task_sid,
+        }
+
     @property
     def _proxy(self):
         """
@@ -101,78 +113,83 @@ class TaskStatisticsInstance(InstanceResource):
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsContext
         """
         if self._context is None:
-            self._context = TaskStatisticsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'],)
+            self._context = TaskStatisticsContext(
+                self._version,
+                assistant_sid=self._solution["assistant_sid"],
+                task_sid=self._solution["task_sid"],
+            )
         return self._context
-    
+
     @property
     def account_sid(self):
         """
         :returns: The unique ID of the Account that created this Field.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def assistant_sid(self):
         """
         :returns: The unique ID of the parent Assistant.
         :rtype: str
         """
-        return self._properties['assistant_sid']
-    
+        return self._properties["assistant_sid"]
+
     @property
     def task_sid(self):
         """
         :returns: The unique ID of the Task associated with this Field.
         :rtype: str
         """
-        return self._properties['task_sid']
-    
+        return self._properties["task_sid"]
+
     @property
     def samples_count(self):
         """
         :returns: The total number of Samples associated with this Task.
         :rtype: int
         """
-        return self._properties['samples_count']
-    
+        return self._properties["samples_count"]
+
     @property
     def fields_count(self):
         """
         :returns: The total number of Fields associated with this Task.
         :rtype: int
         """
-        return self._properties['fields_count']
-    
+        return self._properties["fields_count"]
+
     @property
     def url(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     def fetch(self):
         """
         Fetch the TaskStatisticsInstance
-        
+
 
         :returns: The fetched TaskStatisticsInstance
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsInstance
         """
         return self._proxy.fetch()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.TaskStatisticsInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Understand.TaskStatisticsInstance {}>".format(context)
+
 
 class TaskStatisticsContext(InstanceContext):
-
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskStatisticsContext
@@ -187,40 +204,41 @@ class TaskStatisticsContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'task_sid': task_sid,
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "task_sid": task_sid,
         }
-        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Statistics'.format(**self._solution)
-        
-    
+        self._uri = "/Assistants/{assistant_sid}/Tasks/{task_sid}/Statistics".format(
+            **self._solution
+        )
+
     def fetch(self):
         """
         Fetch the TaskStatisticsInstance
-        
+
 
         :returns: The fetched TaskStatisticsInstance
         :rtype: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TaskStatisticsInstance(
             self._version,
             payload,
-            assistant_sid=self._solution['assistant_sid'],
-            task_sid=self._solution['task_sid'],
-            
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
         )
-        
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.TaskStatisticsContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Understand.TaskStatisticsContext {}>".format(context)

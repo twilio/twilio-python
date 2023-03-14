@@ -23,25 +23,33 @@ from twilio.base.page import Page
 
 
 class InsightsAssessmentsCommentList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the InsightsAssessmentsCommentList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentList
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Insights/QM/Assessments/Comments'.format(**self._solution)
-        
-        
-    
-    def create(self, category_id, category_name, comment, segment_id, user_name, user_email, agent_id, offset, token=values.unset):
+        self._solution = {}
+        self._uri = "/Insights/QM/Assessments/Comments".format(**self._solution)
+
+    def create(
+        self,
+        category_id,
+        category_name,
+        comment,
+        segment_id,
+        user_name,
+        user_email,
+        agent_id,
+        offset,
+        token=values.unset,
+    ):
         """
         Create the InsightsAssessmentsCommentInstance
 
@@ -54,33 +62,47 @@ class InsightsAssessmentsCommentList(ListResource):
         :param str agent_id: The id of the agent.
         :param float offset: The offset
         :param str token: The Token HTTP request header
-        
+
         :returns: The created InsightsAssessmentsCommentInstance
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
         """
-        data = values.of({ 
-            'CategoryId': category_id,
-            'CategoryName': category_name,
-            'Comment': comment,
-            'SegmentId': segment_id,
-            'UserName': user_name,
-            'UserEmail': user_email,
-            'AgentId': agent_id,
-            'Offset': offset,
-        })
-        headers = values.of({'Token': token, })
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+        data = values.of(
+            {
+                "CategoryId": category_id,
+                "CategoryName": category_name,
+                "Comment": comment,
+                "SegmentId": segment_id,
+                "UserName": user_name,
+                "UserEmail": user_email,
+                "AgentId": agent_id,
+                "Offset": offset,
+            }
+        )
+        headers = values.of(
+            {
+                "Token": token,
+            }
+        )
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return InsightsAssessmentsCommentInstance(self._version, payload)
-    
-    
-    def stream(self, token=values.unset, segment_id=values.unset, agent_id=values.unset, limit=None, page_size=None):
+
+    def stream(
+        self,
+        token=values.unset,
+        segment_id=values.unset,
+        agent_id=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams InsightsAssessmentsCommentInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
@@ -99,17 +121,24 @@ class InsightsAssessmentsCommentList(ListResource):
             token=token,
             segment_id=segment_id,
             agent_id=agent_id,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    def list(self, token=values.unset, segment_id=values.unset, agent_id=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        token=values.unset,
+        segment_id=values.unset,
+        agent_id=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists InsightsAssessmentsCommentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
@@ -123,19 +152,29 @@ class InsightsAssessmentsCommentList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance]
         """
-        return list(self.stream(
-            token=token,
-            segment_id=segment_id,
-            agent_id=agent_id,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                token=token,
+                segment_id=segment_id,
+                agent_id=agent_id,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, token=values.unset, segment_id=values.unset, agent_id=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        token=values.unset,
+        segment_id=values.unset,
+        agent_id=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
-        
+
         :param str token: The Token HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
@@ -146,16 +185,18 @@ class InsightsAssessmentsCommentList(ListResource):
         :returns: Page of InsightsAssessmentsCommentInstance
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
-        data = values.of({ 
-            'Token': token,
-            'SegmentId': segment_id,
-            'AgentId': agent_id,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Token": token,
+                "SegmentId": segment_id,
+                "AgentId": agent_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return InsightsAssessmentsCommentPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -168,27 +209,20 @@ class InsightsAssessmentsCommentList(ListResource):
         :returns: Page of InsightsAssessmentsCommentInstance
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return InsightsAssessmentsCommentPage(self._version, response, self._solution)
-
-
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V1.InsightsAssessmentsCommentList>'
-
-
+        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentList>"
 
 
 class InsightsAssessmentsCommentPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the InsightsAssessmentsCommentPage
@@ -222,144 +256,141 @@ class InsightsAssessmentsCommentPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V1.InsightsAssessmentsCommentPage>'
-
-
+        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentPage>"
 
 
 class InsightsAssessmentsCommentInstance(InstanceResource):
-
     def __init__(self, version, payload):
         """
         Initialize the InsightsAssessmentsCommentInstance
+
         :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'assessment_id': payload.get('assessment_id'),
-            'comment': payload.get('comment'),
-            'offset': deserialize.decimal(payload.get('offset')),
-            'report': payload.get('report'),
-            'weight': deserialize.decimal(payload.get('weight')),
-            'agent_id': payload.get('agent_id'),
-            'segment_id': payload.get('segment_id'),
-            'user_name': payload.get('user_name'),
-            'user_email': payload.get('user_email'),
-            'timestamp': deserialize.decimal(payload.get('timestamp')),
-            'url': payload.get('url'),
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "assessment_id": payload.get("assessment_id"),
+            "comment": payload.get("comment"),
+            "offset": deserialize.decimal(payload.get("offset")),
+            "report": payload.get("report"),
+            "weight": deserialize.decimal(payload.get("weight")),
+            "agent_id": payload.get("agent_id"),
+            "segment_id": payload.get("segment_id"),
+            "user_name": payload.get("user_name"),
+            "user_email": payload.get("user_email"),
+            "timestamp": deserialize.decimal(payload.get("timestamp")),
+            "url": payload.get("url"),
         }
 
         self._context = None
-        self._solution = {  }
-    
-    
+        self._solution = {}
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def assessment_id(self):
         """
         :returns: The unique ID of the assessment.
         :rtype: str
         """
-        return self._properties['assessment_id']
-    
+        return self._properties["assessment_id"]
+
     @property
     def comment(self):
         """
         :returns: The comment added for assessment.
         :rtype: dict
         """
-        return self._properties['comment']
-    
+        return self._properties["comment"]
+
     @property
     def offset(self):
         """
         :returns: The offset
         :rtype: float
         """
-        return self._properties['offset']
-    
+        return self._properties["offset"]
+
     @property
     def report(self):
         """
-        :returns: The flag indicating if this assessment is part of report 
+        :returns: The flag indicating if this assessment is part of report
         :rtype: bool
         """
-        return self._properties['report']
-    
+        return self._properties["report"]
+
     @property
     def weight(self):
         """
         :returns: The weightage given to this comment
         :rtype: float
         """
-        return self._properties['weight']
-    
+        return self._properties["weight"]
+
     @property
     def agent_id(self):
         """
         :returns: The id of the agent.
         :rtype: str
         """
-        return self._properties['agent_id']
-    
+        return self._properties["agent_id"]
+
     @property
     def segment_id(self):
         """
         :returns: The id of the segment.
         :rtype: str
         """
-        return self._properties['segment_id']
-    
+        return self._properties["segment_id"]
+
     @property
     def user_name(self):
         """
         :returns: The name of the user.
         :rtype: str
         """
-        return self._properties['user_name']
-    
+        return self._properties["user_name"]
+
     @property
     def user_email(self):
         """
         :returns: The email id of the user.
         :rtype: str
         """
-        return self._properties['user_email']
-    
+        return self._properties["user_email"]
+
     @property
     def timestamp(self):
         """
         :returns: The timestamp when the record is inserted
         :rtype: float
         """
-        return self._properties['timestamp']
-    
+        return self._properties["timestamp"]
+
     @property
     def url(self):
         """
-        :returns: 
+        :returns:
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance {}>".format(
+            context
+        )

@@ -15,7 +15,6 @@ from twilio.rest.flex_api.v2 import V2
 
 
 class FlexApiBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the FlexApi Domain
@@ -24,7 +23,7 @@ class FlexApiBase(Domain):
         :rtype: twilio.rest.flex_api.FlexApi
         """
         super().__init__(twilio)
-        self.base_url = 'https://flex-api.twilio.com'
+        self.base_url = "https://flex-api.twilio.com"
         self._v1 = None
         self._v2 = None
 
@@ -54,4 +53,4 @@ class FlexApiBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi>'
+        return "<Twilio.FlexApi>"

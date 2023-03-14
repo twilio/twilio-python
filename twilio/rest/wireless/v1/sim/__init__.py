@@ -26,34 +26,37 @@ from twilio.rest.wireless.v1.sim.usage_record import UsageRecordList
 
 
 class SimList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the SimList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.wireless.v1.sim.SimList
         :rtype: twilio.rest.wireless.v1.sim.SimList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Sims'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def stream(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+        self._solution = {}
+        self._uri = "/Sims".format(**self._solution)
+
+    def stream(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams SimInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param SimInstance.Status status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -76,17 +79,26 @@ class SimList(ListResource):
             rate_plan=rate_plan,
             e_id=e_id,
             sim_registration_code=sim_registration_code,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    def list(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param SimInstance.Status status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -102,21 +114,33 @@ class SimList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
         """
-        return list(self.stream(
-            status=status,
-            iccid=iccid,
-            rate_plan=rate_plan,
-            e_id=e_id,
-            sim_registration_code=sim_registration_code,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                status=status,
+                iccid=iccid,
+                rate_plan=rate_plan,
+                e_id=e_id,
+                sim_registration_code=sim_registration_code,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, e_id=values.unset, sim_registration_code=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
-        
+
         :param SimInstance.Status status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -129,18 +153,20 @@ class SimList(ListResource):
         :returns: Page of SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimPage
         """
-        data = values.of({ 
-            'Status': status,
-            'Iccid': iccid,
-            'RatePlan': rate_plan,
-            'EId': e_id,
-            'SimRegistrationCode': sim_registration_code,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "Iccid": iccid,
+                "RatePlan": rate_plan,
+                "EId": e_id,
+                "SimRegistrationCode": sim_registration_code,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return SimPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -153,19 +179,15 @@ class SimList(ListResource):
         :returns: Page of SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return SimPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a SimContext
-        
+
         :param sid: The SID or the `unique_name` of the Sim resource to update.
-        
+
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
         """
@@ -174,9 +196,9 @@ class SimList(ListResource):
     def __call__(self, sid):
         """
         Constructs a SimContext
-        
+
         :param sid: The SID or the `unique_name` of the Sim resource to update.
-        
+
         :returns: twilio.rest.wireless.v1.sim.SimContext
         :rtype: twilio.rest.wireless.v1.sim.SimContext
         """
@@ -185,20 +207,14 @@ class SimList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Wireless.V1.SimList>'
-
-
-
-
-
-
+        return "<Twilio.Wireless.V1.SimList>"
 
 
 class SimPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the SimPage
@@ -232,13 +248,10 @@ class SimPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Wireless.V1.SimPage>'
-
-
+        return "<Twilio.Wireless.V1.SimPage>"
 
 
 class SimInstance(InstanceResource):
-
     class ResetStatus(object):
         RESETTING = "resetting"
 
@@ -252,44 +265,47 @@ class SimInstance(InstanceResource):
         SCHEDULED = "scheduled"
         UPDATING = "updating"
 
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the SimInstance
+
         :returns: twilio.rest.wireless.v1.sim.SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'unique_name': payload.get('unique_name'),
-            'account_sid': payload.get('account_sid'),
-            'rate_plan_sid': payload.get('rate_plan_sid'),
-            'friendly_name': payload.get('friendly_name'),
-            'iccid': payload.get('iccid'),
-            'e_id': payload.get('e_id'),
-            'status': payload.get('status'),
-            'reset_status': payload.get('reset_status'),
-            'commands_callback_url': payload.get('commands_callback_url'),
-            'commands_callback_method': payload.get('commands_callback_method'),
-            'sms_fallback_method': payload.get('sms_fallback_method'),
-            'sms_fallback_url': payload.get('sms_fallback_url'),
-            'sms_method': payload.get('sms_method'),
-            'sms_url': payload.get('sms_url'),
-            'voice_fallback_method': payload.get('voice_fallback_method'),
-            'voice_fallback_url': payload.get('voice_fallback_url'),
-            'voice_method': payload.get('voice_method'),
-            'voice_url': payload.get('voice_url'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'url': payload.get('url'),
-            'links': payload.get('links'),
-            'ip_address': payload.get('ip_address'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "unique_name": payload.get("unique_name"),
+            "account_sid": payload.get("account_sid"),
+            "rate_plan_sid": payload.get("rate_plan_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "iccid": payload.get("iccid"),
+            "e_id": payload.get("e_id"),
+            "status": payload.get("status"),
+            "reset_status": payload.get("reset_status"),
+            "commands_callback_url": payload.get("commands_callback_url"),
+            "commands_callback_method": payload.get("commands_callback_method"),
+            "sms_fallback_method": payload.get("sms_fallback_method"),
+            "sms_fallback_url": payload.get("sms_fallback_url"),
+            "sms_method": payload.get("sms_method"),
+            "sms_url": payload.get("sms_url"),
+            "voice_fallback_method": payload.get("voice_fallback_method"),
+            "voice_fallback_url": payload.get("voice_fallback_url"),
+            "voice_method": payload.get("voice_method"),
+            "voice_url": payload.get("voice_url"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+            "ip_address": payload.get("ip_address"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -300,249 +316,291 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.wireless.v1.sim.SimContext
         """
         if self._context is None:
-            self._context = SimContext(self._version, sid=self._solution['sid'],)
+            self._context = SimContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string that we created to identify the Sim resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def unique_name(self):
         """
         :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :rtype: str
         """
-        return self._properties['unique_name']
-    
+        return self._properties["unique_name"]
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource belongs.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def rate_plan_sid(self):
         """
         :returns: The SID of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource is assigned.
         :rtype: str
         """
-        return self._properties['rate_plan_sid']
-    
+        return self._properties["rate_plan_sid"]
+
     @property
     def friendly_name(self):
         """
         :returns: The string that you assigned to describe the Sim resource.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def iccid(self):
         """
         :returns: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
         :rtype: str
         """
-        return self._properties['iccid']
-    
+        return self._properties["iccid"]
+
     @property
     def e_id(self):
         """
         :returns: Deprecated.
         :rtype: str
         """
-        return self._properties['e_id']
-    
+        return self._properties["e_id"]
+
     @property
     def status(self):
         """
-        :returns: 
+        :returns:
         :rtype: SimInstance.Status
         """
-        return self._properties['status']
-    
+        return self._properties["status"]
+
     @property
     def reset_status(self):
         """
-        :returns: 
+        :returns:
         :rtype: SimInstance.ResetStatus
         """
-        return self._properties['reset_status']
-    
+        return self._properties["reset_status"]
+
     @property
     def commands_callback_url(self):
         """
         :returns: The URL we call using the `commands_callback_method` when the SIM originates a machine-to-machine [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
         :rtype: str
         """
-        return self._properties['commands_callback_url']
-    
+        return self._properties["commands_callback_url"]
+
     @property
     def commands_callback_method(self):
         """
         :returns: The HTTP method we use to call `commands_callback_url`.  Can be: `POST` or `GET`. Default is `POST`.
         :rtype: str
         """
-        return self._properties['commands_callback_method']
-    
+        return self._properties["commands_callback_method"]
+
     @property
     def sms_fallback_method(self):
         """
         :returns: Deprecated.
         :rtype: str
         """
-        return self._properties['sms_fallback_method']
-    
+        return self._properties["sms_fallback_method"]
+
     @property
     def sms_fallback_url(self):
         """
         :returns: Deprecated.
         :rtype: str
         """
-        return self._properties['sms_fallback_url']
-    
+        return self._properties["sms_fallback_url"]
+
     @property
     def sms_method(self):
         """
         :returns: Deprecated.
         :rtype: str
         """
-        return self._properties['sms_method']
-    
+        return self._properties["sms_method"]
+
     @property
     def sms_url(self):
         """
         :returns: Deprecated.
         :rtype: str
         """
-        return self._properties['sms_url']
-    
+        return self._properties["sms_url"]
+
     @property
     def voice_fallback_method(self):
         """
         :returns: Deprecated. The HTTP method we use to call `voice_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
         :rtype: str
         """
-        return self._properties['voice_fallback_method']
-    
+        return self._properties["voice_fallback_method"]
+
     @property
     def voice_fallback_url(self):
         """
         :returns: Deprecated. The URL we call using the `voice_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
         :rtype: str
         """
-        return self._properties['voice_fallback_url']
-    
+        return self._properties["voice_fallback_url"]
+
     @property
     def voice_method(self):
         """
         :returns: Deprecated. The HTTP method we use to call `voice_url`. Can be: `GET` or `POST`. Default is `POST`.
         :rtype: str
         """
-        return self._properties['voice_method']
-    
+        return self._properties["voice_method"]
+
     @property
     def voice_url(self):
         """
         :returns: Deprecated. The URL we call using the `voice_method` when the SIM-connected device makes a voice call.
         :rtype: str
         """
-        return self._properties['voice_url']
-    
+        return self._properties["voice_url"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date and time in GMT when the Sim resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def links(self):
         """
         :returns: The URLs of related subresources.
         :rtype: dict
         """
-        return self._properties['links']
-    
+        return self._properties["links"]
+
     @property
     def ip_address(self):
         """
         :returns: Deprecated.
         :rtype: str
         """
-        return self._properties['ip_address']
-    
+        return self._properties["ip_address"]
+
     def delete(self):
         """
         Deletes the SimInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
         return self._proxy.delete()
-    
+
     def fetch(self):
         """
         Fetch the SimInstance
-        
+
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
         """
         return self._proxy.fetch()
-    
-    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset, reset_status=values.unset, account_sid=values.unset):
+
+    def update(
+        self,
+        unique_name=values.unset,
+        callback_method=values.unset,
+        callback_url=values.unset,
+        friendly_name=values.unset,
+        rate_plan=values.unset,
+        status=values.unset,
+        commands_callback_method=values.unset,
+        commands_callback_url=values.unset,
+        sms_fallback_method=values.unset,
+        sms_fallback_url=values.unset,
+        sms_method=values.unset,
+        sms_url=values.unset,
+        voice_fallback_method=values.unset,
+        voice_fallback_url=values.unset,
+        voice_method=values.unset,
+        voice_url=values.unset,
+        reset_status=values.unset,
+        account_sid=values.unset,
+    ):
         """
         Update the SimInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-        :params str callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
-        :params str friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
-        :params str rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :params SimInstance.Status status: 
-        :params str commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-        :params str commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
-        :params str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
-        :params str sms_fallback_url: The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
-        :params str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
-        :params str sms_url: The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
-        :params str voice_fallback_method: Deprecated.
-        :params str voice_fallback_url: Deprecated.
-        :params str voice_method: Deprecated.
-        :params str voice_url: Deprecated.
-        :params SimInstance.ResetStatus reset_status: 
-        :params str account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
+        :param str callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
+        :param str friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
+        :param str rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
+        :param SimInstance.Status status:
+        :param str commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
+        :param str commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
+        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
+        :param str sms_fallback_url: The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
+        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
+        :param str sms_url: The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+        :param str voice_fallback_method: Deprecated.
+        :param str voice_fallback_url: Deprecated.
+        :param str voice_method: Deprecated.
+        :param str voice_url: Deprecated.
+        :param SimInstance.ResetStatus reset_status:
+        :param str account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
         """
-        return self._proxy.update(unique_name=unique_name, callback_method=callback_method, callback_url=callback_url, friendly_name=friendly_name, rate_plan=rate_plan, status=status, commands_callback_method=commands_callback_method, commands_callback_url=commands_callback_url, sms_fallback_method=sms_fallback_method, sms_fallback_url=sms_fallback_url, sms_method=sms_method, sms_url=sms_url, voice_fallback_method=voice_fallback_method, voice_fallback_url=voice_fallback_url, voice_method=voice_method, voice_url=voice_url, reset_status=reset_status, account_sid=account_sid, )
-    
+        return self._proxy.update(
+            unique_name=unique_name,
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+            rate_plan=rate_plan,
+            status=status,
+            commands_callback_method=commands_callback_method,
+            commands_callback_url=commands_callback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+            reset_status=reset_status,
+            account_sid=account_sid,
+        )
+
     @property
     def data_sessions(self):
         """
@@ -552,7 +610,7 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.wireless.v1.sim.DataSessionList
         """
         return self._proxy.data_sessions
-    
+
     @property
     def usage_records(self):
         """
@@ -562,18 +620,19 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.wireless.v1.sim.UsageRecordList
         """
         return self._proxy.usage_records
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Wireless.V1.SimInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Wireless.V1.SimInstance {}>".format(context)
+
 
 class SimContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SimContext
@@ -587,99 +646,124 @@ class SimContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Sims/{sid}'.format(**self._solution)
-        
+        self._uri = "/Sims/{sid}".format(**self._solution)
+
         self._data_sessions = None
         self._usage_records = None
-    
+
     def delete(self):
         """
         Deletes the SimInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self):
         """
         Fetch the SimInstance
-        
+
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SimInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-        
-    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset, reset_status=values.unset, account_sid=values.unset):
+
+    def update(
+        self,
+        unique_name=values.unset,
+        callback_method=values.unset,
+        callback_url=values.unset,
+        friendly_name=values.unset,
+        rate_plan=values.unset,
+        status=values.unset,
+        commands_callback_method=values.unset,
+        commands_callback_url=values.unset,
+        sms_fallback_method=values.unset,
+        sms_fallback_url=values.unset,
+        sms_method=values.unset,
+        sms_url=values.unset,
+        voice_fallback_method=values.unset,
+        voice_fallback_url=values.unset,
+        voice_method=values.unset,
+        voice_url=values.unset,
+        reset_status=values.unset,
+        account_sid=values.unset,
+    ):
         """
         Update the SimInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-        :params str callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
-        :params str friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
-        :params str rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :params SimInstance.Status status: 
-        :params str commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-        :params str commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
-        :params str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
-        :params str sms_fallback_url: The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
-        :params str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
-        :params str sms_url: The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
-        :params str voice_fallback_method: Deprecated.
-        :params str voice_fallback_url: Deprecated.
-        :params str voice_method: Deprecated.
-        :params str voice_url: Deprecated.
-        :params SimInstance.ResetStatus reset_status: 
-        :params str account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
+        :param str callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
+        :param str friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
+        :param str rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
+        :param SimInstance.Status status:
+        :param str commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
+        :param str commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
+        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
+        :param str sms_fallback_url: The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
+        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
+        :param str sms_url: The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+        :param str voice_fallback_method: Deprecated.
+        :param str voice_fallback_url: Deprecated.
+        :param str voice_method: Deprecated.
+        :param str voice_url: Deprecated.
+        :param SimInstance.ResetStatus reset_status:
+        :param str account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
         """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-            'RatePlan': rate_plan,
-            'Status': status,
-            'CommandsCallbackMethod': commands_callback_method,
-            'CommandsCallbackUrl': commands_callback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsMethod': sms_method,
-            'SmsUrl': sms_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceMethod': voice_method,
-            'VoiceUrl': voice_url,
-            'ResetStatus': reset_status,
-            'AccountSid': account_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "CallbackMethod": callback_method,
+                "CallbackUrl": callback_url,
+                "FriendlyName": friendly_name,
+                "RatePlan": rate_plan,
+                "Status": status,
+                "CommandsCallbackMethod": commands_callback_method,
+                "CommandsCallbackUrl": commands_callback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsMethod": sms_method,
+                "SmsUrl": sms_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceMethod": voice_method,
+                "VoiceUrl": voice_url,
+                "ResetStatus": reset_status,
+                "AccountSid": account_sid,
+            }
         )
-        
-    
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SimInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def data_sessions(self):
         """
@@ -690,11 +774,11 @@ class SimContext(InstanceContext):
         """
         if self._data_sessions is None:
             self._data_sessions = DataSessionList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._data_sessions
-    
+
     @property
     def usage_records(self):
         """
@@ -705,18 +789,17 @@ class SimContext(InstanceContext):
         """
         if self._usage_records is None:
             self._usage_records = UsageRecordList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._usage_records
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Wireless.V1.SimContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Wireless.V1.SimContext {}>".format(context)

@@ -14,7 +14,6 @@ from twilio.rest.trunking.v1 import V1
 
 
 class TrunkingBase(Domain):
-
     def __init__(self, twilio):
         """
         Initialize the Trunking Domain
@@ -23,7 +22,7 @@ class TrunkingBase(Domain):
         :rtype: twilio.rest.trunking.Trunking
         """
         super().__init__(twilio)
-        self.base_url = 'https://trunking.twilio.com'
+        self.base_url = "https://trunking.twilio.com"
         self._v1 = None
 
     @property
@@ -42,4 +41,4 @@ class TrunkingBase(Domain):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Trunking>'
+        return "<Twilio.Trunking>"

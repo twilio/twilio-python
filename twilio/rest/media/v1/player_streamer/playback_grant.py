@@ -22,95 +22,102 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class PlaybackGrantList(ListResource):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PlaybackGrantList
 
         :param Version version: Version that contains the resource
         :param sid: The unique string generated to identify the PlayerStreamer resource associated with this PlaybackGrant
-        
+
         :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 'sid': sid,  }
-        
-        
-        
-    
+        self._solution = {
+            "sid": sid,
+        }
+
     def create(self, ttl=values.unset, access_control_allow_origin=values.unset):
         """
         Create the PlaybackGrantInstance
 
         :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
         :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
-        
+
         :returns: The created PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
-        data = values.of({ 
-            'Ttl': ttl,
-            'AccessControlAllowOrigin': access_control_allow_origin,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "Ttl": ttl,
+                "AccessControlAllowOrigin": access_control_allow_origin,
+            }
+        )
 
-        return PlaybackGrantInstance(self._version, payload, sid=self._solution['sid'])
-    
-    
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return PlaybackGrantInstance(self._version, payload, sid=self._solution["sid"])
 
     def get(self):
         """
         Constructs a PlaybackGrantContext
-        
+
+
         :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
         """
-        return PlaybackGrantContext(self._version, sid=self._solution['sid'])
+        return PlaybackGrantContext(self._version, sid=self._solution["sid"])
 
     def __call__(self):
         """
         Constructs a PlaybackGrantContext
-        
+
+
         :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
         """
-        return PlaybackGrantContext(self._version, sid=self._solution['sid'])
+        return PlaybackGrantContext(self._version, sid=self._solution["sid"])
 
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Media.V1.PlaybackGrantList>'
+        return "<Twilio.Media.V1.PlaybackGrantList>"
+
 
 class PlaybackGrantInstance(InstanceResource):
-
     def __init__(self, version, payload, sid: str):
         """
         Initialize the PlaybackGrantInstance
+
         :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'url': payload.get('url'),
-            'account_sid': payload.get('account_sid'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'grant': payload.get('grant'),
+        self._properties = {
+            "sid": payload.get("sid"),
+            "url": payload.get("url"),
+            "account_sid": payload.get("account_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "grant": payload.get("grant"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid,  }
-    
+        self._solution = {
+            "sid": sid,
+        }
+
     @property
     def _proxy(self):
         """
@@ -121,82 +128,89 @@ class PlaybackGrantInstance(InstanceResource):
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
         """
         if self._context is None:
-            self._context = PlaybackGrantContext(self._version, sid=self._solution['sid'],)
+            self._context = PlaybackGrantContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def sid(self):
         """
         :returns: The unique string generated to identify the PlayerStreamer resource that this PlaybackGrant authorizes views for.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def url(self):
         """
         :returns: The absolute URL of the resource.
         :rtype: str
         """
-        return self._properties['url']
-    
+        return self._properties["url"]
+
     @property
     def account_sid(self):
         """
         :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this resource.
         :rtype: str
         """
-        return self._properties['account_sid']
-    
+        return self._properties["account_sid"]
+
     @property
     def date_created(self):
         """
         :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def grant(self):
         """
         :returns: The grant that authorizes the player sdk to connect to the livestream
         :rtype: dict
         """
-        return self._properties['grant']
-    
+        return self._properties["grant"]
+
     def create(self, ttl=values.unset, access_control_allow_origin=values.unset):
         """
         Create the PlaybackGrantInstance
-        
+
         :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
         :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 
         :returns: The created PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
-        return self._proxy.create(ttl=ttl, access_control_allow_origin=access_control_allow_origin, )
-    
+        return self._proxy.create(
+            ttl=ttl,
+            access_control_allow_origin=access_control_allow_origin,
+        )
+
     def fetch(self):
         """
         Fetch the PlaybackGrantInstance
-        
+
 
         :returns: The fetched PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
         return self._proxy.fetch()
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Media.V1.PlaybackGrantInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Media.V1.PlaybackGrantInstance {}>".format(context)
+
 
 class PlaybackGrantContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PlaybackGrantContext
@@ -210,61 +224,58 @@ class PlaybackGrantContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/PlayerStreamers/{sid}/PlaybackGrant'.format(**self._solution)
-        
-    
+        self._uri = "/PlayerStreamers/{sid}/PlaybackGrant".format(**self._solution)
+
     def create(self, ttl=values.unset, access_control_allow_origin=values.unset):
         """
         Create the PlaybackGrantInstance
-        
+
         :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
         :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
 
         :returns: The created PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
-        data = values.of({ 
-            'Ttl': ttl,
-            'AccessControlAllowOrigin': access_control_allow_origin,
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
-
-        return PlaybackGrantInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "Ttl": ttl,
+                "AccessControlAllowOrigin": access_control_allow_origin,
+            }
         )
-    
+
+        payload = self._version.create(method="POST", uri=self._uri, data=data)
+
+        return PlaybackGrantInstance(self._version, payload, sid=self._solution["sid"])
+
     def fetch(self):
         """
         Fetch the PlaybackGrantInstance
-        
+
 
         :returns: The fetched PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return PlaybackGrantInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-        
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Media.V1.PlaybackGrantContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Media.V1.PlaybackGrantContext {}>".format(context)

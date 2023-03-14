@@ -23,8 +23,12 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.api.v2010.account.address import AddressList
 from twilio.rest.api.v2010.account.application import ApplicationList
-from twilio.rest.api.v2010.account.authorized_connect_app import AuthorizedConnectAppList
-from twilio.rest.api.v2010.account.available_phone_number_country import AvailablePhoneNumberCountryList
+from twilio.rest.api.v2010.account.authorized_connect_app import (
+    AuthorizedConnectAppList,
+)
+from twilio.rest.api.v2010.account.available_phone_number_country import (
+    AvailablePhoneNumberCountryList,
+)
 from twilio.rest.api.v2010.account.balance import BalanceList
 from twilio.rest.api.v2010.account.call import CallList
 from twilio.rest.api.v2010.account.conference import ConferenceList
@@ -48,51 +52,57 @@ from twilio.rest.api.v2010.account.validation_request import ValidationRequestLi
 
 
 class AccountList(ListResource):
-
     def __init__(self, version: Version):
         """
         Initialize the AccountList
 
         :param Version version: Version that contains the resource
-        
+
         :returns: twilio.rest.api.v2010.account.AccountList
         :rtype: twilio.rest.api.v2010.account.AccountList
         """
         super().__init__(version)
 
         # Path Solution
-        self._solution = {  }
-        self._uri = '/Accounts.json'.format(**self._solution)
-        
-        
-    
-    
-    
+        self._solution = {}
+        self._uri = "/Accounts.json".format(**self._solution)
+
     def create(self, friendly_name=values.unset):
         """
         Create the AccountInstance
 
         :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
-        
+
         :returns: The created AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return AccountInstance(self._version, payload)
-    
-    
-    def stream(self, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
+
+    def stream(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Streams AccountInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -107,19 +117,23 @@ class AccountList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            friendly_name=friendly_name,
-            status=status,
-            page_size=limits['page_size']
+            friendly_name=friendly_name, status=status, page_size=limits["page_size"]
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    def list(self, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
+    def list(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
         """
         Lists AccountInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -132,18 +146,27 @@ class AccountList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            status=status,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    def page(self, friendly_name=values.unset, status=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
+    def page(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
         """
         Retrieve a single page of AccountInstance records from the API.
         Request is executed immediately
-        
+
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param str page_token: PageToken provided by the API
@@ -153,15 +176,17 @@ class AccountList(ListResource):
         :returns: Page of AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountPage
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Status': status,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return AccountPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
@@ -174,19 +199,15 @@ class AccountList(ListResource):
         :returns: Page of AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountPage
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return AccountPage(self._version, response, self._solution)
-
 
     def get(self, sid):
         """
         Constructs a AccountContext
-        
+
         :param sid: The Account Sid that uniquely identifies the account to update
-        
+
         :returns: twilio.rest.api.v2010.account.AccountContext
         :rtype: twilio.rest.api.v2010.account.AccountContext
         """
@@ -195,9 +216,9 @@ class AccountList(ListResource):
     def __call__(self, sid):
         """
         Constructs a AccountContext
-        
+
         :param sid: The Account Sid that uniquely identifies the account to update
-        
+
         :returns: twilio.rest.api.v2010.account.AccountContext
         :rtype: twilio.rest.api.v2010.account.AccountContext
         """
@@ -206,20 +227,14 @@ class AccountList(ListResource):
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.AccountList>'
-
-
-
-
-
-
+        return "<Twilio.Api.V2010.AccountList>"
 
 
 class AccountPage(Page):
-
     def __init__(self, version, response, solution):
         """
         Initialize the AccountPage
@@ -253,13 +268,10 @@ class AccountPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Api.V2010.AccountPage>'
-
-
+        return "<Twilio.Api.V2010.AccountPage>"
 
 
 class AccountInstance(InstanceResource):
-
     class Status(object):
         ACTIVE = "active"
         SUSPENDED = "suspended"
@@ -269,30 +281,33 @@ class AccountInstance(InstanceResource):
         TRIAL = "Trial"
         FULL = "Full"
 
-    def __init__(self, version, payload, sid: str=None):
+    def __init__(self, version, payload, sid: str = None):
         """
         Initialize the AccountInstance
+
         :returns: twilio.rest.api.v2010.account.AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         super().__init__(version)
 
-        self._properties = { 
-            'auth_token': payload.get('auth_token'),
-            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
-            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
-            'friendly_name': payload.get('friendly_name'),
-            'owner_account_sid': payload.get('owner_account_sid'),
-            'sid': payload.get('sid'),
-            'status': payload.get('status'),
-            'subresource_uris': payload.get('subresource_uris'),
-            'type': payload.get('type'),
-            'uri': payload.get('uri'),
+        self._properties = {
+            "auth_token": payload.get("auth_token"),
+            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
+            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
+            "friendly_name": payload.get("friendly_name"),
+            "owner_account_sid": payload.get("owner_account_sid"),
+            "sid": payload.get("sid"),
+            "status": payload.get("status"),
+            "subresource_uris": payload.get("subresource_uris"),
+            "type": payload.get("type"),
+            "uri": payload.get("uri"),
         }
 
         self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+
     @property
     def _proxy(self):
         """
@@ -303,111 +318,117 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.AccountContext
         """
         if self._context is None:
-            self._context = AccountContext(self._version, sid=self._solution['sid'],)
+            self._context = AccountContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
+
     @property
     def auth_token(self):
         """
         :returns: The authorization token for this account. This token should be kept a secret, so no sharing.
         :rtype: str
         """
-        return self._properties['auth_token']
-    
+        return self._properties["auth_token"]
+
     @property
     def date_created(self):
         """
         :returns: The date that this account was created, in GMT in RFC 2822 format
         :rtype: datetime
         """
-        return self._properties['date_created']
-    
+        return self._properties["date_created"]
+
     @property
     def date_updated(self):
         """
         :returns: The date that this account was last updated, in GMT in RFC 2822 format.
         :rtype: datetime
         """
-        return self._properties['date_updated']
-    
+        return self._properties["date_updated"]
+
     @property
     def friendly_name(self):
         """
         :returns: A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
         :rtype: str
         """
-        return self._properties['friendly_name']
-    
+        return self._properties["friendly_name"]
+
     @property
     def owner_account_sid(self):
         """
         :returns: The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
         :rtype: str
         """
-        return self._properties['owner_account_sid']
-    
+        return self._properties["owner_account_sid"]
+
     @property
     def sid(self):
         """
         :returns: A 34 character string that uniquely identifies this resource.
         :rtype: str
         """
-        return self._properties['sid']
-    
+        return self._properties["sid"]
+
     @property
     def status(self):
         """
-        :returns: 
+        :returns:
         :rtype: AccountInstance.Status
         """
-        return self._properties['status']
-    
+        return self._properties["status"]
+
     @property
     def subresource_uris(self):
         """
         :returns: A Map of various subresources available for the given Account Instance
         :rtype: dict
         """
-        return self._properties['subresource_uris']
-    
+        return self._properties["subresource_uris"]
+
     @property
     def type(self):
         """
-        :returns: 
+        :returns:
         :rtype: AccountInstance.Type
         """
-        return self._properties['type']
-    
+        return self._properties["type"]
+
     @property
     def uri(self):
         """
         :returns: The URI for this resource, relative to `https://api.twilio.com`
         :rtype: str
         """
-        return self._properties['uri']
-    
+        return self._properties["uri"]
+
     def fetch(self):
         """
         Fetch the AccountInstance
-        
+
 
         :returns: The fetched AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         return self._proxy.fetch()
-    
+
     def update(self, friendly_name=values.unset, status=values.unset):
         """
         Update the AccountInstance
-        
-        :params str friendly_name: Update the human-readable description of this Account
-        :params AccountInstance.Status status: 
+
+        :param str friendly_name: Update the human-readable description of this Account
+        :param AccountInstance.Status status:
 
         :returns: The updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, status=status, )
-    
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            status=status,
+        )
+
     @property
     def addresses(self):
         """
@@ -417,7 +438,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.AddressList
         """
         return self._proxy.addresses
-    
+
     @property
     def applications(self):
         """
@@ -427,7 +448,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.ApplicationList
         """
         return self._proxy.applications
-    
+
     @property
     def authorized_connect_apps(self):
         """
@@ -437,7 +458,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.AuthorizedConnectAppList
         """
         return self._proxy.authorized_connect_apps
-    
+
     @property
     def available_phone_numbers(self):
         """
@@ -447,7 +468,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
         """
         return self._proxy.available_phone_numbers
-    
+
     @property
     def balance(self):
         """
@@ -457,7 +478,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.BalanceList
         """
         return self._proxy.balance
-    
+
     @property
     def calls(self):
         """
@@ -467,7 +488,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.CallList
         """
         return self._proxy.calls
-    
+
     @property
     def conferences(self):
         """
@@ -477,7 +498,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.ConferenceList
         """
         return self._proxy.conferences
-    
+
     @property
     def connect_apps(self):
         """
@@ -487,7 +508,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.ConnectAppList
         """
         return self._proxy.connect_apps
-    
+
     @property
     def incoming_phone_numbers(self):
         """
@@ -497,7 +518,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.IncomingPhoneNumberList
         """
         return self._proxy.incoming_phone_numbers
-    
+
     @property
     def keys(self):
         """
@@ -507,7 +528,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.KeyList
         """
         return self._proxy.keys
-    
+
     @property
     def messages(self):
         """
@@ -517,7 +538,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.MessageList
         """
         return self._proxy.messages
-    
+
     @property
     def new_keys(self):
         """
@@ -527,7 +548,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.NewKeyList
         """
         return self._proxy.new_keys
-    
+
     @property
     def new_signing_keys(self):
         """
@@ -537,7 +558,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.NewSigningKeyList
         """
         return self._proxy.new_signing_keys
-    
+
     @property
     def notifications(self):
         """
@@ -547,7 +568,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.NotificationList
         """
         return self._proxy.notifications
-    
+
     @property
     def outgoing_caller_ids(self):
         """
@@ -557,7 +578,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.OutgoingCallerIdList
         """
         return self._proxy.outgoing_caller_ids
-    
+
     @property
     def queues(self):
         """
@@ -567,7 +588,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.QueueList
         """
         return self._proxy.queues
-    
+
     @property
     def recordings(self):
         """
@@ -577,7 +598,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.RecordingList
         """
         return self._proxy.recordings
-    
+
     @property
     def short_codes(self):
         """
@@ -587,7 +608,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.ShortCodeList
         """
         return self._proxy.short_codes
-    
+
     @property
     def signing_keys(self):
         """
@@ -597,7 +618,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.SigningKeyList
         """
         return self._proxy.signing_keys
-    
+
     @property
     def sip(self):
         """
@@ -607,7 +628,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.SipList
         """
         return self._proxy.sip
-    
+
     @property
     def tokens(self):
         """
@@ -617,7 +638,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.TokenList
         """
         return self._proxy.tokens
-    
+
     @property
     def transcriptions(self):
         """
@@ -627,7 +648,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.TranscriptionList
         """
         return self._proxy.transcriptions
-    
+
     @property
     def usage(self):
         """
@@ -637,7 +658,7 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.UsageList
         """
         return self._proxy.usage
-    
+
     @property
     def validation_requests(self):
         """
@@ -647,18 +668,19 @@ class AccountInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.ValidationRequestList
         """
         return self._proxy.validation_requests
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AccountInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AccountInstance {}>".format(context)
+
 
 class AccountContext(InstanceContext):
-
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AccountContext
@@ -672,11 +694,11 @@ class AccountContext(InstanceContext):
         super().__init__(version)
 
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Accounts/{sid}.json'.format(**self._solution)
-        
+        self._uri = "/Accounts/{sid}.json".format(**self._solution)
+
         self._addresses = None
         self._applications = None
         self._authorized_connect_apps = None
@@ -701,50 +723,52 @@ class AccountContext(InstanceContext):
         self._transcriptions = None
         self._usage = None
         self._validation_requests = None
-    
+
     def fetch(self):
         """
         Fetch the AccountInstance
-        
+
 
         :returns: The fetched AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AccountInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-        
+
     def update(self, friendly_name=values.unset, status=values.unset):
         """
         Update the AccountInstance
-        
-        :params str friendly_name: Update the human-readable description of this Account
-        :params AccountInstance.Status status: 
+
+        :param str friendly_name: Update the human-readable description of this Account
+        :param AccountInstance.Status status:
 
         :returns: The updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AccountInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Status": status,
+            }
         )
-        
-    
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AccountInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def addresses(self):
         """
@@ -755,11 +779,11 @@ class AccountContext(InstanceContext):
         """
         if self._addresses is None:
             self._addresses = AddressList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._addresses
-    
+
     @property
     def applications(self):
         """
@@ -770,11 +794,11 @@ class AccountContext(InstanceContext):
         """
         if self._applications is None:
             self._applications = ApplicationList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._applications
-    
+
     @property
     def authorized_connect_apps(self):
         """
@@ -785,11 +809,11 @@ class AccountContext(InstanceContext):
         """
         if self._authorized_connect_apps is None:
             self._authorized_connect_apps = AuthorizedConnectAppList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._authorized_connect_apps
-    
+
     @property
     def available_phone_numbers(self):
         """
@@ -800,11 +824,11 @@ class AccountContext(InstanceContext):
         """
         if self._available_phone_numbers is None:
             self._available_phone_numbers = AvailablePhoneNumberCountryList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._available_phone_numbers
-    
+
     @property
     def balance(self):
         """
@@ -815,11 +839,11 @@ class AccountContext(InstanceContext):
         """
         if self._balance is None:
             self._balance = BalanceList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._balance
-    
+
     @property
     def calls(self):
         """
@@ -830,11 +854,11 @@ class AccountContext(InstanceContext):
         """
         if self._calls is None:
             self._calls = CallList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._calls
-    
+
     @property
     def conferences(self):
         """
@@ -845,11 +869,11 @@ class AccountContext(InstanceContext):
         """
         if self._conferences is None:
             self._conferences = ConferenceList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._conferences
-    
+
     @property
     def connect_apps(self):
         """
@@ -860,11 +884,11 @@ class AccountContext(InstanceContext):
         """
         if self._connect_apps is None:
             self._connect_apps = ConnectAppList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._connect_apps
-    
+
     @property
     def incoming_phone_numbers(self):
         """
@@ -875,11 +899,11 @@ class AccountContext(InstanceContext):
         """
         if self._incoming_phone_numbers is None:
             self._incoming_phone_numbers = IncomingPhoneNumberList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._incoming_phone_numbers
-    
+
     @property
     def keys(self):
         """
@@ -890,11 +914,11 @@ class AccountContext(InstanceContext):
         """
         if self._keys is None:
             self._keys = KeyList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._keys
-    
+
     @property
     def messages(self):
         """
@@ -905,11 +929,11 @@ class AccountContext(InstanceContext):
         """
         if self._messages is None:
             self._messages = MessageList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._messages
-    
+
     @property
     def new_keys(self):
         """
@@ -920,11 +944,11 @@ class AccountContext(InstanceContext):
         """
         if self._new_keys is None:
             self._new_keys = NewKeyList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._new_keys
-    
+
     @property
     def new_signing_keys(self):
         """
@@ -935,11 +959,11 @@ class AccountContext(InstanceContext):
         """
         if self._new_signing_keys is None:
             self._new_signing_keys = NewSigningKeyList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._new_signing_keys
-    
+
     @property
     def notifications(self):
         """
@@ -950,11 +974,11 @@ class AccountContext(InstanceContext):
         """
         if self._notifications is None:
             self._notifications = NotificationList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._notifications
-    
+
     @property
     def outgoing_caller_ids(self):
         """
@@ -965,11 +989,11 @@ class AccountContext(InstanceContext):
         """
         if self._outgoing_caller_ids is None:
             self._outgoing_caller_ids = OutgoingCallerIdList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._outgoing_caller_ids
-    
+
     @property
     def queues(self):
         """
@@ -980,11 +1004,11 @@ class AccountContext(InstanceContext):
         """
         if self._queues is None:
             self._queues = QueueList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._queues
-    
+
     @property
     def recordings(self):
         """
@@ -995,11 +1019,11 @@ class AccountContext(InstanceContext):
         """
         if self._recordings is None:
             self._recordings = RecordingList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._recordings
-    
+
     @property
     def short_codes(self):
         """
@@ -1010,11 +1034,11 @@ class AccountContext(InstanceContext):
         """
         if self._short_codes is None:
             self._short_codes = ShortCodeList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._short_codes
-    
+
     @property
     def signing_keys(self):
         """
@@ -1025,11 +1049,11 @@ class AccountContext(InstanceContext):
         """
         if self._signing_keys is None:
             self._signing_keys = SigningKeyList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._signing_keys
-    
+
     @property
     def sip(self):
         """
@@ -1040,11 +1064,11 @@ class AccountContext(InstanceContext):
         """
         if self._sip is None:
             self._sip = SipList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._sip
-    
+
     @property
     def tokens(self):
         """
@@ -1055,11 +1079,11 @@ class AccountContext(InstanceContext):
         """
         if self._tokens is None:
             self._tokens = TokenList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._tokens
-    
+
     @property
     def transcriptions(self):
         """
@@ -1070,11 +1094,11 @@ class AccountContext(InstanceContext):
         """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._transcriptions
-    
+
     @property
     def usage(self):
         """
@@ -1085,11 +1109,11 @@ class AccountContext(InstanceContext):
         """
         if self._usage is None:
             self._usage = UsageList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._usage
-    
+
     @property
     def validation_requests(self):
         """
@@ -1100,18 +1124,17 @@ class AccountContext(InstanceContext):
         """
         if self._validation_requests is None:
             self._validation_requests = ValidationRequestList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._validation_requests
-    
+
     def __repr__(self):
         """
         Provide a friendly representation
+
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AccountContext {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AccountContext {}>".format(context)
