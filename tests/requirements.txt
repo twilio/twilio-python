@@ -9,3 +9,4 @@ recommonmark
 django
 multidict
 pyngrok
+black
