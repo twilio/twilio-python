@@ -4,7 +4,7 @@ on:
     branches: [ '*' ]
     tags: [ '*' ]
   pull_request:
-    branches: [ main ]
+    branches: [ '8.0.0-rc' ]
   schedule:
     # Run automatically at 8AM PST Monday-Friday
     - cron: '0 15 * * 1-5'
