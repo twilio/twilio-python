@@ -71,7 +71,7 @@ class TestSay(TwilioTest):
 
         assert (
             self.strip(r)
-            == '<?xml version="1.0" encoding="UTF-8"?><Response><Say>n&#233;cessaire et d\'autres</Say></Response>'
+            == '<?xml version="1.0" encoding="UTF-8"?><Response><Say>nécessaire et d\'autres</Say></Response>'
         )
 
     def test_say_loop(self):

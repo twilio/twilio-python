@@ -50,3 +50,11 @@ class TwilioTest(unittest.TestCase):
 
     def test_lower_camel_camel_cased(self):
         self.assertEqual("fooBar", lower_camel("fooBar"))
+
+    def test_utf8_encoding(self):
+        t = TwiML()
+        t.value = "An utf-8 character: ñ"
+        self.assertEqual(
+            t.to_xml(),
+            '<?xml version="1.0" encoding="UTF-8"?><TwiML>An utf-8 character: ñ</TwiML>',
+        )
