@@ -1,7 +1,6 @@
-import aiohttp
 import logging
 
-from aiohttp import BasicAuth
+from aiohttp import BasicAuth, ClientSession
 from aiohttp_retry import ExponentialRetry, RetryClient
 from twilio.http import AsyncHttpClient
 from twilio.http.request import Request as TwilioRequest
@@ -39,7 +38,7 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         self.proxy_url = proxy_url
         self.trace_configs = trace_configs
         self.session = (
-            aiohttp.ClientSession(trace_configs=self.trace_configs)
+            ClientSession(trace_configs=self.trace_configs)
             if pool_connections
             else None
         )
@@ -102,7 +101,7 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         if self.session:
             session = self.session
         else:
-            session = aiohttp.ClientSession()
+            session = ClientSession()
             temp = True
         self._test_only_last_request = TwilioRequest(**kwargs)
         response = await session.request(**kwargs)
@@ -131,4 +130,5 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         """
         Async context manager exit
         """
-        await self.session.close()
+        if self.session:
+            await self.session.close()
