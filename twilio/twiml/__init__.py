@@ -64,7 +64,7 @@ class TwiML(object):
 
         :param bool xml_declaration: Include the XML declaration. Defaults to True
         """
-        xml = ET.tostring(self.xml()).decode("utf-8")
+        xml = ET.tostring(self.xml(), encoding="utf-8").decode("utf-8")
         return (
             '<?xml version="1.0" encoding="UTF-8"?>{}'.format(xml)
             if xml_declaration
