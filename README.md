@@ -58,18 +58,27 @@ Getting started with the Twilio API couldn't be easier. Create a
 
 ### API Credentials
 
-The `Twilio` needs your Twilio credentials. You can either pass these
+The `Twilio` client needs your Twilio credentials. You can either pass these
 directly to the constructor (see the code below) or via environment variables.
 
+Authenticating with Account SID and Auth Token:
 ```python
 from twilio.rest import Client
 
-username = "ACXXXXXXXXXXXXXXXXX"
-password = "YYYYYYYYYYYYYYYYYY"
-client = Client(username, password)
+account_sid = "ACXXXXXXXXXXXXXXXXX"
+auth_token = "YYYYYYYYYYYYYYYYYY"
+client = Client(account_sid, auth_token)
 ```
 
-Your Twilio credentials (`username, passowrd`) can be either `account_sid, auth_token` or `api_key_sid, api_key_secret`
+Authenticating with API Key and API Secret:
+```python
+from twilio.rest import Client
+
+api_key = "XXXXXXXXXXXXXXXXX"
+api_secret = "YYYYYYYYYYYYYYYYYY"
+account_sid = "ACXXXXXXXXXXXXXXXXX"
+client = Client(api_key, api_secret, account_sid)
+```
 
 Alternatively, a `Client` constructor without these parameters will
 look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the
