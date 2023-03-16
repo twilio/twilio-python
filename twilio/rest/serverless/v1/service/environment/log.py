@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -392,7 +393,7 @@ class LogInstance(InstanceResource):
         payload,
         service_sid: str,
         environment_sid: str,
-        sid: str | None = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the LogInstance

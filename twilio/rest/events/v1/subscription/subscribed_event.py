@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -346,7 +347,7 @@ class SubscribedEventPage(Page):
 
 class SubscribedEventInstance(InstanceResource):
     def __init__(
-        self, version, payload, subscription_sid: str, type: str | None = None
+        self, version, payload, subscription_sid: str, type: Optional[str] = None
     ):
         """
         Initialize the SubscribedEventInstance

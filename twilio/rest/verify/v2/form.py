@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -70,7 +71,7 @@ class FormInstance(InstanceResource):
     class FormTypes(object):
         FORM_PUSH = "form-push"
 
-    def __init__(self, version, payload, form_type: FormTypes | None = None):
+    def __init__(self, version, payload, form_type: Optional[FormTypes] = None):
         """
         Initialize the FormInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -357,7 +358,7 @@ class InsightsQuestionnairesCategoryPage(Page):
 
 
 class InsightsQuestionnairesCategoryInstance(InstanceResource):
-    def __init__(self, version, payload, category_id: str | None = None):
+    def __init__(self, version, payload, category_id: Optional[str] = None):
         """
         Initialize the InsightsQuestionnairesCategoryInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -411,7 +412,7 @@ class WebhookInstance(InstanceResource):
         payload,
         service_sid: str,
         channel_sid: str,
-        sid: str | None = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the WebhookInstance

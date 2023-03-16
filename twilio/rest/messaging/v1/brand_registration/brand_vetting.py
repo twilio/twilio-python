@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -375,7 +376,7 @@ class BrandVettingInstance(InstanceResource):
         CAMPAIGN_VERIFY = "campaign-verify"
 
     def __init__(
-        self, version, payload, brand_sid: str, brand_vetting_sid: str | None = None
+        self, version, payload, brand_sid: str, brand_vetting_sid: Optional[str] = None
     ):
         """
         Initialize the BrandVettingInstance

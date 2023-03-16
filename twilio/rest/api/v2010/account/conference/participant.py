@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -735,7 +736,7 @@ class ParticipantInstance(InstanceResource):
         payload,
         account_sid: str,
         conference_sid: str,
-        call_sid: str | None = None,
+        call_sid: Optional[str] = None,
     ):
         """
         Initialize the ParticipantInstance

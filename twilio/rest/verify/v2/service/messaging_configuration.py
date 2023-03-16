@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -341,7 +342,9 @@ class MessagingConfigurationPage(Page):
 
 
 class MessagingConfigurationInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, country: str | None = None):
+    def __init__(
+        self, version, payload, service_sid: str, country: Optional[str] = None
+    ):
         """
         Initialize the MessagingConfigurationInstance
 

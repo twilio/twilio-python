@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -556,7 +557,7 @@ class HostedNumberOrderInstance(InstanceResource):
         PHONE_CALL = "phone-call"
         PHONE_BILL = "phone-bill"
 
-    def __init__(self, version, payload, sid: str | None = None):
+    def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the HostedNumberOrderInstance
 

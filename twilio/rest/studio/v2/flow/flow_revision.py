@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -287,7 +288,7 @@ class FlowRevisionInstance(InstanceResource):
         DRAFT = "draft"
         PUBLISHED = "published"
 
-    def __init__(self, version, payload, sid: str, revision: str | None = None):
+    def __init__(self, version, payload, sid: str, revision: Optional[str] = None):
         """
         Initialize the FlowRevisionInstance
 

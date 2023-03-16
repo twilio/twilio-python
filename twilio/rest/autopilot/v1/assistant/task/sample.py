@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -386,7 +387,7 @@ class SampleInstance(InstanceResource):
         payload,
         assistant_sid: str,
         task_sid: str,
-        sid: str | None = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the SampleInstance

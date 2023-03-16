@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -146,7 +147,7 @@ class AccessTokenInstance(InstanceResource):
     class FactorTypes(object):
         PUSH = "push"
 
-    def __init__(self, version, payload, service_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the AccessTokenInstance
 

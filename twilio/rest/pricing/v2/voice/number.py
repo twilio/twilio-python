@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -68,7 +69,7 @@ class NumberList(ListResource):
 
 
 class NumberInstance(InstanceResource):
-    def __init__(self, version, payload, destination_number: str | None = None):
+    def __init__(self, version, payload, destination_number: Optional[str] = None):
         """
         Initialize the NumberInstance
 

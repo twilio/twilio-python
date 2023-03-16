@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -283,7 +284,7 @@ class SchemaVersionPage(Page):
 
 
 class SchemaVersionInstance(InstanceResource):
-    def __init__(self, version, payload, id: str, schema_version: int | None = None):
+    def __init__(self, version, payload, id: str, schema_version: Optional[int] = None):
         """
         Initialize the SchemaVersionInstance
 

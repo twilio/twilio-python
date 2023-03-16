@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -432,7 +433,7 @@ class RecordingInstance(InstanceResource):
         VIDEO = "video"
         DATA = "data"
 
-    def __init__(self, version, payload, sid: str | None = None):
+    def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the RecordingInstance
 

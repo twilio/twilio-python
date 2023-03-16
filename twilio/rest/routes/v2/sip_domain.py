@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -69,7 +70,7 @@ class SipDomainList(ListResource):
 
 
 class SipDomainInstance(InstanceResource):
-    def __init__(self, version, payload, sip_domain: str | None = None):
+    def __init__(self, version, payload, sip_domain: Optional[str] = None):
         """
         Initialize the SipDomainInstance
 

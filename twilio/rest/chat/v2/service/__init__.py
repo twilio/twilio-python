@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -327,7 +328,7 @@ class ServicePage(Page):
 
 
 class ServiceInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str | None = None):
+    def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ServiceInstance
 

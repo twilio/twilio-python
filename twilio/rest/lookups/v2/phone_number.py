@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -76,7 +77,7 @@ class PhoneNumberInstance(InstanceResource):
         INVALID_LENGTH = "INVALID_LENGTH"
         NOT_A_NUMBER = "NOT_A_NUMBER"
 
-    def __init__(self, version, payload, phone_number: str | None = None):
+    def __init__(self, version, payload, phone_number: Optional[str] = None):
         """
         Initialize the PhoneNumberInstance
 

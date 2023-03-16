@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -68,7 +69,7 @@ class ExportConfigurationList(ListResource):
 
 
 class ExportConfigurationInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str | None = None):
+    def __init__(self, version, payload, resource_type: Optional[str] = None):
         """
         Initialize the ExportConfigurationInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -501,7 +502,7 @@ class TaskQueueInstance(InstanceResource):
         FIFO = "FIFO"
         LIFO = "LIFO"
 
-    def __init__(self, version, payload, workspace_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
         """
         Initialize the TaskQueueInstance
 

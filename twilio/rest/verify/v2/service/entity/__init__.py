@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -338,7 +339,9 @@ class EntityPage(Page):
 
 
 class EntityInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, identity: str | None = None):
+    def __init__(
+        self, version, payload, service_sid: str, identity: Optional[str] = None
+    ):
         """
         Initialize the EntityInstance
 

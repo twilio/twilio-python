@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -303,7 +304,7 @@ class SyncListPermissionInstance(InstanceResource):
         payload,
         service_sid: str,
         list_sid: str,
-        identity: str | None = None,
+        identity: Optional[str] = None,
     ):
         """
         Initialize the SyncListPermissionInstance

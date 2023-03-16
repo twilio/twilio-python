@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -289,7 +290,7 @@ class ConnectAppInstance(InstanceResource):
         GET_ALL = "get-all"
         POST_ALL = "post-all"
 
-    def __init__(self, version, payload, account_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the ConnectAppInstance
 

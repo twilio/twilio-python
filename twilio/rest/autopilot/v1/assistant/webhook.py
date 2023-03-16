@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -349,7 +350,7 @@ class WebhookPage(Page):
 
 
 class WebhookInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
         """
         Initialize the WebhookInstance
 

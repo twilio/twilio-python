@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -442,7 +443,12 @@ class SyncMapItemInstance(InstanceResource):
         DESC = "desc"
 
     def __init__(
-        self, version, payload, service_sid: str, map_sid: str, key: str | None = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        map_sid: str,
+        key: Optional[str] = None,
     ):
         """
         Initialize the SyncMapItemInstance

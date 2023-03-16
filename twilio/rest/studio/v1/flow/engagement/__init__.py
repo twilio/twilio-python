@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -352,7 +353,7 @@ class EngagementInstance(InstanceResource):
         ACTIVE = "active"
         ENDED = "ended"
 
-    def __init__(self, version, payload, flow_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, flow_sid: str, sid: Optional[str] = None):
         """
         Initialize the EngagementInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -308,7 +309,7 @@ class AvailablePhoneNumberCountryPage(Page):
 
 class AvailablePhoneNumberCountryInstance(InstanceResource):
     def __init__(
-        self, version, payload, account_sid: str, country_code: str | None = None
+        self, version, payload, account_sid: str, country_code: Optional[str] = None
     ):
         """
         Initialize the AvailablePhoneNumberCountryInstance

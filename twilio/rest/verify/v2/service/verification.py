@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -225,7 +226,7 @@ class VerificationInstance(InstanceResource):
         WHATSAPP = "whatsapp"
         SNA = "sna"
 
-    def __init__(self, version, payload, service_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the VerificationInstance
 

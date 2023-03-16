@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -366,7 +367,7 @@ class TaskPage(Page):
 
 
 class TaskInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
         """
         Initialize the TaskInstance
 

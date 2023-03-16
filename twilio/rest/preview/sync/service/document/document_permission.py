@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -305,7 +306,7 @@ class DocumentPermissionInstance(InstanceResource):
         payload,
         service_sid: str,
         document_sid: str,
-        identity: str | None = None,
+        identity: Optional[str] = None,
     ):
         """
         Initialize the DocumentPermissionInstance

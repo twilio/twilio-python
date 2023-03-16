@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -124,7 +125,7 @@ class InteractionList(ListResource):
 
 
 class InteractionInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str | None = None):
+    def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the InteractionInstance
 

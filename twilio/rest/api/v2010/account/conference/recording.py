@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -402,7 +403,7 @@ class RecordingInstance(InstanceResource):
         payload,
         account_sid: str,
         conference_sid: str,
-        sid: str | None = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the RecordingInstance

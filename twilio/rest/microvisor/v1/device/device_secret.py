@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -339,7 +340,7 @@ class DeviceSecretPage(Page):
 
 
 class DeviceSecretInstance(InstanceResource):
-    def __init__(self, version, payload, device_sid: str, key: str | None = None):
+    def __init__(self, version, payload, device_sid: str, key: Optional[str] = None):
         """
         Initialize the DeviceSecretInstance
 

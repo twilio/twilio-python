@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -351,7 +352,7 @@ class OriginationUrlPage(Page):
 
 
 class OriginationUrlInstance(InstanceResource):
-    def __init__(self, version, payload, trunk_sid: str, sid: str | None = None):
+    def __init__(self, version, payload, trunk_sid: str, sid: Optional[str] = None):
         """
         Initialize the OriginationUrlInstance
 

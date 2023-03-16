@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -411,7 +412,11 @@ class ConferenceParticipantInstance(InstanceResource):
         DE1 = "de1"
 
     def __init__(
-        self, version, payload, conference_sid: str, participant_sid: str | None = None
+        self,
+        version,
+        payload,
+        conference_sid: str,
+        participant_sid: Optional[str] = None,
     ):
         """
         Initialize the ConferenceParticipantInstance
