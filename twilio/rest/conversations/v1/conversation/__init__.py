@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -397,7 +398,7 @@ class ConversationInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the ConversationInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -372,7 +373,12 @@ class ReservationInstance(InstanceResource):
         COMPLETED = "completed"
 
     def __init__(
-        self, version, payload, workspace_sid: str, task_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        workspace_sid: str,
+        task_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the ReservationInstance

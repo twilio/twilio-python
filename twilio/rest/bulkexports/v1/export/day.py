@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -285,7 +286,7 @@ class DayPage(Page):
 
 
 class DayInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str, day: str = None):
+    def __init__(self, version, payload, resource_type: str, day: Optional[str] = None):
         """
         Initialize the DayInstance
 

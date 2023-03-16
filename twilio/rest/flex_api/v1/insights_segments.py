@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -334,7 +335,7 @@ class InsightsSegmentsPage(Page):
 
 
 class InsightsSegmentsInstance(InstanceResource):
-    def __init__(self, version, payload, segment_id: str = None):
+    def __init__(self, version, payload, segment_id: Optional[str] = None):
         """
         Initialize the InsightsSegmentsInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -67,7 +68,7 @@ class JobList(ListResource):
 
 
 class JobInstance(InstanceResource):
-    def __init__(self, version, payload, job_sid: str = None):
+    def __init__(self, version, payload, job_sid: Optional[str] = None):
         """
         Initialize the JobInstance
 

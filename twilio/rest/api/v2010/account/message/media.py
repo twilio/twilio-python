@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -380,7 +381,12 @@ class MediaPage(Page):
 
 class MediaInstance(InstanceResource):
     def __init__(
-        self, version, payload, account_sid: str, message_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        account_sid: str,
+        message_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the MediaInstance

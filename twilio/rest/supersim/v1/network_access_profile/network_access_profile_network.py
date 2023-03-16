@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -349,7 +350,11 @@ class NetworkAccessProfileNetworkPage(Page):
 
 class NetworkAccessProfileNetworkInstance(InstanceResource):
     def __init__(
-        self, version, payload, network_access_profile_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        network_access_profile_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the NetworkAccessProfileNetworkInstance

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -474,7 +475,7 @@ class ConferenceInstance(InstanceResource):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
 
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the ConferenceInstance
 

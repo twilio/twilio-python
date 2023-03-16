@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,7 +71,7 @@ class DomainConfigList(ListResource):
 
 
 class DomainConfigInstance(InstanceResource):
-    def __init__(self, version, payload, domain_sid: str = None):
+    def __init__(self, version, payload, domain_sid: Optional[str] = None):
         """
         Initialize the DomainConfigInstance
 

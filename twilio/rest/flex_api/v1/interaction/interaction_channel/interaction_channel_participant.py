@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -374,7 +375,12 @@ class InteractionChannelParticipantInstance(InstanceResource):
         UNKNOWN = "unknown"
 
     def __init__(
-        self, version, payload, interaction_sid: str, channel_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        interaction_sid: str,
+        channel_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the InteractionChannelParticipantInstance

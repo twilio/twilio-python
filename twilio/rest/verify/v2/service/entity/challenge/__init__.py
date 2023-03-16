@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -496,7 +497,12 @@ class ChallengeInstance(InstanceResource):
         DESC = "desc"
 
     def __init__(
-        self, version, payload, service_sid: str, identity: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        identity: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the ChallengeInstance

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -446,7 +447,7 @@ class MessageInstance(InstanceResource):
         payload,
         chat_service_sid: str,
         conversation_sid: str,
-        sid: str = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the MessageInstance

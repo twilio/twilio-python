@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -316,7 +317,7 @@ class PayloadInstance(InstanceResource):
         account_sid: str,
         reference_sid: str,
         add_on_result_sid: str,
-        sid: str = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the PayloadInstance

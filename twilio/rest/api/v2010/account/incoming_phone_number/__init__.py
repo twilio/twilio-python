@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -653,7 +654,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         VOICE = "voice"
         FAX = "fax"
 
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the IncomingPhoneNumberInstance
 

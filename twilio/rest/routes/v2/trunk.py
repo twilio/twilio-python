@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -69,7 +70,7 @@ class TrunkList(ListResource):
 
 
 class TrunkInstance(InstanceResource):
-    def __init__(self, version, payload, sip_trunk_domain: str = None):
+    def __init__(self, version, payload, sip_trunk_domain: Optional[str] = None):
         """
         Initialize the TrunkInstance
 

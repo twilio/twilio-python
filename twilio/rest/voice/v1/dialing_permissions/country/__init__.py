@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -412,7 +413,7 @@ class CountryPage(Page):
 
 
 class CountryInstance(InstanceResource):
-    def __init__(self, version, payload, iso_code: str = None):
+    def __init__(self, version, payload, iso_code: Optional[str] = None):
         """
         Initialize the CountryInstance
 

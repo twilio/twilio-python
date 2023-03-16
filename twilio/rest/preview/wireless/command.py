@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -462,7 +463,7 @@ class CommandPage(Page):
 
 
 class CommandInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: Optional[str] = None):
         """
         Initialize the CommandInstance
 

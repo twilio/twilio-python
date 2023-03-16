@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -323,7 +324,7 @@ class DeliveryReceiptInstance(InstanceResource):
         chat_service_sid: str,
         conversation_sid: str,
         message_sid: str,
-        sid: str = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the DeliveryReceiptInstance

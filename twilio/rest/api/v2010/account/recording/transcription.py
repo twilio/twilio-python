@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -304,7 +305,12 @@ class TranscriptionInstance(InstanceResource):
         FAILED = "failed"
 
     def __init__(
-        self, version, payload, account_sid: str, recording_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        account_sid: str,
+        recording_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the TranscriptionInstance

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -363,7 +364,12 @@ class AuthRegistrationsCredentialListMappingPage(Page):
 
 class AuthRegistrationsCredentialListMappingInstance(InstanceResource):
     def __init__(
-        self, version, payload, account_sid: str, domain_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        account_sid: str,
+        domain_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the AuthRegistrationsCredentialListMappingInstance

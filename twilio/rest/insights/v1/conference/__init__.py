@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -529,7 +530,7 @@ class ConferenceInstance(InstanceResource):
         LOW_MOS = "low_mos"
         DETECTED_SILENCE = "detected_silence"
 
-    def __init__(self, version, payload, conference_sid: str = None):
+    def __init__(self, version, payload, conference_sid: Optional[str] = None):
         """
         Initialize the ConferenceInstance
 

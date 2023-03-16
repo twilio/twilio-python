@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -74,7 +75,7 @@ class DialogueList(ListResource):
 
 
 class DialogueInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: str = None):
+    def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
         """
         Initialize the DialogueInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -351,7 +352,7 @@ class SyncListPage(Page):
 
 
 class SyncListInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: str = None):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the SyncListInstance
 

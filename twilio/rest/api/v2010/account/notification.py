@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -386,7 +387,7 @@ class NotificationPage(Page):
 
 
 class NotificationInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the NotificationInstance
 

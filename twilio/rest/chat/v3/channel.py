@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -79,7 +80,13 @@ class ChannelInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
-    def __init__(self, version, payload, service_sid: str = None, sid: str = None):
+    def __init__(
+        self,
+        version,
+        payload,
+        service_sid: Optional[str] = None,
+        sid: Optional[str] = None,
+    ):
         """
         Initialize the ChannelInstance
 

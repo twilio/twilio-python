@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -438,7 +439,12 @@ class SyncListItemInstance(InstanceResource):
         DESC = "desc"
 
     def __init__(
-        self, version, payload, service_sid: str, list_sid: str, index: int = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        list_sid: str,
+        index: Optional[int] = None,
     ):
         """
         Initialize the SyncListItemInstance

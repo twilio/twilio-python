@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -115,7 +116,7 @@ class SafelistList(ListResource):
 
 
 class SafelistInstance(InstanceResource):
-    def __init__(self, version, payload, phone_number: str = None):
+    def __init__(self, version, payload, phone_number: Optional[str] = None):
         """
         Initialize the SafelistInstance
 

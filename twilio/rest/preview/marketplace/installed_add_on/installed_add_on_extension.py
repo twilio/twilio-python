@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -292,7 +293,9 @@ class InstalledAddOnExtensionPage(Page):
 
 
 class InstalledAddOnExtensionInstance(InstanceResource):
-    def __init__(self, version, payload, installed_add_on_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, installed_add_on_sid: str, sid: Optional[str] = None
+    ):
         """
         Initialize the InstalledAddOnExtensionInstance
 

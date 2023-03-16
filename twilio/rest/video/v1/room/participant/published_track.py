@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -306,7 +307,12 @@ class PublishedTrackInstance(InstanceResource):
         DATA = "data"
 
     def __init__(
-        self, version, payload, room_sid: str, participant_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        room_sid: str,
+        participant_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the PublishedTrackInstance

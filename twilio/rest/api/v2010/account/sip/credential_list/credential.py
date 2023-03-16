@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -364,7 +365,7 @@ class CredentialInstance(InstanceResource):
         payload,
         account_sid: str,
         credential_list_sid: str,
-        sid: str = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the CredentialInstance

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -325,7 +326,12 @@ class UserBindingInstance(InstanceResource):
         FCM = "fcm"
 
     def __init__(
-        self, version, payload, service_sid: str, user_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        user_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the UserBindingInstance

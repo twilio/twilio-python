@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -315,7 +316,7 @@ class AssignedAddOnExtensionInstance(InstanceResource):
         account_sid: str,
         resource_sid: str,
         assigned_add_on_sid: str,
-        sid: str = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the AssignedAddOnExtensionInstance

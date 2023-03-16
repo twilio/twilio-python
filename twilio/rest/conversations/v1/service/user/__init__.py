@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -374,7 +375,9 @@ class UserInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
-    def __init__(self, version, payload, chat_service_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
+    ):
         """
         Initialize the UserInstance
 

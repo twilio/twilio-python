@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -359,7 +360,12 @@ class FieldPage(Page):
 
 class FieldInstance(InstanceResource):
     def __init__(
-        self, version, payload, assistant_sid: str, task_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        assistant_sid: str,
+        task_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the FieldInstance

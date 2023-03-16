@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -403,7 +404,7 @@ class MessageInteractionInstance(InstanceResource):
         service_sid: str,
         session_sid: str,
         participant_sid: str,
-        sid: str = None,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the MessageInteractionInstance

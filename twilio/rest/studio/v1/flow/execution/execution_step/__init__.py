@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -302,7 +303,12 @@ class ExecutionStepPage(Page):
 
 class ExecutionStepInstance(InstanceResource):
     def __init__(
-        self, version, payload, flow_sid: str, execution_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        flow_sid: str,
+        execution_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the ExecutionStepInstance

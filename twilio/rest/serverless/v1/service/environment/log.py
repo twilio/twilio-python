@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -387,7 +388,12 @@ class LogInstance(InstanceResource):
         ERROR = "error"
 
     def __init__(
-        self, version, payload, service_sid: str, environment_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        environment_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the LogInstance

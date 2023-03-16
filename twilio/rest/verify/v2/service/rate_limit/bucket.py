@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -361,7 +362,12 @@ class BucketPage(Page):
 
 class BucketInstance(InstanceResource):
     def __init__(
-        self, version, payload, service_sid: str, rate_limit_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        rate_limit_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the BucketInstance

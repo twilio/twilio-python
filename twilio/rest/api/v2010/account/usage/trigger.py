@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -789,7 +790,7 @@ class TriggerInstance(InstanceResource):
         WIRELESS_USAGE_SMS = "wireless-usage-sms"
         WIRELESS_USAGE_VOICE = "wireless-usage-voice"
 
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: Optional[str] = None):
         """
         Initialize the TriggerInstance
 

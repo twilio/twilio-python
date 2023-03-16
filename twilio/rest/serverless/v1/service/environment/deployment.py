@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -357,7 +358,12 @@ class DeploymentPage(Page):
 
 class DeploymentInstance(InstanceResource):
     def __init__(
-        self, version, payload, service_sid: str, environment_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        environment_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the DeploymentInstance

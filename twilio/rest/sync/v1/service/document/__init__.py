@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -349,7 +350,7 @@ class DocumentPage(Page):
 
 
 class DocumentInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: str = None):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
         """
         Initialize the DocumentInstance
 

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -1366,7 +1367,12 @@ class SiprecInstance(InstanceResource):
         STOPPED = "stopped"
 
     def __init__(
-        self, version, payload, account_sid: str, call_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        account_sid: str,
+        call_sid: str,
+        sid: Optional[str] = None,
     ):
         """
         Initialize the SiprecInstance
