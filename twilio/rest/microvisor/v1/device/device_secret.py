@@ -450,6 +450,32 @@ class DeviceSecretInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def update(self, value):
+        """
+        Update the DeviceSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        return self._proxy.update(
+            value=value,
+        )
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the DeviceSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        return await self._proxy.update_async(
+            value=value,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -541,6 +567,62 @@ class DeviceSecretContext(InstanceContext):
         payload = await self._version.fetch_async(
             method="GET",
             uri=self._uri,
+        )
+
+        return DeviceSecretInstance(
+            self._version,
+            payload,
+            device_sid=self._solution["device_sid"],
+            key=self._solution["key"],
+        )
+
+    def update(self, value):
+        """
+        Update the DeviceSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        data = values.of(
+            {
+                "Value": value,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return DeviceSecretInstance(
+            self._version,
+            payload,
+            device_sid=self._solution["device_sid"],
+            key=self._solution["key"],
+        )
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the DeviceSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        data = values.of(
+            {
+                "Value": value,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
         )
 
         return DeviceSecretInstance(

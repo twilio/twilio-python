@@ -43,20 +43,20 @@ class InsightsQuestionnairesQuestionList(ListResource):
         self,
         category_id,
         question,
-        description,
         answer_set_id,
         allow_na,
         token=values.unset,
+        description=values.unset,
     ):
         """
         Create the InsightsQuestionnairesQuestionInstance
 
         :param str category_id: The ID of the category
         :param str question: The question.
-        :param str description: The description for the question.
         :param str answer_set_id: The answer_set for the question.
         :param bool allow_na: The flag to enable for disable NA for answer.
         :param str token: The Token HTTP request header
+        :param str description: The description for the question.
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
@@ -65,9 +65,9 @@ class InsightsQuestionnairesQuestionList(ListResource):
             {
                 "CategoryId": category_id,
                 "Question": question,
-                "Description": description,
                 "AnswerSetId": answer_set_id,
                 "AllowNa": allow_na,
+                "Description": description,
             }
         )
         headers = values.of(
@@ -85,20 +85,20 @@ class InsightsQuestionnairesQuestionList(ListResource):
         self,
         category_id,
         question,
-        description,
         answer_set_id,
         allow_na,
         token=values.unset,
+        description=values.unset,
     ):
         """
         Asynchronously create the InsightsQuestionnairesQuestionInstance
 
         :param str category_id: The ID of the category
         :param str question: The question.
-        :param str description: The description for the question.
         :param str answer_set_id: The answer_set for the question.
         :param bool allow_na: The flag to enable for disable NA for answer.
         :param str token: The Token HTTP request header
+        :param str description: The description for the question.
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
@@ -107,9 +107,9 @@ class InsightsQuestionnairesQuestionList(ListResource):
             {
                 "CategoryId": category_id,
                 "Question": question,
-                "Description": description,
                 "AnswerSetId": answer_set_id,
                 "AllowNa": allow_na,
+                "Description": description,
             }
         )
         headers = values.of(
@@ -433,6 +433,7 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
             "answer_set_id": payload.get("answer_set_id"),
             "allow_na": payload.get("allow_na"),
             "usage": deserialize.integer(payload.get("usage")),
+            "answer_set": payload.get("answer_set"),
             "url": payload.get("url"),
         }
 
@@ -520,6 +521,14 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
         :rtype: int
         """
         return self._properties["usage"]
+
+    @property
+    def answer_set(self):
+        """
+        :returns: Set of answers for the question
+        :rtype: dict
+        """
+        return self._properties["answer_set"]
 
     @property
     def url(self):

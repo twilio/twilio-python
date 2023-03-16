@@ -350,7 +350,7 @@ class BuildInstance(InstanceResource):
         COMPLETED = "completed"
         FAILED = "failed"
 
-    def __init__(self, version, payload, service_sid: str, sid: str=None):
+    def __init__(self, version, payload, service_sid: str, sid: str = None):
         """
         Initialize the BuildInstance
 

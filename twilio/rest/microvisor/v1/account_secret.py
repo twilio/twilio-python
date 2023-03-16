@@ -426,6 +426,32 @@ class AccountSecretInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def update(self, value):
+        """
+        Update the AccountSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        return self._proxy.update(
+            value=value,
+        )
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the AccountSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        return await self._proxy.update_async(
+            value=value,
+        )
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -521,6 +547,52 @@ class AccountSecretContext(InstanceContext):
             payload,
             key=self._solution["key"],
         )
+
+    def update(self, value):
+        """
+        Update the AccountSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of(
+            {
+                "Value": value,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AccountSecretInstance(self._version, payload, key=self._solution["key"])
+
+    async def update_async(self, value):
+        """
+        Asynchronous coroutine to update the AccountSecretInstance
+
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of(
+            {
+                "Value": value,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AccountSecretInstance(self._version, payload, key=self._solution["key"])
 
     def __repr__(self):
         """

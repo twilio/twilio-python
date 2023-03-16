@@ -39,13 +39,18 @@ class EsimProfileList(ListResource):
         self._uri = "/ESimProfiles".format(**self._solution)
 
     def create(
-        self, callback_url=values.unset, callback_method=values.unset, eid=values.unset
+        self,
+        callback_url=values.unset,
+        callback_method=values.unset,
+        generate_matching_id=values.unset,
+        eid=values.unset,
     ):
         """
         Create the EsimProfileInstance
 
         :param str callback_url: The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param bool generate_matching_id: When set to `true`, a value for `Eid` does not need to be provided. Instead, when the eSIM profile is reserved, a matching ID will be generated and returned via the `matching_id` property. This identifies the specific eSIM profile that can be used by any capable device to claim and download the profile.
         :param str eid: Identifier of the eUICC that will claim the eSIM Profile.
 
         :returns: The created EsimProfileInstance
@@ -55,6 +60,7 @@ class EsimProfileList(ListResource):
             {
                 "CallbackUrl": callback_url,
                 "CallbackMethod": callback_method,
+                "GenerateMatchingId": generate_matching_id,
                 "Eid": eid,
             }
         )
@@ -68,13 +74,18 @@ class EsimProfileList(ListResource):
         return EsimProfileInstance(self._version, payload)
 
     async def create_async(
-        self, callback_url=values.unset, callback_method=values.unset, eid=values.unset
+        self,
+        callback_url=values.unset,
+        callback_method=values.unset,
+        generate_matching_id=values.unset,
+        eid=values.unset,
     ):
         """
         Asynchronously create the EsimProfileInstance
 
         :param str callback_url: The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param bool generate_matching_id: When set to `true`, a value for `Eid` does not need to be provided. Instead, when the eSIM profile is reserved, a matching ID will be generated and returned via the `matching_id` property. This identifies the specific eSIM profile that can be used by any capable device to claim and download the profile.
         :param str eid: Identifier of the eUICC that will claim the eSIM Profile.
 
         :returns: The created EsimProfileInstance
@@ -84,6 +95,7 @@ class EsimProfileList(ListResource):
             {
                 "CallbackUrl": callback_url,
                 "CallbackMethod": callback_method,
+                "GenerateMatchingId": generate_matching_id,
                 "Eid": eid,
             }
         )
@@ -433,6 +445,8 @@ class EsimProfileInstance(InstanceResource):
             "status": payload.get("status"),
             "eid": payload.get("eid"),
             "smdp_plus_address": payload.get("smdp_plus_address"),
+            "matching_id": payload.get("matching_id"),
+            "activation_code": payload.get("activation_code"),
             "error_code": payload.get("error_code"),
             "error_message": payload.get("error_message"),
             "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
@@ -516,6 +530,22 @@ class EsimProfileInstance(InstanceResource):
         :rtype: str
         """
         return self._properties["smdp_plus_address"]
+
+    @property
+    def matching_id(self):
+        """
+        :returns: Unique identifier of the eSIM profile that can be used to identify and download the eSIM profile from the SM-DP+ server. Populated if `generate_matching_id` is set to `true` when creating the eSIM profile reservation.
+        :rtype: str
+        """
+        return self._properties["matching_id"]
+
+    @property
+    def activation_code(self):
+        """
+        :returns: Combined machine-readable activation code for acquiring an eSIM Profile with the Activation Code download method. Can be used in a QR code to download an eSIM profile.
+        :rtype: str
+        """
+        return self._properties["activation_code"]
 
     @property
     def error_code(self):
