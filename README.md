@@ -64,10 +64,12 @@ directly to the constructor (see the code below) or via environment variables.
 ```python
 from twilio.rest import Client
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+username = "ACXXXXXXXXXXXXXXXXX"
+password = "YYYYYYYYYYYYYYYYYY"
+client = Client(username, password)
 ```
+
+Your Twilio credentials (`username, passowrd`) can be either `account_sid, auth_token` or `api_key_sid, api_key_secret`
 
 Alternatively, a `Client` constructor without these parameters will
 look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the
@@ -111,9 +113,9 @@ This will result in the `hostname` transforming from `api.twilio.com` to `api.sy
 ```python
 from twilio.rest import Client
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+username = "ACXXXXXXXXXXXXXXXXX"
+password = "YYYYYYYYYYYYYYYYYY"
+client = Client(username, password)
 
 call = client.calls.create(to="9991231234",
                            from_="9991231234",
@@ -126,9 +128,9 @@ print(call.sid)
 ```python
 from twilio.rest import Client
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+username = "ACXXXXXXXXXXXXXXXXX"
+password = "YYYYYYYYYYYYYYYYYY"
+client = Client(username, password)
 
 message = client.messages.create(to="+12316851234", from_="+15555555555",
                                  body="Hello there!")
@@ -143,10 +145,10 @@ from twilio.http.async_http_client import AsyncTwilioHttpClient
 from twilio.rest import Client
 
 async def main():
-    account = "ACXXXXXXXXXXXXXXXXX"
-    token = "YYYYYYYYYYYYYYYYYY"
+    username = "ACXXXXXXXXXXXXXXXXX"
+    password = "YYYYYYYYYYYYYYYYYY"
     http_client = AsyncTwilioHttpClient()
-    client = Client(account, token, http_client=http_client)
+    client = Client(username, password, http_client=http_client)
 
     message = await client.messages.create_async(to="+12316851234", from_="+15555555555",
                                                  body="Hello there!")
@@ -161,7 +163,7 @@ Log the API request and response data to the console:
 ```python
 import logging
 
-client = Client(account, token)
+client = Client(username, password)
 logging.basicConfig()
 client.http_client.logger.setLevel(logging.INFO)
 ```
@@ -171,7 +173,7 @@ Log the API request and response data to a file:
 ```python
 import logging
 
-client = Client(account, token)
+client = Client(username, password)
 logging.basicConfig(filename='./log.txt')
 client.http_client.logger.setLevel(logging.INFO)
 ```
@@ -182,9 +184,9 @@ client.http_client.logger.setLevel(logging.INFO)
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
-account = "ACXXXXXXXXXXXXXXXXX"
-token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token)
+username = "ACXXXXXXXXXXXXXXXXX"
+password = "YYYYYYYYYYYYYYYYYY"
+client = Client(username, password)
 
 try:
   message = client.messages.create(to="+12316851234", from_="+15555555555",
