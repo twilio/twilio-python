@@ -3,6 +3,10 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-03-22] Version 8.0.0-rc.0
+---------------------------
+- Release Candidate prep
+
 [2022-12-14] Version 7.16.0
 ---------------------------
 **Library - Docs**
