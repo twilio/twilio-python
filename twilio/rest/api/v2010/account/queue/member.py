@@ -299,7 +299,12 @@ class MemberPage(Page):
 
 class MemberInstance(InstanceResource):
     def __init__(
-        self, version, payload, account_sid: str, queue_sid: str, call_sid: str = None
+        self,
+        version,
+        payload,
+        account_sid: str,
+        queue_sid: str,
+        call_sid: str | None = None,
     ):
         """
         Initialize the MemberInstance

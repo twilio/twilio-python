@@ -306,7 +306,12 @@ class PublishedTrackInstance(InstanceResource):
         DATA = "data"
 
     def __init__(
-        self, version, payload, room_sid: str, participant_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        room_sid: str,
+        participant_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the PublishedTrackInstance

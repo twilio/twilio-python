@@ -481,7 +481,7 @@ class CommandInstance(InstanceResource):
         SMS = "sms"
         IP = "ip"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the CommandInstance
 

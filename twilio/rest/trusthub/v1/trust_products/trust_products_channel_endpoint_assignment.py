@@ -423,7 +423,9 @@ class TrustProductsChannelEndpointAssignmentPage(Page):
 
 
 class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
-    def __init__(self, version, payload, trust_product_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, trust_product_sid: str, sid: str | None = None
+    ):
         """
         Initialize the TrustProductsChannelEndpointAssignmentInstance
 

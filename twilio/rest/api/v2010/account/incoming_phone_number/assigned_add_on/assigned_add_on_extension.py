@@ -315,7 +315,7 @@ class AssignedAddOnExtensionInstance(InstanceResource):
         account_sid: str,
         resource_sid: str,
         assigned_add_on_sid: str,
-        sid: str = None,
+        sid: str | None = None,
     ):
         """
         Initialize the AssignedAddOnExtensionInstance

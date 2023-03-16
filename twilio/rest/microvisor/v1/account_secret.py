@@ -326,7 +326,7 @@ class AccountSecretPage(Page):
 
 
 class AccountSecretInstance(InstanceResource):
-    def __init__(self, version, payload, key: str = None):
+    def __init__(self, version, payload, key: str | None = None):
         """
         Initialize the AccountSecretInstance
 

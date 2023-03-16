@@ -287,7 +287,7 @@ class FlowRevisionInstance(InstanceResource):
         DRAFT = "draft"
         PUBLISHED = "published"
 
-    def __init__(self, version, payload, sid: str, revision: str = None):
+    def __init__(self, version, payload, sid: str, revision: str | None = None):
         """
         Initialize the FlowRevisionInstance
 

@@ -316,7 +316,7 @@ class UserConversationInstance(InstanceResource):
         payload,
         chat_service_sid: str,
         user_sid: str,
-        conversation_sid: str = None,
+        conversation_sid: str | None = None,
     ):
         """
         Initialize the UserConversationInstance

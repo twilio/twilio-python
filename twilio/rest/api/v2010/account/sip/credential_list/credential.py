@@ -364,7 +364,7 @@ class CredentialInstance(InstanceResource):
         payload,
         account_sid: str,
         credential_list_sid: str,
-        sid: str = None,
+        sid: str | None = None,
     ):
         """
         Initialize the CredentialInstance

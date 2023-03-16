@@ -341,7 +341,7 @@ class DeploymentPage(Page):
 
 
 class DeploymentInstance(InstanceResource):
-    def __init__(self, version, payload, fleet_sid: str, sid: str = None):
+    def __init__(self, version, payload, fleet_sid: str, sid: str | None = None):
         """
         Initialize the DeploymentInstance
 

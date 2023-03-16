@@ -351,7 +351,7 @@ class OriginationUrlPage(Page):
 
 
 class OriginationUrlInstance(InstanceResource):
-    def __init__(self, version, payload, trunk_sid: str, sid: str = None):
+    def __init__(self, version, payload, trunk_sid: str, sid: str | None = None):
         """
         Initialize the OriginationUrlInstance
 

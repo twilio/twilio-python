@@ -326,7 +326,7 @@ class AccountConfigPage(Page):
 
 
 class AccountConfigInstance(InstanceResource):
-    def __init__(self, version, payload, key: str = None):
+    def __init__(self, version, payload, key: str | None = None):
         """
         Initialize the AccountConfigInstance
 

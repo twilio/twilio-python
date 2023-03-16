@@ -358,7 +358,12 @@ class AssignedAddOnPage(Page):
 
 class AssignedAddOnInstance(InstanceResource):
     def __init__(
-        self, version, payload, account_sid: str, resource_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        account_sid: str,
+        resource_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the AssignedAddOnInstance

@@ -372,7 +372,7 @@ class IpAddressInstance(InstanceResource):
         payload,
         account_sid: str,
         ip_access_control_list_sid: str,
-        sid: str = None,
+        sid: str | None = None,
     ):
         """
         Initialize the IpAddressInstance

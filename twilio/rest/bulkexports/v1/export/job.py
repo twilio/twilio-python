@@ -67,7 +67,7 @@ class JobList(ListResource):
 
 
 class JobInstance(InstanceResource):
-    def __init__(self, version, payload, job_sid: str = None):
+    def __init__(self, version, payload, job_sid: str | None = None):
         """
         Initialize the JobInstance
 

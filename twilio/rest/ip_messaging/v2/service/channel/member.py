@@ -432,7 +432,12 @@ class MemberInstance(InstanceResource):
         FALSE = "false"
 
     def __init__(
-        self, version, payload, service_sid: str, channel_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        channel_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the MemberInstance

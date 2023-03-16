@@ -277,7 +277,7 @@ class AppPage(Page):
 
 
 class AppInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the AppInstance
 

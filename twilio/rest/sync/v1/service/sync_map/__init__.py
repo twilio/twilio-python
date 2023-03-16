@@ -351,7 +351,7 @@ class SyncMapPage(Page):
 
 
 class SyncMapInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: str = None):
+    def __init__(self, version, payload, service_sid: str, sid: str | None = None):
         """
         Initialize the SyncMapInstance
 

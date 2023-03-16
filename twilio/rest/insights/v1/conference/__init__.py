@@ -529,7 +529,7 @@ class ConferenceInstance(InstanceResource):
         LOW_MOS = "low_mos"
         DETECTED_SILENCE = "detected_silence"
 
-    def __init__(self, version, payload, conference_sid: str = None):
+    def __init__(self, version, payload, conference_sid: str | None = None):
         """
         Initialize the ConferenceInstance
 

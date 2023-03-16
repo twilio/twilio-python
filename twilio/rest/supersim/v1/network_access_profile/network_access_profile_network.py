@@ -349,7 +349,7 @@ class NetworkAccessProfileNetworkPage(Page):
 
 class NetworkAccessProfileNetworkInstance(InstanceResource):
     def __init__(
-        self, version, payload, network_access_profile_sid: str, sid: str = None
+        self, version, payload, network_access_profile_sid: str, sid: str | None = None
     ):
         """
         Initialize the NetworkAccessProfileNetworkInstance

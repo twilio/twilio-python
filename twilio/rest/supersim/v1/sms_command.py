@@ -423,7 +423,7 @@ class SmsCommandInstance(InstanceResource):
         RECEIVED = "received"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the SmsCommandInstance
 

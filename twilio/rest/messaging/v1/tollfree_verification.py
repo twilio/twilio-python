@@ -536,7 +536,7 @@ class TollfreeVerificationInstance(InstanceResource):
         TWILIO_APPROVED = "TWILIO_APPROVED"
         TWILIO_REJECTED = "TWILIO_REJECTED"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the TollfreeVerificationInstance
 

@@ -115,7 +115,7 @@ class SafelistList(ListResource):
 
 
 class SafelistInstance(InstanceResource):
-    def __init__(self, version, payload, phone_number: str = None):
+    def __init__(self, version, payload, phone_number: str | None = None):
         """
         Initialize the SafelistInstance
 

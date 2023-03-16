@@ -374,7 +374,9 @@ class BrandVettingInstance(InstanceResource):
     class VettingProvider(object):
         CAMPAIGN_VERIFY = "campaign-verify"
 
-    def __init__(self, version, payload, brand_sid: str, brand_vetting_sid: str = None):
+    def __init__(
+        self, version, payload, brand_sid: str, brand_vetting_sid: str | None = None
+    ):
         """
         Initialize the BrandVettingInstance
 

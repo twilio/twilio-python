@@ -305,7 +305,7 @@ class DocumentPermissionInstance(InstanceResource):
         payload,
         service_sid: str,
         document_sid: str,
-        identity: str = None,
+        identity: str | None = None,
     ):
         """
         Initialize the DocumentPermissionInstance

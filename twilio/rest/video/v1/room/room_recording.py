@@ -405,7 +405,7 @@ class RoomRecordingInstance(InstanceResource):
         VIDEO = "video"
         DATA = "data"
 
-    def __init__(self, version, payload, room_sid: str, sid: str = None):
+    def __init__(self, version, payload, room_sid: str, sid: str | None = None):
         """
         Initialize the RoomRecordingInstance
 

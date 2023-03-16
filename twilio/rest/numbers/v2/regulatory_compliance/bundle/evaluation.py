@@ -327,7 +327,7 @@ class EvaluationInstance(InstanceResource):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
-    def __init__(self, version, payload, bundle_sid: str, sid: str = None):
+    def __init__(self, version, payload, bundle_sid: str, sid: str | None = None):
         """
         Initialize the EvaluationInstance
 

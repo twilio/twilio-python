@@ -377,7 +377,9 @@ class ConnectionPolicyTargetPage(Page):
 
 
 class ConnectionPolicyTargetInstance(InstanceResource):
-    def __init__(self, version, payload, connection_policy_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, connection_policy_sid: str, sid: str | None = None
+    ):
         """
         Initialize the ConnectionPolicyTargetInstance
 

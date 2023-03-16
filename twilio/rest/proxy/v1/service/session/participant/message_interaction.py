@@ -403,7 +403,7 @@ class MessageInteractionInstance(InstanceResource):
         service_sid: str,
         session_sid: str,
         participant_sid: str,
-        sid: str = None,
+        sid: str | None = None,
     ):
         """
         Initialize the MessageInteractionInstance

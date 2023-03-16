@@ -372,7 +372,12 @@ class ReservationInstance(InstanceResource):
         COMPLETED = "completed"
 
     def __init__(
-        self, version, payload, workspace_sid: str, task_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        workspace_sid: str,
+        task_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the ReservationInstance

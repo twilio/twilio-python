@@ -86,7 +86,7 @@ class ExportList(ListResource):
 
 
 class ExportInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str = None):
+    def __init__(self, version, payload, resource_type: str | None = None):
         """
         Initialize the ExportInstance
 

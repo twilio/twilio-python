@@ -374,7 +374,12 @@ class InteractionChannelParticipantInstance(InstanceResource):
         UNKNOWN = "unknown"
 
     def __init__(
-        self, version, payload, interaction_sid: str, channel_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        interaction_sid: str,
+        channel_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the InteractionChannelParticipantInstance

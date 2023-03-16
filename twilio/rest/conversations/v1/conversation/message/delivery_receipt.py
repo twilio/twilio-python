@@ -308,7 +308,12 @@ class DeliveryReceiptInstance(InstanceResource):
         SENT = "sent"
 
     def __init__(
-        self, version, payload, conversation_sid: str, message_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        conversation_sid: str,
+        message_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the DeliveryReceiptInstance

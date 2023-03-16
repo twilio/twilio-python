@@ -341,7 +341,7 @@ class MessagingConfigurationPage(Page):
 
 
 class MessagingConfigurationInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, country: str = None):
+    def __init__(self, version, payload, service_sid: str, country: str | None = None):
         """
         Initialize the MessagingConfigurationInstance
 

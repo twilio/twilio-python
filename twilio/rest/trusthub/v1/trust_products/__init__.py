@@ -432,7 +432,7 @@ class TrustProductsInstance(InstanceResource):
         TWILIO_REJECTED = "twilio-rejected"
         TWILIO_APPROVED = "twilio-approved"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the TrustProductsInstance
 

@@ -325,7 +325,7 @@ class UserBindingInstance(InstanceResource):
         FCM = "fcm"
 
     def __init__(
-        self, version, payload, service_sid: str, user_sid: str, sid: str = None
+        self, version, payload, service_sid: str, user_sid: str, sid: str | None = None
     ):
         """
         Initialize the UserBindingInstance

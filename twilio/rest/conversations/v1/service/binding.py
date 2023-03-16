@@ -349,7 +349,7 @@ class BindingInstance(InstanceResource):
         GCM = "gcm"
         FCM = "fcm"
 
-    def __init__(self, version, payload, chat_service_sid: str, sid: str = None):
+    def __init__(self, version, payload, chat_service_sid: str, sid: str | None = None):
         """
         Initialize the BindingInstance
 

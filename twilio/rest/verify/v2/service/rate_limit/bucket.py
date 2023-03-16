@@ -361,7 +361,12 @@ class BucketPage(Page):
 
 class BucketInstance(InstanceResource):
     def __init__(
-        self, version, payload, service_sid: str, rate_limit_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        rate_limit_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the BucketInstance

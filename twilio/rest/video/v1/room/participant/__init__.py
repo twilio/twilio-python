@@ -392,7 +392,7 @@ class ParticipantInstance(InstanceResource):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
 
-    def __init__(self, version, payload, room_sid: str, sid: str = None):
+    def __init__(self, version, payload, room_sid: str, sid: str | None = None):
         """
         Initialize the ParticipantInstance
 

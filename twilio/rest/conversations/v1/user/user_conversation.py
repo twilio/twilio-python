@@ -299,7 +299,9 @@ class UserConversationInstance(InstanceResource):
         ACTIVE = "active"
         CLOSED = "closed"
 
-    def __init__(self, version, payload, user_sid: str, conversation_sid: str = None):
+    def __init__(
+        self, version, payload, user_sid: str, conversation_sid: str | None = None
+    ):
         """
         Initialize the UserConversationInstance
 

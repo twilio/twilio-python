@@ -304,7 +304,7 @@ class AssetVersionInstance(InstanceResource):
         PROTECTED = "protected"
 
     def __init__(
-        self, version, payload, service_sid: str, asset_sid: str, sid: str = None
+        self, version, payload, service_sid: str, asset_sid: str, sid: str | None = None
     ):
         """
         Initialize the AssetVersionInstance

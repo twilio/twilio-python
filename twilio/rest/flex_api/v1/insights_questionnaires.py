@@ -416,7 +416,7 @@ class InsightsQuestionnairesPage(Page):
 
 
 class InsightsQuestionnairesInstance(InstanceResource):
-    def __init__(self, version, payload, id: str = None):
+    def __init__(self, version, payload, id: str | None = None):
         """
         Initialize the InsightsQuestionnairesInstance
 

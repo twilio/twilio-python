@@ -444,7 +444,7 @@ class AssessmentsPage(Page):
 
 
 class AssessmentsInstance(InstanceResource):
-    def __init__(self, version, payload, assessment_id: str = None):
+    def __init__(self, version, payload, assessment_id: str | None = None):
         """
         Initialize the AssessmentsInstance
 

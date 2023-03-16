@@ -556,7 +556,7 @@ class HostedNumberOrderInstance(InstanceResource):
         PHONE_CALL = "phone-call"
         PHONE_BILL = "phone-bill"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the HostedNumberOrderInstance
 

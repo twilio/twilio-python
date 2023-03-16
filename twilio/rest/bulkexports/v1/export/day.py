@@ -285,7 +285,7 @@ class DayPage(Page):
 
 
 class DayInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str, day: str = None):
+    def __init__(self, version, payload, resource_type: str, day: str | None = None):
         """
         Initialize the DayInstance
 

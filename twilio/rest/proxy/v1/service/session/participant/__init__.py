@@ -384,7 +384,12 @@ class ParticipantPage(Page):
 
 class ParticipantInstance(InstanceResource):
     def __init__(
-        self, version, payload, service_sid: str, session_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        session_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the ParticipantInstance

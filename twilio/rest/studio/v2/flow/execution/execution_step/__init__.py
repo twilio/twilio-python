@@ -302,7 +302,12 @@ class ExecutionStepPage(Page):
 
 class ExecutionStepInstance(InstanceResource):
     def __init__(
-        self, version, payload, flow_sid: str, execution_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        flow_sid: str,
+        execution_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the ExecutionStepInstance

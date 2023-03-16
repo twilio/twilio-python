@@ -366,7 +366,7 @@ class TaskPage(Page):
 
 
 class TaskInstance(InstanceResource):
-    def __init__(self, version, payload, assistant_sid: str, sid: str = None):
+    def __init__(self, version, payload, assistant_sid: str, sid: str | None = None):
         """
         Initialize the TaskInstance
 

@@ -292,7 +292,9 @@ class InstalledAddOnExtensionPage(Page):
 
 
 class InstalledAddOnExtensionInstance(InstanceResource):
-    def __init__(self, version, payload, installed_add_on_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, installed_add_on_sid: str, sid: str | None = None
+    ):
         """
         Initialize the InstalledAddOnExtensionInstance
 

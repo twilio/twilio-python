@@ -76,7 +76,7 @@ class PhoneNumberInstance(InstanceResource):
         INVALID_LENGTH = "INVALID_LENGTH"
         NOT_A_NUMBER = "NOT_A_NUMBER"
 
-    def __init__(self, version, payload, phone_number: str = None):
+    def __init__(self, version, payload, phone_number: str | None = None):
         """
         Initialize the PhoneNumberInstance
 

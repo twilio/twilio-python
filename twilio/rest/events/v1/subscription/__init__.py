@@ -350,7 +350,7 @@ class SubscriptionPage(Page):
 
 
 class SubscriptionInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the SubscriptionInstance
 

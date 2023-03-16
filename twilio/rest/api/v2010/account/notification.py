@@ -386,7 +386,7 @@ class NotificationPage(Page):
 
 
 class NotificationInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: str | None = None):
         """
         Initialize the NotificationInstance
 

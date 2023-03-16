@@ -69,7 +69,7 @@ class DomainCertsList(ListResource):
 
 
 class DomainCertsInstance(InstanceResource):
-    def __init__(self, version, payload, domain_sid: str = None):
+    def __init__(self, version, payload, domain_sid: str | None = None):
         """
         Initialize the DomainCertsInstance
 

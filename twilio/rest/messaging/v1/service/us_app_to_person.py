@@ -426,7 +426,9 @@ class UsAppToPersonPage(Page):
 
 
 class UsAppToPersonInstance(InstanceResource):
-    def __init__(self, version, payload, messaging_service_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, messaging_service_sid: str, sid: str | None = None
+    ):
         """
         Initialize the UsAppToPersonInstance
 

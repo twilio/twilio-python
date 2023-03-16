@@ -309,7 +309,12 @@ class UserChannelInstance(InstanceResource):
         MUTED = "muted"
 
     def __init__(
-        self, version, payload, service_sid: str, user_sid: str, channel_sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        user_sid: str,
+        channel_sid: str | None = None,
     ):
         """
         Initialize the UserChannelInstance

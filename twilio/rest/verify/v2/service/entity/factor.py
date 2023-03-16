@@ -307,7 +307,7 @@ class FactorInstance(InstanceResource):
         TOTP = "totp"
 
     def __init__(
-        self, version, payload, service_sid: str, identity: str, sid: str = None
+        self, version, payload, service_sid: str, identity: str, sid: str | None = None
     ):
         """
         Initialize the FactorInstance

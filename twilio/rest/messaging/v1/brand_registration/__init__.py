@@ -373,7 +373,7 @@ class BrandRegistrationInstance(InstanceResource):
         IN_REVIEW = "IN_REVIEW"
         DELETED = "DELETED"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the BrandRegistrationInstance
 

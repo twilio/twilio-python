@@ -383,7 +383,7 @@ class ServiceInstance(InstanceResource):
         AVOID_STICKY = "avoid-sticky"
         PREFER_STICKY = "prefer-sticky"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the ServiceInstance
 

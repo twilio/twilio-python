@@ -335,7 +335,7 @@ class RoleInstance(InstanceResource):
         CONVERSATION = "conversation"
         SERVICE = "service"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the RoleInstance
 

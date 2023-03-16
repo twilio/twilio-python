@@ -384,7 +384,7 @@ class SinkInstance(InstanceResource):
         ACTIVE = "active"
         FAILED = "failed"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the SinkInstance
 

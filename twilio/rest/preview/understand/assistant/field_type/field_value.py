@@ -381,7 +381,12 @@ class FieldValuePage(Page):
 
 class FieldValueInstance(InstanceResource):
     def __init__(
-        self, version, payload, assistant_sid: str, field_type_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        assistant_sid: str,
+        field_type_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the FieldValueInstance

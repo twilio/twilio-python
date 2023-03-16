@@ -653,7 +653,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         VOICE = "voice"
         FAX = "fax"
 
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: str | None = None):
         """
         Initialize the IncomingPhoneNumberInstance
 

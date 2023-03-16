@@ -529,7 +529,7 @@ class RoomInstance(InstanceResource):
         VP8 = "VP8"
         H264 = "H264"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the RoomInstance
 

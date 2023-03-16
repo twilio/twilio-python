@@ -789,7 +789,7 @@ class TriggerInstance(InstanceResource):
         WIRELESS_USAGE_SMS = "wireless-usage-sms"
         WIRELESS_USAGE_VOICE = "wireless-usage-voice"
 
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: str | None = None):
         """
         Initialize the TriggerInstance
 

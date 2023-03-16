@@ -454,7 +454,12 @@ class SyncListItemInstance(InstanceResource):
         DESC = "desc"
 
     def __init__(
-        self, version, payload, service_sid: str, list_sid: str, index: int = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        list_sid: str,
+        index: int | None = None,
     ):
         """
         Initialize the SyncListItemInstance

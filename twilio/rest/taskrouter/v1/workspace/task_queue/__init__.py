@@ -501,7 +501,7 @@ class TaskQueueInstance(InstanceResource):
         FIFO = "FIFO"
         LIFO = "LIFO"
 
-    def __init__(self, version, payload, workspace_sid: str, sid: str = None):
+    def __init__(self, version, payload, workspace_sid: str, sid: str | None = None):
         """
         Initialize the TaskQueueInstance
 

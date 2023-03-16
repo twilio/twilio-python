@@ -334,7 +334,7 @@ class InsightsSegmentsPage(Page):
 
 
 class InsightsSegmentsInstance(InstanceResource):
-    def __init__(self, version, payload, segment_id: str = None):
+    def __init__(self, version, payload, segment_id: str | None = None):
         """
         Initialize the InsightsSegmentsInstance
 

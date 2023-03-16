@@ -67,7 +67,7 @@ class NumberList(ListResource):
 
 
 class NumberInstance(InstanceResource):
-    def __init__(self, version, payload, number: str = None):
+    def __init__(self, version, payload, number: str | None = None):
         """
         Initialize the NumberInstance
 

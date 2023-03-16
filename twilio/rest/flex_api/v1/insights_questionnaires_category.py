@@ -357,7 +357,7 @@ class InsightsQuestionnairesCategoryPage(Page):
 
 
 class InsightsQuestionnairesCategoryInstance(InstanceResource):
-    def __init__(self, version, payload, category_id: str = None):
+    def __init__(self, version, payload, category_id: str | None = None):
         """
         Initialize the InsightsQuestionnairesCategoryInstance
 

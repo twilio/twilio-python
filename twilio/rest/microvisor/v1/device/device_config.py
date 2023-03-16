@@ -339,7 +339,7 @@ class DeviceConfigPage(Page):
 
 
 class DeviceConfigInstance(InstanceResource):
-    def __init__(self, version, payload, device_sid: str, key: str = None):
+    def __init__(self, version, payload, device_sid: str, key: str | None = None):
         """
         Initialize the DeviceConfigInstance
 

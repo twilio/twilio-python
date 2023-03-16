@@ -355,7 +355,9 @@ class CustomerProfilesEntityAssignmentsPage(Page):
 
 
 class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
-    def __init__(self, version, payload, customer_profile_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, customer_profile_sid: str, sid: str | None = None
+    ):
         """
         Initialize the CustomerProfilesEntityAssignmentsInstance
 

@@ -298,7 +298,12 @@ class SyncListPermissionPage(Page):
 
 class SyncListPermissionInstance(InstanceResource):
     def __init__(
-        self, version, payload, service_sid: str, list_sid: str, identity: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        list_sid: str,
+        identity: str | None = None,
     ):
         """
         Initialize the SyncListPermissionInstance

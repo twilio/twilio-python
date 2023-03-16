@@ -69,7 +69,7 @@ class PhoneNumberList(ListResource):
 
 
 class PhoneNumberInstance(InstanceResource):
-    def __init__(self, version, payload, phone_number: str = None):
+    def __init__(self, version, payload, phone_number: str | None = None):
         """
         Initialize the PhoneNumberInstance
 

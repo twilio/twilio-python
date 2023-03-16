@@ -607,7 +607,7 @@ class MessageInstance(InstanceResource):
         PARTIALLY_DELIVERED = "partially_delivered"
         CANCELED = "canceled"
 
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: str | None = None):
         """
         Initialize the MessageInstance
 

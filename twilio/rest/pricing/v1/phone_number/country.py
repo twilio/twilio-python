@@ -275,7 +275,7 @@ class CountryPage(Page):
 
 
 class CountryInstance(InstanceResource):
-    def __init__(self, version, payload, iso_country: str = None):
+    def __init__(self, version, payload, iso_country: str | None = None):
         """
         Initialize the CountryInstance
 

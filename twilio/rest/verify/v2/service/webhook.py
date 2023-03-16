@@ -378,7 +378,7 @@ class WebhookInstance(InstanceResource):
         V1 = "v1"
         V2 = "v2"
 
-    def __init__(self, version, payload, service_sid: str, sid: str = None):
+    def __init__(self, version, payload, service_sid: str, sid: str | None = None):
         """
         Initialize the WebhookInstance
 

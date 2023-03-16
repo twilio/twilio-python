@@ -338,7 +338,7 @@ class EntityPage(Page):
 
 
 class EntityInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, identity: str = None):
+    def __init__(self, version, payload, service_sid: str, identity: str | None = None):
         """
         Initialize the EntityInstance
 

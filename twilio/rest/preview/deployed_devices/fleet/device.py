@@ -387,7 +387,7 @@ class DevicePage(Page):
 
 
 class DeviceInstance(InstanceResource):
-    def __init__(self, version, payload, fleet_sid: str, sid: str = None):
+    def __init__(self, version, payload, fleet_sid: str, sid: str | None = None):
         """
         Initialize the DeviceInstance
 

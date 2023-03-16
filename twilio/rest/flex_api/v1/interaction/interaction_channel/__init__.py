@@ -308,7 +308,7 @@ class InteractionChannelInstance(InstanceResource):
         MESSENGER = "messenger"
         GBM = "gbm"
 
-    def __init__(self, version, payload, interaction_sid: str, sid: str = None):
+    def __init__(self, version, payload, interaction_sid: str, sid: str | None = None):
         """
         Initialize the InteractionChannelInstance
 

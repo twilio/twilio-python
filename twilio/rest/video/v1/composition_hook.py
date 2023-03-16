@@ -489,7 +489,7 @@ class CompositionHookInstance(InstanceResource):
         MP4 = "mp4"
         WEBM = "webm"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the CompositionHookInstance
 

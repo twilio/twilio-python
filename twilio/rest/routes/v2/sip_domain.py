@@ -69,7 +69,7 @@ class SipDomainList(ListResource):
 
 
 class SipDomainInstance(InstanceResource):
-    def __init__(self, version, payload, sip_domain: str = None):
+    def __init__(self, version, payload, sip_domain: str | None = None):
         """
         Initialize the SipDomainInstance
 

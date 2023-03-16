@@ -294,7 +294,7 @@ class EventTypePage(Page):
 
 
 class EventTypeInstance(InstanceResource):
-    def __init__(self, version, payload, type: str = None):
+    def __init__(self, version, payload, type: str | None = None):
         """
         Initialize the EventTypeInstance
 

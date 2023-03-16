@@ -398,7 +398,7 @@ class ParticipantInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
-    def __init__(self, version, payload, conversation_sid: str, sid: str = None):
+    def __init__(self, version, payload, conversation_sid: str, sid: str | None = None):
         """
         Initialize the ParticipantInstance
 

@@ -307,7 +307,9 @@ class AvailablePhoneNumberCountryPage(Page):
 
 
 class AvailablePhoneNumberCountryInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, country_code: str = None):
+    def __init__(
+        self, version, payload, account_sid: str, country_code: str | None = None
+    ):
         """
         Initialize the AvailablePhoneNumberCountryInstance
 

@@ -292,7 +292,9 @@ class AvailableAddOnExtensionPage(Page):
 
 
 class AvailableAddOnExtensionInstance(InstanceResource):
-    def __init__(self, version, payload, available_add_on_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, available_add_on_sid: str, sid: str | None = None
+    ):
         """
         Initialize the AvailableAddOnExtensionInstance
 

@@ -351,7 +351,9 @@ class TrustProductsEvaluationsInstance(InstanceResource):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
-    def __init__(self, version, payload, trust_product_sid: str, sid: str = None):
+    def __init__(
+        self, version, payload, trust_product_sid: str, sid: str | None = None
+    ):
         """
         Initialize the TrustProductsEvaluationsInstance
 

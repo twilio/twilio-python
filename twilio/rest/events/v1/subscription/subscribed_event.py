@@ -345,7 +345,9 @@ class SubscribedEventPage(Page):
 
 
 class SubscribedEventInstance(InstanceResource):
-    def __init__(self, version, payload, subscription_sid: str, type: str = None):
+    def __init__(
+        self, version, payload, subscription_sid: str, type: str | None = None
+    ):
         """
         Initialize the SubscribedEventInstance
 

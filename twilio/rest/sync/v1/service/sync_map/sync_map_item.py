@@ -468,7 +468,7 @@ class SyncMapItemInstance(InstanceResource):
         DESC = "desc"
 
     def __init__(
-        self, version, payload, service_sid: str, map_sid: str, key: str = None
+        self, version, payload, service_sid: str, map_sid: str, key: str | None = None
     ):
         """
         Initialize the SyncMapItemInstance

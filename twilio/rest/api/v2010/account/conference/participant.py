@@ -735,7 +735,7 @@ class ParticipantInstance(InstanceResource):
         payload,
         account_sid: str,
         conference_sid: str,
-        call_sid: str = None,
+        call_sid: str | None = None,
     ):
         """
         Initialize the ParticipantInstance

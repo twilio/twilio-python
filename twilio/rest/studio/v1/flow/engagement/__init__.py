@@ -352,7 +352,7 @@ class EngagementInstance(InstanceResource):
         ACTIVE = "active"
         ENDED = "ended"
 
-    def __init__(self, version, payload, flow_sid: str, sid: str = None):
+    def __init__(self, version, payload, flow_sid: str, sid: str | None = None):
         """
         Initialize the EngagementInstance
 

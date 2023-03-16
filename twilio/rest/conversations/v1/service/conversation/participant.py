@@ -421,7 +421,7 @@ class ParticipantInstance(InstanceResource):
         payload,
         chat_service_sid: str,
         conversation_sid: str,
-        sid: str = None,
+        sid: str | None = None,
     ):
         """
         Initialize the ParticipantInstance

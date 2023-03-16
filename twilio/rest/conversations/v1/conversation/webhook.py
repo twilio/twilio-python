@@ -388,7 +388,7 @@ class WebhookPage(Page):
 
 
 class WebhookInstance(InstanceResource):
-    def __init__(self, version, payload, conversation_sid: str, sid: str = None):
+    def __init__(self, version, payload, conversation_sid: str, sid: str | None = None):
         """
         Initialize the WebhookInstance
 

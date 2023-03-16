@@ -411,7 +411,7 @@ class ConferenceParticipantInstance(InstanceResource):
         DE1 = "de1"
 
     def __init__(
-        self, version, payload, conference_sid: str, participant_sid: str = None
+        self, version, payload, conference_sid: str, participant_sid: str | None = None
     ):
         """
         Initialize the ConferenceParticipantInstance

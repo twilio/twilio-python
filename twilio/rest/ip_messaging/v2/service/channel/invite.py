@@ -378,7 +378,12 @@ class InvitePage(Page):
 
 class InviteInstance(InstanceResource):
     def __init__(
-        self, version, payload, service_sid: str, channel_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        channel_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the InviteInstance

@@ -299,7 +299,12 @@ class WorkerChannelPage(Page):
 
 class WorkerChannelInstance(InstanceResource):
     def __init__(
-        self, version, payload, workspace_sid: str, worker_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        workspace_sid: str,
+        worker_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the WorkerChannelInstance

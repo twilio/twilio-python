@@ -339,7 +339,7 @@ class SupportingDocumentInstance(InstanceResource):
         EXPIRED = "expired"
         PROVISIONALLY_APPROVED = "provisionally-approved"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the SupportingDocumentInstance
 

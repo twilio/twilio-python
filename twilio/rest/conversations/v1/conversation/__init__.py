@@ -397,7 +397,7 @@ class ConversationInstance(InstanceResource):
         TRUE = "true"
         FALSE = "false"
 
-    def __init__(self, version, payload, sid: str = None):
+    def __init__(self, version, payload, sid: str | None = None):
         """
         Initialize the ConversationInstance
 

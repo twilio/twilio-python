@@ -348,7 +348,7 @@ class ModelBuildInstance(InstanceResource):
         FAILED = "failed"
         CANCELED = "canceled"
 
-    def __init__(self, version, payload, assistant_sid: str, sid: str = None):
+    def __init__(self, version, payload, assistant_sid: str, sid: str | None = None):
         """
         Initialize the ModelBuildInstance
 

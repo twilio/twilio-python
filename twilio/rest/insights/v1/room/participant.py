@@ -321,7 +321,9 @@ class ParticipantInstance(InstanceResource):
         DE1 = "de1"
         GLL = "gll"
 
-    def __init__(self, version, payload, room_sid: str, participant_sid: str = None):
+    def __init__(
+        self, version, payload, room_sid: str, participant_sid: str | None = None
+    ):
         """
         Initialize the ParticipantInstance
 

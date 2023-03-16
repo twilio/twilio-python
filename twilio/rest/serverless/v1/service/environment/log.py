@@ -387,7 +387,12 @@ class LogInstance(InstanceResource):
         ERROR = "error"
 
     def __init__(
-        self, version, payload, service_sid: str, environment_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        service_sid: str,
+        environment_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the LogInstance

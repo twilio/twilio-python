@@ -335,7 +335,7 @@ class ShortCodePage(Page):
 
 
 class ShortCodeInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: str = None):
+    def __init__(self, version, payload, service_sid: str, sid: str | None = None):
         """
         Initialize the ShortCodeInstance
 

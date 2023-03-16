@@ -316,7 +316,7 @@ class PayloadInstance(InstanceResource):
         account_sid: str,
         reference_sid: str,
         add_on_result_sid: str,
-        sid: str = None,
+        sid: str | None = None,
     ):
         """
         Initialize the PayloadInstance

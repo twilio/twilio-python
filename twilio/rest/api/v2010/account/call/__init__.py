@@ -800,7 +800,7 @@ class CallInstance(InstanceResource):
         NO_ANSWER = "no-answer"
         CANCELED = "canceled"
 
-    def __init__(self, version, payload, account_sid: str, sid: str = None):
+    def __init__(self, version, payload, account_sid: str, sid: str | None = None):
         """
         Initialize the CallInstance
 

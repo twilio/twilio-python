@@ -575,7 +575,7 @@ class WorkerPage(Page):
 
 
 class WorkerInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, sid: str = None):
+    def __init__(self, version, payload, workspace_sid: str, sid: str | None = None):
         """
         Initialize the WorkerInstance
 

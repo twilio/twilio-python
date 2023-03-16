@@ -70,7 +70,7 @@ class FormInstance(InstanceResource):
     class FormTypes(object):
         FORM_PUSH = "form-push"
 
-    def __init__(self, version, payload, form_type: FormTypes = None):
+    def __init__(self, version, payload, form_type: FormTypes | None = None):
         """
         Initialize the FormInstance
 

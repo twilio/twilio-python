@@ -563,7 +563,7 @@ class TaskInstance(InstanceResource):
         COMPLETED = "completed"
         WRAPPING = "wrapping"
 
-    def __init__(self, version, payload, workspace_sid: str, sid: str = None):
+    def __init__(self, version, payload, workspace_sid: str, sid: str | None = None):
         """
         Initialize the TaskInstance
 

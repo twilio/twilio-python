@@ -355,7 +355,12 @@ class CredentialListMappingPage(Page):
 
 class CredentialListMappingInstance(InstanceResource):
     def __init__(
-        self, version, payload, account_sid: str, domain_sid: str, sid: str = None
+        self,
+        version,
+        payload,
+        account_sid: str,
+        domain_sid: str,
+        sid: str | None = None,
     ):
         """
         Initialize the CredentialListMappingInstance
