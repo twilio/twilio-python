@@ -40,8 +40,6 @@ class BuildStatusList(ListResource):
         
         
         
-    
-
     def get(self):
         """
         Constructs a BuildStatusContext

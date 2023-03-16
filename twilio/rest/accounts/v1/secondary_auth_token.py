@@ -36,38 +36,6 @@ class SecondaryAuthTokenList(ListResource):
         # Path Solution
         self._solution = {}
 
-    def create(self):
-        """
-        Create the SecondaryAuthTokenInstance
-
-
-        :returns: The created SecondaryAuthTokenInstance
-        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenInstance
-        """
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-        )
-
-        return SecondaryAuthTokenInstance(self._version, payload)
-
-    async def create_async(self):
-        """
-        Asynchronously create the SecondaryAuthTokenInstance
-
-
-        :returns: The created SecondaryAuthTokenInstance
-        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenInstance
-        """
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-        )
-
-        return SecondaryAuthTokenInstance(self._version, payload)
-
     def get(self):
         """
         Constructs a SecondaryAuthTokenContext
