@@ -1,4 +1,10 @@
+from enum import Enum
+from typing import Dict, Union
 from urllib.parse import urlencode
+
+
+class Match(Enum):
+    ANY = "*"
 
 
 class Request(object):
@@ -6,12 +12,19 @@ class Request(object):
     An HTTP request.
     """
 
-    ANY = "*"
-
     def __init__(
-        self, method=ANY, url=ANY, auth=ANY, params=ANY, data=ANY, headers=ANY, **kwargs
+        self,
+        method: Union[str, Match] = Match.ANY,
+        url: Union[str, Match] = Match.ANY,
+        auth: Union[tuple, Match] = Match.ANY,
+        params: Union[Dict, Match] = Match.ANY,
+        data: Union[Dict, Match] = Match.ANY,
+        headers: Union[Dict, Match] = Match.ANY,
+        **kwargs
     ):
-        self.method = method.upper()
+        self.method = method
+        if method and method != Match.ANY:
+            self.method = method.upper()
         self.url = url
         self.auth = auth
         self.params = params
@@ -20,7 +33,7 @@ class Request(object):
 
     @classmethod
     def attribute_equal(cls, lhs, rhs):
-        if lhs == cls.ANY or rhs == cls.ANY:
+        if lhs == Match.ANY or rhs == Match.ANY:
             # ANY matches everything
             return True
 
@@ -44,15 +57,15 @@ class Request(object):
 
     def __str__(self):
         auth = ""
-        if self.auth and self.auth != self.ANY:
+        if self.auth and self.auth != Match.ANY:
             auth = "{} ".format(self.auth)
 
         params = ""
-        if self.params and self.params != self.ANY:
+        if self.params and self.params != Match.ANY:
             params = "?{}".format(urlencode(self.params, doseq=True))
 
         data = ""
-        if self.data and self.data != self.ANY:
+        if self.data and self.data != Match.ANY:
             if self.method == "GET":
                 data = "\n -G"
             data += "\n{}".format(
@@ -60,7 +73,7 @@ class Request(object):
             )
 
         headers = ""
-        if self.headers and self.headers != self.ANY:
+        if self.headers and self.headers != Match.ANY:
             headers = "\n{}".format(
                 "\n".join(' -H "{}: {}"'.format(k, v) for k, v in self.headers.items())
             )

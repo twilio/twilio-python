@@ -69,7 +69,9 @@ class TwilioHttpClient(HttpClient):
         :return: An http response
         :rtype: A :class:`Response <twilio.rest.http.response.Response>` object
         """
-        if timeout is not None and timeout <= 0:
+        if timeout is None:
+            timeout = self.timeout
+        elif timeout <= 0:
             raise ValueError(timeout)
 
         kwargs = {
@@ -95,10 +97,12 @@ class TwilioHttpClient(HttpClient):
             prepped_request.url, self.proxy, None, None, None
         )
 
-        settings["allow_redirects"] = allow_redirects
-        settings["timeout"] = timeout if timeout is not None else self.timeout
-
-        response = session.send(prepped_request, **settings)
+        response = session.send(
+            prepped_request,
+            allow_redirects=allow_redirects,
+            timeout=timeout,
+            **settings
+        )
 
         self.log_response(response.status_code, response)
 
