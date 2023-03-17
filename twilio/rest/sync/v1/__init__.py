@@ -24,15 +24,11 @@ class V1(Version):
 
         :param domain: The Twilio.sync domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._services = None
 
     @property
     def services(self) -> ServiceList:
-        """
-        :rtype: twilio.rest.sync.v1.service.ServiceList
-        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
@@ -41,6 +37,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Sync.V1>"

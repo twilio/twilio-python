@@ -24,15 +24,11 @@ class DeployedDevices(Version):
 
         :param domain: The Twilio.preview domain
         """
-        super().__init__(domain)
-        self.version = "DeployedDevices"
+        super().__init__(domain, "DeployedDevices")
         self._fleets = None
 
     @property
     def fleets(self) -> FleetList:
-        """
-        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetList
-        """
         if self._fleets is None:
             self._fleets = FleetList(self)
         return self._fleets
@@ -41,6 +37,5 @@ class DeployedDevices(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.DeployedDevices>"

@@ -24,15 +24,11 @@ class Understand(Version):
 
         :param domain: The Twilio.preview domain
         """
-        super().__init__(domain)
-        self.version = "understand"
+        super().__init__(domain, "understand")
         self._assistants = None
 
     @property
     def assistants(self) -> AssistantList:
-        """
-        :rtype: twilio.rest.preview.understand.assistant.AssistantList
-        """
         if self._assistants is None:
             self._assistants = AssistantList(self)
         return self._assistants
@@ -41,6 +37,5 @@ class Understand(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand>"

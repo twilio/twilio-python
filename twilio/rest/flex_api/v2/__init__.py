@@ -24,15 +24,11 @@ class V2(Version):
 
         :param domain: The Twilio.flex_api domain
         """
-        super().__init__(domain)
-        self.version = "v2"
+        super().__init__(domain, "v2")
         self._web_channels = None
 
     @property
     def web_channels(self) -> WebChannelsList:
-        """
-        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsList
-        """
         if self._web_channels is None:
             self._web_channels = WebChannelsList(self)
         return self._web_channels
@@ -41,6 +37,5 @@ class V2(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V2>"

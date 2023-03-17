@@ -19,26 +19,22 @@ class ApiBase(Domain):
         Initialize the Api Domain
 
         :returns: Domain for Api
-        :rtype: twilio.rest.api.Api
         """
-        super().__init__(twilio)
-        self.base_url = "https://api.twilio.com"
+        super().__init__(twilio, "https://api.twilio.com")
         self._v2010 = None
 
     @property
-    def v2010(self):
+    def v2010(self) -> V2010:
         """
         :returns: Versions v2010 of Api
-        :rtype: twilio.rest.api.v2010.V2010
         """
         if self._v2010 is None:
             self._v2010 = V2010(self)
         return self._v2010
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api>"

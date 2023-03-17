@@ -19,26 +19,22 @@ class TrusthubBase(Domain):
         Initialize the Trusthub Domain
 
         :returns: Domain for Trusthub
-        :rtype: twilio.rest.trusthub.Trusthub
         """
-        super().__init__(twilio)
-        self.base_url = "https://trusthub.twilio.com"
+        super().__init__(twilio, "https://trusthub.twilio.com")
         self._v1 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of Trusthub
-        :rtype: twilio.rest.trusthub.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub>"

@@ -25,25 +25,18 @@ class V1(Version):
 
         :param domain: The Twilio.monitor domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._alerts = None
         self._events = None
 
     @property
     def alerts(self) -> AlertList:
-        """
-        :rtype: twilio.rest.monitor.v1.alert.AlertList
-        """
         if self._alerts is None:
             self._alerts = AlertList(self)
         return self._alerts
 
     @property
     def events(self) -> EventList:
-        """
-        :rtype: twilio.rest.monitor.v1.event.EventList
-        """
         if self._events is None:
             self._events = EventList(self)
         return self._events
@@ -52,6 +45,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Monitor.V1>"

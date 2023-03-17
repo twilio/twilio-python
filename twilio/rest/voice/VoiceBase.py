@@ -19,26 +19,22 @@ class VoiceBase(Domain):
         Initialize the Voice Domain
 
         :returns: Domain for Voice
-        :rtype: twilio.rest.voice.Voice
         """
-        super().__init__(twilio)
-        self.base_url = "https://voice.twilio.com"
+        super().__init__(twilio, "https://voice.twilio.com")
         self._v1 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of Voice
-        :rtype: twilio.rest.voice.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice>"

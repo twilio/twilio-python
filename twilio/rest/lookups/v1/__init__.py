@@ -24,15 +24,11 @@ class V1(Version):
 
         :param domain: The Twilio.lookups domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._phone_numbers = None
 
     @property
     def phone_numbers(self) -> PhoneNumberList:
-        """
-        :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberList
-        """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
@@ -41,6 +37,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Lookups.V1>"

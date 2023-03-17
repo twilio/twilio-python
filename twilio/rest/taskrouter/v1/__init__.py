@@ -24,15 +24,11 @@ class V1(Version):
 
         :param domain: The Twilio.taskrouter domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._workspaces = None
 
     @property
     def workspaces(self) -> WorkspaceList:
-        """
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
-        """
         if self._workspaces is None:
             self._workspaces = WorkspaceList(self)
         return self._workspaces
@@ -41,6 +37,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1>"

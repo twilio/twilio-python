@@ -24,15 +24,11 @@ class V2(Version):
 
         :param domain: The Twilio.numbers domain
         """
-        super().__init__(domain)
-        self.version = "v2"
+        super().__init__(domain, "v2")
         self._regulatory_compliance = None
 
     @property
     def regulatory_compliance(self) -> RegulatoryComplianceList:
-        """
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.RegulatoryComplianceList
-        """
         if self._regulatory_compliance is None:
             self._regulatory_compliance = RegulatoryComplianceList(self)
         return self._regulatory_compliance
@@ -41,6 +37,5 @@ class V2(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Numbers.V2>"

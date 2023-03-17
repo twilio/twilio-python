@@ -1,6 +1,7 @@
 import json
 
 from twilio.base import values
+from twilio.base.domain import Domain
 from twilio.base.exceptions import TwilioRestException
 
 
@@ -9,13 +10,9 @@ class Version(object):
     Represents an API version.
     """
 
-    def __init__(self, domain):
-        """
-        :param Domain domain:
-        :return:
-        """
+    def __init__(self, domain: Domain, version: str):
         self.domain = domain
-        self.version = None
+        self.version = version
 
     def absolute_url(self, uri):
         """

@@ -27,25 +27,18 @@ class HostedNumbers(Version):
 
         :param domain: The Twilio.preview domain
         """
-        super().__init__(domain)
-        self.version = "HostedNumbers"
+        super().__init__(domain, "HostedNumbers")
         self._authorization_documents = None
         self._hosted_number_orders = None
 
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
-        """
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentList
-        """
         if self._authorization_documents is None:
             self._authorization_documents = AuthorizationDocumentList(self)
         return self._authorization_documents
 
     @property
     def hosted_number_orders(self) -> HostedNumberOrderList:
-        """
-        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList
-        """
         if self._hosted_number_orders is None:
             self._hosted_number_orders = HostedNumberOrderList(self)
         return self._hosted_number_orders
@@ -54,6 +47,5 @@ class HostedNumbers(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.HostedNumbers>"

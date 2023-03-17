@@ -26,35 +26,25 @@ class V1(Version):
 
         :param domain: The Twilio.media domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._media_processor = None
         self._media_recording = None
         self._player_streamer = None
 
     @property
     def media_processor(self) -> MediaProcessorList:
-        """
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorList
-        """
         if self._media_processor is None:
             self._media_processor = MediaProcessorList(self)
         return self._media_processor
 
     @property
     def media_recording(self) -> MediaRecordingList:
-        """
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingList
-        """
         if self._media_recording is None:
             self._media_recording = MediaRecordingList(self)
         return self._media_recording
 
     @property
     def player_streamer(self) -> PlayerStreamerList:
-        """
-        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerList
-        """
         if self._player_streamer is None:
             self._player_streamer = PlayerStreamerList(self)
         return self._player_streamer
@@ -63,6 +53,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Media.V1>"

@@ -25,25 +25,18 @@ class V1(Version):
 
         :param domain: The Twilio.chat domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._credentials = None
         self._services = None
 
     @property
     def credentials(self) -> CredentialList:
-        """
-        :rtype: twilio.rest.chat.v1.credential.CredentialList
-        """
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
 
     @property
     def services(self) -> ServiceList:
-        """
-        :rtype: twilio.rest.chat.v1.service.ServiceList
-        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
@@ -52,6 +45,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Chat.V1>"

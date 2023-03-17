@@ -24,15 +24,11 @@ class V1(Version):
 
         :param domain: The Twilio.frontline_api domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._users = None
 
     @property
     def users(self) -> UserList:
-        """
-        :rtype: twilio.rest.frontline_api.v1.user.UserList
-        """
         if self._users is None:
             self._users = UserList(self)
         return self._users
@@ -41,6 +37,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FrontlineApi.V1>"

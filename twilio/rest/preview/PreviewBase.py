@@ -24,10 +24,8 @@ class PreviewBase(Domain):
         Initialize the Preview Domain
 
         :returns: Domain for Preview
-        :rtype: twilio.rest.preview.Preview
         """
-        super().__init__(twilio)
-        self.base_url = "https://preview.twilio.com"
+        super().__init__(twilio, "https://preview.twilio.com")
         self._deployed_devices = None
         self._hosted_numbers = None
         self._sync = None
@@ -36,69 +34,62 @@ class PreviewBase(Domain):
         self._wireless = None
 
     @property
-    def deployed_devices(self):
+    def deployed_devices(self) -> DeployedDevices:
         """
         :returns: Versions deployed_devices of Preview
-        :rtype: twilio.rest.preview.deployed_devices.DeployedDevices
         """
         if self._deployed_devices is None:
             self._deployed_devices = DeployedDevices(self)
         return self._deployed_devices
 
     @property
-    def hosted_numbers(self):
+    def hosted_numbers(self) -> HostedNumbers:
         """
         :returns: Versions hosted_numbers of Preview
-        :rtype: twilio.rest.preview.hosted_numbers.HostedNumbers
         """
         if self._hosted_numbers is None:
             self._hosted_numbers = HostedNumbers(self)
         return self._hosted_numbers
 
     @property
-    def sync(self):
+    def sync(self) -> Sync:
         """
         :returns: Versions sync of Preview
-        :rtype: twilio.rest.preview.sync.Sync
         """
         if self._sync is None:
             self._sync = Sync(self)
         return self._sync
 
     @property
-    def marketplace(self):
+    def marketplace(self) -> Marketplace:
         """
         :returns: Versions marketplace of Preview
-        :rtype: twilio.rest.preview.marketplace.Marketplace
         """
         if self._marketplace is None:
             self._marketplace = Marketplace(self)
         return self._marketplace
 
     @property
-    def understand(self):
+    def understand(self) -> Understand:
         """
         :returns: Versions understand of Preview
-        :rtype: twilio.rest.preview.understand.Understand
         """
         if self._understand is None:
             self._understand = Understand(self)
         return self._understand
 
     @property
-    def wireless(self):
+    def wireless(self) -> Wireless:
         """
         :returns: Versions wireless of Preview
-        :rtype: twilio.rest.preview.wireless.Wireless
         """
         if self._wireless is None:
             self._wireless = Wireless(self)
         return self._wireless
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview>"

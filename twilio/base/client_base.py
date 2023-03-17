@@ -1,12 +1,11 @@
 import os
 import platform
+from urllib.parse import urlparse, urlunparse
+
 from twilio import __version__
 from twilio.base.exceptions import TwilioException
+from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
-from urllib.parse import (
-    urlparse,
-    urlunparse,
-)
 
 
 class ClientBase(object):
@@ -58,7 +57,7 @@ class ClientBase(object):
 
         self.auth = (self.username, self.password)
         """ :type : tuple(str, str) """
-        self.http_client = http_client or TwilioHttpClient()
+        self.http_client: HttpClient = http_client or TwilioHttpClient()
         """ :type : HttpClient """
 
     def request(

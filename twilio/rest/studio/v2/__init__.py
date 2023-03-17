@@ -25,25 +25,18 @@ class V2(Version):
 
         :param domain: The Twilio.studio domain
         """
-        super().__init__(domain)
-        self.version = "v2"
+        super().__init__(domain, "v2")
         self._flows = None
         self._flow_validate = None
 
     @property
     def flows(self) -> FlowList:
-        """
-        :rtype: twilio.rest.studio.v2.flow.FlowList
-        """
         if self._flows is None:
             self._flows = FlowList(self)
         return self._flows
 
     @property
     def flow_validate(self) -> FlowValidateList:
-        """
-        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateList
-        """
         if self._flow_validate is None:
             self._flow_validate = FlowValidateList(self)
         return self._flow_validate
@@ -52,6 +45,5 @@ class V2(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V2>"

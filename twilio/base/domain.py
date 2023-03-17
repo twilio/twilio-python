@@ -1,3 +1,6 @@
+from twilio.rest import Client
+
+
 class Domain(object):
     """
     This represents at Twilio API subdomain.
@@ -5,15 +8,11 @@ class Domain(object):
     Like, `api.twilio.com` or `lookups.twilio.com'.
     """
 
-    def __init__(self, twilio):
-        """
-        :param Twilio twilio:
-        :return:
-        """
+    def __init__(self, twilio: Client, base_url: str):
         self.twilio = twilio
-        self.base_url = None
+        self.base_url = base_url
 
-    def absolute_url(self, uri):
+    def absolute_url(self, uri: str) -> str:
         """
         Converts a relative `uri` to an absolute url.
         :param string uri: The relative uri to make absolute.
