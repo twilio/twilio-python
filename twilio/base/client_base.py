@@ -1,11 +1,13 @@
 import os
 import platform
+from typing import Dict, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from twilio import __version__
 from twilio.base.exceptions import TwilioException
 from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
+from twilio.http.response import Response
 
 
 class ClientBase(object):
@@ -67,7 +69,7 @@ class ClientBase(object):
         auth=None,
         timeout=None,
         allow_redirects=False,
-    ):
+    ) -> Response:
         """
         Makes a request to the Twilio API using the configured http client
         Authentication information is automatically added if none is provided
@@ -82,7 +84,6 @@ class ClientBase(object):
         :param bool allow_redirects: Should the client follow redirects
 
         :returns: Response from the Twilio API
-        :rtype: twilio.http.response.Response
         """
         auth = self.get_auth(auth)
         headers = self.get_headers(method, headers)
@@ -109,7 +110,7 @@ class ClientBase(object):
         auth=None,
         timeout=None,
         allow_redirects=False,
-    ):
+    ) -> Response:
         """
         Asynchronously makes a request to the Twilio API  using the configured http client
         The configured http client must be an asynchronous http client
@@ -125,7 +126,6 @@ class ClientBase(object):
         :param bool allow_redirects: Should the client follow redirects
 
         :returns: Response from the Twilio API
-        :rtype: twilio.http.response.Response
         """
         if not self.http_client.is_async:
             raise RuntimeError(
@@ -147,22 +147,22 @@ class ClientBase(object):
             allow_redirects=allow_redirects,
         )
 
-    def get_auth(self, auth):
+    def get_auth(self, auth: Optional[Tuple[str, str]]) -> Tuple[str, str]:
         """
         Get the request authentication object
-        :param tuple(str, str) auth: Authentication (username, password)
+        :param auth: Authentication (username, password)
         :returns: The authentication object
-        :rtype: tuple(str, str)
         """
         return auth or self.auth
 
-    def get_headers(self, method, headers):
+    def get_headers(
+        self, method: str, headers: Optional[Dict[str, str]]
+    ) -> Dict[str, str]:
         """
         Get the request headers including user-agent, extensions, encoding, content-type, MIME type
-        :param str method: HTTP method
-        :param dict[str, str] headers: HTTP headers
+        :param method: HTTP method
+        :param headers: HTTP headers
         :returns: HTTP headers
-        :rtype: dict[str, str]
         """
         headers = headers or {}
 
@@ -191,15 +191,14 @@ class ClientBase(object):
 
         return headers
 
-    def get_hostname(self, uri):
+    def get_hostname(self, uri: str) -> str:
         """
         Determines the proper hostname given edge and region preferences
         via client configuration or uri.
 
-        :param str uri: Fully qualified url
+        :param uri: Fully qualified url
 
         :returns: The final uri used to make the request
-        :rtype: str
         """
         if not self.edge and not self.region:
             return uri
@@ -224,13 +223,12 @@ class ClientBase(object):
         parsed_url = parsed_url._replace(
             netloc=".".join([part for part in [prefix, edge, region, suffix] if part])
         )
-        return urlunparse(parsed_url)
+        return str(urlunparse(parsed_url))
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio {}>".format(self.account_sid)
