@@ -298,21 +298,6 @@ class InsightsSegmentsList(ListResource):
 
 
 class InsightsSegmentsPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the InsightsSegmentsPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of InsightsSegmentsInstance
@@ -324,12 +309,11 @@ class InsightsSegmentsPage(Page):
         """
         return InsightsSegmentsInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsSegmentsPage>"
 

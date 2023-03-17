@@ -375,21 +375,6 @@ class EventList(ListResource):
 
 
 class EventPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the EventPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.monitor.v1.event.EventPage
-        :rtype: twilio.rest.monitor.v1.event.EventPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of EventInstance
@@ -401,12 +386,11 @@ class EventPage(Page):
         """
         return EventInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Monitor.V1.EventPage>"
 

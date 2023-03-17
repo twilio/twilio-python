@@ -320,21 +320,6 @@ class ReservationList(ListResource):
 
 
 class ReservationPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ReservationPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of ReservationInstance
@@ -351,12 +336,11 @@ class ReservationPage(Page):
             task_sid=self._solution["task_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter.V1.ReservationPage>"
 

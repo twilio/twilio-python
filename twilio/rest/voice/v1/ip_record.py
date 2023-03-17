@@ -298,21 +298,6 @@ class IpRecordList(ListResource):
 
 
 class IpRecordPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the IpRecordPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.voice.v1.ip_record.IpRecordPage
-        :rtype: twilio.rest.voice.v1.ip_record.IpRecordPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of IpRecordInstance
@@ -324,12 +309,11 @@ class IpRecordPage(Page):
         """
         return IpRecordInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.IpRecordPage>"
 

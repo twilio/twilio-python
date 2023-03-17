@@ -372,21 +372,6 @@ class AccountList(ListResource):
 
 
 class AccountPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AccountPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.AccountPage
-        :rtype: twilio.rest.api.v2010.account.AccountPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of AccountInstance
@@ -398,12 +383,11 @@ class AccountPage(Page):
         """
         return AccountInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AccountPage>"
 

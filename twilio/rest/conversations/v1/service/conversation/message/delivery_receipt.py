@@ -267,21 +267,6 @@ class DeliveryReceiptList(ListResource):
 
 
 class DeliveryReceiptPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the DeliveryReceiptPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
-        :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of DeliveryReceiptInstance
@@ -299,12 +284,11 @@ class DeliveryReceiptPage(Page):
             message_sid=self._solution["message_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.DeliveryReceiptPage>"
 

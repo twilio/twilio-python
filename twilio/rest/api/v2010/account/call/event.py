@@ -223,21 +223,6 @@ class EventList(ListResource):
 
 
 class EventPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the EventPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.call.event.EventPage
-        :rtype: twilio.rest.api.v2010.account.call.event.EventPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of EventInstance
@@ -254,12 +239,11 @@ class EventPage(Page):
             call_sid=self._solution["call_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.EventPage>"
 

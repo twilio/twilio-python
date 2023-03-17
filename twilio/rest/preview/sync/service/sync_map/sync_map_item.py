@@ -392,21 +392,6 @@ class SyncMapItemList(ListResource):
 
 
 class SyncMapItemPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SyncMapItemPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
-        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of SyncMapItemInstance
@@ -423,12 +408,11 @@ class SyncMapItemPage(Page):
             map_sid=self._solution["map_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Sync.SyncMapItemPage>"
 

@@ -219,21 +219,6 @@ class SimIpAddressList(ListResource):
 
 
 class SimIpAddressPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SimIpAddressPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressPage
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of SimIpAddressInstance
@@ -247,12 +232,11 @@ class SimIpAddressPage(Page):
             self._version, payload, sim_sid=self._solution["sim_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Supersim.V1.SimIpAddressPage>"
 

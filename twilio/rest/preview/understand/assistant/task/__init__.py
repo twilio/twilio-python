@@ -328,21 +328,6 @@ class TaskList(ListResource):
 
 
 class TaskPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the TaskPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.task.TaskPage
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of TaskInstance
@@ -356,12 +341,11 @@ class TaskPage(Page):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand.TaskPage>"
 

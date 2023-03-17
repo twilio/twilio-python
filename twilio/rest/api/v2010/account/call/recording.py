@@ -434,21 +434,6 @@ class RecordingList(ListResource):
 
 
 class RecordingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the RecordingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.call.recording.RecordingPage
-        :rtype: twilio.rest.api.v2010.account.call.recording.RecordingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of RecordingInstance
@@ -465,12 +450,11 @@ class RecordingPage(Page):
             call_sid=self._solution["call_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.RecordingPage>"
 

@@ -302,21 +302,6 @@ class SyncStreamList(ListResource):
 
 
 class SyncStreamPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SyncStreamPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
-        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of SyncStreamInstance
@@ -330,12 +315,11 @@ class SyncStreamPage(Page):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Sync.V1.SyncStreamPage>"
 

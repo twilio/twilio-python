@@ -5,9 +5,6 @@ from twilio.http.response import Response
 
 
 class TestPage(Page):
-    def __init__(self, version, response, *_args, **_kwargs):
-        super(TestPage, self).__init__(version, response)
-
     def get_instance(self, payload):
         return payload
 
@@ -65,7 +62,7 @@ class StreamTestCase(IntegrationTestCase):
         self.response = self.version.page(
             method="GET", uri="/Accounts/AC123/Messages.json"
         )
-        self.page = TestPage(self.version, self.response)
+        self.page = TestPage(self.version, self.response, {})
 
     def test_stream(self):
         messages = list(self.version.stream(self.page))

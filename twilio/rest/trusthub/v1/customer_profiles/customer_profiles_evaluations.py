@@ -307,21 +307,6 @@ class CustomerProfilesEvaluationsList(ListResource):
 
 
 class CustomerProfilesEvaluationsPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the CustomerProfilesEvaluationsPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of CustomerProfilesEvaluationsInstance
@@ -337,12 +322,11 @@ class CustomerProfilesEvaluationsPage(Page):
             customer_profile_sid=self._solution["customer_profile_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsPage>"
 

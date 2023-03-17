@@ -305,21 +305,6 @@ class DocumentList(ListResource):
 
 
 class DocumentPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the DocumentPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentPage
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of DocumentInstance
@@ -333,12 +318,11 @@ class DocumentPage(Page):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Sync.DocumentPage>"
 

@@ -304,21 +304,6 @@ class FlowList(ListResource):
 
 
 class FlowPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the FlowPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.studio.v2.flow.FlowPage
-        :rtype: twilio.rest.studio.v2.flow.FlowPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of FlowInstance
@@ -330,12 +315,11 @@ class FlowPage(Page):
         """
         return FlowInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V2.FlowPage>"
 

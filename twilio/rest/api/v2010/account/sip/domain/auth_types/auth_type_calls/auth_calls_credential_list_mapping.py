@@ -321,21 +321,6 @@ class AuthCallsCredentialListMappingList(ListResource):
 
 
 class AuthCallsCredentialListMappingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AuthCallsCredentialListMappingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingPage
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of AuthCallsCredentialListMappingInstance
@@ -352,12 +337,11 @@ class AuthCallsCredentialListMappingPage(Page):
             domain_sid=self._solution["domain_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AuthCallsCredentialListMappingPage>"
 

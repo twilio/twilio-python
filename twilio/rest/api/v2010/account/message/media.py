@@ -338,21 +338,6 @@ class MediaList(ListResource):
 
 
 class MediaPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the MediaPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaPage
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of MediaInstance
@@ -369,12 +354,11 @@ class MediaPage(Page):
             message_sid=self._solution["message_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.MediaPage>"
 

@@ -295,21 +295,6 @@ class RoleList(ListResource):
 
 
 class RolePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the RolePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.conversations.v1.role.RolePage
-        :rtype: twilio.rest.conversations.v1.role.RolePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of RoleInstance
@@ -321,12 +306,11 @@ class RolePage(Page):
         """
         return RoleInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.RolePage>"
 

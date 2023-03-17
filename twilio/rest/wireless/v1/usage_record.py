@@ -291,21 +291,6 @@ class UsageRecordList(ListResource):
 
 
 class UsageRecordPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the UsageRecordPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.wireless.v1.usage_record.UsageRecordPage
-        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of UsageRecordInstance
@@ -317,12 +302,11 @@ class UsageRecordPage(Page):
         """
         return UsageRecordInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Wireless.V1.UsageRecordPage>"
 

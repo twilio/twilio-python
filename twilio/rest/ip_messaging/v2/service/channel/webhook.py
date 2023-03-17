@@ -364,21 +364,6 @@ class WebhookList(ListResource):
 
 
 class WebhookPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the WebhookPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookPage
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of WebhookInstance
@@ -395,12 +380,11 @@ class WebhookPage(Page):
             channel_sid=self._solution["channel_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.IpMessaging.V2.WebhookPage>"
 

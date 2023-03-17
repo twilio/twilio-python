@@ -317,21 +317,6 @@ class FieldList(ListResource):
 
 
 class FieldPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the FieldPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.field.FieldPage
-        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of FieldInstance
@@ -348,12 +333,11 @@ class FieldPage(Page):
             task_sid=self._solution["task_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Autopilot.V1.FieldPage>"
 

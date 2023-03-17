@@ -309,21 +309,6 @@ class PhoneNumberList(ListResource):
 
 
 class PhoneNumberPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the PhoneNumberPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
-        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of PhoneNumberInstance
@@ -337,12 +322,11 @@ class PhoneNumberPage(Page):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Proxy.V1.PhoneNumberPage>"
 

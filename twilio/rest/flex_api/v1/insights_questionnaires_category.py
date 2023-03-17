@@ -321,21 +321,6 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
 
 class InsightsQuestionnairesCategoryPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the InsightsQuestionnairesCategoryPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of InsightsQuestionnairesCategoryInstance
@@ -347,12 +332,11 @@ class InsightsQuestionnairesCategoryPage(Page):
         """
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryPage>"
 

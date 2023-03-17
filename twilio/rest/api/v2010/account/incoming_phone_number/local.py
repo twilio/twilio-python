@@ -508,21 +508,6 @@ class LocalList(ListResource):
 
 
 class LocalPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the LocalPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalPage
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of LocalInstance
@@ -536,12 +521,11 @@ class LocalPage(Page):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.LocalPage>"
 

@@ -337,21 +337,6 @@ class ConnectionPolicyTargetList(ListResource):
 
 
 class ConnectionPolicyTargetPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ConnectionPolicyTargetPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of ConnectionPolicyTargetInstance
@@ -367,12 +352,11 @@ class ConnectionPolicyTargetPage(Page):
             connection_policy_sid=self._solution["connection_policy_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.ConnectionPolicyTargetPage>"
 

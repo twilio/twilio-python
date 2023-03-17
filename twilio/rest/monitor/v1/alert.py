@@ -321,21 +321,6 @@ class AlertList(ListResource):
 
 
 class AlertPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AlertPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.monitor.v1.alert.AlertPage
-        :rtype: twilio.rest.monitor.v1.alert.AlertPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of AlertInstance
@@ -347,12 +332,11 @@ class AlertPage(Page):
         """
         return AlertInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Monitor.V1.AlertPage>"
 

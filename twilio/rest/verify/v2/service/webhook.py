@@ -328,21 +328,6 @@ class WebhookList(ListResource):
 
 
 class WebhookPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the WebhookPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.verify.v2.service.webhook.WebhookPage
-        :rtype: twilio.rest.verify.v2.service.webhook.WebhookPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of WebhookInstance
@@ -356,12 +341,11 @@ class WebhookPage(Page):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.WebhookPage>"
 

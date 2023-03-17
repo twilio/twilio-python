@@ -319,21 +319,6 @@ class VariableList(ListResource):
 
 
 class VariablePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the VariablePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.variable.VariablePage
-        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of VariableInstance
@@ -350,12 +335,11 @@ class VariablePage(Page):
             environment_sid=self._solution["environment_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Serverless.V1.VariablePage>"
 

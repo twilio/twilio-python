@@ -285,21 +285,6 @@ class EvaluationList(ListResource):
 
 
 class EvaluationPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the EvaluationPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of EvaluationInstance
@@ -313,12 +298,11 @@ class EvaluationPage(Page):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Numbers.V2.EvaluationPage>"
 
