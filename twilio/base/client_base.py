@@ -33,17 +33,12 @@ class ClientBase(object):
         :param dict environment: Environment to look for auth details, defaults to os.environ
         :param str edge: Twilio Edge to make requests to, defaults to None
         :param list[str] user_agent_extensions: Additions to the user agent string
-
-        :returns: Twilio Client
-        :rtype: twilio.rest.Client
         """
         environment = environment or os.environ
 
         self.username = username or environment.get("TWILIO_ACCOUNT_SID")
         """ :type : str """
         self.password = password or environment.get("TWILIO_AUTH_TOKEN")
-        """ :type : str """
-        self.account_sid = account_sid or self.username
         """ :type : str """
         self.edge = edge or environment.get("TWILIO_EDGE")
         """ :type : str """
@@ -55,6 +50,8 @@ class ClientBase(object):
         if not self.username or not self.password:
             raise TwilioException("Credentials are required to create a TwilioClient")
 
+        self.account_sid = account_sid or self.username
+        """ :type : str """
         self.auth = (self.username, self.password)
         """ :type : tuple(str, str) """
         self.http_client: HttpClient = http_client or TwilioHttpClient()
