@@ -14,14 +14,485 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.chat.v1.service.user.user_channel import UserChannelList
+
+
+class UserInstance(InstanceResource):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the UserInstance
+
+        :returns: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "attributes": payload.get("attributes"),
+            "friendly_name": payload.get("friendly_name"),
+            "role_sid": payload.get("role_sid"),
+            "identity": payload.get("identity"),
+            "is_online": payload.get("is_online"),
+            "is_notifiable": payload.get("is_notifiable"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "joined_channels_count": deserialize.integer(
+                payload.get("joined_channels_count")
+            ),
+            "links": payload.get("links"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[UserContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: UserContext for this UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserContext
+        """
+        if self._context is None:
+            self._context = UserContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the User resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the User resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def attributes(self):
+        """
+        :returns: The JSON string that stores application-specific data. **Note** If this property has been assigned a value, it's only  displayed in a FETCH action that returns a single resource; otherwise, it's null. If the attributes have not been set, `{}` is returned.
+        :rtype: str
+        """
+        return self._properties["attributes"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def role_sid(self):
+        """
+        :returns: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the user.
+        :rtype: str
+        """
+        return self._properties["role_sid"]
+
+    @property
+    def identity(self):
+        """
+        :returns: The application-defined string that uniquely identifies the resource's User within the [Service](https://www.twilio.com/docs/api/chat/rest/services). This value is often a username or an email address. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
+        :rtype: str
+        """
+        return self._properties["identity"]
+
+    @property
+    def is_online(self):
+        """
+        :returns: Whether the User is actively connected to the Service instance and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for the Service instance, even if the Service's `reachability_enabled` is `true`.
+        :rtype: bool
+        """
+        return self._properties["is_online"]
+
+    @property
+    def is_notifiable(self):
+        """
+        :returns: Whether the User has a potentially valid Push Notification registration (APN or GCM) for the Service instance. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
+        :rtype: bool
+        """
+        return self._properties["is_notifiable"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def joined_channels_count(self):
+        """
+        :returns: The number of Channels this User is a Member of.
+        :rtype: int
+        """
+        return self._properties["joined_channels_count"]
+
+    @property
+    def links(self):
+        """
+        :returns: The absolute URLs of the [Channel](https://www.twilio.com/docs/chat/api/channels) and [Binding](https://www.twilio.com/docs/chat/rest/bindings-resource) resources related to the user.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the User resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the UserInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the UserInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def update(
+        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
+    ):
+        """
+        Update the UserInstance
+
+        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        return self._proxy.update(
+            role_sid=role_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+        )
+
+    async def update_async(
+        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
+    ):
+        """
+        Asynchronous coroutine to update the UserInstance
+
+        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        return await self._proxy.update_async(
+            role_sid=role_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+        )
+
+    @property
+    def user_channels(self):
+        """
+        Access the user_channels
+
+        :returns: twilio.rest.chat.v1.service.user.UserChannelList
+        :rtype: twilio.rest.chat.v1.service.user.UserChannelList
+        """
+        return self._proxy.user_channels
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Chat.V1.UserInstance {}>".format(context)
+
+
+class UserContext(InstanceContext):
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the UserContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.
+        :param sid: The Twilio-provided string that uniquely identifies the User resource to update.
+
+        :returns: twilio.rest.chat.v1.service.user.UserContext
+        :rtype: twilio.rest.chat.v1.service.user.UserContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{service_sid}/Users/{sid}".format(**self._solution)
+
+        self._user_channels: Optional[UserChannelList] = None
+
+    def delete(self):
+        """
+        Deletes the UserInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the UserInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update(
+        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
+    ):
+        """
+        Update the UserInstance
+
+        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        data = values.of(
+            {
+                "RoleSid": role_sid,
+                "Attributes": attributes,
+                "FriendlyName": friendly_name,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def update_async(
+        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
+    ):
+        """
+        Asynchronous coroutine to update the UserInstance
+
+        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        data = values.of(
+            {
+                "RoleSid": role_sid,
+                "Attributes": attributes,
+                "FriendlyName": friendly_name,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def user_channels(self):
+        """
+        Access the user_channels
+
+        :returns: twilio.rest.chat.v1.service.user.UserChannelList
+        :rtype: twilio.rest.chat.v1.service.user.UserChannelList
+        """
+        if self._user_channels is None:
+            self._user_channels = UserChannelList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
+            )
+        return self._user_channels
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Chat.V1.UserContext {}>".format(context)
+
+
+class UserPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UserInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        """
+        return UserInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Chat.V1.UserPage>"
 
 
 class UserList(ListResource):
@@ -319,491 +790,3 @@ class UserList(ListResource):
         :rtype: str
         """
         return "<Twilio.Chat.V1.UserList>"
-
-
-class UserPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the UserPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.chat.v1.service.user.UserPage
-        :rtype: twilio.rest.chat.v1.service.user.UserPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of UserInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.chat.v1.service.user.UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        return UserInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Chat.V1.UserPage>"
-
-
-class UserInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the UserInstance
-
-        :returns: twilio.rest.chat.v1.service.user.UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "attributes": payload.get("attributes"),
-            "friendly_name": payload.get("friendly_name"),
-            "role_sid": payload.get("role_sid"),
-            "identity": payload.get("identity"),
-            "is_online": payload.get("is_online"),
-            "is_notifiable": payload.get("is_notifiable"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "joined_channels_count": deserialize.integer(
-                payload.get("joined_channels_count")
-            ),
-            "links": payload.get("links"),
-            "url": payload.get("url"),
-        }
-
-        self._context = None
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: UserContext for this UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserContext
-        """
-        if self._context is None:
-            self._context = UserContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the User resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/api/rest/account) that created the User resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) the resource is associated with.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def attributes(self):
-        """
-        :returns: The JSON string that stores application-specific data. **Note** If this property has been assigned a value, it's only  displayed in a FETCH action that returns a single resource; otherwise, it's null. If the attributes have not been set, `{}` is returned.
-        :rtype: str
-        """
-        return self._properties["attributes"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def role_sid(self):
-        """
-        :returns: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the user.
-        :rtype: str
-        """
-        return self._properties["role_sid"]
-
-    @property
-    def identity(self):
-        """
-        :returns: The application-defined string that uniquely identifies the resource's User within the [Service](https://www.twilio.com/docs/api/chat/rest/services). This value is often a username or an email address. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
-        :rtype: str
-        """
-        return self._properties["identity"]
-
-    @property
-    def is_online(self):
-        """
-        :returns: Whether the User is actively connected to the Service instance and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for the Service instance, even if the Service's `reachability_enabled` is `true`.
-        :rtype: bool
-        """
-        return self._properties["is_online"]
-
-    @property
-    def is_notifiable(self):
-        """
-        :returns: Whether the User has a potentially valid Push Notification registration (APN or GCM) for the Service instance. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
-        :rtype: bool
-        """
-        return self._properties["is_notifiable"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def joined_channels_count(self):
-        """
-        :returns: The number of Channels this User is a Member of.
-        :rtype: int
-        """
-        return self._properties["joined_channels_count"]
-
-    @property
-    def links(self):
-        """
-        :returns: The absolute URLs of the [Channel](https://www.twilio.com/docs/chat/api/channels) and [Binding](https://www.twilio.com/docs/chat/rest/bindings-resource) resources related to the user.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the User resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the UserInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the UserInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def update(
-        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
-    ):
-        """
-        Update the UserInstance
-
-        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        return self._proxy.update(
-            role_sid=role_sid,
-            attributes=attributes,
-            friendly_name=friendly_name,
-        )
-
-    async def update_async(
-        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
-    ):
-        """
-        Asynchronous coroutine to update the UserInstance
-
-        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        return await self._proxy.update_async(
-            role_sid=role_sid,
-            attributes=attributes,
-            friendly_name=friendly_name,
-        )
-
-    @property
-    def user_channels(self):
-        """
-        Access the user_channels
-
-        :returns: twilio.rest.chat.v1.service.user.UserChannelList
-        :rtype: twilio.rest.chat.v1.service.user.UserChannelList
-        """
-        return self._proxy.user_channels
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V1.UserInstance {}>".format(context)
-
-
-class UserContext(InstanceContext):
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the UserContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.
-        :param sid: The Twilio-provided string that uniquely identifies the User resource to update.
-
-        :returns: twilio.rest.chat.v1.service.user.UserContext
-        :rtype: twilio.rest.chat.v1.service.user.UserContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{service_sid}/Users/{sid}".format(**self._solution)
-
-        self._user_channels = None
-
-    def delete(self):
-        """
-        Deletes the UserInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the UserInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def update(
-        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
-    ):
-        """
-        Update the UserInstance
-
-        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        data = values.of(
-            {
-                "RoleSid": role_sid,
-                "Attributes": attributes,
-                "FriendlyName": friendly_name,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def update_async(
-        self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset
-    ):
-        """
-        Asynchronous coroutine to update the UserInstance
-
-        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        data = values.of(
-            {
-                "RoleSid": role_sid,
-                "Attributes": attributes,
-                "FriendlyName": friendly_name,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def user_channels(self):
-        """
-        Access the user_channels
-
-        :returns: twilio.rest.chat.v1.service.user.UserChannelList
-        :rtype: twilio.rest.chat.v1.service.user.UserChannelList
-        """
-        if self._user_channels is None:
-            self._user_channels = UserChannelList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
-            )
-        return self._user_channels
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V1.UserContext {}>".format(context)

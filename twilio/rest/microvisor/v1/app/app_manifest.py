@@ -13,58 +13,11 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class AppManifestList(ListResource):
-    def __init__(self, version: Version, app_sid: str):
-        """
-        Initialize the AppManifestList
-
-        :param Version version: Version that contains the resource
-        :param app_sid: A 34-character string that uniquely identifies this App.
-
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "app_sid": app_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a AppManifestContext
-
-
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
-        """
-        return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
-
-    def __call__(self):
-        """
-        Constructs a AppManifestContext
-
-
-        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
-        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
-        """
-        return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Microvisor.V1.AppManifestList>"
 
 
 class AppManifestInstance(InstanceResource):
@@ -84,10 +37,10 @@ class AppManifestInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "app_sid": app_sid,
         }
+        self._context: Optional[AppManifestContext] = None
 
     @property
     def _proxy(self):
@@ -236,3 +189,51 @@ class AppManifestContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AppManifestContext {}>".format(context)
+
+
+class AppManifestList(ListResource):
+    def __init__(self, version: Version, app_sid: str):
+        """
+        Initialize the AppManifestList
+
+        :param Version version: Version that contains the resource
+        :param app_sid: A 34-character string that uniquely identifies this App.
+
+        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
+        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "app_sid": app_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a AppManifestContext
+
+
+        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
+        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
+        """
+        return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
+
+    def __call__(self):
+        """
+        Constructs a AppManifestContext
+
+
+        :returns: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
+        :rtype: twilio.rest.microvisor.v1.app.app_manifest.AppManifestContext
+        """
+        return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Microvisor.V1.AppManifestList>"

@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,399 @@ from twilio.base.page import Page
 from twilio.rest.serverless.v1.service.environment.deployment import DeploymentList
 from twilio.rest.serverless.v1.service.environment.log import LogList
 from twilio.rest.serverless.v1.service.environment.variable import VariableList
+
+
+class EnvironmentInstance(InstanceResource):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the EnvironmentInstance
+
+        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "build_sid": payload.get("build_sid"),
+            "unique_name": payload.get("unique_name"),
+            "domain_suffix": payload.get("domain_suffix"),
+            "domain_name": payload.get("domain_name"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[EnvironmentContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: EnvironmentContext for this EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
+        """
+        if self._context is None:
+            self._context = EnvironmentContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Environment resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the Service that the Environment resource is associated with.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def build_sid(self):
+        """
+        :returns: The SID of the build deployed in the environment.
+        :rtype: str
+        """
+        return self._properties["build_sid"]
+
+    @property
+    def unique_name(self):
+        """
+        :returns: A user-defined string that uniquely identifies the Environment resource.
+        :rtype: str
+        """
+        return self._properties["unique_name"]
+
+    @property
+    def domain_suffix(self):
+        """
+        :returns: A URL-friendly name that represents the environment and forms part of the domain name.
+        :rtype: str
+        """
+        return self._properties["domain_suffix"]
+
+    @property
+    def domain_name(self):
+        """
+        :returns: The domain name for all Functions and Assets deployed in the Environment, using the Service unique name, a randomly-generated Service suffix, and an optional Environment domain suffix.
+        :rtype: str
+        """
+        return self._properties["domain_name"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the Environment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the Environment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Environment resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URLs of the Environment resource's nested resources.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def delete(self):
+        """
+        Deletes the EnvironmentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the EnvironmentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the EnvironmentInstance
+
+
+        :returns: The fetched EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EnvironmentInstance
+
+
+        :returns: The fetched EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+        return await self._proxy.fetch_async()
+
+    @property
+    def deployments(self):
+        """
+        Access the deployments
+
+        :returns: twilio.rest.serverless.v1.service.environment.DeploymentList
+        :rtype: twilio.rest.serverless.v1.service.environment.DeploymentList
+        """
+        return self._proxy.deployments
+
+    @property
+    def logs(self):
+        """
+        Access the logs
+
+        :returns: twilio.rest.serverless.v1.service.environment.LogList
+        :rtype: twilio.rest.serverless.v1.service.environment.LogList
+        """
+        return self._proxy.logs
+
+    @property
+    def variables(self):
+        """
+        Access the variables
+
+        :returns: twilio.rest.serverless.v1.service.environment.VariableList
+        :rtype: twilio.rest.serverless.v1.service.environment.VariableList
+        """
+        return self._proxy.variables
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.EnvironmentInstance {}>".format(context)
+
+
+class EnvironmentContext(InstanceContext):
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the EnvironmentContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Environment resource from.
+        :param sid: The SID of the Environment resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentContext
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{service_sid}/Environments/{sid}".format(
+            **self._solution
+        )
+
+        self._deployments: Optional[DeploymentList] = None
+        self._logs: Optional[LogList] = None
+        self._variables: Optional[VariableList] = None
+
+    def delete(self):
+        """
+        Deletes the EnvironmentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the EnvironmentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the EnvironmentInstance
+
+
+        :returns: The fetched EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EnvironmentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EnvironmentInstance
+
+
+        :returns: The fetched EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EnvironmentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def deployments(self):
+        """
+        Access the deployments
+
+        :returns: twilio.rest.serverless.v1.service.environment.DeploymentList
+        :rtype: twilio.rest.serverless.v1.service.environment.DeploymentList
+        """
+        if self._deployments is None:
+            self._deployments = DeploymentList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
+            )
+        return self._deployments
+
+    @property
+    def logs(self):
+        """
+        Access the logs
+
+        :returns: twilio.rest.serverless.v1.service.environment.LogList
+        :rtype: twilio.rest.serverless.v1.service.environment.LogList
+        """
+        if self._logs is None:
+            self._logs = LogList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
+            )
+        return self._logs
+
+    @property
+    def variables(self):
+        """
+        Access the variables
+
+        :returns: twilio.rest.serverless.v1.service.environment.VariableList
+        :rtype: twilio.rest.serverless.v1.service.environment.VariableList
+        """
+        if self._variables is None:
+            self._variables = VariableList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
+            )
+        return self._variables
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.EnvironmentContext {}>".format(context)
+
+
+class EnvironmentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EnvironmentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+        return EnvironmentInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.EnvironmentPage>"
 
 
 class EnvironmentList(ListResource):
@@ -301,412 +693,3 @@ class EnvironmentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.EnvironmentList>"
-
-
-class EnvironmentPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the EnvironmentPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentPage
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of EnvironmentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        """
-        return EnvironmentInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Serverless.V1.EnvironmentPage>"
-
-
-class EnvironmentInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the EnvironmentInstance
-
-        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "build_sid": payload.get("build_sid"),
-            "unique_name": payload.get("unique_name"),
-            "domain_suffix": payload.get("domain_suffix"),
-            "domain_name": payload.get("domain_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._context = None
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: EnvironmentContext for this EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
-        """
-        if self._context is None:
-            self._context = EnvironmentContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Environment resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the Service that the Environment resource is associated with.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def build_sid(self):
-        """
-        :returns: The SID of the build deployed in the environment.
-        :rtype: str
-        """
-        return self._properties["build_sid"]
-
-    @property
-    def unique_name(self):
-        """
-        :returns: A user-defined string that uniquely identifies the Environment resource.
-        :rtype: str
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def domain_suffix(self):
-        """
-        :returns: A URL-friendly name that represents the environment and forms part of the domain name.
-        :rtype: str
-        """
-        return self._properties["domain_suffix"]
-
-    @property
-    def domain_name(self):
-        """
-        :returns: The domain name for all Functions and Assets deployed in the Environment, using the Service unique name, a randomly-generated Service suffix, and an optional Environment domain suffix.
-        :rtype: str
-        """
-        return self._properties["domain_name"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the Environment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the Environment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Environment resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URLs of the Environment resource's nested resources.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def delete(self):
-        """
-        Deletes the EnvironmentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the EnvironmentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the EnvironmentInstance
-
-
-        :returns: The fetched EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EnvironmentInstance
-
-
-        :returns: The fetched EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        """
-        return await self._proxy.fetch_async()
-
-    @property
-    def deployments(self):
-        """
-        Access the deployments
-
-        :returns: twilio.rest.serverless.v1.service.environment.DeploymentList
-        :rtype: twilio.rest.serverless.v1.service.environment.DeploymentList
-        """
-        return self._proxy.deployments
-
-    @property
-    def logs(self):
-        """
-        Access the logs
-
-        :returns: twilio.rest.serverless.v1.service.environment.LogList
-        :rtype: twilio.rest.serverless.v1.service.environment.LogList
-        """
-        return self._proxy.logs
-
-    @property
-    def variables(self):
-        """
-        Access the variables
-
-        :returns: twilio.rest.serverless.v1.service.environment.VariableList
-        :rtype: twilio.rest.serverless.v1.service.environment.VariableList
-        """
-        return self._proxy.variables
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.EnvironmentInstance {}>".format(context)
-
-
-class EnvironmentContext(InstanceContext):
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the EnvironmentContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Environment resource from.
-        :param sid: The SID of the Environment resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentContext
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{service_sid}/Environments/{sid}".format(
-            **self._solution
-        )
-
-        self._deployments = None
-        self._logs = None
-        self._variables = None
-
-    def delete(self):
-        """
-        Deletes the EnvironmentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the EnvironmentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the EnvironmentInstance
-
-
-        :returns: The fetched EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EnvironmentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EnvironmentInstance
-
-
-        :returns: The fetched EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EnvironmentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def deployments(self):
-        """
-        Access the deployments
-
-        :returns: twilio.rest.serverless.v1.service.environment.DeploymentList
-        :rtype: twilio.rest.serverless.v1.service.environment.DeploymentList
-        """
-        if self._deployments is None:
-            self._deployments = DeploymentList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
-            )
-        return self._deployments
-
-    @property
-    def logs(self):
-        """
-        Access the logs
-
-        :returns: twilio.rest.serverless.v1.service.environment.LogList
-        :rtype: twilio.rest.serverless.v1.service.environment.LogList
-        """
-        if self._logs is None:
-            self._logs = LogList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
-            )
-        return self._logs
-
-    @property
-    def variables(self):
-        """
-        Access the variables
-
-        :returns: twilio.rest.serverless.v1.service.environment.VariableList
-        :rtype: twilio.rest.serverless.v1.service.environment.VariableList
-        """
-        if self._variables is None:
-            self._variables = VariableList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
-            )
-        return self._variables
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.EnvironmentContext {}>".format(context)

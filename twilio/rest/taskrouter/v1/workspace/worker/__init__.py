@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -37,6 +36,579 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import (
 )
 
 
+class WorkerInstance(InstanceResource):
+    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the WorkerInstance
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "activity_name": payload.get("activity_name"),
+            "activity_sid": payload.get("activity_sid"),
+            "attributes": payload.get("attributes"),
+            "available": payload.get("available"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_status_changed": deserialize.iso8601_datetime(
+                payload.get("date_status_changed")
+            ),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "friendly_name": payload.get("friendly_name"),
+            "sid": payload.get("sid"),
+            "workspace_sid": payload.get("workspace_sid"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "workspace_sid": workspace_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[WorkerContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: WorkerContext for this WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        """
+        if self._context is None:
+            self._context = WorkerContext(
+                self._version,
+                workspace_sid=self._solution["workspace_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def activity_name(self):
+        """
+        :returns: The `friendly_name` of the Worker's current Activity.
+        :rtype: str
+        """
+        return self._properties["activity_name"]
+
+    @property
+    def activity_sid(self):
+        """
+        :returns: The SID of the Worker's current Activity.
+        :rtype: str
+        """
+        return self._properties["activity_sid"]
+
+    @property
+    def attributes(self):
+        """
+        :returns: The JSON string that describes the Worker. For example: `{ \"email\": \"Bob@example.com\", \"phone\": \"+5095551234\" }`. **Note** If this property has been assigned a value, it will only be displayed in FETCH actions that return a single resource. Otherwise, this property will be null, even if it has a value. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker.
+        :rtype: str
+        """
+        return self._properties["attributes"]
+
+    @property
+    def available(self):
+        """
+        :returns: Whether the Worker is available to perform tasks.
+        :rtype: bool
+        """
+        return self._properties["available"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_status_changed(self):
+        """
+        :returns: The date and time in GMT of the last change to the Worker's activity specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Used to calculate Workflow statistics.
+        :rtype: datetime
+        """
+        return self._properties["date_status_changed"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource. Friendly names are case insensitive, and unique within the TaskRouter Workspace.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Worker resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def workspace_sid(self):
+        """
+        :returns: The SID of the Workspace that contains the Worker.
+        :rtype: str
+        """
+        return self._properties["workspace_sid"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Worker resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URLs of related resources.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def delete(self, if_match=values.unset):
+        """
+        Deletes the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete(
+            if_match=if_match,
+        )
+
+    async def delete_async(self, if_match=values.unset):
+        """
+        Asynchronous coroutine that deletes the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async(
+            if_match=if_match,
+        )
+
+    def fetch(self):
+        """
+        Fetch the WorkerInstance
+
+
+        :returns: The fetched WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WorkerInstance
+
+
+        :returns: The fetched WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def update(
+        self,
+        if_match=values.unset,
+        activity_sid=values.unset,
+        attributes=values.unset,
+        friendly_name=values.unset,
+        reject_pending_reservations=values.unset,
+    ):
+        """
+        Update the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: The updated WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        return self._proxy.update(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
+        )
+
+    async def update_async(
+        self,
+        if_match=values.unset,
+        activity_sid=values.unset,
+        attributes=values.unset,
+        friendly_name=values.unset,
+        reject_pending_reservations=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: The updated WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        return await self._proxy.update_async(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
+        )
+
+    @property
+    def reservations(self):
+        """
+        Access the reservations
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
+        """
+        return self._proxy.reservations
+
+    @property
+    def worker_channels(self):
+        """
+        Access the worker_channels
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
+        """
+        return self._proxy.worker_channels
+
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
+        """
+        return self._proxy.statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Taskrouter.V1.WorkerInstance {}>".format(context)
+
+
+class WorkerContext(InstanceContext):
+    def __init__(self, version: Version, workspace_sid: str, sid: str):
+        """
+        Initialize the WorkerContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Worker to update.
+        :param sid: The SID of the Worker resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+            "sid": sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/Workers/{sid}".format(**self._solution)
+
+        self._reservations: Optional[ReservationList] = None
+        self._worker_channels: Optional[WorkerChannelList] = None
+        self._statistics: Optional[WorkerStatisticsList] = None
+
+    def delete(self, if_match=values.unset):
+        """
+        Deletes the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+
+    async def delete_async(self, if_match=values.unset):
+        """
+        Asynchronous coroutine that deletes the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def fetch(self):
+        """
+        Fetch the WorkerInstance
+
+
+        :returns: The fetched WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the WorkerInstance
+
+
+        :returns: The fetched WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update(
+        self,
+        if_match=values.unset,
+        activity_sid=values.unset,
+        attributes=values.unset,
+        friendly_name=values.unset,
+        reject_pending_reservations=values.unset,
+    ):
+        """
+        Update the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: The updated WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        data = values.of(
+            {
+                "ActivitySid": activity_sid,
+                "Attributes": attributes,
+                "FriendlyName": friendly_name,
+                "RejectPendingReservations": reject_pending_reservations,
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def update_async(
+        self,
+        if_match=values.unset,
+        activity_sid=values.unset,
+        attributes=values.unset,
+        friendly_name=values.unset,
+        reject_pending_reservations=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: The updated WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        data = values.of(
+            {
+                "ActivitySid": activity_sid,
+                "Attributes": attributes,
+                "FriendlyName": friendly_name,
+                "RejectPendingReservations": reject_pending_reservations,
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def reservations(self):
+        """
+        Access the reservations
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
+        """
+        if self._reservations is None:
+            self._reservations = ReservationList(
+                self._version,
+                self._solution["workspace_sid"],
+                self._solution["sid"],
+            )
+        return self._reservations
+
+    @property
+    def worker_channels(self):
+        """
+        Access the worker_channels
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
+        """
+        if self._worker_channels is None:
+            self._worker_channels = WorkerChannelList(
+                self._version,
+                self._solution["workspace_sid"],
+                self._solution["sid"],
+            )
+        return self._worker_channels
+
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = WorkerStatisticsList(
+                self._version,
+                self._solution["workspace_sid"],
+                self._solution["sid"],
+            )
+        return self._statistics
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Taskrouter.V1.WorkerContext {}>".format(context)
+
+
+class WorkerPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkerInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        return WorkerInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.WorkerPage>"
+
+
 class WorkerList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
@@ -56,9 +628,9 @@ class WorkerList(ListResource):
         }
         self._uri = "/Workspaces/{workspace_sid}/Workers".format(**self._solution)
 
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
+        self._cumulative_statistics: Optional[WorkersCumulativeStatisticsList] = None
+        self._real_time_statistics: Optional[WorkersRealTimeStatisticsList] = None
+        self._statistics: Optional[WorkersStatisticsList] = None
 
     def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
         """
@@ -534,592 +1106,3 @@ class WorkerList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkerList>"
-
-
-class WorkerPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the WorkerPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of WorkerInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        return WorkerInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkerPage>"
-
-
-class WorkerInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the WorkerInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "activity_name": payload.get("activity_name"),
-            "activity_sid": payload.get("activity_sid"),
-            "attributes": payload.get("attributes"),
-            "available": payload.get("available"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_status_changed": deserialize.iso8601_datetime(
-                payload.get("date_status_changed")
-            ),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "sid": payload.get("sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._context = None
-        self._solution = {
-            "workspace_sid": workspace_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: WorkerContext for this WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        """
-        if self._context is None:
-            self._context = WorkerContext(
-                self._version,
-                workspace_sid=self._solution["workspace_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def activity_name(self):
-        """
-        :returns: The `friendly_name` of the Worker's current Activity.
-        :rtype: str
-        """
-        return self._properties["activity_name"]
-
-    @property
-    def activity_sid(self):
-        """
-        :returns: The SID of the Worker's current Activity.
-        :rtype: str
-        """
-        return self._properties["activity_sid"]
-
-    @property
-    def attributes(self):
-        """
-        :returns: The JSON string that describes the Worker. For example: `{ \"email\": \"Bob@example.com\", \"phone\": \"+5095551234\" }`. **Note** If this property has been assigned a value, it will only be displayed in FETCH actions that return a single resource. Otherwise, this property will be null, even if it has a value. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker.
-        :rtype: str
-        """
-        return self._properties["attributes"]
-
-    @property
-    def available(self):
-        """
-        :returns: Whether the Worker is available to perform tasks.
-        :rtype: bool
-        """
-        return self._properties["available"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_status_changed(self):
-        """
-        :returns: The date and time in GMT of the last change to the Worker's activity specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Used to calculate Workflow statistics.
-        :rtype: datetime
-        """
-        return self._properties["date_status_changed"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource. Friendly names are case insensitive, and unique within the TaskRouter Workspace.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Worker resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def workspace_sid(self):
-        """
-        :returns: The SID of the Workspace that contains the Worker.
-        :rtype: str
-        """
-        return self._properties["workspace_sid"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Worker resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URLs of related resources.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def delete(self, if_match=values.unset):
-        """
-        Deletes the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete(
-            if_match=if_match,
-        )
-
-    async def delete_async(self, if_match=values.unset):
-        """
-        Asynchronous coroutine that deletes the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async(
-            if_match=if_match,
-        )
-
-    def fetch(self):
-        """
-        Fetch the WorkerInstance
-
-
-        :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the WorkerInstance
-
-
-        :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
-    ):
-        """
-        Update the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
-
-        :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        return self._proxy.update(
-            if_match=if_match,
-            activity_sid=activity_sid,
-            attributes=attributes,
-            friendly_name=friendly_name,
-            reject_pending_reservations=reject_pending_reservations,
-        )
-
-    async def update_async(
-        self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
-
-        :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        return await self._proxy.update_async(
-            if_match=if_match,
-            activity_sid=activity_sid,
-            attributes=attributes,
-            friendly_name=friendly_name,
-            reject_pending_reservations=reject_pending_reservations,
-        )
-
-    @property
-    def reservations(self):
-        """
-        Access the reservations
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
-        """
-        return self._proxy.reservations
-
-    @property
-    def worker_channels(self):
-        """
-        Access the worker_channels
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
-        """
-        return self._proxy.worker_channels
-
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
-        """
-        return self._proxy.statistics
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkerInstance {}>".format(context)
-
-
-class WorkerContext(InstanceContext):
-    def __init__(self, version: Version, workspace_sid: str, sid: str):
-        """
-        Initialize the WorkerContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Worker to update.
-        :param sid: The SID of the Worker resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-            "sid": sid,
-        }
-        self._uri = "/Workspaces/{workspace_sid}/Workers/{sid}".format(**self._solution)
-
-        self._reservations = None
-        self._worker_channels = None
-        self._statistics = None
-
-    def delete(self, if_match=values.unset):
-        """
-        Deletes the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
-
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
-
-    async def delete_async(self, if_match=values.unset):
-        """
-        Asynchronous coroutine that deletes the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
-
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
-
-    def fetch(self):
-        """
-        Fetch the WorkerInstance
-
-
-        :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the WorkerInstance
-
-
-        :returns: The fetched WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def update(
-        self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
-    ):
-        """
-        Update the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
-
-        :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        data = values.of(
-            {
-                "ActivitySid": activity_sid,
-                "Attributes": attributes,
-                "FriendlyName": friendly_name,
-                "RejectPendingReservations": reject_pending_reservations,
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def update_async(
-        self,
-        if_match=values.unset,
-        activity_sid=values.unset,
-        attributes=values.unset,
-        friendly_name=values.unset,
-        reject_pending_reservations=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the WorkerInstance
-
-        :param str if_match: The If-Match HTTP request header
-        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
-
-        :returns: The updated WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        data = values.of(
-            {
-                "ActivitySid": activity_sid,
-                "Attributes": attributes,
-                "FriendlyName": friendly_name,
-                "RejectPendingReservations": reject_pending_reservations,
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def reservations(self):
-        """
-        Access the reservations
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.ReservationList
-        """
-        if self._reservations is None:
-            self._reservations = ReservationList(
-                self._version,
-                self._solution["workspace_sid"],
-                self._solution["sid"],
-            )
-        return self._reservations
-
-    @property
-    def worker_channels(self):
-        """
-        Access the worker_channels
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerChannelList
-        """
-        if self._worker_channels is None:
-            self._worker_channels = WorkerChannelList(
-                self._version,
-                self._solution["workspace_sid"],
-                self._solution["sid"],
-            )
-        return self._worker_channels
-
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = WorkerStatisticsList(
-                self._version,
-                self._solution["workspace_sid"],
-                self._solution["sid"],
-            )
-        return self._statistics
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkerContext {}>".format(context)

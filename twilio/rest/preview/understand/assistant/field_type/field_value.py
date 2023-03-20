@@ -14,13 +14,332 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class FieldValueInstance(InstanceResource):
+    def __init__(
+        self,
+        version,
+        payload,
+        assistant_sid: str,
+        field_type_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the FieldValueInstance
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "field_type_sid": payload.get("field_type_sid"),
+            "language": payload.get("language"),
+            "assistant_sid": payload.get("assistant_sid"),
+            "sid": payload.get("sid"),
+            "value": payload.get("value"),
+            "url": payload.get("url"),
+            "synonym_of": payload.get("synonym_of"),
+        }
+
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "field_type_sid": field_type_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[FieldValueContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: FieldValueContext for this FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
+        """
+        if self._context is None:
+            self._context = FieldValueContext(
+                self._version,
+                assistant_sid=self._solution["assistant_sid"],
+                field_type_sid=self._solution["field_type_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique ID of the Account that created this Field Value.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this resource was created
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was last updated
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def field_type_sid(self):
+        """
+        :returns: The unique ID of the Field Type associated with this Field Value.
+        :rtype: str
+        """
+        return self._properties["field_type_sid"]
+
+    @property
+    def language(self):
+        """
+        :returns: An ISO language-country string of the value.
+        :rtype: str
+        """
+        return self._properties["language"]
+
+    @property
+    def assistant_sid(self):
+        """
+        :returns: The unique ID of the Assistant.
+        :rtype: str
+        """
+        return self._properties["assistant_sid"]
+
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def value(self):
+        """
+        :returns: The Field Value itself.
+        :rtype: str
+        """
+        return self._properties["value"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def synonym_of(self):
+        """
+        :returns: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+        :rtype: str
+        """
+        return self._properties["synonym_of"]
+
+    def delete(self):
+        """
+        Deletes the FieldValueInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the FieldValueInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the FieldValueInstance
+
+
+        :returns: The fetched FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FieldValueInstance
+
+
+        :returns: The fetched FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Understand.FieldValueInstance {}>".format(context)
+
+
+class FieldValueContext(InstanceContext):
+    def __init__(
+        self, version: Version, assistant_sid: str, field_type_sid: str, sid: str
+    ):
+        """
+        Initialize the FieldValueContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid:
+        :param field_type_sid:
+        :param sid:
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "field_type_sid": field_type_sid,
+            "sid": sid,
+        }
+        self._uri = "/Assistants/{assistant_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}".format(
+            **self._solution
+        )
+
+    def delete(self):
+        """
+        Deletes the FieldValueInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the FieldValueInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the FieldValueInstance
+
+
+        :returns: The fetched FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return FieldValueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            field_type_sid=self._solution["field_type_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the FieldValueInstance
+
+
+        :returns: The fetched FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return FieldValueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            field_type_sid=self._solution["field_type_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Understand.FieldValueContext {}>".format(context)
+
+
+class FieldValuePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FieldValueInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        return FieldValueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            field_type_sid=self._solution["field_type_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.FieldValuePage>"
 
 
 class FieldValueList(ListResource):
@@ -336,339 +655,3 @@ class FieldValueList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Understand.FieldValueList>"
-
-
-class FieldValuePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the FieldValuePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of FieldValueInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-        return FieldValueInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            field_type_sid=self._solution["field_type_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.FieldValuePage>"
-
-
-class FieldValueInstance(InstanceResource):
-    def __init__(
-        self,
-        version,
-        payload,
-        assistant_sid: str,
-        field_type_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the FieldValueInstance
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "field_type_sid": payload.get("field_type_sid"),
-            "language": payload.get("language"),
-            "assistant_sid": payload.get("assistant_sid"),
-            "sid": payload.get("sid"),
-            "value": payload.get("value"),
-            "url": payload.get("url"),
-            "synonym_of": payload.get("synonym_of"),
-        }
-
-        self._context = None
-        self._solution = {
-            "assistant_sid": assistant_sid,
-            "field_type_sid": field_type_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: FieldValueContext for this FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        """
-        if self._context is None:
-            self._context = FieldValueContext(
-                self._version,
-                assistant_sid=self._solution["assistant_sid"],
-                field_type_sid=self._solution["field_type_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The unique ID of the Account that created this Field Value.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date that this resource was created
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this resource was last updated
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def field_type_sid(self):
-        """
-        :returns: The unique ID of the Field Type associated with this Field Value.
-        :rtype: str
-        """
-        return self._properties["field_type_sid"]
-
-    @property
-    def language(self):
-        """
-        :returns: An ISO language-country string of the value.
-        :rtype: str
-        """
-        return self._properties["language"]
-
-    @property
-    def assistant_sid(self):
-        """
-        :returns: The unique ID of the Assistant.
-        :rtype: str
-        """
-        return self._properties["assistant_sid"]
-
-    @property
-    def sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def value(self):
-        """
-        :returns: The Field Value itself.
-        :rtype: str
-        """
-        return self._properties["value"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def synonym_of(self):
-        """
-        :returns: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
-        :rtype: str
-        """
-        return self._properties["synonym_of"]
-
-    def delete(self):
-        """
-        Deletes the FieldValueInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the FieldValueInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the FieldValueInstance
-
-
-        :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the FieldValueInstance
-
-
-        :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Understand.FieldValueInstance {}>".format(context)
-
-
-class FieldValueContext(InstanceContext):
-    def __init__(
-        self, version: Version, assistant_sid: str, field_type_sid: str, sid: str
-    ):
-        """
-        Initialize the FieldValueContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid:
-        :param field_type_sid:
-        :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-            "field_type_sid": field_type_sid,
-            "sid": sid,
-        }
-        self._uri = "/Assistants/{assistant_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}".format(
-            **self._solution
-        )
-
-    def delete(self):
-        """
-        Deletes the FieldValueInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the FieldValueInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the FieldValueInstance
-
-
-        :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return FieldValueInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            field_type_sid=self._solution["field_type_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the FieldValueInstance
-
-
-        :returns: The fetched FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return FieldValueInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            field_type_sid=self._solution["field_type_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Understand.FieldValueContext {}>".format(context)

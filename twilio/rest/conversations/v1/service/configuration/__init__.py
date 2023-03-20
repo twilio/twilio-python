@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,89 +24,6 @@ from twilio.rest.conversations.v1.service.configuration.notification import (
     NotificationList,
 )
 from twilio.rest.conversations.v1.service.configuration.webhook import WebhookList
-
-
-class ConfigurationList(ListResource):
-    def __init__(self, version: Version, chat_service_sid: str):
-        """
-        Initialize the ConfigurationList
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Service configuration resource to fetch.
-
-        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationList
-        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-        }
-
-        self._notifications = None
-        self._webhooks = None
-
-    @property
-    def notifications(self):
-        """
-        Access the notifications
-
-        :returns: twilio.rest.conversations.v1.service.configuration.NotificationList
-        :rtype: twilio.rest.conversations.v1.service.configuration.NotificationList
-        """
-        if self._notifications is None:
-            self._notifications = NotificationList(
-                self._version, chat_service_sid=self._solution["chat_service_sid"]
-            )
-        return self._notifications
-
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.conversations.v1.service.configuration.WebhookList
-        :rtype: twilio.rest.conversations.v1.service.configuration.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(
-                self._version, chat_service_sid=self._solution["chat_service_sid"]
-            )
-        return self._webhooks
-
-    def get(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.ConfigurationList>"
 
 
 class ConfigurationInstance(InstanceResource):
@@ -134,10 +52,10 @@ class ConfigurationInstance(InstanceResource):
             "reachability_enabled": payload.get("reachability_enabled"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
         }
+        self._context: Optional[ConfigurationContext] = None
 
     @property
     def _proxy(self):
@@ -436,3 +354,86 @@ class ConfigurationContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.ConfigurationContext {}>".format(context)
+
+
+class ConfigurationList(ListResource):
+    def __init__(self, version: Version, chat_service_sid: str):
+        """
+        Initialize the ConfigurationList
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the Service configuration resource to fetch.
+
+        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationList
+        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+        }
+
+        self._notifications: Optional[NotificationList] = None
+        self._webhooks: Optional[WebhookList] = None
+
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.conversations.v1.service.configuration.NotificationList
+        :rtype: twilio.rest.conversations.v1.service.configuration.NotificationList
+        """
+        if self._notifications is None:
+            self._notifications = NotificationList(
+                self._version, chat_service_sid=self._solution["chat_service_sid"]
+            )
+        return self._notifications
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.conversations.v1.service.configuration.WebhookList
+        :rtype: twilio.rest.conversations.v1.service.configuration.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(
+                self._version, chat_service_sid=self._solution["chat_service_sid"]
+            )
+        return self._webhooks
+
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.ConfigurationList>"

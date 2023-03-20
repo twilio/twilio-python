@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.video.v1.composition import CompositionList
@@ -29,65 +30,46 @@ class V1(Version):
 
         :param domain: The Twilio.video domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._compositions = None
-        self._composition_hooks = None
-        self._composition_settings = None
-        self._recordings = None
-        self._recording_settings = None
-        self._rooms = None
+        super().__init__(domain, "v1")
+        self._compositions: Optional[CompositionList] = None
+        self._composition_hooks: Optional[CompositionHookList] = None
+        self._composition_settings: Optional[CompositionSettingsList] = None
+        self._recordings: Optional[RecordingList] = None
+        self._recording_settings: Optional[RecordingSettingsList] = None
+        self._rooms: Optional[RoomList] = None
 
     @property
     def compositions(self) -> CompositionList:
-        """
-        :rtype: twilio.rest.video.v1.composition.CompositionList
-        """
         if self._compositions is None:
             self._compositions = CompositionList(self)
         return self._compositions
 
     @property
     def composition_hooks(self) -> CompositionHookList:
-        """
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookList
-        """
         if self._composition_hooks is None:
             self._composition_hooks = CompositionHookList(self)
         return self._composition_hooks
 
     @property
     def composition_settings(self) -> CompositionSettingsList:
-        """
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
-        """
         if self._composition_settings is None:
             self._composition_settings = CompositionSettingsList(self)
         return self._composition_settings
 
     @property
     def recordings(self) -> RecordingList:
-        """
-        :rtype: twilio.rest.video.v1.recording.RecordingList
-        """
         if self._recordings is None:
             self._recordings = RecordingList(self)
         return self._recordings
 
     @property
     def recording_settings(self) -> RecordingSettingsList:
-        """
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
-        """
         if self._recording_settings is None:
             self._recording_settings = RecordingSettingsList(self)
         return self._recording_settings
 
     @property
     def rooms(self) -> RoomList:
-        """
-        :rtype: twilio.rest.video.v1.room.RoomList
-        """
         if self._rooms is None:
             self._rooms = RoomList(self)
         return self._rooms
@@ -96,6 +78,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Video.V1>"

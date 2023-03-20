@@ -21,53 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class UserList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the UserList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.frontline_api.v1.user.UserList
-        :rtype: twilio.rest.frontline_api.v1.user.UserList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self, sid):
-        """
-        Constructs a UserContext
-
-        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-
-        :returns: twilio.rest.frontline_api.v1.user.UserContext
-        :rtype: twilio.rest.frontline_api.v1.user.UserContext
-        """
-        return UserContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a UserContext
-
-        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-
-        :returns: twilio.rest.frontline_api.v1.user.UserContext
-        :rtype: twilio.rest.frontline_api.v1.user.UserContext
-        """
-        return UserContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FrontlineApi.V1.UserList>"
-
-
 class UserInstance(InstanceResource):
     class StateType(object):
         ACTIVE = "active"
@@ -92,10 +45,10 @@ class UserInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[UserContext] = None
 
     @property
     def _proxy(self):
@@ -388,3 +341,47 @@ class UserContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FrontlineApi.V1.UserContext {}>".format(context)
+
+
+class UserList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the UserList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.frontline_api.v1.user.UserList
+        :rtype: twilio.rest.frontline_api.v1.user.UserList
+        """
+        super().__init__(version)
+
+    def get(self, sid):
+        """
+        Constructs a UserContext
+
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+
+        :returns: twilio.rest.frontline_api.v1.user.UserContext
+        :rtype: twilio.rest.frontline_api.v1.user.UserContext
+        """
+        return UserContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserContext
+
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+
+        :returns: twilio.rest.frontline_api.v1.user.UserContext
+        :rtype: twilio.rest.frontline_api.v1.user.UserContext
+        """
+        return UserContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FrontlineApi.V1.UserList>"

@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,6 +24,361 @@ from twilio.rest.preview.sync.service.sync_list.sync_list_item import SyncListIt
 from twilio.rest.preview.sync.service.sync_list.sync_list_permission import (
     SyncListPermissionList,
 )
+
+
+class SyncListInstance(InstanceResource):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the SyncListInstance
+
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "unique_name": payload.get("unique_name"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+            "revision": payload.get("revision"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "created_by": payload.get("created_by"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[SyncListContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: SyncListContext for this SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        """
+        if self._context is None:
+            self._context = SyncListContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def unique_name(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["unique_name"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    @property
+    def revision(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["revision"]
+
+    @property
+    def date_created(self):
+        """
+        :returns:
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns:
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def created_by(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["created_by"]
+
+    def delete(self):
+        """
+        Deletes the SyncListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SyncListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the SyncListInstance
+
+
+        :returns: The fetched SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SyncListInstance
+
+
+        :returns: The fetched SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        """
+        return await self._proxy.fetch_async()
+
+    @property
+    def sync_list_items(self):
+        """
+        Access the sync_list_items
+
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListItemList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListItemList
+        """
+        return self._proxy.sync_list_items
+
+    @property
+    def sync_list_permissions(self):
+        """
+        Access the sync_list_permissions
+
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
+        """
+        return self._proxy.sync_list_permissions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Sync.SyncListInstance {}>".format(context)
+
+
+class SyncListContext(InstanceContext):
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the SyncListContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid:
+        :param sid:
+
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{service_sid}/Lists/{sid}".format(**self._solution)
+
+        self._sync_list_items: Optional[SyncListItemList] = None
+        self._sync_list_permissions: Optional[SyncListPermissionList] = None
+
+    def delete(self):
+        """
+        Deletes the SyncListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the SyncListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the SyncListInstance
+
+
+        :returns: The fetched SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SyncListInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SyncListInstance
+
+
+        :returns: The fetched SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SyncListInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def sync_list_items(self):
+        """
+        Access the sync_list_items
+
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListItemList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListItemList
+        """
+        if self._sync_list_items is None:
+            self._sync_list_items = SyncListItemList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
+            )
+        return self._sync_list_items
+
+    @property
+    def sync_list_permissions(self):
+        """
+        Access the sync_list_permissions
+
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
+        """
+        if self._sync_list_permissions is None:
+            self._sync_list_permissions = SyncListPermissionList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
+            )
+        return self._sync_list_permissions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Sync.SyncListContext {}>".format(context)
+
+
+class SyncListPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SyncListInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        """
+        return SyncListInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Sync.SyncListPage>"
 
 
 class SyncListList(ListResource):
@@ -298,374 +652,3 @@ class SyncListList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Sync.SyncListList>"
-
-
-class SyncListPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SyncListPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListPage
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of SyncListInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        """
-        return SyncListInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Sync.SyncListPage>"
-
-
-class SyncListInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the SyncListInstance
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "revision": payload.get("revision"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-        }
-
-        self._context = None
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: SyncListContext for this SyncListInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
-        """
-        if self._context is None:
-            self._context = SyncListContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def unique_name(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    @property
-    def revision(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["revision"]
-
-    @property
-    def date_created(self):
-        """
-        :returns:
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns:
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def created_by(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["created_by"]
-
-    def delete(self):
-        """
-        Deletes the SyncListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the SyncListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the SyncListInstance
-
-
-        :returns: The fetched SyncListInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SyncListInstance
-
-
-        :returns: The fetched SyncListInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        """
-        return await self._proxy.fetch_async()
-
-    @property
-    def sync_list_items(self):
-        """
-        Access the sync_list_items
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListItemList
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListItemList
-        """
-        return self._proxy.sync_list_items
-
-    @property
-    def sync_list_permissions(self):
-        """
-        Access the sync_list_permissions
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
-        """
-        return self._proxy.sync_list_permissions
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncListInstance {}>".format(context)
-
-
-class SyncListContext(InstanceContext):
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the SyncListContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid:
-        :param sid:
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{service_sid}/Lists/{sid}".format(**self._solution)
-
-        self._sync_list_items = None
-        self._sync_list_permissions = None
-
-    def delete(self):
-        """
-        Deletes the SyncListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the SyncListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the SyncListInstance
-
-
-        :returns: The fetched SyncListInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SyncListInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SyncListInstance
-
-
-        :returns: The fetched SyncListInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SyncListInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def sync_list_items(self):
-        """
-        Access the sync_list_items
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListItemList
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListItemList
-        """
-        if self._sync_list_items is None:
-            self._sync_list_items = SyncListItemList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
-            )
-        return self._sync_list_items
-
-    @property
-    def sync_list_permissions(self):
-        """
-        Access the sync_list_permissions
-
-        :returns: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
-        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPermissionList
-        """
-        if self._sync_list_permissions is None:
-            self._sync_list_permissions = SyncListPermissionList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
-            )
-        return self._sync_list_permissions
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncListContext {}>".format(context)

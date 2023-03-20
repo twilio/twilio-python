@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -37,363 +36,6 @@ from twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics import (
 from twilio.rest.taskrouter.v1.workspace.workspace_statistics import (
     WorkspaceStatisticsList,
 )
-
-
-class WorkspaceList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the WorkspaceList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceList
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Workspaces".format(**self._solution)
-
-    def create(
-        self,
-        friendly_name,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        multi_task_enabled=values.unset,
-        template=values.unset,
-        prioritize_queue_order=values.unset,
-    ):
-        """
-        Create the WorkspaceInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
-        :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
-
-        :returns: The created WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EventCallbackUrl": event_callback_url,
-                "EventsFilter": events_filter,
-                "MultiTaskEnabled": multi_task_enabled,
-                "Template": template,
-                "PrioritizeQueueOrder": prioritize_queue_order,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WorkspaceInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        friendly_name,
-        event_callback_url=values.unset,
-        events_filter=values.unset,
-        multi_task_enabled=values.unset,
-        template=values.unset,
-        prioritize_queue_order=values.unset,
-    ):
-        """
-        Asynchronously create the WorkspaceInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
-        :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
-        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
-
-        :returns: The created WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EventCallbackUrl": event_callback_url,
-                "EventsFilter": events_filter,
-                "MultiTaskEnabled": multi_task_enabled,
-                "Template": template,
-                "PrioritizeQueueOrder": prioritize_queue_order,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WorkspaceInstance(self._version, payload)
-
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Streams WorkspaceInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
-    ):
-        """
-        Asynchronously streams WorkspaceInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            friendly_name=friendly_name, page_size=limits["page_size"]
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Lists WorkspaceInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
-        """
-        return list(
-            self.stream(
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously lists WorkspaceInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
-        """
-        return list(
-            await self.stream_async(
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of WorkspaceInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return WorkspacePage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of WorkspaceInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return WorkspacePage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of WorkspaceInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return WorkspacePage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of WorkspaceInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return WorkspacePage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a WorkspaceContext
-
-        :param sid: The SID of the Workspace resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
-        """
-        return WorkspaceContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a WorkspaceContext
-
-        :param sid: The SID of the Workspace resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
-        """
-        return WorkspaceContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkspaceList>"
-
-
-class WorkspacePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the WorkspacePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspacePage
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of WorkspaceInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        """
-        return WorkspaceInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkspacePage>"
 
 
 class WorkspaceInstance(InstanceResource):
@@ -428,10 +70,10 @@ class WorkspaceInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[WorkspaceContext] = None
 
     @property
     def _proxy(self):
@@ -807,16 +449,16 @@ class WorkspaceContext(InstanceContext):
         }
         self._uri = "/Workspaces/{sid}".format(**self._solution)
 
-        self._activities = None
-        self._events = None
-        self._tasks = None
-        self._task_channels = None
-        self._task_queues = None
-        self._workers = None
-        self._workflows = None
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
+        self._activities: Optional[ActivityList] = None
+        self._events: Optional[EventList] = None
+        self._tasks: Optional[TaskList] = None
+        self._task_channels: Optional[TaskChannelList] = None
+        self._task_queues: Optional[TaskQueueList] = None
+        self._workers: Optional[WorkerList] = None
+        self._workflows: Optional[WorkflowList] = None
+        self._cumulative_statistics: Optional[WorkspaceCumulativeStatisticsList] = None
+        self._real_time_statistics: Optional[WorkspaceRealTimeStatisticsList] = None
+        self._statistics: Optional[WorkspaceStatisticsList] = None
 
     def delete(self):
         """
@@ -1131,3 +773,342 @@ class WorkspaceContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkspaceContext {}>".format(context)
+
+
+class WorkspacePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkspaceInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        """
+        return WorkspaceInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.WorkspacePage>"
+
+
+class WorkspaceList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the WorkspaceList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceList
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceList
+        """
+        super().__init__(version)
+
+        self._uri = "/Workspaces"
+
+    def create(
+        self,
+        friendly_name,
+        event_callback_url=values.unset,
+        events_filter=values.unset,
+        multi_task_enabled=values.unset,
+        template=values.unset,
+        prioritize_queue_order=values.unset,
+    ):
+        """
+        Create the WorkspaceInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+        :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+
+        :returns: The created WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "EventCallbackUrl": event_callback_url,
+                "EventsFilter": events_filter,
+                "MultiTaskEnabled": multi_task_enabled,
+                "Template": template,
+                "PrioritizeQueueOrder": prioritize_queue_order,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WorkspaceInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name,
+        event_callback_url=values.unset,
+        events_filter=values.unset,
+        multi_task_enabled=values.unset,
+        template=values.unset,
+        prioritize_queue_order=values.unset,
+    ):
+        """
+        Asynchronously create the WorkspaceInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+        :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+        :param WorkspaceInstance.QueueOrder prioritize_queue_order:
+
+        :returns: The created WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "EventCallbackUrl": event_callback_url,
+                "EventsFilter": events_filter,
+                "MultiTaskEnabled": multi_task_enabled,
+                "Template": template,
+                "PrioritizeQueueOrder": prioritize_queue_order,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WorkspaceInstance(self._version, payload)
+
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Streams WorkspaceInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ):
+        """
+        Asynchronously streams WorkspaceInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            friendly_name=friendly_name, page_size=limits["page_size"]
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Lists WorkspaceInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
+        """
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously lists WorkspaceInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.WorkspaceInstance]
+        """
+        return list(
+            await self.stream_async(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of WorkspaceInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return WorkspacePage(self._version, response)
+
+    async def page_async(
+        self,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of WorkspaceInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return WorkspacePage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of WorkspaceInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return WorkspacePage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of WorkspaceInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return WorkspacePage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a WorkspaceContext
+
+        :param sid: The SID of the Workspace resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        """
+        return WorkspaceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WorkspaceContext
+
+        :param sid: The SID of the Workspace resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        """
+        return WorkspaceContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.WorkspaceList>"

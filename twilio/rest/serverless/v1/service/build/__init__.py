@@ -14,15 +14,369 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.serverless.v1.service.build.build_status import BuildStatusList
+
+
+class BuildInstance(InstanceResource):
+
+    class Runtime(object):
+        NODE8 = "node8"
+        NODE10 = "node10"
+        NODE12 = "node12"
+        NODE14 = "node14"
+        NODE16 = "node16"
+
+    class Status(object):
+        BUILDING = "building"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the BuildInstance
+
+        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'service_sid': payload.get('service_sid'),
+            'status': payload.get('status'),
+            'asset_versions': payload.get('asset_versions'),
+            'function_versions': payload.get('function_versions'),
+            'dependencies': payload.get('dependencies'),
+            'runtime': payload.get('runtime'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
+            'links': payload.get('links'),
+        }
+
+        self._solution = { 'service_sid': service_sid, 'sid': sid or self._properties['sid'],  }
+        self._context: Optional[BuildContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: BuildContext for this BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
+        """
+        if self._context is None:
+            self._context = BuildContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
+        return self._context
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Build resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the Service that the Build resource is associated with.
+        :rtype: str
+        """
+        return self._properties['service_sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: BuildInstance.Status
+        """
+        return self._properties['status']
+    
+    @property
+    def asset_versions(self):
+        """
+        :returns: The list of Asset Version resource SIDs that are included in the Build.
+        :rtype: list[object]
+        """
+        return self._properties['asset_versions']
+    
+    @property
+    def function_versions(self):
+        """
+        :returns: The list of Function Version resource SIDs that are included in the Build.
+        :rtype: list[object]
+        """
+        return self._properties['function_versions']
+    
+    @property
+    def dependencies(self):
+        """
+        :returns: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+        :rtype: list[object]
+        """
+        return self._properties['dependencies']
+    
+    @property
+    def runtime(self):
+        """
+        :returns: 
+        :rtype: BuildInstance.Runtime
+        """
+        return self._properties['runtime']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the Build resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the Build resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Build resource.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def links(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['links']
+    
+    
+    def delete(self):
+        """
+        Deletes the BuildInstance
+        
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BuildInstance
+        
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+    
+    
+    def fetch(self):
+        """
+        Fetch the BuildInstance
+        
+
+        :returns: The fetched BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BuildInstance
+        
+
+        :returns: The fetched BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        return await self._proxy.fetch_async()
+    
+    @property
+    def build_status(self):
+        """
+        Access the build_status
+
+        :returns: twilio.rest.serverless.v1.service.build.BuildStatusList
+        :rtype: twilio.rest.serverless.v1.service.build.BuildStatusList
+        """
+        return self._proxy.build_status
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.BuildInstance {}>'.format(context)
+
+class BuildContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the BuildContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Build resource from.
+        :param sid: The SID of the Build resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.build.BuildContext
+        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
+        """
+        super().__init__(version)
+
+        
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Builds/{sid}'.format(**self._solution)
+        
+        self._build_status: Optional[BuildStatusList] = None
+    
+    
+    def delete(self):
+        """
+        Deletes the BuildInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BuildInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
+    def fetch(self):
+        """
+        Fetch the BuildInstance
+        
+
+        :returns: The fetched BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BuildInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BuildInstance
+        
+
+        :returns: The fetched BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        return BuildInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+    
+    
+    @property
+    def build_status(self):
+        """
+        Access the build_status
+
+        :returns: twilio.rest.serverless.v1.service.build.BuildStatusList
+        :rtype: twilio.rest.serverless.v1.service.build.BuildStatusList
+        """
+        if self._build_status is None:
+            self._build_status = BuildStatusList(
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
+            )
+        return self._build_status
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.BuildContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
+class BuildPage(Page):
+
+    def get_instance(self, payload):
+        """
+        Build an instance of BuildInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        return BuildInstance(self._version, payload, service_sid=self._solution["service_sid"])
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.BuildPage>"
+
+
+
 
 
 class BuildList(ListResource):
@@ -39,6 +393,7 @@ class BuildList(ListResource):
         """
         super().__init__(version)
 
+        
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/{service_sid}/Builds'.format(**self._solution)
@@ -259,6 +614,9 @@ class BuildList(ListResource):
         return BuildPage(self._version, response, self._solution)
 
 
+
+
+
     def get(self, sid):
         """
         Constructs a BuildContext
@@ -289,374 +647,4 @@ class BuildList(ListResource):
         :rtype: str
         """
         return '<Twilio.Serverless.V1.BuildList>'
-
-
-
-
-
-
-
-
-class BuildPage(Page):
-
-    def __init__(self, version, response, solution):
-        """
-        Initialize the BuildPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildPage
-        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of BuildInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return '<Twilio.Serverless.V1.BuildPage>'
-
-
-
-
-class BuildInstance(InstanceResource):
-
-    class Runtime(object):
-        NODE8 = "node8"
-        NODE10 = "node10"
-        NODE12 = "node12"
-        NODE14 = "node14"
-        NODE16 = "node16"
-
-    class Status(object):
-        BUILDING = "building"
-        COMPLETED = "completed"
-        FAILED = "failed"
-
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the BuildInstance
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        super().__init__(version)
-
-        self._properties = { 
-            'sid': payload.get('sid'),
-            'account_sid': payload.get('account_sid'),
-            'service_sid': payload.get('service_sid'),
-            'status': payload.get('status'),
-            'asset_versions': payload.get('asset_versions'),
-            'function_versions': payload.get('function_versions'),
-            'dependencies': payload.get('dependencies'),
-            'runtime': payload.get('runtime'),
-            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
-            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
-            'url': payload.get('url'),
-            'links': payload.get('links'),
-        }
-
-        self._context = None
-        self._solution = { 'service_sid': service_sid, 'sid': sid or self._properties['sid'],  }
-    
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: BuildContext for this BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
-        """
-        if self._context is None:
-            self._context = BuildContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
-        return self._context
-    
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Build resource.
-        :rtype: str
-        """
-        return self._properties['sid']
-    
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Build resource.
-        :rtype: str
-        """
-        return self._properties['account_sid']
-    
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the Service that the Build resource is associated with.
-        :rtype: str
-        """
-        return self._properties['service_sid']
-    
-    @property
-    def status(self):
-        """
-        :returns: 
-        :rtype: BuildInstance.Status
-        """
-        return self._properties['status']
-    
-    @property
-    def asset_versions(self):
-        """
-        :returns: The list of Asset Version resource SIDs that are included in the Build.
-        :rtype: list[object]
-        """
-        return self._properties['asset_versions']
-    
-    @property
-    def function_versions(self):
-        """
-        :returns: The list of Function Version resource SIDs that are included in the Build.
-        :rtype: list[object]
-        """
-        return self._properties['function_versions']
-    
-    @property
-    def dependencies(self):
-        """
-        :returns: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-        :rtype: list[object]
-        """
-        return self._properties['dependencies']
-    
-    @property
-    def runtime(self):
-        """
-        :returns: 
-        :rtype: BuildInstance.Runtime
-        """
-        return self._properties['runtime']
-    
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the Build resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties['date_created']
-    
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the Build resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties['date_updated']
-    
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Build resource.
-        :rtype: str
-        """
-        return self._properties['url']
-    
-    @property
-    def links(self):
-        """
-        :returns: 
-        :rtype: dict
-        """
-        return self._properties['links']
-    
-    
-    def delete(self):
-        """
-        Deletes the BuildInstance
-        
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the BuildInstance
-        
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-    
-    
-    def fetch(self):
-        """
-        Fetch the BuildInstance
-        
-
-        :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the BuildInstance
-        
-
-        :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        return await self._proxy.fetch_async()
-    
-    @property
-    def build_status(self):
-        """
-        Access the build_status
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildStatusList
-        :rtype: twilio.rest.serverless.v1.service.build.BuildStatusList
-        """
-        return self._proxy.build_status
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.BuildInstance {}>'.format(context)
-
-class BuildContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the BuildContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Build resource from.
-        :param sid: The SID of the Build resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildContext
-        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Builds/{sid}'.format(**self._solution)
-        
-        self._build_status = None
-    
-    
-    def delete(self):
-        """
-        Deletes the BuildInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the BuildInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
-    def fetch(self):
-        """
-        Fetch the BuildInstance
-        
-
-        :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BuildInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the BuildInstance
-        
-
-        :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
-
-        return BuildInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-    
-    
-    @property
-    def build_status(self):
-        """
-        Access the build_status
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildStatusList
-        :rtype: twilio.rest.serverless.v1.service.build.BuildStatusList
-        """
-        if self._build_status is None:
-            self._build_status = BuildStatusList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
-            )
-        return self._build_status
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.BuildContext {}>'.format(context)
-
 

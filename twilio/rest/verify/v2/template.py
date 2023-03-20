@@ -21,6 +21,98 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class TemplateInstance(InstanceResource):
+    def __init__(self, version, payload):
+        """
+        Initialize the TemplateInstance
+
+        :returns: twilio.rest.verify.v2.template.TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplateInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "channels": payload.get("channels"),
+            "translations": payload.get("translations"),
+        }
+
+        self._solution = {}
+
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies a Verification Template.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique SID identifier of the Account.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A descriptive string that you create to describe a Template.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def channels(self):
+        """
+        :returns: A list of channels that support the Template. Can include: sms, voice
+        :rtype: list[str]
+        """
+        return self._properties["channels"]
+
+    @property
+    def translations(self):
+        """
+        :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
+        :rtype: dict
+        """
+        return self._properties["translations"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.TemplateInstance {}>".format(context)
+
+
+class TemplatePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TemplateInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.template.TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplateInstance
+        """
+        return TemplateInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.TemplatePage>"
+
+
 class TemplateList(ListResource):
     def __init__(self, version: Version):
         """
@@ -33,9 +125,7 @@ class TemplateList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Templates".format(**self._solution)
+        self._uri = "/Templates"
 
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -166,7 +256,7 @@ class TemplateList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     async def page_async(
         self,
@@ -199,7 +289,7 @@ class TemplateList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -212,7 +302,7 @@ class TemplateList(ListResource):
         :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -225,7 +315,7 @@ class TemplateList(ListResource):
         :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     def __repr__(self):
         """
@@ -235,112 +325,3 @@ class TemplateList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.TemplateList>"
-
-
-class TemplatePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the TemplatePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.verify.v2.template.TemplatePage
-        :rtype: twilio.rest.verify.v2.template.TemplatePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of TemplateInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.template.TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplateInstance
-        """
-        return TemplateInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.TemplatePage>"
-
-
-class TemplateInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the TemplateInstance
-
-        :returns: twilio.rest.verify.v2.template.TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplateInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "channels": payload.get("channels"),
-            "translations": payload.get("translations"),
-        }
-
-        self._context = None
-        self._solution = {}
-
-    @property
-    def sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies a Verification Template.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The unique SID identifier of the Account.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A descriptive string that you create to describe a Template.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def channels(self):
-        """
-        :returns: A list of channels that support the Template. Can include: sms, voice
-        :rtype: list[str]
-        """
-        return self._properties["channels"]
-
-    @property
-    def translations(self):
-        """
-        :returns: An object that contains the different translations of the template. Every translation is identified by the language short name and contains its respective information as the approval status, text and created/modified date.
-        :rtype: dict
-        """
-        return self._properties["translations"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.TemplateInstance {}>".format(context)

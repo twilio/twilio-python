@@ -14,14 +14,332 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.studio.v1.flow.engagement.step.step_context import StepContextList
+
+
+class StepInstance(InstanceResource):
+    def __init__(
+        self,
+        version,
+        payload,
+        flow_sid: str,
+        engagement_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the StepInstance
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "flow_sid": payload.get("flow_sid"),
+            "engagement_sid": payload.get("engagement_sid"),
+            "name": payload.get("name"),
+            "context": payload.get("context"),
+            "transitioned_from": payload.get("transitioned_from"),
+            "transitioned_to": payload.get("transitioned_to"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "flow_sid": flow_sid,
+            "engagement_sid": engagement_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[StepContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: StepContext for this StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        """
+        if self._context is None:
+            self._context = StepContext(
+                self._version,
+                flow_sid=self._solution["flow_sid"],
+                engagement_sid=self._solution["engagement_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Step resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Step resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def flow_sid(self):
+        """
+        :returns: The SID of the Flow.
+        :rtype: str
+        """
+        return self._properties["flow_sid"]
+
+    @property
+    def engagement_sid(self):
+        """
+        :returns: The SID of the Engagement.
+        :rtype: str
+        """
+        return self._properties["engagement_sid"]
+
+    @property
+    def name(self):
+        """
+        :returns: The event that caused the Flow to transition to the Step.
+        :rtype: str
+        """
+        return self._properties["name"]
+
+    @property
+    def context(self):
+        """
+        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
+        :rtype: dict
+        """
+        return self._properties["context"]
+
+    @property
+    def transitioned_from(self):
+        """
+        :returns: The Widget that preceded the Widget for the Step.
+        :rtype: str
+        """
+        return self._properties["transitioned_from"]
+
+    @property
+    def transitioned_to(self):
+        """
+        :returns: The Widget that will follow the Widget for the Step.
+        :rtype: str
+        """
+        return self._properties["transitioned_to"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URLs of related resources.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def fetch(self):
+        """
+        Fetch the StepInstance
+
+
+        :returns: The fetched StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the StepInstance
+
+
+        :returns: The fetched StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+        return await self._proxy.fetch_async()
+
+    @property
+    def step_context(self):
+        """
+        Access the step_context
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContextList
+        """
+        return self._proxy.step_context
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Studio.V1.StepInstance {}>".format(context)
+
+
+class StepContext(InstanceContext):
+    def __init__(self, version: Version, flow_sid: str, engagement_sid: str, sid: str):
+        """
+        Initialize the StepContext
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow with the Step to fetch.
+        :param engagement_sid: The SID of the Engagement with the Step to fetch.
+        :param sid: The SID of the Step resource to fetch.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "flow_sid": flow_sid,
+            "engagement_sid": engagement_sid,
+            "sid": sid,
+        }
+        self._uri = "/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{sid}".format(
+            **self._solution
+        )
+
+        self._step_context: Optional[StepContextList] = None
+
+    def fetch(self):
+        """
+        Fetch the StepInstance
+
+
+        :returns: The fetched StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return StepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the StepInstance
+
+
+        :returns: The fetched StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return StepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def step_context(self):
+        """
+        Access the step_context
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContextList
+        """
+        if self._step_context is None:
+            self._step_context = StepContextList(
+                self._version,
+                self._solution["flow_sid"],
+                self._solution["engagement_sid"],
+                self._solution["sid"],
+            )
+        return self._step_context
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Studio.V1.StepContext {}>".format(context)
+
+
+class StepPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of StepInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+        return StepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V1.StepPage>"
 
 
 class StepList(ListResource):
@@ -255,338 +573,3 @@ class StepList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V1.StepList>"
-
-
-class StepPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the StepPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of StepInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-        return StepInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Studio.V1.StepPage>"
-
-
-class StepInstance(InstanceResource):
-    def __init__(
-        self,
-        version,
-        payload,
-        flow_sid: str,
-        engagement_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the StepInstance
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "flow_sid": payload.get("flow_sid"),
-            "engagement_sid": payload.get("engagement_sid"),
-            "name": payload.get("name"),
-            "context": payload.get("context"),
-            "transitioned_from": payload.get("transitioned_from"),
-            "transitioned_to": payload.get("transitioned_to"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._context = None
-        self._solution = {
-            "flow_sid": flow_sid,
-            "engagement_sid": engagement_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: StepContext for this StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
-        """
-        if self._context is None:
-            self._context = StepContext(
-                self._version,
-                flow_sid=self._solution["flow_sid"],
-                engagement_sid=self._solution["engagement_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Step resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Step resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def flow_sid(self):
-        """
-        :returns: The SID of the Flow.
-        :rtype: str
-        """
-        return self._properties["flow_sid"]
-
-    @property
-    def engagement_sid(self):
-        """
-        :returns: The SID of the Engagement.
-        :rtype: str
-        """
-        return self._properties["engagement_sid"]
-
-    @property
-    def name(self):
-        """
-        :returns: The event that caused the Flow to transition to the Step.
-        :rtype: str
-        """
-        return self._properties["name"]
-
-    @property
-    def context(self):
-        """
-        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
-        :rtype: dict
-        """
-        return self._properties["context"]
-
-    @property
-    def transitioned_from(self):
-        """
-        :returns: The Widget that preceded the Widget for the Step.
-        :rtype: str
-        """
-        return self._properties["transitioned_from"]
-
-    @property
-    def transitioned_to(self):
-        """
-        :returns: The Widget that will follow the Widget for the Step.
-        :rtype: str
-        """
-        return self._properties["transitioned_to"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URLs of related resources.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def fetch(self):
-        """
-        Fetch the StepInstance
-
-
-        :returns: The fetched StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the StepInstance
-
-
-        :returns: The fetched StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-        return await self._proxy.fetch_async()
-
-    @property
-    def step_context(self):
-        """
-        Access the step_context
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContextList
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContextList
-        """
-        return self._proxy.step_context
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.StepInstance {}>".format(context)
-
-
-class StepContext(InstanceContext):
-    def __init__(self, version: Version, flow_sid: str, engagement_sid: str, sid: str):
-        """
-        Initialize the StepContext
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Step to fetch.
-        :param engagement_sid: The SID of the Engagement with the Step to fetch.
-        :param sid: The SID of the Step resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-            "engagement_sid": engagement_sid,
-            "sid": sid,
-        }
-        self._uri = "/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{sid}".format(
-            **self._solution
-        )
-
-        self._step_context = None
-
-    def fetch(self):
-        """
-        Fetch the StepInstance
-
-
-        :returns: The fetched StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return StepInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the StepInstance
-
-
-        :returns: The fetched StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return StepInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def step_context(self):
-        """
-        Access the step_context
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContextList
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContextList
-        """
-        if self._step_context is None:
-            self._step_context = StepContextList(
-                self._version,
-                self._solution["flow_sid"],
-                self._solution["engagement_sid"],
-                self._solution["sid"],
-            )
-        return self._step_context
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.StepContext {}>".format(context)

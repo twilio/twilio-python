@@ -24,9 +24,7 @@ class TestAsyncHttpClientRequest(aiounittest.AsyncTestCase):
         self.session_mock = AsyncMock(wraps=ClientSession)
         self.session_mock.request.return_value = MockResponse("test", 200)
 
-        self.session_patcher = patch(
-            "twilio.http.async_http_client.aiohttp.ClientSession"
-        )
+        self.session_patcher = patch("twilio.http.async_http_client.ClientSession")
         session_constructor_mock = self.session_patcher.start()
         session_constructor_mock.return_value = self.session_mock
 
@@ -69,9 +67,7 @@ class TestAsyncHttpClientRetries(aiounittest.AsyncTestCase):
             MockResponse("Success", 200),
         ]
 
-        self.session_patcher = patch(
-            "twilio.http.async_http_client.aiohttp.ClientSession"
-        )
+        self.session_patcher = patch("twilio.http.async_http_client.ClientSession")
         session_constructor_mock = self.session_patcher.start()
         session_constructor_mock.return_value = self.session_mock
 
@@ -97,9 +93,7 @@ class TestAsyncHttpClientRetries(aiounittest.AsyncTestCase):
 
 class TestAsyncHttpClientSession(aiounittest.AsyncTestCase):
     def setUp(self):
-        self.session_patcher = patch(
-            "twilio.http.async_http_client.aiohttp.ClientSession"
-        )
+        self.session_patcher = patch("twilio.http.async_http_client.ClientSession")
         self.session_constructor_mock = self.session_patcher.start()
 
     def tearDown(self):

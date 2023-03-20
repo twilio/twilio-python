@@ -25,53 +25,6 @@ from twilio.rest.insights.v1.call.event import EventList
 from twilio.rest.insights.v1.call.metric import MetricList
 
 
-class CallList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the CallList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.insights.v1.call.CallList
-        :rtype: twilio.rest.insights.v1.call.CallList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self, sid):
-        """
-        Constructs a CallContext
-
-        :param sid:
-
-        :returns: twilio.rest.insights.v1.call.CallContext
-        :rtype: twilio.rest.insights.v1.call.CallContext
-        """
-        return CallContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a CallContext
-
-        :param sid:
-
-        :returns: twilio.rest.insights.v1.call.CallContext
-        :rtype: twilio.rest.insights.v1.call.CallContext
-        """
-        return CallContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Insights.V1.CallList>"
-
-
 class CallInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
@@ -88,10 +41,10 @@ class CallInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CallContext] = None
 
     @property
     def _proxy(self):
@@ -223,10 +176,10 @@ class CallContext(InstanceContext):
         }
         self._uri = "/Voice/{sid}".format(**self._solution)
 
-        self._annotation = None
-        self._summary = None
-        self._events = None
-        self._metrics = None
+        self._annotation: Optional[AnnotationList] = None
+        self._summary: Optional[CallSummaryList] = None
+        self._events: Optional[EventList] = None
+        self._metrics: Optional[MetricList] = None
 
     def fetch(self):
         """
@@ -337,3 +290,47 @@ class CallContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallContext {}>".format(context)
+
+
+class CallList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the CallList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.insights.v1.call.CallList
+        :rtype: twilio.rest.insights.v1.call.CallList
+        """
+        super().__init__(version)
+
+    def get(self, sid):
+        """
+        Constructs a CallContext
+
+        :param sid:
+
+        :returns: twilio.rest.insights.v1.call.CallContext
+        :rtype: twilio.rest.insights.v1.call.CallContext
+        """
+        return CallContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CallContext
+
+        :param sid:
+
+        :returns: twilio.rest.insights.v1.call.CallContext
+        :rtype: twilio.rest.insights.v1.call.CallContext
+        """
+        return CallContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Insights.V1.CallList>"

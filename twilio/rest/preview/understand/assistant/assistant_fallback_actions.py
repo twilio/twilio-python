@@ -13,64 +13,12 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class AssistantFallbackActionsList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the AssistantFallbackActionsList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid:
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsList
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a AssistantFallbackActionsContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
-        """
-        return AssistantFallbackActionsContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a AssistantFallbackActionsContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
-        """
-        return AssistantFallbackActionsContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.AssistantFallbackActionsList>"
 
 
 class AssistantFallbackActionsInstance(InstanceResource):
@@ -90,10 +38,10 @@ class AssistantFallbackActionsInstance(InstanceResource):
             "data": payload.get("data"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
         }
+        self._context: Optional[AssistantFallbackActionsContext] = None
 
     @property
     def _proxy(self):
@@ -324,3 +272,55 @@ class AssistantFallbackActionsContext(InstanceContext):
         return "<Twilio.Preview.Understand.AssistantFallbackActionsContext {}>".format(
             context
         )
+
+
+class AssistantFallbackActionsList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the AssistantFallbackActionsList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid:
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsList
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a AssistantFallbackActionsContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        """
+        return AssistantFallbackActionsContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a AssistantFallbackActionsContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        """
+        return AssistantFallbackActionsContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.AssistantFallbackActionsList>"

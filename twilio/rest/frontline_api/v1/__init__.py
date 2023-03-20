@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.frontline_api.v1.user import UserList
@@ -24,15 +25,11 @@ class V1(Version):
 
         :param domain: The Twilio.frontline_api domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._users = None
+        super().__init__(domain, "v1")
+        self._users: Optional[UserList] = None
 
     @property
     def users(self) -> UserList:
-        """
-        :rtype: twilio.rest.frontline_api.v1.user.UserList
-        """
         if self._users is None:
             self._users = UserList(self)
         return self._users
@@ -41,6 +38,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FrontlineApi.V1>"

@@ -13,70 +13,12 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class AnonymizeList(ListResource):
-    def __init__(self, version: Version, room_sid: str, sid: str):
-        """
-        Initialize the AnonymizeList
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the room with the participant to update.
-        :param sid: The SID of the RoomParticipant resource to update.
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "room_sid": room_sid,
-            "sid": sid,
-        }
-
-    def get(self):
-        """
-        Constructs a AnonymizeContext
-
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        """
-        return AnonymizeContext(
-            self._version,
-            room_sid=self._solution["room_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a AnonymizeContext
-
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        """
-        return AnonymizeContext(
-            self._version,
-            room_sid=self._solution["room_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.AnonymizeList>"
 
 
 class AnonymizeInstance(InstanceResource):
@@ -107,11 +49,11 @@ class AnonymizeInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid,
             "sid": sid,
         }
+        self._context: Optional[AnonymizeContext] = None
 
     @property
     def _proxy(self):
@@ -327,3 +269,61 @@ class AnonymizeContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.AnonymizeContext {}>".format(context)
+
+
+class AnonymizeList(ListResource):
+    def __init__(self, version: Version, room_sid: str, sid: str):
+        """
+        Initialize the AnonymizeList
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the room with the participant to update.
+        :param sid: The SID of the RoomParticipant resource to update.
+
+        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "room_sid": room_sid,
+            "sid": sid,
+        }
+
+    def get(self):
+        """
+        Constructs a AnonymizeContext
+
+
+        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        """
+        return AnonymizeContext(
+            self._version,
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a AnonymizeContext
+
+
+        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        """
+        return AnonymizeContext(
+            self._version,
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.AnonymizeList>"

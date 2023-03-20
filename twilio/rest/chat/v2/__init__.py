@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.chat.v2.credential import CredentialList
@@ -25,25 +26,18 @@ class V2(Version):
 
         :param domain: The Twilio.chat domain
         """
-        super().__init__(domain)
-        self.version = "v2"
-        self._credentials = None
-        self._services = None
+        super().__init__(domain, "v2")
+        self._credentials: Optional[CredentialList] = None
+        self._services: Optional[ServiceList] = None
 
     @property
     def credentials(self) -> CredentialList:
-        """
-        :rtype: twilio.rest.chat.v2.credential.CredentialList
-        """
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
 
     @property
     def services(self) -> ServiceList:
-        """
-        :rtype: twilio.rest.chat.v2.service.ServiceList
-        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
@@ -52,6 +46,5 @@ class V2(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Chat.V2>"

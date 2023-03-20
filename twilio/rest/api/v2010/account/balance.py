@@ -18,6 +18,61 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+class BalanceInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str):
+        """
+        Initialize the BalanceInstance
+
+        :returns: twilio.rest.api.v2010.account.balance.BalanceInstance
+        :rtype: twilio.rest.api.v2010.account.balance.BalanceInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "balance": payload.get("balance"),
+            "currency": payload.get("currency"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+        }
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique SID identifier of the Account.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def balance(self):
+        """
+        :returns: The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
+        :rtype: str
+        """
+        return self._properties["balance"]
+
+    @property
+    def currency(self):
+        """
+        :returns: The units of currency for the account balance
+        :rtype: str
+        """
+        return self._properties["currency"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.BalanceInstance {}>".format(context)
+
+
 class BalanceList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -71,59 +126,3 @@ class BalanceList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.BalanceList>"
-
-
-class BalanceInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str):
-        """
-        Initialize the BalanceInstance
-
-        :returns: twilio.rest.api.v2010.account.balance.BalanceInstance
-        :rtype: twilio.rest.api.v2010.account.balance.BalanceInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "balance": payload.get("balance"),
-            "currency": payload.get("currency"),
-        }
-
-        self._context = None
-        self._solution = {
-            "account_sid": account_sid,
-        }
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The unique SID identifier of the Account.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def balance(self):
-        """
-        :returns: The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
-        :rtype: str
-        """
-        return self._properties["balance"]
-
-    @property
-    def currency(self):
-        """
-        :returns: The units of currency for the account balance
-        :rtype: str
-        """
-        return self._properties["currency"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.BalanceInstance {}>".format(context)

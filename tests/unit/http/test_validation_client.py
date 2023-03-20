@@ -30,7 +30,7 @@ class TestValidationClientHelpers(unittest.TestCase):
         self.assertEqual("", validation_payload.body)
 
     def test_build_validation_payload_query_string_parsed(self):
-        self.request.url = self.request.url + "?QueryParam=1&Other=true"
+        self.request.url = (self.request.url or "") + "?QueryParam=1&Other=true"
 
         validation_payload = self.client._build_validation_payload(self.request)
 
@@ -41,7 +41,7 @@ class TestValidationClientHelpers(unittest.TestCase):
         self.assertEqual("", validation_payload.body)
 
     def test_build_validation_payload_body_parsed(self):
-        self.request.body = "foobar"
+        setattr(self.request, "body", "foobar")
 
         validation_payload = self.client._build_validation_payload(self.request)
 
@@ -52,10 +52,10 @@ class TestValidationClientHelpers(unittest.TestCase):
         self.assertEqual("foobar", validation_payload.body)
 
     def test_build_validation_payload_complex(self):
-        self.request.body = "foobar"
+        setattr(self.request, "body", "foobar")
         self.request.url = (
-            self.request.url + "?QueryParam=Value&OtherQueryParam=OtherValue"
-        )
+            self.request.url or ""
+        ) + "?QueryParam=Value&OtherQueryParam=OtherValue"
 
         validation_payload = self.client._build_validation_payload(self.request)
 

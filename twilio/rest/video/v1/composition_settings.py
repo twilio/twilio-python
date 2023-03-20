@@ -13,56 +13,12 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class CompositionSettingsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the CompositionSettingsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsList
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a CompositionSettingsContext
-
-
-        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        """
-        return CompositionSettingsContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a CompositionSettingsContext
-
-
-        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        """
-        return CompositionSettingsContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.CompositionSettingsList>"
 
 
 class CompositionSettingsInstance(InstanceResource):
@@ -86,8 +42,8 @@ class CompositionSettingsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[CompositionSettingsContext] = None
 
     @property
     def _proxy(self):
@@ -273,9 +229,7 @@ class CompositionSettingsContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/CompositionSettings/Default".format(**self._solution)
+        self._uri = "/CompositionSettings/Default"
 
     def create(
         self,
@@ -398,5 +352,47 @@ class CompositionSettingsContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionSettingsContext {}>".format(context)
+
+        return "<Twilio.Video.V1.CompositionSettingsContext>"
+
+
+class CompositionSettingsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the CompositionSettingsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsList
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a CompositionSettingsContext
+
+
+        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        """
+        return CompositionSettingsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a CompositionSettingsContext
+
+
+        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        """
+        return CompositionSettingsContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.CompositionSettingsList>"

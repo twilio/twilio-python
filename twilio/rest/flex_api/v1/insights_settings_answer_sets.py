@@ -18,54 +18,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class InsightsSettingsAnswerSetsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the InsightsSettingsAnswerSetsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsList
-        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/QM/Settings/AnswerSets".format(**self._solution)
-
-    def fetch(self):
-        """
-        Asynchronously fetch the InsightsSettingsAnswerSetsInstance
-
-        :returns: The fetched InsightsSettingsAnswerSetsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsInstance
-        """
-        payload = self._version.fetch(method="GET", uri=self._uri)
-
-        return InsightsSettingsAnswerSetsInstance(self._version, payload)
-
-    async def fetch_async(self):
-        """
-        Asynchronously fetch the InsightsSettingsAnswerSetsInstance
-
-        :returns: The fetched InsightsSettingsAnswerSetsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsInstance
-        """
-        payload = await self._version.fetch_async(method="GET", uri=self._uri)
-
-        return InsightsSettingsAnswerSetsInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FlexApi.V1.InsightsSettingsAnswerSetsList>"
-
-
 class InsightsSettingsAnswerSetsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -84,7 +36,6 @@ class InsightsSettingsAnswerSetsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property
@@ -138,3 +89,49 @@ class InsightsSettingsAnswerSetsInstance(InstanceResource):
         return "<Twilio.FlexApi.V1.InsightsSettingsAnswerSetsInstance {}>".format(
             context
         )
+
+
+class InsightsSettingsAnswerSetsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the InsightsSettingsAnswerSetsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsList
+        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsList
+        """
+        super().__init__(version)
+
+        self._uri = "/Insights/QM/Settings/AnswerSets"
+
+    def fetch(self):
+        """
+        Asynchronously fetch the InsightsSettingsAnswerSetsInstance
+
+        :returns: The fetched InsightsSettingsAnswerSetsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsInstance
+        """
+        payload = self._version.fetch(method="GET", uri=self._uri)
+
+        return InsightsSettingsAnswerSetsInstance(self._version, payload)
+
+    async def fetch_async(self):
+        """
+        Asynchronously fetch the InsightsSettingsAnswerSetsInstance
+
+        :returns: The fetched InsightsSettingsAnswerSetsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsInstance
+        """
+        payload = await self._version.fetch_async(method="GET", uri=self._uri)
+
+        return InsightsSettingsAnswerSetsInstance(self._version, payload)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FlexApi.V1.InsightsSettingsAnswerSetsList>"

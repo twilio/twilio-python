@@ -13,61 +13,13 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
-class BuildStatusList(ListResource):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the BuildStatusList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Build resource from.
-        :param sid: The SID of the Build resource to fetch.
-        
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 'service_sid': service_sid, 'sid': sid,  }
-        
-        
-        
-    def get(self):
-        """
-        Constructs a BuildStatusContext
-        
-
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
-        """
-        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
-
-    def __call__(self):
-        """
-        Constructs a BuildStatusContext
-        
-
-        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
-        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
-        """
-        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return '<Twilio.Serverless.V1.BuildStatusList>'
 
 class BuildStatusInstance(InstanceResource):
 
@@ -93,9 +45,9 @@ class BuildStatusInstance(InstanceResource):
             'url': payload.get('url'),
         }
 
-        self._context = None
         self._solution = { 'service_sid': service_sid, 'sid': sid,  }
-    
+        self._context: Optional[BuildStatusContext] = None
+
     @property
     def _proxy(self):
         """
@@ -195,6 +147,7 @@ class BuildStatusContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
         self._solution = { 
             'service_sid': service_sid,
@@ -253,4 +206,56 @@ class BuildStatusContext(InstanceContext):
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.BuildStatusContext {}>'.format(context)
 
+
+
+class BuildStatusList(ListResource):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the BuildStatusList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Build resource from.
+        :param sid: The SID of the Build resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
+        """
+        super().__init__(version)
+
+        
+        # Path Solution
+        self._solution = { 'service_sid': service_sid, 'sid': sid,  }
+        
+        
+        
+
+    def get(self):
+        """
+        Constructs a BuildStatusContext
+        
+
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        """
+        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a BuildStatusContext
+        
+
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        """
+        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return '<Twilio.Serverless.V1.BuildStatusList>'
 

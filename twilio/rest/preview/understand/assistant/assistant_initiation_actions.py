@@ -13,64 +13,12 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class AssistantInitiationActionsList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the AssistantInitiationActionsList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid:
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a AssistantInitiationActionsContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        """
-        return AssistantInitiationActionsContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a AssistantInitiationActionsContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        """
-        return AssistantInitiationActionsContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.AssistantInitiationActionsList>"
 
 
 class AssistantInitiationActionsInstance(InstanceResource):
@@ -90,10 +38,10 @@ class AssistantInitiationActionsInstance(InstanceResource):
             "data": payload.get("data"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
         }
+        self._context: Optional[AssistantInitiationActionsContext] = None
 
     @property
     def _proxy(self):
@@ -328,3 +276,55 @@ class AssistantInitiationActionsContext(InstanceContext):
                 context
             )
         )
+
+
+class AssistantInitiationActionsList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the AssistantInitiationActionsList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid:
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a AssistantInitiationActionsContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        """
+        return AssistantInitiationActionsContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a AssistantInitiationActionsContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        """
+        return AssistantInitiationActionsContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.AssistantInitiationActionsList>"

@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,517 @@ from twilio.base.page import Page
 from twilio.rest.conversations.v1.service.user.user_conversation import (
     UserConversationList,
 )
+
+
+class UserInstance(InstanceResource):
+    class WebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
+    def __init__(
+        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
+    ):
+        """
+        Initialize the UserInstance
+
+        :returns: twilio.rest.conversations.v1.service.user.UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "chat_service_sid": payload.get("chat_service_sid"),
+            "role_sid": payload.get("role_sid"),
+            "identity": payload.get("identity"),
+            "friendly_name": payload.get("friendly_name"),
+            "attributes": payload.get("attributes"),
+            "is_online": payload.get("is_online"),
+            "is_notifiable": payload.get("is_notifiable"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[UserContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: UserContext for this UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserContext
+        """
+        if self._context is None:
+            self._context = UserContext(
+                self._version,
+                chat_service_sid=self._solution["chat_service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the User resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def chat_service_sid(self):
+        """
+        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+        :rtype: str
+        """
+        return self._properties["chat_service_sid"]
+
+    @property
+    def role_sid(self):
+        """
+        :returns: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) assigned to the user.
+        :rtype: str
+        """
+        return self._properties["role_sid"]
+
+    @property
+    def identity(self):
+        """
+        :returns: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+        :rtype: str
+        """
+        return self._properties["identity"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def attributes(self):
+        """
+        :returns: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :rtype: str
+        """
+        return self._properties["attributes"]
+
+    @property
+    def is_online(self):
+        """
+        :returns: Whether the User is actively connected to this Conversations Service and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for this Conversations Service, even if the Service's `reachability_enabled` is `true`.
+        :rtype: bool
+        """
+        return self._properties["is_online"]
+
+    @property
+    def is_notifiable(self):
+        """
+        :returns: Whether the User has a potentially valid Push Notification registration (APN or GCM) for this Conversations Service. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
+        :rtype: bool
+        """
+        return self._properties["is_notifiable"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: An absolute API resource URL for this user.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Asynchronous coroutine that deletes the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
+    def fetch(self):
+        """
+        Fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def update(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        attributes=values.unset,
+        role_sid=values.unset,
+    ):
+        """
+        Update the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        return self._proxy.update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            attributes=attributes,
+            role_sid=role_sid,
+        )
+
+    async def update_async(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        attributes=values.unset,
+        role_sid=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        return await self._proxy.update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            attributes=attributes,
+            role_sid=role_sid,
+        )
+
+    @property
+    def user_conversations(self):
+        """
+        Access the user_conversations
+
+        :returns: twilio.rest.conversations.v1.service.user.UserConversationList
+        :rtype: twilio.rest.conversations.v1.service.user.UserConversationList
+        """
+        return self._proxy.user_conversations
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.UserInstance {}>".format(context)
+
+
+class UserContext(InstanceContext):
+    def __init__(self, version: Version, chat_service_sid: str, sid: str):
+        """
+        Initialize the UserContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+
+        :returns: twilio.rest.conversations.v1.service.user.UserContext
+        :rtype: twilio.rest.conversations.v1.service.user.UserContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{chat_service_sid}/Users/{sid}".format(**self._solution)
+
+        self._user_conversations: Optional[UserConversationList] = None
+
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Asynchronous coroutine that deletes the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def fetch(self):
+        """
+        Fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the UserInstance
+
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        attributes=values.unset,
+        role_sid=values.unset,
+    ):
+        """
+        Update the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Attributes": attributes,
+                "RoleSid": role_sid,
+            }
+        )
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def update_async(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        attributes=values.unset,
+        role_sid=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the UserInstance
+
+        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Attributes": attributes,
+                "RoleSid": role_sid,
+            }
+        )
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return UserInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def user_conversations(self):
+        """
+        Access the user_conversations
+
+        :returns: twilio.rest.conversations.v1.service.user.UserConversationList
+        :rtype: twilio.rest.conversations.v1.service.user.UserConversationList
+        """
+        if self._user_conversations is None:
+            self._user_conversations = UserConversationList(
+                self._version,
+                self._solution["chat_service_sid"],
+                self._solution["sid"],
+            )
+        return self._user_conversations
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.UserContext {}>".format(context)
+
+
+class UserPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UserInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.user.UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        return UserInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.UserPage>"
 
 
 class UserList(ListResource):
@@ -329,530 +839,3 @@ class UserList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.UserList>"
-
-
-class UserPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the UserPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.conversations.v1.service.user.UserPage
-        :rtype: twilio.rest.conversations.v1.service.user.UserPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of UserInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.user.UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        return UserInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.UserPage>"
-
-
-class UserInstance(InstanceResource):
-    class WebhookEnabledType(object):
-        TRUE = "true"
-        FALSE = "false"
-
-    def __init__(
-        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
-    ):
-        """
-        Initialize the UserInstance
-
-        :returns: twilio.rest.conversations.v1.service.user.UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "role_sid": payload.get("role_sid"),
-            "identity": payload.get("identity"),
-            "friendly_name": payload.get("friendly_name"),
-            "attributes": payload.get("attributes"),
-            "is_online": payload.get("is_online"),
-            "is_notifiable": payload.get("is_notifiable"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._context = None
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: UserContext for this UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserContext
-        """
-        if self._context is None:
-            self._context = UserContext(
-                self._version,
-                chat_service_sid=self._solution["chat_service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the User resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the User resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def chat_service_sid(self):
-        """
-        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
-        :rtype: str
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def role_sid(self):
-        """
-        :returns: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) assigned to the user.
-        :rtype: str
-        """
-        return self._properties["role_sid"]
-
-    @property
-    def identity(self):
-        """
-        :returns: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-        :rtype: str
-        """
-        return self._properties["identity"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def attributes(self):
-        """
-        :returns: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :rtype: str
-        """
-        return self._properties["attributes"]
-
-    @property
-    def is_online(self):
-        """
-        :returns: Whether the User is actively connected to this Conversations Service and online. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, if the User has never been online for this Conversations Service, even if the Service's `reachability_enabled` is `true`.
-        :rtype: bool
-        """
-        return self._properties["is_online"]
-
-    @property
-    def is_notifiable(self):
-        """
-        :returns: Whether the User has a potentially valid Push Notification registration (APN or GCM) for this Conversations Service. If at least one registration exists, `true`; otherwise `false`. This value is only returned by Fetch actions that return a single resource and `null` is always returned by a Read action. This value is `null` if the Service's `reachability_enabled` is `false`, and if the User has never had a notification registration, even if the Service's `reachability_enabled` is `true`.
-        :rtype: bool
-        """
-        return self._properties["is_notifiable"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: An absolute API resource URL for this user.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Asynchronous coroutine that deletes the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
-    ):
-        """
-        Update the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        return self._proxy.update(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            attributes=attributes,
-            role_sid=role_sid,
-        )
-
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        return await self._proxy.update_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            attributes=attributes,
-            role_sid=role_sid,
-        )
-
-    @property
-    def user_conversations(self):
-        """
-        Access the user_conversations
-
-        :returns: twilio.rest.conversations.v1.service.user.UserConversationList
-        :rtype: twilio.rest.conversations.v1.service.user.UserConversationList
-        """
-        return self._proxy.user_conversations
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.UserInstance {}>".format(context)
-
-
-class UserContext(InstanceContext):
-    def __init__(self, version: Version, chat_service_sid: str, sid: str):
-        """
-        Initialize the UserContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
-        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-
-        :returns: twilio.rest.conversations.v1.service.user.UserContext
-        :rtype: twilio.rest.conversations.v1.service.user.UserContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{chat_service_sid}/Users/{sid}".format(**self._solution)
-
-        self._user_conversations = None
-
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
-
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Asynchronous coroutine that deletes the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
-
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the UserInstance
-
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def update(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
-    ):
-        """
-        Update the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Attributes": attributes,
-                "RoleSid": role_sid,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        attributes=values.unset,
-        role_sid=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the UserInstance
-
-        :param UserInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Attributes": attributes,
-                "RoleSid": role_sid,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return UserInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def user_conversations(self):
-        """
-        Access the user_conversations
-
-        :returns: twilio.rest.conversations.v1.service.user.UserConversationList
-        :rtype: twilio.rest.conversations.v1.service.user.UserConversationList
-        """
-        if self._user_conversations is None:
-            self._user_conversations = UserConversationList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
-            )
-        return self._user_conversations
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.UserContext {}>".format(context)

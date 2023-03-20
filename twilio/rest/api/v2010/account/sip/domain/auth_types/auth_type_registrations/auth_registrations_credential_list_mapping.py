@@ -14,13 +14,289 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class AuthRegistrationsCredentialListMappingInstance(InstanceResource):
+    def __init__(
+        self,
+        version,
+        payload,
+        account_sid: str,
+        domain_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the AuthRegistrationsCredentialListMappingInstance
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
+            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
+            "friendly_name": payload.get("friendly_name"),
+            "sid": payload.get("sid"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+            "domain_sid": domain_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[AuthRegistrationsCredentialListMappingContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: AuthRegistrationsCredentialListMappingContext for this AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext
+        """
+        if self._context is None:
+            self._context = AuthRegistrationsCredentialListMappingContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                domain_sid=self._solution["domain_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the CredentialListMapping resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    def delete(self):
+        """
+        Deletes the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingInstance {}>".format(
+            context
+        )
+
+
+class AuthRegistrationsCredentialListMappingContext(InstanceContext):
+    def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
+        """
+        Initialize the AuthRegistrationsCredentialListMappingContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
+        :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+            "domain_sid": domain_sid,
+            "sid": sid,
+        }
+        self._uri = "/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Registrations/CredentialListMappings/{sid}.json".format(
+            **self._solution
+        )
+
+    def delete(self):
+        """
+        Deletes the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AuthRegistrationsCredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            domain_sid=self._solution["domain_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AuthRegistrationsCredentialListMappingInstance
+
+
+        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AuthRegistrationsCredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            domain_sid=self._solution["domain_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingContext {}>".format(
+            context
+        )
+
+
+class AuthRegistrationsCredentialListMappingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AuthRegistrationsCredentialListMappingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        """
+        return AuthRegistrationsCredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            domain_sid=self._solution["domain_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingPage>"
 
 
 class AuthRegistrationsCredentialListMappingList(ListResource):
@@ -318,296 +594,3 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingList>"
-
-
-class AuthRegistrationsCredentialListMappingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AuthRegistrationsCredentialListMappingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingPage
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of AuthRegistrationsCredentialListMappingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        """
-        return AuthRegistrationsCredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            domain_sid=self._solution["domain_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingPage>"
-
-
-class AuthRegistrationsCredentialListMappingInstance(InstanceResource):
-    def __init__(
-        self,
-        version,
-        payload,
-        account_sid: str,
-        domain_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the AuthRegistrationsCredentialListMappingInstance
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "friendly_name": payload.get("friendly_name"),
-            "sid": payload.get("sid"),
-        }
-
-        self._context = None
-        self._solution = {
-            "account_sid": account_sid,
-            "domain_sid": domain_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: AuthRegistrationsCredentialListMappingContext for this AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext
-        """
-        if self._context is None:
-            self._context = AuthRegistrationsCredentialListMappingContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                domain_sid=self._solution["domain_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that that we created to identify the CredentialListMapping resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    def delete(self):
-        """
-        Deletes the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingInstance {}>".format(
-            context
-        )
-
-
-class AuthRegistrationsCredentialListMappingContext(InstanceContext):
-    def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
-        """
-        Initialize the AuthRegistrationsCredentialListMappingContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
-        :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
-        :param sid: The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "domain_sid": domain_sid,
-            "sid": sid,
-        }
-        self._uri = "/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Registrations/CredentialListMappings/{sid}.json".format(
-            **self._solution
-        )
-
-    def delete(self):
-        """
-        Deletes the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AuthRegistrationsCredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            domain_sid=self._solution["domain_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AuthRegistrationsCredentialListMappingInstance
-
-
-        :returns: The fetched AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AuthRegistrationsCredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            domain_sid=self._solution["domain_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingContext {}>".format(
-            context
-        )

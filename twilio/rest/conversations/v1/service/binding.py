@@ -14,14 +14,330 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class BindingInstance(InstanceResource):
+    class BindingType(object):
+        APN = "apn"
+        GCM = "gcm"
+        FCM = "fcm"
+
+    def __init__(
+        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
+    ):
+        """
+        Initialize the BindingInstance
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "chat_service_sid": payload.get("chat_service_sid"),
+            "credential_sid": payload.get("credential_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "endpoint": payload.get("endpoint"),
+            "identity": payload.get("identity"),
+            "binding_type": payload.get("binding_type"),
+            "message_types": payload.get("message_types"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[BindingContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: BindingContext for this BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
+        """
+        if self._context is None:
+            self._context = BindingContext(
+                self._version,
+                chat_service_sid=self._solution["chat_service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this binding.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def chat_service_sid(self):
+        """
+        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+        :rtype: str
+        """
+        return self._properties["chat_service_sid"]
+
+    @property
+    def credential_sid(self):
+        """
+        :returns: The SID of the [Credential](https://www.twilio.com/docs/conversations/api/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :rtype: str
+        """
+        return self._properties["credential_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this resource was created.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was last updated.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def endpoint(self):
+        """
+        :returns: The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
+        :rtype: str
+        """
+        return self._properties["endpoint"]
+
+    @property
+    def identity(self):
+        """
+        :returns: The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
+        :rtype: str
+        """
+        return self._properties["identity"]
+
+    @property
+    def binding_type(self):
+        """
+        :returns:
+        :rtype: BindingInstance.BindingType
+        """
+        return self._properties["binding_type"]
+
+    @property
+    def message_types(self):
+        """
+        :returns: The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
+        :rtype: list[str]
+        """
+        return self._properties["message_types"]
+
+    @property
+    def url(self):
+        """
+        :returns: An absolute API resource URL for this binding.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the BindingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BindingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the BindingInstance
+
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BindingInstance
+
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.BindingInstance {}>".format(context)
+
+
+class BindingContext(InstanceContext):
+    def __init__(self, version: Version, chat_service_sid: str, sid: str):
+        """
+        Initialize the BindingContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{chat_service_sid}/Bindings/{sid}".format(
+            **self._solution
+        )
+
+    def delete(self):
+        """
+        Deletes the BindingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the BindingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the BindingInstance
+
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return BindingInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the BindingInstance
+
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return BindingInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.BindingContext {}>".format(context)
+
+
+class BindingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BindingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+        return BindingInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.BindingPage>"
 
 
 class BindingList(ListResource):
@@ -303,337 +619,3 @@ class BindingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.BindingList>"
-
-
-class BindingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the BindingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingPage
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of BindingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-        return BindingInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.BindingPage>"
-
-
-class BindingInstance(InstanceResource):
-    class BindingType(object):
-        APN = "apn"
-        GCM = "gcm"
-        FCM = "fcm"
-
-    def __init__(
-        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
-    ):
-        """
-        Initialize the BindingInstance
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "credential_sid": payload.get("credential_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "endpoint": payload.get("endpoint"),
-            "identity": payload.get("identity"),
-            "binding_type": payload.get("binding_type"),
-            "message_types": payload.get("message_types"),
-            "url": payload.get("url"),
-        }
-
-        self._context = None
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: BindingContext for this BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
-        """
-        if self._context is None:
-            self._context = BindingContext(
-                self._version,
-                chat_service_sid=self._solution["chat_service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this binding.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def chat_service_sid(self):
-        """
-        :returns: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
-        :rtype: str
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def credential_sid(self):
-        """
-        :returns: The SID of the [Credential](https://www.twilio.com/docs/conversations/api/credential-resource) for the binding. See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        :rtype: str
-        """
-        return self._properties["credential_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date that this resource was created.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this resource was last updated.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def endpoint(self):
-        """
-        :returns: The unique endpoint identifier for the Binding. The format of this value depends on the `binding_type`.
-        :rtype: str
-        """
-        return self._properties["endpoint"]
-
-    @property
-    def identity(self):
-        """
-        :returns: The application-defined string that uniquely identifies the [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more info.
-        :rtype: str
-        """
-        return self._properties["identity"]
-
-    @property
-    def binding_type(self):
-        """
-        :returns:
-        :rtype: BindingInstance.BindingType
-        """
-        return self._properties["binding_type"]
-
-    @property
-    def message_types(self):
-        """
-        :returns: The [Conversation message types](https://www.twilio.com/docs/chat/push-notification-configuration#push-types) the binding is subscribed to.
-        :rtype: list[str]
-        """
-        return self._properties["message_types"]
-
-    @property
-    def url(self):
-        """
-        :returns: An absolute API resource URL for this binding.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the BindingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the BindingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the BindingInstance
-
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the BindingInstance
-
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.BindingInstance {}>".format(context)
-
-
-class BindingContext(InstanceContext):
-    def __init__(self, version: Version, chat_service_sid: str, sid: str):
-        """
-        Initialize the BindingContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{chat_service_sid}/Bindings/{sid}".format(
-            **self._solution
-        )
-
-    def delete(self):
-        """
-        Deletes the BindingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the BindingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the BindingInstance
-
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return BindingInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the BindingInstance
-
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return BindingInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.BindingContext {}>".format(context)

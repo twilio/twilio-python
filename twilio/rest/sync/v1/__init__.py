@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.sync.v1.service import ServiceList
@@ -24,15 +25,11 @@ class V1(Version):
 
         :param domain: The Twilio.sync domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._services = None
+        super().__init__(domain, "v1")
+        self._services: Optional[ServiceList] = None
 
     @property
     def services(self) -> ServiceList:
-        """
-        :rtype: twilio.rest.sync.v1.service.ServiceList
-        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
@@ -41,6 +38,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Sync.V1>"

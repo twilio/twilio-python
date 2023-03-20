@@ -13,65 +13,12 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class WorkspaceCumulativeStatisticsList(ListResource):
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the WorkspaceCumulativeStatisticsList
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a WorkspaceCumulativeStatisticsContext
-
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
-        """
-        return WorkspaceCumulativeStatisticsContext(
-            self._version, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a WorkspaceCumulativeStatisticsContext
-
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
-        """
-        return WorkspaceCumulativeStatisticsContext(
-            self._version, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkspaceCumulativeStatisticsList>"
 
 
 class WorkspaceCumulativeStatisticsInstance(InstanceResource):
@@ -124,10 +71,10 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
         }
+        self._context: Optional[WorkspaceCumulativeStatisticsContext] = None
 
     @property
     def _proxy(self):
@@ -494,3 +441,55 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.WorkspaceCumulativeStatisticsContext {}>".format(
             context
         )
+
+
+class WorkspaceCumulativeStatisticsList(ListResource):
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the WorkspaceCumulativeStatisticsList
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace to fetch.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a WorkspaceCumulativeStatisticsContext
+
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
+        """
+        return WorkspaceCumulativeStatisticsContext(
+            self._version, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a WorkspaceCumulativeStatisticsContext
+
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsContext
+        """
+        return WorkspaceCumulativeStatisticsContext(
+            self._version, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.WorkspaceCumulativeStatisticsList>"

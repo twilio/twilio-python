@@ -21,53 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class ExportConfigurationList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the ExportConfigurationList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self, resource_type):
-        """
-        Constructs a ExportConfigurationContext
-
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
-
-        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
-        """
-        return ExportConfigurationContext(self._version, resource_type=resource_type)
-
-    def __call__(self, resource_type):
-        """
-        Constructs a ExportConfigurationContext
-
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
-
-        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
-        """
-        return ExportConfigurationContext(self._version, resource_type=resource_type)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Bulkexports.V1.ExportConfigurationList>"
-
-
 class ExportConfigurationInstance(InstanceResource):
     def __init__(self, version, payload, resource_type: Optional[str] = None):
         """
@@ -86,10 +39,10 @@ class ExportConfigurationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "resource_type": resource_type or self._properties["resource_type"],
         }
+        self._context: Optional[ExportConfigurationContext] = None
 
     @property
     def _proxy(self):
@@ -358,3 +311,47 @@ class ExportConfigurationContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Bulkexports.V1.ExportConfigurationContext {}>".format(context)
+
+
+class ExportConfigurationList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the ExportConfigurationList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
+        """
+        super().__init__(version)
+
+    def get(self, resource_type):
+        """
+        Constructs a ExportConfigurationContext
+
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        """
+        return ExportConfigurationContext(self._version, resource_type=resource_type)
+
+    def __call__(self, resource_type):
+        """
+        Constructs a ExportConfigurationContext
+
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        """
+        return ExportConfigurationContext(self._version, resource_type=resource_type)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Bulkexports.V1.ExportConfigurationList>"

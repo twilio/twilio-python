@@ -14,59 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class SipDomainList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SipDomainList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainList
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self, sip_domain):
-        """
-        Constructs a SipDomainContext
-
-        :param sip_domain:
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        """
-        return SipDomainContext(self._version, sip_domain=sip_domain)
-
-    def __call__(self, sip_domain):
-        """
-        Constructs a SipDomainContext
-
-        :param sip_domain:
-
-        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
-        """
-        return SipDomainContext(self._version, sip_domain=sip_domain)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Routes.V2.SipDomainList>"
 
 
 class SipDomainInstance(InstanceResource):
@@ -90,10 +42,10 @@ class SipDomainInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "sip_domain": sip_domain or self._properties["sip_domain"],
         }
+        self._context: Optional[SipDomainContext] = None
 
     @property
     def _proxy(self):
@@ -358,3 +310,47 @@ class SipDomainContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Routes.V2.SipDomainContext {}>".format(context)
+
+
+class SipDomainList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SipDomainList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainList
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainList
+        """
+        super().__init__(version)
+
+    def get(self, sip_domain):
+        """
+        Constructs a SipDomainContext
+
+        :param sip_domain:
+
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        """
+        return SipDomainContext(self._version, sip_domain=sip_domain)
+
+    def __call__(self, sip_domain):
+        """
+        Constructs a SipDomainContext
+
+        :param sip_domain:
+
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        """
+        return SipDomainContext(self._version, sip_domain=sip_domain)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Routes.V2.SipDomainList>"

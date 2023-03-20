@@ -19,26 +19,22 @@ class ContentBase(Domain):
         Initialize the Content Domain
 
         :returns: Domain for Content
-        :rtype: twilio.rest.content.Content
         """
-        super().__init__(twilio)
-        self.base_url = "https://content.twilio.com"
+        super().__init__(twilio, "https://content.twilio.com")
         self._v1 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of Content
-        :rtype: twilio.rest.content.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Content>"

@@ -28,9 +28,9 @@ class Client(ClientBase):
         """
         Initializes the Twilio Client
 
-        :param str username: Username to authenticate with
-        :param str password: Password to authenticate with
-        :param str account_sid: Account SID, defaults to Username
+        :param str username: Username to authenticate with, either account_sid or api_key
+        :param str password: Password to authenticate with, auth_token (if using account_sid) or api_secret (if using api_key)
+        :param str account_sid: Account SID, required if using api_key to authenticate.
         :param str region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
         :param dict environment: Environment to look for auth details, defaults to os.environ

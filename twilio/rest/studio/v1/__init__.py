@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.studio.v1.flow import FlowList
@@ -24,15 +25,11 @@ class V1(Version):
 
         :param domain: The Twilio.studio domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._flows = None
+        super().__init__(domain, "v1")
+        self._flows: Optional[FlowList] = None
 
     @property
     def flows(self) -> FlowList:
-        """
-        :rtype: twilio.rest.studio.v1.flow.FlowList
-        """
         if self._flows is None:
             self._flows = FlowList(self)
         return self._flows
@@ -41,6 +38,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V1>"

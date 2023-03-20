@@ -13,68 +13,11 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class ExecutionContextList(ListResource):
-    def __init__(self, version: Version, flow_sid: str, execution_sid: str):
-        """
-        Initialize the ExecutionContextList
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Execution context to fetch.
-        :param execution_sid: The SID of the Execution context to fetch.
-
-        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextList
-        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-            "execution_sid": execution_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a ExecutionContextContext
-
-
-        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
-        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
-        """
-        return ExecutionContextContext(
-            self._version,
-            flow_sid=self._solution["flow_sid"],
-            execution_sid=self._solution["execution_sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a ExecutionContextContext
-
-
-        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
-        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
-        """
-        return ExecutionContextContext(
-            self._version,
-            flow_sid=self._solution["flow_sid"],
-            execution_sid=self._solution["execution_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Studio.V2.ExecutionContextList>"
 
 
 class ExecutionContextInstance(InstanceResource):
@@ -95,11 +38,11 @@ class ExecutionContextInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "flow_sid": flow_sid,
             "execution_sid": execution_sid,
         }
+        self._context: Optional[ExecutionContextContext] = None
 
     @property
     def _proxy(self):
@@ -263,3 +206,61 @@ class ExecutionContextContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V2.ExecutionContextContext {}>".format(context)
+
+
+class ExecutionContextList(ListResource):
+    def __init__(self, version: Version, flow_sid: str, execution_sid: str):
+        """
+        Initialize the ExecutionContextList
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow with the Execution context to fetch.
+        :param execution_sid: The SID of the Execution context to fetch.
+
+        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextList
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "flow_sid": flow_sid,
+            "execution_sid": execution_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a ExecutionContextContext
+
+
+        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
+        """
+        return ExecutionContextContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            execution_sid=self._solution["execution_sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a ExecutionContextContext
+
+
+        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
+        """
+        return ExecutionContextContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            execution_sid=self._solution["execution_sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Studio.V2.ExecutionContextList>"

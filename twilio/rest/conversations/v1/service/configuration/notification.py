@@ -13,63 +13,12 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class NotificationList(ListResource):
-    def __init__(self, version: Version, chat_service_sid: str):
-        """
-        Initialize the NotificationList
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
-
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a NotificationContext
-
-
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
-        """
-        return NotificationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a NotificationContext
-
-
-        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
-        """
-        return NotificationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.NotificationList>"
 
 
 class NotificationInstance(InstanceResource):
@@ -92,10 +41,10 @@ class NotificationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
         }
+        self._context: Optional[NotificationContext] = None
 
     @property
     def _proxy(self):
@@ -502,3 +451,55 @@ class NotificationContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.NotificationContext {}>".format(context)
+
+
+class NotificationList(ListResource):
+    def __init__(self, version: Version, chat_service_sid: str):
+        """
+        Initialize the NotificationList
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
+
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a NotificationContext
+
+
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        """
+        return NotificationContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a NotificationContext
+
+
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        """
+        return NotificationContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.NotificationList>"

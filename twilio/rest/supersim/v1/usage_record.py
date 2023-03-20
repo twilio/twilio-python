@@ -13,14 +13,169 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class UsageRecordInstance(InstanceResource):
+    class Granularity(object):
+        HOUR = "hour"
+        DAY = "day"
+        ALL = "all"
+
+    class Group(object):
+        SIM = "sim"
+        FLEET = "fleet"
+        NETWORK = "network"
+        ISOCOUNTRY = "isoCountry"
+
+    def __init__(self, version, payload):
+        """
+        Initialize the UsageRecordInstance
+
+        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "network_sid": payload.get("network_sid"),
+            "fleet_sid": payload.get("fleet_sid"),
+            "iso_country": payload.get("iso_country"),
+            "period": payload.get("period"),
+            "data_upload": payload.get("data_upload"),
+            "data_download": payload.get("data_download"),
+            "data_total": payload.get("data_total"),
+            "data_total_billed": deserialize.decimal(payload.get("data_total_billed")),
+            "billed_unit": payload.get("billed_unit"),
+        }
+
+        self._solution = {}
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that incurred the usage.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: SID of a Sim resource to which the UsageRecord belongs. Value will only be present when either a value for the `Sim` query parameter is provided or when UsageRecords are grouped by `sim`. Otherwise, the value will be `null`.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def network_sid(self):
+        """
+        :returns: SID of the Network resource the usage occurred on. Value will only be present when either a value for the `Network` query parameter is provided or when UsageRecords are grouped by `network`. Otherwise, the value will be `null`.
+        :rtype: str
+        """
+        return self._properties["network_sid"]
+
+    @property
+    def fleet_sid(self):
+        """
+        :returns: SID of the Fleet resource the usage occurred on. Value will only be present when either a value for the `Fleet` query parameter is provided or when UsageRecords are grouped by `fleet`. Otherwise, the value will be `null`.
+        :rtype: str
+        """
+        return self._properties["fleet_sid"]
+
+    @property
+    def iso_country(self):
+        """
+        :returns: Alpha-2 ISO Country Code that the usage occurred in. Value will only be present when either a value for the `IsoCountry` query parameter is provided or when UsageRecords are grouped by `isoCountry`. Otherwise, the value will be `null`.
+        :rtype: str
+        """
+        return self._properties["iso_country"]
+
+    @property
+    def period(self):
+        """
+        :returns: The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: dict
+        """
+        return self._properties["period"]
+
+    @property
+    def data_upload(self):
+        """
+        :returns: Total data uploaded in bytes, aggregated by the query parameters.
+        :rtype: int
+        """
+        return self._properties["data_upload"]
+
+    @property
+    def data_download(self):
+        """
+        :returns: Total data downloaded in bytes, aggregated by the query parameters.
+        :rtype: int
+        """
+        return self._properties["data_download"]
+
+    @property
+    def data_total(self):
+        """
+        :returns: Total of data_upload and data_download.
+        :rtype: int
+        """
+        return self._properties["data_total"]
+
+    @property
+    def data_total_billed(self):
+        """
+        :returns: Total amount in the `billed_unit` that was charged for the data uploaded or downloaded. Will return 0 for usage prior to February 1, 2022. Value may be 0 despite `data_total` being greater than 0 if the data usage is still being processed by Twilio's billing system. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
+        :rtype: float
+        """
+        return self._properties["data_total_billed"]
+
+    @property
+    def billed_unit(self):
+        """
+        :returns: The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`). This can be null when data_toal_billed is 0 and we do not yet have billing information for the corresponding data usage. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
+        :rtype: str
+        """
+        return self._properties["billed_unit"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.UsageRecordInstance {}>".format(context)
+
+
+class UsageRecordPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UsageRecordInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
+        """
+        return UsageRecordInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.UsageRecordPage>"
 
 
 class UsageRecordList(ListResource):
@@ -35,9 +190,7 @@ class UsageRecordList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/UsageRecords".format(**self._solution)
+        self._uri = "/UsageRecords"
 
     def stream(
         self,
@@ -295,7 +448,7 @@ class UsageRecordList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     async def page_async(
         self,
@@ -349,7 +502,7 @@ class UsageRecordList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -362,7 +515,7 @@ class UsageRecordList(ListResource):
         :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -375,7 +528,7 @@ class UsageRecordList(ListResource):
         :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     def __repr__(self):
         """
@@ -385,177 +538,3 @@ class UsageRecordList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.UsageRecordList>"
-
-
-class UsageRecordPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the UsageRecordPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordPage
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of UsageRecordInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        """
-        return UsageRecordInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Supersim.V1.UsageRecordPage>"
-
-
-class UsageRecordInstance(InstanceResource):
-    class Granularity(object):
-        HOUR = "hour"
-        DAY = "day"
-        ALL = "all"
-
-    class Group(object):
-        SIM = "sim"
-        FLEET = "fleet"
-        NETWORK = "network"
-        ISOCOUNTRY = "isoCountry"
-
-    def __init__(self, version, payload):
-        """
-        Initialize the UsageRecordInstance
-
-        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "network_sid": payload.get("network_sid"),
-            "fleet_sid": payload.get("fleet_sid"),
-            "iso_country": payload.get("iso_country"),
-            "period": payload.get("period"),
-            "data_upload": payload.get("data_upload"),
-            "data_download": payload.get("data_download"),
-            "data_total": payload.get("data_total"),
-            "data_total_billed": deserialize.decimal(payload.get("data_total_billed")),
-            "billed_unit": payload.get("billed_unit"),
-        }
-
-        self._context = None
-        self._solution = {}
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that incurred the usage.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: SID of a Sim resource to which the UsageRecord belongs. Value will only be present when either a value for the `Sim` query parameter is provided or when UsageRecords are grouped by `sim`. Otherwise, the value will be `null`.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def network_sid(self):
-        """
-        :returns: SID of the Network resource the usage occurred on. Value will only be present when either a value for the `Network` query parameter is provided or when UsageRecords are grouped by `network`. Otherwise, the value will be `null`.
-        :rtype: str
-        """
-        return self._properties["network_sid"]
-
-    @property
-    def fleet_sid(self):
-        """
-        :returns: SID of the Fleet resource the usage occurred on. Value will only be present when either a value for the `Fleet` query parameter is provided or when UsageRecords are grouped by `fleet`. Otherwise, the value will be `null`.
-        :rtype: str
-        """
-        return self._properties["fleet_sid"]
-
-    @property
-    def iso_country(self):
-        """
-        :returns: Alpha-2 ISO Country Code that the usage occurred in. Value will only be present when either a value for the `IsoCountry` query parameter is provided or when UsageRecords are grouped by `isoCountry`. Otherwise, the value will be `null`.
-        :rtype: str
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def period(self):
-        """
-        :returns: The time period for which the usage is reported. The period is represented as a pair of `start_time` and `end_time` timestamps specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: dict
-        """
-        return self._properties["period"]
-
-    @property
-    def data_upload(self):
-        """
-        :returns: Total data uploaded in bytes, aggregated by the query parameters.
-        :rtype: int
-        """
-        return self._properties["data_upload"]
-
-    @property
-    def data_download(self):
-        """
-        :returns: Total data downloaded in bytes, aggregated by the query parameters.
-        :rtype: int
-        """
-        return self._properties["data_download"]
-
-    @property
-    def data_total(self):
-        """
-        :returns: Total of data_upload and data_download.
-        :rtype: int
-        """
-        return self._properties["data_total"]
-
-    @property
-    def data_total_billed(self):
-        """
-        :returns: Total amount in the `billed_unit` that was charged for the data uploaded or downloaded. Will return 0 for usage prior to February 1, 2022. Value may be 0 despite `data_total` being greater than 0 if the data usage is still being processed by Twilio's billing system. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
-        :rtype: float
-        """
-        return self._properties["data_total_billed"]
-
-    @property
-    def billed_unit(self):
-        """
-        :returns: The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`). This can be null when data_toal_billed is 0 and we do not yet have billing information for the corresponding data usage. Refer to [Data Usage Processing](https://www.twilio.com/docs/iot/supersim/api/usage-record-resource#data-usage-processing) for more details.
-        :rtype: str
-        """
-        return self._properties["billed_unit"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.UsageRecordInstance {}>".format(context)

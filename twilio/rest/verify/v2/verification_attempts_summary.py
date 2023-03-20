@@ -13,58 +13,12 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class VerificationAttemptsSummaryList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the VerificationAttemptsSummaryList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a VerificationAttemptsSummaryContext
-
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        """
-        return VerificationAttemptsSummaryContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a VerificationAttemptsSummaryContext
-
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        """
-        return VerificationAttemptsSummaryContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.VerificationAttemptsSummaryList>"
 
 
 class VerificationAttemptsSummaryInstance(InstanceResource):
@@ -93,8 +47,8 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[VerificationAttemptsSummaryContext] = None
 
     @property
     def _proxy(self):
@@ -238,9 +192,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Attempts/Summary".format(**self._solution)
+        self._uri = "/Attempts/Summary"
 
     def fetch(
         self,
@@ -333,7 +285,47 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptsSummaryContext {}>".format(
-            context
-        )
+
+        return "<Twilio.Verify.V2.VerificationAttemptsSummaryContext>"
+
+
+class VerificationAttemptsSummaryList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the VerificationAttemptsSummaryList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a VerificationAttemptsSummaryContext
+
+
+        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        """
+        return VerificationAttemptsSummaryContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a VerificationAttemptsSummaryContext
+
+
+        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        """
+        return VerificationAttemptsSummaryContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Verify.V2.VerificationAttemptsSummaryList>"

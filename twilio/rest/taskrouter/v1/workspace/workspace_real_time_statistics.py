@@ -13,64 +13,12 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class WorkspaceRealTimeStatisticsList(ListResource):
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the WorkspaceRealTimeStatisticsList
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a WorkspaceRealTimeStatisticsContext
-
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
-        """
-        return WorkspaceRealTimeStatisticsContext(
-            self._version, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a WorkspaceRealTimeStatisticsContext
-
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
-        """
-        return WorkspaceRealTimeStatisticsContext(
-            self._version, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkspaceRealTimeStatisticsList>"
 
 
 class WorkspaceRealTimeStatisticsInstance(InstanceResource):
@@ -98,10 +46,10 @@ class WorkspaceRealTimeStatisticsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
         }
+        self._context: Optional[WorkspaceRealTimeStatisticsContext] = None
 
     @property
     def _proxy(self):
@@ -320,3 +268,55 @@ class WorkspaceRealTimeStatisticsContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.WorkspaceRealTimeStatisticsContext {}>".format(
             context
         )
+
+
+class WorkspaceRealTimeStatisticsList(ListResource):
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the WorkspaceRealTimeStatisticsList
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace to fetch.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a WorkspaceRealTimeStatisticsContext
+
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
+        """
+        return WorkspaceRealTimeStatisticsContext(
+            self._version, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a WorkspaceRealTimeStatisticsContext
+
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics.WorkspaceRealTimeStatisticsContext
+        """
+        return WorkspaceRealTimeStatisticsContext(
+            self._version, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.WorkspaceRealTimeStatisticsList>"

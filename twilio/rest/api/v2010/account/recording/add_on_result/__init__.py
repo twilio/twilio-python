@@ -14,14 +14,374 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.api.v2010.account.recording.add_on_result.payload import PayloadList
+
+
+class AddOnResultInstance(InstanceResource):
+    class Status(object):
+        CANCELED = "canceled"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+        IN_PROGRESS = "in-progress"
+        INIT = "init"
+        PROCESSING = "processing"
+        QUEUED = "queued"
+
+    def __init__(
+        self,
+        version,
+        payload,
+        account_sid: str,
+        reference_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the AddOnResultInstance
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "status": payload.get("status"),
+            "add_on_sid": payload.get("add_on_sid"),
+            "add_on_configuration_sid": payload.get("add_on_configuration_sid"),
+            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
+            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
+            "date_completed": deserialize.rfc2822_datetime(
+                payload.get("date_completed")
+            ),
+            "reference_sid": payload.get("reference_sid"),
+            "subresource_uris": payload.get("subresource_uris"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+            "reference_sid": reference_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[AddOnResultContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: AddOnResultContext for this AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        """
+        if self._context is None:
+            self._context = AddOnResultContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                reference_sid=self._solution["reference_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the Recording AddOnResult resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: AddOnResultInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def add_on_sid(self):
+        """
+        :returns: The SID of the Add-on to which the result belongs.
+        :rtype: str
+        """
+        return self._properties["add_on_sid"]
+
+    @property
+    def add_on_configuration_sid(self):
+        """
+        :returns: The SID of the Add-on configuration.
+        :rtype: str
+        """
+        return self._properties["add_on_configuration_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def date_completed(self):
+        """
+        :returns: The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_completed"]
+
+    @property
+    def reference_sid(self):
+        """
+        :returns: The SID of the recording to which the AddOnResult resource belongs.
+        :rtype: str
+        """
+        return self._properties["reference_sid"]
+
+    @property
+    def subresource_uris(self):
+        """
+        :returns: A list of related resources identified by their relative URIs.
+        :rtype: dict
+        """
+        return self._properties["subresource_uris"]
+
+    def delete(self):
+        """
+        Deletes the AddOnResultInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AddOnResultInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the AddOnResultInstance
+
+
+        :returns: The fetched AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AddOnResultInstance
+
+
+        :returns: The fetched AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+        return await self._proxy.fetch_async()
+
+    @property
+    def payloads(self):
+        """
+        Access the payloads
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
+        """
+        return self._proxy.payloads
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AddOnResultInstance {}>".format(context)
+
+
+class AddOnResultContext(InstanceContext):
+    def __init__(
+        self, version: Version, account_sid: str, reference_sid: str, sid: str
+    ):
+        """
+        Initialize the AddOnResultContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.
+        :param reference_sid: The SID of the recording to which the result to fetch belongs.
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+            "reference_sid": reference_sid,
+            "sid": sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{sid}.json".format(
+            **self._solution
+        )
+
+        self._payloads: Optional[PayloadList] = None
+
+    def delete(self):
+        """
+        Deletes the AddOnResultInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the AddOnResultInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the AddOnResultInstance
+
+
+        :returns: The fetched AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AddOnResultInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AddOnResultInstance
+
+
+        :returns: The fetched AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AddOnResultInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def payloads(self):
+        """
+        Access the payloads
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
+        """
+        if self._payloads is None:
+            self._payloads = PayloadList(
+                self._version,
+                self._solution["account_sid"],
+                self._solution["reference_sid"],
+                self._solution["sid"],
+            )
+        return self._payloads
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AddOnResultContext {}>".format(context)
+
+
+class AddOnResultPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AddOnResultInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+        return AddOnResultInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AddOnResultPage>"
 
 
 class AddOnResultList(ListResource):
@@ -255,380 +615,3 @@ class AddOnResultList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AddOnResultList>"
-
-
-class AddOnResultPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AddOnResultPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of AddOnResultInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-        return AddOnResultInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            reference_sid=self._solution["reference_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.AddOnResultPage>"
-
-
-class AddOnResultInstance(InstanceResource):
-    class Status(object):
-        CANCELED = "canceled"
-        COMPLETED = "completed"
-        DELETED = "deleted"
-        FAILED = "failed"
-        IN_PROGRESS = "in-progress"
-        INIT = "init"
-        PROCESSING = "processing"
-        QUEUED = "queued"
-
-    def __init__(
-        self,
-        version,
-        payload,
-        account_sid: str,
-        reference_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the AddOnResultInstance
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "status": payload.get("status"),
-            "add_on_sid": payload.get("add_on_sid"),
-            "add_on_configuration_sid": payload.get("add_on_configuration_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "date_completed": deserialize.rfc2822_datetime(
-                payload.get("date_completed")
-            ),
-            "reference_sid": payload.get("reference_sid"),
-            "subresource_uris": payload.get("subresource_uris"),
-        }
-
-        self._context = None
-        self._solution = {
-            "account_sid": account_sid,
-            "reference_sid": reference_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: AddOnResultContext for this AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        """
-        if self._context is None:
-            self._context = AddOnResultContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                reference_sid=self._solution["reference_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that that we created to identify the Recording AddOnResult resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: AddOnResultInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def add_on_sid(self):
-        """
-        :returns: The SID of the Add-on to which the result belongs.
-        :rtype: str
-        """
-        return self._properties["add_on_sid"]
-
-    @property
-    def add_on_configuration_sid(self):
-        """
-        :returns: The SID of the Add-on configuration.
-        :rtype: str
-        """
-        return self._properties["add_on_configuration_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def date_completed(self):
-        """
-        :returns: The date and time in GMT that the result was completed specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_completed"]
-
-    @property
-    def reference_sid(self):
-        """
-        :returns: The SID of the recording to which the AddOnResult resource belongs.
-        :rtype: str
-        """
-        return self._properties["reference_sid"]
-
-    @property
-    def subresource_uris(self):
-        """
-        :returns: A list of related resources identified by their relative URIs.
-        :rtype: dict
-        """
-        return self._properties["subresource_uris"]
-
-    def delete(self):
-        """
-        Deletes the AddOnResultInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the AddOnResultInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the AddOnResultInstance
-
-
-        :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AddOnResultInstance
-
-
-        :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-        return await self._proxy.fetch_async()
-
-    @property
-    def payloads(self):
-        """
-        Access the payloads
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        """
-        return self._proxy.payloads
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AddOnResultInstance {}>".format(context)
-
-
-class AddOnResultContext(InstanceContext):
-    def __init__(
-        self, version: Version, account_sid: str, reference_sid: str, sid: str
-    ):
-        """
-        Initialize the AddOnResultContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.
-        :param reference_sid: The SID of the recording to which the result to fetch belongs.
-        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "reference_sid": reference_sid,
-            "sid": sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{sid}.json".format(
-            **self._solution
-        )
-
-        self._payloads = None
-
-    def delete(self):
-        """
-        Deletes the AddOnResultInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the AddOnResultInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the AddOnResultInstance
-
-
-        :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AddOnResultInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            reference_sid=self._solution["reference_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AddOnResultInstance
-
-
-        :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AddOnResultInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            reference_sid=self._solution["reference_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def payloads(self):
-        """
-        Access the payloads
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        """
-        if self._payloads is None:
-            self._payloads = PayloadList(
-                self._version,
-                self._solution["account_sid"],
-                self._solution["reference_sid"],
-                self._solution["sid"],
-            )
-        return self._payloads
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AddOnResultContext {}>".format(context)

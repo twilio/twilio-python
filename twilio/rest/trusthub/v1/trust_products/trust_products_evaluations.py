@@ -14,13 +14,260 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class TrustProductsEvaluationsInstance(InstanceResource):
+    class Status(object):
+        COMPLIANT = "compliant"
+        NONCOMPLIANT = "noncompliant"
+
+    def __init__(
+        self, version, payload, trust_product_sid: str, sid: Optional[str] = None
+    ):
+        """
+        Initialize the TrustProductsEvaluationsInstance
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "policy_sid": payload.get("policy_sid"),
+            "trust_product_sid": payload.get("trust_product_sid"),
+            "status": payload.get("status"),
+            "results": payload.get("results"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "trust_product_sid": trust_product_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[TrustProductsEvaluationsContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: TrustProductsEvaluationsContext for this TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        """
+        if self._context is None:
+            self._context = TrustProductsEvaluationsContext(
+                self._version,
+                trust_product_sid=self._solution["trust_product_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies the Evaluation resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the trust_product resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def policy_sid(self):
+        """
+        :returns: The unique string of a policy that is associated to the trust_product resource.
+        :rtype: str
+        """
+        return self._properties["policy_sid"]
+
+    @property
+    def trust_product_sid(self):
+        """
+        :returns: The unique string that we created to identify the trust_product resource.
+        :rtype: str
+        """
+        return self._properties["trust_product_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: TrustProductsEvaluationsInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def results(self):
+        """
+        :returns: The results of the Evaluation which includes the valid and invalid attributes.
+        :rtype: list[object]
+        """
+        return self._properties["results"]
+
+    @property
+    def date_created(self):
+        """
+        :returns:
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the TrustProductsEvaluationsInstance
+
+
+        :returns: The fetched TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TrustProductsEvaluationsInstance
+
+
+        :returns: The fetched TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsInstance {}>".format(
+            context
+        )
+
+
+class TrustProductsEvaluationsContext(InstanceContext):
+    def __init__(self, version: Version, trust_product_sid: str, sid: str):
+        """
+        Initialize the TrustProductsEvaluationsContext
+
+        :param Version version: Version that contains the resource
+        :param trust_product_sid: The unique string that we created to identify the trust_product resource.
+        :param sid: The unique string that identifies the Evaluation resource.
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "trust_product_sid": trust_product_sid,
+            "sid": sid,
+        }
+        self._uri = "/TrustProducts/{trust_product_sid}/Evaluations/{sid}".format(
+            **self._solution
+        )
+
+    def fetch(self):
+        """
+        Fetch the TrustProductsEvaluationsInstance
+
+
+        :returns: The fetched TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return TrustProductsEvaluationsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the TrustProductsEvaluationsInstance
+
+
+        :returns: The fetched TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return TrustProductsEvaluationsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsContext {}>".format(context)
+
+
+class TrustProductsEvaluationsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TrustProductsEvaluationsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        return TrustProductsEvaluationsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsPage>"
 
 
 class TrustProductsEvaluationsList(ListResource):
@@ -304,267 +551,3 @@ class TrustProductsEvaluationsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsEvaluationsList>"
-
-
-class TrustProductsEvaluationsPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the TrustProductsEvaluationsPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsPage
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of TrustProductsEvaluationsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-        return TrustProductsEvaluationsInstance(
-            self._version,
-            payload,
-            trust_product_sid=self._solution["trust_product_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsPage>"
-
-
-class TrustProductsEvaluationsInstance(InstanceResource):
-    class Status(object):
-        COMPLIANT = "compliant"
-        NONCOMPLIANT = "noncompliant"
-
-    def __init__(
-        self, version, payload, trust_product_sid: str, sid: Optional[str] = None
-    ):
-        """
-        Initialize the TrustProductsEvaluationsInstance
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "policy_sid": payload.get("policy_sid"),
-            "trust_product_sid": payload.get("trust_product_sid"),
-            "status": payload.get("status"),
-            "results": payload.get("results"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
-
-        self._context = None
-        self._solution = {
-            "trust_product_sid": trust_product_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: TrustProductsEvaluationsContext for this TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
-        """
-        if self._context is None:
-            self._context = TrustProductsEvaluationsContext(
-                self._version,
-                trust_product_sid=self._solution["trust_product_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that identifies the Evaluation resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the trust_product resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def policy_sid(self):
-        """
-        :returns: The unique string of a policy that is associated to the trust_product resource.
-        :rtype: str
-        """
-        return self._properties["policy_sid"]
-
-    @property
-    def trust_product_sid(self):
-        """
-        :returns: The unique string that we created to identify the trust_product resource.
-        :rtype: str
-        """
-        return self._properties["trust_product_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: TrustProductsEvaluationsInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def results(self):
-        """
-        :returns: The results of the Evaluation which includes the valid and invalid attributes.
-        :rtype: list[object]
-        """
-        return self._properties["results"]
-
-    @property
-    def date_created(self):
-        """
-        :returns:
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the TrustProductsEvaluationsInstance
-
-
-        :returns: The fetched TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the TrustProductsEvaluationsInstance
-
-
-        :returns: The fetched TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsInstance {}>".format(
-            context
-        )
-
-
-class TrustProductsEvaluationsContext(InstanceContext):
-    def __init__(self, version: Version, trust_product_sid: str, sid: str):
-        """
-        Initialize the TrustProductsEvaluationsContext
-
-        :param Version version: Version that contains the resource
-        :param trust_product_sid: The unique string that we created to identify the trust_product resource.
-        :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "trust_product_sid": trust_product_sid,
-            "sid": sid,
-        }
-        self._uri = "/TrustProducts/{trust_product_sid}/Evaluations/{sid}".format(
-            **self._solution
-        )
-
-    def fetch(self):
-        """
-        Fetch the TrustProductsEvaluationsInstance
-
-
-        :returns: The fetched TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return TrustProductsEvaluationsInstance(
-            self._version,
-            payload,
-            trust_product_sid=self._solution["trust_product_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the TrustProductsEvaluationsInstance
-
-
-        :returns: The fetched TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return TrustProductsEvaluationsInstance(
-            self._version,
-            payload,
-            trust_product_sid=self._solution["trust_product_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsContext {}>".format(context)

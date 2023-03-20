@@ -21,6 +21,156 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class ExportCustomJobInstance(InstanceResource):
+    def __init__(self, version, payload, resource_type: str):
+        """
+        Initialize the ExportCustomJobInstance
+
+        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "friendly_name": payload.get("friendly_name"),
+            "resource_type": payload.get("resource_type"),
+            "start_day": payload.get("start_day"),
+            "end_day": payload.get("end_day"),
+            "webhook_url": payload.get("webhook_url"),
+            "webhook_method": payload.get("webhook_method"),
+            "email": payload.get("email"),
+            "job_sid": payload.get("job_sid"),
+            "details": payload.get("details"),
+            "job_queue_position": payload.get("job_queue_position"),
+            "estimated_completion_time": payload.get("estimated_completion_time"),
+        }
+
+        self._solution = {
+            "resource_type": resource_type,
+        }
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The friendly name specified when creating the job
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def resource_type(self):
+        """
+        :returns: The type of communication – Messages, Calls, Conferences, and Participants
+        :rtype: str
+        """
+        return self._properties["resource_type"]
+
+    @property
+    def start_day(self):
+        """
+        :returns: The start day for the custom export specified when creating the job
+        :rtype: str
+        """
+        return self._properties["start_day"]
+
+    @property
+    def end_day(self):
+        """
+        :returns: The end day for the export specified when creating the job
+        :rtype: str
+        """
+        return self._properties["end_day"]
+
+    @property
+    def webhook_url(self):
+        """
+        :returns: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied.
+        :rtype: str
+        """
+        return self._properties["webhook_url"]
+
+    @property
+    def webhook_method(self):
+        """
+        :returns: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+        :rtype: str
+        """
+        return self._properties["webhook_method"]
+
+    @property
+    def email(self):
+        """
+        :returns: The optional email to send the completion notification to
+        :rtype: str
+        """
+        return self._properties["email"]
+
+    @property
+    def job_sid(self):
+        """
+        :returns: The unique job_sid returned when the custom export was created
+        :rtype: str
+        """
+        return self._properties["job_sid"]
+
+    @property
+    def details(self):
+        """
+        :returns: The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
+        :rtype: dict
+        """
+        return self._properties["details"]
+
+    @property
+    def job_queue_position(self):
+        """
+        :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+        :rtype: str
+        """
+        return self._properties["job_queue_position"]
+
+    @property
+    def estimated_completion_time(self):
+        """
+        :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+        :rtype: str
+        """
+        return self._properties["estimated_completion_time"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Bulkexports.V1.ExportCustomJobInstance {}>".format(context)
+
+
+class ExportCustomJobPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ExportCustomJobInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        """
+        return ExportCustomJobInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Bulkexports.V1.ExportCustomJobPage>"
+
+
 class ExportCustomJobList(ListResource):
     def __init__(self, version: Version, resource_type: str):
         """
@@ -302,170 +452,3 @@ class ExportCustomJobList(ListResource):
         :rtype: str
         """
         return "<Twilio.Bulkexports.V1.ExportCustomJobList>"
-
-
-class ExportCustomJobPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ExportCustomJobPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
-        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of ExportCustomJobInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
-        """
-        return ExportCustomJobInstance(
-            self._version, payload, resource_type=self._solution["resource_type"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Bulkexports.V1.ExportCustomJobPage>"
-
-
-class ExportCustomJobInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str):
-        """
-        Initialize the ExportCustomJobInstance
-
-        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "friendly_name": payload.get("friendly_name"),
-            "resource_type": payload.get("resource_type"),
-            "start_day": payload.get("start_day"),
-            "end_day": payload.get("end_day"),
-            "webhook_url": payload.get("webhook_url"),
-            "webhook_method": payload.get("webhook_method"),
-            "email": payload.get("email"),
-            "job_sid": payload.get("job_sid"),
-            "details": payload.get("details"),
-            "job_queue_position": payload.get("job_queue_position"),
-            "estimated_completion_time": payload.get("estimated_completion_time"),
-        }
-
-        self._context = None
-        self._solution = {
-            "resource_type": resource_type,
-        }
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The friendly name specified when creating the job
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def resource_type(self):
-        """
-        :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        :rtype: str
-        """
-        return self._properties["resource_type"]
-
-    @property
-    def start_day(self):
-        """
-        :returns: The start day for the custom export specified when creating the job
-        :rtype: str
-        """
-        return self._properties["start_day"]
-
-    @property
-    def end_day(self):
-        """
-        :returns: The end day for the export specified when creating the job
-        :rtype: str
-        """
-        return self._properties["end_day"]
-
-    @property
-    def webhook_url(self):
-        """
-        :returns: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied.
-        :rtype: str
-        """
-        return self._properties["webhook_url"]
-
-    @property
-    def webhook_method(self):
-        """
-        :returns: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
-        :rtype: str
-        """
-        return self._properties["webhook_method"]
-
-    @property
-    def email(self):
-        """
-        :returns: The optional email to send the completion notification to
-        :rtype: str
-        """
-        return self._properties["email"]
-
-    @property
-    def job_sid(self):
-        """
-        :returns: The unique job_sid returned when the custom export was created
-        :rtype: str
-        """
-        return self._properties["job_sid"]
-
-    @property
-    def details(self):
-        """
-        :returns: The details of a job which is an object that contains an array of status grouped by `status` state.  Each `status` object has a `status` string, a count which is the number of days in that `status`, and list of days in that `status`. The day strings are in the format yyyy-MM-dd. As an example, a currently running job may have a status object for COMPLETED and a `status` object for SUBMITTED each with its own count and list of days.
-        :rtype: dict
-        """
-        return self._properties["details"]
-
-    @property
-    def job_queue_position(self):
-        """
-        :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
-        :rtype: str
-        """
-        return self._properties["job_queue_position"]
-
-    @property
-    def estimated_completion_time(self):
-        """
-        :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
-        :rtype: str
-        """
-        return self._properties["estimated_completion_time"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.ExportCustomJobInstance {}>".format(context)

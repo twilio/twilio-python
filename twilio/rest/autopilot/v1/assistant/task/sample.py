@@ -14,370 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class SampleList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
-        """
-        Initialize the SampleList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to read.
-        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resources to read.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-            "task_sid": task_sid,
-        }
-        self._uri = "/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples".format(
-            **self._solution
-        )
-
-    def create(self, language, tagged_text, source_channel=values.unset):
-        """
-        Create the SampleInstance
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
-        :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-
-        :returns: The created SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "TaggedText": tagged_text,
-                "SourceChannel": source_channel,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    async def create_async(self, language, tagged_text, source_channel=values.unset):
-        """
-        Asynchronously create the SampleInstance
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
-        :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-
-        :returns: The created SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "TaggedText": tagged_text,
-                "SourceChannel": source_channel,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    def stream(self, language=values.unset, limit=None, page_size=None):
-        """
-        Streams SampleInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(language=language, page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, language=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously streams SampleInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(language=language, page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, language=values.unset, limit=None, page_size=None):
-        """
-        Lists SampleInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
-        """
-        return list(
-            self.stream(
-                language=language,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, language=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously lists SampleInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
-        """
-        return list(
-            await self.stream_async(
-                language=language,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        language=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of SampleInstance records from the API.
-        Request is executed immediately
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SamplePage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        language=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of SampleInstance records from the API.
-        Request is executed immediately
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return SamplePage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of SampleInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return SamplePage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of SampleInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SamplePage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a SampleContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
-        """
-        return SampleContext(
-            self._version,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a SampleContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
-        """
-        return SampleContext(
-            self._version,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Autopilot.V1.SampleList>"
-
-
-class SamplePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SamplePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of SampleInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        """
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Autopilot.V1.SamplePage>"
 
 
 class SampleInstance(InstanceResource):
@@ -410,12 +52,12 @@ class SampleInstance(InstanceResource):
             "source_channel": payload.get("source_channel"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SampleContext] = None
 
     @property
     def _proxy(self):
@@ -790,3 +432,344 @@ class SampleContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.SampleContext {}>".format(context)
+
+
+class SamplePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SampleInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
+        """
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.SamplePage>"
+
+
+class SampleList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
+        """
+        Initialize the SampleList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to read.
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resources to read.
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "task_sid": task_sid,
+        }
+        self._uri = "/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples".format(
+            **self._solution
+        )
+
+    def create(self, language, tagged_text, source_channel=values.unset):
+        """
+        Create the SampleInstance
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
+        :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+        :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
+
+        :returns: The created SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "TaggedText": tagged_text,
+                "SourceChannel": source_channel,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    async def create_async(self, language, tagged_text, source_channel=values.unset):
+        """
+        Asynchronously create the SampleInstance
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
+        :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+        :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
+
+        :returns: The created SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "TaggedText": tagged_text,
+                "SourceChannel": source_channel,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    def stream(self, language=values.unset, limit=None, page_size=None):
+        """
+        Streams SampleInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(language=language, page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, language=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously streams SampleInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(language=language, page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, language=values.unset, limit=None, page_size=None):
+        """
+        Lists SampleInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
+        """
+        return list(
+            self.stream(
+                language=language,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, language=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously lists SampleInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
+        """
+        return list(
+            await self.stream_async(
+                language=language,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        language=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of SampleInstance records from the API.
+        Request is executed immediately
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return SamplePage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        language=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of SampleInstance records from the API.
+        Request is executed immediately
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return SamplePage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of SampleInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return SamplePage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of SampleInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return SamplePage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a SampleContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
+        """
+        return SampleContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a SampleContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
+        """
+        return SampleContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Autopilot.V1.SampleList>"

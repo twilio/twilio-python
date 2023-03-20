@@ -21,100 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class SafelistList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SafelistList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistList
-        :rtype: twilio.rest.verify.v2.safelist.SafelistList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/SafeList/Numbers".format(**self._solution)
-
-    def create(self, phone_number):
-        """
-        Create the SafelistInstance
-
-        :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: The created SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
-        """
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SafelistInstance(self._version, payload)
-
-    async def create_async(self, phone_number):
-        """
-        Asynchronously create the SafelistInstance
-
-        :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: The created SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
-        """
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SafelistInstance(self._version, payload)
-
-    def get(self, phone_number):
-        """
-        Constructs a SafelistContext
-
-        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistContext
-        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
-        """
-        return SafelistContext(self._version, phone_number=phone_number)
-
-    def __call__(self, phone_number):
-        """
-        Constructs a SafelistContext
-
-        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistContext
-        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
-        """
-        return SafelistContext(self._version, phone_number=phone_number)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.SafelistList>"
-
-
 class SafelistInstance(InstanceResource):
     def __init__(self, version, payload, phone_number: Optional[str] = None):
         """
@@ -131,10 +37,10 @@ class SafelistInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "phone_number": phone_number or self._properties["phone_number"],
         }
+        self._context: Optional[SafelistContext] = None
 
     @property
     def _proxy(self):
@@ -321,3 +227,95 @@ class SafelistContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.SafelistContext {}>".format(context)
+
+
+class SafelistList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SafelistList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.verify.v2.safelist.SafelistList
+        :rtype: twilio.rest.verify.v2.safelist.SafelistList
+        """
+        super().__init__(version)
+
+        self._uri = "/SafeList/Numbers"
+
+    def create(self, phone_number):
+        """
+        Create the SafelistInstance
+
+        :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+
+        :returns: The created SafelistInstance
+        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
+        """
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SafelistInstance(self._version, payload)
+
+    async def create_async(self, phone_number):
+        """
+        Asynchronously create the SafelistInstance
+
+        :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+
+        :returns: The created SafelistInstance
+        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
+        """
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SafelistInstance(self._version, payload)
+
+    def get(self, phone_number):
+        """
+        Constructs a SafelistContext
+
+        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+
+        :returns: twilio.rest.verify.v2.safelist.SafelistContext
+        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
+        """
+        return SafelistContext(self._version, phone_number=phone_number)
+
+    def __call__(self, phone_number):
+        """
+        Constructs a SafelistContext
+
+        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+
+        :returns: twilio.rest.verify.v2.safelist.SafelistContext
+        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
+        """
+        return SafelistContext(self._version, phone_number=phone_number)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Verify.V2.SafelistList>"

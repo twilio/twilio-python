@@ -14,322 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class AwsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the AwsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.accounts.v1.credential.aws.AwsList
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Credentials/AWS".format(**self._solution)
-
-    def create(self, credentials, friendly_name=values.unset, account_sid=values.unset):
-        """
-        Create the AwsInstance
-
-        :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
-
-        :returns: The created AwsInstance
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
-        """
-        data = values.of(
-            {
-                "Credentials": credentials,
-                "FriendlyName": friendly_name,
-                "AccountSid": account_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AwsInstance(self._version, payload)
-
-    async def create_async(
-        self, credentials, friendly_name=values.unset, account_sid=values.unset
-    ):
-        """
-        Asynchronously create the AwsInstance
-
-        :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
-
-        :returns: The created AwsInstance
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
-        """
-        data = values.of(
-            {
-                "Credentials": credentials,
-                "FriendlyName": friendly_name,
-                "AccountSid": account_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AwsInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams AwsInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams AwsInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists AwsInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists AwsInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of AwsInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AwsInstance
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AwsPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of AwsInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AwsInstance
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AwsPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AwsInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AwsInstance
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AwsPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AwsInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AwsInstance
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AwsPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a AwsContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
-
-        :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
-        """
-        return AwsContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a AwsContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
-
-        :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
-        """
-        return AwsContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Accounts.V1.AwsList>"
-
-
-class AwsPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AwsPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.accounts.v1.credential.aws.AwsPage
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of AwsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.accounts.v1.credential.aws.AwsInstance
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
-        """
-        return AwsInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Accounts.V1.AwsPage>"
 
 
 class AwsInstance(InstanceResource):
@@ -351,10 +41,10 @@ class AwsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AwsContext] = None
 
     @property
     def _proxy(self):
@@ -637,3 +327,294 @@ class AwsContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Accounts.V1.AwsContext {}>".format(context)
+
+
+class AwsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AwsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
+        """
+        return AwsInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Accounts.V1.AwsPage>"
+
+
+class AwsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the AwsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsList
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsList
+        """
+        super().__init__(version)
+
+        self._uri = "/Credentials/AWS"
+
+    def create(self, credentials, friendly_name=values.unset, account_sid=values.unset):
+        """
+        Create the AwsInstance
+
+        :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+
+        :returns: The created AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
+        """
+        data = values.of(
+            {
+                "Credentials": credentials,
+                "FriendlyName": friendly_name,
+                "AccountSid": account_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AwsInstance(self._version, payload)
+
+    async def create_async(
+        self, credentials, friendly_name=values.unset, account_sid=values.unset
+    ):
+        """
+        Asynchronously create the AwsInstance
+
+        :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+
+        :returns: The created AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
+        """
+        data = values.of(
+            {
+                "Credentials": credentials,
+                "FriendlyName": friendly_name,
+                "AccountSid": account_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AwsInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams AwsInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams AwsInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists AwsInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists AwsInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of AwsInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AwsPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of AwsInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AwsPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AwsInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AwsPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AwsInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AwsPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a AwsContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
+
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
+        """
+        return AwsContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AwsContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
+
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
+        """
+        return AwsContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Accounts.V1.AwsList>"

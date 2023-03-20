@@ -14,325 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class ShortCodeList(ListResource):
-    def __init__(self, version: Version, service_sid: str):
-        """
-        Initialize the ShortCodeList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
-
-        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeList
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/ShortCodes".format(**self._solution)
-
-    def create(self, sid):
-        """
-        Create the ShortCodeInstance
-
-        :param str sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
-
-        :returns: The created ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
-        """
-        data = values.of(
-            {
-                "Sid": sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ShortCodeInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(self, sid):
-        """
-        Asynchronously create the ShortCodeInstance
-
-        :param str sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
-
-        :returns: The created ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
-        """
-        data = values.of(
-            {
-                "Sid": sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ShortCodeInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams ShortCodeInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams ShortCodeInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists ShortCodeInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists ShortCodeInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of ShortCodeInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ShortCodePage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of ShortCodeInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return ShortCodePage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of ShortCodeInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return ShortCodePage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of ShortCodeInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ShortCodePage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a ShortCodeContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
-        """
-        return ShortCodeContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a ShortCodeContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
-        """
-        return ShortCodeContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Proxy.V1.ShortCodeList>"
-
-
-class ShortCodePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ShortCodePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodePage
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of ShortCodeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
-        """
-        return ShortCodeInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Proxy.V1.ShortCodePage>"
 
 
 class ShortCodeInstance(InstanceResource):
@@ -358,11 +45,11 @@ class ShortCodeInstance(InstanceResource):
             "is_reserved": payload.get("is_reserved"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ShortCodeContext] = None
 
     @property
     def _proxy(self):
@@ -692,3 +379,299 @@ class ShortCodeContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Proxy.V1.ShortCodeContext {}>".format(context)
+
+
+class ShortCodePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ShortCodeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
+        """
+        return ShortCodeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Proxy.V1.ShortCodePage>"
+
+
+class ShortCodeList(ListResource):
+    def __init__(self, version: Version, service_sid: str):
+        """
+        Initialize the ShortCodeList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
+
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeList
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+        }
+        self._uri = "/Services/{service_sid}/ShortCodes".format(**self._solution)
+
+    def create(self, sid):
+        """
+        Create the ShortCodeInstance
+
+        :param str sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
+
+        :returns: The created ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
+        """
+        data = values.of(
+            {
+                "Sid": sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ShortCodeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    async def create_async(self, sid):
+        """
+        Asynchronously create the ShortCodeInstance
+
+        :param str sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
+
+        :returns: The created ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
+        """
+        data = values.of(
+            {
+                "Sid": sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ShortCodeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams ShortCodeInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams ShortCodeInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists ShortCodeInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists ShortCodeInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of ShortCodeInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return ShortCodePage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of ShortCodeInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return ShortCodePage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of ShortCodeInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return ShortCodePage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of ShortCodeInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return ShortCodePage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a ShortCodeContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
+
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a ShortCodeContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
+
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Proxy.V1.ShortCodeList>"

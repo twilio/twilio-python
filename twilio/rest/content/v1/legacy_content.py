@@ -13,13 +13,158 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class LegacyContentInstance(InstanceResource):
+    def __init__(self, version, payload):
+        """
+        Initialize the LegacyContentInstance
+
+        :returns: twilio.rest.content.v1.legacy_content.LegacyContentInstance
+        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "language": payload.get("language"),
+            "variables": payload.get("variables"),
+            "types": payload.get("types"),
+            "legacy_template_name": payload.get("legacy_template_name"),
+            "legacy_body": payload.get("legacy_body"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {}
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the Content resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A string name used to describe the Content resource. Not visible to the end recipient.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def language(self):
+        """
+        :returns: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
+        :rtype: str
+        """
+        return self._properties["language"]
+
+    @property
+    def variables(self):
+        """
+        :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
+        :rtype: dict
+        """
+        return self._properties["variables"]
+
+    @property
+    def types(self):
+        """
+        :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+        :rtype: dict
+        """
+        return self._properties["types"]
+
+    @property
+    def legacy_template_name(self):
+        """
+        :returns: The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
+        :rtype: str
+        """
+        return self._properties["legacy_template_name"]
+
+    @property
+    def legacy_body(self):
+        """
+        :returns: The string body field of the legacy content template associated with this Content resource
+        :rtype: str
+        """
+        return self._properties["legacy_body"]
+
+    @property
+    def url(self):
+        """
+        :returns: The URL of the resource, relative to `https://content.twilio.com`.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Content.V1.LegacyContentInstance {}>".format(context)
+
+
+class LegacyContentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of LegacyContentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.content.v1.legacy_content.LegacyContentInstance
+        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentInstance
+        """
+        return LegacyContentInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Content.V1.LegacyContentPage>"
 
 
 class LegacyContentList(ListResource):
@@ -34,9 +179,7 @@ class LegacyContentList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/LegacyContent".format(**self._solution)
+        self._uri = "/LegacyContent"
 
     def stream(self, limit=None, page_size=None):
         """
@@ -151,7 +294,7 @@ class LegacyContentList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -178,7 +321,7 @@ class LegacyContentList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -191,7 +334,7 @@ class LegacyContentList(ListResource):
         :rtype: twilio.rest.content.v1.legacy_content.LegacyContentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -204,7 +347,7 @@ class LegacyContentList(ListResource):
         :rtype: twilio.rest.content.v1.legacy_content.LegacyContentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     def __repr__(self):
         """
@@ -214,166 +357,3 @@ class LegacyContentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Content.V1.LegacyContentList>"
-
-
-class LegacyContentPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the LegacyContentPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.content.v1.legacy_content.LegacyContentPage
-        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of LegacyContentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.content.v1.legacy_content.LegacyContentInstance
-        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentInstance
-        """
-        return LegacyContentInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Content.V1.LegacyContentPage>"
-
-
-class LegacyContentInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the LegacyContentInstance
-
-        :returns: twilio.rest.content.v1.legacy_content.LegacyContentInstance
-        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "language": payload.get("language"),
-            "variables": payload.get("variables"),
-            "types": payload.get("types"),
-            "legacy_template_name": payload.get("legacy_template_name"),
-            "legacy_body": payload.get("legacy_body"),
-            "url": payload.get("url"),
-        }
-
-        self._context = None
-        self._solution = {}
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that that we created to identify the Content resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A string name used to describe the Content resource. Not visible to the end recipient.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def language(self):
-        """
-        :returns: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
-        :rtype: str
-        """
-        return self._properties["language"]
-
-    @property
-    def variables(self):
-        """
-        :returns: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-        :rtype: dict
-        """
-        return self._properties["variables"]
-
-    @property
-    def types(self):
-        """
-        :returns: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
-        :rtype: dict
-        """
-        return self._properties["types"]
-
-    @property
-    def legacy_template_name(self):
-        """
-        :returns: The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
-        :rtype: str
-        """
-        return self._properties["legacy_template_name"]
-
-    @property
-    def legacy_body(self):
-        """
-        :returns: The string body field of the legacy content template associated with this Content resource
-        :rtype: str
-        """
-        return self._properties["legacy_body"]
-
-    @property
-    def url(self):
-        """
-        :returns: The URL of the resource, relative to `https://content.twilio.com`.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.LegacyContentInstance {}>".format(context)

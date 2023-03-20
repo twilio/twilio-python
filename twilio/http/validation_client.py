@@ -121,7 +121,7 @@ class ValidationClient(HttpClient):
     def _get_host(self, request):
         """Pull the Host out of the request"""
         parsed = urlparse(request.url)
-        return parsed.netloc
+        return str(parsed.netloc)
 
     def validate_ssl_certificate(self, client):
         """

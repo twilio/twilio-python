@@ -13,12 +13,58 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
+
+class StreamMessageInstance(InstanceResource):
+    def __init__(self, version, payload, service_sid: str, stream_sid: str):
+        """
+        Initialize the StreamMessageInstance
+
+        :returns: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "data": payload.get("data"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "stream_sid": stream_sid,
+        }
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Stream Message resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def data(self):
+        """
+        :returns: An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
+        :rtype: dict
+        """
+        return self._properties["data"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Sync.V1.StreamMessageInstance {}>".format(context)
 
 
 class StreamMessageList(ListResource):
@@ -108,51 +154,3 @@ class StreamMessageList(ListResource):
         :rtype: str
         """
         return "<Twilio.Sync.V1.StreamMessageList>"
-
-
-class StreamMessageInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, stream_sid: str):
-        """
-        Initialize the StreamMessageInstance
-
-        :returns: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
-        :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "data": payload.get("data"),
-        }
-
-        self._context = None
-        self._solution = {
-            "service_sid": service_sid,
-            "stream_sid": stream_sid,
-        }
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Stream Message resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def data(self):
-        """
-        :returns: An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
-        :rtype: dict
-        """
-        return self._properties["data"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.StreamMessageInstance {}>".format(context)

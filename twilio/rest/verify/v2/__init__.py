@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.verify.v2.form import FormList
@@ -31,65 +32,48 @@ class V2(Version):
 
         :param domain: The Twilio.verify domain
         """
-        super().__init__(domain)
-        self.version = "v2"
-        self._forms = None
-        self._safelist = None
-        self._services = None
-        self._templates = None
-        self._verification_attempts = None
-        self._verification_attempts_summary = None
+        super().__init__(domain, "v2")
+        self._forms: Optional[FormList] = None
+        self._safelist: Optional[SafelistList] = None
+        self._services: Optional[ServiceList] = None
+        self._templates: Optional[TemplateList] = None
+        self._verification_attempts: Optional[VerificationAttemptList] = None
+        self._verification_attempts_summary: Optional[
+            VerificationAttemptsSummaryList
+        ] = None
 
     @property
     def forms(self) -> FormList:
-        """
-        :rtype: twilio.rest.verify.v2.form.FormList
-        """
         if self._forms is None:
             self._forms = FormList(self)
         return self._forms
 
     @property
     def safelist(self) -> SafelistList:
-        """
-        :rtype: twilio.rest.verify.v2.safelist.SafelistList
-        """
         if self._safelist is None:
             self._safelist = SafelistList(self)
         return self._safelist
 
     @property
     def services(self) -> ServiceList:
-        """
-        :rtype: twilio.rest.verify.v2.service.ServiceList
-        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
 
     @property
     def templates(self) -> TemplateList:
-        """
-        :rtype: twilio.rest.verify.v2.template.TemplateList
-        """
         if self._templates is None:
             self._templates = TemplateList(self)
         return self._templates
 
     @property
     def verification_attempts(self) -> VerificationAttemptList:
-        """
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptList
-        """
         if self._verification_attempts is None:
             self._verification_attempts = VerificationAttemptList(self)
         return self._verification_attempts
 
     @property
     def verification_attempts_summary(self) -> VerificationAttemptsSummaryList:
-        """
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
-        """
         if self._verification_attempts_summary is None:
             self._verification_attempts_summary = VerificationAttemptsSummaryList(self)
         return self._verification_attempts_summary
@@ -98,6 +82,5 @@ class V2(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2>"

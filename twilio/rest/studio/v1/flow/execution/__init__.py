@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +22,456 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.studio.v1.flow.execution.execution_context import ExecutionContextList
 from twilio.rest.studio.v1.flow.execution.execution_step import ExecutionStepList
+
+
+class ExecutionInstance(InstanceResource):
+    class Status(object):
+        ACTIVE = "active"
+        ENDED = "ended"
+
+    def __init__(self, version, payload, flow_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the ExecutionInstance
+
+        :returns: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "flow_sid": payload.get("flow_sid"),
+            "contact_sid": payload.get("contact_sid"),
+            "contact_channel_address": payload.get("contact_channel_address"),
+            "context": payload.get("context"),
+            "status": payload.get("status"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "flow_sid": flow_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[ExecutionContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ExecutionContext for this ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContext
+        """
+        if self._context is None:
+            self._context = ExecutionContext(
+                self._version,
+                flow_sid=self._solution["flow_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Execution resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Execution resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def flow_sid(self):
+        """
+        :returns: The SID of the Flow.
+        :rtype: str
+        """
+        return self._properties["flow_sid"]
+
+    @property
+    def contact_sid(self):
+        """
+        :returns: The SID of the Contact.
+        :rtype: str
+        """
+        return self._properties["contact_sid"]
+
+    @property
+    def contact_channel_address(self):
+        """
+        :returns: The phone number, SIP address or Client identifier that triggered the Execution. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :rtype: str
+        """
+        return self._properties["contact_channel_address"]
+
+    @property
+    def context(self):
+        """
+        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
+        :rtype: dict
+        """
+        return self._properties["context"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: ExecutionInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URLs of nested resources.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def delete(self):
+        """
+        Deletes the ExecutionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ExecutionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the ExecutionInstance
+
+
+        :returns: The fetched ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ExecutionInstance
+
+
+        :returns: The fetched ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def update(self, status):
+        """
+        Update the ExecutionInstance
+
+        :param ExecutionInstance.Status status:
+
+        :returns: The updated ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        return self._proxy.update(
+            status=status,
+        )
+
+    async def update_async(self, status):
+        """
+        Asynchronous coroutine to update the ExecutionInstance
+
+        :param ExecutionInstance.Status status:
+
+        :returns: The updated ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        return await self._proxy.update_async(
+            status=status,
+        )
+
+    @property
+    def execution_context(self):
+        """
+        Access the execution_context
+
+        :returns: twilio.rest.studio.v1.flow.execution.ExecutionContextList
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContextList
+        """
+        return self._proxy.execution_context
+
+    @property
+    def steps(self):
+        """
+        Access the steps
+
+        :returns: twilio.rest.studio.v1.flow.execution.ExecutionStepList
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionStepList
+        """
+        return self._proxy.steps
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Studio.V1.ExecutionInstance {}>".format(context)
+
+
+class ExecutionContext(InstanceContext):
+    def __init__(self, version: Version, flow_sid: str, sid: str):
+        """
+        Initialize the ExecutionContext
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow with the Execution resources to update.
+        :param sid: The SID of the Execution resource to update.
+
+        :returns: twilio.rest.studio.v1.flow.execution.ExecutionContext
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "flow_sid": flow_sid,
+            "sid": sid,
+        }
+        self._uri = "/Flows/{flow_sid}/Executions/{sid}".format(**self._solution)
+
+        self._execution_context: Optional[ExecutionContextList] = None
+        self._steps: Optional[ExecutionStepList] = None
+
+    def delete(self):
+        """
+        Deletes the ExecutionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ExecutionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the ExecutionInstance
+
+
+        :returns: The fetched ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ExecutionInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ExecutionInstance
+
+
+        :returns: The fetched ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ExecutionInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update(self, status):
+        """
+        Update the ExecutionInstance
+
+        :param ExecutionInstance.Status status:
+
+        :returns: The updated ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ExecutionInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def update_async(self, status):
+        """
+        Asynchronous coroutine to update the ExecutionInstance
+
+        :param ExecutionInstance.Status status:
+
+        :returns: The updated ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ExecutionInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def execution_context(self):
+        """
+        Access the execution_context
+
+        :returns: twilio.rest.studio.v1.flow.execution.ExecutionContextList
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContextList
+        """
+        if self._execution_context is None:
+            self._execution_context = ExecutionContextList(
+                self._version,
+                self._solution["flow_sid"],
+                self._solution["sid"],
+            )
+        return self._execution_context
+
+    @property
+    def steps(self):
+        """
+        Access the steps
+
+        :returns: twilio.rest.studio.v1.flow.execution.ExecutionStepList
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionStepList
+        """
+        if self._steps is None:
+            self._steps = ExecutionStepList(
+                self._version,
+                self._solution["flow_sid"],
+                self._solution["sid"],
+            )
+        return self._steps
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Studio.V1.ExecutionContext {}>".format(context)
+
+
+class ExecutionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ExecutionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
+        """
+        return ExecutionInstance(
+            self._version, payload, flow_sid=self._solution["flow_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V1.ExecutionPage>"
 
 
 class ExecutionList(ListResource):
@@ -367,469 +815,3 @@ class ExecutionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V1.ExecutionList>"
-
-
-class ExecutionPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ExecutionPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionPage
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of ExecutionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        return ExecutionInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Studio.V1.ExecutionPage>"
-
-
-class ExecutionInstance(InstanceResource):
-    class Status(object):
-        ACTIVE = "active"
-        ENDED = "ended"
-
-    def __init__(self, version, payload, flow_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ExecutionInstance
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "flow_sid": payload.get("flow_sid"),
-            "contact_sid": payload.get("contact_sid"),
-            "contact_channel_address": payload.get("contact_channel_address"),
-            "context": payload.get("context"),
-            "status": payload.get("status"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._context = None
-        self._solution = {
-            "flow_sid": flow_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ExecutionContext for this ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContext
-        """
-        if self._context is None:
-            self._context = ExecutionContext(
-                self._version,
-                flow_sid=self._solution["flow_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Execution resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Execution resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def flow_sid(self):
-        """
-        :returns: The SID of the Flow.
-        :rtype: str
-        """
-        return self._properties["flow_sid"]
-
-    @property
-    def contact_sid(self):
-        """
-        :returns: The SID of the Contact.
-        :rtype: str
-        """
-        return self._properties["contact_sid"]
-
-    @property
-    def contact_channel_address(self):
-        """
-        :returns: The phone number, SIP address or Client identifier that triggered the Execution. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-        :rtype: str
-        """
-        return self._properties["contact_channel_address"]
-
-    @property
-    def context(self):
-        """
-        :returns: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
-        :rtype: dict
-        """
-        return self._properties["context"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: ExecutionInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URLs of nested resources.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def delete(self):
-        """
-        Deletes the ExecutionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ExecutionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the ExecutionInstance
-
-
-        :returns: The fetched ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ExecutionInstance
-
-
-        :returns: The fetched ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def update(self, status):
-        """
-        Update the ExecutionInstance
-
-        :param ExecutionInstance.Status status:
-
-        :returns: The updated ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        return self._proxy.update(
-            status=status,
-        )
-
-    async def update_async(self, status):
-        """
-        Asynchronous coroutine to update the ExecutionInstance
-
-        :param ExecutionInstance.Status status:
-
-        :returns: The updated ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        return await self._proxy.update_async(
-            status=status,
-        )
-
-    @property
-    def execution_context(self):
-        """
-        Access the execution_context
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionContextList
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContextList
-        """
-        return self._proxy.execution_context
-
-    @property
-    def steps(self):
-        """
-        Access the steps
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionStepList
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionStepList
-        """
-        return self._proxy.steps
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.ExecutionInstance {}>".format(context)
-
-
-class ExecutionContext(InstanceContext):
-    def __init__(self, version: Version, flow_sid: str, sid: str):
-        """
-        Initialize the ExecutionContext
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Execution resources to update.
-        :param sid: The SID of the Execution resource to update.
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionContext
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-            "sid": sid,
-        }
-        self._uri = "/Flows/{flow_sid}/Executions/{sid}".format(**self._solution)
-
-        self._execution_context = None
-        self._steps = None
-
-    def delete(self):
-        """
-        Deletes the ExecutionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ExecutionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the ExecutionInstance
-
-
-        :returns: The fetched ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ExecutionInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ExecutionInstance
-
-
-        :returns: The fetched ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ExecutionInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def update(self, status):
-        """
-        Update the ExecutionInstance
-
-        :param ExecutionInstance.Status status:
-
-        :returns: The updated ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ExecutionInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def update_async(self, status):
-        """
-        Asynchronous coroutine to update the ExecutionInstance
-
-        :param ExecutionInstance.Status status:
-
-        :returns: The updated ExecutionInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
-        """
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ExecutionInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def execution_context(self):
-        """
-        Access the execution_context
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionContextList
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionContextList
-        """
-        if self._execution_context is None:
-            self._execution_context = ExecutionContextList(
-                self._version,
-                self._solution["flow_sid"],
-                self._solution["sid"],
-            )
-        return self._execution_context
-
-    @property
-    def steps(self):
-        """
-        Access the steps
-
-        :returns: twilio.rest.studio.v1.flow.execution.ExecutionStepList
-        :rtype: twilio.rest.studio.v1.flow.execution.ExecutionStepList
-        """
-        if self._steps is None:
-            self._steps = ExecutionStepList(
-                self._version,
-                self._solution["flow_sid"],
-                self._solution["sid"],
-            )
-        return self._steps
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.ExecutionContext {}>".format(context)

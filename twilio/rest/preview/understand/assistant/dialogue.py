@@ -20,60 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class DialogueList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the DialogueList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid:
-
-        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueList
-        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-
-    def get(self, sid):
-        """
-        Constructs a DialogueContext
-
-        :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
-        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
-        """
-        return DialogueContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a DialogueContext
-
-        :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
-        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
-        """
-        return DialogueContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.DialogueList>"
-
-
 class DialogueInstance(InstanceResource):
     def __init__(self, version, payload, assistant_sid: str, sid: Optional[str] = None):
         """
@@ -92,11 +38,11 @@ class DialogueInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[DialogueContext] = None
 
     @property
     def _proxy(self):
@@ -260,3 +206,57 @@ class DialogueContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.DialogueContext {}>".format(context)
+
+
+class DialogueList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the DialogueList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid:
+
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueList
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+
+    def get(self, sid):
+        """
+        Constructs a DialogueContext
+
+        :param sid:
+
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        """
+        return DialogueContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a DialogueContext
+
+        :param sid:
+
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        """
+        return DialogueContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.DialogueList>"

@@ -13,70 +13,12 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class TaskActionsList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
-        """
-        Initialize the TaskActionsList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
-        :param task_sid: The unique ID of the Task.
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-            "task_sid": task_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a TaskActionsContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
-        """
-        return TaskActionsContext(
-            self._version,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a TaskActionsContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
-        """
-        return TaskActionsContext(
-            self._version,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.TaskActionsList>"
 
 
 class TaskActionsInstance(InstanceResource):
@@ -97,11 +39,11 @@ class TaskActionsInstance(InstanceResource):
             "data": payload.get("data"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
         }
+        self._context: Optional[TaskActionsContext] = None
 
     @property
     def _proxy(self):
@@ -347,3 +289,61 @@ class TaskActionsContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.TaskActionsContext {}>".format(context)
+
+
+class TaskActionsList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
+        """
+        Initialize the TaskActionsList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the parent Assistant.
+        :param task_sid: The unique ID of the Task.
+
+        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "task_sid": task_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a TaskActionsContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
+        """
+        return TaskActionsContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a TaskActionsContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
+        """
+        return TaskActionsContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.TaskActionsList>"

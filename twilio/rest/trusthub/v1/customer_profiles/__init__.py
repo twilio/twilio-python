@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,399 +29,6 @@ from twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignme
 from twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations import (
     CustomerProfilesEvaluationsList,
 )
-
-
-class CustomerProfilesList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the CustomerProfilesList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/CustomerProfiles".format(**self._solution)
-
-    def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
-        """
-        Create the CustomerProfilesInstance
-
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str status_callback: The URL we call to inform your application of status changes.
-
-        :returns: The created CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Email": email,
-                "PolicySid": policy_sid,
-                "StatusCallback": status_callback,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return CustomerProfilesInstance(self._version, payload)
-
-    async def create_async(
-        self, friendly_name, email, policy_sid, status_callback=values.unset
-    ):
-        """
-        Asynchronously create the CustomerProfilesInstance
-
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str status_callback: The URL we call to inform your application of status changes.
-
-        :returns: The created CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Email": email,
-                "PolicySid": policy_sid,
-                "StatusCallback": status_callback,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return CustomerProfilesInstance(self._version, payload)
-
-    def stream(
-        self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams CustomerProfilesInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            status=status,
-            friendly_name=friendly_name,
-            policy_sid=policy_sid,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams CustomerProfilesInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            status=status,
-            friendly_name=friendly_name,
-            policy_sid=policy_sid,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists CustomerProfilesInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
-        """
-        return list(
-            self.stream(
-                status=status,
-                friendly_name=friendly_name,
-                policy_sid=policy_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists CustomerProfilesInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
-        """
-        return list(
-            await self.stream_async(
-                status=status,
-                friendly_name=friendly_name,
-                policy_sid=policy_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of CustomerProfilesInstance records from the API.
-        Request is executed immediately
-
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
-        """
-        data = values.of(
-            {
-                "Status": status,
-                "FriendlyName": friendly_name,
-                "PolicySid": policy_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CustomerProfilesPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        status=values.unset,
-        friendly_name=values.unset,
-        policy_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of CustomerProfilesInstance records from the API.
-        Request is executed immediately
-
-        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
-        """
-        data = values.of(
-            {
-                "Status": status,
-                "FriendlyName": friendly_name,
-                "PolicySid": policy_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return CustomerProfilesPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of CustomerProfilesInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return CustomerProfilesPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of CustomerProfilesInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CustomerProfilesPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a CustomerProfilesContext
-
-        :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        """
-        return CustomerProfilesContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a CustomerProfilesContext
-
-        :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        """
-        return CustomerProfilesContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trusthub.V1.CustomerProfilesList>"
-
-
-class CustomerProfilesPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the CustomerProfilesPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of CustomerProfilesInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        return CustomerProfilesInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trusthub.V1.CustomerProfilesPage>"
 
 
 class CustomerProfilesInstance(InstanceResource):
@@ -457,10 +63,10 @@ class CustomerProfilesInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CustomerProfilesContext] = None
 
     @property
     def _proxy(self):
@@ -724,9 +330,15 @@ class CustomerProfilesContext(InstanceContext):
         }
         self._uri = "/CustomerProfiles/{sid}".format(**self._solution)
 
-        self._customer_profiles_channel_endpoint_assignment = None
-        self._customer_profiles_entity_assignments = None
-        self._customer_profiles_evaluations = None
+        self._customer_profiles_channel_endpoint_assignment: Optional[
+            CustomerProfilesChannelEndpointAssignmentList
+        ] = None
+        self._customer_profiles_entity_assignments: Optional[
+            CustomerProfilesEntityAssignmentsList
+        ] = None
+        self._customer_profiles_evaluations: Optional[
+            CustomerProfilesEvaluationsList
+        ] = None
 
     def delete(self):
         """
@@ -926,3 +538,378 @@ class CustomerProfilesContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesContext {}>".format(context)
+
+
+class CustomerProfilesPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CustomerProfilesInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        return CustomerProfilesInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.CustomerProfilesPage>"
+
+
+class CustomerProfilesList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the CustomerProfilesList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
+        """
+        super().__init__(version)
+
+        self._uri = "/CustomerProfiles"
+
+    def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
+        """
+        Create the CustomerProfilesInstance
+
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str status_callback: The URL we call to inform your application of status changes.
+
+        :returns: The created CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Email": email,
+                "PolicySid": policy_sid,
+                "StatusCallback": status_callback,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CustomerProfilesInstance(self._version, payload)
+
+    async def create_async(
+        self, friendly_name, email, policy_sid, status_callback=values.unset
+    ):
+        """
+        Asynchronously create the CustomerProfilesInstance
+
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str status_callback: The URL we call to inform your application of status changes.
+
+        :returns: The created CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Email": email,
+                "PolicySid": policy_sid,
+                "StatusCallback": status_callback,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CustomerProfilesInstance(self._version, payload)
+
+    def stream(
+        self,
+        status=values.unset,
+        friendly_name=values.unset,
+        policy_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams CustomerProfilesInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            status=status,
+            friendly_name=friendly_name,
+            policy_sid=policy_sid,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        status=values.unset,
+        friendly_name=values.unset,
+        policy_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams CustomerProfilesInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            status=status,
+            friendly_name=friendly_name,
+            policy_sid=policy_sid,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        status=values.unset,
+        friendly_name=values.unset,
+        policy_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists CustomerProfilesInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
+        """
+        return list(
+            self.stream(
+                status=status,
+                friendly_name=friendly_name,
+                policy_sid=policy_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        status=values.unset,
+        friendly_name=values.unset,
+        policy_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists CustomerProfilesInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance]
+        """
+        return list(
+            await self.stream_async(
+                status=status,
+                friendly_name=friendly_name,
+                policy_sid=policy_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        status=values.unset,
+        friendly_name=values.unset,
+        policy_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of CustomerProfilesInstance records from the API.
+        Request is executed immediately
+
+        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "PolicySid": policy_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return CustomerProfilesPage(self._version, response)
+
+    async def page_async(
+        self,
+        status=values.unset,
+        friendly_name=values.unset,
+        policy_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of CustomerProfilesInstance records from the API.
+        Request is executed immediately
+
+        :param CustomerProfilesInstance.Status status: The verification status of the Customer-Profile resource.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "PolicySid": policy_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return CustomerProfilesPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of CustomerProfilesInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return CustomerProfilesPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of CustomerProfilesInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return CustomerProfilesPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a CustomerProfilesContext
+
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        """
+        return CustomerProfilesContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CustomerProfilesContext
+
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        """
+        return CustomerProfilesContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Trusthub.V1.CustomerProfilesList>"

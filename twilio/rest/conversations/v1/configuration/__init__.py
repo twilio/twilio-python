@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -20,65 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 from twilio.rest.conversations.v1.configuration.webhook import WebhookList
-
-
-class ConfigurationList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the ConfigurationList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationList
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-        self._webhooks = None
-
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.conversations.v1.configuration.WebhookList
-        :rtype: twilio.rest.conversations.v1.configuration.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(self._version)
-        return self._webhooks
-
-    def get(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.ConfigurationList>"
 
 
 class ConfigurationInstance(InstanceResource):
@@ -103,8 +45,8 @@ class ConfigurationInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[ConfigurationContext] = None
 
     @property
     def _proxy(self):
@@ -270,9 +212,7 @@ class ConfigurationContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Configuration".format(**self._solution)
+        self._uri = "/Configuration"
 
     def fetch(self):
         """
@@ -389,5 +329,61 @@ class ConfigurationContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ConfigurationContext {}>".format(context)
+
+        return "<Twilio.Conversations.V1.ConfigurationContext>"
+
+
+class ConfigurationList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the ConfigurationList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationList
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationList
+        """
+        super().__init__(version)
+
+        self._webhooks: Optional[WebhookList] = None
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.conversations.v1.configuration.WebhookList
+        :rtype: twilio.rest.conversations.v1.configuration.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version)
+        return self._webhooks
+
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.ConfigurationList>"

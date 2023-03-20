@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.routes.v2.phone_number import PhoneNumberList
@@ -26,35 +27,25 @@ class V2(Version):
 
         :param domain: The Twilio.routes domain
         """
-        super().__init__(domain)
-        self.version = "v2"
-        self._phone_numbers = None
-        self._sip_domains = None
-        self._trunks = None
+        super().__init__(domain, "v2")
+        self._phone_numbers: Optional[PhoneNumberList] = None
+        self._sip_domains: Optional[SipDomainList] = None
+        self._trunks: Optional[TrunkList] = None
 
     @property
     def phone_numbers(self) -> PhoneNumberList:
-        """
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberList
-        """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
 
     @property
     def sip_domains(self) -> SipDomainList:
-        """
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainList
-        """
         if self._sip_domains is None:
             self._sip_domains = SipDomainList(self)
         return self._sip_domains
 
     @property
     def trunks(self) -> TrunkList:
-        """
-        :rtype: twilio.rest.routes.v2.trunk.TrunkList
-        """
         if self._trunks is None:
             self._trunks = TrunkList(self)
         return self._trunks
@@ -63,6 +54,5 @@ class V2(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Routes.V2>"

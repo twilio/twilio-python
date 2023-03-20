@@ -13,13 +13,75 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
+
+class RecordingRulesInstance(InstanceResource):
+    def __init__(self, version, payload, room_sid: str):
+        """
+        Initialize the RecordingRulesInstance
+
+        :returns: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
+        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "room_sid": payload.get("room_sid"),
+            "rules": payload.get("rules"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+        }
+
+        self._solution = {
+            "room_sid": room_sid,
+        }
+
+    @property
+    def room_sid(self):
+        """
+        :returns: The SID of the Room resource for the Recording Rules
+        :rtype: str
+        """
+        return self._properties["room_sid"]
+
+    @property
+    def rules(self):
+        """
+        :returns: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :rtype: list[VideoV1RoomRoomRecordingRuleRules]
+        """
+        return self._properties["rules"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.RecordingRulesInstance {}>".format(context)
 
 
 class RecordingRulesList(ListResource):
@@ -125,68 +187,3 @@ class RecordingRulesList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.RecordingRulesList>"
-
-
-class RecordingRulesInstance(InstanceResource):
-    def __init__(self, version, payload, room_sid: str):
-        """
-        Initialize the RecordingRulesInstance
-
-        :returns: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
-        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "room_sid": payload.get("room_sid"),
-            "rules": payload.get("rules"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
-
-        self._context = None
-        self._solution = {
-            "room_sid": room_sid,
-        }
-
-    @property
-    def room_sid(self):
-        """
-        :returns: The SID of the Room resource for the Recording Rules
-        :rtype: str
-        """
-        return self._properties["room_sid"]
-
-    @property
-    def rules(self):
-        """
-        :returns: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :rtype: list[VideoV1RoomRoomRecordingRuleRules]
-        """
-        return self._properties["rules"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingRulesInstance {}>".format(context)

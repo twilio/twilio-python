@@ -13,55 +13,11 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class UserInfoList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the UserInfoList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoList
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a UserInfoContext
-
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
-        """
-        return UserInfoContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a UserInfoContext
-
-
-        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
-        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
-        """
-        return UserInfoContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Oauth.V1.UserInfoList>"
 
 
 class UserInfoInstance(InstanceResource):
@@ -83,8 +39,8 @@ class UserInfoInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[UserInfoContext] = None
 
     @property
     def _proxy(self):
@@ -192,9 +148,7 @@ class UserInfoContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/userinfo".format(**self._solution)
+        self._uri = "/userinfo"
 
     def fetch(self):
         """
@@ -241,5 +195,47 @@ class UserInfoContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.UserInfoContext {}>".format(context)
+
+        return "<Twilio.Oauth.V1.UserInfoContext>"
+
+
+class UserInfoList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the UserInfoList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoList
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a UserInfoContext
+
+
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        """
+        return UserInfoContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a UserInfoContext
+
+
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        """
+        return UserInfoContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Oauth.V1.UserInfoList>"

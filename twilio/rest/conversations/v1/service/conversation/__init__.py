@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -27,6 +25,659 @@ from twilio.rest.conversations.v1.service.conversation.participant import (
     ParticipantList,
 )
 from twilio.rest.conversations.v1.service.conversation.webhook import WebhookList
+
+
+class ConversationInstance(InstanceResource):
+    class State(object):
+        INACTIVE = "inactive"
+        ACTIVE = "active"
+        CLOSED = "closed"
+
+    class WebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
+    def __init__(
+        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
+    ):
+        """
+        Initialize the ConversationInstance
+
+        :returns: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "chat_service_sid": payload.get("chat_service_sid"),
+            "messaging_service_sid": payload.get("messaging_service_sid"),
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "unique_name": payload.get("unique_name"),
+            "attributes": payload.get("attributes"),
+            "state": payload.get("state"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "timers": payload.get("timers"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+            "bindings": payload.get("bindings"),
+        }
+
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[ConversationContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ConversationContext for this ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationContext
+        """
+        if self._context is None:
+            self._context = ConversationContext(
+                self._version,
+                chat_service_sid=self._solution["chat_service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def chat_service_sid(self):
+        """
+        :returns: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
+        :rtype: str
+        """
+        return self._properties["chat_service_sid"]
+
+    @property
+    def messaging_service_sid(self):
+        """
+        :returns: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :rtype: str
+        """
+        return self._properties["messaging_service_sid"]
+
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def unique_name(self):
+        """
+        :returns: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :rtype: str
+        """
+        return self._properties["unique_name"]
+
+    @property
+    def attributes(self):
+        """
+        :returns: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+        :rtype: str
+        """
+        return self._properties["attributes"]
+
+    @property
+    def state(self):
+        """
+        :returns:
+        :rtype: ConversationInstance.State
+        """
+        return self._properties["state"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this resource was created.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was last updated.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def timers(self):
+        """
+        :returns: Timer date values representing state update for this conversation.
+        :rtype: dict
+        """
+        return self._properties["timers"]
+
+    @property
+    def url(self):
+        """
+        :returns: An absolute API resource URL for this conversation.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    @property
+    def bindings(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["bindings"]
+
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Asynchronous coroutine that deletes the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
+    def fetch(self):
+        """
+        Fetch the ConversationInstance
+
+
+        :returns: The fetched ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ConversationInstance
+
+
+        :returns: The fetched ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def update(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        date_created=values.unset,
+        date_updated=values.unset,
+        attributes=values.unset,
+        messaging_service_sid=values.unset,
+        state=values.unset,
+        timers_inactive=values.unset,
+        timers_closed=values.unset,
+        unique_name=values.unset,
+    ):
+        """
+        Update the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param datetime date_created: The date that this resource was created.
+        :param datetime date_updated: The date that this resource was last updated.
+        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param ConversationInstance.State state:
+        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+
+        :returns: The updated ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        return self._proxy.update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+        )
+
+    async def update_async(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        date_created=values.unset,
+        date_updated=values.unset,
+        attributes=values.unset,
+        messaging_service_sid=values.unset,
+        state=values.unset,
+        timers_inactive=values.unset,
+        timers_closed=values.unset,
+        unique_name=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param datetime date_created: The date that this resource was created.
+        :param datetime date_updated: The date that this resource was last updated.
+        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param ConversationInstance.State state:
+        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+
+        :returns: The updated ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        return await self._proxy.update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+        )
+
+    @property
+    def messages(self):
+        """
+        Access the messages
+
+        :returns: twilio.rest.conversations.v1.service.conversation.MessageList
+        :rtype: twilio.rest.conversations.v1.service.conversation.MessageList
+        """
+        return self._proxy.messages
+
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.conversations.v1.service.conversation.ParticipantList
+        :rtype: twilio.rest.conversations.v1.service.conversation.ParticipantList
+        """
+        return self._proxy.participants
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.conversations.v1.service.conversation.WebhookList
+        :rtype: twilio.rest.conversations.v1.service.conversation.WebhookList
+        """
+        return self._proxy.webhooks
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.ConversationInstance {}>".format(context)
+
+
+class ConversationContext(InstanceContext):
+    def __init__(self, version: Version, chat_service_sid: str, sid: str):
+        """
+        Initialize the ConversationContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+        :param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+
+        :returns: twilio.rest.conversations.v1.service.conversation.ConversationContext
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{chat_service_sid}/Conversations/{sid}".format(
+            **self._solution
+        )
+
+        self._messages: Optional[MessageList] = None
+        self._participants: Optional[ParticipantList] = None
+        self._webhooks: Optional[WebhookList] = None
+
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+
+    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Asynchronous coroutine that deletes the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def fetch(self):
+        """
+        Fetch the ConversationInstance
+
+
+        :returns: The fetched ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ConversationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ConversationInstance
+
+
+        :returns: The fetched ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ConversationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        date_created=values.unset,
+        date_updated=values.unset,
+        attributes=values.unset,
+        messaging_service_sid=values.unset,
+        state=values.unset,
+        timers_inactive=values.unset,
+        timers_closed=values.unset,
+        unique_name=values.unset,
+    ):
+        """
+        Update the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param datetime date_created: The date that this resource was created.
+        :param datetime date_updated: The date that this resource was last updated.
+        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param ConversationInstance.State state:
+        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+
+        :returns: The updated ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DateCreated": serialize.iso8601_datetime(date_created),
+                "DateUpdated": serialize.iso8601_datetime(date_updated),
+                "Attributes": attributes,
+                "MessagingServiceSid": messaging_service_sid,
+                "State": state,
+                "Timers.Inactive": timers_inactive,
+                "Timers.Closed": timers_closed,
+                "UniqueName": unique_name,
+            }
+        )
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ConversationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def update_async(
+        self,
+        x_twilio_webhook_enabled=values.unset,
+        friendly_name=values.unset,
+        date_created=values.unset,
+        date_updated=values.unset,
+        attributes=values.unset,
+        messaging_service_sid=values.unset,
+        state=values.unset,
+        timers_inactive=values.unset,
+        timers_closed=values.unset,
+        unique_name=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param datetime date_created: The date that this resource was created.
+        :param datetime date_updated: The date that this resource was last updated.
+        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param ConversationInstance.State state:
+        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+
+        :returns: The updated ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DateCreated": serialize.iso8601_datetime(date_created),
+                "DateUpdated": serialize.iso8601_datetime(date_updated),
+                "Attributes": attributes,
+                "MessagingServiceSid": messaging_service_sid,
+                "State": state,
+                "Timers.Inactive": timers_inactive,
+                "Timers.Closed": timers_closed,
+                "UniqueName": unique_name,
+            }
+        )
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ConversationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def messages(self):
+        """
+        Access the messages
+
+        :returns: twilio.rest.conversations.v1.service.conversation.MessageList
+        :rtype: twilio.rest.conversations.v1.service.conversation.MessageList
+        """
+        if self._messages is None:
+            self._messages = MessageList(
+                self._version,
+                self._solution["chat_service_sid"],
+                self._solution["sid"],
+            )
+        return self._messages
+
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.conversations.v1.service.conversation.ParticipantList
+        :rtype: twilio.rest.conversations.v1.service.conversation.ParticipantList
+        """
+        if self._participants is None:
+            self._participants = ParticipantList(
+                self._version,
+                self._solution["chat_service_sid"],
+                self._solution["sid"],
+            )
+        return self._participants
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.conversations.v1.service.conversation.WebhookList
+        :rtype: twilio.rest.conversations.v1.service.conversation.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(
+                self._version,
+                self._solution["chat_service_sid"],
+                self._solution["sid"],
+            )
+        return self._webhooks
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.ConversationContext {}>".format(context)
+
+
+class ConversationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConversationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
+        """
+        return ConversationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.ConversationPage>"
 
 
 class ConversationList(ListResource):
@@ -364,672 +1015,3 @@ class ConversationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.ConversationList>"
-
-
-class ConversationPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ConversationPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.conversations.v1.service.conversation.ConversationPage
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of ConversationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        return ConversationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.ConversationPage>"
-
-
-class ConversationInstance(InstanceResource):
-    class State(object):
-        INACTIVE = "inactive"
-        ACTIVE = "active"
-        CLOSED = "closed"
-
-    class WebhookEnabledType(object):
-        TRUE = "true"
-        FALSE = "false"
-
-    def __init__(
-        self, version, payload, chat_service_sid: str, sid: Optional[str] = None
-    ):
-        """
-        Initialize the ConversationInstance
-
-        :returns: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "chat_service_sid": payload.get("chat_service_sid"),
-            "messaging_service_sid": payload.get("messaging_service_sid"),
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "unique_name": payload.get("unique_name"),
-            "attributes": payload.get("attributes"),
-            "state": payload.get("state"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "timers": payload.get("timers"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "bindings": payload.get("bindings"),
-        }
-
-        self._context = None
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ConversationContext for this ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationContext
-        """
-        if self._context is None:
-            self._context = ConversationContext(
-                self._version,
-                chat_service_sid=self._solution["chat_service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def chat_service_sid(self):
-        """
-        :returns: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
-        :rtype: str
-        """
-        return self._properties["chat_service_sid"]
-
-    @property
-    def messaging_service_sid(self):
-        """
-        :returns: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :rtype: str
-        """
-        return self._properties["messaging_service_sid"]
-
-    @property
-    def sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def unique_name(self):
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-        :rtype: str
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def attributes(self):
-        """
-        :returns: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
-        :rtype: str
-        """
-        return self._properties["attributes"]
-
-    @property
-    def state(self):
-        """
-        :returns:
-        :rtype: ConversationInstance.State
-        """
-        return self._properties["state"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date that this resource was created.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this resource was last updated.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def timers(self):
-        """
-        :returns: Timer date values representing state update for this conversation.
-        :rtype: dict
-        """
-        return self._properties["timers"]
-
-    @property
-    def url(self):
-        """
-        :returns: An absolute API resource URL for this conversation.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: Contains absolute URLs to access the [participants](https://www.twilio.com/docs/conversations/api/conversation-participant-resource), [messages](https://www.twilio.com/docs/conversations/api/conversation-message-resource) and [webhooks](https://www.twilio.com/docs/conversations/api/conversation-scoped-webhook-resource) of this conversation.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    @property
-    def bindings(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["bindings"]
-
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Asynchronous coroutine that deletes the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
-    def fetch(self):
-        """
-        Fetch the ConversationInstance
-
-
-        :returns: The fetched ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ConversationInstance
-
-
-        :returns: The fetched ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
-    ):
-        """
-        Update the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param ConversationInstance.State state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-
-        :returns: The updated ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        return self._proxy.update(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            date_created=date_created,
-            date_updated=date_updated,
-            attributes=attributes,
-            messaging_service_sid=messaging_service_sid,
-            state=state,
-            timers_inactive=timers_inactive,
-            timers_closed=timers_closed,
-            unique_name=unique_name,
-        )
-
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param ConversationInstance.State state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-
-        :returns: The updated ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        return await self._proxy.update_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            date_created=date_created,
-            date_updated=date_updated,
-            attributes=attributes,
-            messaging_service_sid=messaging_service_sid,
-            state=state,
-            timers_inactive=timers_inactive,
-            timers_closed=timers_closed,
-            unique_name=unique_name,
-        )
-
-    @property
-    def messages(self):
-        """
-        Access the messages
-
-        :returns: twilio.rest.conversations.v1.service.conversation.MessageList
-        :rtype: twilio.rest.conversations.v1.service.conversation.MessageList
-        """
-        return self._proxy.messages
-
-    @property
-    def participants(self):
-        """
-        Access the participants
-
-        :returns: twilio.rest.conversations.v1.service.conversation.ParticipantList
-        :rtype: twilio.rest.conversations.v1.service.conversation.ParticipantList
-        """
-        return self._proxy.participants
-
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.conversations.v1.service.conversation.WebhookList
-        :rtype: twilio.rest.conversations.v1.service.conversation.WebhookList
-        """
-        return self._proxy.webhooks
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ConversationInstance {}>".format(context)
-
-
-class ConversationContext(InstanceContext):
-    def __init__(self, version: Version, chat_service_sid: str, sid: str):
-        """
-        Initialize the ConversationContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-        :param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
-
-        :returns: twilio.rest.conversations.v1.service.conversation.ConversationContext
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{chat_service_sid}/Conversations/{sid}".format(
-            **self._solution
-        )
-
-        self._messages = None
-        self._participants = None
-        self._webhooks = None
-
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
-
-    async def delete_async(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Asynchronous coroutine that deletes the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
-
-    def fetch(self):
-        """
-        Fetch the ConversationInstance
-
-
-        :returns: The fetched ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ConversationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ConversationInstance
-
-
-        :returns: The fetched ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ConversationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def update(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
-    ):
-        """
-        Update the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param ConversationInstance.State state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-
-        :returns: The updated ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "MessagingServiceSid": messaging_service_sid,
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "UniqueName": unique_name,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConversationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled=values.unset,
-        friendly_name=values.unset,
-        date_created=values.unset,
-        date_updated=values.unset,
-        attributes=values.unset,
-        messaging_service_sid=values.unset,
-        state=values.unset,
-        timers_inactive=values.unset,
-        timers_closed=values.unset,
-        unique_name=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the ConversationInstance
-
-        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param ConversationInstance.State state:
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-
-        :returns: The updated ConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.ConversationInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "MessagingServiceSid": messaging_service_sid,
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "UniqueName": unique_name,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConversationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def messages(self):
-        """
-        Access the messages
-
-        :returns: twilio.rest.conversations.v1.service.conversation.MessageList
-        :rtype: twilio.rest.conversations.v1.service.conversation.MessageList
-        """
-        if self._messages is None:
-            self._messages = MessageList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
-            )
-        return self._messages
-
-    @property
-    def participants(self):
-        """
-        Access the participants
-
-        :returns: twilio.rest.conversations.v1.service.conversation.ParticipantList
-        :rtype: twilio.rest.conversations.v1.service.conversation.ParticipantList
-        """
-        if self._participants is None:
-            self._participants = ParticipantList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
-            )
-        return self._participants
-
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.conversations.v1.service.conversation.WebhookList
-        :rtype: twilio.rest.conversations.v1.service.conversation.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
-            )
-        return self._webhooks
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ConversationContext {}>".format(context)

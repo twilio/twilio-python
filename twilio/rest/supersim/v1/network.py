@@ -22,6 +22,207 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class NetworkInstance(InstanceResource):
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the NetworkInstance
+
+        :returns: twilio.rest.supersim.v1.network.NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "url": payload.get("url"),
+            "iso_country": payload.get("iso_country"),
+            "identifiers": payload.get("identifiers"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[NetworkContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: NetworkContext for this NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkContext
+        """
+        if self._context is None:
+            self._context = NetworkContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Network resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A human readable identifier of this resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Network resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def iso_country(self):
+        """
+        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resource.
+        :rtype: str
+        """
+        return self._properties["iso_country"]
+
+    @property
+    def identifiers(self):
+        """
+        :returns: Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
+        :rtype: list[object]
+        """
+        return self._properties["identifiers"]
+
+    def fetch(self):
+        """
+        Fetch the NetworkInstance
+
+
+        :returns: The fetched NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the NetworkInstance
+
+
+        :returns: The fetched NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.NetworkInstance {}>".format(context)
+
+
+class NetworkContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the NetworkContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Network resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.network.NetworkContext
+        :rtype: twilio.rest.supersim.v1.network.NetworkContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Networks/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the NetworkInstance
+
+
+        :returns: The fetched NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return NetworkInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the NetworkInstance
+
+
+        :returns: The fetched NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return NetworkInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.NetworkContext {}>".format(context)
+
+
+class NetworkPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of NetworkInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.network.NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+        return NetworkInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.NetworkPage>"
+
+
 class NetworkList(ListResource):
     def __init__(self, version: Version):
         """
@@ -34,9 +235,7 @@ class NetworkList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Networks".format(**self._solution)
+        self._uri = "/Networks"
 
     def stream(
         self,
@@ -213,7 +412,7 @@ class NetworkList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     async def page_async(
         self,
@@ -252,7 +451,7 @@ class NetworkList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -265,7 +464,7 @@ class NetworkList(ListResource):
         :rtype: twilio.rest.supersim.v1.network.NetworkPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -278,7 +477,7 @@ class NetworkList(ListResource):
         :rtype: twilio.rest.supersim.v1.network.NetworkPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     def get(self, sid):
         """
@@ -310,220 +509,3 @@ class NetworkList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.NetworkList>"
-
-
-class NetworkPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the NetworkPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.supersim.v1.network.NetworkPage
-        :rtype: twilio.rest.supersim.v1.network.NetworkPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of NetworkInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.network.NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-        return NetworkInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Supersim.V1.NetworkPage>"
-
-
-class NetworkInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the NetworkInstance
-
-        :returns: twilio.rest.supersim.v1.network.NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "url": payload.get("url"),
-            "iso_country": payload.get("iso_country"),
-            "identifiers": payload.get("identifiers"),
-        }
-
-        self._context = None
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: NetworkContext for this NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkContext
-        """
-        if self._context is None:
-            self._context = NetworkContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Network resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A human readable identifier of this resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Network resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def iso_country(self):
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resource.
-        :rtype: str
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def identifiers(self):
-        """
-        :returns: Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
-        :rtype: list[object]
-        """
-        return self._properties["identifiers"]
-
-    def fetch(self):
-        """
-        Fetch the NetworkInstance
-
-
-        :returns: The fetched NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the NetworkInstance
-
-
-        :returns: The fetched NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.NetworkInstance {}>".format(context)
-
-
-class NetworkContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the NetworkContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Network resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.network.NetworkContext
-        :rtype: twilio.rest.supersim.v1.network.NetworkContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/Networks/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the NetworkInstance
-
-
-        :returns: The fetched NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return NetworkInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the NetworkInstance
-
-
-        :returns: The fetched NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return NetworkInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.NetworkContext {}>".format(context)

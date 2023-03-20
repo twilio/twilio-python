@@ -20,6 +20,43 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+class SinkValidateInstance(InstanceResource):
+    def __init__(self, version, payload, sid: str):
+        """
+        Initialize the SinkValidateInstance
+
+        :returns: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
+        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "result": payload.get("result"),
+        }
+
+        self._solution = {
+            "sid": sid,
+        }
+
+    @property
+    def result(self):
+        """
+        :returns: Feedback indicating whether the given Sink was validated.
+        :rtype: str
+        """
+        return self._properties["result"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.SinkValidateInstance {}>".format(context)
+
+
 class SinkValidateList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
@@ -93,41 +130,3 @@ class SinkValidateList(ListResource):
         :rtype: str
         """
         return "<Twilio.Events.V1.SinkValidateList>"
-
-
-class SinkValidateInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str):
-        """
-        Initialize the SinkValidateInstance
-
-        :returns: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
-        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "result": payload.get("result"),
-        }
-
-        self._context = None
-        self._solution = {
-            "sid": sid,
-        }
-
-    @property
-    def result(self):
-        """
-        :returns: Feedback indicating whether the given Sink was validated.
-        :rtype: str
-        """
-        return self._properties["result"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SinkValidateInstance {}>".format(context)

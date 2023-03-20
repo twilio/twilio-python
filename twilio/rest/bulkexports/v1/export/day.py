@@ -14,13 +14,230 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class DayInstance(InstanceResource):
+    def __init__(self, version, payload, resource_type: str, day: Optional[str] = None):
+        """
+        Initialize the DayInstance
+
+        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "redirect_to": payload.get("redirect_to"),
+            "day": payload.get("day"),
+            "size": deserialize.integer(payload.get("size")),
+            "create_date": payload.get("create_date"),
+            "friendly_name": payload.get("friendly_name"),
+            "resource_type": payload.get("resource_type"),
+        }
+
+        self._solution = {
+            "resource_type": resource_type,
+            "day": day or self._properties["day"],
+        }
+        self._context: Optional[DayContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: DayContext for this DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
+        """
+        if self._context is None:
+            self._context = DayContext(
+                self._version,
+                resource_type=self._solution["resource_type"],
+                day=self._solution["day"],
+            )
+        return self._context
+
+    @property
+    def redirect_to(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["redirect_to"]
+
+    @property
+    def day(self):
+        """
+        :returns: The ISO 8601 format date of the resources in the file, for a UTC day
+        :rtype: str
+        """
+        return self._properties["day"]
+
+    @property
+    def size(self):
+        """
+        :returns: The size of the day's data file in bytes
+        :rtype: int
+        """
+        return self._properties["size"]
+
+    @property
+    def create_date(self):
+        """
+        :returns: The ISO 8601 format date when resources is created
+        :rtype: str
+        """
+        return self._properties["create_date"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The friendly name specified when creating the job
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def resource_type(self):
+        """
+        :returns: The type of communication – Messages, Calls, Conferences, and Participants
+        :rtype: str
+        """
+        return self._properties["resource_type"]
+
+    def fetch(self):
+        """
+        Fetch the DayInstance
+
+
+        :returns: The fetched DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DayInstance
+
+
+        :returns: The fetched DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Bulkexports.V1.DayInstance {}>".format(context)
+
+
+class DayContext(InstanceContext):
+    def __init__(self, version: Version, resource_type: str, day: str):
+        """
+        Initialize the DayContext
+
+        :param Version version: Version that contains the resource
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
+
+        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "resource_type": resource_type,
+            "day": day,
+        }
+        self._uri = "/Exports/{resource_type}/Days/{day}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the DayInstance
+
+
+        :returns: The fetched DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return DayInstance(
+            self._version,
+            payload,
+            resource_type=self._solution["resource_type"],
+            day=self._solution["day"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DayInstance
+
+
+        :returns: The fetched DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return DayInstance(
+            self._version,
+            payload,
+            resource_type=self._solution["resource_type"],
+            day=self._solution["day"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Bulkexports.V1.DayContext {}>".format(context)
+
+
+class DayPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DayInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+        return DayInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Bulkexports.V1.DayPage>"
 
 
 class DayList(ListResource):
@@ -244,237 +461,3 @@ class DayList(ListResource):
         :rtype: str
         """
         return "<Twilio.Bulkexports.V1.DayList>"
-
-
-class DayPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the DayPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayPage
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of DayInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        return DayInstance(
-            self._version, payload, resource_type=self._solution["resource_type"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Bulkexports.V1.DayPage>"
-
-
-class DayInstance(InstanceResource):
-    def __init__(self, version, payload, resource_type: str, day: Optional[str] = None):
-        """
-        Initialize the DayInstance
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "redirect_to": payload.get("redirect_to"),
-            "day": payload.get("day"),
-            "size": deserialize.integer(payload.get("size")),
-            "create_date": payload.get("create_date"),
-            "friendly_name": payload.get("friendly_name"),
-            "resource_type": payload.get("resource_type"),
-        }
-
-        self._context = None
-        self._solution = {
-            "resource_type": resource_type,
-            "day": day or self._properties["day"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: DayContext for this DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
-        """
-        if self._context is None:
-            self._context = DayContext(
-                self._version,
-                resource_type=self._solution["resource_type"],
-                day=self._solution["day"],
-            )
-        return self._context
-
-    @property
-    def redirect_to(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["redirect_to"]
-
-    @property
-    def day(self):
-        """
-        :returns: The ISO 8601 format date of the resources in the file, for a UTC day
-        :rtype: str
-        """
-        return self._properties["day"]
-
-    @property
-    def size(self):
-        """
-        :returns: The size of the day's data file in bytes
-        :rtype: int
-        """
-        return self._properties["size"]
-
-    @property
-    def create_date(self):
-        """
-        :returns: The ISO 8601 format date when resources is created
-        :rtype: str
-        """
-        return self._properties["create_date"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The friendly name specified when creating the job
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def resource_type(self):
-        """
-        :returns: The type of communication – Messages, Calls, Conferences, and Participants
-        :rtype: str
-        """
-        return self._properties["resource_type"]
-
-    def fetch(self):
-        """
-        Fetch the DayInstance
-
-
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the DayInstance
-
-
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.DayInstance {}>".format(context)
-
-
-class DayContext(InstanceContext):
-    def __init__(self, version: Version, resource_type: str, day: str):
-        """
-        Initialize the DayContext
-
-        :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
-        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "resource_type": resource_type,
-            "day": day,
-        }
-        self._uri = "/Exports/{resource_type}/Days/{day}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the DayInstance
-
-
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return DayInstance(
-            self._version,
-            payload,
-            resource_type=self._solution["resource_type"],
-            day=self._solution["day"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the DayInstance
-
-
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return DayInstance(
-            self._version,
-            payload,
-            resource_type=self._solution["resource_type"],
-            day=self._solution["day"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.DayContext {}>".format(context)

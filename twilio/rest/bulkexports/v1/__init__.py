@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.bulkexports.v1.export import ExportList
@@ -25,25 +26,18 @@ class V1(Version):
 
         :param domain: The Twilio.bulkexports domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._exports = None
-        self._export_configuration = None
+        super().__init__(domain, "v1")
+        self._exports: Optional[ExportList] = None
+        self._export_configuration: Optional[ExportConfigurationList] = None
 
     @property
     def exports(self) -> ExportList:
-        """
-        :rtype: twilio.rest.bulkexports.v1.export.ExportList
-        """
         if self._exports is None:
             self._exports = ExportList(self)
         return self._exports
 
     @property
     def export_configuration(self) -> ExportConfigurationList:
-        """
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
-        """
         if self._export_configuration is None:
             self._export_configuration = ExportConfigurationList(self)
         return self._export_configuration
@@ -52,6 +46,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Bulkexports.V1>"

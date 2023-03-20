@@ -14,331 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class MessagingConfigurationList(ListResource):
-    def __init__(self, version: Version, service_sid: str):
-        """
-        Initialize the MessagingConfigurationList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
-
-        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/MessagingConfigurations".format(
-            **self._solution
-        )
-
-    def create(self, country, messaging_service_sid):
-        """
-        Create the MessagingConfigurationInstance
-
-        :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
-
-        :returns: The created MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        data = values.of(
-            {
-                "Country": country,
-                "MessagingServiceSid": messaging_service_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return MessagingConfigurationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(self, country, messaging_service_sid):
-        """
-        Asynchronously create the MessagingConfigurationInstance
-
-        :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
-
-        :returns: The created MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        data = values.of(
-            {
-                "Country": country,
-                "MessagingServiceSid": messaging_service_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return MessagingConfigurationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams MessagingConfigurationInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams MessagingConfigurationInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists MessagingConfigurationInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists MessagingConfigurationInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of MessagingConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return MessagingConfigurationPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of MessagingConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return MessagingConfigurationPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of MessagingConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return MessagingConfigurationPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of MessagingConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return MessagingConfigurationPage(self._version, response, self._solution)
-
-    def get(self, country):
-        """
-        Constructs a MessagingConfigurationContext
-
-        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-
-        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
-        """
-        return MessagingConfigurationContext(
-            self._version, service_sid=self._solution["service_sid"], country=country
-        )
-
-    def __call__(self, country):
-        """
-        Constructs a MessagingConfigurationContext
-
-        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-
-        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
-        """
-        return MessagingConfigurationContext(
-            self._version, service_sid=self._solution["service_sid"], country=country
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.MessagingConfigurationList>"
-
-
-class MessagingConfigurationPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the MessagingConfigurationPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of MessagingConfigurationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        return MessagingConfigurationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.MessagingConfigurationPage>"
 
 
 class MessagingConfigurationInstance(InstanceResource):
@@ -363,11 +44,11 @@ class MessagingConfigurationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "country": country or self._properties["country"],
         }
+        self._context: Optional[MessagingConfigurationContext] = None
 
     @property
     def _proxy(self):
@@ -675,3 +356,305 @@ class MessagingConfigurationContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.MessagingConfigurationContext {}>".format(context)
+
+
+class MessagingConfigurationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MessagingConfigurationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        return MessagingConfigurationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.MessagingConfigurationPage>"
+
+
+class MessagingConfigurationList(ListResource):
+    def __init__(self, version: Version, service_sid: str):
+        """
+        Initialize the MessagingConfigurationList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+        }
+        self._uri = "/Services/{service_sid}/MessagingConfigurations".format(
+            **self._solution
+        )
+
+    def create(self, country, messaging_service_sid):
+        """
+        Create the MessagingConfigurationInstance
+
+        :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+
+        :returns: The created MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        data = values.of(
+            {
+                "Country": country,
+                "MessagingServiceSid": messaging_service_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return MessagingConfigurationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    async def create_async(self, country, messaging_service_sid):
+        """
+        Asynchronously create the MessagingConfigurationInstance
+
+        :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+
+        :returns: The created MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        data = values.of(
+            {
+                "Country": country,
+                "MessagingServiceSid": messaging_service_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return MessagingConfigurationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams MessagingConfigurationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams MessagingConfigurationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists MessagingConfigurationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists MessagingConfigurationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of MessagingConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return MessagingConfigurationPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of MessagingConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return MessagingConfigurationPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of MessagingConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return MessagingConfigurationPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of MessagingConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return MessagingConfigurationPage(self._version, response, self._solution)
+
+    def get(self, country):
+        """
+        Constructs a MessagingConfigurationContext
+
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        """
+        return MessagingConfigurationContext(
+            self._version, service_sid=self._solution["service_sid"], country=country
+        )
+
+    def __call__(self, country):
+        """
+        Constructs a MessagingConfigurationContext
+
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        """
+        return MessagingConfigurationContext(
+            self._version, service_sid=self._solution["service_sid"], country=country
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Verify.V2.MessagingConfigurationList>"

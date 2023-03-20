@@ -13,57 +13,12 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class WebhookList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the WebhookList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a WebhookContext
-
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        """
-        return WebhookContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a WebhookContext
-
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        """
-        return WebhookContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.WebhookList>"
 
 
 class WebhookInstance(InstanceResource):
@@ -94,8 +49,8 @@ class WebhookInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[WebhookContext] = None
 
     @property
     def _proxy(self):
@@ -267,9 +222,7 @@ class WebhookContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Configuration/Webhooks".format(**self._solution)
+        self._uri = "/Configuration/Webhooks"
 
     def fetch(self):
         """
@@ -392,5 +345,47 @@ class WebhookContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.WebhookContext {}>".format(context)
+
+        return "<Twilio.Conversations.V1.WebhookContext>"
+
+
+class WebhookList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the WebhookList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a WebhookContext
+
+
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        """
+        return WebhookContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a WebhookContext
+
+
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        """
+        return WebhookContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.WebhookList>"

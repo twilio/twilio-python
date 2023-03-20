@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.wireless.v1.command import CommandList
@@ -27,45 +28,32 @@ class V1(Version):
 
         :param domain: The Twilio.wireless domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._commands = None
-        self._rate_plans = None
-        self._sims = None
-        self._usage_records = None
+        super().__init__(domain, "v1")
+        self._commands: Optional[CommandList] = None
+        self._rate_plans: Optional[RatePlanList] = None
+        self._sims: Optional[SimList] = None
+        self._usage_records: Optional[UsageRecordList] = None
 
     @property
     def commands(self) -> CommandList:
-        """
-        :rtype: twilio.rest.wireless.v1.command.CommandList
-        """
         if self._commands is None:
             self._commands = CommandList(self)
         return self._commands
 
     @property
     def rate_plans(self) -> RatePlanList:
-        """
-        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanList
-        """
         if self._rate_plans is None:
             self._rate_plans = RatePlanList(self)
         return self._rate_plans
 
     @property
     def sims(self) -> SimList:
-        """
-        :rtype: twilio.rest.wireless.v1.sim.SimList
-        """
         if self._sims is None:
             self._sims = SimList(self)
         return self._sims
 
     @property
     def usage_records(self) -> UsageRecordList:
-        """
-        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordList
-        """
         if self._usage_records is None:
             self._usage_records = UsageRecordList(self)
         return self._usage_records
@@ -74,6 +62,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Wireless.V1>"

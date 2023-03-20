@@ -13,56 +13,12 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class SettingList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SettingList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.insights.v1.setting.SettingList
-        :rtype: twilio.rest.insights.v1.setting.SettingList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a SettingContext
-
-
-        :returns: twilio.rest.insights.v1.setting.SettingContext
-        :rtype: twilio.rest.insights.v1.setting.SettingContext
-        """
-        return SettingContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a SettingContext
-
-
-        :returns: twilio.rest.insights.v1.setting.SettingContext
-        :rtype: twilio.rest.insights.v1.setting.SettingContext
-        """
-        return SettingContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Insights.V1.SettingList>"
 
 
 class SettingInstance(InstanceResource):
@@ -82,8 +38,8 @@ class SettingInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[SettingContext] = None
 
     @property
     def _proxy(self):
@@ -225,9 +181,7 @@ class SettingContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Voice/Settings".format(**self._solution)
+        self._uri = "/Voice/Settings"
 
     def fetch(self, subaccount_sid=values.unset):
         """
@@ -348,5 +302,47 @@ class SettingContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.SettingContext {}>".format(context)
+
+        return "<Twilio.Insights.V1.SettingContext>"
+
+
+class SettingList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SettingList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.insights.v1.setting.SettingList
+        :rtype: twilio.rest.insights.v1.setting.SettingList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a SettingContext
+
+
+        :returns: twilio.rest.insights.v1.setting.SettingContext
+        :rtype: twilio.rest.insights.v1.setting.SettingContext
+        """
+        return SettingContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a SettingContext
+
+
+        :returns: twilio.rest.insights.v1.setting.SettingContext
+        :rtype: twilio.rest.insights.v1.setting.SettingContext
+        """
+        return SettingContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Insights.V1.SettingList>"

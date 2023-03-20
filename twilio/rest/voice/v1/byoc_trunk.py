@@ -14,372 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class ByocTrunkList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the ByocTrunkList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkList
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/ByocTrunks".format(**self._solution)
-
-    def create(
-        self,
-        friendly_name=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback_url=values.unset,
-        status_callback_method=values.unset,
-        cnam_lookup_enabled=values.unset,
-        connection_policy_sid=values.unset,
-        from_domain_sid=values.unset,
-    ):
-        """
-        Create the ByocTrunkInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param str voice_url: The URL we should call when the BYOC Trunk receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param str connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
-        :param str from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
-
-        :returns: The created ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "VoiceUrl": voice_url,
-                "VoiceMethod": voice_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceFallbackMethod": voice_fallback_method,
-                "StatusCallbackUrl": status_callback_url,
-                "StatusCallbackMethod": status_callback_method,
-                "CnamLookupEnabled": cnam_lookup_enabled,
-                "ConnectionPolicySid": connection_policy_sid,
-                "FromDomainSid": from_domain_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ByocTrunkInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        friendly_name=values.unset,
-        voice_url=values.unset,
-        voice_method=values.unset,
-        voice_fallback_url=values.unset,
-        voice_fallback_method=values.unset,
-        status_callback_url=values.unset,
-        status_callback_method=values.unset,
-        cnam_lookup_enabled=values.unset,
-        connection_policy_sid=values.unset,
-        from_domain_sid=values.unset,
-    ):
-        """
-        Asynchronously create the ByocTrunkInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param str voice_url: The URL we should call when the BYOC Trunk receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
-        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param str connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
-        :param str from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
-
-        :returns: The created ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "VoiceUrl": voice_url,
-                "VoiceMethod": voice_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceFallbackMethod": voice_fallback_method,
-                "StatusCallbackUrl": status_callback_url,
-                "StatusCallbackMethod": status_callback_method,
-                "CnamLookupEnabled": cnam_lookup_enabled,
-                "ConnectionPolicySid": connection_policy_sid,
-                "FromDomainSid": from_domain_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ByocTrunkInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams ByocTrunkInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams ByocTrunkInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists ByocTrunkInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists ByocTrunkInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of ByocTrunkInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ByocTrunkPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of ByocTrunkInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return ByocTrunkPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of ByocTrunkInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return ByocTrunkPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of ByocTrunkInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ByocTrunkPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a ByocTrunkContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
-
-        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
-        """
-        return ByocTrunkContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a ByocTrunkContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
-
-        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
-        """
-        return ByocTrunkContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Voice.V1.ByocTrunkList>"
-
-
-class ByocTrunkPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ByocTrunkPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of ByocTrunkInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        """
-        return ByocTrunkInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Voice.V1.ByocTrunkPage>"
 
 
 class ByocTrunkInstance(InstanceResource):
@@ -410,10 +50,10 @@ class ByocTrunkInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ByocTrunkContext] = None
 
     @property
     def _proxy(self):
@@ -888,3 +528,344 @@ class ByocTrunkContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.ByocTrunkContext {}>".format(context)
+
+
+class ByocTrunkPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ByocTrunkInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        return ByocTrunkInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.ByocTrunkPage>"
+
+
+class ByocTrunkList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the ByocTrunkList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkList
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkList
+        """
+        super().__init__(version)
+
+        self._uri = "/ByocTrunks"
+
+    def create(
+        self,
+        friendly_name=values.unset,
+        voice_url=values.unset,
+        voice_method=values.unset,
+        voice_fallback_url=values.unset,
+        voice_fallback_method=values.unset,
+        status_callback_url=values.unset,
+        status_callback_method=values.unset,
+        cnam_lookup_enabled=values.unset,
+        connection_policy_sid=values.unset,
+        from_domain_sid=values.unset,
+    ):
+        """
+        Create the ByocTrunkInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param str voice_url: The URL we should call when the BYOC Trunk receives a call.
+        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param str status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
+        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param str connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
+        :param str from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
+
+        :returns: The created ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "StatusCallbackUrl": status_callback_url,
+                "StatusCallbackMethod": status_callback_method,
+                "CnamLookupEnabled": cnam_lookup_enabled,
+                "ConnectionPolicySid": connection_policy_sid,
+                "FromDomainSid": from_domain_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ByocTrunkInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name=values.unset,
+        voice_url=values.unset,
+        voice_method=values.unset,
+        voice_fallback_url=values.unset,
+        voice_fallback_method=values.unset,
+        status_callback_url=values.unset,
+        status_callback_method=values.unset,
+        cnam_lookup_enabled=values.unset,
+        connection_policy_sid=values.unset,
+        from_domain_sid=values.unset,
+    ):
+        """
+        Asynchronously create the ByocTrunkInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param str voice_url: The URL we should call when the BYOC Trunk receives a call.
+        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param str status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
+        :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+        :param str connection_policy_sid: The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
+        :param str from_domain_sid: The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
+
+        :returns: The created ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "StatusCallbackUrl": status_callback_url,
+                "StatusCallbackMethod": status_callback_method,
+                "CnamLookupEnabled": cnam_lookup_enabled,
+                "ConnectionPolicySid": connection_policy_sid,
+                "FromDomainSid": from_domain_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ByocTrunkInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams ByocTrunkInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams ByocTrunkInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists ByocTrunkInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists ByocTrunkInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of ByocTrunkInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return ByocTrunkPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of ByocTrunkInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return ByocTrunkPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of ByocTrunkInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return ByocTrunkPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of ByocTrunkInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return ByocTrunkPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a ByocTrunkContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
+
+        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
+        """
+        return ByocTrunkContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ByocTrunkContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
+
+        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkContext
+        """
+        return ByocTrunkContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Voice.V1.ByocTrunkList>"

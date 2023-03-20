@@ -14,13 +14,285 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class CredentialListInstance(InstanceResource):
+    def __init__(self, version, payload, trunk_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the CredentialListInstance
+
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "sid": payload.get("sid"),
+            "trunk_sid": payload.get("trunk_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "trunk_sid": trunk_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[CredentialListContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: CredentialListContext for this CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        """
+        if self._context is None:
+            self._context = CredentialListContext(
+                self._version,
+                trunk_sid=self._solution["trunk_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialList resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the CredentialList resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def trunk_sid(self):
+        """
+        :returns: The SID of the Trunk the credential list in associated with.
+        :rtype: str
+        """
+        return self._properties["trunk_sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the CredentialListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CredentialListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the CredentialListInstance
+
+
+        :returns: The fetched CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CredentialListInstance
+
+
+        :returns: The fetched CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trunking.V1.CredentialListInstance {}>".format(context)
+
+
+class CredentialListContext(InstanceContext):
+    def __init__(self, version: Version, trunk_sid: str, sid: str):
+        """
+        Initialize the CredentialListContext
+
+        :param Version version: Version that contains the resource
+        :param trunk_sid: The SID of the Trunk from which to fetch the credential list.
+        :param sid: The unique string that we created to identify the CredentialList resource to fetch.
+
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "trunk_sid": trunk_sid,
+            "sid": sid,
+        }
+        self._uri = "/Trunks/{trunk_sid}/CredentialLists/{sid}".format(**self._solution)
+
+    def delete(self):
+        """
+        Deletes the CredentialListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CredentialListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the CredentialListInstance
+
+
+        :returns: The fetched CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CredentialListInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CredentialListInstance
+
+
+        :returns: The fetched CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CredentialListInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trunking.V1.CredentialListContext {}>".format(context)
+
+
+class CredentialListPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialListInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+        return CredentialListInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trunking.V1.CredentialListPage>"
 
 
 class CredentialListList(ListResource):
@@ -294,292 +566,3 @@ class CredentialListList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trunking.V1.CredentialListList>"
-
-
-class CredentialListPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the CredentialListPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of CredentialListInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-        return CredentialListInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trunking.V1.CredentialListPage>"
-
-
-class CredentialListInstance(InstanceResource):
-    def __init__(self, version, payload, trunk_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the CredentialListInstance
-
-        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "trunk_sid": payload.get("trunk_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
-
-        self._context = None
-        self._solution = {
-            "trunk_sid": trunk_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: CredentialListContext for this CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
-        """
-        if self._context is None:
-            self._context = CredentialListContext(
-                self._version,
-                trunk_sid=self._solution["trunk_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialList resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the CredentialList resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def trunk_sid(self):
-        """
-        :returns: The SID of the Trunk the credential list in associated with.
-        :rtype: str
-        """
-        return self._properties["trunk_sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the CredentialListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CredentialListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the CredentialListInstance
-
-
-        :returns: The fetched CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CredentialListInstance
-
-
-        :returns: The fetched CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.CredentialListInstance {}>".format(context)
-
-
-class CredentialListContext(InstanceContext):
-    def __init__(self, version: Version, trunk_sid: str, sid: str):
-        """
-        Initialize the CredentialListContext
-
-        :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to fetch the credential list.
-        :param sid: The unique string that we created to identify the CredentialList resource to fetch.
-
-        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
-            "sid": sid,
-        }
-        self._uri = "/Trunks/{trunk_sid}/CredentialLists/{sid}".format(**self._solution)
-
-    def delete(self):
-        """
-        Deletes the CredentialListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CredentialListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the CredentialListInstance
-
-
-        :returns: The fetched CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CredentialListInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution["trunk_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CredentialListInstance
-
-
-        :returns: The fetched CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CredentialListInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution["trunk_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.CredentialListContext {}>".format(context)

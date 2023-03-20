@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -35,13 +38,11 @@ class DialingPermissionsList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/DialingPermissions".format(**self._solution)
+        self._uri = "/DialingPermissions"
 
-        self._bulk_country_updates = None
-        self._countries = None
-        self._settings = None
+        self._bulk_country_updates: Optional[BulkCountryUpdateList] = None
+        self._countries: Optional[CountryList] = None
+        self._settings: Optional[SettingsList] = None
 
     @property
     def bulk_country_updates(self):

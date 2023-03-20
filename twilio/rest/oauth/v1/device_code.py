@@ -13,13 +13,91 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
+
+class DeviceCodeInstance(InstanceResource):
+    def __init__(self, version, payload):
+        """
+        Initialize the DeviceCodeInstance
+
+        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
+        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "device_code": payload.get("device_code"),
+            "user_code": payload.get("user_code"),
+            "verification_uri": payload.get("verification_uri"),
+            "verification_uri_complete": payload.get("verification_uri_complete"),
+            "expires_in": payload.get("expires_in"),
+            "interval": deserialize.integer(payload.get("interval")),
+        }
+
+        self._solution = {}
+
+    @property
+    def device_code(self):
+        """
+        :returns: The device verification code.
+        :rtype: str
+        """
+        return self._properties["device_code"]
+
+    @property
+    def user_code(self):
+        """
+        :returns: The verification code which end user uses to verify authorization request.
+        :rtype: str
+        """
+        return self._properties["user_code"]
+
+    @property
+    def verification_uri(self):
+        """
+        :returns: The URI that the end user visits to verify authorization request.
+        :rtype: str
+        """
+        return self._properties["verification_uri"]
+
+    @property
+    def verification_uri_complete(self):
+        """
+        :returns: The URI with user_code that the end-user alternatively visits to verify authorization request.
+        :rtype: str
+        """
+        return self._properties["verification_uri_complete"]
+
+    @property
+    def expires_in(self):
+        """
+        :returns: The expiration time of the device_code and user_code in seconds.
+        :rtype: int
+        """
+        return self._properties["expires_in"]
+
+    @property
+    def interval(self):
+        """
+        :returns: The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.
+        :rtype: int
+        """
+        return self._properties["interval"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Oauth.V1.DeviceCodeInstance {}>".format(context)
 
 
 class DeviceCodeList(ListResource):
@@ -34,9 +112,7 @@ class DeviceCodeList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/device/code".format(**self._solution)
+        self._uri = "/device/code"
 
     def create(self, client_sid, scopes, audiences=values.unset):
         """
@@ -100,84 +176,3 @@ class DeviceCodeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Oauth.V1.DeviceCodeList>"
-
-
-class DeviceCodeInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the DeviceCodeInstance
-
-        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "device_code": payload.get("device_code"),
-            "user_code": payload.get("user_code"),
-            "verification_uri": payload.get("verification_uri"),
-            "verification_uri_complete": payload.get("verification_uri_complete"),
-            "expires_in": payload.get("expires_in"),
-            "interval": deserialize.integer(payload.get("interval")),
-        }
-
-        self._context = None
-        self._solution = {}
-
-    @property
-    def device_code(self):
-        """
-        :returns: The device verification code.
-        :rtype: str
-        """
-        return self._properties["device_code"]
-
-    @property
-    def user_code(self):
-        """
-        :returns: The verification code which end user uses to verify authorization request.
-        :rtype: str
-        """
-        return self._properties["user_code"]
-
-    @property
-    def verification_uri(self):
-        """
-        :returns: The URI that the end user visits to verify authorization request.
-        :rtype: str
-        """
-        return self._properties["verification_uri"]
-
-    @property
-    def verification_uri_complete(self):
-        """
-        :returns: The URI with user_code that the end-user alternatively visits to verify authorization request.
-        :rtype: str
-        """
-        return self._properties["verification_uri_complete"]
-
-    @property
-    def expires_in(self):
-        """
-        :returns: The expiration time of the device_code and user_code in seconds.
-        :rtype: int
-        """
-        return self._properties["expires_in"]
-
-    @property
-    def interval(self):
-        """
-        :returns: The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.
-        :rtype: int
-        """
-        return self._properties["interval"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.DeviceCodeInstance {}>".format(context)

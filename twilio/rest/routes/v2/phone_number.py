@@ -14,59 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class PhoneNumberList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the PhoneNumberList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberList
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self, phone_number):
-        """
-        Constructs a PhoneNumberContext
-
-        :param phone_number: The phone number in E.164 format
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        """
-        return PhoneNumberContext(self._version, phone_number=phone_number)
-
-    def __call__(self, phone_number):
-        """
-        Constructs a PhoneNumberContext
-
-        :param phone_number: The phone number in E.164 format
-
-        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
-        """
-        return PhoneNumberContext(self._version, phone_number=phone_number)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Routes.V2.PhoneNumberList>"
 
 
 class PhoneNumberInstance(InstanceResource):
@@ -90,10 +42,10 @@ class PhoneNumberInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "phone_number": phone_number or self._properties["phone_number"],
         }
+        self._context: Optional[PhoneNumberContext] = None
 
     @property
     def _proxy(self):
@@ -358,3 +310,47 @@ class PhoneNumberContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Routes.V2.PhoneNumberContext {}>".format(context)
+
+
+class PhoneNumberList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the PhoneNumberList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberList
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberList
+        """
+        super().__init__(version)
+
+    def get(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+
+        :param phone_number: The phone number in E.164 format
+
+        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
+
+    def __call__(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+
+        :param phone_number: The phone number in E.164 format
+
+        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Routes.V2.PhoneNumberList>"

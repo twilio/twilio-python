@@ -13,56 +13,12 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class InsightsUserRolesList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the InsightsUserRolesList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a InsightsUserRolesContext
-
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        """
-        return InsightsUserRolesContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a InsightsUserRolesContext
-
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        """
-        return InsightsUserRolesContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FlexApi.V1.InsightsUserRolesList>"
 
 
 class InsightsUserRolesInstance(InstanceResource):
@@ -80,8 +36,8 @@ class InsightsUserRolesInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[InsightsUserRolesContext] = None
 
     @property
     def _proxy(self):
@@ -163,9 +119,7 @@ class InsightsUserRolesContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/UserRoles".format(**self._solution)
+        self._uri = "/Insights/UserRoles"
 
     def fetch(self, authorization=values.unset):
         """
@@ -222,5 +176,47 @@ class InsightsUserRolesContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsUserRolesContext {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.InsightsUserRolesContext>"
+
+
+class InsightsUserRolesList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the InsightsUserRolesList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a InsightsUserRolesContext
+
+
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a InsightsUserRolesContext
+
+
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FlexApi.V1.InsightsUserRolesList>"

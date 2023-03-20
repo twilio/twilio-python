@@ -14,364 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class MediaRecordingList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the MediaRecordingList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingList
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/MediaRecordings".format(**self._solution)
-
-    def stream(
-        self,
-        order=values.unset,
-        status=values.unset,
-        processor_sid=values.unset,
-        source_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams MediaRecordingInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
-        :param str processor_sid: SID of a MediaProcessor to filter by.
-        :param str source_sid: SID of a MediaRecording source to filter by.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            order=order,
-            status=status,
-            processor_sid=processor_sid,
-            source_sid=source_sid,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        order=values.unset,
-        status=values.unset,
-        processor_sid=values.unset,
-        source_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams MediaRecordingInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
-        :param str processor_sid: SID of a MediaProcessor to filter by.
-        :param str source_sid: SID of a MediaRecording source to filter by.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            order=order,
-            status=status,
-            processor_sid=processor_sid,
-            source_sid=source_sid,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        order=values.unset,
-        status=values.unset,
-        processor_sid=values.unset,
-        source_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists MediaRecordingInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
-        :param str processor_sid: SID of a MediaProcessor to filter by.
-        :param str source_sid: SID of a MediaRecording source to filter by.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
-        """
-        return list(
-            self.stream(
-                order=order,
-                status=status,
-                processor_sid=processor_sid,
-                source_sid=source_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        order=values.unset,
-        status=values.unset,
-        processor_sid=values.unset,
-        source_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists MediaRecordingInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
-        :param str processor_sid: SID of a MediaProcessor to filter by.
-        :param str source_sid: SID of a MediaRecording source to filter by.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
-        """
-        return list(
-            await self.stream_async(
-                order=order,
-                status=status,
-                processor_sid=processor_sid,
-                source_sid=source_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        order=values.unset,
-        status=values.unset,
-        processor_sid=values.unset,
-        source_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of MediaRecordingInstance records from the API.
-        Request is executed immediately
-
-        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
-        :param str processor_sid: SID of a MediaProcessor to filter by.
-        :param str source_sid: SID of a MediaRecording source to filter by.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        """
-        data = values.of(
-            {
-                "Order": order,
-                "Status": status,
-                "ProcessorSid": processor_sid,
-                "SourceSid": source_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return MediaRecordingPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        order=values.unset,
-        status=values.unset,
-        processor_sid=values.unset,
-        source_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of MediaRecordingInstance records from the API.
-        Request is executed immediately
-
-        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
-        :param str processor_sid: SID of a MediaProcessor to filter by.
-        :param str source_sid: SID of a MediaRecording source to filter by.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        """
-        data = values.of(
-            {
-                "Order": order,
-                "Status": status,
-                "ProcessorSid": processor_sid,
-                "SourceSid": source_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return MediaRecordingPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of MediaRecordingInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return MediaRecordingPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of MediaRecordingInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return MediaRecordingPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a MediaRecordingContext
-
-        :param sid: The SID of the MediaRecording resource to fetch.
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
-        """
-        return MediaRecordingContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a MediaRecordingContext
-
-        :param sid: The SID of the MediaRecording resource to fetch.
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
-        """
-        return MediaRecordingContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Media.V1.MediaRecordingList>"
-
-
-class MediaRecordingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the MediaRecordingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of MediaRecordingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-        return MediaRecordingInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Media.V1.MediaRecordingPage>"
 
 
 class MediaRecordingInstance(InstanceResource):
@@ -416,10 +64,10 @@ class MediaRecordingInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[MediaRecordingContext] = None
 
     @property
     def _proxy(self):
@@ -702,3 +350,336 @@ class MediaRecordingContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Media.V1.MediaRecordingContext {}>".format(context)
+
+
+class MediaRecordingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MediaRecordingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+        return MediaRecordingInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Media.V1.MediaRecordingPage>"
+
+
+class MediaRecordingList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the MediaRecordingList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingList
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingList
+        """
+        super().__init__(version)
+
+        self._uri = "/MediaRecordings"
+
+    def stream(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams MediaRecordingInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param str processor_sid: SID of a MediaProcessor to filter by.
+        :param str source_sid: SID of a MediaRecording source to filter by.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            order=order,
+            status=status,
+            processor_sid=processor_sid,
+            source_sid=source_sid,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams MediaRecordingInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param str processor_sid: SID of a MediaProcessor to filter by.
+        :param str source_sid: SID of a MediaRecording source to filter by.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            order=order,
+            status=status,
+            processor_sid=processor_sid,
+            source_sid=source_sid,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists MediaRecordingInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param str processor_sid: SID of a MediaProcessor to filter by.
+        :param str source_sid: SID of a MediaRecording source to filter by.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
+        """
+        return list(
+            self.stream(
+                order=order,
+                status=status,
+                processor_sid=processor_sid,
+                source_sid=source_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists MediaRecordingInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param str processor_sid: SID of a MediaProcessor to filter by.
+        :param str source_sid: SID of a MediaRecording source to filter by.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
+        """
+        return list(
+            await self.stream_async(
+                order=order,
+                status=status,
+                processor_sid=processor_sid,
+                source_sid=source_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of MediaRecordingInstance records from the API.
+        Request is executed immediately
+
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param str processor_sid: SID of a MediaProcessor to filter by.
+        :param str source_sid: SID of a MediaRecording source to filter by.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
+        """
+        data = values.of(
+            {
+                "Order": order,
+                "Status": status,
+                "ProcessorSid": processor_sid,
+                "SourceSid": source_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return MediaRecordingPage(self._version, response)
+
+    async def page_async(
+        self,
+        order=values.unset,
+        status=values.unset,
+        processor_sid=values.unset,
+        source_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of MediaRecordingInstance records from the API.
+        Request is executed immediately
+
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param str processor_sid: SID of a MediaProcessor to filter by.
+        :param str source_sid: SID of a MediaRecording source to filter by.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
+        """
+        data = values.of(
+            {
+                "Order": order,
+                "Status": status,
+                "ProcessorSid": processor_sid,
+                "SourceSid": source_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return MediaRecordingPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of MediaRecordingInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return MediaRecordingPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of MediaRecordingInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return MediaRecordingPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a MediaRecordingContext
+
+        :param sid: The SID of the MediaRecording resource to fetch.
+
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        """
+        return MediaRecordingContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MediaRecordingContext
+
+        :param sid: The SID of the MediaRecording resource to fetch.
+
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        """
+        return MediaRecordingContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Media.V1.MediaRecordingList>"

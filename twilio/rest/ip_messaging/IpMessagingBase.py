@@ -20,37 +20,32 @@ class IpMessagingBase(Domain):
         Initialize the IpMessaging Domain
 
         :returns: Domain for IpMessaging
-        :rtype: twilio.rest.ip_messaging.IpMessaging
         """
-        super().__init__(twilio)
-        self.base_url = "https://ip-messaging.twilio.com"
+        super().__init__(twilio, "https://ip-messaging.twilio.com")
         self._v1 = None
         self._v2 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of IpMessaging
-        :rtype: twilio.rest.ip_messaging.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
     @property
-    def v2(self):
+    def v2(self) -> V2:
         """
         :returns: Versions v2 of IpMessaging
-        :rtype: twilio.rest.ip_messaging.v2.V2
         """
         if self._v2 is None:
             self._v2 = V2(self)
         return self._v2
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.IpMessaging>"

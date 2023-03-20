@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.preview.understand.assistant import AssistantList
@@ -24,15 +25,11 @@ class Understand(Version):
 
         :param domain: The Twilio.preview domain
         """
-        super().__init__(domain)
-        self.version = "understand"
-        self._assistants = None
+        super().__init__(domain, "understand")
+        self._assistants: Optional[AssistantList] = None
 
     @property
     def assistants(self) -> AssistantList:
-        """
-        :rtype: twilio.rest.preview.understand.assistant.AssistantList
-        """
         if self._assistants is None:
             self._assistants = AssistantList(self)
         return self._assistants
@@ -41,6 +38,5 @@ class Understand(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Understand>"

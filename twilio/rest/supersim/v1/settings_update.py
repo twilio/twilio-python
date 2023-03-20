@@ -13,13 +13,139 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class SettingsUpdateInstance(InstanceResource):
+    class Status(object):
+        SCHEDULED = "scheduled"
+        IN_PROGRESS = "in-progress"
+        SUCCESSFUL = "successful"
+        FAILED = "failed"
+
+    def __init__(self, version, payload):
+        """
+        Initialize the SettingsUpdateInstance
+
+        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "iccid": payload.get("iccid"),
+            "sim_sid": payload.get("sim_sid"),
+            "status": payload.get("status"),
+            "packages": payload.get("packages"),
+            "date_completed": deserialize.iso8601_datetime(
+                payload.get("date_completed")
+            ),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+        }
+
+        self._solution = {}
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique identifier of this Settings Update.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def iccid(self):
+        """
+        :returns: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
+        :rtype: str
+        """
+        return self._properties["iccid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the Super SIM to which this Settings Update was applied.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: SettingsUpdateInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def packages(self):
+        """
+        :returns: Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
+        :rtype: list[object]
+        """
+        return self._properties["packages"]
+
+    @property
+    def date_completed(self):
+        """
+        :returns: The time, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, when the update successfully completed and the new settings were applied to the SIM.
+        :rtype: datetime
+        """
+        return self._properties["date_completed"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this Settings Update was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this Settings Update was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.SettingsUpdateInstance {}>".format(context)
+
+
+class SettingsUpdatePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SettingsUpdateInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        """
+        return SettingsUpdateInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.SettingsUpdatePage>"
 
 
 class SettingsUpdateList(ListResource):
@@ -34,9 +160,7 @@ class SettingsUpdateList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/SettingsUpdates".format(**self._solution)
+        self._uri = "/SettingsUpdates"
 
     def stream(self, sim=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -178,7 +302,7 @@ class SettingsUpdateList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     async def page_async(
         self,
@@ -214,7 +338,7 @@ class SettingsUpdateList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -227,7 +351,7 @@ class SettingsUpdateList(ListResource):
         :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdatePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -240,7 +364,7 @@ class SettingsUpdateList(ListResource):
         :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdatePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     def __repr__(self):
         """
@@ -250,147 +374,3 @@ class SettingsUpdateList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.SettingsUpdateList>"
-
-
-class SettingsUpdatePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SettingsUpdatePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdatePage
-        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdatePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of SettingsUpdateInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
-        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
-        """
-        return SettingsUpdateInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Supersim.V1.SettingsUpdatePage>"
-
-
-class SettingsUpdateInstance(InstanceResource):
-    class Status(object):
-        SCHEDULED = "scheduled"
-        IN_PROGRESS = "in-progress"
-        SUCCESSFUL = "successful"
-        FAILED = "failed"
-
-    def __init__(self, version, payload):
-        """
-        Initialize the SettingsUpdateInstance
-
-        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
-        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "iccid": payload.get("iccid"),
-            "sim_sid": payload.get("sim_sid"),
-            "status": payload.get("status"),
-            "packages": payload.get("packages"),
-            "date_completed": deserialize.iso8601_datetime(
-                payload.get("date_completed")
-            ),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
-
-        self._context = None
-        self._solution = {}
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique identifier of this Settings Update.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def iccid(self):
-        """
-        :returns: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
-        :rtype: str
-        """
-        return self._properties["iccid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the Super SIM to which this Settings Update was applied.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: SettingsUpdateInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def packages(self):
-        """
-        :returns: Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
-        :rtype: list[object]
-        """
-        return self._properties["packages"]
-
-    @property
-    def date_completed(self):
-        """
-        :returns: The time, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, when the update successfully completed and the new settings were applied to the SIM.
-        :rtype: datetime
-        """
-        return self._properties["date_completed"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date that this Settings Update was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this Settings Update was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SettingsUpdateInstance {}>".format(context)

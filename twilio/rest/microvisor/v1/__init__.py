@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.microvisor.v1.account_config import AccountConfigList
@@ -27,45 +28,32 @@ class V1(Version):
 
         :param domain: The Twilio.microvisor domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._account_configs = None
-        self._account_secrets = None
-        self._apps = None
-        self._devices = None
+        super().__init__(domain, "v1")
+        self._account_configs: Optional[AccountConfigList] = None
+        self._account_secrets: Optional[AccountSecretList] = None
+        self._apps: Optional[AppList] = None
+        self._devices: Optional[DeviceList] = None
 
     @property
     def account_configs(self) -> AccountConfigList:
-        """
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigList
-        """
         if self._account_configs is None:
             self._account_configs = AccountConfigList(self)
         return self._account_configs
 
     @property
     def account_secrets(self) -> AccountSecretList:
-        """
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretList
-        """
         if self._account_secrets is None:
             self._account_secrets = AccountSecretList(self)
         return self._account_secrets
 
     @property
     def apps(self) -> AppList:
-        """
-        :rtype: twilio.rest.microvisor.v1.app.AppList
-        """
         if self._apps is None:
             self._apps = AppList(self)
         return self._apps
 
     @property
     def devices(self) -> DeviceList:
-        """
-        :rtype: twilio.rest.microvisor.v1.device.DeviceList
-        """
         if self._devices is None:
             self._devices = DeviceList(self)
         return self._devices
@@ -74,6 +62,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Microvisor.V1>"

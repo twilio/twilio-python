@@ -13,13 +13,209 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class DataSessionInstance(InstanceResource):
+    def __init__(self, version, payload, sim_sid: str):
+        """
+        Initialize the DataSessionInstance
+
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "account_sid": payload.get("account_sid"),
+            "radio_link": payload.get("radio_link"),
+            "operator_mcc": payload.get("operator_mcc"),
+            "operator_mnc": payload.get("operator_mnc"),
+            "operator_country": payload.get("operator_country"),
+            "operator_name": payload.get("operator_name"),
+            "cell_id": payload.get("cell_id"),
+            "cell_location_estimate": payload.get("cell_location_estimate"),
+            "packets_uploaded": deserialize.integer(payload.get("packets_uploaded")),
+            "packets_downloaded": deserialize.integer(
+                payload.get("packets_downloaded")
+            ),
+            "last_updated": deserialize.iso8601_datetime(payload.get("last_updated")),
+            "start": deserialize.iso8601_datetime(payload.get("start")),
+            "end": deserialize.iso8601_datetime(payload.get("end")),
+            "imei": payload.get("imei"),
+        }
+
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the DataSession resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DataSession resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def radio_link(self):
+        """
+        :returns: The generation of wireless technology that the device was using.
+        :rtype: str
+        """
+        return self._properties["radio_link"]
+
+    @property
+    def operator_mcc(self):
+        """
+        :returns: The 'mobile country code' is the unique ID of the home country where the Data Session took place. See: [MCC/MNC lookup](http://mcc-mnc.com/).
+        :rtype: str
+        """
+        return self._properties["operator_mcc"]
+
+    @property
+    def operator_mnc(self):
+        """
+        :returns: The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place.
+        :rtype: str
+        """
+        return self._properties["operator_mnc"]
+
+    @property
+    def operator_country(self):
+        """
+        :returns: The three letter country code representing where the device's Data Session took place. This is determined by looking up the `operator_mcc`.
+        :rtype: str
+        """
+        return self._properties["operator_country"]
+
+    @property
+    def operator_name(self):
+        """
+        :returns: The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
+        :rtype: str
+        """
+        return self._properties["operator_name"]
+
+    @property
+    def cell_id(self):
+        """
+        :returns: The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
+        :rtype: str
+        """
+        return self._properties["cell_id"]
+
+    @property
+    def cell_location_estimate(self):
+        """
+        :returns: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
+        :rtype: dict
+        """
+        return self._properties["cell_location_estimate"]
+
+    @property
+    def packets_uploaded(self):
+        """
+        :returns: The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
+        :rtype: int
+        """
+        return self._properties["packets_uploaded"]
+
+    @property
+    def packets_downloaded(self):
+        """
+        :returns: The number of packets downloaded by the device between the `start` time and when the Data Session was last updated.
+        :rtype: int
+        """
+        return self._properties["packets_downloaded"]
+
+    @property
+    def last_updated(self):
+        """
+        :returns: The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: datetime
+        """
+        return self._properties["last_updated"]
+
+    @property
+    def start(self):
+        """
+        :returns: The date that the Data Session started, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: datetime
+        """
+        return self._properties["start"]
+
+    @property
+    def end(self):
+        """
+        :returns: The date that the record ended, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: datetime
+        """
+        return self._properties["end"]
+
+    @property
+    def imei(self):
+        """
+        :returns: The 'international mobile equipment identity' is the unique ID of the device using the SIM to connect. An IMEI is a 15-digit string: 14 digits for the device identifier plus a check digit calculated using the Luhn formula.
+        :rtype: str
+        """
+        return self._properties["imei"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Wireless.V1.DataSessionInstance {}>".format(context)
+
+
+class DataSessionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DataSessionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
+        """
+        return DataSessionInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Wireless.V1.DataSessionPage>"
 
 
 class DataSessionList(ListResource):
@@ -217,217 +413,3 @@ class DataSessionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Wireless.V1.DataSessionList>"
-
-
-class DataSessionPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the DataSessionPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of DataSessionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        """
-        return DataSessionInstance(
-            self._version, payload, sim_sid=self._solution["sim_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Wireless.V1.DataSessionPage>"
-
-
-class DataSessionInstance(InstanceResource):
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the DataSessionInstance
-
-        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "account_sid": payload.get("account_sid"),
-            "radio_link": payload.get("radio_link"),
-            "operator_mcc": payload.get("operator_mcc"),
-            "operator_mnc": payload.get("operator_mnc"),
-            "operator_country": payload.get("operator_country"),
-            "operator_name": payload.get("operator_name"),
-            "cell_id": payload.get("cell_id"),
-            "cell_location_estimate": payload.get("cell_location_estimate"),
-            "packets_uploaded": deserialize.integer(payload.get("packets_uploaded")),
-            "packets_downloaded": deserialize.integer(
-                payload.get("packets_downloaded")
-            ),
-            "last_updated": deserialize.iso8601_datetime(payload.get("last_updated")),
-            "start": deserialize.iso8601_datetime(payload.get("start")),
-            "end": deserialize.iso8601_datetime(payload.get("end")),
-            "imei": payload.get("imei"),
-        }
-
-        self._context = None
-        self._solution = {
-            "sim_sid": sim_sid,
-        }
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the DataSession resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DataSession resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def radio_link(self):
-        """
-        :returns: The generation of wireless technology that the device was using.
-        :rtype: str
-        """
-        return self._properties["radio_link"]
-
-    @property
-    def operator_mcc(self):
-        """
-        :returns: The 'mobile country code' is the unique ID of the home country where the Data Session took place. See: [MCC/MNC lookup](http://mcc-mnc.com/).
-        :rtype: str
-        """
-        return self._properties["operator_mcc"]
-
-    @property
-    def operator_mnc(self):
-        """
-        :returns: The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place.
-        :rtype: str
-        """
-        return self._properties["operator_mnc"]
-
-    @property
-    def operator_country(self):
-        """
-        :returns: The three letter country code representing where the device's Data Session took place. This is determined by looking up the `operator_mcc`.
-        :rtype: str
-        """
-        return self._properties["operator_country"]
-
-    @property
-    def operator_name(self):
-        """
-        :returns: The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
-        :rtype: str
-        """
-        return self._properties["operator_name"]
-
-    @property
-    def cell_id(self):
-        """
-        :returns: The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
-        :rtype: str
-        """
-        return self._properties["cell_id"]
-
-    @property
-    def cell_location_estimate(self):
-        """
-        :returns: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
-        :rtype: dict
-        """
-        return self._properties["cell_location_estimate"]
-
-    @property
-    def packets_uploaded(self):
-        """
-        :returns: The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
-        :rtype: int
-        """
-        return self._properties["packets_uploaded"]
-
-    @property
-    def packets_downloaded(self):
-        """
-        :returns: The number of packets downloaded by the device between the `start` time and when the Data Session was last updated.
-        :rtype: int
-        """
-        return self._properties["packets_downloaded"]
-
-    @property
-    def last_updated(self):
-        """
-        :returns: The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
-        """
-        return self._properties["last_updated"]
-
-    @property
-    def start(self):
-        """
-        :returns: The date that the Data Session started, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
-        """
-        return self._properties["start"]
-
-    @property
-    def end(self):
-        """
-        :returns: The date that the record ended, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
-        """
-        return self._properties["end"]
-
-    @property
-    def imei(self):
-        """
-        :returns: The 'international mobile equipment identity' is the unique ID of the device using the SIM to connect. An IMEI is a 15-digit string: 14 digits for the device identifier plus a check digit calculated using the Luhn formula.
-        :rtype: str
-        """
-        return self._properties["imei"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.DataSessionInstance {}>".format(context)

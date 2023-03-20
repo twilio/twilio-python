@@ -20,53 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class FormList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the FormList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.verify.v2.form.FormList
-        :rtype: twilio.rest.verify.v2.form.FormList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self, form_type):
-        """
-        Constructs a FormContext
-
-        :param form_type: The Type of this Form. Currently only `form-push` is supported.
-
-        :returns: twilio.rest.verify.v2.form.FormContext
-        :rtype: twilio.rest.verify.v2.form.FormContext
-        """
-        return FormContext(self._version, form_type=form_type)
-
-    def __call__(self, form_type):
-        """
-        Constructs a FormContext
-
-        :param form_type: The Type of this Form. Currently only `form-push` is supported.
-
-        :returns: twilio.rest.verify.v2.form.FormContext
-        :rtype: twilio.rest.verify.v2.form.FormContext
-        """
-        return FormContext(self._version, form_type=form_type)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.FormList>"
-
-
 class FormInstance(InstanceResource):
     class FormTypes(object):
         FORM_PUSH = "form-push"
@@ -87,10 +40,10 @@ class FormInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "form_type": form_type or self._properties["form_type"],
         }
+        self._context: Optional[FormContext] = None
 
     @property
     def _proxy(self):
@@ -239,3 +192,47 @@ class FormContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.FormContext {}>".format(context)
+
+
+class FormList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the FormList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.verify.v2.form.FormList
+        :rtype: twilio.rest.verify.v2.form.FormList
+        """
+        super().__init__(version)
+
+    def get(self, form_type):
+        """
+        Constructs a FormContext
+
+        :param form_type: The Type of this Form. Currently only `form-push` is supported.
+
+        :returns: twilio.rest.verify.v2.form.FormContext
+        :rtype: twilio.rest.verify.v2.form.FormContext
+        """
+        return FormContext(self._version, form_type=form_type)
+
+    def __call__(self, form_type):
+        """
+        Constructs a FormContext
+
+        :param form_type: The Type of this Form. Currently only `form-push` is supported.
+
+        :returns: twilio.rest.verify.v2.form.FormContext
+        :rtype: twilio.rest.verify.v2.form.FormContext
+        """
+        return FormContext(self._version, form_type=form_type)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Verify.V2.FormList>"

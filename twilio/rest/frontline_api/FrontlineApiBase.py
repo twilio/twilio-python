@@ -19,26 +19,22 @@ class FrontlineApiBase(Domain):
         Initialize the FrontlineApi Domain
 
         :returns: Domain for FrontlineApi
-        :rtype: twilio.rest.frontline_api.FrontlineApi
         """
-        super().__init__(twilio)
-        self.base_url = "https://frontline-api.twilio.com"
+        super().__init__(twilio, "https://frontline-api.twilio.com")
         self._v1 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of FrontlineApi
-        :rtype: twilio.rest.frontline_api.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.FrontlineApi>"

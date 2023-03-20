@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,382 @@ from twilio.base.page import Page
 from twilio.rest.proxy.v1.service.session.participant.message_interaction import (
     MessageInteractionList,
 )
+
+
+class ParticipantInstance(InstanceResource):
+    def __init__(
+        self,
+        version,
+        payload,
+        service_sid: str,
+        session_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the ParticipantInstance
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "session_sid": payload.get("session_sid"),
+            "service_sid": payload.get("service_sid"),
+            "account_sid": payload.get("account_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "identifier": payload.get("identifier"),
+            "proxy_identifier": payload.get("proxy_identifier"),
+            "proxy_identifier_sid": payload.get("proxy_identifier_sid"),
+            "date_deleted": deserialize.iso8601_datetime(payload.get("date_deleted")),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "session_sid": session_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[ParticipantContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ParticipantContext for this ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
+        """
+        if self._context is None:
+            self._context = ParticipantContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                session_sid=self._solution["session_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Participant resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def session_sid(self):
+        """
+        :returns: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
+        :rtype: str
+        """
+        return self._properties["session_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the participant. This value must be 255 characters or fewer. Supports UTF-8 characters. **This value should not have PII.**
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def identifier(self):
+        """
+        :returns: The phone number or channel identifier of the Participant. This value must be 191 characters or fewer. Supports UTF-8 characters.
+        :rtype: str
+        """
+        return self._properties["identifier"]
+
+    @property
+    def proxy_identifier(self):
+        """
+        :returns: The phone number or short code (masked number) of the participant's partner. The participant will call or message the partner participant at this number.
+        :rtype: str
+        """
+        return self._properties["proxy_identifier"]
+
+    @property
+    def proxy_identifier_sid(self):
+        """
+        :returns: The SID of the Proxy Identifier assigned to the Participant.
+        :rtype: str
+        """
+        return self._properties["proxy_identifier_sid"]
+
+    @property
+    def date_deleted(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Participant was removed from the session.
+        :rtype: datetime
+        """
+        return self._properties["date_deleted"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Participant resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URLs to resources related the participant.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def delete(self):
+        """
+        Deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+        return await self._proxy.fetch_async()
+
+    @property
+    def message_interactions(self):
+        """
+        Access the message_interactions
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
+        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
+        """
+        return self._proxy.message_interactions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Proxy.V1.ParticipantInstance {}>".format(context)
+
+
+class ParticipantContext(InstanceContext):
+    def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
+        """
+        Initialize the ParticipantContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
+        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "session_sid": session_sid,
+            "sid": sid,
+        }
+        self._uri = (
+            "/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}".format(
+                **self._solution
+            )
+        )
+
+        self._message_interactions: Optional[MessageInteractionList] = None
+
+    def delete(self):
+        """
+        Deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def message_interactions(self):
+        """
+        Access the message_interactions
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
+        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
+        """
+        if self._message_interactions is None:
+            self._message_interactions = MessageInteractionList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["session_sid"],
+                self._solution["sid"],
+            )
+        return self._message_interactions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Proxy.V1.ParticipantContext {}>".format(context)
+
+
+class ParticipantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Proxy.V1.ParticipantPage>"
 
 
 class ParticipantList(ListResource):
@@ -339,395 +714,3 @@ class ParticipantList(ListResource):
         :rtype: str
         """
         return "<Twilio.Proxy.V1.ParticipantList>"
-
-
-class ParticipantPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ParticipantPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of ParticipantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        return ParticipantInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Proxy.V1.ParticipantPage>"
-
-
-class ParticipantInstance(InstanceResource):
-    def __init__(
-        self,
-        version,
-        payload,
-        service_sid: str,
-        session_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the ParticipantInstance
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "session_sid": payload.get("session_sid"),
-            "service_sid": payload.get("service_sid"),
-            "account_sid": payload.get("account_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "identifier": payload.get("identifier"),
-            "proxy_identifier": payload.get("proxy_identifier"),
-            "proxy_identifier_sid": payload.get("proxy_identifier_sid"),
-            "date_deleted": deserialize.iso8601_datetime(payload.get("date_deleted")),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._context = None
-        self._solution = {
-            "service_sid": service_sid,
-            "session_sid": session_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ParticipantContext for this ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        """
-        if self._context is None:
-            self._context = ParticipantContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                session_sid=self._solution["session_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Participant resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def session_sid(self):
-        """
-        :returns: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
-        :rtype: str
-        """
-        return self._properties["session_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the resource's parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the participant. This value must be 255 characters or fewer. Supports UTF-8 characters. **This value should not have PII.**
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def identifier(self):
-        """
-        :returns: The phone number or channel identifier of the Participant. This value must be 191 characters or fewer. Supports UTF-8 characters.
-        :rtype: str
-        """
-        return self._properties["identifier"]
-
-    @property
-    def proxy_identifier(self):
-        """
-        :returns: The phone number or short code (masked number) of the participant's partner. The participant will call or message the partner participant at this number.
-        :rtype: str
-        """
-        return self._properties["proxy_identifier"]
-
-    @property
-    def proxy_identifier_sid(self):
-        """
-        :returns: The SID of the Proxy Identifier assigned to the Participant.
-        :rtype: str
-        """
-        return self._properties["proxy_identifier_sid"]
-
-    @property
-    def date_deleted(self):
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Participant was removed from the session.
-        :rtype: datetime
-        """
-        return self._properties["date_deleted"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was created.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time in GMT when the resource was last updated.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Participant resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URLs to resources related the participant.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def delete(self):
-        """
-        Deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        return await self._proxy.fetch_async()
-
-    @property
-    def message_interactions(self):
-        """
-        Access the message_interactions
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        """
-        return self._proxy.message_interactions
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.ParticipantInstance {}>".format(context)
-
-
-class ParticipantContext(InstanceContext):
-    def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
-        """
-        Initialize the ParticipantContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
-        :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
-        :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "session_sid": session_sid,
-            "sid": sid,
-        }
-        self._uri = (
-            "/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}".format(
-                **self._solution
-            )
-        )
-
-        self._message_interactions = None
-
-    def delete(self):
-        """
-        Deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def message_interactions(self):
-        """
-        Access the message_interactions
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        :rtype: twilio.rest.proxy.v1.service.session.participant.MessageInteractionList
-        """
-        if self._message_interactions is None:
-            self._message_interactions = MessageInteractionList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["session_sid"],
-                self._solution["sid"],
-            )
-        return self._message_interactions
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.ParticipantContext {}>".format(context)

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.messaging.v1.brand_registration import BrandRegistrationList
@@ -31,85 +32,60 @@ class V1(Version):
 
         :param domain: The Twilio.messaging domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._brand_registrations = None
-        self._deactivations = None
-        self._domain_certs = None
-        self._domain_config = None
-        self._external_campaign = None
-        self._services = None
-        self._tollfree_verifications = None
-        self._usecases = None
+        super().__init__(domain, "v1")
+        self._brand_registrations: Optional[BrandRegistrationList] = None
+        self._deactivations: Optional[DeactivationsList] = None
+        self._domain_certs: Optional[DomainCertsList] = None
+        self._domain_config: Optional[DomainConfigList] = None
+        self._external_campaign: Optional[ExternalCampaignList] = None
+        self._services: Optional[ServiceList] = None
+        self._tollfree_verifications: Optional[TollfreeVerificationList] = None
+        self._usecases: Optional[UsecaseList] = None
 
     @property
     def brand_registrations(self) -> BrandRegistrationList:
-        """
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationList
-        """
         if self._brand_registrations is None:
             self._brand_registrations = BrandRegistrationList(self)
         return self._brand_registrations
 
     @property
     def deactivations(self) -> DeactivationsList:
-        """
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
-        """
         if self._deactivations is None:
             self._deactivations = DeactivationsList(self)
         return self._deactivations
 
     @property
     def domain_certs(self) -> DomainCertsList:
-        """
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsList
-        """
         if self._domain_certs is None:
             self._domain_certs = DomainCertsList(self)
         return self._domain_certs
 
     @property
     def domain_config(self) -> DomainConfigList:
-        """
-        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
-        """
         if self._domain_config is None:
             self._domain_config = DomainConfigList(self)
         return self._domain_config
 
     @property
     def external_campaign(self) -> ExternalCampaignList:
-        """
-        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
-        """
         if self._external_campaign is None:
             self._external_campaign = ExternalCampaignList(self)
         return self._external_campaign
 
     @property
     def services(self) -> ServiceList:
-        """
-        :rtype: twilio.rest.messaging.v1.service.ServiceList
-        """
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
 
     @property
     def tollfree_verifications(self) -> TollfreeVerificationList:
-        """
-        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
-        """
         if self._tollfree_verifications is None:
             self._tollfree_verifications = TollfreeVerificationList(self)
         return self._tollfree_verifications
 
     @property
     def usecases(self) -> UsecaseList:
-        """
-        :rtype: twilio.rest.messaging.v1.usecase.UsecaseList
-        """
         if self._usecases is None:
             self._usecases = UsecaseList(self)
         return self._usecases
@@ -118,6 +94,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1>"

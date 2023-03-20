@@ -13,57 +13,12 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class ConfigurationList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the ConfigurationList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationList
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FlexApi.V1.ConfigurationList>"
 
 
 class ConfigurationInstance(InstanceResource):
@@ -137,8 +92,8 @@ class ConfigurationInstance(InstanceResource):
             "flex_ui_status_report": payload.get("flex_ui_status_report"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[ConfigurationContext] = None
 
     @property
     def _proxy(self):
@@ -564,9 +519,7 @@ class ConfigurationContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Configuration".format(**self._solution)
+        self._uri = "/Configuration"
 
     def fetch(self, ui_version=values.unset):
         """
@@ -623,5 +576,47 @@ class ConfigurationContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.ConfigurationContext {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.ConfigurationContext>"
+
+
+class ConfigurationList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the ConfigurationList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationList
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FlexApi.V1.ConfigurationList>"

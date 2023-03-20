@@ -13,13 +13,184 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class TollFreeInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str, country_code: str):
+        """
+        Initialize the TollFreeInstance
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "friendly_name": payload.get("friendly_name"),
+            "phone_number": payload.get("phone_number"),
+            "lata": payload.get("lata"),
+            "locality": payload.get("locality"),
+            "rate_center": payload.get("rate_center"),
+            "latitude": deserialize.decimal(payload.get("latitude")),
+            "longitude": deserialize.decimal(payload.get("longitude")),
+            "region": payload.get("region"),
+            "postal_code": payload.get("postal_code"),
+            "iso_country": payload.get("iso_country"),
+            "address_requirements": payload.get("address_requirements"),
+            "beta": payload.get("beta"),
+            "capabilities": payload.get("capabilities"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+            "country_code": country_code,
+        }
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A formatted version of the phone number.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def phone_number(self):
+        """
+        :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+        :rtype: str
+        """
+        return self._properties["phone_number"]
+
+    @property
+    def lata(self):
+        """
+        :returns: The [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) of this phone number. Available for only phone numbers from the US and Canada.
+        :rtype: str
+        """
+        return self._properties["lata"]
+
+    @property
+    def locality(self):
+        """
+        :returns: The locality or city of this phone number's location.
+        :rtype: str
+        """
+        return self._properties["locality"]
+
+    @property
+    def rate_center(self):
+        """
+        :returns: The [rate center](https://en.wikipedia.org/wiki/Telephone_exchange) of this phone number. Available for only phone numbers from the US and Canada.
+        :rtype: str
+        """
+        return self._properties["rate_center"]
+
+    @property
+    def latitude(self):
+        """
+        :returns: The latitude of this phone number's location. Available for only phone numbers from the US and Canada.
+        :rtype: float
+        """
+        return self._properties["latitude"]
+
+    @property
+    def longitude(self):
+        """
+        :returns: The longitude of this phone number's location. Available for only phone numbers from the US and Canada.
+        :rtype: float
+        """
+        return self._properties["longitude"]
+
+    @property
+    def region(self):
+        """
+        :returns: The two-letter state or province abbreviation of this phone number's location. Available for only phone numbers from the US and Canada.
+        :rtype: str
+        """
+        return self._properties["region"]
+
+    @property
+    def postal_code(self):
+        """
+        :returns: The postal or ZIP code of this phone number's location. Available for only phone numbers from the US and Canada.
+        :rtype: str
+        """
+        return self._properties["postal_code"]
+
+    @property
+    def iso_country(self):
+        """
+        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of this phone number.
+        :rtype: str
+        """
+        return self._properties["iso_country"]
+
+    @property
+    def address_requirements(self):
+        """
+        :returns: The type of [Address](https://www.twilio.com/docs/usage/api/address) resource the phone number requires. Can be: `none`, `any`, `local`, or `foreign`. `none` means no address is required. `any` means an address is required, but it can be anywhere in the world. `local` means an address in the phone number's country is required. `foreign` means an address outside of the phone number's country is required.
+        :rtype: str
+        """
+        return self._properties["address_requirements"]
+
+    @property
+    def beta(self):
+        """
+        :returns: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
+        :rtype: bool
+        """
+        return self._properties["beta"]
+
+    @property
+    def capabilities(self):
+        """
+        :returns:
+        :rtype: ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities
+        """
+        return self._properties["capabilities"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.TollFreeInstance {}>".format(context)
+
+
+class TollFreePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TollFreeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
+        """
+        return TollFreeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            country_code=self._solution["country_code"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.TollFreePage>"
 
 
 class TollFreeList(ListResource):
@@ -571,192 +742,3 @@ class TollFreeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.TollFreeList>"
-
-
-class TollFreePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the TollFreePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreePage
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of TollFreeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
-        """
-        return TollFreeInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.TollFreePage>"
-
-
-class TollFreeInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, country_code: str):
-        """
-        Initialize the TollFreeInstance
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "friendly_name": payload.get("friendly_name"),
-            "phone_number": payload.get("phone_number"),
-            "lata": payload.get("lata"),
-            "locality": payload.get("locality"),
-            "rate_center": payload.get("rate_center"),
-            "latitude": deserialize.decimal(payload.get("latitude")),
-            "longitude": deserialize.decimal(payload.get("longitude")),
-            "region": payload.get("region"),
-            "postal_code": payload.get("postal_code"),
-            "iso_country": payload.get("iso_country"),
-            "address_requirements": payload.get("address_requirements"),
-            "beta": payload.get("beta"),
-            "capabilities": payload.get("capabilities"),
-        }
-
-        self._context = None
-        self._solution = {
-            "account_sid": account_sid,
-            "country_code": country_code,
-        }
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A formatted version of the phone number.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def phone_number(self):
-        """
-        :returns: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-        :rtype: str
-        """
-        return self._properties["phone_number"]
-
-    @property
-    def lata(self):
-        """
-        :returns: The [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) of this phone number. Available for only phone numbers from the US and Canada.
-        :rtype: str
-        """
-        return self._properties["lata"]
-
-    @property
-    def locality(self):
-        """
-        :returns: The locality or city of this phone number's location.
-        :rtype: str
-        """
-        return self._properties["locality"]
-
-    @property
-    def rate_center(self):
-        """
-        :returns: The [rate center](https://en.wikipedia.org/wiki/Telephone_exchange) of this phone number. Available for only phone numbers from the US and Canada.
-        :rtype: str
-        """
-        return self._properties["rate_center"]
-
-    @property
-    def latitude(self):
-        """
-        :returns: The latitude of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: float
-        """
-        return self._properties["latitude"]
-
-    @property
-    def longitude(self):
-        """
-        :returns: The longitude of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: float
-        """
-        return self._properties["longitude"]
-
-    @property
-    def region(self):
-        """
-        :returns: The two-letter state or province abbreviation of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: str
-        """
-        return self._properties["region"]
-
-    @property
-    def postal_code(self):
-        """
-        :returns: The postal or ZIP code of this phone number's location. Available for only phone numbers from the US and Canada.
-        :rtype: str
-        """
-        return self._properties["postal_code"]
-
-    @property
-    def iso_country(self):
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of this phone number.
-        :rtype: str
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def address_requirements(self):
-        """
-        :returns: The type of [Address](https://www.twilio.com/docs/usage/api/address) resource the phone number requires. Can be: `none`, `any`, `local`, or `foreign`. `none` means no address is required. `any` means an address is required, but it can be anywhere in the world. `local` means an address in the phone number's country is required. `foreign` means an address outside of the phone number's country is required.
-        :rtype: str
-        """
-        return self._properties["address_requirements"]
-
-    @property
-    def beta(self):
-        """
-        :returns: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
-        :rtype: bool
-        """
-        return self._properties["beta"]
-
-    @property
-    def capabilities(self):
-        """
-        :returns:
-        :rtype: ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities
-        """
-        return self._properties["capabilities"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.TollFreeInstance {}>".format(context)

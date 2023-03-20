@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,6 +23,437 @@ from twilio.base.page import Page
 from twilio.rest.preview.sync.service.document.document_permission import (
     DocumentPermissionList,
 )
+
+
+class DocumentInstance(InstanceResource):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the DocumentInstance
+
+        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "unique_name": payload.get("unique_name"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+            "revision": payload.get("revision"),
+            "data": payload.get("data"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "created_by": payload.get("created_by"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[DocumentContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: DocumentContext for this DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
+        """
+        if self._context is None:
+            self._context = DocumentContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def unique_name(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["unique_name"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    @property
+    def revision(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["revision"]
+
+    @property
+    def data(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["data"]
+
+    @property
+    def date_created(self):
+        """
+        :returns:
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns:
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def created_by(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["created_by"]
+
+    def delete(self):
+        """
+        Deletes the DocumentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DocumentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the DocumentInstance
+
+
+        :returns: The fetched DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DocumentInstance
+
+
+        :returns: The fetched DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def update(self, data, if_match=values.unset):
+        """
+        Update the DocumentInstance
+
+        :param object data:
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: The updated DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        return self._proxy.update(
+            data=data,
+            if_match=if_match,
+        )
+
+    async def update_async(self, data, if_match=values.unset):
+        """
+        Asynchronous coroutine to update the DocumentInstance
+
+        :param object data:
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: The updated DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        return await self._proxy.update_async(
+            data=data,
+            if_match=if_match,
+        )
+
+    @property
+    def document_permissions(self):
+        """
+        Access the document_permissions
+
+        :returns: twilio.rest.preview.sync.service.document.DocumentPermissionList
+        :rtype: twilio.rest.preview.sync.service.document.DocumentPermissionList
+        """
+        return self._proxy.document_permissions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Sync.DocumentInstance {}>".format(context)
+
+
+class DocumentContext(InstanceContext):
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the DocumentContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid:
+        :param sid:
+
+        :returns: twilio.rest.preview.sync.service.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{service_sid}/Documents/{sid}".format(**self._solution)
+
+        self._document_permissions: Optional[DocumentPermissionList] = None
+
+    def delete(self):
+        """
+        Deletes the DocumentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the DocumentInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the DocumentInstance
+
+
+        :returns: The fetched DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DocumentInstance
+
+
+        :returns: The fetched DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update(self, data, if_match=values.unset):
+        """
+        Update the DocumentInstance
+
+        :param object data:
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: The updated DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        data = values.of(
+            {
+                "Data": serialize.object(data),
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def update_async(self, data, if_match=values.unset):
+        """
+        Asynchronous coroutine to update the DocumentInstance
+
+        :param object data:
+        :param str if_match: The If-Match HTTP request header
+
+        :returns: The updated DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        data = values.of(
+            {
+                "Data": serialize.object(data),
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    @property
+    def document_permissions(self):
+        """
+        Access the document_permissions
+
+        :returns: twilio.rest.preview.sync.service.document.DocumentPermissionList
+        :rtype: twilio.rest.preview.sync.service.document.DocumentPermissionList
+        """
+        if self._document_permissions is None:
+            self._document_permissions = DocumentPermissionList(
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
+            )
+        return self._document_permissions
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Sync.DocumentContext {}>".format(context)
+
+
+class DocumentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DocumentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        return DocumentInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Sync.DocumentPage>"
 
 
 class DocumentList(ListResource):
@@ -302,450 +731,3 @@ class DocumentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Sync.DocumentList>"
-
-
-class DocumentPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the DocumentPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentPage
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of DocumentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        return DocumentInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Sync.DocumentPage>"
-
-
-class DocumentInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the DocumentInstance
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "unique_name": payload.get("unique_name"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-            "revision": payload.get("revision"),
-            "data": payload.get("data"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "created_by": payload.get("created_by"),
-        }
-
-        self._context = None
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: DocumentContext for this DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
-        """
-        if self._context is None:
-            self._context = DocumentContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def unique_name(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    @property
-    def revision(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["revision"]
-
-    @property
-    def data(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["data"]
-
-    @property
-    def date_created(self):
-        """
-        :returns:
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns:
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def created_by(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["created_by"]
-
-    def delete(self):
-        """
-        Deletes the DocumentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the DocumentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the DocumentInstance
-
-
-        :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the DocumentInstance
-
-
-        :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def update(self, data, if_match=values.unset):
-        """
-        Update the DocumentInstance
-
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        return self._proxy.update(
-            data=data,
-            if_match=if_match,
-        )
-
-    async def update_async(self, data, if_match=values.unset):
-        """
-        Asynchronous coroutine to update the DocumentInstance
-
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        return await self._proxy.update_async(
-            data=data,
-            if_match=if_match,
-        )
-
-    @property
-    def document_permissions(self):
-        """
-        Access the document_permissions
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentPermissionList
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPermissionList
-        """
-        return self._proxy.document_permissions
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.DocumentInstance {}>".format(context)
-
-
-class DocumentContext(InstanceContext):
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the DocumentContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid:
-        :param sid:
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentContext
-        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{service_sid}/Documents/{sid}".format(**self._solution)
-
-        self._document_permissions = None
-
-    def delete(self):
-        """
-        Deletes the DocumentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the DocumentInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the DocumentInstance
-
-
-        :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return DocumentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the DocumentInstance
-
-
-        :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return DocumentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def update(self, data, if_match=values.unset):
-        """
-        Update the DocumentInstance
-
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        data = values.of(
-            {
-                "Data": serialize.object(data),
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return DocumentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def update_async(self, data, if_match=values.unset):
-        """
-        Asynchronous coroutine to update the DocumentInstance
-
-        :param object data:
-        :param str if_match: The If-Match HTTP request header
-
-        :returns: The updated DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        data = values.of(
-            {
-                "Data": serialize.object(data),
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return DocumentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    @property
-    def document_permissions(self):
-        """
-        Access the document_permissions
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentPermissionList
-        :rtype: twilio.rest.preview.sync.service.document.DocumentPermissionList
-        """
-        if self._document_permissions is None:
-            self._document_permissions = DocumentPermissionList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
-            )
-        return self._document_permissions
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.DocumentContext {}>".format(context)

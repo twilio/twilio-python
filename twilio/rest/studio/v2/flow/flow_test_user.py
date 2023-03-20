@@ -13,60 +13,12 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class FlowTestUserList(ListResource):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the FlowTestUserList
-
-        :param Version version: Version that contains the resource
-        :param sid: Unique identifier of the flow.
-
-        :returns: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserList
-        :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-
-    def get(self):
-        """
-        Constructs a FlowTestUserContext
-
-
-        :returns: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
-        :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
-        """
-        return FlowTestUserContext(self._version, sid=self._solution["sid"])
-
-    def __call__(self):
-        """
-        Constructs a FlowTestUserContext
-
-
-        :returns: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
-        :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
-        """
-        return FlowTestUserContext(self._version, sid=self._solution["sid"])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Studio.V2.FlowTestUserList>"
 
 
 class FlowTestUserInstance(InstanceResource):
@@ -85,10 +37,10 @@ class FlowTestUserInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid,
         }
+        self._context: Optional[FlowTestUserContext] = None
 
     @property
     def _proxy(self):
@@ -301,3 +253,51 @@ class FlowTestUserContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V2.FlowTestUserContext {}>".format(context)
+
+
+class FlowTestUserList(ListResource):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the FlowTestUserList
+
+        :param Version version: Version that contains the resource
+        :param sid: Unique identifier of the flow.
+
+        :returns: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserList
+        :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+
+    def get(self):
+        """
+        Constructs a FlowTestUserContext
+
+
+        :returns: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
+        :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
+        """
+        return FlowTestUserContext(self._version, sid=self._solution["sid"])
+
+    def __call__(self):
+        """
+        Constructs a FlowTestUserContext
+
+
+        :returns: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
+        :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserContext
+        """
+        return FlowTestUserContext(self._version, sid=self._solution["sid"])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Studio.V2.FlowTestUserList>"

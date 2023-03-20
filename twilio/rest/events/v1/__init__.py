@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.events.v1.event_type import EventTypeList
@@ -27,45 +28,32 @@ class V1(Version):
 
         :param domain: The Twilio.events domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._event_types = None
-        self._schemas = None
-        self._sinks = None
-        self._subscriptions = None
+        super().__init__(domain, "v1")
+        self._event_types: Optional[EventTypeList] = None
+        self._schemas: Optional[SchemaList] = None
+        self._sinks: Optional[SinkList] = None
+        self._subscriptions: Optional[SubscriptionList] = None
 
     @property
     def event_types(self) -> EventTypeList:
-        """
-        :rtype: twilio.rest.events.v1.event_type.EventTypeList
-        """
         if self._event_types is None:
             self._event_types = EventTypeList(self)
         return self._event_types
 
     @property
     def schemas(self) -> SchemaList:
-        """
-        :rtype: twilio.rest.events.v1.schema.SchemaList
-        """
         if self._schemas is None:
             self._schemas = SchemaList(self)
         return self._schemas
 
     @property
     def sinks(self) -> SinkList:
-        """
-        :rtype: twilio.rest.events.v1.sink.SinkList
-        """
         if self._sinks is None:
             self._sinks = SinkList(self)
         return self._sinks
 
     @property
     def subscriptions(self) -> SubscriptionList:
-        """
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionList
-        """
         if self._subscriptions is None:
             self._subscriptions = SubscriptionList(self)
         return self._subscriptions
@@ -74,6 +62,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Events.V1>"

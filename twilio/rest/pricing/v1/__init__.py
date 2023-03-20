@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.pricing.v1.messaging import MessagingList
@@ -26,35 +27,25 @@ class V1(Version):
 
         :param domain: The Twilio.pricing domain
         """
-        super().__init__(domain)
-        self.version = "v1"
-        self._messaging = None
-        self._phone_numbers = None
-        self._voice = None
+        super().__init__(domain, "v1")
+        self._messaging: Optional[MessagingList] = None
+        self._phone_numbers: Optional[PhoneNumberList] = None
+        self._voice: Optional[VoiceList] = None
 
     @property
     def messaging(self) -> MessagingList:
-        """
-        :rtype: twilio.rest.pricing.v1.messaging.MessagingList
-        """
         if self._messaging is None:
             self._messaging = MessagingList(self)
         return self._messaging
 
     @property
     def phone_numbers(self) -> PhoneNumberList:
-        """
-        :rtype: twilio.rest.pricing.v1.phone_number.PhoneNumberList
-        """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
 
     @property
     def voice(self) -> VoiceList:
-        """
-        :rtype: twilio.rest.pricing.v1.voice.VoiceList
-        """
         if self._voice is None:
             self._voice = VoiceList(self)
         return self._voice
@@ -63,6 +54,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Pricing.V1>"

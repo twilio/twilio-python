@@ -25,6 +25,274 @@ from twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix im
 )
 
 
+class CountryInstance(InstanceResource):
+    def __init__(self, version, payload, iso_code: Optional[str] = None):
+        """
+        Initialize the CountryInstance
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "iso_code": payload.get("iso_code"),
+            "name": payload.get("name"),
+            "continent": payload.get("continent"),
+            "country_codes": payload.get("country_codes"),
+            "low_risk_numbers_enabled": payload.get("low_risk_numbers_enabled"),
+            "high_risk_special_numbers_enabled": payload.get(
+                "high_risk_special_numbers_enabled"
+            ),
+            "high_risk_tollfraud_numbers_enabled": payload.get(
+                "high_risk_tollfraud_numbers_enabled"
+            ),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "iso_code": iso_code or self._properties["iso_code"],
+        }
+        self._context: Optional[CountryContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: CountryContext for this CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        """
+        if self._context is None:
+            self._context = CountryContext(
+                self._version,
+                iso_code=self._solution["iso_code"],
+            )
+        return self._context
+
+    @property
+    def iso_code(self):
+        """
+        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+        :rtype: str
+        """
+        return self._properties["iso_code"]
+
+    @property
+    def name(self):
+        """
+        :returns: The name of the country.
+        :rtype: str
+        """
+        return self._properties["name"]
+
+    @property
+    def continent(self):
+        """
+        :returns: The name of the continent in which the country is located.
+        :rtype: str
+        """
+        return self._properties["continent"]
+
+    @property
+    def country_codes(self):
+        """
+        :returns: The E.164 assigned [country codes(s)](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+        :rtype: list[str]
+        """
+        return self._properties["country_codes"]
+
+    @property
+    def low_risk_numbers_enabled(self):
+        """
+        :returns: Whether dialing to low-risk numbers is enabled.
+        :rtype: bool
+        """
+        return self._properties["low_risk_numbers_enabled"]
+
+    @property
+    def high_risk_special_numbers_enabled(self):
+        """
+        :returns: Whether dialing to high-risk special services numbers is enabled. These prefixes include number ranges allocated by the country and include premium numbers, special services, shared cost, and others
+        :rtype: bool
+        """
+        return self._properties["high_risk_special_numbers_enabled"]
+
+    @property
+    def high_risk_tollfraud_numbers_enabled(self):
+        """
+        :returns: Whether dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
+        :rtype: bool
+        """
+        return self._properties["high_risk_tollfraud_numbers_enabled"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of this resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: A list of URLs related to this resource.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def fetch(self):
+        """
+        Fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        """
+        return await self._proxy.fetch_async()
+
+    @property
+    def highrisk_special_prefixes(self):
+        """
+        Access the highrisk_special_prefixes
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
+        """
+        return self._proxy.highrisk_special_prefixes
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Voice.V1.CountryInstance {}>".format(context)
+
+
+class CountryContext(InstanceContext):
+    def __init__(self, version: Version, iso_code: str):
+        """
+        Initialize the CountryContext
+
+        :param Version version: Version that contains the resource
+        :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "iso_code": iso_code,
+        }
+        self._uri = "/DialingPermissions/Countries/{iso_code}".format(**self._solution)
+
+        self._highrisk_special_prefixes: Optional[HighriskSpecialPrefixList] = None
+
+    def fetch(self):
+        """
+        Fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CountryInstance(
+            self._version,
+            payload,
+            iso_code=self._solution["iso_code"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CountryInstance(
+            self._version,
+            payload,
+            iso_code=self._solution["iso_code"],
+        )
+
+    @property
+    def highrisk_special_prefixes(self):
+        """
+        Access the highrisk_special_prefixes
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
+        """
+        if self._highrisk_special_prefixes is None:
+            self._highrisk_special_prefixes = HighriskSpecialPrefixList(
+                self._version,
+                self._solution["iso_code"],
+            )
+        return self._highrisk_special_prefixes
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Voice.V1.CountryContext {}>".format(context)
+
+
+class CountryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CountryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        """
+        return CountryInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.CountryPage>"
+
+
 class CountryList(ListResource):
     def __init__(self, version: Version):
         """
@@ -37,9 +305,7 @@ class CountryList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/DialingPermissions/Countries".format(**self._solution)
+        self._uri = "/DialingPermissions/Countries"
 
     def stream(
         self,
@@ -267,7 +533,7 @@ class CountryList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     async def page_async(
         self,
@@ -315,7 +581,7 @@ class CountryList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -328,7 +594,7 @@ class CountryList(ListResource):
         :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -341,7 +607,7 @@ class CountryList(ListResource):
         :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     def get(self, iso_code):
         """
@@ -373,287 +639,3 @@ class CountryList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.CountryList>"
-
-
-class CountryPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the CountryPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of CountryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-        return CountryInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Voice.V1.CountryPage>"
-
-
-class CountryInstance(InstanceResource):
-    def __init__(self, version, payload, iso_code: Optional[str] = None):
-        """
-        Initialize the CountryInstance
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "iso_code": payload.get("iso_code"),
-            "name": payload.get("name"),
-            "continent": payload.get("continent"),
-            "country_codes": payload.get("country_codes"),
-            "low_risk_numbers_enabled": payload.get("low_risk_numbers_enabled"),
-            "high_risk_special_numbers_enabled": payload.get(
-                "high_risk_special_numbers_enabled"
-            ),
-            "high_risk_tollfraud_numbers_enabled": payload.get(
-                "high_risk_tollfraud_numbers_enabled"
-            ),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._context = None
-        self._solution = {
-            "iso_code": iso_code or self._properties["iso_code"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: CountryContext for this CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
-        """
-        if self._context is None:
-            self._context = CountryContext(
-                self._version,
-                iso_code=self._solution["iso_code"],
-            )
-        return self._context
-
-    @property
-    def iso_code(self):
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        :rtype: str
-        """
-        return self._properties["iso_code"]
-
-    @property
-    def name(self):
-        """
-        :returns: The name of the country.
-        :rtype: str
-        """
-        return self._properties["name"]
-
-    @property
-    def continent(self):
-        """
-        :returns: The name of the continent in which the country is located.
-        :rtype: str
-        """
-        return self._properties["continent"]
-
-    @property
-    def country_codes(self):
-        """
-        :returns: The E.164 assigned [country codes(s)](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
-        :rtype: list[str]
-        """
-        return self._properties["country_codes"]
-
-    @property
-    def low_risk_numbers_enabled(self):
-        """
-        :returns: Whether dialing to low-risk numbers is enabled.
-        :rtype: bool
-        """
-        return self._properties["low_risk_numbers_enabled"]
-
-    @property
-    def high_risk_special_numbers_enabled(self):
-        """
-        :returns: Whether dialing to high-risk special services numbers is enabled. These prefixes include number ranges allocated by the country and include premium numbers, special services, shared cost, and others
-        :rtype: bool
-        """
-        return self._properties["high_risk_special_numbers_enabled"]
-
-    @property
-    def high_risk_tollfraud_numbers_enabled(self):
-        """
-        :returns: Whether dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers is enabled. These prefixes include narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks, also known as [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud). These prefixes are collected from anti-fraud databases and verified by analyzing calls on our network. These prefixes are not available for download and are updated frequently
-        :rtype: bool
-        """
-        return self._properties["high_risk_tollfraud_numbers_enabled"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of this resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: A list of URLs related to this resource.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def fetch(self):
-        """
-        Fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-        return await self._proxy.fetch_async()
-
-    @property
-    def highrisk_special_prefixes(self):
-        """
-        Access the highrisk_special_prefixes
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
-        """
-        return self._proxy.highrisk_special_prefixes
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.CountryInstance {}>".format(context)
-
-
-class CountryContext(InstanceContext):
-    def __init__(self, version: Version, iso_code: str):
-        """
-        Initialize the CountryContext
-
-        :param Version version: Version that contains the resource
-        :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "iso_code": iso_code,
-        }
-        self._uri = "/DialingPermissions/Countries/{iso_code}".format(**self._solution)
-
-        self._highrisk_special_prefixes = None
-
-    def fetch(self):
-        """
-        Fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CountryInstance(
-            self._version,
-            payload,
-            iso_code=self._solution["iso_code"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CountryInstance(
-            self._version,
-            payload,
-            iso_code=self._solution["iso_code"],
-        )
-
-    @property
-    def highrisk_special_prefixes(self):
-        """
-        Access the highrisk_special_prefixes
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.HighriskSpecialPrefixList
-        """
-        if self._highrisk_special_prefixes is None:
-            self._highrisk_special_prefixes = HighriskSpecialPrefixList(
-                self._version,
-                self._solution["iso_code"],
-            )
-        return self._highrisk_special_prefixes
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.CountryContext {}>".format(context)

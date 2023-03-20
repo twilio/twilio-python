@@ -13,56 +13,12 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class RecordingSettingsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the RecordingSettingsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsList
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-
-    def get(self):
-        """
-        Constructs a RecordingSettingsContext
-
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        """
-        return RecordingSettingsContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a RecordingSettingsContext
-
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        """
-        return RecordingSettingsContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.RecordingSettingsList>"
 
 
 class RecordingSettingsInstance(InstanceResource):
@@ -86,8 +42,8 @@ class RecordingSettingsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[RecordingSettingsContext] = None
 
     @property
     def _proxy(self):
@@ -273,9 +229,7 @@ class RecordingSettingsContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/RecordingSettings/Default".format(**self._solution)
+        self._uri = "/RecordingSettings/Default"
 
     def create(
         self,
@@ -398,5 +352,47 @@ class RecordingSettingsContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingSettingsContext {}>".format(context)
+
+        return "<Twilio.Video.V1.RecordingSettingsContext>"
+
+
+class RecordingSettingsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the RecordingSettingsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsList
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a RecordingSettingsContext
+
+
+        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        """
+        return RecordingSettingsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a RecordingSettingsContext
+
+
+        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        """
+        return RecordingSettingsContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.RecordingSettingsList>"

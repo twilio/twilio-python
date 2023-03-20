@@ -13,60 +13,12 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from typing import Optional
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class AnnotationList(ListResource):
-    def __init__(self, version: Version, call_sid: str):
-        """
-        Initialize the AnnotationList
-
-        :param Version version: Version that contains the resource
-        :param call_sid: The unique SID identifier of the Call.
-
-        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "call_sid": call_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a AnnotationContext
-
-
-        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
-        """
-        return AnnotationContext(self._version, call_sid=self._solution["call_sid"])
-
-    def __call__(self):
-        """
-        Constructs a AnnotationContext
-
-
-        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
-        """
-        return AnnotationContext(self._version, call_sid=self._solution["call_sid"])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Insights.V1.AnnotationList>"
 
 
 class AnnotationInstance(InstanceResource):
@@ -105,10 +57,10 @@ class AnnotationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "call_sid": call_sid,
         }
+        self._context: Optional[AnnotationContext] = None
 
     @property
     def _proxy(self):
@@ -465,3 +417,51 @@ class AnnotationContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.AnnotationContext {}>".format(context)
+
+
+class AnnotationList(ListResource):
+    def __init__(self, version: Version, call_sid: str):
+        """
+        Initialize the AnnotationList
+
+        :param Version version: Version that contains the resource
+        :param call_sid: The unique SID identifier of the Call.
+
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "call_sid": call_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a AnnotationContext
+
+
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        """
+        return AnnotationContext(self._version, call_sid=self._solution["call_sid"])
+
+    def __call__(self):
+        """
+        Constructs a AnnotationContext
+
+
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        """
+        return AnnotationContext(self._version, call_sid=self._solution["call_sid"])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Insights.V1.AnnotationList>"

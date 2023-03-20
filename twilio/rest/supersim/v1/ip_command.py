@@ -14,13 +14,299 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class IpCommandInstance(InstanceResource):
+    class Direction(object):
+        TO_SIM = "to_sim"
+        FROM_SIM = "from_sim"
+
+    class PayloadType(object):
+        TEXT = "text"
+        BINARY = "binary"
+
+    class Status(object):
+        QUEUED = "queued"
+        SENT = "sent"
+        RECEIVED = "received"
+        FAILED = "failed"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the IpCommandInstance
+
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "sim_iccid": payload.get("sim_iccid"),
+            "status": payload.get("status"),
+            "direction": payload.get("direction"),
+            "device_ip": payload.get("device_ip"),
+            "device_port": deserialize.integer(payload.get("device_port")),
+            "payload_type": payload.get("payload_type"),
+            "payload": payload.get("payload"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[IpCommandContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: IpCommandContext for this IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        """
+        if self._context is None:
+            self._context = IpCommandContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the IP Command resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Command resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def sim_iccid(self):
+        """
+        :returns: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
+        :rtype: str
+        """
+        return self._properties["sim_iccid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: IpCommandInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def direction(self):
+        """
+        :returns:
+        :rtype: IpCommandInstance.Direction
+        """
+        return self._properties["direction"]
+
+    @property
+    def device_ip(self):
+        """
+        :returns: The IP address of the device that the IP Command was sent to or received from. For an IP Command sent to a Super SIM, `device_ip` starts out as `null`, and once the IP Command is “sent”, the `device_ip` will be filled out. An IP Command sent from a Super SIM have its `device_ip` always set.
+        :rtype: str
+        """
+        return self._properties["device_ip"]
+
+    @property
+    def device_port(self):
+        """
+        :returns: For an IP Command sent to a Super SIM, it would be the destination port of the IP message. For an IP Command sent from a Super SIM, it would be the source port of the IP message.
+        :rtype: int
+        """
+        return self._properties["device_port"]
+
+    @property
+    def payload_type(self):
+        """
+        :returns:
+        :rtype: IpCommandInstance.PayloadType
+        """
+        return self._properties["payload_type"]
+
+    @property
+    def payload(self):
+        """
+        :returns: The payload that is carried in the IP/UDP message. The payload can be encoded in either text or binary format. For text payload, UTF-8 encoding must be used.  For an IP Command sent to a Super SIM, the payload is appended to the IP/UDP message “as is”. The payload should not exceed 1300 bytes.  For an IP Command sent from a Super SIM, the payload from the received IP/UDP message is extracted and sent in binary encoding. For an IP Command sent from a Super SIM, the payload should not exceed 1300 bytes. If it is larger than 1300 bytes, there might be fragmentation on the upstream and the message may appear truncated.
+        :rtype: str
+        """
+        return self._properties["payload"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the IP Command resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the IpCommandInstance
+
+
+        :returns: The fetched IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the IpCommandInstance
+
+
+        :returns: The fetched IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.IpCommandInstance {}>".format(context)
+
+
+class IpCommandContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the IpCommandContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the IP Command resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/IpCommands/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the IpCommandInstance
+
+
+        :returns: The fetched IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return IpCommandInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the IpCommandInstance
+
+
+        :returns: The fetched IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return IpCommandInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.IpCommandContext {}>".format(context)
+
+
+class IpCommandPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of IpCommandInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+        return IpCommandInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.IpCommandPage>"
 
 
 class IpCommandList(ListResource):
@@ -35,9 +321,7 @@ class IpCommandList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/IpCommands".format(**self._solution)
+        self._uri = "/IpCommands"
 
     def create(
         self,
@@ -317,7 +601,7 @@ class IpCommandList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     async def page_async(
         self,
@@ -359,7 +643,7 @@ class IpCommandList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -372,7 +656,7 @@ class IpCommandList(ListResource):
         :rtype: twilio.rest.supersim.v1.ip_command.IpCommandPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -385,7 +669,7 @@ class IpCommandList(ListResource):
         :rtype: twilio.rest.supersim.v1.ip_command.IpCommandPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     def get(self, sid):
         """
@@ -417,306 +701,3 @@ class IpCommandList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.IpCommandList>"
-
-
-class IpCommandPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the IpCommandPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.supersim.v1.ip_command.IpCommandPage
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of IpCommandInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-        return IpCommandInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Supersim.V1.IpCommandPage>"
-
-
-class IpCommandInstance(InstanceResource):
-    class Direction(object):
-        TO_SIM = "to_sim"
-        FROM_SIM = "from_sim"
-
-    class PayloadType(object):
-        TEXT = "text"
-        BINARY = "binary"
-
-    class Status(object):
-        QUEUED = "queued"
-        SENT = "sent"
-        RECEIVED = "received"
-        FAILED = "failed"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the IpCommandInstance
-
-        :returns: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "sim_iccid": payload.get("sim_iccid"),
-            "status": payload.get("status"),
-            "direction": payload.get("direction"),
-            "device_ip": payload.get("device_ip"),
-            "device_port": deserialize.integer(payload.get("device_port")),
-            "payload_type": payload.get("payload_type"),
-            "payload": payload.get("payload"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
-
-        self._context = None
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: IpCommandContext for this IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
-        """
-        if self._context is None:
-            self._context = IpCommandContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the IP Command resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Command resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def sim_iccid(self):
-        """
-        :returns: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this IP Command was sent to or from.
-        :rtype: str
-        """
-        return self._properties["sim_iccid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: IpCommandInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def direction(self):
-        """
-        :returns:
-        :rtype: IpCommandInstance.Direction
-        """
-        return self._properties["direction"]
-
-    @property
-    def device_ip(self):
-        """
-        :returns: The IP address of the device that the IP Command was sent to or received from. For an IP Command sent to a Super SIM, `device_ip` starts out as `null`, and once the IP Command is “sent”, the `device_ip` will be filled out. An IP Command sent from a Super SIM have its `device_ip` always set.
-        :rtype: str
-        """
-        return self._properties["device_ip"]
-
-    @property
-    def device_port(self):
-        """
-        :returns: For an IP Command sent to a Super SIM, it would be the destination port of the IP message. For an IP Command sent from a Super SIM, it would be the source port of the IP message.
-        :rtype: int
-        """
-        return self._properties["device_port"]
-
-    @property
-    def payload_type(self):
-        """
-        :returns:
-        :rtype: IpCommandInstance.PayloadType
-        """
-        return self._properties["payload_type"]
-
-    @property
-    def payload(self):
-        """
-        :returns: The payload that is carried in the IP/UDP message. The payload can be encoded in either text or binary format. For text payload, UTF-8 encoding must be used.  For an IP Command sent to a Super SIM, the payload is appended to the IP/UDP message “as is”. The payload should not exceed 1300 bytes.  For an IP Command sent from a Super SIM, the payload from the received IP/UDP message is extracted and sent in binary encoding. For an IP Command sent from a Super SIM, the payload should not exceed 1300 bytes. If it is larger than 1300 bytes, there might be fragmentation on the upstream and the message may appear truncated.
-        :rtype: str
-        """
-        return self._properties["payload"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the IP Command resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the IpCommandInstance
-
-
-        :returns: The fetched IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the IpCommandInstance
-
-
-        :returns: The fetched IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.IpCommandInstance {}>".format(context)
-
-
-class IpCommandContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the IpCommandContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the IP Command resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.ip_command.IpCommandContext
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/IpCommands/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the IpCommandInstance
-
-
-        :returns: The fetched IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return IpCommandInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the IpCommandInstance
-
-
-        :returns: The fetched IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return IpCommandInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.IpCommandContext {}>".format(context)

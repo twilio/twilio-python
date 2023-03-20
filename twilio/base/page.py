@@ -25,12 +25,12 @@ class Page(object):
         "uri",
     }
 
-    def __init__(self, version, response):
+    def __init__(self, version, response, solution={}):
         payload = self.process_response(response)
 
         self._version = version
         self._payload = payload
-        self._solution = {}
+        self._solution = solution
         self._records = iter(self.load_page(payload))
 
     def __iter__(self):

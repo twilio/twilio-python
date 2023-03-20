@@ -13,13 +13,139 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class BillingPeriodInstance(InstanceResource):
+    class BpType(object):
+        READY = "ready"
+        ACTIVE = "active"
+
+    def __init__(self, version, payload, sim_sid: str):
+        """
+        Initialize the BillingPeriodInstance
+
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
+            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
+            "period_type": payload.get("period_type"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+        }
+
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+
+    @property
+    def sid(self):
+        """
+        :returns: The SID of the Billing Period.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) the Super SIM belongs to.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the Super SIM the Billing Period belongs to.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def start_time(self):
+        """
+        :returns: The start time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["start_time"]
+
+    @property
+    def end_time(self):
+        """
+        :returns: The end time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["end_time"]
+
+    @property
+    def period_type(self):
+        """
+        :returns:
+        :rtype: BillingPeriodInstance.BpType
+        """
+        return self._properties["period_type"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.BillingPeriodInstance {}>".format(context)
+
+
+class BillingPeriodPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BillingPeriodInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
+        """
+        return BillingPeriodInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.BillingPeriodPage>"
 
 
 class BillingPeriodList(ListResource):
@@ -217,147 +343,3 @@ class BillingPeriodList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.BillingPeriodList>"
-
-
-class BillingPeriodPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the BillingPeriodPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
-        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of BillingPeriodInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
-        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
-        """
-        return BillingPeriodInstance(
-            self._version, payload, sim_sid=self._solution["sim_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Supersim.V1.BillingPeriodPage>"
-
-
-class BillingPeriodInstance(InstanceResource):
-    class BpType(object):
-        READY = "ready"
-        ACTIVE = "active"
-
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the BillingPeriodInstance
-
-        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
-        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "start_time": deserialize.iso8601_datetime(payload.get("start_time")),
-            "end_time": deserialize.iso8601_datetime(payload.get("end_time")),
-            "period_type": payload.get("period_type"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
-
-        self._context = None
-        self._solution = {
-            "sim_sid": sim_sid,
-        }
-
-    @property
-    def sid(self):
-        """
-        :returns: The SID of the Billing Period.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) the Super SIM belongs to.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the Super SIM the Billing Period belongs to.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def start_time(self):
-        """
-        :returns: The start time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["start_time"]
-
-    @property
-    def end_time(self):
-        """
-        :returns: The end time of the Billing Period specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["end_time"]
-
-    @property
-    def period_type(self):
-        """
-        :returns:
-        :rtype: BillingPeriodInstance.BpType
-        """
-        return self._properties["period_type"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.BillingPeriodInstance {}>".format(context)

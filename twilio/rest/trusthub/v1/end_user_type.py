@@ -22,259 +22,6 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
-class EndUserTypeList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the EndUserTypeList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeList
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
-        self._uri = "/EndUserTypes".format(**self._solution)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams EndUserTypeInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams EndUserTypeInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists EndUserTypeInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists EndUserTypeInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of EndUserTypeInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return EndUserTypePage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of EndUserTypeInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return EndUserTypePage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of EndUserTypeInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return EndUserTypePage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of EndUserTypeInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EndUserTypePage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a EndUserTypeContext
-
-        :param sid: The unique string that identifies the End-User Type resource.
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
-        """
-        return EndUserTypeContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a EndUserTypeContext
-
-        :param sid: The unique string that identifies the End-User Type resource.
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
-        """
-        return EndUserTypeContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trusthub.V1.EndUserTypeList>"
-
-
-class EndUserTypePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the EndUserTypePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of EndUserTypeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
-        """
-        return EndUserTypeInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trusthub.V1.EndUserTypePage>"
-
-
 class EndUserTypeInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
@@ -293,10 +40,10 @@ class EndUserTypeInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EndUserTypeContext] = None
 
     @property
     def _proxy(self):
@@ -453,3 +200,238 @@ class EndUserTypeContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.EndUserTypeContext {}>".format(context)
+
+
+class EndUserTypePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EndUserTypeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
+        """
+        return EndUserTypeInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.EndUserTypePage>"
+
+
+class EndUserTypeList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the EndUserTypeList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeList
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeList
+        """
+        super().__init__(version)
+
+        self._uri = "/EndUserTypes"
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams EndUserTypeInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams EndUserTypeInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists EndUserTypeInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists EndUserTypeInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of EndUserTypeInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return EndUserTypePage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of EndUserTypeInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return EndUserTypePage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of EndUserTypeInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return EndUserTypePage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of EndUserTypeInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return EndUserTypePage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a EndUserTypeContext
+
+        :param sid: The unique string that identifies the End-User Type resource.
+
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        """
+        return EndUserTypeContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EndUserTypeContext
+
+        :param sid: The unique string that identifies the End-User Type resource.
+
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        """
+        return EndUserTypeContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Trusthub.V1.EndUserTypeList>"

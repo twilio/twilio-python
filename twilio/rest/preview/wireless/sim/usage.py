@@ -13,59 +13,12 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class UsageList(ListResource):
-    def __init__(self, version: Version, sim_sid: str):
-        """
-        Initialize the UsageList
-
-        :param Version version: Version that contains the resource
-        :param sim_sid:
-
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageList
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sim_sid": sim_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a UsageContext
-
-
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
-        """
-        return UsageContext(self._version, sim_sid=self._solution["sim_sid"])
-
-    def __call__(self):
-        """
-        Constructs a UsageContext
-
-
-        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
-        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
-        """
-        return UsageContext(self._version, sim_sid=self._solution["sim_sid"])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Wireless.UsageList>"
 
 
 class UsageInstance(InstanceResource):
@@ -90,10 +43,10 @@ class UsageInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sim_sid": sim_sid,
         }
+        self._context: Optional[UsageContext] = None
 
     @property
     def _proxy(self):
@@ -306,3 +259,51 @@ class UsageContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Wireless.UsageContext {}>".format(context)
+
+
+class UsageList(ListResource):
+    def __init__(self, version: Version, sim_sid: str):
+        """
+        Initialize the UsageList
+
+        :param Version version: Version that contains the resource
+        :param sim_sid:
+
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageList
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a UsageContext
+
+
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
+        """
+        return UsageContext(self._version, sim_sid=self._solution["sim_sid"])
+
+    def __call__(self):
+        """
+        Constructs a UsageContext
+
+
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
+        """
+        return UsageContext(self._version, sim_sid=self._solution["sim_sid"])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Wireless.UsageList>"

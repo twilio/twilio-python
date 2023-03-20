@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -44,7 +47,9 @@ class AuthTypeRegistrationsList(ListResource):
             **self._solution
         )
 
-        self._credential_list_mappings = None
+        self._credential_list_mappings: Optional[
+            AuthRegistrationsCredentialListMappingList
+        ] = None
 
     @property
     def credential_list_mappings(self):

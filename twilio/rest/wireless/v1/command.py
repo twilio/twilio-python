@@ -14,13 +14,341 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class CommandInstance(InstanceResource):
+    class CommandMode(object):
+        TEXT = "text"
+        BINARY = "binary"
+
+    class Direction(object):
+        FROM_SIM = "from_sim"
+        TO_SIM = "to_sim"
+
+    class Status(object):
+        QUEUED = "queued"
+        SENT = "sent"
+        DELIVERED = "delivered"
+        RECEIVED = "received"
+        FAILED = "failed"
+
+    class Transport(object):
+        SMS = "sms"
+        IP = "ip"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the CommandInstance
+
+        :returns: twilio.rest.wireless.v1.command.CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "command": payload.get("command"),
+            "command_mode": payload.get("command_mode"),
+            "transport": payload.get("transport"),
+            "delivery_receipt_requested": payload.get("delivery_receipt_requested"),
+            "status": payload.get("status"),
+            "direction": payload.get("direction"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[CommandContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: CommandContext for this CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandContext
+        """
+        if self._context is None:
+            self._context = CommandContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Command resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Command resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def command(self):
+        """
+        :returns: The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
+        :rtype: str
+        """
+        return self._properties["command"]
+
+    @property
+    def command_mode(self):
+        """
+        :returns:
+        :rtype: CommandInstance.CommandMode
+        """
+        return self._properties["command_mode"]
+
+    @property
+    def transport(self):
+        """
+        :returns:
+        :rtype: CommandInstance.Transport
+        """
+        return self._properties["transport"]
+
+    @property
+    def delivery_receipt_requested(self):
+        """
+        :returns: Whether to request a delivery receipt.
+        :rtype: bool
+        """
+        return self._properties["delivery_receipt_requested"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: CommandInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def direction(self):
+        """
+        :returns:
+        :rtype: CommandInstance.Direction
+        """
+        return self._properties["direction"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the CommandInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CommandInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the CommandInstance
+
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CommandInstance
+
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Wireless.V1.CommandInstance {}>".format(context)
+
+
+class CommandContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CommandContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Command resource to fetch.
+
+        :returns: twilio.rest.wireless.v1.command.CommandContext
+        :rtype: twilio.rest.wireless.v1.command.CommandContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Commands/{sid}".format(**self._solution)
+
+    def delete(self):
+        """
+        Deletes the CommandInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CommandInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the CommandInstance
+
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CommandInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CommandInstance
+
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CommandInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Wireless.V1.CommandContext {}>".format(context)
+
+
+class CommandPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CommandInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.wireless.v1.command.CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        return CommandInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Wireless.V1.CommandPage>"
 
 
 class CommandList(ListResource):
@@ -35,9 +363,7 @@ class CommandList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Commands".format(**self._solution)
+        self._uri = "/Commands"
 
     def create(
         self,
@@ -323,7 +649,7 @@ class CommandList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CommandPage(self._version, response, self._solution)
+        return CommandPage(self._version, response)
 
     async def page_async(
         self,
@@ -365,7 +691,7 @@ class CommandList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return CommandPage(self._version, response, self._solution)
+        return CommandPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -378,7 +704,7 @@ class CommandList(ListResource):
         :rtype: twilio.rest.wireless.v1.command.CommandPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return CommandPage(self._version, response, self._solution)
+        return CommandPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -391,7 +717,7 @@ class CommandList(ListResource):
         :rtype: twilio.rest.wireless.v1.command.CommandPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CommandPage(self._version, response, self._solution)
+        return CommandPage(self._version, response)
 
     def get(self, sid):
         """
@@ -423,348 +749,3 @@ class CommandList(ListResource):
         :rtype: str
         """
         return "<Twilio.Wireless.V1.CommandList>"
-
-
-class CommandPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the CommandPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.wireless.v1.command.CommandPage
-        :rtype: twilio.rest.wireless.v1.command.CommandPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of CommandInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.command.CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-        return CommandInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Wireless.V1.CommandPage>"
-
-
-class CommandInstance(InstanceResource):
-    class CommandMode(object):
-        TEXT = "text"
-        BINARY = "binary"
-
-    class Direction(object):
-        FROM_SIM = "from_sim"
-        TO_SIM = "to_sim"
-
-    class Status(object):
-        QUEUED = "queued"
-        SENT = "sent"
-        DELIVERED = "delivered"
-        RECEIVED = "received"
-        FAILED = "failed"
-
-    class Transport(object):
-        SMS = "sms"
-        IP = "ip"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the CommandInstance
-
-        :returns: twilio.rest.wireless.v1.command.CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "command": payload.get("command"),
-            "command_mode": payload.get("command_mode"),
-            "transport": payload.get("transport"),
-            "delivery_receipt_requested": payload.get("delivery_receipt_requested"),
-            "status": payload.get("status"),
-            "direction": payload.get("direction"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
-
-        self._context = None
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: CommandContext for this CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandContext
-        """
-        if self._context is None:
-            self._context = CommandContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Command resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Command resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Command was sent to or from.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def command(self):
-        """
-        :returns: The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
-        :rtype: str
-        """
-        return self._properties["command"]
-
-    @property
-    def command_mode(self):
-        """
-        :returns:
-        :rtype: CommandInstance.CommandMode
-        """
-        return self._properties["command_mode"]
-
-    @property
-    def transport(self):
-        """
-        :returns:
-        :rtype: CommandInstance.Transport
-        """
-        return self._properties["transport"]
-
-    @property
-    def delivery_receipt_requested(self):
-        """
-        :returns: Whether to request a delivery receipt.
-        :rtype: bool
-        """
-        return self._properties["delivery_receipt_requested"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: CommandInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def direction(self):
-        """
-        :returns:
-        :rtype: CommandInstance.Direction
-        """
-        return self._properties["direction"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the CommandInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CommandInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the CommandInstance
-
-
-        :returns: The fetched CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CommandInstance
-
-
-        :returns: The fetched CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.CommandInstance {}>".format(context)
-
-
-class CommandContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CommandContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Command resource to fetch.
-
-        :returns: twilio.rest.wireless.v1.command.CommandContext
-        :rtype: twilio.rest.wireless.v1.command.CommandContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/Commands/{sid}".format(**self._solution)
-
-    def delete(self):
-        """
-        Deletes the CommandInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CommandInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the CommandInstance
-
-
-        :returns: The fetched CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CommandInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CommandInstance
-
-
-        :returns: The fetched CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CommandInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.CommandContext {}>".format(context)
