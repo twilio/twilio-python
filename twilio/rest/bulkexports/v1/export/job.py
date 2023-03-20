@@ -20,50 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class JobList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the JobList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobList
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobList
-        """
-        super().__init__(version)
-
-    def get(self, job_sid):
-        """
-        Constructs a JobContext
-
-        :param job_sid: The unique string that that we created to identify the Bulk Export job
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
-        """
-        return JobContext(self._version, job_sid=job_sid)
-
-    def __call__(self, job_sid):
-        """
-        Constructs a JobContext
-
-        :param job_sid: The unique string that that we created to identify the Bulk Export job
-
-        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
-        """
-        return JobContext(self._version, job_sid=job_sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Bulkexports.V1.JobList>"
-
-
 class JobInstance(InstanceResource):
     def __init__(self, version, payload, job_sid: Optional[str] = None):
         """
@@ -351,3 +307,47 @@ class JobContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Bulkexports.V1.JobContext {}>".format(context)
+
+
+class JobList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the JobList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.bulkexports.v1.export.job.JobList
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobList
+        """
+        super().__init__(version)
+
+    def get(self, job_sid):
+        """
+        Constructs a JobContext
+
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
+
+        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
+        """
+        return JobContext(self._version, job_sid=job_sid)
+
+    def __call__(self, job_sid):
+        """
+        Constructs a JobContext
+
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
+
+        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
+        """
+        return JobContext(self._version, job_sid=job_sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Bulkexports.V1.JobList>"

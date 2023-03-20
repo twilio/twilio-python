@@ -13,82 +13,11 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class RestoreAssistantList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the RestoreAssistantList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
-        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
-        """
-        super().__init__(version)
-
-        self._uri = "/Assistants/Restore"
-
-    def update(self, assistant):
-        """
-        Update the RestoreAssistantInstance
-
-        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
-
-        :returns: The created RestoreAssistantInstance
-        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantInstance
-        """
-        data = values.of(
-            {
-                "Assistant": assistant,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return RestoreAssistantInstance(self._version, payload)
-
-    async def update_async(self, assistant):
-        """
-        Asynchronously update the RestoreAssistantInstance
-
-        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
-
-        :returns: The created RestoreAssistantInstance
-        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantInstance
-        """
-        data = values.of(
-            {
-                "Assistant": assistant,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return RestoreAssistantInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Autopilot.V1.RestoreAssistantList>"
 
 
 class RestoreAssistantInstance(InstanceResource):
@@ -223,3 +152,73 @@ class RestoreAssistantInstance(InstanceResource):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.RestoreAssistantInstance {}>".format(context)
+
+
+class RestoreAssistantList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the RestoreAssistantList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
+        """
+        super().__init__(version)
+
+        self._uri = "/Assistants/Restore"
+
+    def update(self, assistant):
+        """
+        Update the RestoreAssistantInstance
+
+        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
+
+        :returns: The created RestoreAssistantInstance
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantInstance
+        """
+        data = values.of(
+            {
+                "Assistant": assistant,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return RestoreAssistantInstance(self._version, payload)
+
+    async def update_async(self, assistant):
+        """
+        Asynchronously update the RestoreAssistantInstance
+
+        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
+
+        :returns: The created RestoreAssistantInstance
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantInstance
+        """
+        data = values.of(
+            {
+                "Assistant": assistant,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return RestoreAssistantInstance(self._version, payload)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Autopilot.V1.RestoreAssistantList>"

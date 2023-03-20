@@ -13,93 +13,11 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class ReplaceItemsList(ListResource):
-    def __init__(self, version: Version, bundle_sid: str):
-        """
-        Initialize the ReplaceItemsList
-
-        :param Version version: Version that contains the resource
-        :param bundle_sid: The unique string that identifies the Bundle where the item assignments are going to be replaced.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "bundle_sid": bundle_sid,
-        }
-        self._uri = "/RegulatoryCompliance/Bundles/{bundle_sid}/ReplaceItems".format(
-            **self._solution
-        )
-
-    def create(self, from_bundle_sid):
-        """
-        Create the ReplaceItemsInstance
-
-        :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
-
-        :returns: The created ReplaceItemsInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
-        """
-        data = values.of(
-            {
-                "FromBundleSid": from_bundle_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ReplaceItemsInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
-
-    async def create_async(self, from_bundle_sid):
-        """
-        Asynchronously create the ReplaceItemsInstance
-
-        :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
-
-        :returns: The created ReplaceItemsInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
-        """
-        data = values.of(
-            {
-                "FromBundleSid": from_bundle_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ReplaceItemsInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Numbers.V2.ReplaceItemsList>"
 
 
 class ReplaceItemsInstance(InstanceResource):
@@ -226,3 +144,84 @@ class ReplaceItemsInstance(InstanceResource):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Numbers.V2.ReplaceItemsInstance {}>".format(context)
+
+
+class ReplaceItemsList(ListResource):
+    def __init__(self, version: Version, bundle_sid: str):
+        """
+        Initialize the ReplaceItemsList
+
+        :param Version version: Version that contains the resource
+        :param bundle_sid: The unique string that identifies the Bundle where the item assignments are going to be replaced.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "bundle_sid": bundle_sid,
+        }
+        self._uri = "/RegulatoryCompliance/Bundles/{bundle_sid}/ReplaceItems".format(
+            **self._solution
+        )
+
+    def create(self, from_bundle_sid):
+        """
+        Create the ReplaceItemsInstance
+
+        :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
+
+        :returns: The created ReplaceItemsInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
+        """
+        data = values.of(
+            {
+                "FromBundleSid": from_bundle_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ReplaceItemsInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+
+    async def create_async(self, from_bundle_sid):
+        """
+        Asynchronously create the ReplaceItemsInstance
+
+        :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
+
+        :returns: The created ReplaceItemsInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
+        """
+        data = values.of(
+            {
+                "FromBundleSid": from_bundle_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ReplaceItemsInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Numbers.V2.ReplaceItemsList>"

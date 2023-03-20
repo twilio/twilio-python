@@ -14,14 +14,416 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class CompositionInstance(InstanceResource):
+    class Format(object):
+        MP4 = "mp4"
+        WEBM = "webm"
+
+    class Status(object):
+        ENQUEUED = "enqueued"
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the CompositionInstance
+
+        :returns: twilio.rest.video.v1.composition.CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "status": payload.get("status"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_completed": deserialize.iso8601_datetime(
+                payload.get("date_completed")
+            ),
+            "date_deleted": deserialize.iso8601_datetime(payload.get("date_deleted")),
+            "sid": payload.get("sid"),
+            "room_sid": payload.get("room_sid"),
+            "audio_sources": payload.get("audio_sources"),
+            "audio_sources_excluded": payload.get("audio_sources_excluded"),
+            "video_layout": payload.get("video_layout"),
+            "resolution": payload.get("resolution"),
+            "trim": payload.get("trim"),
+            "format": payload.get("format"),
+            "bitrate": deserialize.integer(payload.get("bitrate")),
+            "size": payload.get("size"),
+            "duration": deserialize.integer(payload.get("duration")),
+            "media_external_location": payload.get("media_external_location"),
+            "status_callback": payload.get("status_callback"),
+            "status_callback_method": payload.get("status_callback_method"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[CompositionContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: CompositionContext for this CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
+        """
+        if self._context is None:
+            self._context = CompositionContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Composition resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: CompositionInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_completed(self):
+        """
+        :returns: The date and time in GMT when the composition's media processing task finished, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_completed"]
+
+    @property
+    def date_deleted(self):
+        """
+        :returns: The date and time in GMT when the composition generated media was deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_deleted"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Composition resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def room_sid(self):
+        """
+        :returns: The SID of the Group Room that generated the audio and video tracks used in the composition. All media sources included in a composition must belong to the same Group Room.
+        :rtype: str
+        """
+        return self._properties["room_sid"]
+
+    @property
+    def audio_sources(self):
+        """
+        :returns: The array of track names to include in the composition. The composition includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
+        :rtype: list[str]
+        """
+        return self._properties["audio_sources"]
+
+    @property
+    def audio_sources_excluded(self):
+        """
+        :returns: The array of track names to exclude from the composition. The composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+        :rtype: list[str]
+        """
+        return self._properties["audio_sources_excluded"]
+
+    @property
+    def video_layout(self):
+        """
+        :returns: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :rtype: dict
+        """
+        return self._properties["video_layout"]
+
+    @property
+    def resolution(self):
+        """
+        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
+        :rtype: str
+        """
+        return self._properties["resolution"]
+
+    @property
+    def trim(self):
+        """
+        :returns: Whether to remove intervals with no media, as specified in the POST request that created the composition. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :rtype: bool
+        """
+        return self._properties["trim"]
+
+    @property
+    def format(self):
+        """
+        :returns:
+        :rtype: CompositionInstance.Format
+        """
+        return self._properties["format"]
+
+    @property
+    def bitrate(self):
+        """
+        :returns: The average bit rate of the composition's media.
+        :rtype: int
+        """
+        return self._properties["bitrate"]
+
+    @property
+    def size(self):
+        """
+        :returns: The size of the composed media file in bytes.
+        :rtype: int
+        """
+        return self._properties["size"]
+
+    @property
+    def duration(self):
+        """
+        :returns: The duration of the composition's media file in seconds.
+        :rtype: int
+        """
+        return self._properties["duration"]
+
+    @property
+    def media_external_location(self):
+        """
+        :returns: The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details.
+        :rtype: str
+        """
+        return self._properties["media_external_location"]
+
+    @property
+    def status_callback(self):
+        """
+        :returns: The URL called using the `status_callback_method` to send status information on every composition event.
+        :rtype: str
+        """
+        return self._properties["status_callback"]
+
+    @property
+    def status_callback_method(self):
+        """
+        :returns: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
+        :rtype: str
+        """
+        return self._properties["status_callback_method"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URL of the media file associated with the composition.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def delete(self):
+        """
+        Deletes the CompositionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CompositionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the CompositionInstance
+
+
+        :returns: The fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CompositionInstance
+
+
+        :returns: The fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.CompositionInstance {}>".format(context)
+
+
+class CompositionContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CompositionContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Composition resource to fetch.
+
+        :returns: twilio.rest.video.v1.composition.CompositionContext
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Compositions/{sid}".format(**self._solution)
+
+    def delete(self):
+        """
+        Deletes the CompositionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the CompositionInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the CompositionInstance
+
+
+        :returns: The fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CompositionInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CompositionInstance
+
+
+        :returns: The fetched CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CompositionInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.CompositionContext {}>".format(context)
+
+
+class CompositionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CompositionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.composition.CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        return CompositionInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.CompositionPage>"
 
 
 class CompositionList(ListResource):
@@ -438,407 +840,3 @@ class CompositionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.CompositionList>"
-
-
-class CompositionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CompositionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.composition.CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        return CompositionInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.CompositionPage>"
-
-
-class CompositionInstance(InstanceResource):
-    class Format(object):
-        MP4 = "mp4"
-        WEBM = "webm"
-
-    class Status(object):
-        ENQUEUED = "enqueued"
-        PROCESSING = "processing"
-        COMPLETED = "completed"
-        DELETED = "deleted"
-        FAILED = "failed"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the CompositionInstance
-
-        :returns: twilio.rest.video.v1.composition.CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "status": payload.get("status"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_completed": deserialize.iso8601_datetime(
-                payload.get("date_completed")
-            ),
-            "date_deleted": deserialize.iso8601_datetime(payload.get("date_deleted")),
-            "sid": payload.get("sid"),
-            "room_sid": payload.get("room_sid"),
-            "audio_sources": payload.get("audio_sources"),
-            "audio_sources_excluded": payload.get("audio_sources_excluded"),
-            "video_layout": payload.get("video_layout"),
-            "resolution": payload.get("resolution"),
-            "trim": payload.get("trim"),
-            "format": payload.get("format"),
-            "bitrate": deserialize.integer(payload.get("bitrate")),
-            "size": payload.get("size"),
-            "duration": deserialize.integer(payload.get("duration")),
-            "media_external_location": payload.get("media_external_location"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[CompositionContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: CompositionContext for this CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionContext
-        """
-        if self._context is None:
-            self._context = CompositionContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Composition resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: CompositionInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_completed(self):
-        """
-        :returns: The date and time in GMT when the composition's media processing task finished, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_completed"]
-
-    @property
-    def date_deleted(self):
-        """
-        :returns: The date and time in GMT when the composition generated media was deleted, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_deleted"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Composition resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def room_sid(self):
-        """
-        :returns: The SID of the Group Room that generated the audio and video tracks used in the composition. All media sources included in a composition must belong to the same Group Room.
-        :rtype: str
-        """
-        return self._properties["room_sid"]
-
-    @property
-    def audio_sources(self):
-        """
-        :returns: The array of track names to include in the composition. The composition includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
-        :rtype: list[str]
-        """
-        return self._properties["audio_sources"]
-
-    @property
-    def audio_sources_excluded(self):
-        """
-        :returns: The array of track names to exclude from the composition. The composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this property can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        :rtype: list[str]
-        """
-        return self._properties["audio_sources_excluded"]
-
-    @property
-    def video_layout(self):
-        """
-        :returns: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :rtype: dict
-        """
-        return self._properties["video_layout"]
-
-    @property
-    def resolution(self):
-        """
-        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height). The string's format is `{width}x{height}`, such as `640x480`.
-        :rtype: str
-        """
-        return self._properties["resolution"]
-
-    @property
-    def trim(self):
-        """
-        :returns: Whether to remove intervals with no media, as specified in the POST request that created the composition. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :rtype: bool
-        """
-        return self._properties["trim"]
-
-    @property
-    def format(self):
-        """
-        :returns:
-        :rtype: CompositionInstance.Format
-        """
-        return self._properties["format"]
-
-    @property
-    def bitrate(self):
-        """
-        :returns: The average bit rate of the composition's media.
-        :rtype: int
-        """
-        return self._properties["bitrate"]
-
-    @property
-    def size(self):
-        """
-        :returns: The size of the composed media file in bytes.
-        :rtype: int
-        """
-        return self._properties["size"]
-
-    @property
-    def duration(self):
-        """
-        :returns: The duration of the composition's media file in seconds.
-        :rtype: int
-        """
-        return self._properties["duration"]
-
-    @property
-    def media_external_location(self):
-        """
-        :returns: The URL of the media file associated with the composition when stored externally. See [External S3 Compositions](/docs/video/api/external-s3-compositions) for more details.
-        :rtype: str
-        """
-        return self._properties["media_external_location"]
-
-    @property
-    def status_callback(self):
-        """
-        :returns: The URL called using the `status_callback_method` to send status information on every composition event.
-        :rtype: str
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def status_callback_method(self):
-        """
-        :returns: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
-        :rtype: str
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URL of the media file associated with the composition.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def delete(self):
-        """
-        Deletes the CompositionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CompositionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the CompositionInstance
-
-
-        :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CompositionInstance
-
-
-        :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionInstance {}>".format(context)
-
-
-class CompositionContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CompositionContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Composition resource to fetch.
-
-        :returns: twilio.rest.video.v1.composition.CompositionContext
-        :rtype: twilio.rest.video.v1.composition.CompositionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/Compositions/{sid}".format(**self._solution)
-
-    def delete(self):
-        """
-        Deletes the CompositionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the CompositionInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the CompositionInstance
-
-
-        :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CompositionInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CompositionInstance
-
-
-        :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CompositionInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionContext {}>".format(context)

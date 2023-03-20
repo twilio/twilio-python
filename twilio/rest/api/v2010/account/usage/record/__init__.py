@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,447 +28,6 @@ from twilio.rest.api.v2010.account.usage.record.this_month import ThisMonthList
 from twilio.rest.api.v2010.account.usage.record.today import TodayList
 from twilio.rest.api.v2010.account.usage.record.yearly import YearlyList
 from twilio.rest.api.v2010.account.usage.record.yesterday import YesterdayList
-
-
-class RecordList(ListResource):
-    def __init__(self, version: Version, account_sid: str):
-        """
-        Initialize the RecordList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-
-        :returns: twilio.rest.api.v2010.account.usage.record.RecordList
-        :rtype: twilio.rest.api.v2010.account.usage.record.RecordList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Usage/Records.json".format(
-            **self._solution
-        )
-
-        self._all_time: Optional[AllTimeList] = None
-        self._daily: Optional[DailyList] = None
-        self._last_month: Optional[LastMonthList] = None
-        self._monthly: Optional[MonthlyList] = None
-        self._this_month: Optional[ThisMonthList] = None
-        self._today: Optional[TodayList] = None
-        self._yearly: Optional[YearlyList] = None
-        self._yesterday: Optional[YesterdayList] = None
-
-    def stream(
-        self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams RecordInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            category=category,
-            start_date=start_date,
-            end_date=end_date,
-            include_subaccounts=include_subaccounts,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams RecordInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            category=category,
-            start_date=start_date,
-            end_date=end_date,
-            include_subaccounts=include_subaccounts,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists RecordInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
-        """
-        return list(
-            self.stream(
-                category=category,
-                start_date=start_date,
-                end_date=end_date,
-                include_subaccounts=include_subaccounts,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists RecordInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
-        """
-        return list(
-            await self.stream_async(
-                category=category,
-                start_date=start_date,
-                end_date=end_date,
-                include_subaccounts=include_subaccounts,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of RecordInstance records from the API.
-        Request is executed immediately
-
-        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RecordInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
-        """
-        data = values.of(
-            {
-                "Category": category,
-                "StartDate": serialize.iso8601_date(start_date),
-                "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return RecordPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        category=values.unset,
-        start_date=values.unset,
-        end_date=values.unset,
-        include_subaccounts=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of RecordInstance records from the API.
-        Request is executed immediately
-
-        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RecordInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
-        """
-        data = values.of(
-            {
-                "Category": category,
-                "StartDate": serialize.iso8601_date(start_date),
-                "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return RecordPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of RecordInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RecordInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return RecordPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of RecordInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RecordInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RecordPage(self._version, response, self._solution)
-
-    @property
-    def all_time(self):
-        """
-        Access the all_time
-
-        :returns: twilio.rest.api.v2010.account.usage.record.AllTimeList
-        :rtype: twilio.rest.api.v2010.account.usage.record.AllTimeList
-        """
-        if self._all_time is None:
-            self._all_time = AllTimeList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._all_time
-
-    @property
-    def daily(self):
-        """
-        Access the daily
-
-        :returns: twilio.rest.api.v2010.account.usage.record.DailyList
-        :rtype: twilio.rest.api.v2010.account.usage.record.DailyList
-        """
-        if self._daily is None:
-            self._daily = DailyList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._daily
-
-    @property
-    def last_month(self):
-        """
-        Access the last_month
-
-        :returns: twilio.rest.api.v2010.account.usage.record.LastMonthList
-        :rtype: twilio.rest.api.v2010.account.usage.record.LastMonthList
-        """
-        if self._last_month is None:
-            self._last_month = LastMonthList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._last_month
-
-    @property
-    def monthly(self):
-        """
-        Access the monthly
-
-        :returns: twilio.rest.api.v2010.account.usage.record.MonthlyList
-        :rtype: twilio.rest.api.v2010.account.usage.record.MonthlyList
-        """
-        if self._monthly is None:
-            self._monthly = MonthlyList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._monthly
-
-    @property
-    def this_month(self):
-        """
-        Access the this_month
-
-        :returns: twilio.rest.api.v2010.account.usage.record.ThisMonthList
-        :rtype: twilio.rest.api.v2010.account.usage.record.ThisMonthList
-        """
-        if self._this_month is None:
-            self._this_month = ThisMonthList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._this_month
-
-    @property
-    def today(self):
-        """
-        Access the today
-
-        :returns: twilio.rest.api.v2010.account.usage.record.TodayList
-        :rtype: twilio.rest.api.v2010.account.usage.record.TodayList
-        """
-        if self._today is None:
-            self._today = TodayList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._today
-
-    @property
-    def yearly(self):
-        """
-        Access the yearly
-
-        :returns: twilio.rest.api.v2010.account.usage.record.YearlyList
-        :rtype: twilio.rest.api.v2010.account.usage.record.YearlyList
-        """
-        if self._yearly is None:
-            self._yearly = YearlyList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._yearly
-
-    @property
-    def yesterday(self):
-        """
-        Access the yesterday
-
-        :returns: twilio.rest.api.v2010.account.usage.record.YesterdayList
-        :rtype: twilio.rest.api.v2010.account.usage.record.YesterdayList
-        """
-        if self._yesterday is None:
-            self._yesterday = YesterdayList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._yesterday
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.RecordList>"
-
-
-class RecordPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RecordInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
-        """
-        return RecordInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.RecordPage>"
 
 
 class RecordInstance(InstanceResource):
@@ -953,3 +510,444 @@ class RecordInstance(InstanceResource):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.RecordInstance {}>".format(context)
+
+
+class RecordPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RecordInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
+        """
+        return RecordInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.RecordPage>"
+
+
+class RecordList(ListResource):
+    def __init__(self, version: Version, account_sid: str):
+        """
+        Initialize the RecordList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordList
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Usage/Records.json".format(
+            **self._solution
+        )
+
+        self._all_time: Optional[AllTimeList] = None
+        self._daily: Optional[DailyList] = None
+        self._last_month: Optional[LastMonthList] = None
+        self._monthly: Optional[MonthlyList] = None
+        self._this_month: Optional[ThisMonthList] = None
+        self._today: Optional[TodayList] = None
+        self._yearly: Optional[YearlyList] = None
+        self._yesterday: Optional[YesterdayList] = None
+
+    def stream(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams RecordInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            category=category,
+            start_date=start_date,
+            end_date=end_date,
+            include_subaccounts=include_subaccounts,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams RecordInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            category=category,
+            start_date=start_date,
+            end_date=end_date,
+            include_subaccounts=include_subaccounts,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists RecordInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
+        """
+        return list(
+            self.stream(
+                category=category,
+                start_date=start_date,
+                end_date=end_date,
+                include_subaccounts=include_subaccounts,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists RecordInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
+        """
+        return list(
+            await self.stream_async(
+                category=category,
+                start_date=start_date,
+                end_date=end_date,
+                include_subaccounts=include_subaccounts,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of RecordInstance records from the API.
+        Request is executed immediately
+
+        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
+        """
+        data = values.of(
+            {
+                "Category": category,
+                "StartDate": serialize.iso8601_date(start_date),
+                "EndDate": serialize.iso8601_date(end_date),
+                "IncludeSubaccounts": include_subaccounts,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return RecordPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        category=values.unset,
+        start_date=values.unset,
+        end_date=values.unset,
+        include_subaccounts=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of RecordInstance records from the API.
+        Request is executed immediately
+
+        :param RecordInstance.Category category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+        :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+        :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+        :param bool include_subaccounts: Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
+        """
+        data = values.of(
+            {
+                "Category": category,
+                "StartDate": serialize.iso8601_date(start_date),
+                "EndDate": serialize.iso8601_date(end_date),
+                "IncludeSubaccounts": include_subaccounts,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return RecordPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of RecordInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return RecordPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of RecordInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return RecordPage(self._version, response, self._solution)
+
+    @property
+    def all_time(self):
+        """
+        Access the all_time
+
+        :returns: twilio.rest.api.v2010.account.usage.record.AllTimeList
+        :rtype: twilio.rest.api.v2010.account.usage.record.AllTimeList
+        """
+        if self._all_time is None:
+            self._all_time = AllTimeList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._all_time
+
+    @property
+    def daily(self):
+        """
+        Access the daily
+
+        :returns: twilio.rest.api.v2010.account.usage.record.DailyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.DailyList
+        """
+        if self._daily is None:
+            self._daily = DailyList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._daily
+
+    @property
+    def last_month(self):
+        """
+        Access the last_month
+
+        :returns: twilio.rest.api.v2010.account.usage.record.LastMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.LastMonthList
+        """
+        if self._last_month is None:
+            self._last_month = LastMonthList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._last_month
+
+    @property
+    def monthly(self):
+        """
+        Access the monthly
+
+        :returns: twilio.rest.api.v2010.account.usage.record.MonthlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.MonthlyList
+        """
+        if self._monthly is None:
+            self._monthly = MonthlyList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._monthly
+
+    @property
+    def this_month(self):
+        """
+        Access the this_month
+
+        :returns: twilio.rest.api.v2010.account.usage.record.ThisMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.ThisMonthList
+        """
+        if self._this_month is None:
+            self._this_month = ThisMonthList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._this_month
+
+    @property
+    def today(self):
+        """
+        Access the today
+
+        :returns: twilio.rest.api.v2010.account.usage.record.TodayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.TodayList
+        """
+        if self._today is None:
+            self._today = TodayList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._today
+
+    @property
+    def yearly(self):
+        """
+        Access the yearly
+
+        :returns: twilio.rest.api.v2010.account.usage.record.YearlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.YearlyList
+        """
+        if self._yearly is None:
+            self._yearly = YearlyList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._yearly
+
+    @property
+    def yesterday(self):
+        """
+        Access the yesterday
+
+        :returns: twilio.rest.api.v2010.account.usage.record.YesterdayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.YesterdayList
+        """
+        if self._yesterday is None:
+            self._yesterday = YesterdayList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
+        return self._yesterday
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.RecordList>"

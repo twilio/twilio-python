@@ -13,12 +13,84 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
+
+class NewSigningKeyInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str):
+        """
+        Initialize the NewSigningKeyInstance
+
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
+            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
+            "secret": payload.get("secret"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+        }
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the NewSigningKey resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def secret(self):
+        """
+        :returns: The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
+        :rtype: str
+        """
+        return self._properties["secret"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.NewSigningKeyInstance {}>".format(context)
 
 
 class NewSigningKeyList(ListResource):
@@ -98,76 +170,3 @@ class NewSigningKeyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.NewSigningKeyList>"
-
-
-class NewSigningKeyInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str):
-        """
-        Initialize the NewSigningKeyInstance
-
-        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "secret": payload.get("secret"),
-        }
-
-        self._solution = {
-            "account_sid": account_sid,
-        }
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that that we created to identify the NewSigningKey resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def secret(self):
-        """
-        :returns: The secret your application uses to sign Access Tokens and to authenticate to the REST API (you will use this as the basic-auth `password`).  **Note that for security reasons, this field is ONLY returned when the API Key is first created.**
-        :rtype: str
-        """
-        return self._properties["secret"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.NewSigningKeyInstance {}>".format(context)

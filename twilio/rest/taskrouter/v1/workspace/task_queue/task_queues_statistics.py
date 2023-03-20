@@ -13,13 +13,108 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class TaskQueuesStatisticsInstance(InstanceResource):
+    def __init__(self, version, payload, workspace_sid: str):
+        """
+        Initialize the TaskQueuesStatisticsInstance
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "cumulative": payload.get("cumulative"),
+            "realtime": payload.get("realtime"),
+            "task_queue_sid": payload.get("task_queue_sid"),
+            "workspace_sid": payload.get("workspace_sid"),
+        }
+
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def cumulative(self):
+        """
+        :returns: An object that contains the cumulative statistics for the TaskQueues.
+        :rtype: dict
+        """
+        return self._properties["cumulative"]
+
+    @property
+    def realtime(self):
+        """
+        :returns: An object that contains the real-time statistics for the TaskQueues.
+        :rtype: dict
+        """
+        return self._properties["realtime"]
+
+    @property
+    def task_queue_sid(self):
+        """
+        :returns: The SID of the TaskQueue from which these statistics were calculated.
+        :rtype: str
+        """
+        return self._properties["task_queue_sid"]
+
+    @property
+    def workspace_sid(self):
+        """
+        :returns: The SID of the Workspace that contains the TaskQueues.
+        :rtype: str
+        """
+        return self._properties["workspace_sid"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>".format(context)
+
+
+class TaskQueuesStatisticsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskQueuesStatisticsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        """
+        return TaskQueuesStatisticsInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsPage>"
 
 
 class TaskQueuesStatisticsList(ListResource):
@@ -353,99 +448,3 @@ class TaskQueuesStatisticsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsList>"
-
-
-class TaskQueuesStatisticsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TaskQueuesStatisticsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        """
-        return TaskQueuesStatisticsInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsPage>"
-
-
-class TaskQueuesStatisticsInstance(InstanceResource):
-    def __init__(self, version, payload, workspace_sid: str):
-        """
-        Initialize the TaskQueuesStatisticsInstance
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "cumulative": payload.get("cumulative"),
-            "realtime": payload.get("realtime"),
-            "task_queue_sid": payload.get("task_queue_sid"),
-            "workspace_sid": payload.get("workspace_sid"),
-        }
-
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def cumulative(self):
-        """
-        :returns: An object that contains the cumulative statistics for the TaskQueues.
-        :rtype: dict
-        """
-        return self._properties["cumulative"]
-
-    @property
-    def realtime(self):
-        """
-        :returns: An object that contains the real-time statistics for the TaskQueues.
-        :rtype: dict
-        """
-        return self._properties["realtime"]
-
-    @property
-    def task_queue_sid(self):
-        """
-        :returns: The SID of the TaskQueue from which these statistics were calculated.
-        :rtype: str
-        """
-        return self._properties["task_queue_sid"]
-
-    @property
-    def workspace_sid(self):
-        """
-        :returns: The SID of the Workspace that contains the TaskQueues.
-        :rtype: str
-        """
-        return self._properties["workspace_sid"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>".format(context)

@@ -14,419 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class QueryList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the QueryList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the parent Assistant.
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryList
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-        self._uri = "/Assistants/{assistant_sid}/Queries".format(**self._solution)
-
-    def create(
-        self,
-        language,
-        query,
-        tasks=values.unset,
-        model_build=values.unset,
-        field=values.unset,
-    ):
-        """
-        Create the QueryInstance
-
-        :param str language: An ISO language-country string of the sample.
-        :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
-        :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
-
-        :returns: The created QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "Query": query,
-                "Tasks": tasks,
-                "ModelBuild": model_build,
-                "Field": field,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    async def create_async(
-        self,
-        language,
-        query,
-        tasks=values.unset,
-        model_build=values.unset,
-        field=values.unset,
-    ):
-        """
-        Asynchronously create the QueryInstance
-
-        :param str language: An ISO language-country string of the sample.
-        :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
-        :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
-
-        :returns: The created QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "Query": query,
-                "Tasks": tasks,
-                "ModelBuild": model_build,
-                "Field": field,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def stream(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams QueryInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            language=language,
-            model_build=model_build,
-            status=status,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams QueryInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            language=language,
-            model_build=model_build,
-            status=status,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists QueryInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
-        """
-        return list(
-            self.stream(
-                language=language,
-                model_build=model_build,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists QueryInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
-        """
-        return list(
-            await self.stream_async(
-                language=language,
-                model_build=model_build,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "ModelBuild": model_build,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return QueryPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str language: An ISO language-country string of the sample.
-        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "ModelBuild": model_build,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return QueryPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return QueryPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return QueryPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a QueryContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
-        """
-        return QueryContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a QueryContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
-        """
-        return QueryContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.QueryList>"
-
-
-class QueryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of QueryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
-        """
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Understand.QueryPage>"
 
 
 class QueryInstance(InstanceResource):
@@ -821,3 +414,409 @@ class QueryContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.QueryContext {}>".format(context)
+
+
+class QueryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of QueryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.query.QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.QueryPage>"
+
+
+class QueryList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the QueryList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the parent Assistant.
+
+        :returns: twilio.rest.preview.understand.assistant.query.QueryList
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+        self._uri = "/Assistants/{assistant_sid}/Queries".format(**self._solution)
+
+    def create(
+        self,
+        language,
+        query,
+        tasks=values.unset,
+        model_build=values.unset,
+        field=values.unset,
+    ):
+        """
+        Create the QueryInstance
+
+        :param str language: An ISO language-country string of the sample.
+        :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+        :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
+
+        :returns: The created QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "Query": query,
+                "Tasks": tasks,
+                "ModelBuild": model_build,
+                "Field": field,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    async def create_async(
+        self,
+        language,
+        query,
+        tasks=values.unset,
+        model_build=values.unset,
+        field=values.unset,
+    ):
+        """
+        Asynchronously create the QueryInstance
+
+        :param str language: An ISO language-country string of the sample.
+        :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+        :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
+
+        :returns: The created QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "Query": query,
+                "Tasks": tasks,
+                "ModelBuild": model_build,
+                "Field": field,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def stream(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams QueryInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str language: An ISO language-country string of the sample.
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            language=language,
+            model_build=model_build,
+            status=status,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams QueryInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str language: An ISO language-country string of the sample.
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            language=language,
+            model_build=model_build,
+            status=status,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists QueryInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str language: An ISO language-country string of the sample.
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
+        """
+        return list(
+            self.stream(
+                language=language,
+                model_build=model_build,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists QueryInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str language: An ISO language-country string of the sample.
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
+        """
+        return list(
+            await self.stream_async(
+                language=language,
+                model_build=model_build,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str language: An ISO language-country string of the sample.
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "ModelBuild": model_build,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return QueryPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str language: An ISO language-country string of the sample.
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "ModelBuild": model_build,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return QueryPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return QueryPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return QueryPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a QueryContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
+        """
+        return QueryContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a QueryContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
+        """
+        return QueryContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.QueryList>"

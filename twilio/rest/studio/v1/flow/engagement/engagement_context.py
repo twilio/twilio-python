@@ -20,64 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class EngagementContextList(ListResource):
-    def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
-        """
-        Initialize the EngagementContextList
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow.
-        :param engagement_sid: The SID of the Engagement.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-            "engagement_sid": engagement_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a EngagementContextContext
-
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        """
-        return EngagementContextContext(
-            self._version,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a EngagementContextContext
-
-
-        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
-        """
-        return EngagementContextContext(
-            self._version,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Studio.V1.EngagementContextList>"
-
-
 class EngagementContextInstance(InstanceResource):
     def __init__(self, version, payload, flow_sid: str, engagement_sid: str):
         """
@@ -264,3 +206,61 @@ class EngagementContextContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.EngagementContextContext {}>".format(context)
+
+
+class EngagementContextList(ListResource):
+    def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
+        """
+        Initialize the EngagementContextList
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow.
+        :param engagement_sid: The SID of the Engagement.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "flow_sid": flow_sid,
+            "engagement_sid": engagement_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a EngagementContextContext
+
+
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        """
+        return EngagementContextContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a EngagementContextContext
+
+
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        """
+        return EngagementContextContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Studio.V1.EngagementContextList>"

@@ -14,457 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class CompositionHookList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the CompositionHookList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookList
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookList
-        """
-        super().__init__(version)
-
-        self._uri = "/CompositionHooks"
-
-    def create(
-        self,
-        friendly_name,
-        enabled=values.unset,
-        video_layout=values.unset,
-        audio_sources=values.unset,
-        audio_sources_excluded=values.unset,
-        resolution=values.unset,
-        format=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        trim=values.unset,
-    ):
-        """
-        Create the CompositionHookInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
-        :param bool enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
-        :param object video_layout: An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param list[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
-        :param list[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-
-        :returns: The created CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Enabled": enabled,
-                "VideoLayout": serialize.object(video_layout),
-                "AudioSources": serialize.map(audio_sources, lambda e: e),
-                "AudioSourcesExcluded": serialize.map(
-                    audio_sources_excluded, lambda e: e
-                ),
-                "Resolution": resolution,
-                "Format": format,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return CompositionHookInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        friendly_name,
-        enabled=values.unset,
-        video_layout=values.unset,
-        audio_sources=values.unset,
-        audio_sources_excluded=values.unset,
-        resolution=values.unset,
-        format=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        trim=values.unset,
-    ):
-        """
-        Asynchronously create the CompositionHookInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
-        :param bool enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
-        :param object video_layout: An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param list[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
-        :param list[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
-        :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param CompositionHookInstance.Format format:
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-
-        :returns: The created CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Enabled": enabled,
-                "VideoLayout": serialize.object(video_layout),
-                "AudioSources": serialize.map(audio_sources, lambda e: e),
-                "AudioSourcesExcluded": serialize.map(
-                    audio_sources_excluded, lambda e: e
-                ),
-                "Resolution": resolution,
-                "Format": format,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return CompositionHookInstance(self._version, payload)
-
-    def stream(
-        self,
-        enabled=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams CompositionHookInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
-        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            enabled=enabled,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            friendly_name=friendly_name,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        enabled=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams CompositionHookInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
-        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            enabled=enabled,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            friendly_name=friendly_name,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        enabled=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists CompositionHookInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
-        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
-        """
-        return list(
-            self.stream(
-                enabled=enabled,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        enabled=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists CompositionHookInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
-        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
-        """
-        return list(
-            await self.stream_async(
-                enabled=enabled,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        enabled=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of CompositionHookInstance records from the API.
-        Request is executed immediately
-
-        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
-        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
-        """
-        data = values.of(
-            {
-                "Enabled": enabled,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CompositionHookPage(self._version, response)
-
-    async def page_async(
-        self,
-        enabled=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of CompositionHookInstance records from the API.
-        Request is executed immediately
-
-        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
-        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
-        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
-        """
-        data = values.of(
-            {
-                "Enabled": enabled,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return CompositionHookPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of CompositionHookInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return CompositionHookPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of CompositionHookInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CompositionHookPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a CompositionHookContext
-
-        :param sid: The SID of the CompositionHook resource to update.
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
-        """
-        return CompositionHookContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a CompositionHookContext
-
-        :param sid: The SID of the CompositionHook resource to update.
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
-        """
-        return CompositionHookContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.CompositionHookList>"
-
-
-class CompositionHookPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CompositionHookInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        """
-        return CompositionHookInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.CompositionHookPage>"
 
 
 class CompositionHookInstance(InstanceResource):
@@ -985,3 +540,446 @@ class CompositionHookContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.CompositionHookContext {}>".format(context)
+
+
+class CompositionHookPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CompositionHookInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        """
+        return CompositionHookInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.CompositionHookPage>"
+
+
+class CompositionHookList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the CompositionHookList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.video.v1.composition_hook.CompositionHookList
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookList
+        """
+        super().__init__(version)
+
+        self._uri = "/CompositionHooks"
+
+    def create(
+        self,
+        friendly_name,
+        enabled=values.unset,
+        video_layout=values.unset,
+        audio_sources=values.unset,
+        audio_sources_excluded=values.unset,
+        resolution=values.unset,
+        format=values.unset,
+        status_callback=values.unset,
+        status_callback_method=values.unset,
+        trim=values.unset,
+    ):
+        """
+        Create the CompositionHookInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
+        :param bool enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
+        :param object video_layout: An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param list[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
+        :param list[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+        :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param CompositionHookInstance.Format format:
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+
+        :returns: The created CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Enabled": enabled,
+                "VideoLayout": serialize.object(video_layout),
+                "AudioSources": serialize.map(audio_sources, lambda e: e),
+                "AudioSourcesExcluded": serialize.map(
+                    audio_sources_excluded, lambda e: e
+                ),
+                "Resolution": resolution,
+                "Format": format,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "Trim": trim,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CompositionHookInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name,
+        enabled=values.unset,
+        video_layout=values.unset,
+        audio_sources=values.unset,
+        audio_sources_excluded=values.unset,
+        resolution=values.unset,
+        format=values.unset,
+        status_callback=values.unset,
+        status_callback_method=values.unset,
+        trim=values.unset,
+    ):
+        """
+        Asynchronously create the CompositionHookInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
+        :param bool enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
+        :param object video_layout: An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param list[str] audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
+        :param list[str] audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+        :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param CompositionHookInstance.Format format:
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+
+        :returns: The created CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Enabled": enabled,
+                "VideoLayout": serialize.object(video_layout),
+                "AudioSources": serialize.map(audio_sources, lambda e: e),
+                "AudioSourcesExcluded": serialize.map(
+                    audio_sources_excluded, lambda e: e
+                ),
+                "Resolution": resolution,
+                "Format": format,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "Trim": trim,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CompositionHookInstance(self._version, payload)
+
+    def stream(
+        self,
+        enabled=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams CompositionHookInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            enabled=enabled,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            friendly_name=friendly_name,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        enabled=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams CompositionHookInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            enabled=enabled,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            friendly_name=friendly_name,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        enabled=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists CompositionHookInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
+        """
+        return list(
+            self.stream(
+                enabled=enabled,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        enabled=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists CompositionHookInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.composition_hook.CompositionHookInstance]
+        """
+        return list(
+            await self.stream_async(
+                enabled=enabled,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        enabled=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of CompositionHookInstance records from the API.
+        Request is executed immediately
+
+        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
+        """
+        data = values.of(
+            {
+                "Enabled": enabled,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return CompositionHookPage(self._version, response)
+
+    async def page_async(
+        self,
+        enabled=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of CompositionHookInstance records from the API.
+        Request is executed immediately
+
+        :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
+        :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+        :param str friendly_name: Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
+        """
+        data = values.of(
+            {
+                "Enabled": enabled,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return CompositionHookPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of CompositionHookInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return CompositionHookPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of CompositionHookInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return CompositionHookPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a CompositionHookContext
+
+        :param sid: The SID of the CompositionHook resource to update.
+
+        :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
+        """
+        return CompositionHookContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CompositionHookContext
+
+        :param sid: The SID of the CompositionHook resource to update.
+
+        :returns: twilio.rest.video.v1.composition_hook.CompositionHookContext
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookContext
+        """
+        return CompositionHookContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.CompositionHookList>"

@@ -14,379 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class WebhookList(ListResource):
-    def __init__(self, version: Version, service_sid: str, channel_sid: str):
-        """
-        Initialize the WebhookList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel to read the resources from.
-        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resources to read belong to. This value can be the Channel resource's `sid` or `unique_name`.
-
-        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "channel_sid": channel_sid,
-        }
-        self._uri = "/Services/{service_sid}/Channels/{channel_sid}/Webhooks".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        type,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
-    ):
-        """
-        Create the WebhookInstance
-
-        :param WebhookInstance.Type type:
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-
-        :returns: The created WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "Configuration.Url": configuration_url,
-                "Configuration.Method": configuration_method,
-                "Configuration.Filters": serialize.map(
-                    configuration_filters, lambda e: e
-                ),
-                "Configuration.Triggers": serialize.map(
-                    configuration_triggers, lambda e: e
-                ),
-                "Configuration.FlowSid": configuration_flow_sid,
-                "Configuration.RetryCount": configuration_retry_count,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    async def create_async(
-        self,
-        type,
-        configuration_url=values.unset,
-        configuration_method=values.unset,
-        configuration_filters=values.unset,
-        configuration_triggers=values.unset,
-        configuration_flow_sid=values.unset,
-        configuration_retry_count=values.unset,
-    ):
-        """
-        Asynchronously create the WebhookInstance
-
-        :param WebhookInstance.Type type:
-        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-        :param list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
-        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-
-        :returns: The created WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "Configuration.Url": configuration_url,
-                "Configuration.Method": configuration_method,
-                "Configuration.Filters": serialize.map(
-                    configuration_filters, lambda e: e
-                ),
-                "Configuration.Triggers": serialize.map(
-                    configuration_triggers, lambda e: e
-                ),
-                "Configuration.FlowSid": configuration_flow_sid,
-                "Configuration.RetryCount": configuration_retry_count,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams WebhookInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams WebhookInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists WebhookInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists WebhookInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of WebhookInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return WebhookPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of WebhookInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return WebhookPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of WebhookInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return WebhookPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of WebhookInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return WebhookPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a WebhookContext
-
-        :param sid: The SID of the Channel Webhook resource to update.
-
-        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
-        """
-        return WebhookContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a WebhookContext
-
-        :param sid: The SID of the Channel Webhook resource to update.
-
-        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
-        """
-        return WebhookContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Chat.V2.WebhookList>"
-
-
-class WebhookPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WebhookInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
-        """
-        return WebhookInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Chat.V2.WebhookPage>"
 
 
 class WebhookInstance(InstanceResource):
@@ -836,3 +469,368 @@ class WebhookContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Chat.V2.WebhookContext {}>".format(context)
+
+
+class WebhookPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WebhookInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
+        """
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Chat.V2.WebhookPage>"
+
+
+class WebhookList(ListResource):
+    def __init__(self, version: Version, service_sid: str, channel_sid: str):
+        """
+        Initialize the WebhookList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel to read the resources from.
+        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resources to read belong to. This value can be the Channel resource's `sid` or `unique_name`.
+
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "channel_sid": channel_sid,
+        }
+        self._uri = "/Services/{service_sid}/Channels/{channel_sid}/Webhooks".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        type,
+        configuration_url=values.unset,
+        configuration_method=values.unset,
+        configuration_filters=values.unset,
+        configuration_triggers=values.unset,
+        configuration_flow_sid=values.unset,
+        configuration_retry_count=values.unset,
+    ):
+        """
+        Create the WebhookInstance
+
+        :param WebhookInstance.Type type:
+        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param WebhookInstance.Method configuration_method:
+        :param list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+
+        :returns: The created WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "Configuration.Url": configuration_url,
+                "Configuration.Method": configuration_method,
+                "Configuration.Filters": serialize.map(
+                    configuration_filters, lambda e: e
+                ),
+                "Configuration.Triggers": serialize.map(
+                    configuration_triggers, lambda e: e
+                ),
+                "Configuration.FlowSid": configuration_flow_sid,
+                "Configuration.RetryCount": configuration_retry_count,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    async def create_async(
+        self,
+        type,
+        configuration_url=values.unset,
+        configuration_method=values.unset,
+        configuration_filters=values.unset,
+        configuration_triggers=values.unset,
+        configuration_flow_sid=values.unset,
+        configuration_retry_count=values.unset,
+    ):
+        """
+        Asynchronously create the WebhookInstance
+
+        :param WebhookInstance.Type type:
+        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param WebhookInstance.Method configuration_method:
+        :param list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+
+        :returns: The created WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "Configuration.Url": configuration_url,
+                "Configuration.Method": configuration_method,
+                "Configuration.Filters": serialize.map(
+                    configuration_filters, lambda e: e
+                ),
+                "Configuration.Triggers": serialize.map(
+                    configuration_triggers, lambda e: e
+                ),
+                "Configuration.FlowSid": configuration_flow_sid,
+                "Configuration.RetryCount": configuration_retry_count,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams WebhookInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams WebhookInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists WebhookInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists WebhookInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of WebhookInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return WebhookPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of WebhookInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return WebhookPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of WebhookInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return WebhookPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of WebhookInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return WebhookPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a WebhookContext
+
+        :param sid: The SID of the Channel Webhook resource to update.
+
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
+        """
+        return WebhookContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a WebhookContext
+
+        :param sid: The SID of the Channel Webhook resource to update.
+
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
+        """
+        return WebhookContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Chat.V2.WebhookList>"

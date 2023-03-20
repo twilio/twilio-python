@@ -14,274 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class DeliveryReceiptList(ListResource):
-    def __init__(self, version: Version, conversation_sid: str, message_sid: str):
-        """
-        Initialize the DeliveryReceiptList
-
-        :param Version version: Version that contains the resource
-        :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-        :param message_sid: The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
-
-        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "conversation_sid": conversation_sid,
-            "message_sid": message_sid,
-        }
-        self._uri = (
-            "/Conversations/{conversation_sid}/Messages/{message_sid}/Receipts".format(
-                **self._solution
-            )
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams DeliveryReceiptInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams DeliveryReceiptInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists DeliveryReceiptInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists DeliveryReceiptInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of DeliveryReceiptInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return DeliveryReceiptPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of DeliveryReceiptInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return DeliveryReceiptPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of DeliveryReceiptInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return DeliveryReceiptPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of DeliveryReceiptInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return DeliveryReceiptPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a DeliveryReceiptContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
-        """
-        return DeliveryReceiptContext(
-            self._version,
-            conversation_sid=self._solution["conversation_sid"],
-            message_sid=self._solution["message_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a DeliveryReceiptContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
-        """
-        return DeliveryReceiptContext(
-            self._version,
-            conversation_sid=self._solution["conversation_sid"],
-            message_sid=self._solution["message_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.DeliveryReceiptList>"
-
-
-class DeliveryReceiptPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DeliveryReceiptInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
-        """
-        return DeliveryReceiptInstance(
-            self._version,
-            payload,
-            conversation_sid=self._solution["conversation_sid"],
-            message_sid=self._solution["message_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.DeliveryReceiptPage>"
 
 
 class DeliveryReceiptInstance(InstanceResource):
@@ -546,3 +284,264 @@ class DeliveryReceiptContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.DeliveryReceiptContext {}>".format(context)
+
+
+class DeliveryReceiptPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DeliveryReceiptInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        """
+        return DeliveryReceiptInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution["conversation_sid"],
+            message_sid=self._solution["message_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.DeliveryReceiptPage>"
+
+
+class DeliveryReceiptList(ListResource):
+    def __init__(self, version: Version, conversation_sid: str, message_sid: str):
+        """
+        Initialize the DeliveryReceiptList
+
+        :param Version version: Version that contains the resource
+        :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+        :param message_sid: The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+
+        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "conversation_sid": conversation_sid,
+            "message_sid": message_sid,
+        }
+        self._uri = (
+            "/Conversations/{conversation_sid}/Messages/{message_sid}/Receipts".format(
+                **self._solution
+            )
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams DeliveryReceiptInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams DeliveryReceiptInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists DeliveryReceiptInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists DeliveryReceiptInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of DeliveryReceiptInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return DeliveryReceiptPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of DeliveryReceiptInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return DeliveryReceiptPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of DeliveryReceiptInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return DeliveryReceiptPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of DeliveryReceiptInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return DeliveryReceiptPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a DeliveryReceiptContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
+        """
+        return DeliveryReceiptContext(
+            self._version,
+            conversation_sid=self._solution["conversation_sid"],
+            message_sid=self._solution["message_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a DeliveryReceiptContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
+        """
+        return DeliveryReceiptContext(
+            self._version,
+            conversation_sid=self._solution["conversation_sid"],
+            message_sid=self._solution["message_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.DeliveryReceiptList>"

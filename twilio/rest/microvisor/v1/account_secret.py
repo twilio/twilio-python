@@ -14,298 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class AccountSecretList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the AccountSecretList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretList
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretList
-        """
-        super().__init__(version)
-
-        self._uri = "/Secrets"
-
-    def create(self, key, value):
-        """
-        Create the AccountSecretInstance
-
-        :param str key: The secret key; up to 100 characters.
-        :param str value: The secret value; up to 4096 characters.
-
-        :returns: The created AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        data = values.of(
-            {
-                "Key": key,
-                "Value": value,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AccountSecretInstance(self._version, payload)
-
-    async def create_async(self, key, value):
-        """
-        Asynchronously create the AccountSecretInstance
-
-        :param str key: The secret key; up to 100 characters.
-        :param str value: The secret value; up to 4096 characters.
-
-        :returns: The created AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        data = values.of(
-            {
-                "Key": key,
-                "Value": value,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AccountSecretInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams AccountSecretInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams AccountSecretInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists AccountSecretInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists AccountSecretInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of AccountSecretInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AccountSecretPage(self._version, response)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of AccountSecretInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AccountSecretPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AccountSecretInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AccountSecretPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AccountSecretInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AccountSecretPage(self._version, response)
-
-    def get(self, key):
-        """
-        Constructs a AccountSecretContext
-
-        :param key: The secret key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
-        """
-        return AccountSecretContext(self._version, key=key)
-
-    def __call__(self, key):
-        """
-        Constructs a AccountSecretContext
-
-        :param key: The secret key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
-        """
-        return AccountSecretContext(self._version, key=key)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Microvisor.V1.AccountSecretList>"
-
-
-class AccountSecretPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AccountSecretInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        return AccountSecretInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Microvisor.V1.AccountSecretPage>"
 
 
 class AccountSecretInstance(InstanceResource):
@@ -586,3 +300,288 @@ class AccountSecretContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Microvisor.V1.AccountSecretContext {}>".format(context)
+
+
+class AccountSecretPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AccountSecretInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        return AccountSecretInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Microvisor.V1.AccountSecretPage>"
+
+
+class AccountSecretList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the AccountSecretList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretList
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretList
+        """
+        super().__init__(version)
+
+        self._uri = "/Secrets"
+
+    def create(self, key, value):
+        """
+        Create the AccountSecretInstance
+
+        :param str key: The secret key; up to 100 characters.
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The created AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of(
+            {
+                "Key": key,
+                "Value": value,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AccountSecretInstance(self._version, payload)
+
+    async def create_async(self, key, value):
+        """
+        Asynchronously create the AccountSecretInstance
+
+        :param str key: The secret key; up to 100 characters.
+        :param str value: The secret value; up to 4096 characters.
+
+        :returns: The created AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of(
+            {
+                "Key": key,
+                "Value": value,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AccountSecretInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams AccountSecretInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams AccountSecretInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists AccountSecretInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists AccountSecretInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.microvisor.v1.account_secret.AccountSecretInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of AccountSecretInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AccountSecretPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of AccountSecretInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AccountSecretPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AccountSecretInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AccountSecretPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AccountSecretInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AccountSecretPage(self._version, response)
+
+    def get(self, key):
+        """
+        Constructs a AccountSecretContext
+
+        :param key: The secret key; up to 100 characters.
+
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        """
+        return AccountSecretContext(self._version, key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a AccountSecretContext
+
+        :param key: The secret key; up to 100 characters.
+
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        """
+        return AccountSecretContext(self._version, key=key)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Microvisor.V1.AccountSecretList>"

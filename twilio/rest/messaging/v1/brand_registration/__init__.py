@@ -14,325 +14,13 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVettingList
-
-
-class BrandRegistrationList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the BrandRegistrationList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationList
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationList
-        """
-        super().__init__(version)
-
-        self._uri = "/a2p/BrandRegistrations"
-
-    def create(
-        self,
-        customer_profile_bundle_sid,
-        a2p_profile_bundle_sid,
-        brand_type=values.unset,
-        mock=values.unset,
-        skip_automatic_sec_vet=values.unset,
-    ):
-        """
-        Create the BrandRegistrationInstance
-
-        :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
-        :param str a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
-        :param str brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
-        :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
-        :param bool skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
-
-        :returns: The created BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        """
-        data = values.of(
-            {
-                "CustomerProfileBundleSid": customer_profile_bundle_sid,
-                "A2PProfileBundleSid": a2p_profile_bundle_sid,
-                "BrandType": brand_type,
-                "Mock": mock,
-                "SkipAutomaticSecVet": skip_automatic_sec_vet,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return BrandRegistrationInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        customer_profile_bundle_sid,
-        a2p_profile_bundle_sid,
-        brand_type=values.unset,
-        mock=values.unset,
-        skip_automatic_sec_vet=values.unset,
-    ):
-        """
-        Asynchronously create the BrandRegistrationInstance
-
-        :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
-        :param str a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
-        :param str brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
-        :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
-        :param bool skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
-
-        :returns: The created BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        """
-        data = values.of(
-            {
-                "CustomerProfileBundleSid": customer_profile_bundle_sid,
-                "A2PProfileBundleSid": a2p_profile_bundle_sid,
-                "BrandType": brand_type,
-                "Mock": mock,
-                "SkipAutomaticSecVet": skip_automatic_sec_vet,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return BrandRegistrationInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams BrandRegistrationInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams BrandRegistrationInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists BrandRegistrationInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists BrandRegistrationInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of BrandRegistrationInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return BrandRegistrationPage(self._version, response)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of BrandRegistrationInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return BrandRegistrationPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of BrandRegistrationInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return BrandRegistrationPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of BrandRegistrationInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return BrandRegistrationPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a BrandRegistrationContext
-
-        :param sid: The SID of the Brand Registration resource to update.
-
-        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
-        """
-        return BrandRegistrationContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a BrandRegistrationContext
-
-        :param sid: The SID of the Brand Registration resource to update.
-
-        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
-        """
-        return BrandRegistrationContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Messaging.V1.BrandRegistrationList>"
-
-
-class BrandRegistrationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BrandRegistrationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        """
-        return BrandRegistrationInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Messaging.V1.BrandRegistrationPage>"
 
 
 class BrandRegistrationInstance(InstanceResource):
@@ -755,3 +443,314 @@ class BrandRegistrationContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.BrandRegistrationContext {}>".format(context)
+
+
+class BrandRegistrationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BrandRegistrationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        return BrandRegistrationInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Messaging.V1.BrandRegistrationPage>"
+
+
+class BrandRegistrationList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the BrandRegistrationList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationList
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationList
+        """
+        super().__init__(version)
+
+        self._uri = "/a2p/BrandRegistrations"
+
+    def create(
+        self,
+        customer_profile_bundle_sid,
+        a2p_profile_bundle_sid,
+        brand_type=values.unset,
+        mock=values.unset,
+        skip_automatic_sec_vet=values.unset,
+    ):
+        """
+        Create the BrandRegistrationInstance
+
+        :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
+        :param str a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+        :param str brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+        :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+        :param bool skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
+
+        :returns: The created BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        data = values.of(
+            {
+                "CustomerProfileBundleSid": customer_profile_bundle_sid,
+                "A2PProfileBundleSid": a2p_profile_bundle_sid,
+                "BrandType": brand_type,
+                "Mock": mock,
+                "SkipAutomaticSecVet": skip_automatic_sec_vet,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return BrandRegistrationInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        customer_profile_bundle_sid,
+        a2p_profile_bundle_sid,
+        brand_type=values.unset,
+        mock=values.unset,
+        skip_automatic_sec_vet=values.unset,
+    ):
+        """
+        Asynchronously create the BrandRegistrationInstance
+
+        :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
+        :param str a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+        :param str brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+        :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+        :param bool skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
+
+        :returns: The created BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        data = values.of(
+            {
+                "CustomerProfileBundleSid": customer_profile_bundle_sid,
+                "A2PProfileBundleSid": a2p_profile_bundle_sid,
+                "BrandType": brand_type,
+                "Mock": mock,
+                "SkipAutomaticSecVet": skip_automatic_sec_vet,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return BrandRegistrationInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams BrandRegistrationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams BrandRegistrationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists BrandRegistrationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists BrandRegistrationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of BrandRegistrationInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return BrandRegistrationPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of BrandRegistrationInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return BrandRegistrationPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of BrandRegistrationInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return BrandRegistrationPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of BrandRegistrationInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return BrandRegistrationPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a BrandRegistrationContext
+
+        :param sid: The SID of the Brand Registration resource to update.
+
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        """
+        return BrandRegistrationContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BrandRegistrationContext
+
+        :param sid: The SID of the Brand Registration resource to update.
+
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        """
+        return BrandRegistrationContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Messaging.V1.BrandRegistrationList>"

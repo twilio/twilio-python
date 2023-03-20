@@ -13,12 +13,46 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
+
+class FlowValidateInstance(InstanceResource):
+    def __init__(self, version, payload):
+        """
+        Initialize the FlowValidateInstance
+
+        :returns: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
+        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "valid": payload.get("valid"),
+        }
+
+        self._solution = {}
+
+    @property
+    def valid(self):
+        """
+        :returns: Boolean if the flow definition is valid.
+        :rtype: bool
+        """
+        return self._properties["valid"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Studio.V2.FlowValidateInstance {}>".format(context)
 
 
 class FlowValidateList(ListResource):
@@ -103,38 +137,3 @@ class FlowValidateList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V2.FlowValidateList>"
-
-
-class FlowValidateInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the FlowValidateInstance
-
-        :returns: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
-        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "valid": payload.get("valid"),
-        }
-
-        self._solution = {}
-
-    @property
-    def valid(self):
-        """
-        :returns: Boolean if the flow definition is valid.
-        :rtype: bool
-        """
-        return self._properties["valid"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowValidateInstance {}>".format(context)

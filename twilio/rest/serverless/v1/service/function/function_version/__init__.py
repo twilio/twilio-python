@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,265 +23,6 @@ from twilio.base.page import Page
 from twilio.rest.serverless.v1.service.function.function_version.function_version_content import (
     FunctionVersionContentList,
 )
-
-
-class FunctionVersionList(ListResource):
-    def __init__(self, version: Version, service_sid: str, function_sid: str):
-        """
-        Initialize the FunctionVersionList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to read the Function Version resources from.
-        :param function_sid: The SID of the function that is the parent of the Function Version resources to read.
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "function_sid": function_sid,
-        }
-        self._uri = "/Services/{service_sid}/Functions/{function_sid}/Versions".format(
-            **self._solution
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams FunctionVersionInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams FunctionVersionInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists FunctionVersionInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists FunctionVersionInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of FunctionVersionInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return FunctionVersionPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of FunctionVersionInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return FunctionVersionPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of FunctionVersionInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return FunctionVersionPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of FunctionVersionInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return FunctionVersionPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a FunctionVersionContext
-
-        :param sid: The SID of the Function Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
-        """
-        return FunctionVersionContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            function_sid=self._solution["function_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a FunctionVersionContext
-
-        :param sid: The SID of the Function Version resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
-        """
-        return FunctionVersionContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            function_sid=self._solution["function_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Serverless.V1.FunctionVersionList>"
-
-
-class FunctionVersionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FunctionVersionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
-        """
-        return FunctionVersionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            function_sid=self._solution["function_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.FunctionVersionPage>"
 
 
 class FunctionVersionInstance(InstanceResource):
@@ -556,3 +296,262 @@ class FunctionVersionContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.FunctionVersionContext {}>".format(context)
+
+
+class FunctionVersionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FunctionVersionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
+        """
+        return FunctionVersionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            function_sid=self._solution["function_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.FunctionVersionPage>"
+
+
+class FunctionVersionList(ListResource):
+    def __init__(self, version: Version, service_sid: str, function_sid: str):
+        """
+        Initialize the FunctionVersionList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to read the Function Version resources from.
+        :param function_sid: The SID of the function that is the parent of the Function Version resources to read.
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "function_sid": function_sid,
+        }
+        self._uri = "/Services/{service_sid}/Functions/{function_sid}/Versions".format(
+            **self._solution
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams FunctionVersionInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams FunctionVersionInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists FunctionVersionInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists FunctionVersionInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of FunctionVersionInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of FunctionVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return FunctionVersionPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of FunctionVersionInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of FunctionVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return FunctionVersionPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of FunctionVersionInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of FunctionVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return FunctionVersionPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of FunctionVersionInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of FunctionVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return FunctionVersionPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a FunctionVersionContext
+
+        :param sid: The SID of the Function Version resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
+        """
+        return FunctionVersionContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            function_sid=self._solution["function_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a FunctionVersionContext
+
+        :param sid: The SID of the Function Version resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
+        """
+        return FunctionVersionContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            function_sid=self._solution["function_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Serverless.V1.FunctionVersionList>"

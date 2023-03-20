@@ -13,13 +13,113 @@ r"""
 """
 
 
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class UsageRecordInstance(InstanceResource):
+    class Granularity(object):
+        HOURLY = "hourly"
+        DAILY = "daily"
+        ALL = "all"
+
+    def __init__(self, version, payload, sim_sid: str):
+        """
+        Initialize the UsageRecordInstance
+
+        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sim_sid": payload.get("sim_sid"),
+            "account_sid": payload.get("account_sid"),
+            "period": payload.get("period"),
+            "commands": payload.get("commands"),
+            "data": payload.get("data"),
+        }
+
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that this Usage Record is for.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def period(self):
+        """
+        :returns: The time period for which the usage is reported. Contains `start` and `end` datetime values given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: dict
+        """
+        return self._properties["period"]
+
+    @property
+    def commands(self):
+        """
+        :returns: An object that describes the SIM's usage of Commands during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#commands-usage-object).
+        :rtype: dict
+        """
+        return self._properties["commands"]
+
+    @property
+    def data(self):
+        """
+        :returns: An object that describes the SIM's data usage during the specified period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#data-usage-object).
+        :rtype: dict
+        """
+        return self._properties["data"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Wireless.V1.UsageRecordInstance {}>".format(context)
+
+
+class UsageRecordPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UsageRecordInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        """
+        return UsageRecordInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Wireless.V1.UsageRecordPage>"
 
 
 class UsageRecordList(ListResource):
@@ -291,104 +391,3 @@ class UsageRecordList(ListResource):
         :rtype: str
         """
         return "<Twilio.Wireless.V1.UsageRecordList>"
-
-
-class UsageRecordPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UsageRecordInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        """
-        return UsageRecordInstance(
-            self._version, payload, sim_sid=self._solution["sim_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Wireless.V1.UsageRecordPage>"
-
-
-class UsageRecordInstance(InstanceResource):
-    class Granularity(object):
-        HOURLY = "hourly"
-        DAILY = "daily"
-        ALL = "all"
-
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the UsageRecordInstance
-
-        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sim_sid": payload.get("sim_sid"),
-            "account_sid": payload.get("account_sid"),
-            "period": payload.get("period"),
-            "commands": payload.get("commands"),
-            "data": payload.get("data"),
-        }
-
-        self._solution = {
-            "sim_sid": sim_sid,
-        }
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that this Usage Record is for.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def period(self):
-        """
-        :returns: The time period for which the usage is reported. Contains `start` and `end` datetime values given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        :rtype: dict
-        """
-        return self._properties["period"]
-
-    @property
-    def commands(self):
-        """
-        :returns: An object that describes the SIM's usage of Commands during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#commands-usage-object).
-        :rtype: dict
-        """
-        return self._properties["commands"]
-
-    @property
-    def data(self):
-        """
-        :returns: An object that describes the SIM's data usage during the specified period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#data-usage-object).
-        :rtype: dict
-        """
-        return self._properties["data"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.UsageRecordInstance {}>".format(context)

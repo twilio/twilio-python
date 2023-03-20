@@ -18,6 +18,43 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+class SinkTestInstance(InstanceResource):
+    def __init__(self, version, payload, sid: str):
+        """
+        Initialize the SinkTestInstance
+
+        :returns: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
+        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "result": payload.get("result"),
+        }
+
+        self._solution = {
+            "sid": sid,
+        }
+
+    @property
+    def result(self):
+        """
+        :returns: Feedback indicating whether the test event was generated.
+        :rtype: str
+        """
+        return self._properties["result"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.SinkTestInstance {}>".format(context)
+
+
 class SinkTestList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
@@ -77,40 +114,3 @@ class SinkTestList(ListResource):
         :rtype: str
         """
         return "<Twilio.Events.V1.SinkTestList>"
-
-
-class SinkTestInstance(InstanceResource):
-    def __init__(self, version, payload, sid: str):
-        """
-        Initialize the SinkTestInstance
-
-        :returns: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
-        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "result": payload.get("result"),
-        }
-
-        self._solution = {
-            "sid": sid,
-        }
-
-    @property
-    def result(self):
-        """
-        :returns: Feedback indicating whether the test event was generated.
-        :rtype: str
-        """
-        return self._properties["result"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SinkTestInstance {}>".format(context)

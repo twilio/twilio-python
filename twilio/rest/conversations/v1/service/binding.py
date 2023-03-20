@@ -14,318 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class BindingList(ListResource):
-    def __init__(self, version: Version, chat_service_sid: str):
-        """
-        Initialize the BindingList
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingList
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-        }
-        self._uri = "/Services/{chat_service_sid}/Bindings".format(**self._solution)
-
-    def stream(
-        self,
-        binding_type=values.unset,
-        identity=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams BindingInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            binding_type=binding_type, identity=identity, page_size=limits["page_size"]
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        binding_type=values.unset,
-        identity=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams BindingInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            binding_type=binding_type, identity=identity, page_size=limits["page_size"]
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        binding_type=values.unset,
-        identity=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists BindingInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
-        """
-        return list(
-            self.stream(
-                binding_type=binding_type,
-                identity=identity,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        binding_type=values.unset,
-        identity=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists BindingInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
-        """
-        return list(
-            await self.stream_async(
-                binding_type=binding_type,
-                identity=identity,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        binding_type=values.unset,
-        identity=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of BindingInstance records from the API.
-        Request is executed immediately
-
-        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
-        """
-        data = values.of(
-            {
-                "BindingType": serialize.map(binding_type, lambda e: e),
-                "Identity": serialize.map(identity, lambda e: e),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return BindingPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        binding_type=values.unset,
-        identity=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of BindingInstance records from the API.
-        Request is executed immediately
-
-        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
-        """
-        data = values.of(
-            {
-                "BindingType": serialize.map(binding_type, lambda e: e),
-                "Identity": serialize.map(identity, lambda e: e),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return BindingPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of BindingInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return BindingPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of BindingInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return BindingPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a BindingContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
-        """
-        return BindingContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a BindingContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
-        """
-        return BindingContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.BindingList>"
-
-
-class BindingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BindingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-        return BindingInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.BindingPage>"
 
 
 class BindingInstance(InstanceResource):
@@ -621,3 +315,307 @@ class BindingContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.BindingContext {}>".format(context)
+
+
+class BindingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BindingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+        return BindingInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.BindingPage>"
+
+
+class BindingList(ListResource):
+    def __init__(self, version: Version, chat_service_sid: str):
+        """
+        Initialize the BindingList
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingList
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+        }
+        self._uri = "/Services/{chat_service_sid}/Bindings".format(**self._solution)
+
+    def stream(
+        self,
+        binding_type=values.unset,
+        identity=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams BindingInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            binding_type=binding_type, identity=identity, page_size=limits["page_size"]
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        binding_type=values.unset,
+        identity=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams BindingInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            binding_type=binding_type, identity=identity, page_size=limits["page_size"]
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        binding_type=values.unset,
+        identity=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists BindingInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
+        """
+        return list(
+            self.stream(
+                binding_type=binding_type,
+                identity=identity,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        binding_type=values.unset,
+        identity=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists BindingInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.service.binding.BindingInstance]
+        """
+        return list(
+            await self.stream_async(
+                binding_type=binding_type,
+                identity=identity,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        binding_type=values.unset,
+        identity=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of BindingInstance records from the API.
+        Request is executed immediately
+
+        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
+        """
+        data = values.of(
+            {
+                "BindingType": serialize.map(binding_type, lambda e: e),
+                "Identity": serialize.map(identity, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return BindingPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        binding_type=values.unset,
+        identity=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of BindingInstance records from the API.
+        Request is executed immediately
+
+        :param list[BindingInstance.BindingType] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param list[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
+        """
+        data = values.of(
+            {
+                "BindingType": serialize.map(binding_type, lambda e: e),
+                "Identity": serialize.map(identity, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return BindingPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of BindingInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return BindingPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of BindingInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return BindingPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a BindingContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
+        """
+        return BindingContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a BindingContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingContext
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingContext
+        """
+        return BindingContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.BindingList>"

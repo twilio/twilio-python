@@ -14,54 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class SecondaryAuthTokenList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SecondaryAuthTokenList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
-        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a SecondaryAuthTokenContext
-
-
-        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
-        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
-        """
-        return SecondaryAuthTokenContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a SecondaryAuthTokenContext
-
-
-        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
-        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
-        """
-        return SecondaryAuthTokenContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Accounts.V1.SecondaryAuthTokenList>"
 
 
 class SecondaryAuthTokenInstance(InstanceResource):
@@ -270,3 +227,45 @@ class SecondaryAuthTokenContext(InstanceContext):
         """
 
         return "<Twilio.Accounts.V1.SecondaryAuthTokenContext>"
+
+
+class SecondaryAuthTokenList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SecondaryAuthTokenList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a SecondaryAuthTokenContext
+
+
+        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        """
+        return SecondaryAuthTokenContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a SecondaryAuthTokenContext
+
+
+        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        """
+        return SecondaryAuthTokenContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Accounts.V1.SecondaryAuthTokenList>"

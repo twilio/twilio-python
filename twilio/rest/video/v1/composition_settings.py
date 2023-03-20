@@ -21,48 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class CompositionSettingsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the CompositionSettingsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsList
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a CompositionSettingsContext
-
-
-        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        """
-        return CompositionSettingsContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a CompositionSettingsContext
-
-
-        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
-        """
-        return CompositionSettingsContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.CompositionSettingsList>"
-
-
 class CompositionSettingsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -396,3 +354,45 @@ class CompositionSettingsContext(InstanceContext):
         """
 
         return "<Twilio.Video.V1.CompositionSettingsContext>"
+
+
+class CompositionSettingsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the CompositionSettingsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsList
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a CompositionSettingsContext
+
+
+        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        """
+        return CompositionSettingsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a CompositionSettingsContext
+
+
+        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsContext
+        """
+        return CompositionSettingsContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.CompositionSettingsList>"

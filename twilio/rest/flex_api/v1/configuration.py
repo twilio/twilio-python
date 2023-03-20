@@ -14,54 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class ConfigurationList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the ConfigurationList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationList
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a ConfigurationContext
-
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        """
-        return ConfigurationContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FlexApi.V1.ConfigurationList>"
 
 
 class ConfigurationInstance(InstanceResource):
@@ -621,3 +578,45 @@ class ConfigurationContext(InstanceContext):
         """
 
         return "<Twilio.FlexApi.V1.ConfigurationContext>"
+
+
+class ConfigurationList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the ConfigurationList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationList
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+
+
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FlexApi.V1.ConfigurationList>"

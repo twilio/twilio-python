@@ -14,433 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class TriggerList(ListResource):
-    def __init__(self, version: Version, account_sid: str):
-        """
-        Initialize the TriggerList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
-
-        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerList
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Usage/Triggers.json".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        callback_url,
-        trigger_value,
-        usage_category,
-        callback_method=values.unset,
-        friendly_name=values.unset,
-        recurring=values.unset,
-        trigger_by=values.unset,
-    ):
-        """
-        Create the TriggerInstance
-
-        :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
-        :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
-        :param TriggerInstance.UsageCategory usage_category:
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param TriggerInstance.Recurring recurring:
-        :param TriggerInstance.TriggerField trigger_by:
-
-        :returns: The created TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        """
-        data = values.of(
-            {
-                "CallbackUrl": callback_url,
-                "TriggerValue": trigger_value,
-                "UsageCategory": usage_category,
-                "CallbackMethod": callback_method,
-                "FriendlyName": friendly_name,
-                "Recurring": recurring,
-                "TriggerBy": trigger_by,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return TriggerInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(
-        self,
-        callback_url,
-        trigger_value,
-        usage_category,
-        callback_method=values.unset,
-        friendly_name=values.unset,
-        recurring=values.unset,
-        trigger_by=values.unset,
-    ):
-        """
-        Asynchronously create the TriggerInstance
-
-        :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
-        :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
-        :param TriggerInstance.UsageCategory usage_category:
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param TriggerInstance.Recurring recurring:
-        :param TriggerInstance.TriggerField trigger_by:
-
-        :returns: The created TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        """
-        data = values.of(
-            {
-                "CallbackUrl": callback_url,
-                "TriggerValue": trigger_value,
-                "UsageCategory": usage_category,
-                "CallbackMethod": callback_method,
-                "FriendlyName": friendly_name,
-                "Recurring": recurring,
-                "TriggerBy": trigger_by,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return TriggerInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def stream(
-        self,
-        recurring=values.unset,
-        trigger_by=values.unset,
-        usage_category=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams TriggerInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            recurring=recurring,
-            trigger_by=trigger_by,
-            usage_category=usage_category,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        recurring=values.unset,
-        trigger_by=values.unset,
-        usage_category=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams TriggerInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            recurring=recurring,
-            trigger_by=trigger_by,
-            usage_category=usage_category,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        recurring=values.unset,
-        trigger_by=values.unset,
-        usage_category=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists TriggerInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
-        """
-        return list(
-            self.stream(
-                recurring=recurring,
-                trigger_by=trigger_by,
-                usage_category=usage_category,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        recurring=values.unset,
-        trigger_by=values.unset,
-        usage_category=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists TriggerInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
-        """
-        return list(
-            await self.stream_async(
-                recurring=recurring,
-                trigger_by=trigger_by,
-                usage_category=usage_category,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        recurring=values.unset,
-        trigger_by=values.unset,
-        usage_category=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of TriggerInstance records from the API.
-        Request is executed immediately
-
-        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
-        """
-        data = values.of(
-            {
-                "Recurring": recurring,
-                "TriggerBy": trigger_by,
-                "UsageCategory": usage_category,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return TriggerPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        recurring=values.unset,
-        trigger_by=values.unset,
-        usage_category=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of TriggerInstance records from the API.
-        Request is executed immediately
-
-        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
-        """
-        data = values.of(
-            {
-                "Recurring": recurring,
-                "TriggerBy": trigger_by,
-                "UsageCategory": usage_category,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return TriggerPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of TriggerInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return TriggerPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of TriggerInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return TriggerPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a TriggerContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
-
-        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
-        """
-        return TriggerContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a TriggerContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
-
-        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
-        """
-        return TriggerContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.TriggerList>"
-
-
-class TriggerPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TriggerInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        """
-        return TriggerInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.TriggerPage>"
 
 
 class TriggerInstance(InstanceResource):
@@ -1222,3 +801,423 @@ class TriggerContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.TriggerContext {}>".format(context)
+
+
+class TriggerPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TriggerInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        return TriggerInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.TriggerPage>"
+
+
+class TriggerList(ListResource):
+    def __init__(self, version: Version, account_sid: str):
+        """
+        Initialize the TriggerList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
+
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerList
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Usage/Triggers.json".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        callback_url,
+        trigger_value,
+        usage_category,
+        callback_method=values.unset,
+        friendly_name=values.unset,
+        recurring=values.unset,
+        trigger_by=values.unset,
+    ):
+        """
+        Create the TriggerInstance
+
+        :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
+        :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
+        :param TriggerInstance.UsageCategory usage_category:
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param TriggerInstance.Recurring recurring:
+        :param TriggerInstance.TriggerField trigger_by:
+
+        :returns: The created TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        data = values.of(
+            {
+                "CallbackUrl": callback_url,
+                "TriggerValue": trigger_value,
+                "UsageCategory": usage_category,
+                "CallbackMethod": callback_method,
+                "FriendlyName": friendly_name,
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return TriggerInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        callback_url,
+        trigger_value,
+        usage_category,
+        callback_method=values.unset,
+        friendly_name=values.unset,
+        recurring=values.unset,
+        trigger_by=values.unset,
+    ):
+        """
+        Asynchronously create the TriggerInstance
+
+        :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
+        :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
+        :param TriggerInstance.UsageCategory usage_category:
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param TriggerInstance.Recurring recurring:
+        :param TriggerInstance.TriggerField trigger_by:
+
+        :returns: The created TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        data = values.of(
+            {
+                "CallbackUrl": callback_url,
+                "TriggerValue": trigger_value,
+                "UsageCategory": usage_category,
+                "CallbackMethod": callback_method,
+                "FriendlyName": friendly_name,
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return TriggerInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
+        recurring=values.unset,
+        trigger_by=values.unset,
+        usage_category=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams TriggerInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            recurring=recurring,
+            trigger_by=trigger_by,
+            usage_category=usage_category,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        recurring=values.unset,
+        trigger_by=values.unset,
+        usage_category=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams TriggerInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            recurring=recurring,
+            trigger_by=trigger_by,
+            usage_category=usage_category,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        recurring=values.unset,
+        trigger_by=values.unset,
+        usage_category=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists TriggerInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
+        """
+        return list(
+            self.stream(
+                recurring=recurring,
+                trigger_by=trigger_by,
+                usage_category=usage_category,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        recurring=values.unset,
+        trigger_by=values.unset,
+        usage_category=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists TriggerInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.usage.trigger.TriggerInstance]
+        """
+        return list(
+            await self.stream_async(
+                recurring=recurring,
+                trigger_by=trigger_by,
+                usage_category=usage_category,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        recurring=values.unset,
+        trigger_by=values.unset,
+        usage_category=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of TriggerInstance records from the API.
+        Request is executed immediately
+
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
+        """
+        data = values.of(
+            {
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+                "UsageCategory": usage_category,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return TriggerPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        recurring=values.unset,
+        trigger_by=values.unset,
+        usage_category=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of TriggerInstance records from the API.
+        Request is executed immediately
+
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
+        """
+        data = values.of(
+            {
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+                "UsageCategory": usage_category,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return TriggerPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of TriggerInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return TriggerPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of TriggerInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return TriggerPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a TriggerContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
+
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        """
+        return TriggerContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a TriggerContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
+
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        """
+        return TriggerContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.TriggerList>"

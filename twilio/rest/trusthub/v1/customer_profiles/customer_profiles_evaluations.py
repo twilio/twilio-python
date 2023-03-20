@@ -14,13 +14,262 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class CustomerProfilesEvaluationsInstance(InstanceResource):
+    class Status(object):
+        COMPLIANT = "compliant"
+        NONCOMPLIANT = "noncompliant"
+
+    def __init__(
+        self, version, payload, customer_profile_sid: str, sid: Optional[str] = None
+    ):
+        """
+        Initialize the CustomerProfilesEvaluationsInstance
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "policy_sid": payload.get("policy_sid"),
+            "customer_profile_sid": payload.get("customer_profile_sid"),
+            "status": payload.get("status"),
+            "results": payload.get("results"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "customer_profile_sid": customer_profile_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[CustomerProfilesEvaluationsContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: CustomerProfilesEvaluationsContext for this CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        """
+        if self._context is None:
+            self._context = CustomerProfilesEvaluationsContext(
+                self._version,
+                customer_profile_sid=self._solution["customer_profile_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies the Evaluation resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the customer_profile resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def policy_sid(self):
+        """
+        :returns: The unique string of a policy that is associated to the customer_profile resource.
+        :rtype: str
+        """
+        return self._properties["policy_sid"]
+
+    @property
+    def customer_profile_sid(self):
+        """
+        :returns: The unique string that we created to identify the customer_profile resource.
+        :rtype: str
+        """
+        return self._properties["customer_profile_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: CustomerProfilesEvaluationsInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def results(self):
+        """
+        :returns: The results of the Evaluation which includes the valid and invalid attributes.
+        :rtype: list[object]
+        """
+        return self._properties["results"]
+
+    @property
+    def date_created(self):
+        """
+        :returns:
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesEvaluationsInstance
+
+
+        :returns: The fetched CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CustomerProfilesEvaluationsInstance
+
+
+        :returns: The fetched CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsInstance {}>".format(
+            context
+        )
+
+
+class CustomerProfilesEvaluationsContext(InstanceContext):
+    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
+        """
+        Initialize the CustomerProfilesEvaluationsContext
+
+        :param Version version: Version that contains the resource
+        :param customer_profile_sid: The unique string that we created to identify the customer_profile resource.
+        :param sid: The unique string that identifies the Evaluation resource.
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "customer_profile_sid": customer_profile_sid,
+            "sid": sid,
+        }
+        self._uri = "/CustomerProfiles/{customer_profile_sid}/Evaluations/{sid}".format(
+            **self._solution
+        )
+
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesEvaluationsInstance
+
+
+        :returns: The fetched CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CustomerProfilesEvaluationsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CustomerProfilesEvaluationsInstance
+
+
+        :returns: The fetched CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CustomerProfilesEvaluationsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsContext {}>".format(
+            context
+        )
+
+
+class CustomerProfilesEvaluationsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CustomerProfilesEvaluationsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        return CustomerProfilesEvaluationsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsPage>"
 
 
 class CustomerProfilesEvaluationsList(ListResource):
@@ -304,253 +553,3 @@ class CustomerProfilesEvaluationsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsList>"
-
-
-class CustomerProfilesEvaluationsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CustomerProfilesEvaluationsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        """
-        return CustomerProfilesEvaluationsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsPage>"
-
-
-class CustomerProfilesEvaluationsInstance(InstanceResource):
-    class Status(object):
-        COMPLIANT = "compliant"
-        NONCOMPLIANT = "noncompliant"
-
-    def __init__(
-        self, version, payload, customer_profile_sid: str, sid: Optional[str] = None
-    ):
-        """
-        Initialize the CustomerProfilesEvaluationsInstance
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "policy_sid": payload.get("policy_sid"),
-            "customer_profile_sid": payload.get("customer_profile_sid"),
-            "status": payload.get("status"),
-            "results": payload.get("results"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "customer_profile_sid": customer_profile_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[CustomerProfilesEvaluationsContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: CustomerProfilesEvaluationsContext for this CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        """
-        if self._context is None:
-            self._context = CustomerProfilesEvaluationsContext(
-                self._version,
-                customer_profile_sid=self._solution["customer_profile_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that identifies the Evaluation resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the customer_profile resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def policy_sid(self):
-        """
-        :returns: The unique string of a policy that is associated to the customer_profile resource.
-        :rtype: str
-        """
-        return self._properties["policy_sid"]
-
-    @property
-    def customer_profile_sid(self):
-        """
-        :returns: The unique string that we created to identify the customer_profile resource.
-        :rtype: str
-        """
-        return self._properties["customer_profile_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: CustomerProfilesEvaluationsInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def results(self):
-        """
-        :returns: The results of the Evaluation which includes the valid and invalid attributes.
-        :rtype: list[object]
-        """
-        return self._properties["results"]
-
-    @property
-    def date_created(self):
-        """
-        :returns:
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesEvaluationsInstance
-
-
-        :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CustomerProfilesEvaluationsInstance
-
-
-        :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsInstance {}>".format(
-            context
-        )
-
-
-class CustomerProfilesEvaluationsContext(InstanceContext):
-    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
-        """
-        Initialize the CustomerProfilesEvaluationsContext
-
-        :param Version version: Version that contains the resource
-        :param customer_profile_sid: The unique string that we created to identify the customer_profile resource.
-        :param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "customer_profile_sid": customer_profile_sid,
-            "sid": sid,
-        }
-        self._uri = "/CustomerProfiles/{customer_profile_sid}/Evaluations/{sid}".format(
-            **self._solution
-        )
-
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesEvaluationsInstance
-
-
-        :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CustomerProfilesEvaluationsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CustomerProfilesEvaluationsInstance
-
-
-        :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CustomerProfilesEvaluationsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsContext {}>".format(
-            context
-        )

@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,357 +22,6 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.wireless.v1.sim.data_session import DataSessionList
 from twilio.rest.wireless.v1.sim.usage_record import UsageRecordList
-
-
-class SimList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SimList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.wireless.v1.sim.SimList
-        :rtype: twilio.rest.wireless.v1.sim.SimList
-        """
-        super().__init__(version)
-
-        self._uri = "/Sims"
-
-    def stream(
-        self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams SimInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param SimInstance.Status status: Only return Sim resources with this status.
-        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
-        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
-        :param str e_id: Deprecated.
-        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            status=status,
-            iccid=iccid,
-            rate_plan=rate_plan,
-            e_id=e_id,
-            sim_registration_code=sim_registration_code,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams SimInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param SimInstance.Status status: Only return Sim resources with this status.
-        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
-        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
-        :param str e_id: Deprecated.
-        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            status=status,
-            iccid=iccid,
-            rate_plan=rate_plan,
-            e_id=e_id,
-            sim_registration_code=sim_registration_code,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists SimInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param SimInstance.Status status: Only return Sim resources with this status.
-        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
-        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
-        :param str e_id: Deprecated.
-        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
-        """
-        return list(
-            self.stream(
-                status=status,
-                iccid=iccid,
-                rate_plan=rate_plan,
-                e_id=e_id,
-                sim_registration_code=sim_registration_code,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists SimInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param SimInstance.Status status: Only return Sim resources with this status.
-        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
-        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
-        :param str e_id: Deprecated.
-        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
-        """
-        return list(
-            await self.stream_async(
-                status=status,
-                iccid=iccid,
-                rate_plan=rate_plan,
-                e_id=e_id,
-                sim_registration_code=sim_registration_code,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of SimInstance records from the API.
-        Request is executed immediately
-
-        :param SimInstance.Status status: Only return Sim resources with this status.
-        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
-        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
-        :param str e_id: Deprecated.
-        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SimInstance
-        :rtype: twilio.rest.wireless.v1.sim.SimPage
-        """
-        data = values.of(
-            {
-                "Status": status,
-                "Iccid": iccid,
-                "RatePlan": rate_plan,
-                "EId": e_id,
-                "SimRegistrationCode": sim_registration_code,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SimPage(self._version, response)
-
-    async def page_async(
-        self,
-        status=values.unset,
-        iccid=values.unset,
-        rate_plan=values.unset,
-        e_id=values.unset,
-        sim_registration_code=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of SimInstance records from the API.
-        Request is executed immediately
-
-        :param SimInstance.Status status: Only return Sim resources with this status.
-        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
-        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
-        :param str e_id: Deprecated.
-        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SimInstance
-        :rtype: twilio.rest.wireless.v1.sim.SimPage
-        """
-        data = values.of(
-            {
-                "Status": status,
-                "Iccid": iccid,
-                "RatePlan": rate_plan,
-                "EId": e_id,
-                "SimRegistrationCode": sim_registration_code,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return SimPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of SimInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SimInstance
-        :rtype: twilio.rest.wireless.v1.sim.SimPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return SimPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of SimInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SimInstance
-        :rtype: twilio.rest.wireless.v1.sim.SimPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SimPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a SimContext
-
-        :param sid: The SID or the `unique_name` of the Sim resource to update.
-
-        :returns: twilio.rest.wireless.v1.sim.SimContext
-        :rtype: twilio.rest.wireless.v1.sim.SimContext
-        """
-        return SimContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a SimContext
-
-        :param sid: The SID or the `unique_name` of the Sim resource to update.
-
-        :returns: twilio.rest.wireless.v1.sim.SimContext
-        :rtype: twilio.rest.wireless.v1.sim.SimContext
-        """
-        return SimContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Wireless.V1.SimList>"
-
-
-class SimPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SimInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.SimInstance
-        :rtype: twilio.rest.wireless.v1.sim.SimInstance
-        """
-        return SimInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Wireless.V1.SimPage>"
 
 
 class SimInstance(InstanceResource):
@@ -1125,3 +773,354 @@ class SimContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Wireless.V1.SimContext {}>".format(context)
+
+
+class SimPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SimInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.wireless.v1.sim.SimInstance
+        :rtype: twilio.rest.wireless.v1.sim.SimInstance
+        """
+        return SimInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Wireless.V1.SimPage>"
+
+
+class SimList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SimList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.wireless.v1.sim.SimList
+        :rtype: twilio.rest.wireless.v1.sim.SimList
+        """
+        super().__init__(version)
+
+        self._uri = "/Sims"
+
+    def stream(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams SimInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param SimInstance.Status status: Only return Sim resources with this status.
+        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
+        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+        :param str e_id: Deprecated.
+        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams SimInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param SimInstance.Status status: Only return Sim resources with this status.
+        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
+        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+        :param str e_id: Deprecated.
+        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists SimInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param SimInstance.Status status: Only return Sim resources with this status.
+        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
+        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+        :param str e_id: Deprecated.
+        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
+        """
+        return list(
+            self.stream(
+                status=status,
+                iccid=iccid,
+                rate_plan=rate_plan,
+                e_id=e_id,
+                sim_registration_code=sim_registration_code,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists SimInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param SimInstance.Status status: Only return Sim resources with this status.
+        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
+        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+        :param str e_id: Deprecated.
+        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.wireless.v1.sim.SimInstance]
+        """
+        return list(
+            await self.stream_async(
+                status=status,
+                iccid=iccid,
+                rate_plan=rate_plan,
+                e_id=e_id,
+                sim_registration_code=sim_registration_code,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of SimInstance records from the API.
+        Request is executed immediately
+
+        :param SimInstance.Status status: Only return Sim resources with this status.
+        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
+        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+        :param str e_id: Deprecated.
+        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SimInstance
+        :rtype: twilio.rest.wireless.v1.sim.SimPage
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "Iccid": iccid,
+                "RatePlan": rate_plan,
+                "EId": e_id,
+                "SimRegistrationCode": sim_registration_code,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return SimPage(self._version, response)
+
+    async def page_async(
+        self,
+        status=values.unset,
+        iccid=values.unset,
+        rate_plan=values.unset,
+        e_id=values.unset,
+        sim_registration_code=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of SimInstance records from the API.
+        Request is executed immediately
+
+        :param SimInstance.Status status: Only return Sim resources with this status.
+        :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
+        :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+        :param str e_id: Deprecated.
+        :param str sim_registration_code: Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SimInstance
+        :rtype: twilio.rest.wireless.v1.sim.SimPage
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "Iccid": iccid,
+                "RatePlan": rate_plan,
+                "EId": e_id,
+                "SimRegistrationCode": sim_registration_code,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return SimPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of SimInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SimInstance
+        :rtype: twilio.rest.wireless.v1.sim.SimPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return SimPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of SimInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SimInstance
+        :rtype: twilio.rest.wireless.v1.sim.SimPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return SimPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a SimContext
+
+        :param sid: The SID or the `unique_name` of the Sim resource to update.
+
+        :returns: twilio.rest.wireless.v1.sim.SimContext
+        :rtype: twilio.rest.wireless.v1.sim.SimContext
+        """
+        return SimContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SimContext
+
+        :param sid: The SID or the `unique_name` of the Sim resource to update.
+
+        :returns: twilio.rest.wireless.v1.sim.SimContext
+        :rtype: twilio.rest.wireless.v1.sim.SimContext
+        """
+        return SimContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Wireless.V1.SimList>"

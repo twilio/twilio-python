@@ -14,56 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class DomainCertsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the DomainCertsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsList
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsList
-        """
-        super().__init__(version)
-
-    def get(self, domain_sid):
-        """
-        Constructs a DomainCertsContext
-
-        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        """
-        return DomainCertsContext(self._version, domain_sid=domain_sid)
-
-    def __call__(self, domain_sid):
-        """
-        Constructs a DomainCertsContext
-
-        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
-        """
-        return DomainCertsContext(self._version, domain_sid=domain_sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Messaging.V1.DomainCertsList>"
 
 
 class DomainCertsInstance(InstanceResource):
@@ -395,3 +350,47 @@ class DomainCertsContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.DomainCertsContext {}>".format(context)
+
+
+class DomainCertsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the DomainCertsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsList
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsList
+        """
+        super().__init__(version)
+
+    def get(self, domain_sid):
+        """
+        Constructs a DomainCertsContext
+
+        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
+
+        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        """
+        return DomainCertsContext(self._version, domain_sid=domain_sid)
+
+    def __call__(self, domain_sid):
+        """
+        Constructs a DomainCertsContext
+
+        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
+
+        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        """
+        return DomainCertsContext(self._version, domain_sid=domain_sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Messaging.V1.DomainCertsList>"

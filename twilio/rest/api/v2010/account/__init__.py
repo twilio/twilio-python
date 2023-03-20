@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -49,345 +48,6 @@ from twilio.rest.api.v2010.account.token import TokenList
 from twilio.rest.api.v2010.account.transcription import TranscriptionList
 from twilio.rest.api.v2010.account.usage import UsageList
 from twilio.rest.api.v2010.account.validation_request import ValidationRequestList
-
-
-class AccountList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the AccountList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.api.v2010.account.AccountList
-        :rtype: twilio.rest.api.v2010.account.AccountList
-        """
-        super().__init__(version)
-
-        self._uri = "/Accounts.json"
-
-    def create(self, friendly_name=values.unset):
-        """
-        Create the AccountInstance
-
-        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
-
-        :returns: The created AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AccountInstance(self._version, payload)
-
-    async def create_async(self, friendly_name=values.unset):
-        """
-        Asynchronously create the AccountInstance
-
-        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
-
-        :returns: The created AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AccountInstance(self._version, payload)
-
-    def stream(
-        self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams AccountInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            friendly_name=friendly_name, status=status, page_size=limits["page_size"]
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams AccountInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            friendly_name=friendly_name, status=status, page_size=limits["page_size"]
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists AccountInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
-        """
-        return list(
-            self.stream(
-                friendly_name=friendly_name,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        friendly_name=values.unset,
-        status=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists AccountInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
-        """
-        return list(
-            await self.stream_async(
-                friendly_name=friendly_name,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        friendly_name=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of AccountInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AccountPage(self._version, response)
-
-    async def page_async(
-        self,
-        friendly_name=values.unset,
-        status=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of AccountInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
-        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AccountPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AccountInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AccountPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AccountInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AccountPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a AccountContext
-
-        :param sid: The Account Sid that uniquely identifies the account to update
-
-        :returns: twilio.rest.api.v2010.account.AccountContext
-        :rtype: twilio.rest.api.v2010.account.AccountContext
-        """
-        return AccountContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a AccountContext
-
-        :param sid: The Account Sid that uniquely identifies the account to update
-
-        :returns: twilio.rest.api.v2010.account.AccountContext
-        :rtype: twilio.rest.api.v2010.account.AccountContext
-        """
-        return AccountContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.AccountList>"
-
-
-class AccountPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AccountInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        return AccountInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AccountPage>"
 
 
 class AccountInstance(InstanceResource):
@@ -1327,3 +987,342 @@ class AccountContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AccountContext {}>".format(context)
+
+
+class AccountPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AccountInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        return AccountInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AccountPage>"
+
+
+class AccountList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the AccountList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.api.v2010.account.AccountList
+        :rtype: twilio.rest.api.v2010.account.AccountList
+        """
+        super().__init__(version)
+
+        self._uri = "/Accounts.json"
+
+    def create(self, friendly_name=values.unset):
+        """
+        Create the AccountInstance
+
+        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
+
+        :returns: The created AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AccountInstance(self._version, payload)
+
+    async def create_async(self, friendly_name=values.unset):
+        """
+        Asynchronously create the AccountInstance
+
+        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
+
+        :returns: The created AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AccountInstance(self._version, payload)
+
+    def stream(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams AccountInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            friendly_name=friendly_name, status=status, page_size=limits["page_size"]
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams AccountInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            friendly_name=friendly_name, status=status, page_size=limits["page_size"]
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists AccountInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
+        """
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists AccountInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.AccountInstance]
+        """
+        return list(
+            await self.stream_async(
+                friendly_name=friendly_name,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of AccountInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AccountPage(self._version, response)
+
+    async def page_async(
+        self,
+        friendly_name=values.unset,
+        status=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of AccountInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
+        :param AccountInstance.Status status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AccountPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AccountInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AccountPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AccountInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AccountPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a AccountContext
+
+        :param sid: The Account Sid that uniquely identifies the account to update
+
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
+        """
+        return AccountContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AccountContext
+
+        :param sid: The Account Sid that uniquely identifies the account to update
+
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
+        """
+        return AccountContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.AccountList>"

@@ -14,421 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class QueryList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the QueryList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
-
-        :returns: twilio.rest.autopilot.v1.assistant.query.QueryList
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-        self._uri = "/Assistants/{assistant_sid}/Queries".format(**self._solution)
-
-    def create(self, language, query, tasks=values.unset, model_build=values.unset):
-        """
-        Create the QueryInstance
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
-        :param str query: The end-user's natural language input. It can be up to 2048 characters long.
-        :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-
-        :returns: The created QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "Query": query,
-                "Tasks": tasks,
-                "ModelBuild": model_build,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    async def create_async(
-        self, language, query, tasks=values.unset, model_build=values.unset
-    ):
-        """
-        Asynchronously create the QueryInstance
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
-        :param str query: The end-user's natural language input. It can be up to 2048 characters long.
-        :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-
-        :returns: The created QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "Query": query,
-                "Tasks": tasks,
-                "ModelBuild": model_build,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def stream(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams QueryInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            language=language,
-            model_build=model_build,
-            status=status,
-            dialogue_sid=dialogue_sid,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams QueryInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            language=language,
-            model_build=model_build,
-            status=status,
-            dialogue_sid=dialogue_sid,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists QueryInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
-        """
-        return list(
-            self.stream(
-                language=language,
-                model_build=model_build,
-                status=status,
-                dialogue_sid=dialogue_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists QueryInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
-        """
-        return list(
-            await self.stream_async(
-                language=language,
-                model_build=model_build,
-                status=status,
-                dialogue_sid=dialogue_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "ModelBuild": model_build,
-                "Status": status,
-                "DialogueSid": dialogue_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return QueryPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        language=values.unset,
-        model_build=values.unset,
-        status=values.unset,
-        dialogue_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
-        """
-        data = values.of(
-            {
-                "Language": language,
-                "ModelBuild": model_build,
-                "Status": status,
-                "DialogueSid": dialogue_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return QueryPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return QueryPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of QueryInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return QueryPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a QueryContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
-        """
-        return QueryContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a QueryContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
-        """
-        return QueryContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Autopilot.V1.QueryList>"
-
-
-class QueryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of QueryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Autopilot.V1.QueryPage>"
 
 
 class QueryInstance(InstanceResource):
@@ -832,3 +423,411 @@ class QueryContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.QueryContext {}>".format(context)
+
+
+class QueryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of QueryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        """
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.QueryPage>"
+
+
+class QueryList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the QueryList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
+
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryList
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+        self._uri = "/Assistants/{assistant_sid}/Queries".format(**self._solution)
+
+    def create(self, language, query, tasks=values.unset, model_build=values.unset):
+        """
+        Create the QueryInstance
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+        :param str query: The end-user's natural language input. It can be up to 2048 characters long.
+        :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+
+        :returns: The created QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "Query": query,
+                "Tasks": tasks,
+                "ModelBuild": model_build,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    async def create_async(
+        self, language, query, tasks=values.unset, model_build=values.unset
+    ):
+        """
+        Asynchronously create the QueryInstance
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+        :param str query: The end-user's natural language input. It can be up to 2048 characters long.
+        :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+
+        :returns: The created QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "Query": query,
+                "Tasks": tasks,
+                "ModelBuild": model_build,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def stream(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        dialogue_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams QueryInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            language=language,
+            model_build=model_build,
+            status=status,
+            dialogue_sid=dialogue_sid,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        dialogue_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams QueryInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            language=language,
+            model_build=model_build,
+            status=status,
+            dialogue_sid=dialogue_sid,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        dialogue_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists QueryInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
+        """
+        return list(
+            self.stream(
+                language=language,
+                model_build=model_build,
+                status=status,
+                dialogue_sid=dialogue_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        dialogue_sid=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists QueryInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
+        """
+        return list(
+            await self.stream_async(
+                language=language,
+                model_build=model_build,
+                status=status,
+                dialogue_sid=dialogue_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        dialogue_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "ModelBuild": model_build,
+                "Status": status,
+                "DialogueSid": dialogue_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return QueryPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        language=values.unset,
+        model_build=values.unset,
+        status=values.unset,
+        dialogue_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param str status: The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+        :param str dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
+        """
+        data = values.of(
+            {
+                "Language": language,
+                "ModelBuild": model_build,
+                "Status": status,
+                "DialogueSid": dialogue_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return QueryPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return QueryPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of QueryInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return QueryPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a QueryContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        """
+        return QueryContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a QueryContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        """
+        return QueryContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Autopilot.V1.QueryList>"

@@ -14,54 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class DeactivationsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the DeactivationsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsList
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a DeactivationsContext
-
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        """
-        return DeactivationsContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a DeactivationsContext
-
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        """
-        return DeactivationsContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Messaging.V1.DeactivationsList>"
 
 
 class DeactivationsInstance(InstanceResource):
@@ -212,3 +169,45 @@ class DeactivationsContext(InstanceContext):
         """
 
         return "<Twilio.Messaging.V1.DeactivationsContext>"
+
+
+class DeactivationsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the DeactivationsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsList
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a DeactivationsContext
+
+
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        """
+        return DeactivationsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a DeactivationsContext
+
+
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        """
+        return DeactivationsContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Messaging.V1.DeactivationsList>"

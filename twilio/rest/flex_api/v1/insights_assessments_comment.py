@@ -13,13 +13,169 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class InsightsAssessmentsCommentInstance(InstanceResource):
+    def __init__(self, version, payload):
+        """
+        Initialize the InsightsAssessmentsCommentInstance
+
+        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
+        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "assessment_id": payload.get("assessment_id"),
+            "comment": payload.get("comment"),
+            "offset": deserialize.decimal(payload.get("offset")),
+            "report": payload.get("report"),
+            "weight": deserialize.decimal(payload.get("weight")),
+            "agent_id": payload.get("agent_id"),
+            "segment_id": payload.get("segment_id"),
+            "user_name": payload.get("user_name"),
+            "user_email": payload.get("user_email"),
+            "timestamp": deserialize.decimal(payload.get("timestamp")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {}
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def assessment_id(self):
+        """
+        :returns: The unique ID of the assessment.
+        :rtype: str
+        """
+        return self._properties["assessment_id"]
+
+    @property
+    def comment(self):
+        """
+        :returns: The comment added for assessment.
+        :rtype: dict
+        """
+        return self._properties["comment"]
+
+    @property
+    def offset(self):
+        """
+        :returns: The offset
+        :rtype: float
+        """
+        return self._properties["offset"]
+
+    @property
+    def report(self):
+        """
+        :returns: The flag indicating if this assessment is part of report
+        :rtype: bool
+        """
+        return self._properties["report"]
+
+    @property
+    def weight(self):
+        """
+        :returns: The weightage given to this comment
+        :rtype: float
+        """
+        return self._properties["weight"]
+
+    @property
+    def agent_id(self):
+        """
+        :returns: The id of the agent.
+        :rtype: str
+        """
+        return self._properties["agent_id"]
+
+    @property
+    def segment_id(self):
+        """
+        :returns: The id of the segment.
+        :rtype: str
+        """
+        return self._properties["segment_id"]
+
+    @property
+    def user_name(self):
+        """
+        :returns: The name of the user.
+        :rtype: str
+        """
+        return self._properties["user_name"]
+
+    @property
+    def user_email(self):
+        """
+        :returns: The email id of the user.
+        :rtype: str
+        """
+        return self._properties["user_email"]
+
+    @property
+    def timestamp(self):
+        """
+        :returns: The timestamp when the record is inserted
+        :rtype: float
+        """
+        return self._properties["timestamp"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance {}>".format(
+            context
+        )
+
+
+class InsightsAssessmentsCommentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InsightsAssessmentsCommentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
+        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
+        """
+        return InsightsAssessmentsCommentInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentPage>"
 
 
 class InsightsAssessmentsCommentList(ListResource):
@@ -394,160 +550,3 @@ class InsightsAssessmentsCommentList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentList>"
-
-
-class InsightsAssessmentsCommentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InsightsAssessmentsCommentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        """
-        return InsightsAssessmentsCommentInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentPage>"
-
-
-class InsightsAssessmentsCommentInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the InsightsAssessmentsCommentInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "assessment_id": payload.get("assessment_id"),
-            "comment": payload.get("comment"),
-            "offset": deserialize.decimal(payload.get("offset")),
-            "report": payload.get("report"),
-            "weight": deserialize.decimal(payload.get("weight")),
-            "agent_id": payload.get("agent_id"),
-            "segment_id": payload.get("segment_id"),
-            "user_name": payload.get("user_name"),
-            "user_email": payload.get("user_email"),
-            "timestamp": deserialize.decimal(payload.get("timestamp")),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {}
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def assessment_id(self):
-        """
-        :returns: The unique ID of the assessment.
-        :rtype: str
-        """
-        return self._properties["assessment_id"]
-
-    @property
-    def comment(self):
-        """
-        :returns: The comment added for assessment.
-        :rtype: dict
-        """
-        return self._properties["comment"]
-
-    @property
-    def offset(self):
-        """
-        :returns: The offset
-        :rtype: float
-        """
-        return self._properties["offset"]
-
-    @property
-    def report(self):
-        """
-        :returns: The flag indicating if this assessment is part of report
-        :rtype: bool
-        """
-        return self._properties["report"]
-
-    @property
-    def weight(self):
-        """
-        :returns: The weightage given to this comment
-        :rtype: float
-        """
-        return self._properties["weight"]
-
-    @property
-    def agent_id(self):
-        """
-        :returns: The id of the agent.
-        :rtype: str
-        """
-        return self._properties["agent_id"]
-
-    @property
-    def segment_id(self):
-        """
-        :returns: The id of the segment.
-        :rtype: str
-        """
-        return self._properties["segment_id"]
-
-    @property
-    def user_name(self):
-        """
-        :returns: The name of the user.
-        :rtype: str
-        """
-        return self._properties["user_name"]
-
-    @property
-    def user_email(self):
-        """
-        :returns: The email id of the user.
-        :rtype: str
-        """
-        return self._properties["user_email"]
-
-    @property
-    def timestamp(self):
-        """
-        :returns: The timestamp when the record is inserted
-        :rtype: float
-        """
-        return self._properties["timestamp"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance {}>".format(
-            context
-        )

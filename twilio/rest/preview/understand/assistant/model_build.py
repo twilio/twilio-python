@@ -14,315 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class ModelBuildList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the ModelBuildList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid:
-
-        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-        self._uri = "/Assistants/{assistant_sid}/ModelBuilds".format(**self._solution)
-
-    def create(self, status_callback=values.unset, unique_name=values.unset):
-        """
-        Create the ModelBuildInstance
-
-        :param str status_callback:
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
-
-        :returns: The created ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        """
-        data = values.of(
-            {
-                "StatusCallback": status_callback,
-                "UniqueName": unique_name,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ModelBuildInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    async def create_async(
-        self, status_callback=values.unset, unique_name=values.unset
-    ):
-        """
-        Asynchronously create the ModelBuildInstance
-
-        :param str status_callback:
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
-
-        :returns: The created ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        """
-        data = values.of(
-            {
-                "StatusCallback": status_callback,
-                "UniqueName": unique_name,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ModelBuildInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams ModelBuildInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams ModelBuildInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists ModelBuildInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists ModelBuildInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of ModelBuildInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ModelBuildPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of ModelBuildInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return ModelBuildPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of ModelBuildInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return ModelBuildPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of ModelBuildInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ModelBuildPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a ModelBuildContext
-
-        :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
-        """
-        return ModelBuildContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a ModelBuildContext
-
-        :param sid:
-
-        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
-        """
-        return ModelBuildContext(
-            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.ModelBuildList>"
-
-
-class ModelBuildPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ModelBuildInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        """
-        return ModelBuildInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Understand.ModelBuildPage>"
 
 
 class ModelBuildInstance(InstanceResource):
@@ -691,3 +388,305 @@ class ModelBuildContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.ModelBuildContext {}>".format(context)
+
+
+class ModelBuildPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ModelBuildInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        return ModelBuildInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.ModelBuildPage>"
+
+
+class ModelBuildList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the ModelBuildList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid:
+
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+        self._uri = "/Assistants/{assistant_sid}/ModelBuilds".format(**self._solution)
+
+    def create(self, status_callback=values.unset, unique_name=values.unset):
+        """
+        Create the ModelBuildInstance
+
+        :param str status_callback:
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+
+        :returns: The created ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        data = values.of(
+            {
+                "StatusCallback": status_callback,
+                "UniqueName": unique_name,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ModelBuildInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    async def create_async(
+        self, status_callback=values.unset, unique_name=values.unset
+    ):
+        """
+        Asynchronously create the ModelBuildInstance
+
+        :param str status_callback:
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+
+        :returns: The created ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        data = values.of(
+            {
+                "StatusCallback": status_callback,
+                "UniqueName": unique_name,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ModelBuildInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams ModelBuildInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams ModelBuildInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists ModelBuildInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists ModelBuildInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of ModelBuildInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return ModelBuildPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of ModelBuildInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return ModelBuildPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of ModelBuildInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return ModelBuildPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of ModelBuildInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return ModelBuildPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a ModelBuildContext
+
+        :param sid:
+
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a ModelBuildContext
+
+        :param sid:
+
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(
+            self._version, assistant_sid=self._solution["assistant_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.ModelBuildList>"

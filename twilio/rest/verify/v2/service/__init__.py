@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,389 +29,6 @@ from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
 from twilio.rest.verify.v2.service.verification_check import VerificationCheckList
 from twilio.rest.verify.v2.service.webhook import WebhookList
-
-
-class ServiceList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the ServiceList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.verify.v2.service.ServiceList
-        :rtype: twilio.rest.verify.v2.service.ServiceList
-        """
-        super().__init__(version)
-
-        self._uri = "/Services"
-
-    def create(
-        self,
-        friendly_name,
-        code_length=values.unset,
-        lookup_enabled=values.unset,
-        skip_sms_to_landlines=values.unset,
-        dtmf_input_required=values.unset,
-        tts_name=values.unset,
-        psd2_enabled=values.unset,
-        do_not_share_warning_enabled=values.unset,
-        custom_code_enabled=values.unset,
-        push_include_date=values.unset,
-        push_apn_credential_sid=values.unset,
-        push_fcm_credential_sid=values.unset,
-        totp_issuer=values.unset,
-        totp_time_step=values.unset,
-        totp_code_length=values.unset,
-        totp_skew=values.unset,
-        default_template_sid=values.unset,
-    ):
-        """
-        Create the ServiceInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
-        :param int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
-        :param bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
-        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
-        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
-        :param str tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
-        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param bool do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        :param bool custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
-        :param bool push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
-        :param str push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-        :param str push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-        :param str totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
-        :param int totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
-        :param int totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
-        :param int totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-        :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
-
-        :returns: The created ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "CodeLength": code_length,
-                "LookupEnabled": lookup_enabled,
-                "SkipSmsToLandlines": skip_sms_to_landlines,
-                "DtmfInputRequired": dtmf_input_required,
-                "TtsName": tts_name,
-                "Psd2Enabled": psd2_enabled,
-                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
-                "CustomCodeEnabled": custom_code_enabled,
-                "Push.IncludeDate": push_include_date,
-                "Push.ApnCredentialSid": push_apn_credential_sid,
-                "Push.FcmCredentialSid": push_fcm_credential_sid,
-                "Totp.Issuer": totp_issuer,
-                "Totp.TimeStep": totp_time_step,
-                "Totp.CodeLength": totp_code_length,
-                "Totp.Skew": totp_skew,
-                "DefaultTemplateSid": default_template_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ServiceInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        friendly_name,
-        code_length=values.unset,
-        lookup_enabled=values.unset,
-        skip_sms_to_landlines=values.unset,
-        dtmf_input_required=values.unset,
-        tts_name=values.unset,
-        psd2_enabled=values.unset,
-        do_not_share_warning_enabled=values.unset,
-        custom_code_enabled=values.unset,
-        push_include_date=values.unset,
-        push_apn_credential_sid=values.unset,
-        push_fcm_credential_sid=values.unset,
-        totp_issuer=values.unset,
-        totp_time_step=values.unset,
-        totp_code_length=values.unset,
-        totp_skew=values.unset,
-        default_template_sid=values.unset,
-    ):
-        """
-        Asynchronously create the ServiceInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
-        :param int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
-        :param bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
-        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
-        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
-        :param str tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
-        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :param bool do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        :param bool custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
-        :param bool push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
-        :param str push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-        :param str push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-        :param str totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
-        :param int totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
-        :param int totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
-        :param int totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-        :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
-
-        :returns: The created ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "CodeLength": code_length,
-                "LookupEnabled": lookup_enabled,
-                "SkipSmsToLandlines": skip_sms_to_landlines,
-                "DtmfInputRequired": dtmf_input_required,
-                "TtsName": tts_name,
-                "Psd2Enabled": psd2_enabled,
-                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
-                "CustomCodeEnabled": custom_code_enabled,
-                "Push.IncludeDate": push_include_date,
-                "Push.ApnCredentialSid": push_apn_credential_sid,
-                "Push.FcmCredentialSid": push_fcm_credential_sid,
-                "Totp.Issuer": totp_issuer,
-                "Totp.TimeStep": totp_time_step,
-                "Totp.CodeLength": totp_code_length,
-                "Totp.Skew": totp_skew,
-                "DefaultTemplateSid": default_template_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ServiceInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams ServiceInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams ServiceInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists ServiceInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists ServiceInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of ServiceInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ServicePage(self._version, response)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of ServiceInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return ServicePage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of ServiceInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return ServicePage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of ServiceInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServicePage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ServicePage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a ServiceContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.verify.v2.service.ServiceContext
-        :rtype: twilio.rest.verify.v2.service.ServiceContext
-        """
-        return ServiceContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a ServiceContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.verify.v2.service.ServiceContext
-        :rtype: twilio.rest.verify.v2.service.ServiceContext
-        """
-        return ServiceContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.ServiceList>"
-
-
-class ServicePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ServiceInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
-        """
-        return ServiceInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.ServicePage>"
 
 
 class ServiceInstance(InstanceResource):
@@ -1215,3 +831,386 @@ class ServiceContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.ServiceContext {}>".format(context)
+
+
+class ServicePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ServiceInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServiceInstance
+        """
+        return ServiceInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.ServicePage>"
+
+
+class ServiceList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the ServiceList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.verify.v2.service.ServiceList
+        :rtype: twilio.rest.verify.v2.service.ServiceList
+        """
+        super().__init__(version)
+
+        self._uri = "/Services"
+
+    def create(
+        self,
+        friendly_name,
+        code_length=values.unset,
+        lookup_enabled=values.unset,
+        skip_sms_to_landlines=values.unset,
+        dtmf_input_required=values.unset,
+        tts_name=values.unset,
+        psd2_enabled=values.unset,
+        do_not_share_warning_enabled=values.unset,
+        custom_code_enabled=values.unset,
+        push_include_date=values.unset,
+        push_apn_credential_sid=values.unset,
+        push_fcm_credential_sid=values.unset,
+        totp_issuer=values.unset,
+        totp_time_step=values.unset,
+        totp_code_length=values.unset,
+        totp_skew=values.unset,
+        default_template_sid=values.unset,
+    ):
+        """
+        Create the ServiceInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param str tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param bool do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
+        :param bool custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param bool push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
+        :param str push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param str push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param str totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
+        :param int totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param int totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param int totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServiceInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "CodeLength": code_length,
+                "LookupEnabled": lookup_enabled,
+                "SkipSmsToLandlines": skip_sms_to_landlines,
+                "DtmfInputRequired": dtmf_input_required,
+                "TtsName": tts_name,
+                "Psd2Enabled": psd2_enabled,
+                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
+                "CustomCodeEnabled": custom_code_enabled,
+                "Push.IncludeDate": push_include_date,
+                "Push.ApnCredentialSid": push_apn_credential_sid,
+                "Push.FcmCredentialSid": push_fcm_credential_sid,
+                "Totp.Issuer": totp_issuer,
+                "Totp.TimeStep": totp_time_step,
+                "Totp.CodeLength": totp_code_length,
+                "Totp.Skew": totp_skew,
+                "DefaultTemplateSid": default_template_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name,
+        code_length=values.unset,
+        lookup_enabled=values.unset,
+        skip_sms_to_landlines=values.unset,
+        dtmf_input_required=values.unset,
+        tts_name=values.unset,
+        psd2_enabled=values.unset,
+        do_not_share_warning_enabled=values.unset,
+        custom_code_enabled=values.unset,
+        push_include_date=values.unset,
+        push_apn_credential_sid=values.unset,
+        push_fcm_credential_sid=values.unset,
+        totp_issuer=values.unset,
+        totp_time_step=values.unset,
+        totp_code_length=values.unset,
+        totp_skew=values.unset,
+        default_template_sid=values.unset,
+    ):
+        """
+        Asynchronously create the ServiceInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param str tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param bool do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
+        :param bool custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param bool push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
+        :param str push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param str push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param str totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
+        :param int totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param int totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param int totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServiceInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "CodeLength": code_length,
+                "LookupEnabled": lookup_enabled,
+                "SkipSmsToLandlines": skip_sms_to_landlines,
+                "DtmfInputRequired": dtmf_input_required,
+                "TtsName": tts_name,
+                "Psd2Enabled": psd2_enabled,
+                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
+                "CustomCodeEnabled": custom_code_enabled,
+                "Push.IncludeDate": push_include_date,
+                "Push.ApnCredentialSid": push_apn_credential_sid,
+                "Push.FcmCredentialSid": push_fcm_credential_sid,
+                "Totp.Issuer": totp_issuer,
+                "Totp.TimeStep": totp_time_step,
+                "Totp.CodeLength": totp_code_length,
+                "Totp.Skew": totp_skew,
+                "DefaultTemplateSid": default_template_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams ServiceInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams ServiceInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists ServiceInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists ServiceInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.ServiceInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of ServiceInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServicePage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return ServicePage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of ServiceInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServicePage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return ServicePage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of ServiceInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServicePage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return ServicePage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of ServiceInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServicePage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return ServicePage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a ServiceContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
+
+        :returns: twilio.rest.verify.v2.service.ServiceContext
+        :rtype: twilio.rest.verify.v2.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ServiceContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
+
+        :returns: twilio.rest.verify.v2.service.ServiceContext
+        :rtype: twilio.rest.verify.v2.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Verify.V2.ServiceList>"

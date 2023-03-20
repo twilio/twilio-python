@@ -22,6 +22,216 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class CountryInstance(InstanceResource):
+    def __init__(self, version, payload, iso_country: Optional[str] = None):
+        """
+        Initialize the CountryInstance
+
+        :returns: twilio.rest.pricing.v2.country.CountryInstance
+        :rtype: twilio.rest.pricing.v2.country.CountryInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "country": payload.get("country"),
+            "iso_country": payload.get("iso_country"),
+            "terminating_prefix_prices": payload.get("terminating_prefix_prices"),
+            "originating_call_prices": payload.get("originating_call_prices"),
+            "price_unit": payload.get("price_unit"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "iso_country": iso_country or self._properties["iso_country"],
+        }
+        self._context: Optional[CountryContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: CountryContext for this CountryInstance
+        :rtype: twilio.rest.pricing.v2.country.CountryContext
+        """
+        if self._context is None:
+            self._context = CountryContext(
+                self._version,
+                iso_country=self._solution["iso_country"],
+            )
+        return self._context
+
+    @property
+    def country(self):
+        """
+        :returns: The name of the country.
+        :rtype: str
+        """
+        return self._properties["country"]
+
+    @property
+    def iso_country(self):
+        """
+        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+        :rtype: str
+        """
+        return self._properties["iso_country"]
+
+    @property
+    def terminating_prefix_prices(self):
+        """
+        :returns: The list of [TerminatingPrefixPrice](https://www.twilio.com/docs/voice/pricing#outbound-prefix-price-with-origin) records.
+        :rtype: list[PricingV2TrunkingCountryInstanceTerminatingPrefixPrices]
+        """
+        return self._properties["terminating_prefix_prices"]
+
+    @property
+    def originating_call_prices(self):
+        """
+        :returns: The list of [OriginatingCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
+        :rtype: list[PricingV2TrunkingCountryInstanceOriginatingCallPrices]
+        """
+        return self._properties["originating_call_prices"]
+
+    @property
+    def price_unit(self):
+        """
+        :returns: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
+        :rtype: str
+        """
+        return self._properties["price_unit"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.pricing.v2.country.CountryInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.pricing.v2.country.CountryInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Pricing.V2.CountryInstance {}>".format(context)
+
+
+class CountryContext(InstanceContext):
+    def __init__(self, version: Version, iso_country: str):
+        """
+        Initialize the CountryContext
+
+        :param Version version: Version that contains the resource
+        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch.
+
+        :returns: twilio.rest.pricing.v2.country.CountryContext
+        :rtype: twilio.rest.pricing.v2.country.CountryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "iso_country": iso_country,
+        }
+        self._uri = "/Trunking/Countries/{iso_country}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.pricing.v2.country.CountryInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CountryInstance(
+            self._version,
+            payload,
+            iso_country=self._solution["iso_country"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the CountryInstance
+
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.pricing.v2.country.CountryInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return CountryInstance(
+            self._version,
+            payload,
+            iso_country=self._solution["iso_country"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Pricing.V2.CountryContext {}>".format(context)
+
+
+class CountryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CountryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.pricing.v2.country.CountryInstance
+        :rtype: twilio.rest.pricing.v2.country.CountryInstance
+        """
+        return CountryInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Pricing.V2.CountryPage>"
+
+
 class CountryList(ListResource):
     def __init__(self, version: Version):
         """
@@ -234,213 +444,3 @@ class CountryList(ListResource):
         :rtype: str
         """
         return "<Twilio.Pricing.V2.CountryList>"
-
-
-class CountryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CountryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.pricing.v2.country.CountryInstance
-        :rtype: twilio.rest.pricing.v2.country.CountryInstance
-        """
-        return CountryInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Pricing.V2.CountryPage>"
-
-
-class CountryInstance(InstanceResource):
-    def __init__(self, version, payload, iso_country: Optional[str] = None):
-        """
-        Initialize the CountryInstance
-
-        :returns: twilio.rest.pricing.v2.country.CountryInstance
-        :rtype: twilio.rest.pricing.v2.country.CountryInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "country": payload.get("country"),
-            "iso_country": payload.get("iso_country"),
-            "terminating_prefix_prices": payload.get("terminating_prefix_prices"),
-            "originating_call_prices": payload.get("originating_call_prices"),
-            "price_unit": payload.get("price_unit"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "iso_country": iso_country or self._properties["iso_country"],
-        }
-        self._context: Optional[CountryContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: CountryContext for this CountryInstance
-        :rtype: twilio.rest.pricing.v2.country.CountryContext
-        """
-        if self._context is None:
-            self._context = CountryContext(
-                self._version,
-                iso_country=self._solution["iso_country"],
-            )
-        return self._context
-
-    @property
-    def country(self):
-        """
-        :returns: The name of the country.
-        :rtype: str
-        """
-        return self._properties["country"]
-
-    @property
-    def iso_country(self):
-        """
-        :returns: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
-        :rtype: str
-        """
-        return self._properties["iso_country"]
-
-    @property
-    def terminating_prefix_prices(self):
-        """
-        :returns: The list of [TerminatingPrefixPrice](https://www.twilio.com/docs/voice/pricing#outbound-prefix-price-with-origin) records.
-        :rtype: list[PricingV2TrunkingCountryInstanceTerminatingPrefixPrices]
-        """
-        return self._properties["terminating_prefix_prices"]
-
-    @property
-    def originating_call_prices(self):
-        """
-        :returns: The list of [OriginatingCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
-        :rtype: list[PricingV2TrunkingCountryInstanceOriginatingCallPrices]
-        """
-        return self._properties["originating_call_prices"]
-
-    @property
-    def price_unit(self):
-        """
-        :returns: The currency in which prices are measured, specified in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-        :rtype: str
-        """
-        return self._properties["price_unit"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v2.country.CountryInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v2.country.CountryInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Pricing.V2.CountryInstance {}>".format(context)
-
-
-class CountryContext(InstanceContext):
-    def __init__(self, version: Version, iso_country: str):
-        """
-        Initialize the CountryContext
-
-        :param Version version: Version that contains the resource
-        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch.
-
-        :returns: twilio.rest.pricing.v2.country.CountryContext
-        :rtype: twilio.rest.pricing.v2.country.CountryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "iso_country": iso_country,
-        }
-        self._uri = "/Trunking/Countries/{iso_country}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v2.country.CountryInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CountryInstance(
-            self._version,
-            payload,
-            iso_country=self._solution["iso_country"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the CountryInstance
-
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v2.country.CountryInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return CountryInstance(
-            self._version,
-            payload,
-            iso_country=self._solution["iso_country"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Pricing.V2.CountryContext {}>".format(context)

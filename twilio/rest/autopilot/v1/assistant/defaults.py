@@ -14,64 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class DefaultsList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the DefaultsList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a DefaultsContext
-
-
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
-        """
-        return DefaultsContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a DefaultsContext
-
-
-        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
-        """
-        return DefaultsContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Autopilot.V1.DefaultsList>"
 
 
 class DefaultsInstance(InstanceResource):
@@ -319,3 +266,55 @@ class DefaultsContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.DefaultsContext {}>".format(context)
+
+
+class DefaultsList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the DefaultsList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
+
+        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
+        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a DefaultsContext
+
+
+        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
+        """
+        return DefaultsContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a DefaultsContext
+
+
+        :returns: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsContext
+        """
+        return DefaultsContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Autopilot.V1.DefaultsList>"

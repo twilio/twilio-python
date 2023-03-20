@@ -23,50 +23,6 @@ from twilio.base.version import Version
 from twilio.rest.events.v1.schema.schema_version import SchemaVersionList
 
 
-class SchemaList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SchemaList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.events.v1.schema.SchemaList
-        :rtype: twilio.rest.events.v1.schema.SchemaList
-        """
-        super().__init__(version)
-
-    def get(self, id):
-        """
-        Constructs a SchemaContext
-
-        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-
-        :returns: twilio.rest.events.v1.schema.SchemaContext
-        :rtype: twilio.rest.events.v1.schema.SchemaContext
-        """
-        return SchemaContext(self._version, id=id)
-
-    def __call__(self, id):
-        """
-        Constructs a SchemaContext
-
-        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-
-        :returns: twilio.rest.events.v1.schema.SchemaContext
-        :rtype: twilio.rest.events.v1.schema.SchemaContext
-        """
-        return SchemaContext(self._version, id=id)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Events.V1.SchemaList>"
-
-
 class SchemaInstance(InstanceResource):
     def __init__(self, version, payload, id: Optional[str] = None):
         """
@@ -274,3 +230,47 @@ class SchemaContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Events.V1.SchemaContext {}>".format(context)
+
+
+class SchemaList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SchemaList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.events.v1.schema.SchemaList
+        :rtype: twilio.rest.events.v1.schema.SchemaList
+        """
+        super().__init__(version)
+
+    def get(self, id):
+        """
+        Constructs a SchemaContext
+
+        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+
+        :returns: twilio.rest.events.v1.schema.SchemaContext
+        :rtype: twilio.rest.events.v1.schema.SchemaContext
+        """
+        return SchemaContext(self._version, id=id)
+
+    def __call__(self, id):
+        """
+        Constructs a SchemaContext
+
+        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+
+        :returns: twilio.rest.events.v1.schema.SchemaContext
+        :rtype: twilio.rest.events.v1.schema.SchemaContext
+        """
+        return SchemaContext(self._version, id=id)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Events.V1.SchemaList>"

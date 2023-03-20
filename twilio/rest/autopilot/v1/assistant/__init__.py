@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,329 +28,6 @@ from twilio.rest.autopilot.v1.assistant.query import QueryList
 from twilio.rest.autopilot.v1.assistant.style_sheet import StyleSheetList
 from twilio.rest.autopilot.v1.assistant.task import TaskList
 from twilio.rest.autopilot.v1.assistant.webhook import WebhookList
-
-
-class AssistantList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the AssistantList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.autopilot.v1.assistant.AssistantList
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantList
-        """
-        super().__init__(version)
-
-        self._uri = "/Assistants"
-
-    def create(
-        self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        style_sheet=values.unset,
-        defaults=values.unset,
-    ):
-        """
-        Create the AssistantInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-        :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-        :param str callback_url: Reserved.
-        :param str callback_events: Reserved.
-        :param object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-        :param object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-
-        :returns: The created AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
-                "UniqueName": unique_name,
-                "CallbackUrl": callback_url,
-                "CallbackEvents": callback_events,
-                "StyleSheet": serialize.object(style_sheet),
-                "Defaults": serialize.object(defaults),
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AssistantInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        style_sheet=values.unset,
-        defaults=values.unset,
-    ):
-        """
-        Asynchronously create the AssistantInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-        :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-        :param str callback_url: Reserved.
-        :param str callback_events: Reserved.
-        :param object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-        :param object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-
-        :returns: The created AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
-                "UniqueName": unique_name,
-                "CallbackUrl": callback_url,
-                "CallbackEvents": callback_events,
-                "StyleSheet": serialize.object(style_sheet),
-                "Defaults": serialize.object(defaults),
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AssistantInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams AssistantInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams AssistantInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists AssistantInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists AssistantInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AssistantPage(self._version, response)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AssistantPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AssistantPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AssistantPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a AssistantContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
-        """
-        return AssistantContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a AssistantContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
-        """
-        return AssistantContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Autopilot.V1.AssistantList>"
-
-
-class AssistantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssistantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        """
-        return AssistantInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Autopilot.V1.AssistantPage>"
 
 
 class AssistantInstance(InstanceResource):
@@ -1037,3 +712,326 @@ class AssistantContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.AssistantContext {}>".format(context)
+
+
+class AssistantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssistantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        return AssistantInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.AssistantPage>"
+
+
+class AssistantList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the AssistantList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantList
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantList
+        """
+        super().__init__(version)
+
+        self._uri = "/Assistants"
+
+    def create(
+        self,
+        friendly_name=values.unset,
+        log_queries=values.unset,
+        unique_name=values.unset,
+        callback_url=values.unset,
+        callback_events=values.unset,
+        style_sheet=values.unset,
+        defaults=values.unset,
+    ):
+        """
+        Create the AssistantInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+        :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param str callback_url: Reserved.
+        :param str callback_events: Reserved.
+        :param object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :param object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+
+        :returns: The created AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "LogQueries": log_queries,
+                "UniqueName": unique_name,
+                "CallbackUrl": callback_url,
+                "CallbackEvents": callback_events,
+                "StyleSheet": serialize.object(style_sheet),
+                "Defaults": serialize.object(defaults),
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AssistantInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name=values.unset,
+        log_queries=values.unset,
+        unique_name=values.unset,
+        callback_url=values.unset,
+        callback_events=values.unset,
+        style_sheet=values.unset,
+        defaults=values.unset,
+    ):
+        """
+        Asynchronously create the AssistantInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+        :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param str callback_url: Reserved.
+        :param str callback_events: Reserved.
+        :param object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :param object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+
+        :returns: The created AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "LogQueries": log_queries,
+                "UniqueName": unique_name,
+                "CallbackUrl": callback_url,
+                "CallbackEvents": callback_events,
+                "StyleSheet": serialize.object(style_sheet),
+                "Defaults": serialize.object(defaults),
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AssistantInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams AssistantInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams AssistantInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists AssistantInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists AssistantInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.autopilot.v1.assistant.AssistantInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AssistantPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AssistantPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AssistantPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AssistantPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a AssistantContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
+        """
+        return AssistantContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssistantContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
+        """
+        return AssistantContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Autopilot.V1.AssistantList>"

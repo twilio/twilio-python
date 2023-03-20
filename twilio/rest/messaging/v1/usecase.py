@@ -18,6 +18,41 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+class UsecaseInstance(InstanceResource):
+    def __init__(self, version, payload):
+        """
+        Initialize the UsecaseInstance
+
+        :returns: twilio.rest.messaging.v1.usecase.UsecaseInstance
+        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "usecases": payload.get("usecases"),
+        }
+
+        self._solution = {}
+
+    @property
+    def usecases(self):
+        """
+        :returns: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
+        :rtype: list[object]
+        """
+        return self._properties["usecases"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.UsecaseInstance {}>".format(context)
+
+
 class UsecaseList(ListResource):
     def __init__(self, version: Version):
         """
@@ -62,38 +97,3 @@ class UsecaseList(ListResource):
         :rtype: str
         """
         return "<Twilio.Messaging.V1.UsecaseList>"
-
-
-class UsecaseInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the UsecaseInstance
-
-        :returns: twilio.rest.messaging.v1.usecase.UsecaseInstance
-        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "usecases": payload.get("usecases"),
-        }
-
-        self._solution = {}
-
-    @property
-    def usecases(self):
-        """
-        :returns: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
-        :rtype: list[object]
-        """
-        return self._properties["usecases"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.UsecaseInstance {}>".format(context)

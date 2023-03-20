@@ -14,13 +14,268 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class DeploymentInstance(InstanceResource):
+    def __init__(
+        self,
+        version,
+        payload,
+        service_sid: str,
+        environment_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the DeploymentInstance
+
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "environment_sid": payload.get("environment_sid"),
+            "build_sid": payload.get("build_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[DeploymentContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: DeploymentContext for this DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
+        """
+        if self._context is None:
+            self._context = DeploymentContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                environment_sid=self._solution["environment_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Deployment resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Deployment resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the Service that the Deployment resource is associated with.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def environment_sid(self):
+        """
+        :returns: The SID of the Environment for the Deployment.
+        :rtype: str
+        """
+        return self._properties["environment_sid"]
+
+    @property
+    def build_sid(self):
+        """
+        :returns: The SID of the Build for the deployment.
+        :rtype: str
+        """
+        return self._properties["build_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the Deployment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the Deployment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Deployment resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the DeploymentInstance
+
+
+        :returns: The fetched DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DeploymentInstance
+
+
+        :returns: The fetched DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.DeploymentInstance {}>".format(context)
+
+
+class DeploymentContext(InstanceContext):
+    def __init__(
+        self, version: Version, service_sid: str, environment_sid: str, sid: str
+    ):
+        """
+        Initialize the DeploymentContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Deployment resource from.
+        :param environment_sid: The SID of the Environment used by the Deployment to fetch.
+        :param sid: The SID that identifies the Deployment resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{service_sid}/Environments/{environment_sid}/Deployments/{sid}".format(
+            **self._solution
+        )
+
+    def fetch(self):
+        """
+        Fetch the DeploymentInstance
+
+
+        :returns: The fetched DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return DeploymentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the DeploymentInstance
+
+
+        :returns: The fetched DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return DeploymentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.DeploymentContext {}>".format(context)
+
+
+class DeploymentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DeploymentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        """
+        return DeploymentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.DeploymentPage>"
 
 
 class DeploymentList(ListResource):
@@ -312,259 +567,3 @@ class DeploymentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.DeploymentList>"
-
-
-class DeploymentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DeploymentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-        return DeploymentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.DeploymentPage>"
-
-
-class DeploymentInstance(InstanceResource):
-    def __init__(
-        self,
-        version,
-        payload,
-        service_sid: str,
-        environment_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the DeploymentInstance
-
-        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "environment_sid": payload.get("environment_sid"),
-            "build_sid": payload.get("build_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "service_sid": service_sid,
-            "environment_sid": environment_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[DeploymentContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: DeploymentContext for this DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
-        """
-        if self._context is None:
-            self._context = DeploymentContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                environment_sid=self._solution["environment_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Deployment resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Deployment resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the Service that the Deployment resource is associated with.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def environment_sid(self):
-        """
-        :returns: The SID of the Environment for the Deployment.
-        :rtype: str
-        """
-        return self._properties["environment_sid"]
-
-    @property
-    def build_sid(self):
-        """
-        :returns: The SID of the Build for the deployment.
-        :rtype: str
-        """
-        return self._properties["build_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the Deployment resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the Deployment resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Deployment resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the DeploymentInstance
-
-
-        :returns: The fetched DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the DeploymentInstance
-
-
-        :returns: The fetched DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.DeploymentInstance {}>".format(context)
-
-
-class DeploymentContext(InstanceContext):
-    def __init__(
-        self, version: Version, service_sid: str, environment_sid: str, sid: str
-    ):
-        """
-        Initialize the DeploymentContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Deployment resource from.
-        :param environment_sid: The SID of the Environment used by the Deployment to fetch.
-        :param sid: The SID that identifies the Deployment resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "environment_sid": environment_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{service_sid}/Environments/{environment_sid}/Deployments/{sid}".format(
-            **self._solution
-        )
-
-    def fetch(self):
-        """
-        Fetch the DeploymentInstance
-
-
-        :returns: The fetched DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return DeploymentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the DeploymentInstance
-
-
-        :returns: The fetched DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return DeploymentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.DeploymentContext {}>".format(context)

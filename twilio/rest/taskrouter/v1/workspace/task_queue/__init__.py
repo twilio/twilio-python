@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -33,452 +32,6 @@ from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics import
 from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics import (
     TaskQueuesStatisticsList,
 )
-
-
-class TaskQueueList(ListResource):
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the TaskQueueList
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the TaskQueue to read.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-        self._uri = "/Workspaces/{workspace_sid}/TaskQueues".format(**self._solution)
-
-        self._statistics: Optional[TaskQueuesStatisticsList] = None
-
-    def create(
-        self,
-        friendly_name,
-        target_workers=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
-    ):
-        """
-        Create the TaskQueueInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
-        :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-        :param TaskQueueInstance.TaskOrder task_order:
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
-
-        :returns: The created TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "TargetWorkers": target_workers,
-                "MaxReservedWorkers": max_reserved_workers,
-                "TaskOrder": task_order,
-                "ReservationActivitySid": reservation_activity_sid,
-                "AssignmentActivitySid": assignment_activity_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return TaskQueueInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    async def create_async(
-        self,
-        friendly_name,
-        target_workers=values.unset,
-        max_reserved_workers=values.unset,
-        task_order=values.unset,
-        reservation_activity_sid=values.unset,
-        assignment_activity_sid=values.unset,
-    ):
-        """
-        Asynchronously create the TaskQueueInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
-        :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-        :param TaskQueueInstance.TaskOrder task_order:
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
-
-        :returns: The created TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "TargetWorkers": target_workers,
-                "MaxReservedWorkers": max_reserved_workers,
-                "TaskOrder": task_order,
-                "ReservationActivitySid": reservation_activity_sid,
-                "AssignmentActivitySid": assignment_activity_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return TaskQueueInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def stream(
-        self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams TaskQueueInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            friendly_name=friendly_name,
-            evaluate_worker_attributes=evaluate_worker_attributes,
-            worker_sid=worker_sid,
-            ordering=ordering,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams TaskQueueInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            friendly_name=friendly_name,
-            evaluate_worker_attributes=evaluate_worker_attributes,
-            worker_sid=worker_sid,
-            ordering=ordering,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists TaskQueueInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
-        """
-        return list(
-            self.stream(
-                friendly_name=friendly_name,
-                evaluate_worker_attributes=evaluate_worker_attributes,
-                worker_sid=worker_sid,
-                ordering=ordering,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists TaskQueueInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
-        """
-        return list(
-            await self.stream_async(
-                friendly_name=friendly_name,
-                evaluate_worker_attributes=evaluate_worker_attributes,
-                worker_sid=worker_sid,
-                ordering=ordering,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of TaskQueueInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EvaluateWorkerAttributes": evaluate_worker_attributes,
-                "WorkerSid": worker_sid,
-                "Ordering": ordering,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return TaskQueuePage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        friendly_name=values.unset,
-        evaluate_worker_attributes=values.unset,
-        worker_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of TaskQueueInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
-        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
-        :param str ordering: Sorting parameter for TaskQueues
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EvaluateWorkerAttributes": evaluate_worker_attributes,
-                "WorkerSid": worker_sid,
-                "Ordering": ordering,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return TaskQueuePage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of TaskQueueInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return TaskQueuePage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of TaskQueueInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return TaskQueuePage(self._version, response, self._solution)
-
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = TaskQueuesStatisticsList(
-                self._version, workspace_sid=self._solution["workspace_sid"]
-            )
-        return self._statistics
-
-    def get(self, sid):
-        """
-        Constructs a TaskQueueContext
-
-        :param sid: The SID of the TaskQueue resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
-        """
-        return TaskQueueContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a TaskQueueContext
-
-        :param sid: The SID of the TaskQueue resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
-        """
-        return TaskQueueContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.TaskQueueList>"
-
-
-class TaskQueuePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TaskQueueInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        return TaskQueueInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.TaskQueuePage>"
 
 
 class TaskQueueInstance(InstanceResource):
@@ -1045,3 +598,449 @@ class TaskQueueContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.TaskQueueContext {}>".format(context)
+
+
+class TaskQueuePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskQueueInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        return TaskQueueInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.TaskQueuePage>"
+
+
+class TaskQueueList(ListResource):
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the TaskQueueList
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to read.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/TaskQueues".format(**self._solution)
+
+        self._statistics: Optional[TaskQueuesStatisticsList] = None
+
+    def create(
+        self,
+        friendly_name,
+        target_workers=values.unset,
+        max_reserved_workers=values.unset,
+        task_order=values.unset,
+        reservation_activity_sid=values.unset,
+        assignment_activity_sid=values.unset,
+    ):
+        """
+        Create the TaskQueueInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+        :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+        :param TaskQueueInstance.TaskOrder task_order:
+        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
+
+        :returns: The created TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "TargetWorkers": target_workers,
+                "MaxReservedWorkers": max_reserved_workers,
+                "TaskOrder": task_order,
+                "ReservationActivitySid": reservation_activity_sid,
+                "AssignmentActivitySid": assignment_activity_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return TaskQueueInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    async def create_async(
+        self,
+        friendly_name,
+        target_workers=values.unset,
+        max_reserved_workers=values.unset,
+        task_order=values.unset,
+        reservation_activity_sid=values.unset,
+        assignment_activity_sid=values.unset,
+    ):
+        """
+        Asynchronously create the TaskQueueInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+        :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+        :param TaskQueueInstance.TaskOrder task_order:
+        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
+
+        :returns: The created TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "TargetWorkers": target_workers,
+                "MaxReservedWorkers": max_reserved_workers,
+                "TaskOrder": task_order,
+                "ReservationActivitySid": reservation_activity_sid,
+                "AssignmentActivitySid": assignment_activity_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return TaskQueueInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def stream(
+        self,
+        friendly_name=values.unset,
+        evaluate_worker_attributes=values.unset,
+        worker_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams TaskQueueInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            friendly_name=friendly_name,
+            evaluate_worker_attributes=evaluate_worker_attributes,
+            worker_sid=worker_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        friendly_name=values.unset,
+        evaluate_worker_attributes=values.unset,
+        worker_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams TaskQueueInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            friendly_name=friendly_name,
+            evaluate_worker_attributes=evaluate_worker_attributes,
+            worker_sid=worker_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        friendly_name=values.unset,
+        evaluate_worker_attributes=values.unset,
+        worker_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists TaskQueueInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
+        """
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                evaluate_worker_attributes=evaluate_worker_attributes,
+                worker_sid=worker_sid,
+                ordering=ordering,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        friendly_name=values.unset,
+        evaluate_worker_attributes=values.unset,
+        worker_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists TaskQueueInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
+        """
+        return list(
+            await self.stream_async(
+                friendly_name=friendly_name,
+                evaluate_worker_attributes=evaluate_worker_attributes,
+                worker_sid=worker_sid,
+                ordering=ordering,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        friendly_name=values.unset,
+        evaluate_worker_attributes=values.unset,
+        worker_sid=values.unset,
+        ordering=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of TaskQueueInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "EvaluateWorkerAttributes": evaluate_worker_attributes,
+                "WorkerSid": worker_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return TaskQueuePage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        friendly_name=values.unset,
+        evaluate_worker_attributes=values.unset,
+        worker_sid=values.unset,
+        ordering=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of TaskQueueInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "EvaluateWorkerAttributes": evaluate_worker_attributes,
+                "WorkerSid": worker_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return TaskQueuePage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of TaskQueueInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return TaskQueuePage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of TaskQueueInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return TaskQueuePage(self._version, response, self._solution)
+
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = TaskQueuesStatisticsList(
+                self._version, workspace_sid=self._solution["workspace_sid"]
+            )
+        return self._statistics
+
+    def get(self, sid):
+        """
+        Constructs a TaskQueueContext
+
+        :param sid: The SID of the TaskQueue resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        """
+        return TaskQueueContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a TaskQueueContext
+
+        :param sid: The SID of the TaskQueue resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        """
+        return TaskQueueContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.TaskQueueList>"

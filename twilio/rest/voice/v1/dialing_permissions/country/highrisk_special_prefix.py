@@ -21,6 +21,66 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class HighriskSpecialPrefixInstance(InstanceResource):
+    def __init__(self, version, payload, iso_code: str):
+        """
+        Initialize the HighriskSpecialPrefixInstance
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "prefix": payload.get("prefix"),
+        }
+
+        self._solution = {
+            "iso_code": iso_code,
+        }
+
+    @property
+    def prefix(self):
+        """
+        :returns: A prefix is a contiguous number range for a block of E.164 numbers that includes the E.164 assigned country code. For example, a North American Numbering Plan prefix like `+1510720` written like `+1(510) 720` matches all numbers inclusive from `+1(510) 720-0000` to `+1(510) 720-9999`.
+        :rtype: str
+        """
+        return self._properties["prefix"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Voice.V1.HighriskSpecialPrefixInstance {}>".format(context)
+
+
+class HighriskSpecialPrefixPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of HighriskSpecialPrefixInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        """
+        return HighriskSpecialPrefixInstance(
+            self._version, payload, iso_code=self._solution["iso_code"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.HighriskSpecialPrefixPage>"
+
+
 class HighriskSpecialPrefixList(ListResource):
     def __init__(self, version: Version, iso_code: str):
         """
@@ -220,63 +280,3 @@ class HighriskSpecialPrefixList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.HighriskSpecialPrefixList>"
-
-
-class HighriskSpecialPrefixPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of HighriskSpecialPrefixInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        """
-        return HighriskSpecialPrefixInstance(
-            self._version, payload, iso_code=self._solution["iso_code"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.HighriskSpecialPrefixPage>"
-
-
-class HighriskSpecialPrefixInstance(InstanceResource):
-    def __init__(self, version, payload, iso_code: str):
-        """
-        Initialize the HighriskSpecialPrefixInstance
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "prefix": payload.get("prefix"),
-        }
-
-        self._solution = {
-            "iso_code": iso_code,
-        }
-
-    @property
-    def prefix(self):
-        """
-        :returns: A prefix is a contiguous number range for a block of E.164 numbers that includes the E.164 assigned country code. For example, a North American Numbering Plan prefix like `+1510720` written like `+1(510) 720` matches all numbers inclusive from `+1(510) 720-0000` to `+1(510) 720-9999`.
-        :rtype: str
-        """
-        return self._properties["prefix"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.HighriskSpecialPrefixInstance {}>".format(context)

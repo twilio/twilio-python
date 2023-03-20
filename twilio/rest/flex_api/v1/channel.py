@@ -14,13 +14,286 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class ChannelInstance(InstanceResource):
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the ChannelInstance
+
+        :returns: twilio.rest.flex_api.v1.channel.ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "flex_flow_sid": payload.get("flex_flow_sid"),
+            "sid": payload.get("sid"),
+            "user_sid": payload.get("user_sid"),
+            "task_sid": payload.get("task_sid"),
+            "url": payload.get("url"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[ChannelContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ChannelContext for this ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
+        """
+        if self._context is None:
+            self._context = ChannelContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource and owns this Workflow.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def flex_flow_sid(self):
+        """
+        :returns: The SID of the Flex Flow.
+        :rtype: str
+        """
+        return self._properties["flex_flow_sid"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Channel resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def user_sid(self):
+        """
+        :returns: The SID of the chat user.
+        :rtype: str
+        """
+        return self._properties["user_sid"]
+
+    @property
+    def task_sid(self):
+        """
+        :returns: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
+        :rtype: str
+        """
+        return self._properties["task_sid"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Flex chat channel resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the Flex chat channel was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the Flex chat channel was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    def delete(self):
+        """
+        Deletes the ChannelInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ChannelInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the ChannelInstance
+
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ChannelInstance
+
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.ChannelInstance {}>".format(context)
+
+
+class ChannelContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ChannelContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Flex chat channel resource to fetch.
+
+        :returns: twilio.rest.flex_api.v1.channel.ChannelContext
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Channels/{sid}".format(**self._solution)
+
+    def delete(self):
+        """
+        Deletes the ChannelInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ChannelInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the ChannelInstance
+
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ChannelInstance
+
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.ChannelContext {}>".format(context)
+
+
+class ChannelPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ChannelInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.channel.ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+        return ChannelInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.ChannelPage>"
 
 
 class ChannelList(ListResource):
@@ -341,277 +614,3 @@ class ChannelList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.ChannelList>"
-
-
-class ChannelPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ChannelInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.channel.ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-        return ChannelInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.ChannelPage>"
-
-
-class ChannelInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the ChannelInstance
-
-        :returns: twilio.rest.flex_api.v1.channel.ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "flex_flow_sid": payload.get("flex_flow_sid"),
-            "sid": payload.get("sid"),
-            "user_sid": payload.get("user_sid"),
-            "task_sid": payload.get("task_sid"),
-            "url": payload.get("url"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[ChannelContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ChannelContext for this ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
-        """
-        if self._context is None:
-            self._context = ChannelContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource and owns this Workflow.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def flex_flow_sid(self):
-        """
-        :returns: The SID of the Flex Flow.
-        :rtype: str
-        """
-        return self._properties["flex_flow_sid"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Channel resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def user_sid(self):
-        """
-        :returns: The SID of the chat user.
-        :rtype: str
-        """
-        return self._properties["user_sid"]
-
-    @property
-    def task_sid(self):
-        """
-        :returns: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
-        :rtype: str
-        """
-        return self._properties["task_sid"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Flex chat channel resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the Flex chat channel was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the Flex chat channel was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    def delete(self):
-        """
-        Deletes the ChannelInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ChannelInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the ChannelInstance
-
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ChannelInstance
-
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.ChannelInstance {}>".format(context)
-
-
-class ChannelContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ChannelContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Flex chat channel resource to fetch.
-
-        :returns: twilio.rest.flex_api.v1.channel.ChannelContext
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/Channels/{sid}".format(**self._solution)
-
-    def delete(self):
-        """
-        Deletes the ChannelInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ChannelInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the ChannelInstance
-
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ChannelInstance
-
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.ChannelContext {}>".format(context)

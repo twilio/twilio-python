@@ -14,383 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class AddressConfigurationList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the AddressConfigurationList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
-        """
-        super().__init__(version)
-
-        self._uri = "/Configuration/Addresses"
-
-    def create(
-        self,
-        type,
-        address,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
-    ):
-        """
-        Create the AddressConfigurationInstance
-
-        :param AddressConfigurationInstance.Type type:
-        :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
-
-        :returns: The created AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "Address": address,
-                "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
-                "AutoCreation.Type": auto_creation_type,
-                "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
-                "AutoCreation.WebhookUrl": auto_creation_webhook_url,
-                "AutoCreation.WebhookMethod": auto_creation_webhook_method,
-                "AutoCreation.WebhookFilters": serialize.map(
-                    auto_creation_webhook_filters, lambda e: e
-                ),
-                "AutoCreation.StudioFlowSid": auto_creation_studio_flow_sid,
-                "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AddressConfigurationInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        type,
-        address,
-        friendly_name=values.unset,
-        auto_creation_enabled=values.unset,
-        auto_creation_type=values.unset,
-        auto_creation_conversation_service_sid=values.unset,
-        auto_creation_webhook_url=values.unset,
-        auto_creation_webhook_method=values.unset,
-        auto_creation_webhook_filters=values.unset,
-        auto_creation_studio_flow_sid=values.unset,
-        auto_creation_studio_retry_count=values.unset,
-    ):
-        """
-        Asynchronously create the AddressConfigurationInstance
-
-        :param AddressConfigurationInstance.Type type:
-        :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
-
-        :returns: The created AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "Address": address,
-                "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
-                "AutoCreation.Type": auto_creation_type,
-                "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
-                "AutoCreation.WebhookUrl": auto_creation_webhook_url,
-                "AutoCreation.WebhookMethod": auto_creation_webhook_method,
-                "AutoCreation.WebhookFilters": serialize.map(
-                    auto_creation_webhook_filters, lambda e: e
-                ),
-                "AutoCreation.StudioFlowSid": auto_creation_studio_flow_sid,
-                "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AddressConfigurationInstance(self._version, payload)
-
-    def stream(self, type=values.unset, limit=None, page_size=None):
-        """
-        Streams AddressConfigurationInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(type=type, page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, type=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously streams AddressConfigurationInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(type=type, page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, type=values.unset, limit=None, page_size=None):
-        """
-        Lists AddressConfigurationInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
-        """
-        return list(
-            self.stream(
-                type=type,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, type=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously lists AddressConfigurationInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
-        """
-        return list(
-            await self.stream_async(
-                type=type,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of AddressConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AddressConfigurationPage(self._version, response)
-
-    async def page_async(
-        self,
-        type=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of AddressConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AddressConfigurationPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AddressConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AddressConfigurationPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AddressConfigurationInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AddressConfigurationPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a AddressConfigurationContext
-
-        :param sid: The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
-        """
-        return AddressConfigurationContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a AddressConfigurationContext
-
-        :param sid: The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
-        """
-        return AddressConfigurationContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.AddressConfigurationList>"
-
-
-class AddressConfigurationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AddressConfigurationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        """
-        return AddressConfigurationInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.AddressConfigurationPage>"
 
 
 class AddressConfigurationInstance(InstanceResource):
@@ -845,3 +474,372 @@ class AddressConfigurationContext(InstanceContext):
         return "<Twilio.Conversations.V1.AddressConfigurationContext {}>".format(
             context
         )
+
+
+class AddressConfigurationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AddressConfigurationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        """
+        return AddressConfigurationInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.AddressConfigurationPage>"
+
+
+class AddressConfigurationList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the AddressConfigurationList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
+        """
+        super().__init__(version)
+
+        self._uri = "/Configuration/Addresses"
+
+    def create(
+        self,
+        type,
+        address,
+        friendly_name=values.unset,
+        auto_creation_enabled=values.unset,
+        auto_creation_type=values.unset,
+        auto_creation_conversation_service_sid=values.unset,
+        auto_creation_webhook_url=values.unset,
+        auto_creation_webhook_method=values.unset,
+        auto_creation_webhook_filters=values.unset,
+        auto_creation_studio_flow_sid=values.unset,
+        auto_creation_studio_retry_count=values.unset,
+    ):
+        """
+        Create the AddressConfigurationInstance
+
+        :param AddressConfigurationInstance.Type type:
+        :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
+        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+
+        :returns: The created AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "Address": address,
+                "FriendlyName": friendly_name,
+                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Type": auto_creation_type,
+                "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
+                "AutoCreation.WebhookUrl": auto_creation_webhook_url,
+                "AutoCreation.WebhookMethod": auto_creation_webhook_method,
+                "AutoCreation.WebhookFilters": serialize.map(
+                    auto_creation_webhook_filters, lambda e: e
+                ),
+                "AutoCreation.StudioFlowSid": auto_creation_studio_flow_sid,
+                "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AddressConfigurationInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        type,
+        address,
+        friendly_name=values.unset,
+        auto_creation_enabled=values.unset,
+        auto_creation_type=values.unset,
+        auto_creation_conversation_service_sid=values.unset,
+        auto_creation_webhook_url=values.unset,
+        auto_creation_webhook_method=values.unset,
+        auto_creation_webhook_filters=values.unset,
+        auto_creation_studio_flow_sid=values.unset,
+        auto_creation_studio_retry_count=values.unset,
+    ):
+        """
+        Asynchronously create the AddressConfigurationInstance
+
+        :param AddressConfigurationInstance.Type type:
+        :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
+        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param AddressConfigurationInstance.AutoCreationType auto_creation_type:
+        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param AddressConfigurationInstance.Method auto_creation_webhook_method:
+        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+
+        :returns: The created AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "Address": address,
+                "FriendlyName": friendly_name,
+                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Type": auto_creation_type,
+                "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
+                "AutoCreation.WebhookUrl": auto_creation_webhook_url,
+                "AutoCreation.WebhookMethod": auto_creation_webhook_method,
+                "AutoCreation.WebhookFilters": serialize.map(
+                    auto_creation_webhook_filters, lambda e: e
+                ),
+                "AutoCreation.StudioFlowSid": auto_creation_studio_flow_sid,
+                "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AddressConfigurationInstance(self._version, payload)
+
+    def stream(self, type=values.unset, limit=None, page_size=None):
+        """
+        Streams AddressConfigurationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(type=type, page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, type=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously streams AddressConfigurationInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(type=type, page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, type=values.unset, limit=None, page_size=None):
+        """
+        Lists AddressConfigurationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
+        """
+        return list(
+            self.stream(
+                type=type,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, type=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously lists AddressConfigurationInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance]
+        """
+        return list(
+            await self.stream_async(
+                type=type,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        type=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of AddressConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AddressConfigurationPage(self._version, response)
+
+    async def page_async(
+        self,
+        type=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of AddressConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str type: Filter the address configurations by its type. This value can be one of: `whatsapp`, `sms`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AddressConfigurationPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AddressConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AddressConfigurationPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AddressConfigurationInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AddressConfigurationPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a AddressConfigurationContext
+
+        :param sid: The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
+
+        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
+        """
+        return AddressConfigurationContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AddressConfigurationContext
+
+        :param sid: The SID of the Address Configuration resource. This value can be either the `sid` or the `address` of the configuration
+
+        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationContext
+        """
+        return AddressConfigurationContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.AddressConfigurationList>"

@@ -14,375 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class ActivityList(ListResource):
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the ActivityList
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Activity resources to read.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-        self._uri = "/Workspaces/{workspace_sid}/Activities".format(**self._solution)
-
-    def create(self, friendly_name, available=values.unset):
-        """
-        Create the ActivityInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
-        :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
-
-        :returns: The created ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Available": available,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ActivityInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    async def create_async(self, friendly_name, available=values.unset):
-        """
-        Asynchronously create the ActivityInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
-        :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
-
-        :returns: The created ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Available": available,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ActivityInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def stream(
-        self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams ActivityInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            friendly_name=friendly_name,
-            available=available,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams ActivityInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            friendly_name=friendly_name,
-            available=available,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists ActivityInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
-        """
-        return list(
-            self.stream(
-                friendly_name=friendly_name,
-                available=available,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        friendly_name=values.unset,
-        available=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists ActivityInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
-        """
-        return list(
-            await self.stream_async(
-                friendly_name=friendly_name,
-                available=available,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        friendly_name=values.unset,
-        available=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of ActivityInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Available": available,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ActivityPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        friendly_name=values.unset,
-        available=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of ActivityInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Activity resources to read.
-        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Available": available,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return ActivityPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of ActivityInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return ActivityPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of ActivityInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ActivityPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a ActivityContext
-
-        :param sid: The SID of the Activity resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
-        """
-        return ActivityContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a ActivityContext
-
-        :param sid: The SID of the Activity resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
-        """
-        return ActivityContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.ActivityList>"
-
-
-class ActivityPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ActivityInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        """
-        return ActivityInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.ActivityPage>"
 
 
 class ActivityInstance(InstanceResource):
@@ -735,3 +372,365 @@ class ActivityContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.ActivityContext {}>".format(context)
+
+
+class ActivityPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ActivityInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        return ActivityInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.ActivityPage>"
+
+
+class ActivityList(ListResource):
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the ActivityList
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Activity resources to read.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/Activities".format(**self._solution)
+
+    def create(self, friendly_name, available=values.unset):
+        """
+        Create the ActivityInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+
+        :returns: The created ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Available": available,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ActivityInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    async def create_async(self, friendly_name, available=values.unset):
+        """
+        Asynchronously create the ActivityInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+
+        :returns: The created ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Available": available,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ActivityInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def stream(
+        self,
+        friendly_name=values.unset,
+        available=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams ActivityInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Activity resources to read.
+        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            friendly_name=friendly_name,
+            available=available,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        friendly_name=values.unset,
+        available=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams ActivityInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Activity resources to read.
+        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            friendly_name=friendly_name,
+            available=available,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        friendly_name=values.unset,
+        available=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists ActivityInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Activity resources to read.
+        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
+        """
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                available=available,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        friendly_name=values.unset,
+        available=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists ActivityInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Activity resources to read.
+        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance]
+        """
+        return list(
+            await self.stream_async(
+                friendly_name=friendly_name,
+                available=available,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        friendly_name=values.unset,
+        available=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of ActivityInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Activity resources to read.
+        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Available": available,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return ActivityPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        friendly_name=values.unset,
+        available=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of ActivityInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Activity resources to read.
+        :param str available: Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Available": available,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return ActivityPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of ActivityInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return ActivityPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of ActivityInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return ActivityPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a ActivityContext
+
+        :param sid: The SID of the Activity resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        """
+        return ActivityContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a ActivityContext
+
+        :param sid: The SID of the Activity resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        """
+        return ActivityContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.ActivityList>"

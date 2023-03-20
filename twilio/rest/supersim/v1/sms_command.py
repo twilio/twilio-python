@@ -14,13 +14,260 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class SmsCommandInstance(InstanceResource):
+    class Direction(object):
+        TO_SIM = "to_sim"
+        FROM_SIM = "from_sim"
+
+    class Status(object):
+        QUEUED = "queued"
+        SENT = "sent"
+        DELIVERED = "delivered"
+        RECEIVED = "received"
+        FAILED = "failed"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the SmsCommandInstance
+
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "sim_sid": payload.get("sim_sid"),
+            "payload": payload.get("payload"),
+            "status": payload.get("status"),
+            "direction": payload.get("direction"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[SmsCommandContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: SmsCommandContext for this SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        """
+        if self._context is None:
+            self._context = SmsCommandContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the SMS Command resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SMS Command resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this SMS Command was sent to or from.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def payload(self):
+        """
+        :returns: The message body of the SMS Command sent to or from the SIM. For text mode messages, this can be up to 160 characters.
+        :rtype: str
+        """
+        return self._properties["payload"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: SmsCommandInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def direction(self):
+        """
+        :returns:
+        :rtype: SmsCommandInstance.Direction
+        """
+        return self._properties["direction"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the SMS Command resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the SmsCommandInstance
+
+
+        :returns: The fetched SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SmsCommandInstance
+
+
+        :returns: The fetched SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.SmsCommandInstance {}>".format(context)
+
+
+class SmsCommandContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SmsCommandContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the SMS Command resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/SmsCommands/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the SmsCommandInstance
+
+
+        :returns: The fetched SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SmsCommandInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SmsCommandInstance
+
+
+        :returns: The fetched SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SmsCommandInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.SmsCommandContext {}>".format(context)
+
+
+class SmsCommandPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SmsCommandInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        return SmsCommandInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.SmsCommandPage>"
 
 
 class SmsCommandList(ListResource):
@@ -371,251 +618,3 @@ class SmsCommandList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.SmsCommandList>"
-
-
-class SmsCommandPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SmsCommandInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-        return SmsCommandInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.SmsCommandPage>"
-
-
-class SmsCommandInstance(InstanceResource):
-    class Direction(object):
-        TO_SIM = "to_sim"
-        FROM_SIM = "from_sim"
-
-    class Status(object):
-        QUEUED = "queued"
-        SENT = "sent"
-        DELIVERED = "delivered"
-        RECEIVED = "received"
-        FAILED = "failed"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SmsCommandInstance
-
-        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "sim_sid": payload.get("sim_sid"),
-            "payload": payload.get("payload"),
-            "status": payload.get("status"),
-            "direction": payload.get("direction"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[SmsCommandContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: SmsCommandContext for this SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
-        """
-        if self._context is None:
-            self._context = SmsCommandContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the SMS Command resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SMS Command resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) that this SMS Command was sent to or from.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def payload(self):
-        """
-        :returns: The message body of the SMS Command sent to or from the SIM. For text mode messages, this can be up to 160 characters.
-        :rtype: str
-        """
-        return self._properties["payload"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: SmsCommandInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def direction(self):
-        """
-        :returns:
-        :rtype: SmsCommandInstance.Direction
-        """
-        return self._properties["direction"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the SMS Command resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the SmsCommandInstance
-
-
-        :returns: The fetched SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SmsCommandInstance
-
-
-        :returns: The fetched SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SmsCommandInstance {}>".format(context)
-
-
-class SmsCommandContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SmsCommandContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the SMS Command resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandContext
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/SmsCommands/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the SmsCommandInstance
-
-
-        :returns: The fetched SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SmsCommandInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SmsCommandInstance
-
-
-        :returns: The fetched SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SmsCommandInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SmsCommandContext {}>".format(context)

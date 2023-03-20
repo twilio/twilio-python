@@ -14,60 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class PlaybackGrantList(ListResource):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the PlaybackGrantList
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string generated to identify the PlayerStreamer resource associated with this PlaybackGrant
-
-        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
-        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-
-    def get(self):
-        """
-        Constructs a PlaybackGrantContext
-
-
-        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
-        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
-        """
-        return PlaybackGrantContext(self._version, sid=self._solution["sid"])
-
-    def __call__(self):
-        """
-        Constructs a PlaybackGrantContext
-
-
-        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
-        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
-        """
-        return PlaybackGrantContext(self._version, sid=self._solution["sid"])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Media.V1.PlaybackGrantList>"
 
 
 class PlaybackGrantInstance(InstanceResource):
@@ -326,3 +277,51 @@ class PlaybackGrantContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Media.V1.PlaybackGrantContext {}>".format(context)
+
+
+class PlaybackGrantList(ListResource):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the PlaybackGrantList
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string generated to identify the PlayerStreamer resource associated with this PlaybackGrant
+
+        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+
+    def get(self):
+        """
+        Constructs a PlaybackGrantContext
+
+
+        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
+        """
+        return PlaybackGrantContext(self._version, sid=self._solution["sid"])
+
+    def __call__(self):
+        """
+        Constructs a PlaybackGrantContext
+
+
+        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
+        """
+        return PlaybackGrantContext(self._version, sid=self._solution["sid"])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Media.V1.PlaybackGrantList>"

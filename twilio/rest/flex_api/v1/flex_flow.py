@@ -14,418 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class FlexFlowList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the FlexFlowList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
-        """
-        super().__init__(version)
-
-        self._uri = "/FlexFlows"
-
-    def create(
-        self,
-        friendly_name,
-        chat_service_sid,
-        channel_type,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
-    ):
-        """
-        Create the FlexFlowInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
-
-        :returns: The created FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "ChatServiceSid": chat_service_sid,
-                "ChannelType": channel_type,
-                "ContactIdentity": contact_identity,
-                "Enabled": enabled,
-                "IntegrationType": integration_type,
-                "Integration.FlowSid": integration_flow_sid,
-                "Integration.Url": integration_url,
-                "Integration.WorkspaceSid": integration_workspace_sid,
-                "Integration.WorkflowSid": integration_workflow_sid,
-                "Integration.Channel": integration_channel,
-                "Integration.Timeout": integration_timeout,
-                "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": integration_creation_on_message,
-                "LongLived": long_lived,
-                "JanitorEnabled": janitor_enabled,
-                "Integration.RetryCount": integration_retry_count,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return FlexFlowInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        friendly_name,
-        chat_service_sid,
-        channel_type,
-        contact_identity=values.unset,
-        enabled=values.unset,
-        integration_type=values.unset,
-        integration_flow_sid=values.unset,
-        integration_url=values.unset,
-        integration_workspace_sid=values.unset,
-        integration_workflow_sid=values.unset,
-        integration_channel=values.unset,
-        integration_timeout=values.unset,
-        integration_priority=values.unset,
-        integration_creation_on_message=values.unset,
-        long_lived=values.unset,
-        janitor_enabled=values.unset,
-        integration_retry_count=values.unset,
-    ):
-        """
-        Asynchronously create the FlexFlowInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-        :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowInstance.ChannelType channel_type:
-        :param str contact_identity: The channel contact's Identity.
-        :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowInstance.IntegrationType integration_type:
-        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
-
-        :returns: The created FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "ChatServiceSid": chat_service_sid,
-                "ChannelType": channel_type,
-                "ContactIdentity": contact_identity,
-                "Enabled": enabled,
-                "IntegrationType": integration_type,
-                "Integration.FlowSid": integration_flow_sid,
-                "Integration.Url": integration_url,
-                "Integration.WorkspaceSid": integration_workspace_sid,
-                "Integration.WorkflowSid": integration_workflow_sid,
-                "Integration.Channel": integration_channel,
-                "Integration.Timeout": integration_timeout,
-                "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": integration_creation_on_message,
-                "LongLived": long_lived,
-                "JanitorEnabled": janitor_enabled,
-                "Integration.RetryCount": integration_retry_count,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return FlexFlowInstance(self._version, payload)
-
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Streams FlexFlowInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
-    ):
-        """
-        Asynchronously streams FlexFlowInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            friendly_name=friendly_name, page_size=limits["page_size"]
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Lists FlexFlowInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
-        """
-        return list(
-            self.stream(
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously lists FlexFlowInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
-        """
-        return list(
-            await self.stream_async(
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of FlexFlowInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return FlexFlowPage(self._version, response)
-
-    async def page_async(
-        self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of FlexFlowInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return FlexFlowPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of FlexFlowInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return FlexFlowPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of FlexFlowInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return FlexFlowPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a FlexFlowContext
-
-        :param sid: The SID of the Flex Flow resource to update.
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
-        """
-        return FlexFlowContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a FlexFlowContext
-
-        :param sid: The SID of the Flex Flow resource to update.
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
-        """
-        return FlexFlowContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FlexApi.V1.FlexFlowList>"
-
-
-class FlexFlowPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FlexFlowInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        """
-        return FlexFlowInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.FlexFlowPage>"
 
 
 class FlexFlowInstance(InstanceResource):
@@ -1022,3 +616,408 @@ class FlexFlowContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.FlexFlowContext {}>".format(context)
+
+
+class FlexFlowPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FlexFlowInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        """
+        return FlexFlowInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.FlexFlowPage>"
+
+
+class FlexFlowList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the FlexFlowList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
+        """
+        super().__init__(version)
+
+        self._uri = "/FlexFlows"
+
+    def create(
+        self,
+        friendly_name,
+        chat_service_sid,
+        channel_type,
+        contact_identity=values.unset,
+        enabled=values.unset,
+        integration_type=values.unset,
+        integration_flow_sid=values.unset,
+        integration_url=values.unset,
+        integration_workspace_sid=values.unset,
+        integration_workflow_sid=values.unset,
+        integration_channel=values.unset,
+        integration_timeout=values.unset,
+        integration_priority=values.unset,
+        integration_creation_on_message=values.unset,
+        long_lived=values.unset,
+        janitor_enabled=values.unset,
+        integration_retry_count=values.unset,
+    ):
+        """
+        Create the FlexFlowInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param str chat_service_sid: The SID of the chat service.
+        :param FlexFlowInstance.ChannelType channel_type:
+        :param str contact_identity: The channel contact's Identity.
+        :param bool enabled: Whether the new Flex Flow is enabled.
+        :param FlexFlowInstance.IntegrationType integration_type:
+        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: The created FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": enabled,
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": integration_creation_on_message,
+                "LongLived": long_lived,
+                "JanitorEnabled": janitor_enabled,
+                "Integration.RetryCount": integration_retry_count,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FlexFlowInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name,
+        chat_service_sid,
+        channel_type,
+        contact_identity=values.unset,
+        enabled=values.unset,
+        integration_type=values.unset,
+        integration_flow_sid=values.unset,
+        integration_url=values.unset,
+        integration_workspace_sid=values.unset,
+        integration_workflow_sid=values.unset,
+        integration_channel=values.unset,
+        integration_timeout=values.unset,
+        integration_priority=values.unset,
+        integration_creation_on_message=values.unset,
+        long_lived=values.unset,
+        janitor_enabled=values.unset,
+        integration_retry_count=values.unset,
+    ):
+        """
+        Asynchronously create the FlexFlowInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param str chat_service_sid: The SID of the chat service.
+        :param FlexFlowInstance.ChannelType channel_type:
+        :param str contact_identity: The channel contact's Identity.
+        :param bool enabled: Whether the new Flex Flow is enabled.
+        :param FlexFlowInstance.IntegrationType integration_type:
+        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: The created FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": enabled,
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": integration_creation_on_message,
+                "LongLived": long_lived,
+                "JanitorEnabled": janitor_enabled,
+                "Integration.RetryCount": integration_retry_count,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FlexFlowInstance(self._version, payload)
+
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Streams FlexFlowInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ):
+        """
+        Asynchronously streams FlexFlowInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            friendly_name=friendly_name, page_size=limits["page_size"]
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Lists FlexFlowInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
+        """
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously lists FlexFlowInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance]
+        """
+        return list(
+            await self.stream_async(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of FlexFlowInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return FlexFlowPage(self._version, response)
+
+    async def page_async(
+        self,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of FlexFlowInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return FlexFlowPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of FlexFlowInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return FlexFlowPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of FlexFlowInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return FlexFlowPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a FlexFlowContext
+
+        :param sid: The SID of the Flex Flow resource to update.
+
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        """
+        return FlexFlowContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FlexFlowContext
+
+        :param sid: The SID of the Flex Flow resource to update.
+
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        """
+        return FlexFlowContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FlexApi.V1.FlexFlowList>"

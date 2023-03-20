@@ -21,6 +21,79 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class EventInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str, call_sid: str):
+        """
+        Initialize the EventInstance
+
+        :returns: twilio.rest.api.v2010.account.call.event.EventInstance
+        :rtype: twilio.rest.api.v2010.account.call.event.EventInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "request": payload.get("request"),
+            "response": payload.get("response"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+            "call_sid": call_sid,
+        }
+
+    @property
+    def request(self):
+        """
+        :returns: Contains a dictionary representing the request of the call.
+        :rtype: dict
+        """
+        return self._properties["request"]
+
+    @property
+    def response(self):
+        """
+        :returns: Contains a dictionary representing the call response, including a list of the call events.
+        :rtype: dict
+        """
+        return self._properties["response"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.EventInstance {}>".format(context)
+
+
+class EventPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EventInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.call.event.EventInstance
+        :rtype: twilio.rest.api.v2010.account.call.event.EventInstance
+        """
+        return EventInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.EventPage>"
+
+
 class EventList(ListResource):
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
@@ -220,76 +293,3 @@ class EventList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.EventList>"
-
-
-class EventPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EventInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.call.event.EventInstance
-        :rtype: twilio.rest.api.v2010.account.call.event.EventInstance
-        """
-        return EventInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.EventPage>"
-
-
-class EventInstance(InstanceResource):
-    def __init__(self, version, payload, account_sid: str, call_sid: str):
-        """
-        Initialize the EventInstance
-
-        :returns: twilio.rest.api.v2010.account.call.event.EventInstance
-        :rtype: twilio.rest.api.v2010.account.call.event.EventInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "request": payload.get("request"),
-            "response": payload.get("response"),
-        }
-
-        self._solution = {
-            "account_sid": account_sid,
-            "call_sid": call_sid,
-        }
-
-    @property
-    def request(self):
-        """
-        :returns: Contains a dictionary representing the request of the call.
-        :rtype: dict
-        """
-        return self._properties["request"]
-
-    @property
-    def response(self):
-        """
-        :returns: Contains a dictionary representing the call response, including a list of the call events.
-        :rtype: dict
-        """
-        return self._properties["response"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.EventInstance {}>".format(context)

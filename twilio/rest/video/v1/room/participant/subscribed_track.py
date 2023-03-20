@@ -14,274 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class SubscribedTrackList(ListResource):
-    def __init__(self, version: Version, room_sid: str, participant_sid: str):
-        """
-        Initialize the SubscribedTrackList
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource with the Track resources to read.
-        :param participant_sid: The SID of the participant that subscribes to the Track resources to read.
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "room_sid": room_sid,
-            "participant_sid": participant_sid,
-        }
-        self._uri = (
-            "/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks".format(
-                **self._solution
-            )
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams SubscribedTrackInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams SubscribedTrackInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists SubscribedTrackInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists SubscribedTrackInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of SubscribedTrackInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SubscribedTrackPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of SubscribedTrackInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return SubscribedTrackPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of SubscribedTrackInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return SubscribedTrackPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of SubscribedTrackInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SubscribedTrackPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a SubscribedTrackContext
-
-        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        """
-        return SubscribedTrackContext(
-            self._version,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a SubscribedTrackContext
-
-        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        """
-        return SubscribedTrackContext(
-            self._version,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.SubscribedTrackList>"
-
-
-class SubscribedTrackPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SubscribedTrackInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-        return SubscribedTrackInstance(
-            self._version,
-            payload,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.SubscribedTrackPage>"
 
 
 class SubscribedTrackInstance(InstanceResource):
@@ -533,3 +271,264 @@ class SubscribedTrackContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.SubscribedTrackContext {}>".format(context)
+
+
+class SubscribedTrackPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SubscribedTrackInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+        return SubscribedTrackInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.SubscribedTrackPage>"
+
+
+class SubscribedTrackList(ListResource):
+    def __init__(self, version: Version, room_sid: str, participant_sid: str):
+        """
+        Initialize the SubscribedTrackList
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room resource with the Track resources to read.
+        :param participant_sid: The SID of the participant that subscribes to the Track resources to read.
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackList
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "room_sid": room_sid,
+            "participant_sid": participant_sid,
+        }
+        self._uri = (
+            "/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks".format(
+                **self._solution
+            )
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams SubscribedTrackInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams SubscribedTrackInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists SubscribedTrackInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists SubscribedTrackInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of SubscribedTrackInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return SubscribedTrackPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of SubscribedTrackInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return SubscribedTrackPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of SubscribedTrackInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return SubscribedTrackPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of SubscribedTrackInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return SubscribedTrackPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a SubscribedTrackContext
+
+        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        """
+        return SubscribedTrackContext(
+            self._version,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a SubscribedTrackContext
+
+        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        """
+        return SubscribedTrackContext(
+            self._version,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.SubscribedTrackList>"

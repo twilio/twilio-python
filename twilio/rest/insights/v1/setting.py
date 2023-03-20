@@ -21,48 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class SettingList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SettingList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.insights.v1.setting.SettingList
-        :rtype: twilio.rest.insights.v1.setting.SettingList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a SettingContext
-
-
-        :returns: twilio.rest.insights.v1.setting.SettingContext
-        :rtype: twilio.rest.insights.v1.setting.SettingContext
-        """
-        return SettingContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a SettingContext
-
-
-        :returns: twilio.rest.insights.v1.setting.SettingContext
-        :rtype: twilio.rest.insights.v1.setting.SettingContext
-        """
-        return SettingContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Insights.V1.SettingList>"
-
-
 class SettingInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -346,3 +304,45 @@ class SettingContext(InstanceContext):
         """
 
         return "<Twilio.Insights.V1.SettingContext>"
+
+
+class SettingList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SettingList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.insights.v1.setting.SettingList
+        :rtype: twilio.rest.insights.v1.setting.SettingList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a SettingContext
+
+
+        :returns: twilio.rest.insights.v1.setting.SettingContext
+        :rtype: twilio.rest.insights.v1.setting.SettingContext
+        """
+        return SettingContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a SettingContext
+
+
+        :returns: twilio.rest.insights.v1.setting.SettingContext
+        :rtype: twilio.rest.insights.v1.setting.SettingContext
+        """
+        return SettingContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Insights.V1.SettingList>"

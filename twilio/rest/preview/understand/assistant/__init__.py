@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -34,335 +32,6 @@ from twilio.rest.preview.understand.assistant.model_build import ModelBuildList
 from twilio.rest.preview.understand.assistant.query import QueryList
 from twilio.rest.preview.understand.assistant.style_sheet import StyleSheetList
 from twilio.rest.preview.understand.assistant.task import TaskList
-
-
-class AssistantList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the AssistantList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantList
-        :rtype: twilio.rest.preview.understand.assistant.AssistantList
-        """
-        super().__init__(version)
-
-        self._uri = "/Assistants"
-
-    def create(
-        self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
-    ):
-        """
-        Create the AssistantInstance
-
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
-
-        :returns: The created AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
-                "UniqueName": unique_name,
-                "CallbackUrl": callback_url,
-                "CallbackEvents": callback_events,
-                "FallbackActions": serialize.object(fallback_actions),
-                "InitiationActions": serialize.object(initiation_actions),
-                "StyleSheet": serialize.object(style_sheet),
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AssistantInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        friendly_name=values.unset,
-        log_queries=values.unset,
-        unique_name=values.unset,
-        callback_url=values.unset,
-        callback_events=values.unset,
-        fallback_actions=values.unset,
-        initiation_actions=values.unset,
-        style_sheet=values.unset,
-    ):
-        """
-        Asynchronously create the AssistantInstance
-
-        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param str callback_url: A user-provided URL to send event callbacks to.
-        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-        :param object style_sheet: The JSON object that holds the style sheet for the assistant
-
-        :returns: The created AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
-                "UniqueName": unique_name,
-                "CallbackUrl": callback_url,
-                "CallbackEvents": callback_events,
-                "FallbackActions": serialize.object(fallback_actions),
-                "InitiationActions": serialize.object(initiation_actions),
-                "StyleSheet": serialize.object(style_sheet),
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AssistantInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams AssistantInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams AssistantInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists AssistantInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists AssistantInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AssistantPage(self._version, response)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AssistantPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AssistantPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AssistantInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AssistantPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a AssistantContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantContext
-        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
-        """
-        return AssistantContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a AssistantContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantContext
-        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
-        """
-        return AssistantContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.AssistantList>"
-
-
-class AssistantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssistantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
-        """
-        return AssistantInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Understand.AssistantPage>"
 
 
 class AssistantInstance(InstanceResource):
@@ -1031,3 +700,332 @@ class AssistantContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.AssistantContext {}>".format(context)
+
+
+class AssistantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssistantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        return AssistantInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.AssistantPage>"
+
+
+class AssistantList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the AssistantList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantList
+        :rtype: twilio.rest.preview.understand.assistant.AssistantList
+        """
+        super().__init__(version)
+
+        self._uri = "/Assistants"
+
+    def create(
+        self,
+        friendly_name=values.unset,
+        log_queries=values.unset,
+        unique_name=values.unset,
+        callback_url=values.unset,
+        callback_events=values.unset,
+        fallback_actions=values.unset,
+        initiation_actions=values.unset,
+        style_sheet=values.unset,
+    ):
+        """
+        Create the AssistantInstance
+
+        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param str callback_url: A user-provided URL to send event callbacks to.
+        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+
+        :returns: The created AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "LogQueries": log_queries,
+                "UniqueName": unique_name,
+                "CallbackUrl": callback_url,
+                "CallbackEvents": callback_events,
+                "FallbackActions": serialize.object(fallback_actions),
+                "InitiationActions": serialize.object(initiation_actions),
+                "StyleSheet": serialize.object(style_sheet),
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AssistantInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name=values.unset,
+        log_queries=values.unset,
+        unique_name=values.unset,
+        callback_url=values.unset,
+        callback_events=values.unset,
+        fallback_actions=values.unset,
+        initiation_actions=values.unset,
+        style_sheet=values.unset,
+    ):
+        """
+        Asynchronously create the AssistantInstance
+
+        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param str callback_url: A user-provided URL to send event callbacks to.
+        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param object style_sheet: The JSON object that holds the style sheet for the assistant
+
+        :returns: The created AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "LogQueries": log_queries,
+                "UniqueName": unique_name,
+                "CallbackUrl": callback_url,
+                "CallbackEvents": callback_events,
+                "FallbackActions": serialize.object(fallback_actions),
+                "InitiationActions": serialize.object(initiation_actions),
+                "StyleSheet": serialize.object(style_sheet),
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AssistantInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams AssistantInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams AssistantInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists AssistantInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists AssistantInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.understand.assistant.AssistantInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AssistantPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AssistantPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AssistantPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AssistantInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AssistantPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a AssistantContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantContext
+        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
+        """
+        return AssistantContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssistantContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantContext
+        :rtype: twilio.rest.preview.understand.assistant.AssistantContext
+        """
+        return AssistantContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.AssistantList>"

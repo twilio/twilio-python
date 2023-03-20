@@ -14,323 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class OutgoingCallerIdList(ListResource):
-    def __init__(self, version: Version, account_sid: str):
-        """
-        Initialize the OutgoingCallerIdList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read.
-
-        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/OutgoingCallerIds.json".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams OutgoingCallerIdInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            phone_number=phone_number,
-            friendly_name=friendly_name,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams OutgoingCallerIdInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            phone_number=phone_number,
-            friendly_name=friendly_name,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists OutgoingCallerIdInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
-        """
-        return list(
-            self.stream(
-                phone_number=phone_number,
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists OutgoingCallerIdInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
-        """
-        return list(
-            await self.stream_async(
-                phone_number=phone_number,
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of OutgoingCallerIdInstance records from the API.
-        Request is executed immediately
-
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
-        """
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return OutgoingCallerIdPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        phone_number=values.unset,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of OutgoingCallerIdInstance records from the API.
-        Request is executed immediately
-
-        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
-        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
-        """
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return OutgoingCallerIdPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of OutgoingCallerIdInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return OutgoingCallerIdPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of OutgoingCallerIdInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return OutgoingCallerIdPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a OutgoingCallerIdContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
-
-        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
-        """
-        return OutgoingCallerIdContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a OutgoingCallerIdContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
-
-        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
-        """
-        return OutgoingCallerIdContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.OutgoingCallerIdList>"
-
-
-class OutgoingCallerIdPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of OutgoingCallerIdInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        """
-        return OutgoingCallerIdInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.OutgoingCallerIdPage>"
 
 
 class OutgoingCallerIdInstance(InstanceResource):
@@ -665,3 +354,313 @@ class OutgoingCallerIdContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.OutgoingCallerIdContext {}>".format(context)
+
+
+class OutgoingCallerIdPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of OutgoingCallerIdInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        """
+        return OutgoingCallerIdInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.OutgoingCallerIdPage>"
+
+
+class OutgoingCallerIdList(ListResource):
+    def __init__(self, version: Version, account_sid: str):
+        """
+        Initialize the OutgoingCallerIdList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read.
+
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/OutgoingCallerIds.json".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
+        phone_number=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams OutgoingCallerIdInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            phone_number=phone_number,
+            friendly_name=friendly_name,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        phone_number=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams OutgoingCallerIdInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            phone_number=phone_number,
+            friendly_name=friendly_name,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        phone_number=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists OutgoingCallerIdInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
+        """
+        return list(
+            self.stream(
+                phone_number=phone_number,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        phone_number=values.unset,
+        friendly_name=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists OutgoingCallerIdInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
+        """
+        return list(
+            await self.stream_async(
+                phone_number=phone_number,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        phone_number=values.unset,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of OutgoingCallerIdInstance records from the API.
+        Request is executed immediately
+
+        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
+        """
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return OutgoingCallerIdPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        phone_number=values.unset,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of OutgoingCallerIdInstance records from the API.
+        Request is executed immediately
+
+        :param str phone_number: The phone number of the OutgoingCallerId resources to read.
+        :param str friendly_name: The string that identifies the OutgoingCallerId resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
+        """
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return OutgoingCallerIdPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of OutgoingCallerIdInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return OutgoingCallerIdPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of OutgoingCallerIdInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return OutgoingCallerIdPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a OutgoingCallerIdContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
+
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        """
+        return OutgoingCallerIdContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a OutgoingCallerIdContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
+
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        """
+        return OutgoingCallerIdContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.OutgoingCallerIdList>"

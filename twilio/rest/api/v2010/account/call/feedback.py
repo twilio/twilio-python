@@ -14,71 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class FeedbackList(ListResource):
-    def __init__(self, version: Version, account_sid: str, call_sid: str):
-        """
-        Initialize the FeedbackList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-        :param call_sid: The call sid that uniquely identifies the call
-
-        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "call_sid": call_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a FeedbackContext
-
-
-        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
-        """
-        return FeedbackContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a FeedbackContext
-
-
-        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
-        """
-        return FeedbackContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.FeedbackList>"
 
 
 class FeedbackInstance(InstanceResource):
@@ -376,3 +316,61 @@ class FeedbackContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.FeedbackContext {}>".format(context)
+
+
+class FeedbackList(ListResource):
+    def __init__(self, version: Version, account_sid: str, call_sid: str):
+        """
+        Initialize the FeedbackList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+        :param call_sid: The call sid that uniquely identifies the call
+
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+            "call_sid": call_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a FeedbackContext
+
+
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        """
+        return FeedbackContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a FeedbackContext
+
+
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        """
+        return FeedbackContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.FeedbackList>"

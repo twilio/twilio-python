@@ -14,336 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class CredentialList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the CredentialList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.notify.v1.credential.CredentialList
-        :rtype: twilio.rest.notify.v1.credential.CredentialList
-        """
-        super().__init__(version)
-
-        self._uri = "/Credentials"
-
-    def create(
-        self,
-        type,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
-    ):
-        """
-        Create the CredentialInstance
-
-        :param CredentialInstance.PushService type:
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
-        :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
-
-        :returns: The created CredentialInstance
-        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "FriendlyName": friendly_name,
-                "Certificate": certificate,
-                "PrivateKey": private_key,
-                "Sandbox": sandbox,
-                "ApiKey": api_key,
-                "Secret": secret,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return CredentialInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        type,
-        friendly_name=values.unset,
-        certificate=values.unset,
-        private_key=values.unset,
-        sandbox=values.unset,
-        api_key=values.unset,
-        secret=values.unset,
-    ):
-        """
-        Asynchronously create the CredentialInstance
-
-        :param CredentialInstance.PushService type:
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
-        :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
-        :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
-
-        :returns: The created CredentialInstance
-        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
-        """
-        data = values.of(
-            {
-                "Type": type,
-                "FriendlyName": friendly_name,
-                "Certificate": certificate,
-                "PrivateKey": private_key,
-                "Sandbox": sandbox,
-                "ApiKey": api_key,
-                "Secret": secret,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return CredentialInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams CredentialInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams CredentialInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists CredentialInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists CredentialInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of CredentialInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of CredentialInstance
-        :rtype: twilio.rest.notify.v1.credential.CredentialPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CredentialPage(self._version, response)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of CredentialInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of CredentialInstance
-        :rtype: twilio.rest.notify.v1.credential.CredentialPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return CredentialPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of CredentialInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of CredentialInstance
-        :rtype: twilio.rest.notify.v1.credential.CredentialPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return CredentialPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of CredentialInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of CredentialInstance
-        :rtype: twilio.rest.notify.v1.credential.CredentialPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CredentialPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a CredentialContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Credential resource to update.
-
-        :returns: twilio.rest.notify.v1.credential.CredentialContext
-        :rtype: twilio.rest.notify.v1.credential.CredentialContext
-        """
-        return CredentialContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a CredentialContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Credential resource to update.
-
-        :returns: twilio.rest.notify.v1.credential.CredentialContext
-        :rtype: twilio.rest.notify.v1.credential.CredentialContext
-        """
-        return CredentialContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Notify.V1.CredentialList>"
-
-
-class CredentialPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CredentialInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.notify.v1.credential.CredentialInstance
-        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
-        """
-        return CredentialInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Notify.V1.CredentialPage>"
 
 
 class CredentialInstance(InstanceResource):
@@ -746,3 +422,326 @@ class CredentialContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Notify.V1.CredentialContext {}>".format(context)
+
+
+class CredentialPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.notify.v1.credential.CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
+        """
+        return CredentialInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Notify.V1.CredentialPage>"
+
+
+class CredentialList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the CredentialList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.notify.v1.credential.CredentialList
+        :rtype: twilio.rest.notify.v1.credential.CredentialList
+        """
+        super().__init__(version)
+
+        self._uri = "/Credentials"
+
+    def create(
+        self,
+        type,
+        friendly_name=values.unset,
+        certificate=values.unset,
+        private_key=values.unset,
+        sandbox=values.unset,
+        api_key=values.unset,
+        secret=values.unset,
+    ):
+        """
+        Create the CredentialInstance
+
+        :param CredentialInstance.PushService type:
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
+        :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+
+        :returns: The created CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "FriendlyName": friendly_name,
+                "Certificate": certificate,
+                "PrivateKey": private_key,
+                "Sandbox": sandbox,
+                "ApiKey": api_key,
+                "Secret": secret,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CredentialInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        type,
+        friendly_name=values.unset,
+        certificate=values.unset,
+        private_key=values.unset,
+        sandbox=values.unset,
+        api_key=values.unset,
+        secret=values.unset,
+    ):
+        """
+        Asynchronously create the CredentialInstance
+
+        :param CredentialInstance.PushService type:
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
+        :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+
+        :returns: The created CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
+        """
+        data = values.of(
+            {
+                "Type": type,
+                "FriendlyName": friendly_name,
+                "Certificate": certificate,
+                "PrivateKey": private_key,
+                "Sandbox": sandbox,
+                "ApiKey": api_key,
+                "Secret": secret,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CredentialInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams CredentialInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams CredentialInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists CredentialInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists CredentialInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.notify.v1.credential.CredentialInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of CredentialInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return CredentialPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of CredentialInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return CredentialPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of CredentialInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return CredentialPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of CredentialInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return CredentialPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a CredentialContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Credential resource to update.
+
+        :returns: twilio.rest.notify.v1.credential.CredentialContext
+        :rtype: twilio.rest.notify.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Credential resource to update.
+
+        :returns: twilio.rest.notify.v1.credential.CredentialContext
+        :rtype: twilio.rest.notify.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Notify.V1.CredentialList>"
