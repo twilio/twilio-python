@@ -25,25 +25,18 @@ class Marketplace(Version):
 
         :param domain: The Twilio.preview domain
         """
-        super().__init__(domain)
-        self.version = "marketplace"
+        super().__init__(domain, "marketplace")
         self._available_add_ons = None
         self._installed_add_ons = None
 
     @property
     def available_add_ons(self) -> AvailableAddOnList:
-        """
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
-        """
         if self._available_add_ons is None:
             self._available_add_ons = AvailableAddOnList(self)
         return self._available_add_ons
 
     @property
     def installed_add_ons(self) -> InstalledAddOnList:
-        """
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
-        """
         if self._installed_add_ons is None:
             self._installed_add_ons = InstalledAddOnList(self)
         return self._installed_add_ons
@@ -52,6 +45,5 @@ class Marketplace(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Marketplace>"

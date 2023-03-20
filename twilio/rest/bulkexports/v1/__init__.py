@@ -25,25 +25,18 @@ class V1(Version):
 
         :param domain: The Twilio.bulkexports domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._exports = None
         self._export_configuration = None
 
     @property
     def exports(self) -> ExportList:
-        """
-        :rtype: twilio.rest.bulkexports.v1.export.ExportList
-        """
         if self._exports is None:
             self._exports = ExportList(self)
         return self._exports
 
     @property
     def export_configuration(self) -> ExportConfigurationList:
-        """
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
-        """
         if self._export_configuration is None:
             self._export_configuration = ExportConfigurationList(self)
         return self._export_configuration
@@ -52,6 +45,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Bulkexports.V1>"

@@ -252,21 +252,6 @@ class InstalledAddOnExtensionList(ListResource):
 
 
 class InstalledAddOnExtensionPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the InstalledAddOnExtensionPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of InstalledAddOnExtensionInstance
@@ -282,12 +267,11 @@ class InstalledAddOnExtensionPage(Page):
             installed_add_on_sid=self._solution["installed_add_on_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionPage>"
 

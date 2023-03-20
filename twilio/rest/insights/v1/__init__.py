@@ -28,8 +28,7 @@ class V1(Version):
 
         :param domain: The Twilio.insights domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._calls = None
         self._call_summaries = None
         self._conferences = None
@@ -38,45 +37,30 @@ class V1(Version):
 
     @property
     def calls(self) -> CallList:
-        """
-        :rtype: twilio.rest.insights.v1.call.CallList
-        """
         if self._calls is None:
             self._calls = CallList(self)
         return self._calls
 
     @property
     def call_summaries(self) -> CallSummariesList:
-        """
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesList
-        """
         if self._call_summaries is None:
             self._call_summaries = CallSummariesList(self)
         return self._call_summaries
 
     @property
     def conferences(self) -> ConferenceList:
-        """
-        :rtype: twilio.rest.insights.v1.conference.ConferenceList
-        """
         if self._conferences is None:
             self._conferences = ConferenceList(self)
         return self._conferences
 
     @property
     def rooms(self) -> RoomList:
-        """
-        :rtype: twilio.rest.insights.v1.room.RoomList
-        """
         if self._rooms is None:
             self._rooms = RoomList(self)
         return self._rooms
 
     @property
     def settings(self) -> SettingList:
-        """
-        :rtype: twilio.rest.insights.v1.setting.SettingList
-        """
         if self._settings is None:
             self._settings = SettingList(self)
         return self._settings
@@ -85,6 +69,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1>"

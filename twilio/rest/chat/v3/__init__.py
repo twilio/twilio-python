@@ -24,15 +24,11 @@ class V3(Version):
 
         :param domain: The Twilio.chat domain
         """
-        super().__init__(domain)
-        self.version = "v3"
+        super().__init__(domain, "v3")
         self._channels = None
 
     @property
     def channels(self) -> ChannelList:
-        """
-        :rtype: twilio.rest.chat.v3.channel.ChannelList
-        """
         if self._channels is None:
             self._channels = ChannelList(self)
         return self._channels
@@ -41,6 +37,5 @@ class V3(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Chat.V3>"

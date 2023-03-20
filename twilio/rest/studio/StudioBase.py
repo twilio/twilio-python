@@ -20,37 +20,32 @@ class StudioBase(Domain):
         Initialize the Studio Domain
 
         :returns: Domain for Studio
-        :rtype: twilio.rest.studio.Studio
         """
-        super().__init__(twilio)
-        self.base_url = "https://studio.twilio.com"
+        super().__init__(twilio, "https://studio.twilio.com")
         self._v1 = None
         self._v2 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of Studio
-        :rtype: twilio.rest.studio.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
     @property
-    def v2(self):
+    def v2(self) -> V2:
         """
         :returns: Versions v2 of Studio
-        :rtype: twilio.rest.studio.v2.V2
         """
         if self._v2 is None:
             self._v2 = V2(self)
         return self._v2
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio>"

@@ -337,21 +337,6 @@ class SinkList(ListResource):
 
 
 class SinkPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SinkPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.events.v1.sink.SinkPage
-        :rtype: twilio.rest.events.v1.sink.SinkPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of SinkInstance
@@ -363,12 +348,11 @@ class SinkPage(Page):
         """
         return SinkInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Events.V1.SinkPage>"
 

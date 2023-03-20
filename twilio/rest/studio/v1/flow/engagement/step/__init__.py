@@ -258,21 +258,6 @@ class StepList(ListResource):
 
 
 class StepPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the StepPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of StepInstance
@@ -289,12 +274,11 @@ class StepPage(Page):
             engagement_sid=self._solution["engagement_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V1.StepPage>"
 

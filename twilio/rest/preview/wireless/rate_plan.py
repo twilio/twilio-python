@@ -351,21 +351,6 @@ class RatePlanList(ListResource):
 
 
 class RatePlanPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the RatePlanPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanPage
-        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of RatePlanInstance
@@ -377,12 +362,11 @@ class RatePlanPage(Page):
         """
         return RatePlanInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Wireless.RatePlanPage>"
 

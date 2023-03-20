@@ -361,21 +361,6 @@ class MediaProcessorList(ListResource):
 
 
 class MediaProcessorPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the MediaProcessorPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.media.v1.media_processor.MediaProcessorPage
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of MediaProcessorInstance
@@ -387,12 +372,11 @@ class MediaProcessorPage(Page):
         """
         return MediaProcessorInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Media.V1.MediaProcessorPage>"
 

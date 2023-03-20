@@ -20,37 +20,32 @@ class PricingBase(Domain):
         Initialize the Pricing Domain
 
         :returns: Domain for Pricing
-        :rtype: twilio.rest.pricing.Pricing
         """
-        super().__init__(twilio)
-        self.base_url = "https://pricing.twilio.com"
+        super().__init__(twilio, "https://pricing.twilio.com")
         self._v1 = None
         self._v2 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of Pricing
-        :rtype: twilio.rest.pricing.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
     @property
-    def v2(self):
+    def v2(self) -> V2:
         """
         :returns: Versions v2 of Pricing
-        :rtype: twilio.rest.pricing.v2.V2
         """
         if self._v2 is None:
             self._v2 = V2(self)
         return self._v2
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Pricing>"

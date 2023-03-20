@@ -259,21 +259,6 @@ class InteractionList(ListResource):
 
 
 class InteractionPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the InteractionPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
-        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of InteractionInstance
@@ -290,12 +275,11 @@ class InteractionPage(Page):
             session_sid=self._solution["session_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Proxy.V1.InteractionPage>"
 

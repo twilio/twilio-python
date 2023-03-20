@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-import unittest
 import os
+import unittest
 from collections import OrderedDict
 
-from mock import patch, Mock
+from mock import Mock, patch
 from requests import Session
 
-from twilio.base.version import Version
 from twilio.base.exceptions import TwilioRestException
+from twilio.base.version import Version
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
 
@@ -269,6 +269,5 @@ class TestHttpClientSession(unittest.TestCase):
 
 class MyVersion(Version):
     def __init__(self, domain):
-        super(MyVersion, self).__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._credentials = None

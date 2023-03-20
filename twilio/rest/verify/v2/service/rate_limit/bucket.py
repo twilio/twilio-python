@@ -319,21 +319,6 @@ class BucketList(ListResource):
 
 
 class BucketPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the BucketPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketPage
-        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of BucketInstance
@@ -350,12 +335,11 @@ class BucketPage(Page):
             rate_limit_sid=self._solution["rate_limit_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Verify.V2.BucketPage>"
 

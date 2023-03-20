@@ -32,8 +32,7 @@ class V1(Version):
 
         :param domain: The Twilio.supersim domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._esim_profiles = None
         self._fleets = None
         self._ip_commands = None
@@ -46,81 +45,54 @@ class V1(Version):
 
     @property
     def esim_profiles(self) -> EsimProfileList:
-        """
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileList
-        """
         if self._esim_profiles is None:
             self._esim_profiles = EsimProfileList(self)
         return self._esim_profiles
 
     @property
     def fleets(self) -> FleetList:
-        """
-        :rtype: twilio.rest.supersim.v1.fleet.FleetList
-        """
         if self._fleets is None:
             self._fleets = FleetList(self)
         return self._fleets
 
     @property
     def ip_commands(self) -> IpCommandList:
-        """
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandList
-        """
         if self._ip_commands is None:
             self._ip_commands = IpCommandList(self)
         return self._ip_commands
 
     @property
     def networks(self) -> NetworkList:
-        """
-        :rtype: twilio.rest.supersim.v1.network.NetworkList
-        """
         if self._networks is None:
             self._networks = NetworkList(self)
         return self._networks
 
     @property
     def network_access_profiles(self) -> NetworkAccessProfileList:
-        """
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList
-        """
         if self._network_access_profiles is None:
             self._network_access_profiles = NetworkAccessProfileList(self)
         return self._network_access_profiles
 
     @property
     def settings_updates(self) -> SettingsUpdateList:
-        """
-        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateList
-        """
         if self._settings_updates is None:
             self._settings_updates = SettingsUpdateList(self)
         return self._settings_updates
 
     @property
     def sims(self) -> SimList:
-        """
-        :rtype: twilio.rest.supersim.v1.sim.SimList
-        """
         if self._sims is None:
             self._sims = SimList(self)
         return self._sims
 
     @property
     def sms_commands(self) -> SmsCommandList:
-        """
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandList
-        """
         if self._sms_commands is None:
             self._sms_commands = SmsCommandList(self)
         return self._sms_commands
 
     @property
     def usage_records(self) -> UsageRecordList:
-        """
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordList
-        """
         if self._usage_records is None:
             self._usage_records = UsageRecordList(self)
         return self._usage_records
@@ -129,6 +101,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Supersim.V1>"

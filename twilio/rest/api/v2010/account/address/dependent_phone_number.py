@@ -224,21 +224,6 @@ class DependentPhoneNumberList(ListResource):
 
 
 class DependentPhoneNumberPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the DependentPhoneNumberPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
-        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of DependentPhoneNumberInstance
@@ -255,12 +240,11 @@ class DependentPhoneNumberPage(Page):
             address_sid=self._solution["address_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.DependentPhoneNumberPage>"
 

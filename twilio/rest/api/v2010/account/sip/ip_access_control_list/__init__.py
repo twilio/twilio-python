@@ -302,21 +302,6 @@ class IpAccessControlListList(ListResource):
 
 
 class IpAccessControlListPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the IpAccessControlListPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of IpAccessControlListInstance
@@ -330,12 +315,11 @@ class IpAccessControlListPage(Page):
             self._version, payload, account_sid=self._solution["account_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.IpAccessControlListPage>"
 

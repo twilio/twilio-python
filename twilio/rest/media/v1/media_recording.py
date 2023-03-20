@@ -338,21 +338,6 @@ class MediaRecordingList(ListResource):
 
 
 class MediaRecordingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the MediaRecordingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of MediaRecordingInstance
@@ -364,12 +349,11 @@ class MediaRecordingPage(Page):
         """
         return MediaRecordingInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Media.V1.MediaRecordingPage>"
 

@@ -389,21 +389,6 @@ class TrustProductsList(ListResource):
 
 
 class TrustProductsPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the TrustProductsPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of TrustProductsInstance
@@ -415,12 +400,11 @@ class TrustProductsPage(Page):
         """
         return TrustProductsInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsPage>"
 

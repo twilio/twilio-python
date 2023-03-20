@@ -241,21 +241,6 @@ class ContentList(ListResource):
 
 
 class ContentPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ContentPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.content.v1.content.ContentPage
-        :rtype: twilio.rest.content.v1.content.ContentPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of ContentInstance
@@ -267,12 +252,11 @@ class ContentPage(Page):
         """
         return ContentInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Content.V1.ContentPage>"
 

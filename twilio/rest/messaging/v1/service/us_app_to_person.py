@@ -386,21 +386,6 @@ class UsAppToPersonList(ListResource):
 
 
 class UsAppToPersonPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the UsAppToPersonPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonPage
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of UsAppToPersonInstance
@@ -416,12 +401,11 @@ class UsAppToPersonPage(Page):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Messaging.V1.UsAppToPersonPage>"
 

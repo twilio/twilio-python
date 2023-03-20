@@ -305,21 +305,6 @@ class ExportCustomJobList(ListResource):
 
 
 class ExportCustomJobPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ExportCustomJobPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
-        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of ExportCustomJobInstance
@@ -333,12 +318,11 @@ class ExportCustomJobPage(Page):
             self._version, payload, resource_type=self._solution["resource_type"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Bulkexports.V1.ExportCustomJobPage>"
 

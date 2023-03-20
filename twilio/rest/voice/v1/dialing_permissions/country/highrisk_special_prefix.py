@@ -223,21 +223,6 @@ class HighriskSpecialPrefixList(ListResource):
 
 
 class HighriskSpecialPrefixPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the HighriskSpecialPrefixPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of HighriskSpecialPrefixInstance
@@ -251,12 +236,11 @@ class HighriskSpecialPrefixPage(Page):
             self._version, payload, iso_code=self._solution["iso_code"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.HighriskSpecialPrefixPage>"
 

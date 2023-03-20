@@ -296,21 +296,6 @@ class AwsList(ListResource):
 
 
 class AwsPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AwsPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.accounts.v1.credential.aws.AwsPage
-        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of AwsInstance
@@ -322,12 +307,11 @@ class AwsPage(Page):
         """
         return AwsInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Accounts.V1.AwsPage>"
 

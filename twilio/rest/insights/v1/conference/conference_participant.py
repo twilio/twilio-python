@@ -333,21 +333,6 @@ class ConferenceParticipantList(ListResource):
 
 
 class ConferenceParticipantPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ConferenceParticipantPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
-        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of ConferenceParticipantInstance
@@ -361,12 +346,11 @@ class ConferenceParticipantPage(Page):
             self._version, payload, conference_sid=self._solution["conference_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.ConferenceParticipantPage>"
 

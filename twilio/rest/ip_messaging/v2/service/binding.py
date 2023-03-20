@@ -306,21 +306,6 @@ class BindingList(ListResource):
 
 
 class BindingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the BindingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingPage
-        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of BindingInstance
@@ -334,12 +319,11 @@ class BindingPage(Page):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.IpMessaging.V2.BindingPage>"
 

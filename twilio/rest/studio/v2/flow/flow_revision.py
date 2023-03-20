@@ -247,21 +247,6 @@ class FlowRevisionList(ListResource):
 
 
 class FlowRevisionPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the FlowRevisionPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of FlowRevisionInstance
@@ -273,12 +258,11 @@ class FlowRevisionPage(Page):
         """
         return FlowRevisionInstance(self._version, payload, sid=self._solution["sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Studio.V2.FlowRevisionPage>"
 

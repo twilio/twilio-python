@@ -19,26 +19,22 @@ class TaskrouterBase(Domain):
         Initialize the Taskrouter Domain
 
         :returns: Domain for Taskrouter
-        :rtype: twilio.rest.taskrouter.Taskrouter
         """
-        super().__init__(twilio)
-        self.base_url = "https://taskrouter.twilio.com"
+        super().__init__(twilio, "https://taskrouter.twilio.com")
         self._v1 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of Taskrouter
-        :rtype: twilio.rest.taskrouter.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Taskrouter>"

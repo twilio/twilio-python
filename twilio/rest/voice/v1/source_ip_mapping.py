@@ -290,21 +290,6 @@ class SourceIpMappingList(ListResource):
 
 
 class SourceIpMappingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the SourceIpMappingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of SourceIpMappingInstance
@@ -316,12 +301,11 @@ class SourceIpMappingPage(Page):
         """
         return SourceIpMappingInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Voice.V1.SourceIpMappingPage>"
 

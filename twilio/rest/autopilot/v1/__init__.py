@@ -25,25 +25,18 @@ class V1(Version):
 
         :param domain: The Twilio.autopilot domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._assistants = None
         self._restore_assistant = None
 
     @property
     def assistants(self) -> AssistantList:
-        """
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantList
-        """
         if self._assistants is None:
             self._assistants = AssistantList(self)
         return self._assistants
 
     @property
     def restore_assistant(self) -> RestoreAssistantList:
-        """
-        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
-        """
         if self._restore_assistant is None:
             self._restore_assistant = RestoreAssistantList(self)
         return self._restore_assistant
@@ -52,6 +45,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Autopilot.V1>"

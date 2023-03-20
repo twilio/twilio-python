@@ -239,21 +239,6 @@ class EndUserTypeList(ListResource):
 
 
 class EndUserTypePage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the EndUserTypePage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of EndUserTypeInstance
@@ -265,12 +250,11 @@ class EndUserTypePage(Page):
         """
         return EndUserTypeInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Trusthub.V1.EndUserTypePage>"
 

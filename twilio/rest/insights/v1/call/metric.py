@@ -259,21 +259,6 @@ class MetricList(ListResource):
 
 
 class MetricPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the MetricPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.insights.v1.call.metric.MetricPage
-        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of MetricInstance
@@ -287,12 +272,11 @@ class MetricPage(Page):
             self._version, payload, call_sid=self._solution["call_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.MetricPage>"
 

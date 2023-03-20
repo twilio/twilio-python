@@ -409,21 +409,6 @@ class QueryList(ListResource):
 
 
 class QueryPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the QueryPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.query.QueryPage
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of QueryInstance
@@ -437,12 +422,11 @@ class QueryPage(Page):
             self._version, payload, assistant_sid=self._solution["assistant_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Autopilot.V1.QueryPage>"
 

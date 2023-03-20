@@ -25,25 +25,18 @@ class V1(Version):
 
         :param domain: The Twilio.content domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._contents = None
         self._legacy_contents = None
 
     @property
     def contents(self) -> ContentList:
-        """
-        :rtype: twilio.rest.content.v1.content.ContentList
-        """
         if self._contents is None:
             self._contents = ContentList(self)
         return self._contents
 
     @property
     def legacy_contents(self) -> LegacyContentList:
-        """
-        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentList
-        """
         if self._legacy_contents is None:
             self._legacy_contents = LegacyContentList(self)
         return self._legacy_contents
@@ -52,6 +45,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Content.V1>"

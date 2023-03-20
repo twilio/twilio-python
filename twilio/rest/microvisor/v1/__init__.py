@@ -27,8 +27,7 @@ class V1(Version):
 
         :param domain: The Twilio.microvisor domain
         """
-        super().__init__(domain)
-        self.version = "v1"
+        super().__init__(domain, "v1")
         self._account_configs = None
         self._account_secrets = None
         self._apps = None
@@ -36,36 +35,24 @@ class V1(Version):
 
     @property
     def account_configs(self) -> AccountConfigList:
-        """
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigList
-        """
         if self._account_configs is None:
             self._account_configs = AccountConfigList(self)
         return self._account_configs
 
     @property
     def account_secrets(self) -> AccountSecretList:
-        """
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretList
-        """
         if self._account_secrets is None:
             self._account_secrets = AccountSecretList(self)
         return self._account_secrets
 
     @property
     def apps(self) -> AppList:
-        """
-        :rtype: twilio.rest.microvisor.v1.app.AppList
-        """
         if self._apps is None:
             self._apps = AppList(self)
         return self._apps
 
     @property
     def devices(self) -> DeviceList:
-        """
-        :rtype: twilio.rest.microvisor.v1.device.DeviceList
-        """
         if self._devices is None:
             self._devices = DeviceList(self)
         return self._devices
@@ -74,6 +61,5 @@ class V1(Version):
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Microvisor.V1>"

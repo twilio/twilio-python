@@ -272,21 +272,6 @@ class BundleCopyList(ListResource):
 
 
 class BundleCopyPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the BundleCopyPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of BundleCopyInstance
@@ -300,12 +285,11 @@ class BundleCopyPage(Page):
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Numbers.V2.BundleCopyPage>"
 

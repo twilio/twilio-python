@@ -260,21 +260,6 @@ class UserConversationList(ListResource):
 
 
 class UserConversationPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the UserConversationPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationPage
-        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of UserConversationInstance
@@ -291,12 +276,11 @@ class UserConversationPage(Page):
             user_sid=self._solution["user_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Conversations.V1.UserConversationPage>"
 

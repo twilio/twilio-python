@@ -19,26 +19,22 @@ class MediaBase(Domain):
         Initialize the Media Domain
 
         :returns: Domain for Media
-        :rtype: twilio.rest.media.Media
         """
-        super().__init__(twilio)
-        self.base_url = "https://media.twilio.com"
+        super().__init__(twilio, "https://media.twilio.com")
         self._v1 = None
 
     @property
-    def v1(self):
+    def v1(self) -> V1:
         """
         :returns: Versions v1 of Media
-        :rtype: twilio.rest.media.v1.V1
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Media>"

@@ -251,21 +251,6 @@ class ParticipantList(ListResource):
 
 
 class ParticipantPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the ParticipantPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantPage
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of ParticipantInstance
@@ -279,12 +264,11 @@ class ParticipantPage(Page):
             self._version, payload, room_sid=self._solution["room_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Insights.V1.ParticipantPage>"
 

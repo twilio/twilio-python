@@ -299,21 +299,6 @@ class BuildList(ListResource):
 
 class BuildPage(Page):
 
-    def __init__(self, version, response, solution):
-        """
-        Initialize the BuildPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildPage
-        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of BuildInstance
@@ -323,16 +308,15 @@ class BuildPage(Page):
         :returns: twilio.rest.serverless.v1.service.build.BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
-        return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return BuildInstance(self._version, payload, service_sid=self._solution["service_sid"])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
-        return '<Twilio.Serverless.V1.BuildPage>'
+        return "<Twilio.Serverless.V1.BuildPage>"
 
 
 

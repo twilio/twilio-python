@@ -426,21 +426,6 @@ class CommandList(ListResource):
 
 
 class CommandPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the CommandPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.preview.wireless.command.CommandPage
-        :rtype: twilio.rest.preview.wireless.command.CommandPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of CommandInstance
@@ -452,12 +437,11 @@ class CommandPage(Page):
         """
         return CommandInstance(self._version, payload)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Preview.Wireless.CommandPage>"
 

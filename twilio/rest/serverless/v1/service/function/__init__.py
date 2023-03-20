@@ -300,21 +300,6 @@ class FunctionList(ListResource):
 
 
 class FunctionPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the FunctionPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.serverless.v1.service.function.FunctionPage
-        :rtype: twilio.rest.serverless.v1.service.function.FunctionPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of FunctionInstance
@@ -328,12 +313,11 @@ class FunctionPage(Page):
             self._version, payload, service_sid=self._solution["service_sid"]
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Serverless.V1.FunctionPage>"
 

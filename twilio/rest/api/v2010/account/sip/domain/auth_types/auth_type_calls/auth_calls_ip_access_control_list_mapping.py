@@ -321,21 +321,6 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
 
 class AuthCallsIpAccessControlListMappingPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the AuthCallsIpAccessControlListMappingPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingPage
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of AuthCallsIpAccessControlListMappingInstance
@@ -352,12 +337,11 @@ class AuthCallsIpAccessControlListMappingPage(Page):
             domain_sid=self._solution["domain_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Api.V2010.AuthCallsIpAccessControlListMappingPage>"
 

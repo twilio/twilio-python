@@ -308,21 +308,6 @@ class NetworkAccessProfileNetworkList(ListResource):
 
 
 class NetworkAccessProfileNetworkPage(Page):
-    def __init__(self, version, response, solution):
-        """
-        Initialize the NetworkAccessProfileNetworkPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkPage
-        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
     def get_instance(self, payload):
         """
         Build an instance of NetworkAccessProfileNetworkInstance
@@ -338,12 +323,11 @@ class NetworkAccessProfileNetworkPage(Page):
             network_access_profile_sid=self._solution["network_access_profile_sid"],
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
-        :rtype: str
         """
         return "<Twilio.Supersim.V1.NetworkAccessProfileNetworkPage>"
 
