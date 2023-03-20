@@ -530,6 +530,27 @@ class ByocTrunkContext(InstanceContext):
         return "<Twilio.Voice.V1.ByocTrunkContext {}>".format(context)
 
 
+class ByocTrunkPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ByocTrunkInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
+        """
+        return ByocTrunkInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.ByocTrunkPage>"
+
+
 class ByocTrunkList(ListResource):
     def __init__(self, version: Version):
         """
@@ -848,24 +869,3 @@ class ByocTrunkList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.ByocTrunkList>"
-
-
-class ByocTrunkPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ByocTrunkInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
-        """
-        return ByocTrunkInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.ByocTrunkPage>"

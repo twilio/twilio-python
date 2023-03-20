@@ -349,6 +349,27 @@ class IpRecordContext(InstanceContext):
         return "<Twilio.Voice.V1.IpRecordContext {}>".format(context)
 
 
+class IpRecordPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of IpRecordInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.ip_record.IpRecordInstance
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
+        """
+        return IpRecordInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.IpRecordPage>"
+
+
 class IpRecordList(ListResource):
     def __init__(self, version: Version):
         """
@@ -619,24 +640,3 @@ class IpRecordList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.IpRecordList>"
-
-
-class IpRecordPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of IpRecordInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.ip_record.IpRecordInstance
-        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
-        """
-        return IpRecordInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.IpRecordPage>"

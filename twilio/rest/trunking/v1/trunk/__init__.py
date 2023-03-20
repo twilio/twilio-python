@@ -669,6 +669,27 @@ class TrunkContext(InstanceContext):
         return "<Twilio.Trunking.V1.TrunkContext {}>".format(context)
 
 
+class TrunkPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TrunkInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trunking.v1.trunk.TrunkInstance
+        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
+        """
+        return TrunkInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trunking.V1.TrunkPage>"
+
+
 class TrunkList(ListResource):
     def __init__(self, version: Version):
         """
@@ -975,24 +996,3 @@ class TrunkList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trunking.V1.TrunkList>"
-
-
-class TrunkPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TrunkInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.TrunkInstance
-        :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
-        """
-        return TrunkInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trunking.V1.TrunkPage>"

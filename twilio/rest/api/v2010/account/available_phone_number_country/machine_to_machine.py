@@ -167,6 +167,32 @@ class MachineToMachineInstance(InstanceResource):
         return "<Twilio.Api.V2010.MachineToMachineInstance {}>".format(context)
 
 
+class MachineToMachinePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MachineToMachineInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
+        """
+        return MachineToMachineInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            country_code=self._solution["country_code"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.MachineToMachinePage>"
+
+
 class MachineToMachineList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
@@ -716,29 +742,3 @@ class MachineToMachineList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.MachineToMachineList>"
-
-
-class MachineToMachinePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MachineToMachineInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
-        """
-        return MachineToMachineInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.MachineToMachinePage>"

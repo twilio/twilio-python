@@ -358,6 +358,29 @@ class MessagingConfigurationContext(InstanceContext):
         return "<Twilio.Verify.V2.MessagingConfigurationContext {}>".format(context)
 
 
+class MessagingConfigurationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MessagingConfigurationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        return MessagingConfigurationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.MessagingConfigurationPage>"
+
+
 class MessagingConfigurationList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -635,26 +658,3 @@ class MessagingConfigurationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.MessagingConfigurationList>"
-
-
-class MessagingConfigurationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MessagingConfigurationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        return MessagingConfigurationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.MessagingConfigurationPage>"

@@ -600,6 +600,29 @@ class TaskQueueContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.TaskQueueContext {}>".format(context)
 
 
+class TaskQueuePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskQueueInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        return TaskQueueInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.TaskQueuePage>"
+
+
 class TaskQueueList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
@@ -1021,26 +1044,3 @@ class TaskQueueList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskQueueList>"
-
-
-class TaskQueuePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TaskQueueInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        return TaskQueueInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.TaskQueuePage>"

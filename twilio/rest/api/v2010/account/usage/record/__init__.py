@@ -512,6 +512,29 @@ class RecordInstance(InstanceResource):
         return "<Twilio.Api.V2010.RecordInstance {}>".format(context)
 
 
+class RecordPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RecordInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
+        """
+        return RecordInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.RecordPage>"
+
+
 class RecordList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -928,26 +951,3 @@ class RecordList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.RecordList>"
-
-
-class RecordPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RecordInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
-        """
-        return RecordInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.RecordPage>"

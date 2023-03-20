@@ -167,6 +167,32 @@ class TollFreeInstance(InstanceResource):
         return "<Twilio.Api.V2010.TollFreeInstance {}>".format(context)
 
 
+class TollFreePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TollFreeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
+        """
+        return TollFreeInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            country_code=self._solution["country_code"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.TollFreePage>"
+
+
 class TollFreeList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
@@ -716,29 +742,3 @@ class TollFreeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.TollFreeList>"
-
-
-class TollFreePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TollFreeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
-        """
-        return TollFreeInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.TollFreePage>"

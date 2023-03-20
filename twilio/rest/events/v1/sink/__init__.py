@@ -422,6 +422,27 @@ class SinkContext(InstanceContext):
         return "<Twilio.Events.V1.SinkContext {}>".format(context)
 
 
+class SinkPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SinkInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.events.v1.sink.SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        return SinkInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Events.V1.SinkPage>"
+
+
 class SinkList(ListResource):
     def __init__(self, version: Version):
         """
@@ -728,24 +749,3 @@ class SinkList(ListResource):
         :rtype: str
         """
         return "<Twilio.Events.V1.SinkList>"
-
-
-class SinkPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SinkInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.sink.SinkInstance
-        :rtype: twilio.rest.events.v1.sink.SinkInstance
-        """
-        return SinkInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Events.V1.SinkPage>"

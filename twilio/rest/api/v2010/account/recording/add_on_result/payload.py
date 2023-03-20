@@ -337,6 +337,33 @@ class PayloadContext(InstanceContext):
         return "<Twilio.Api.V2010.PayloadContext {}>".format(context)
 
 
+class PayloadPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of PayloadInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        """
+        return PayloadInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            add_on_result_sid=self._solution["add_on_result_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.PayloadPage>"
+
+
 class PayloadList(ListResource):
     def __init__(
         self,
@@ -578,30 +605,3 @@ class PayloadList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.PayloadList>"
-
-
-class PayloadPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of PayloadInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
-        """
-        return PayloadInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            reference_sid=self._solution["reference_sid"],
-            add_on_result_sid=self._solution["add_on_result_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.PayloadPage>"

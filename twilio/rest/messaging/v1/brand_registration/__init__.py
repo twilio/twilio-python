@@ -445,6 +445,27 @@ class BrandRegistrationContext(InstanceContext):
         return "<Twilio.Messaging.V1.BrandRegistrationContext {}>".format(context)
 
 
+class BrandRegistrationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BrandRegistrationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        return BrandRegistrationInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Messaging.V1.BrandRegistrationPage>"
+
+
 class BrandRegistrationList(ListResource):
     def __init__(self, version: Version):
         """
@@ -733,24 +754,3 @@ class BrandRegistrationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Messaging.V1.BrandRegistrationList>"
-
-
-class BrandRegistrationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BrandRegistrationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        """
-        return BrandRegistrationInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Messaging.V1.BrandRegistrationPage>"

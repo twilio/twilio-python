@@ -337,6 +337,32 @@ class UserBindingContext(InstanceContext):
         return "<Twilio.IpMessaging.V2.UserBindingContext {}>".format(context)
 
 
+class UserBindingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UserBindingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
+        """
+        return UserBindingInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            user_sid=self._solution["user_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.IpMessaging.V2.UserBindingPage>"
+
+
 class UserBindingList(ListResource):
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
@@ -588,29 +614,3 @@ class UserBindingList(ListResource):
         :rtype: str
         """
         return "<Twilio.IpMessaging.V2.UserBindingList>"
-
-
-class UserBindingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UserBindingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
-        """
-        return UserBindingInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.IpMessaging.V2.UserBindingPage>"

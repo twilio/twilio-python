@@ -146,6 +146,27 @@ class LegacyContentInstance(InstanceResource):
         return "<Twilio.Content.V1.LegacyContentInstance {}>".format(context)
 
 
+class LegacyContentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of LegacyContentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.content.v1.legacy_content.LegacyContentInstance
+        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentInstance
+        """
+        return LegacyContentInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Content.V1.LegacyContentPage>"
+
+
 class LegacyContentList(ListResource):
     def __init__(self, version: Version):
         """
@@ -336,24 +357,3 @@ class LegacyContentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Content.V1.LegacyContentList>"
-
-
-class LegacyContentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of LegacyContentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.content.v1.legacy_content.LegacyContentInstance
-        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentInstance
-        """
-        return LegacyContentInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Content.V1.LegacyContentPage>"

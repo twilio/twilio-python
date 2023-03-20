@@ -492,6 +492,29 @@ class ConnectAppContext(InstanceContext):
         return "<Twilio.Api.V2010.ConnectAppContext {}>".format(context)
 
 
+class ConnectAppPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConnectAppInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        """
+        return ConnectAppInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.ConnectAppPage>"
+
+
 class ConnectAppList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -713,26 +736,3 @@ class ConnectAppList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.ConnectAppList>"
-
-
-class ConnectAppPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ConnectAppInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
-        """
-        return ConnectAppInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.ConnectAppPage>"

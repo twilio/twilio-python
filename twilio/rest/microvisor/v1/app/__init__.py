@@ -303,6 +303,27 @@ class AppContext(InstanceContext):
         return "<Twilio.Microvisor.V1.AppContext {}>".format(context)
 
 
+class AppPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AppInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.microvisor.v1.app.AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppInstance
+        """
+        return AppInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Microvisor.V1.AppPage>"
+
+
 class AppList(ListResource):
     def __init__(self, version: Version):
         """
@@ -515,24 +536,3 @@ class AppList(ListResource):
         :rtype: str
         """
         return "<Twilio.Microvisor.V1.AppList>"
-
-
-class AppPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AppInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.app.AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
-        """
-        return AppInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Microvisor.V1.AppPage>"

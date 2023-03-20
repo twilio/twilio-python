@@ -566,6 +566,32 @@ class MessageContext(InstanceContext):
         return "<Twilio.IpMessaging.V2.MessageContext {}>".format(context)
 
 
+class MessagePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MessageInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.ip_messaging.v2.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.message.MessageInstance
+        """
+        return MessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.IpMessaging.V2.MessagePage>"
+
+
 class MessageList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
@@ -921,29 +947,3 @@ class MessageList(ListResource):
         :rtype: str
         """
         return "<Twilio.IpMessaging.V2.MessageList>"
-
-
-class MessagePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MessageInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.message.MessageInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.message.MessageInstance
-        """
-        return MessageInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.IpMessaging.V2.MessagePage>"

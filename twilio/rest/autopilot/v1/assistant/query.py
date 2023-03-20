@@ -425,6 +425,29 @@ class QueryContext(InstanceContext):
         return "<Twilio.Autopilot.V1.QueryContext {}>".format(context)
 
 
+class QueryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of QueryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        """
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.QueryPage>"
+
+
 class QueryList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
@@ -808,26 +831,3 @@ class QueryList(ListResource):
         :rtype: str
         """
         return "<Twilio.Autopilot.V1.QueryList>"
-
-
-class QueryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of QueryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
-        """
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Autopilot.V1.QueryPage>"

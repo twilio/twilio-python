@@ -503,6 +503,29 @@ class TodayInstance(InstanceResource):
         return "<Twilio.Api.V2010.TodayInstance {}>".format(context)
 
 
+class TodayPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TodayInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
+        """
+        return TodayInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.TodayPage>"
+
+
 class TodayList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -798,26 +821,3 @@ class TodayList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.TodayList>"
-
-
-class TodayPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TodayInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayInstance
-        """
-        return TodayInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.TodayPage>"

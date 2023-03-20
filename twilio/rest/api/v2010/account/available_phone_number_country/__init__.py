@@ -425,6 +425,29 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
         )
 
 
+class AvailablePhoneNumberCountryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AvailablePhoneNumberCountryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
+        """
+        return AvailablePhoneNumberCountryInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AvailablePhoneNumberCountryPage>"
+
+
 class AvailablePhoneNumberCountryList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -652,26 +675,3 @@ class AvailablePhoneNumberCountryList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AvailablePhoneNumberCountryList>"
-
-
-class AvailablePhoneNumberCountryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AvailablePhoneNumberCountryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
-        """
-        return AvailablePhoneNumberCountryInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AvailablePhoneNumberCountryPage>"

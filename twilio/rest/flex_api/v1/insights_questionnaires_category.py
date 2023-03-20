@@ -287,6 +287,27 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         )
 
 
+class InsightsQuestionnairesCategoryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InsightsQuestionnairesCategoryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        return InsightsQuestionnairesCategoryInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryPage>"
+
+
 class InsightsQuestionnairesCategoryList(ListResource):
     def __init__(self, version: Version):
         """
@@ -573,24 +594,3 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryList>"
-
-
-class InsightsQuestionnairesCategoryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InsightsQuestionnairesCategoryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        """
-        return InsightsQuestionnairesCategoryInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryPage>"

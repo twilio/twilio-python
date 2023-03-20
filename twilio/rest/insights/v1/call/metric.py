@@ -143,6 +143,29 @@ class MetricInstance(InstanceResource):
         return "<Twilio.Insights.V1.MetricInstance {}>".format(context)
 
 
+class MetricPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MetricInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.insights.v1.call.metric.MetricInstance
+        :rtype: twilio.rest.insights.v1.call.metric.MetricInstance
+        """
+        return MetricInstance(
+            self._version, payload, call_sid=self._solution["call_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Insights.V1.MetricPage>"
+
+
 class MetricList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
@@ -378,26 +401,3 @@ class MetricList(ListResource):
         :rtype: str
         """
         return "<Twilio.Insights.V1.MetricList>"
-
-
-class MetricPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MetricInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.call.metric.MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricInstance
-        """
-        return MetricInstance(
-            self._version, payload, call_sid=self._solution["call_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Insights.V1.MetricPage>"

@@ -471,6 +471,29 @@ class WebhookContext(InstanceContext):
         return "<Twilio.Verify.V2.WebhookContext {}>".format(context)
 
 
+class WebhookPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WebhookInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.webhook.WebhookInstance
+        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
+        """
+        return WebhookInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.WebhookPage>"
+
+
 class WebhookList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -772,26 +795,3 @@ class WebhookList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.WebhookList>"
-
-
-class WebhookPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WebhookInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.webhook.WebhookInstance
-        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
-        """
-        return WebhookInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.WebhookPage>"

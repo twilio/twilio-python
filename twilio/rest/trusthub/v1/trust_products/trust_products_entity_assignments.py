@@ -271,6 +271,31 @@ class TrustProductsEntityAssignmentsContext(InstanceContext):
         )
 
 
+class TrustProductsEntityAssignmentsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TrustProductsEntityAssignmentsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        """
+        return TrustProductsEntityAssignmentsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsPage>"
+
+
 class TrustProductsEntityAssignmentsList(ListResource):
     def __init__(self, version: Version, trust_product_sid: str):
         """
@@ -560,28 +585,3 @@ class TrustProductsEntityAssignmentsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsList>"
-
-
-class TrustProductsEntityAssignmentsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TrustProductsEntityAssignmentsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
-        """
-        return TrustProductsEntityAssignmentsInstance(
-            self._version,
-            payload,
-            trust_product_sid=self._solution["trust_product_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsPage>"

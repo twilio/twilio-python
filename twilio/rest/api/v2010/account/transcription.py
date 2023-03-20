@@ -333,6 +333,29 @@ class TranscriptionContext(InstanceContext):
         return "<Twilio.Api.V2010.TranscriptionContext {}>".format(context)
 
 
+class TranscriptionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TranscriptionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
+        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
+        """
+        return TranscriptionInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.TranscriptionPage>"
+
+
 class TranscriptionList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -556,26 +579,3 @@ class TranscriptionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.TranscriptionList>"
-
-
-class TranscriptionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TranscriptionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
-        """
-        return TranscriptionInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.TranscriptionPage>"

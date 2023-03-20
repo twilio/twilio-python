@@ -264,6 +264,32 @@ class PublishedTrackContext(InstanceContext):
         return "<Twilio.Video.V1.PublishedTrackContext {}>".format(context)
 
 
+class PublishedTrackPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of PublishedTrackInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
+        """
+        return PublishedTrackInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.PublishedTrackPage>"
+
+
 class PublishedTrackList(ListResource):
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
@@ -497,29 +523,3 @@ class PublishedTrackList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.PublishedTrackList>"
-
-
-class PublishedTrackPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of PublishedTrackInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
-        """
-        return PublishedTrackInstance(
-            self._version,
-            payload,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.PublishedTrackPage>"

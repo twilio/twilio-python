@@ -424,6 +424,27 @@ class CredentialContext(InstanceContext):
         return "<Twilio.IpMessaging.V1.CredentialContext {}>".format(context)
 
 
+class CredentialPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        """
+        return CredentialInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.IpMessaging.V1.CredentialPage>"
+
+
 class CredentialList(ListResource):
     def __init__(self, version: Version):
         """
@@ -724,24 +745,3 @@ class CredentialList(ListResource):
         :rtype: str
         """
         return "<Twilio.IpMessaging.V1.CredentialList>"
-
-
-class CredentialPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CredentialInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
-        """
-        return CredentialInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.IpMessaging.V1.CredentialPage>"

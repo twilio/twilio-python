@@ -329,6 +329,29 @@ class SigningKeyContext(InstanceContext):
         return "<Twilio.Api.V2010.SigningKeyContext {}>".format(context)
 
 
+class SigningKeyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SigningKeyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
+        """
+        return SigningKeyInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.SigningKeyPage>"
+
+
 class SigningKeyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -550,26 +573,3 @@ class SigningKeyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.SigningKeyList>"
-
-
-class SigningKeyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SigningKeyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
-        """
-        return SigningKeyInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.SigningKeyPage>"

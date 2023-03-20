@@ -316,6 +316,32 @@ class InviteContext(InstanceContext):
         return "<Twilio.Chat.V2.InviteContext {}>".format(context)
 
 
+class InvitePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InviteInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        """
+        return InviteInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Chat.V2.InvitePage>"
+
+
 class InviteList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
@@ -625,29 +651,3 @@ class InviteList(ListResource):
         :rtype: str
         """
         return "<Twilio.Chat.V2.InviteList>"
-
-
-class InvitePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InviteInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        """
-        return InviteInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Chat.V2.InvitePage>"

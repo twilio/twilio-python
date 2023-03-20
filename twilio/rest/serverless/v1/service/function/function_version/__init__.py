@@ -298,6 +298,32 @@ class FunctionVersionContext(InstanceContext):
         return "<Twilio.Serverless.V1.FunctionVersionContext {}>".format(context)
 
 
+class FunctionVersionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FunctionVersionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
+        """
+        return FunctionVersionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            function_sid=self._solution["function_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.FunctionVersionPage>"
+
+
 class FunctionVersionList(ListResource):
     def __init__(self, version: Version, service_sid: str, function_sid: str):
         """
@@ -529,29 +555,3 @@ class FunctionVersionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.FunctionVersionList>"
-
-
-class FunctionVersionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FunctionVersionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
-        """
-        return FunctionVersionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            function_sid=self._solution["function_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.FunctionVersionPage>"

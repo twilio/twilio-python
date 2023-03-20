@@ -526,6 +526,29 @@ class SessionContext(InstanceContext):
         return "<Twilio.Proxy.V1.SessionContext {}>".format(context)
 
 
+class SessionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SessionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.proxy.v1.service.session.SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        return SessionInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Proxy.V1.SessionPage>"
+
+
 class SessionList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -837,26 +860,3 @@ class SessionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Proxy.V1.SessionList>"
-
-
-class SessionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SessionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
-        """
-        return SessionInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Proxy.V1.SessionPage>"

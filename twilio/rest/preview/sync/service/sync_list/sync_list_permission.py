@@ -400,6 +400,32 @@ class SyncListPermissionContext(InstanceContext):
         return "<Twilio.Preview.Sync.SyncListPermissionContext {}>".format(context)
 
 
+class SyncListPermissionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SyncListPermissionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
+        """
+        return SyncListPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            list_sid=self._solution["list_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Sync.SyncListPermissionPage>"
+
+
 class SyncListPermissionList(ListResource):
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
@@ -631,29 +657,3 @@ class SyncListPermissionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Sync.SyncListPermissionList>"
-
-
-class SyncListPermissionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SyncListPermissionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_permission.SyncListPermissionInstance
-        """
-        return SyncListPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            list_sid=self._solution["list_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Sync.SyncListPermissionPage>"

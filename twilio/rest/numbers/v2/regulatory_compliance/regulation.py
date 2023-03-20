@@ -224,6 +224,27 @@ class RegulationContext(InstanceContext):
         return "<Twilio.Numbers.V2.RegulationContext {}>".format(context)
 
 
+class RegulationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RegulationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
+        """
+        return RegulationInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Numbers.V2.RegulationPage>"
+
+
 class RegulationList(ListResource):
     def __init__(self, version: Version):
         """
@@ -516,24 +537,3 @@ class RegulationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Numbers.V2.RegulationList>"
-
-
-class RegulationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RegulationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
-        """
-        return RegulationInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Numbers.V2.RegulationPage>"

@@ -195,6 +195,29 @@ class DataSessionInstance(InstanceResource):
         return "<Twilio.Wireless.V1.DataSessionInstance {}>".format(context)
 
 
+class DataSessionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DataSessionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
+        """
+        return DataSessionInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Wireless.V1.DataSessionPage>"
+
+
 class DataSessionList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
@@ -390,26 +413,3 @@ class DataSessionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Wireless.V1.DataSessionList>"
-
-
-class DataSessionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DataSessionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
-        """
-        return DataSessionInstance(
-            self._version, payload, sim_sid=self._solution["sim_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Wireless.V1.DataSessionPage>"

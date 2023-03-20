@@ -702,6 +702,27 @@ class AssistantContext(InstanceContext):
         return "<Twilio.Preview.Understand.AssistantContext {}>".format(context)
 
 
+class AssistantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssistantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
+        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
+        """
+        return AssistantInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.AssistantPage>"
+
+
 class AssistantList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1008,24 +1029,3 @@ class AssistantList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Understand.AssistantList>"
-
-
-class AssistantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssistantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.AssistantInstance
-        :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
-        """
-        return AssistantInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Understand.AssistantPage>"

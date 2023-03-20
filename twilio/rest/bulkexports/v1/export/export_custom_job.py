@@ -148,6 +148,29 @@ class ExportCustomJobInstance(InstanceResource):
         return "<Twilio.Bulkexports.V1.ExportCustomJobInstance {}>".format(context)
 
 
+class ExportCustomJobPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ExportCustomJobInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        """
+        return ExportCustomJobInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Bulkexports.V1.ExportCustomJobPage>"
+
+
 class ExportCustomJobList(ListResource):
     def __init__(self, version: Version, resource_type: str):
         """
@@ -429,26 +452,3 @@ class ExportCustomJobList(ListResource):
         :rtype: str
         """
         return "<Twilio.Bulkexports.V1.ExportCustomJobList>"
-
-
-class ExportCustomJobPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ExportCustomJobInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
-        """
-        return ExportCustomJobInstance(
-            self._version, payload, resource_type=self._solution["resource_type"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Bulkexports.V1.ExportCustomJobPage>"

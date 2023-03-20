@@ -401,6 +401,32 @@ class BucketContext(InstanceContext):
         return "<Twilio.Verify.V2.BucketContext {}>".format(context)
 
 
+class BucketPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BucketInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        """
+        return BucketInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            rate_limit_sid=self._solution["rate_limit_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.BucketPage>"
+
+
 class BucketList(ListResource):
     def __init__(self, version: Version, service_sid: str, rate_limit_sid: str):
         """
@@ -694,29 +720,3 @@ class BucketList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.BucketList>"
-
-
-class BucketPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BucketInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
-        """
-        return BucketInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            rate_limit_sid=self._solution["rate_limit_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.BucketPage>"

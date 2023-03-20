@@ -409,6 +409,29 @@ class QueueContext(InstanceContext):
         return "<Twilio.Api.V2010.QueueContext {}>".format(context)
 
 
+class QueuePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of QueueInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.queue.QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
+        """
+        return QueueInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.QueuePage>"
+
+
 class QueueList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -684,26 +707,3 @@ class QueueList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.QueueList>"
-
-
-class QueuePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of QueueInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.queue.QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
-        """
-        return QueueInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.QueuePage>"

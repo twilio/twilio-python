@@ -409,6 +409,27 @@ class RatePlanContext(InstanceContext):
         return "<Twilio.Preview.Wireless.RatePlanContext {}>".format(context)
 
 
+class RatePlanPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RatePlanInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        return RatePlanInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Wireless.RatePlanPage>"
+
+
 class RatePlanList(ListResource):
     def __init__(self, version: Version):
         """
@@ -731,24 +752,3 @@ class RatePlanList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Wireless.RatePlanList>"
-
-
-class RatePlanPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RatePlanInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
-        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
-        """
-        return RatePlanInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Wireless.RatePlanPage>"

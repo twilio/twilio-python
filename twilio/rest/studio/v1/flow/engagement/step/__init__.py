@@ -316,6 +316,32 @@ class StepContext(InstanceContext):
         return "<Twilio.Studio.V1.StepContext {}>".format(context)
 
 
+class StepPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of StepInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+        return StepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V1.StepPage>"
+
+
 class StepList(ListResource):
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
         """
@@ -547,29 +573,3 @@ class StepList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V1.StepList>"
-
-
-class StepPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of StepInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-        return StepInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V1.StepPage>"

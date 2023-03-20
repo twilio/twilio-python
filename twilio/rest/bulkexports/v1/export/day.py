@@ -217,6 +217,29 @@ class DayContext(InstanceContext):
         return "<Twilio.Bulkexports.V1.DayContext {}>".format(context)
 
 
+class DayPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DayInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
+        """
+        return DayInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Bulkexports.V1.DayPage>"
+
+
 class DayList(ListResource):
     def __init__(self, version: Version, resource_type: str):
         """
@@ -438,26 +461,3 @@ class DayList(ListResource):
         :rtype: str
         """
         return "<Twilio.Bulkexports.V1.DayList>"
-
-
-class DayPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DayInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        return DayInstance(
-            self._version, payload, resource_type=self._solution["resource_type"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Bulkexports.V1.DayPage>"

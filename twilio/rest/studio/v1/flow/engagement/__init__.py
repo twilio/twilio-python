@@ -371,6 +371,29 @@ class EngagementContext(InstanceContext):
         return "<Twilio.Studio.V1.EngagementContext {}>".format(context)
 
 
+class EngagementPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EngagementInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        """
+        return EngagementInstance(
+            self._version, payload, flow_sid=self._solution["flow_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V1.EngagementPage>"
+
+
 class EngagementList(ListResource):
     def __init__(self, version: Version, flow_sid: str):
         """
@@ -650,26 +673,3 @@ class EngagementList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V1.EngagementList>"
-
-
-class EngagementPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EngagementInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        """
-        return EngagementInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V1.EngagementPage>"

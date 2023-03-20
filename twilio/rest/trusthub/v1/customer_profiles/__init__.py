@@ -540,6 +540,27 @@ class CustomerProfilesContext(InstanceContext):
         return "<Twilio.Trusthub.V1.CustomerProfilesContext {}>".format(context)
 
 
+class CustomerProfilesPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CustomerProfilesInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        return CustomerProfilesInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.CustomerProfilesPage>"
+
+
 class CustomerProfilesList(ListResource):
     def __init__(self, version: Version):
         """
@@ -892,24 +913,3 @@ class CustomerProfilesList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.CustomerProfilesList>"
-
-
-class CustomerProfilesPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CustomerProfilesInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        return CustomerProfilesInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.CustomerProfilesPage>"

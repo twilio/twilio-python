@@ -147,6 +147,29 @@ class BundleCopyInstance(InstanceResource):
         return "<Twilio.Numbers.V2.BundleCopyInstance {}>".format(context)
 
 
+class BundleCopyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BundleCopyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
+        """
+        return BundleCopyInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Numbers.V2.BundleCopyPage>"
+
+
 class BundleCopyList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
@@ -394,26 +417,3 @@ class BundleCopyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Numbers.V2.BundleCopyList>"
-
-
-class BundleCopyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BundleCopyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
-        """
-        return BundleCopyInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Numbers.V2.BundleCopyPage>"

@@ -370,6 +370,29 @@ class EntityContext(InstanceContext):
         return "<Twilio.Verify.V2.EntityContext {}>".format(context)
 
 
+class EntityPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EntityInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.entity.EntityInstance
+        :rtype: twilio.rest.verify.v2.service.entity.EntityInstance
+        """
+        return EntityInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.EntityPage>"
+
+
 class EntityList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -641,26 +664,3 @@ class EntityList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.EntityList>"
-
-
-class EntityPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EntityInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.entity.EntityInstance
-        :rtype: twilio.rest.verify.v2.service.entity.EntityInstance
-        """
-        return EntityInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.EntityPage>"

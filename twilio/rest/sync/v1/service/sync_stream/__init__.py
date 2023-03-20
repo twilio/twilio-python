@@ -410,6 +410,29 @@ class SyncStreamContext(InstanceContext):
         return "<Twilio.Sync.V1.SyncStreamContext {}>".format(context)
 
 
+class SyncStreamPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SyncStreamInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        """
+        return SyncStreamInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Sync.V1.SyncStreamPage>"
+
+
 class SyncStreamList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -685,26 +708,3 @@ class SyncStreamList(ListResource):
         :rtype: str
         """
         return "<Twilio.Sync.V1.SyncStreamList>"
-
-
-class SyncStreamPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SyncStreamInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
-        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
-        """
-        return SyncStreamInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Sync.V1.SyncStreamPage>"

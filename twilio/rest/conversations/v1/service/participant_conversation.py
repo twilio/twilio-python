@@ -206,6 +206,29 @@ class ParticipantConversationInstance(InstanceResource):
         )
 
 
+class ParticipantConversationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantConversationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationInstance
+        :rtype: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationInstance
+        """
+        return ParticipantConversationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.ParticipantConversationPage>"
+
+
 class ParticipantConversationList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
@@ -445,26 +468,3 @@ class ParticipantConversationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.ParticipantConversationList>"
-
-
-class ParticipantConversationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ParticipantConversationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationInstance
-        """
-        return ParticipantConversationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.ParticipantConversationPage>"

@@ -453,6 +453,27 @@ class SimContext(InstanceContext):
         return "<Twilio.Supersim.V1.SimContext {}>".format(context)
 
 
+class SimPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SimInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.sim.SimInstance
+        :rtype: twilio.rest.supersim.v1.sim.SimInstance
+        """
+        return SimInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.SimPage>"
+
+
 class SimList(ListResource):
     def __init__(self, version: Version):
         """
@@ -789,24 +810,3 @@ class SimList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.SimList>"
-
-
-class SimPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SimInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.sim.SimInstance
-        :rtype: twilio.rest.supersim.v1.sim.SimInstance
-        """
-        return SimInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.SimPage>"

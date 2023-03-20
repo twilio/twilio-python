@@ -477,6 +477,27 @@ class FleetContext(InstanceContext):
         return "<Twilio.Preview.DeployedDevices.FleetContext {}>".format(context)
 
 
+class FleetPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FleetInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.FleetInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
+        """
+        return FleetInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.DeployedDevices.FleetPage>"
+
+
 class FleetList(ListResource):
     def __init__(self, version: Version):
         """
@@ -735,24 +756,3 @@ class FleetList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.DeployedDevices.FleetList>"
-
-
-class FleetPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FleetInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.FleetInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
-        """
-        return FleetInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.DeployedDevices.FleetPage>"

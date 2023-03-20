@@ -433,6 +433,29 @@ class DocumentContext(InstanceContext):
         return "<Twilio.Preview.Sync.DocumentContext {}>".format(context)
 
 
+class DocumentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DocumentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        return DocumentInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Sync.DocumentPage>"
+
+
 class DocumentList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -708,26 +731,3 @@ class DocumentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Sync.DocumentList>"
-
-
-class DocumentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DocumentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        return DocumentInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Sync.DocumentPage>"

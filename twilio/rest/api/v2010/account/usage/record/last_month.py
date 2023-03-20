@@ -503,6 +503,29 @@ class LastMonthInstance(InstanceResource):
         return "<Twilio.Api.V2010.LastMonthInstance {}>".format(context)
 
 
+class LastMonthPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of LastMonthInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
+        """
+        return LastMonthInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.LastMonthPage>"
+
+
 class LastMonthList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -798,26 +821,3 @@ class LastMonthList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.LastMonthList>"
-
-
-class LastMonthPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of LastMonthInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance
-        """
-        return LastMonthInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.LastMonthPage>"

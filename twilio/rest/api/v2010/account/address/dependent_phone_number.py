@@ -294,6 +294,32 @@ class DependentPhoneNumberInstance(InstanceResource):
         return "<Twilio.Api.V2010.DependentPhoneNumberInstance {}>".format(context)
 
 
+class DependentPhoneNumberPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DependentPhoneNumberInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
+        """
+        return DependentPhoneNumberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            address_sid=self._solution["address_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.DependentPhoneNumberPage>"
+
+
 class DependentPhoneNumberList(ListResource):
     def __init__(self, version: Version, account_sid: str, address_sid: str):
         """
@@ -493,29 +519,3 @@ class DependentPhoneNumberList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.DependentPhoneNumberList>"
-
-
-class DependentPhoneNumberPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DependentPhoneNumberInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
-        :rtype: twilio.rest.api.v2010.account.address.dependent_phone_number.DependentPhoneNumberInstance
-        """
-        return DependentPhoneNumberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            address_sid=self._solution["address_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.DependentPhoneNumberPage>"

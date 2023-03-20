@@ -390,6 +390,29 @@ class ModelBuildContext(InstanceContext):
         return "<Twilio.Preview.Understand.ModelBuildContext {}>".format(context)
 
 
+class ModelBuildPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ModelBuildInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        return ModelBuildInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.ModelBuildPage>"
+
+
 class ModelBuildList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
@@ -667,26 +690,3 @@ class ModelBuildList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Understand.ModelBuildList>"
-
-
-class ModelBuildPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ModelBuildInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        """
-        return ModelBuildInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Understand.ModelBuildPage>"

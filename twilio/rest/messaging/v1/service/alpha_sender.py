@@ -283,6 +283,29 @@ class AlphaSenderContext(InstanceContext):
         return "<Twilio.Messaging.V1.AlphaSenderContext {}>".format(context)
 
 
+class AlphaSenderPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AlphaSenderInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
+        """
+        return AlphaSenderInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Messaging.V1.AlphaSenderPage>"
+
+
 class AlphaSenderList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -554,26 +577,3 @@ class AlphaSenderList(ListResource):
         :rtype: str
         """
         return "<Twilio.Messaging.V1.AlphaSenderList>"
-
-
-class AlphaSenderPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AlphaSenderInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
-        """
-        return AlphaSenderInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Messaging.V1.AlphaSenderPage>"

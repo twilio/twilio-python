@@ -400,6 +400,33 @@ class MessageInteractionContext(InstanceContext):
         return "<Twilio.Proxy.V1.MessageInteractionContext {}>".format(context)
 
 
+class MessageInteractionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MessageInteractionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
+        """
+        return MessageInteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Proxy.V1.MessageInteractionPage>"
+
+
 class MessageInteractionList(ListResource):
     def __init__(
         self, version: Version, service_sid: str, session_sid: str, participant_sid: str
@@ -699,30 +726,3 @@ class MessageInteractionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Proxy.V1.MessageInteractionList>"
-
-
-class MessageInteractionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MessageInteractionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
-        """
-        return MessageInteractionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-            participant_sid=self._solution["participant_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Proxy.V1.MessageInteractionPage>"

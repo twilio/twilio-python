@@ -292,6 +292,29 @@ class PhoneNumberContext(InstanceContext):
         return "<Twilio.Messaging.V1.PhoneNumberContext {}>".format(context)
 
 
+class PhoneNumberPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of PhoneNumberInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
+        """
+        return PhoneNumberInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Messaging.V1.PhoneNumberPage>"
+
+
 class PhoneNumberList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -563,26 +586,3 @@ class PhoneNumberList(ListResource):
         :rtype: str
         """
         return "<Twilio.Messaging.V1.PhoneNumberList>"
-
-
-class PhoneNumberPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of PhoneNumberInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
-        """
-        return PhoneNumberInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Messaging.V1.PhoneNumberPage>"

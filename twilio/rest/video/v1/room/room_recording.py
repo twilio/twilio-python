@@ -383,6 +383,29 @@ class RoomRecordingContext(InstanceContext):
         return "<Twilio.Video.V1.RoomRecordingContext {}>".format(context)
 
 
+class RoomRecordingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RoomRecordingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
+        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
+        """
+        return RoomRecordingInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.RoomRecordingPage>"
+
+
 class RoomRecordingList(ListResource):
     def __init__(self, version: Version, room_sid: str):
         """
@@ -702,26 +725,3 @@ class RoomRecordingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.RoomRecordingList>"
-
-
-class RoomRecordingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RoomRecordingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
-        """
-        return RoomRecordingInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.RoomRecordingPage>"

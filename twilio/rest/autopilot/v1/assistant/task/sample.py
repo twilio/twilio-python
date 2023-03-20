@@ -434,6 +434,32 @@ class SampleContext(InstanceContext):
         return "<Twilio.Autopilot.V1.SampleContext {}>".format(context)
 
 
+class SamplePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SampleInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
+        """
+        return SampleInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.SamplePage>"
+
+
 class SampleList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
@@ -747,29 +773,3 @@ class SampleList(ListResource):
         :rtype: str
         """
         return "<Twilio.Autopilot.V1.SampleList>"
-
-
-class SamplePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SampleInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        """
-        return SampleInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Autopilot.V1.SamplePage>"

@@ -431,6 +431,29 @@ class WebhookContext(InstanceContext):
         return "<Twilio.Autopilot.V1.WebhookContext {}>".format(context)
 
 
+class WebhookPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WebhookInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
+        """
+        return WebhookInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.WebhookPage>"
+
+
 class WebhookList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
@@ -716,26 +739,3 @@ class WebhookList(ListResource):
         :rtype: str
         """
         return "<Twilio.Autopilot.V1.WebhookList>"
-
-
-class WebhookPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WebhookInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
-        """
-        return WebhookInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Autopilot.V1.WebhookPage>"

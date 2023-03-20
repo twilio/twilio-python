@@ -167,6 +167,32 @@ class MobileInstance(InstanceResource):
         return "<Twilio.Api.V2010.MobileInstance {}>".format(context)
 
 
+class MobilePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MobileInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.mobile.MobileInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.mobile.MobileInstance
+        """
+        return MobileInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            country_code=self._solution["country_code"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.MobilePage>"
+
+
 class MobileList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
@@ -716,29 +742,3 @@ class MobileList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.MobileList>"
-
-
-class MobilePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MobileInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.mobile.MobileInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.mobile.MobileInstance
-        """
-        return MobileInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.MobilePage>"

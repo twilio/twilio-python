@@ -905,6 +905,29 @@ class CallContext(InstanceContext):
         return "<Twilio.Api.V2010.CallContext {}>".format(context)
 
 
+class CallPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CallInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.call.CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
+        """
+        return CallInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.CallPage>"
+
+
 class CallList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -1616,26 +1639,3 @@ class CallList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.CallList>"
-
-
-class CallPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CallInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.call.CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
-        """
-        return CallInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.CallPage>"

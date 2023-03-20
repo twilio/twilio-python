@@ -95,6 +95,32 @@ class InteractionChannelInviteInstance(InstanceResource):
         return "<Twilio.FlexApi.V1.InteractionChannelInviteInstance {}>".format(context)
 
 
+class InteractionChannelInvitePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InteractionChannelInviteInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
+        """
+        return InteractionChannelInviteInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.InteractionChannelInvitePage>"
+
+
 class InteractionChannelInviteList(ListResource):
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
@@ -352,29 +378,3 @@ class InteractionChannelInviteList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.InteractionChannelInviteList>"
-
-
-class InteractionChannelInvitePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InteractionChannelInviteInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
-        """
-        return InteractionChannelInviteInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.InteractionChannelInvitePage>"

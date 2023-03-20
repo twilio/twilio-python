@@ -99,6 +99,29 @@ class UsageRecordInstance(InstanceResource):
         return "<Twilio.Wireless.V1.UsageRecordInstance {}>".format(context)
 
 
+class UsageRecordPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UsageRecordInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        """
+        return UsageRecordInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Wireless.V1.UsageRecordPage>"
+
+
 class UsageRecordList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
@@ -368,26 +391,3 @@ class UsageRecordList(ListResource):
         :rtype: str
         """
         return "<Twilio.Wireless.V1.UsageRecordList>"
-
-
-class UsageRecordPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UsageRecordInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
-        """
-        return UsageRecordInstance(
-            self._version, payload, sim_sid=self._solution["sim_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Wireless.V1.UsageRecordPage>"

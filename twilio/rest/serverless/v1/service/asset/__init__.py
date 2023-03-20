@@ -392,6 +392,29 @@ class AssetContext(InstanceContext):
         return "<Twilio.Serverless.V1.AssetContext {}>".format(context)
 
 
+class AssetPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssetInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.asset.AssetInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
+        """
+        return AssetInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.AssetPage>"
+
+
 class AssetList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -663,26 +686,3 @@ class AssetList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.AssetList>"
-
-
-class AssetPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssetInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.asset.AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
-        """
-        return AssetInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.AssetPage>"

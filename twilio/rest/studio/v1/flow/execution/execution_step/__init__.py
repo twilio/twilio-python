@@ -318,6 +318,32 @@ class ExecutionStepContext(InstanceContext):
         return "<Twilio.Studio.V1.ExecutionStepContext {}>".format(context)
 
 
+class ExecutionStepPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ExecutionStepInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepInstance
+        :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepInstance
+        """
+        return ExecutionStepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            execution_sid=self._solution["execution_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V1.ExecutionStepPage>"
+
+
 class ExecutionStepList(ListResource):
     def __init__(self, version: Version, flow_sid: str, execution_sid: str):
         """
@@ -549,29 +575,3 @@ class ExecutionStepList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V1.ExecutionStepList>"
-
-
-class ExecutionStepPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ExecutionStepInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepInstance
-        :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepInstance
-        """
-        return ExecutionStepInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            execution_sid=self._solution["execution_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V1.ExecutionStepPage>"

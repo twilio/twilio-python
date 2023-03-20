@@ -330,6 +330,27 @@ class CommandContext(InstanceContext):
         return "<Twilio.Wireless.V1.CommandContext {}>".format(context)
 
 
+class CommandPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CommandInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.wireless.v1.command.CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        return CommandInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Wireless.V1.CommandPage>"
+
+
 class CommandList(ListResource):
     def __init__(self, version: Version):
         """
@@ -728,24 +749,3 @@ class CommandList(ListResource):
         :rtype: str
         """
         return "<Twilio.Wireless.V1.CommandList>"
-
-
-class CommandPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CommandInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.wireless.v1.command.CommandInstance
-        :rtype: twilio.rest.wireless.v1.command.CommandInstance
-        """
-        return CommandInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Wireless.V1.CommandPage>"

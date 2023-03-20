@@ -544,6 +544,27 @@ class FlowContext(InstanceContext):
         return "<Twilio.Studio.V2.FlowContext {}>".format(context)
 
 
+class FlowPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FlowInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v2.flow.FlowInstance
+        :rtype: twilio.rest.studio.v2.flow.FlowInstance
+        """
+        return FlowInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V2.FlowPage>"
+
+
 class FlowList(ListResource):
     def __init__(self, version: Version):
         """
@@ -816,24 +837,3 @@ class FlowList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V2.FlowList>"
-
-
-class FlowPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FlowInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v2.flow.FlowInstance
-        :rtype: twilio.rest.studio.v2.flow.FlowInstance
-        """
-        return FlowInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V2.FlowPage>"

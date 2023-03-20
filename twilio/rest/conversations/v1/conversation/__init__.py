@@ -632,6 +632,27 @@ class ConversationContext(InstanceContext):
         return "<Twilio.Conversations.V1.ConversationContext {}>".format(context)
 
 
+class ConversationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConversationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.conversation.ConversationInstance
+        :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
+        """
+        return ConversationInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.ConversationPage>"
+
+
 class ConversationList(ListResource):
     def __init__(self, version: Version):
         """
@@ -952,24 +973,3 @@ class ConversationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.ConversationList>"
-
-
-class ConversationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ConversationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.conversation.ConversationInstance
-        :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
-        """
-        return ConversationInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.ConversationPage>"

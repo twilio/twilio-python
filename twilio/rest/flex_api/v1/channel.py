@@ -275,6 +275,27 @@ class ChannelContext(InstanceContext):
         return "<Twilio.FlexApi.V1.ChannelContext {}>".format(context)
 
 
+class ChannelPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ChannelInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.channel.ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+        return ChannelInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.ChannelPage>"
+
+
 class ChannelList(ListResource):
     def __init__(self, version: Version):
         """
@@ -593,24 +614,3 @@ class ChannelList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.ChannelList>"
-
-
-class ChannelPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ChannelInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.channel.ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-        return ChannelInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.ChannelPage>"

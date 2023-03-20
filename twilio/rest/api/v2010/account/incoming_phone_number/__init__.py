@@ -931,6 +931,29 @@ class IncomingPhoneNumberContext(InstanceContext):
         return "<Twilio.Api.V2010.IncomingPhoneNumberContext {}>".format(context)
 
 
+class IncomingPhoneNumberPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of IncomingPhoneNumberInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
+        """
+        return IncomingPhoneNumberInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.IncomingPhoneNumberPage>"
+
+
 class IncomingPhoneNumberList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -1492,26 +1515,3 @@ class IncomingPhoneNumberList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.IncomingPhoneNumberList>"
-
-
-class IncomingPhoneNumberPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of IncomingPhoneNumberInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
-        """
-        return IncomingPhoneNumberInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.IncomingPhoneNumberPage>"

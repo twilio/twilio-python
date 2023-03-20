@@ -204,6 +204,27 @@ class SupportingDocumentTypeContext(InstanceContext):
         return "<Twilio.Numbers.V2.SupportingDocumentTypeContext {}>".format(context)
 
 
+class SupportingDocumentTypePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SupportingDocumentTypeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
+        """
+        return SupportingDocumentTypeInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Numbers.V2.SupportingDocumentTypePage>"
+
+
 class SupportingDocumentTypeList(ListResource):
     def __init__(self, version: Version):
         """
@@ -416,24 +437,3 @@ class SupportingDocumentTypeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Numbers.V2.SupportingDocumentTypeList>"
-
-
-class SupportingDocumentTypePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SupportingDocumentTypeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
-        """
-        return SupportingDocumentTypeInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Numbers.V2.SupportingDocumentTypePage>"

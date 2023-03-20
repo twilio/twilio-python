@@ -277,6 +277,32 @@ class AuthCallsIpAccessControlListMappingContext(InstanceContext):
         )
 
 
+class AuthCallsIpAccessControlListMappingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AuthCallsIpAccessControlListMappingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
+        """
+        return AuthCallsIpAccessControlListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            domain_sid=self._solution["domain_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AuthCallsIpAccessControlListMappingPage>"
+
+
 class AuthCallsIpAccessControlListMappingList(ListResource):
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
@@ -572,29 +598,3 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AuthCallsIpAccessControlListMappingList>"
-
-
-class AuthCallsIpAccessControlListMappingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AuthCallsIpAccessControlListMappingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
-        """
-        return AuthCallsIpAccessControlListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            domain_sid=self._solution["domain_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AuthCallsIpAccessControlListMappingPage>"

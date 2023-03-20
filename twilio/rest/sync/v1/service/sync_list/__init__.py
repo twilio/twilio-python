@@ -457,6 +457,29 @@ class SyncListContext(InstanceContext):
         return "<Twilio.Sync.V1.SyncListContext {}>".format(context)
 
 
+class SyncListPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SyncListInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.sync.v1.service.sync_list.SyncListInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
+        """
+        return SyncListInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Sync.V1.SyncListPage>"
+
+
 class SyncListList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -740,26 +763,3 @@ class SyncListList(ListResource):
         :rtype: str
         """
         return "<Twilio.Sync.V1.SyncListList>"
-
-
-class SyncListPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SyncListInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.sync.v1.service.sync_list.SyncListInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
-        """
-        return SyncListInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Sync.V1.SyncListPage>"

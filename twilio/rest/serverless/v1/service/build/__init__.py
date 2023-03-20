@@ -347,6 +347,38 @@ class BuildContext(InstanceContext):
         return '<Twilio.Serverless.V1.BuildContext {}>'.format(context)
 
 
+
+
+
+
+
+
+
+class BuildPage(Page):
+
+    def get_instance(self, payload):
+        """
+        Build an instance of BuildInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
+        """
+        return BuildInstance(self._version, payload, service_sid=self._solution["service_sid"])
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.BuildPage>"
+
+
+
+
+
 class BuildList(ListResource):
 
     def __init__(self, version: Version, service_sid: str):
@@ -615,36 +647,4 @@ class BuildList(ListResource):
         :rtype: str
         """
         return '<Twilio.Serverless.V1.BuildList>'
-
-
-
-
-
-
-
-
-class BuildPage(Page):
-
-    def get_instance(self, payload):
-        """
-        Build an instance of BuildInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        return BuildInstance(self._version, payload, service_sid=self._solution["service_sid"])
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.BuildPage>"
-
-
-
-
 

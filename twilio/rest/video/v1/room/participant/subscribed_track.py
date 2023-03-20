@@ -273,6 +273,32 @@ class SubscribedTrackContext(InstanceContext):
         return "<Twilio.Video.V1.SubscribedTrackContext {}>".format(context)
 
 
+class SubscribedTrackPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SubscribedTrackInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+        return SubscribedTrackInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.SubscribedTrackPage>"
+
+
 class SubscribedTrackList(ListResource):
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
@@ -506,29 +532,3 @@ class SubscribedTrackList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.SubscribedTrackList>"
-
-
-class SubscribedTrackPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SubscribedTrackInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-        return SubscribedTrackInstance(
-            self._version,
-            payload,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.SubscribedTrackPage>"

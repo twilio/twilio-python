@@ -442,6 +442,29 @@ class ExecutionContext(InstanceContext):
         return "<Twilio.Studio.V2.ExecutionContext {}>".format(context)
 
 
+class ExecutionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ExecutionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v2.flow.execution.ExecutionInstance
+        :rtype: twilio.rest.studio.v2.flow.execution.ExecutionInstance
+        """
+        return ExecutionInstance(
+            self._version, payload, flow_sid=self._solution["flow_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V2.ExecutionPage>"
+
+
 class ExecutionList(ListResource):
     def __init__(self, version: Version, flow_sid: str):
         """
@@ -783,26 +806,3 @@ class ExecutionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V2.ExecutionList>"
-
-
-class ExecutionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ExecutionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v2.flow.execution.ExecutionInstance
-        :rtype: twilio.rest.studio.v2.flow.execution.ExecutionInstance
-        """
-        return ExecutionInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V2.ExecutionPage>"

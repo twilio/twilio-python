@@ -208,6 +208,27 @@ class SchemaVersionContext(InstanceContext):
         return "<Twilio.Events.V1.SchemaVersionContext {}>".format(context)
 
 
+class SchemaVersionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SchemaVersionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
+        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
+        """
+        return SchemaVersionInstance(self._version, payload, id=self._solution["id"])
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Events.V1.SchemaVersionPage>"
+
+
 class SchemaVersionList(ListResource):
     def __init__(self, version: Version, id: str):
         """
@@ -429,24 +450,3 @@ class SchemaVersionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Events.V1.SchemaVersionList>"
-
-
-class SchemaVersionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SchemaVersionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
-        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
-        """
-        return SchemaVersionInstance(self._version, payload, id=self._solution["id"])
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Events.V1.SchemaVersionPage>"

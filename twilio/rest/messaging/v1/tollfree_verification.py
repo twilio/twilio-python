@@ -776,6 +776,27 @@ class TollfreeVerificationContext(InstanceContext):
         return "<Twilio.Messaging.V1.TollfreeVerificationContext {}>".format(context)
 
 
+class TollfreeVerificationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TollfreeVerificationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance
+        """
+        return TollfreeVerificationInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Messaging.V1.TollfreeVerificationPage>"
+
+
 class TollfreeVerificationList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1234,24 +1255,3 @@ class TollfreeVerificationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Messaging.V1.TollfreeVerificationList>"
-
-
-class TollfreeVerificationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TollfreeVerificationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance
-        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance
-        """
-        return TollfreeVerificationInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Messaging.V1.TollfreeVerificationPage>"

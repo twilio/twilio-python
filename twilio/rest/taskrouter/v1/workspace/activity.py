@@ -374,6 +374,29 @@ class ActivityContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.ActivityContext {}>".format(context)
 
 
+class ActivityPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ActivityInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        return ActivityInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.ActivityPage>"
+
+
 class ActivityList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
@@ -711,26 +734,3 @@ class ActivityList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.ActivityList>"
-
-
-class ActivityPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ActivityInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        """
-        return ActivityInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.ActivityPage>"

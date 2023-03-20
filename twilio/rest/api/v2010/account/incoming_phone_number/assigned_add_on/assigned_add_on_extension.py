@@ -273,6 +273,33 @@ class AssignedAddOnExtensionContext(InstanceContext):
         return "<Twilio.Api.V2010.AssignedAddOnExtensionContext {}>".format(context)
 
 
+class AssignedAddOnExtensionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssignedAddOnExtensionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        """
+        return AssignedAddOnExtensionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            assigned_add_on_sid=self._solution["assigned_add_on_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AssignedAddOnExtensionPage>"
+
+
 class AssignedAddOnExtensionList(ListResource):
     def __init__(
         self,
@@ -514,30 +541,3 @@ class AssignedAddOnExtensionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AssignedAddOnExtensionList>"
-
-
-class AssignedAddOnExtensionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssignedAddOnExtensionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        """
-        return AssignedAddOnExtensionInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-            assigned_add_on_sid=self._solution["assigned_add_on_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AssignedAddOnExtensionPage>"

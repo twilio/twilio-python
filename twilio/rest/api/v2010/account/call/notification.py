@@ -333,6 +333,32 @@ class NotificationContext(InstanceContext):
         return "<Twilio.Api.V2010.NotificationContext {}>".format(context)
 
 
+class NotificationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of NotificationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
+        """
+        return NotificationInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.NotificationPage>"
+
+
 class NotificationList(ListResource):
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
@@ -664,29 +690,3 @@ class NotificationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.NotificationList>"
-
-
-class NotificationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of NotificationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.call.notification.NotificationInstance
-        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
-        """
-        return NotificationInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.NotificationPage>"

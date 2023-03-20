@@ -295,6 +295,32 @@ class LogContext(InstanceContext):
         return "<Twilio.Serverless.V1.LogContext {}>".format(context)
 
 
+class LogPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of LogInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+        return LogInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.LogPage>"
+
+
 class LogList(ListResource):
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
@@ -608,29 +634,3 @@ class LogList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.LogList>"
-
-
-class LogPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of LogInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-        return LogInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.LogPage>"

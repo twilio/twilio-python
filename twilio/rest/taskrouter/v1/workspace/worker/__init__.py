@@ -586,6 +586,29 @@ class WorkerContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.WorkerContext {}>".format(context)
 
 
+class WorkerPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkerInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        return WorkerInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.WorkerPage>"
+
+
 class WorkerList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
@@ -1083,26 +1106,3 @@ class WorkerList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkerList>"
-
-
-class WorkerPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WorkerInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        return WorkerInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.WorkerPage>"

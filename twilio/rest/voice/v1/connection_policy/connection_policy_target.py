@@ -454,6 +454,31 @@ class ConnectionPolicyTargetContext(InstanceContext):
         return "<Twilio.Voice.V1.ConnectionPolicyTargetContext {}>".format(context)
 
 
+class ConnectionPolicyTargetPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConnectionPolicyTargetInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution["connection_policy_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.ConnectionPolicyTargetPage>"
+
+
 class ConnectionPolicyTargetList(ListResource):
     def __init__(self, version: Version, connection_policy_sid: str):
         """
@@ -765,28 +790,3 @@ class ConnectionPolicyTargetList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.ConnectionPolicyTargetList>"
-
-
-class ConnectionPolicyTargetPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ConnectionPolicyTargetInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        """
-        return ConnectionPolicyTargetInstance(
-            self._version,
-            payload,
-            connection_policy_sid=self._solution["connection_policy_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.ConnectionPolicyTargetPage>"

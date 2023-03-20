@@ -358,6 +358,32 @@ class AddOnResultContext(InstanceContext):
         return "<Twilio.Api.V2010.AddOnResultContext {}>".format(context)
 
 
+class AddOnResultPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AddOnResultInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+        return AddOnResultInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AddOnResultPage>"
+
+
 class AddOnResultList(ListResource):
     def __init__(self, version: Version, account_sid: str, reference_sid: str):
         """
@@ -589,29 +615,3 @@ class AddOnResultList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AddOnResultList>"
-
-
-class AddOnResultPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AddOnResultInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-        return AddOnResultInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            reference_sid=self._solution["reference_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AddOnResultPage>"

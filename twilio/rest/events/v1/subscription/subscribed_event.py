@@ -340,6 +340,29 @@ class SubscribedEventContext(InstanceContext):
         return "<Twilio.Events.V1.SubscribedEventContext {}>".format(context)
 
 
+class SubscribedEventPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SubscribedEventInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        return SubscribedEventInstance(
+            self._version, payload, subscription_sid=self._solution["subscription_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Events.V1.SubscribedEventPage>"
+
+
 class SubscribedEventList(ListResource):
     def __init__(self, version: Version, subscription_sid: str):
         """
@@ -621,26 +644,3 @@ class SubscribedEventList(ListResource):
         :rtype: str
         """
         return "<Twilio.Events.V1.SubscribedEventList>"
-
-
-class SubscribedEventPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SubscribedEventInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
-        """
-        return SubscribedEventInstance(
-            self._version, payload, subscription_sid=self._solution["subscription_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Events.V1.SubscribedEventPage>"

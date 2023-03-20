@@ -280,6 +280,31 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
         )
 
 
+class TrustProductsChannelEndpointAssignmentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TrustProductsChannelEndpointAssignmentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
+        """
+        return TrustProductsChannelEndpointAssignmentInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.TrustProductsChannelEndpointAssignmentPage>"
+
+
 class TrustProductsChannelEndpointAssignmentList(ListResource):
     def __init__(self, version: Version, trust_product_sid: str):
         """
@@ -637,28 +662,3 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsChannelEndpointAssignmentList>"
-
-
-class TrustProductsChannelEndpointAssignmentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TrustProductsChannelEndpointAssignmentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
-        """
-        return TrustProductsChannelEndpointAssignmentInstance(
-            self._version,
-            payload,
-            trust_product_sid=self._solution["trust_product_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.TrustProductsChannelEndpointAssignmentPage>"

@@ -459,6 +459,32 @@ class WebhookContext(InstanceContext):
         return "<Twilio.Conversations.V1.WebhookContext {}>".format(context)
 
 
+class WebhookPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WebhookInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
+        """
+        return WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            conversation_sid=self._solution["conversation_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.WebhookPage>"
+
+
 class WebhookList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str):
         """
@@ -796,29 +822,3 @@ class WebhookList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.WebhookList>"
-
-
-class WebhookPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WebhookInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
-        """
-        return WebhookInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.WebhookPage>"

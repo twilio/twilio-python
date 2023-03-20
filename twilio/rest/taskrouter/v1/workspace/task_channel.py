@@ -399,6 +399,29 @@ class TaskChannelContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.TaskChannelContext {}>".format(context)
 
 
+class TaskChannelPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskChannelInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        """
+        return TaskChannelInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.TaskChannelPage>"
+
+
 class TaskChannelList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
@@ -682,26 +705,3 @@ class TaskChannelList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskChannelList>"
-
-
-class TaskChannelPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TaskChannelInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        """
-        return TaskChannelInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.TaskChannelPage>"

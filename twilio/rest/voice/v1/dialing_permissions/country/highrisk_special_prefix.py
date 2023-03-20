@@ -58,6 +58,29 @@ class HighriskSpecialPrefixInstance(InstanceResource):
         return "<Twilio.Voice.V1.HighriskSpecialPrefixInstance {}>".format(context)
 
 
+class HighriskSpecialPrefixPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of HighriskSpecialPrefixInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        """
+        return HighriskSpecialPrefixInstance(
+            self._version, payload, iso_code=self._solution["iso_code"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.HighriskSpecialPrefixPage>"
+
+
 class HighriskSpecialPrefixList(ListResource):
     def __init__(self, version: Version, iso_code: str):
         """
@@ -257,26 +280,3 @@ class HighriskSpecialPrefixList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.HighriskSpecialPrefixList>"
-
-
-class HighriskSpecialPrefixPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of HighriskSpecialPrefixInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
-        """
-        return HighriskSpecialPrefixInstance(
-            self._version, payload, iso_code=self._solution["iso_code"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.HighriskSpecialPrefixPage>"

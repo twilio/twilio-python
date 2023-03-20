@@ -399,6 +399,32 @@ class VariableContext(InstanceContext):
         return "<Twilio.Serverless.V1.VariableContext {}>".format(context)
 
 
+class VariablePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of VariableInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        """
+        return VariableInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.VariablePage>"
+
+
 class VariableList(ListResource):
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
@@ -692,29 +718,3 @@ class VariableList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.VariableList>"
-
-
-class VariablePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of VariableInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
-        """
-        return VariableInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.VariablePage>"

@@ -973,6 +973,27 @@ class ServiceContext(InstanceContext):
         return "<Twilio.IpMessaging.V2.ServiceContext {}>".format(context)
 
 
+class ServicePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ServiceInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
+        """
+        return ServiceInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.IpMessaging.V2.ServicePage>"
+
+
 class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1231,24 +1252,3 @@ class ServiceList(ListResource):
         :rtype: str
         """
         return "<Twilio.IpMessaging.V2.ServiceList>"
-
-
-class ServicePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ServiceInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v2.service.ServiceInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
-        """
-        return ServiceInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.IpMessaging.V2.ServicePage>"

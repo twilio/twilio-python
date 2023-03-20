@@ -286,6 +286,32 @@ class DeliveryReceiptContext(InstanceContext):
         return "<Twilio.Conversations.V1.DeliveryReceiptContext {}>".format(context)
 
 
+class DeliveryReceiptPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DeliveryReceiptInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        """
+        return DeliveryReceiptInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution["conversation_sid"],
+            message_sid=self._solution["message_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.DeliveryReceiptPage>"
+
+
 class DeliveryReceiptList(ListResource):
     def __init__(self, version: Version, conversation_sid: str, message_sid: str):
         """
@@ -519,29 +545,3 @@ class DeliveryReceiptList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.DeliveryReceiptList>"
-
-
-class DeliveryReceiptPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DeliveryReceiptInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
-        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
-        """
-        return DeliveryReceiptInstance(
-            self._version,
-            payload,
-            conversation_sid=self._solution["conversation_sid"],
-            message_sid=self._solution["message_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.DeliveryReceiptPage>"

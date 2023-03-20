@@ -433,6 +433,32 @@ class IpAddressContext(InstanceContext):
         return "<Twilio.Api.V2010.IpAddressContext {}>".format(context)
 
 
+class IpAddressPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of IpAddressInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
+        """
+        return IpAddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            ip_access_control_list_sid=self._solution["ip_access_control_list_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.IpAddressPage>"
+
+
 class IpAddressList(ListResource):
     def __init__(
         self, version: Version, account_sid: str, ip_access_control_list_sid: str
@@ -732,29 +758,3 @@ class IpAddressList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.IpAddressList>"
-
-
-class IpAddressPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of IpAddressInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
-        """
-        return IpAddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            ip_access_control_list_sid=self._solution["ip_access_control_list_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.IpAddressPage>"

@@ -287,6 +287,32 @@ class CredentialListMappingContext(InstanceContext):
         return "<Twilio.Api.V2010.CredentialListMappingContext {}>".format(context)
 
 
+class CredentialListMappingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialListMappingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
+        """
+        return CredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            domain_sid=self._solution["domain_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.CredentialListMappingPage>"
+
+
 class CredentialListMappingList(ListResource):
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
@@ -574,29 +600,3 @@ class CredentialListMappingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.CredentialListMappingList>"
-
-
-class CredentialListMappingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CredentialListMappingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
-        """
-        return CredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            domain_sid=self._solution["domain_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.CredentialListMappingPage>"

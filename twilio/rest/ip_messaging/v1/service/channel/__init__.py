@@ -542,6 +542,29 @@ class ChannelContext(InstanceContext):
         return "<Twilio.IpMessaging.V1.ChannelContext {}>".format(context)
 
 
+class ChannelPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ChannelInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
+        """
+        return ChannelInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.IpMessaging.V1.ChannelPage>"
+
+
 class ChannelList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -855,26 +878,3 @@ class ChannelList(ListResource):
         :rtype: str
         """
         return "<Twilio.IpMessaging.V1.ChannelList>"
-
-
-class ChannelPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ChannelInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
-        """
-        return ChannelInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.IpMessaging.V1.ChannelPage>"

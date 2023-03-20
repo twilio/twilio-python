@@ -283,6 +283,27 @@ class EventContext(InstanceContext):
         return "<Twilio.Monitor.V1.EventContext {}>".format(context)
 
 
+class EventPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EventInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.monitor.v1.event.EventInstance
+        :rtype: twilio.rest.monitor.v1.event.EventInstance
+        """
+        return EventInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Monitor.V1.EventPage>"
+
+
 class EventList(ListResource):
     def __init__(self, version: Version):
         """
@@ -629,24 +650,3 @@ class EventList(ListResource):
         :rtype: str
         """
         return "<Twilio.Monitor.V1.EventList>"
-
-
-class EventPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EventInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.monitor.v1.event.EventInstance
-        :rtype: twilio.rest.monitor.v1.event.EventInstance
-        """
-        return EventInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Monitor.V1.EventPage>"

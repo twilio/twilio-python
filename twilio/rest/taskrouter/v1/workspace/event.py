@@ -316,6 +316,29 @@ class EventContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.EventContext {}>".format(context)
 
 
+class EventPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EventInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        """
+        return EventInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.EventPage>"
+
+
 class EventList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
@@ -761,26 +784,3 @@ class EventList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.EventList>"
-
-
-class EventPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EventInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
-        """
-        return EventInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.EventPage>"

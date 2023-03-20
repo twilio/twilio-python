@@ -401,6 +401,29 @@ class RateLimitContext(InstanceContext):
         return "<Twilio.Verify.V2.RateLimitContext {}>".format(context)
 
 
+class RateLimitPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RateLimitInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        return RateLimitInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.RateLimitPage>"
+
+
 class RateLimitList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -676,26 +699,3 @@ class RateLimitList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.RateLimitList>"
-
-
-class RateLimitPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RateLimitInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        return RateLimitInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.RateLimitPage>"

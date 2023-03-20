@@ -266,6 +266,31 @@ class DependentHostedNumberOrderInstance(InstanceResource):
         )
 
 
+class DependentHostedNumberOrderPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DependentHostedNumberOrderInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        """
+        return DependentHostedNumberOrderInstance(
+            self._version,
+            payload,
+            signing_document_sid=self._solution["signing_document_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderPage>"
+
+
 class DependentHostedNumberOrderList(ListResource):
     def __init__(self, version: Version, signing_document_sid: str):
         """
@@ -579,28 +604,3 @@ class DependentHostedNumberOrderList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderList>"
-
-
-class DependentHostedNumberOrderPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DependentHostedNumberOrderInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
-        """
-        return DependentHostedNumberOrderInstance(
-            self._version,
-            payload,
-            signing_document_sid=self._solution["signing_document_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderPage>"

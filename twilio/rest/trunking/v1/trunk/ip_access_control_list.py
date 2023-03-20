@@ -274,6 +274,29 @@ class IpAccessControlListContext(InstanceContext):
         return "<Twilio.Trunking.V1.IpAccessControlListContext {}>".format(context)
 
 
+class IpAccessControlListPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of IpAccessControlListInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        """
+        return IpAccessControlListInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trunking.V1.IpAccessControlListPage>"
+
+
 class IpAccessControlListList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
@@ -545,26 +568,3 @@ class IpAccessControlListList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trunking.V1.IpAccessControlListList>"
-
-
-class IpAccessControlListPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of IpAccessControlListInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        """
-        return IpAccessControlListInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trunking.V1.IpAccessControlListPage>"

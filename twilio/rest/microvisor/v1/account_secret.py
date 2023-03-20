@@ -302,6 +302,27 @@ class AccountSecretContext(InstanceContext):
         return "<Twilio.Microvisor.V1.AccountSecretContext {}>".format(context)
 
 
+class AccountSecretPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AccountSecretInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        return AccountSecretInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Microvisor.V1.AccountSecretPage>"
+
+
 class AccountSecretList(ListResource):
     def __init__(self, version: Version):
         """
@@ -564,24 +585,3 @@ class AccountSecretList(ListResource):
         :rtype: str
         """
         return "<Twilio.Microvisor.V1.AccountSecretList>"
-
-
-class AccountSecretPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AccountSecretInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        return AccountSecretInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Microvisor.V1.AccountSecretPage>"

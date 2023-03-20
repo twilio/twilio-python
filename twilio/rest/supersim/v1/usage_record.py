@@ -157,6 +157,27 @@ class UsageRecordInstance(InstanceResource):
         return "<Twilio.Supersim.V1.UsageRecordInstance {}>".format(context)
 
 
+class UsageRecordPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UsageRecordInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
+        """
+        return UsageRecordInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.UsageRecordPage>"
+
+
 class UsageRecordList(ListResource):
     def __init__(self, version: Version):
         """
@@ -517,24 +538,3 @@ class UsageRecordList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.UsageRecordList>"
-
-
-class UsageRecordPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UsageRecordInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordInstance
-        """
-        return UsageRecordInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.UsageRecordPage>"

@@ -327,6 +327,29 @@ class DeviceSecretContext(InstanceContext):
         return "<Twilio.Microvisor.V1.DeviceSecretContext {}>".format(context)
 
 
+class DeviceSecretPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DeviceSecretInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        return DeviceSecretInstance(
+            self._version, payload, device_sid=self._solution["device_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Microvisor.V1.DeviceSecretPage>"
+
+
 class DeviceSecretList(ListResource):
     def __init__(self, version: Version, device_sid: str):
         """
@@ -602,26 +625,3 @@ class DeviceSecretList(ListResource):
         :rtype: str
         """
         return "<Twilio.Microvisor.V1.DeviceSecretList>"
-
-
-class DeviceSecretPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DeviceSecretInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
-        """
-        return DeviceSecretInstance(
-            self._version, payload, device_sid=self._solution["device_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Microvisor.V1.DeviceSecretPage>"

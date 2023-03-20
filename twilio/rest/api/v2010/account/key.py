@@ -327,6 +327,29 @@ class KeyContext(InstanceContext):
         return "<Twilio.Api.V2010.KeyContext {}>".format(context)
 
 
+class KeyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of KeyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.key.KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
+        """
+        return KeyInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.KeyPage>"
+
+
 class KeyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -548,26 +571,3 @@ class KeyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.KeyList>"
-
-
-class KeyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of KeyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.key.KeyInstance
-        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
-        """
-        return KeyInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.KeyPage>"

@@ -272,6 +272,29 @@ class CredentialListContext(InstanceContext):
         return "<Twilio.Trunking.V1.CredentialListContext {}>".format(context)
 
 
+class CredentialListPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialListInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+        return CredentialListInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trunking.V1.CredentialListPage>"
+
+
 class CredentialListList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
@@ -543,26 +566,3 @@ class CredentialListList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trunking.V1.CredentialListList>"
-
-
-class CredentialListPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CredentialListInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-        return CredentialListInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trunking.V1.CredentialListPage>"

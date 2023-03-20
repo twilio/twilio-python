@@ -503,6 +503,29 @@ class YearlyInstance(InstanceResource):
         return "<Twilio.Api.V2010.YearlyInstance {}>".format(context)
 
 
+class YearlyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of YearlyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
+        """
+        return YearlyInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.YearlyPage>"
+
+
 class YearlyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -798,26 +821,3 @@ class YearlyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.YearlyList>"
-
-
-class YearlyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of YearlyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance
-        """
-        return YearlyInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.YearlyPage>"

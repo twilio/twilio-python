@@ -383,6 +383,27 @@ class SubscriptionContext(InstanceContext):
         return "<Twilio.Events.V1.SubscriptionContext {}>".format(context)
 
 
+class SubscriptionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SubscriptionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.events.v1.subscription.SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        return SubscriptionInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Events.V1.SubscriptionPage>"
+
+
 class SubscriptionList(ListResource):
     def __init__(self, version: Version):
         """
@@ -667,24 +688,3 @@ class SubscriptionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Events.V1.SubscriptionList>"
-
-
-class SubscriptionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SubscriptionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.subscription.SubscriptionInstance
-        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
-        """
-        return SubscriptionInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Events.V1.SubscriptionPage>"

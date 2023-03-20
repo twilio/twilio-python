@@ -552,6 +552,27 @@ class RoomContext(InstanceContext):
         return "<Twilio.Video.V1.RoomContext {}>".format(context)
 
 
+class RoomPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RoomInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.room.RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        return RoomInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.RoomPage>"
+
+
 class RoomList(ListResource):
     def __init__(self, version: Version):
         """
@@ -998,24 +1019,3 @@ class RoomList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.RoomList>"
-
-
-class RoomPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RoomInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        return RoomInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.RoomPage>"

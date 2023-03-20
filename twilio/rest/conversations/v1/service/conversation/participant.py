@@ -573,6 +573,32 @@ class ParticipantContext(InstanceContext):
         return "<Twilio.Conversations.V1.ParticipantContext {}>".format(context)
 
 
+class ParticipantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
+        """
+        return ParticipantInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            conversation_sid=self._solution["conversation_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.ParticipantPage>"
+
+
 class ParticipantList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str):
         """
@@ -916,29 +942,3 @@ class ParticipantList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.ParticipantList>"
-
-
-class ParticipantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ParticipantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
-        """
-        return ParticipantInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.ParticipantPage>"

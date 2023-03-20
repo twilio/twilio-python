@@ -275,6 +275,27 @@ class FlowRevisionContext(InstanceContext):
         return "<Twilio.Studio.V2.FlowRevisionContext {}>".format(context)
 
 
+class FlowRevisionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FlowRevisionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        """
+        return FlowRevisionInstance(self._version, payload, sid=self._solution["sid"])
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V2.FlowRevisionPage>"
+
+
 class FlowRevisionList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
@@ -496,24 +517,3 @@ class FlowRevisionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Studio.V2.FlowRevisionList>"
-
-
-class FlowRevisionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FlowRevisionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
-        """
-        return FlowRevisionInstance(self._version, payload, sid=self._solution["sid"])
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V2.FlowRevisionPage>"

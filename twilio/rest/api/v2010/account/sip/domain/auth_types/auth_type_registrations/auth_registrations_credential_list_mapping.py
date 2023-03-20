@@ -273,6 +273,32 @@ class AuthRegistrationsCredentialListMappingContext(InstanceContext):
         )
 
 
+class AuthRegistrationsCredentialListMappingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AuthRegistrationsCredentialListMappingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
+        """
+        return AuthRegistrationsCredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            domain_sid=self._solution["domain_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingPage>"
+
+
 class AuthRegistrationsCredentialListMappingList(ListResource):
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
@@ -568,29 +594,3 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingList>"
-
-
-class AuthRegistrationsCredentialListMappingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AuthRegistrationsCredentialListMappingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping.AuthRegistrationsCredentialListMappingInstance
-        """
-        return AuthRegistrationsCredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            domain_sid=self._solution["domain_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AuthRegistrationsCredentialListMappingPage>"

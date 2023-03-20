@@ -346,6 +346,27 @@ class MediaProcessorContext(InstanceContext):
         return "<Twilio.Media.V1.MediaProcessorContext {}>".format(context)
 
 
+class MediaProcessorPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MediaProcessorInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.media.v1.media_processor.MediaProcessorInstance
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
+        """
+        return MediaProcessorInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Media.V1.MediaProcessorPage>"
+
+
 class MediaProcessorList(ListResource):
     def __init__(self, version: Version):
         """
@@ -678,24 +699,3 @@ class MediaProcessorList(ListResource):
         :rtype: str
         """
         return "<Twilio.Media.V1.MediaProcessorList>"
-
-
-class MediaProcessorPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MediaProcessorInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        return MediaProcessorInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Media.V1.MediaProcessorPage>"

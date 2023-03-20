@@ -385,6 +385,27 @@ class SupportingDocumentContext(InstanceContext):
         return "<Twilio.Trusthub.V1.SupportingDocumentContext {}>".format(context)
 
 
+class SupportingDocumentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SupportingDocumentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
+        """
+        return SupportingDocumentInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.SupportingDocumentPage>"
+
+
 class SupportingDocumentList(ListResource):
     def __init__(self, version: Version):
         """
@@ -651,24 +672,3 @@ class SupportingDocumentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.SupportingDocumentList>"
-
-
-class SupportingDocumentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SupportingDocumentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
-        """
-        return SupportingDocumentInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.SupportingDocumentPage>"

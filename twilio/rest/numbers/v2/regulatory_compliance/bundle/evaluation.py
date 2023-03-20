@@ -243,6 +243,29 @@ class EvaluationContext(InstanceContext):
         return "<Twilio.Numbers.V2.EvaluationContext {}>".format(context)
 
 
+class EvaluationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EvaluationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        """
+        return EvaluationInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Numbers.V2.EvaluationPage>"
+
+
 class EvaluationList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
@@ -502,26 +525,3 @@ class EvaluationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Numbers.V2.EvaluationList>"
-
-
-class EvaluationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EvaluationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
-        """
-        return EvaluationInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Numbers.V2.EvaluationPage>"

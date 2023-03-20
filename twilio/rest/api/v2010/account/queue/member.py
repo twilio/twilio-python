@@ -328,6 +328,32 @@ class MemberContext(InstanceContext):
         return "<Twilio.Api.V2010.MemberContext {}>".format(context)
 
 
+class MemberPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MemberInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        """
+        return MemberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            queue_sid=self._solution["queue_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.MemberPage>"
+
+
 class MemberList(ListResource):
     def __init__(self, version: Version, account_sid: str, queue_sid: str):
         """
@@ -559,29 +585,3 @@ class MemberList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.MemberList>"
-
-
-class MemberPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MemberInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.queue.member.MemberInstance
-        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
-        """
-        return MemberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.MemberPage>"

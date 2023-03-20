@@ -586,6 +586,32 @@ class MessageContext(InstanceContext):
         return "<Twilio.Conversations.V1.MessageContext {}>".format(context)
 
 
+class MessagePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MessageInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
+        """
+        return MessageInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+            conversation_sid=self._solution["conversation_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.MessagePage>"
+
+
 class MessageList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str):
         """
@@ -947,29 +973,3 @@ class MessageList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.MessageList>"
-
-
-class MessagePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MessageInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
-        """
-        return MessageInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.MessagePage>"

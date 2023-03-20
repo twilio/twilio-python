@@ -503,6 +503,29 @@ class MonthlyInstance(InstanceResource):
         return "<Twilio.Api.V2010.MonthlyInstance {}>".format(context)
 
 
+class MonthlyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MonthlyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
+        """
+        return MonthlyInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.MonthlyPage>"
+
+
 class MonthlyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -798,26 +821,3 @@ class MonthlyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.MonthlyList>"
-
-
-class MonthlyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MonthlyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance
-        """
-        return MonthlyInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.MonthlyPage>"

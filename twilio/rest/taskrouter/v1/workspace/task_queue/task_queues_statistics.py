@@ -94,6 +94,29 @@ class TaskQueuesStatisticsInstance(InstanceResource):
         return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>".format(context)
 
 
+class TaskQueuesStatisticsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskQueuesStatisticsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        """
+        return TaskQueuesStatisticsInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsPage>"
+
+
 class TaskQueuesStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
@@ -425,26 +448,3 @@ class TaskQueuesStatisticsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsList>"
-
-
-class TaskQueuesStatisticsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TaskQueuesStatisticsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
-        """
-        return TaskQueuesStatisticsInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsPage>"

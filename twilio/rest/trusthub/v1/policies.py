@@ -193,6 +193,27 @@ class PoliciesContext(InstanceContext):
         return "<Twilio.Trusthub.V1.PoliciesContext {}>".format(context)
 
 
+class PoliciesPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of PoliciesInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesInstance
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
+        """
+        return PoliciesInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.PoliciesPage>"
+
+
 class PoliciesList(ListResource):
     def __init__(self, version: Version):
         """
@@ -405,24 +426,3 @@ class PoliciesList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.PoliciesList>"
-
-
-class PoliciesPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of PoliciesInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.policies.PoliciesInstance
-        :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
-        """
-        return PoliciesInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.PoliciesPage>"

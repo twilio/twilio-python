@@ -375,6 +375,32 @@ class ParticipantContext(InstanceContext):
         return "<Twilio.Proxy.V1.ParticipantContext {}>".format(context)
 
 
+class ParticipantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Proxy.V1.ParticipantPage>"
+
+
 class ParticipantList(ListResource):
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
@@ -688,29 +714,3 @@ class ParticipantList(ListResource):
         :rtype: str
         """
         return "<Twilio.Proxy.V1.ParticipantList>"
-
-
-class ParticipantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ParticipantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
-        """
-        return ParticipantInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Proxy.V1.ParticipantPage>"

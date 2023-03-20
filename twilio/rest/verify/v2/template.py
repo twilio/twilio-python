@@ -92,6 +92,27 @@ class TemplateInstance(InstanceResource):
         return "<Twilio.Verify.V2.TemplateInstance {}>".format(context)
 
 
+class TemplatePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TemplateInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.template.TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplateInstance
+        """
+        return TemplateInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.TemplatePage>"
+
+
 class TemplateList(ListResource):
     def __init__(self, version: Version):
         """
@@ -304,24 +325,3 @@ class TemplateList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.TemplateList>"
-
-
-class TemplatePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TemplateInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.template.TemplateInstance
-        :rtype: twilio.rest.verify.v2.template.TemplateInstance
-        """
-        return TemplateInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.TemplatePage>"

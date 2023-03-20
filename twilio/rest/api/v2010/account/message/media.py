@@ -289,6 +289,32 @@ class MediaContext(InstanceContext):
         return "<Twilio.Api.V2010.MediaContext {}>".format(context)
 
 
+class MediaPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MediaInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.message.media.MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
+        """
+        return MediaInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            message_sid=self._solution["message_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.MediaPage>"
+
+
 class MediaList(ListResource):
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
@@ -600,29 +626,3 @@ class MediaList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.MediaList>"
-
-
-class MediaPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MediaInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.message.media.MediaInstance
-        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
-        """
-        return MediaInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            message_sid=self._solution["message_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.MediaPage>"

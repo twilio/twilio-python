@@ -167,6 +167,32 @@ class SharedCostInstance(InstanceResource):
         return "<Twilio.Api.V2010.SharedCostInstance {}>".format(context)
 
 
+class SharedCostPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SharedCostInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.shared_cost.SharedCostInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.shared_cost.SharedCostInstance
+        """
+        return SharedCostInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            country_code=self._solution["country_code"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.SharedCostPage>"
+
+
 class SharedCostList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
@@ -716,29 +742,3 @@ class SharedCostList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.SharedCostList>"
-
-
-class SharedCostPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SharedCostInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.shared_cost.SharedCostInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.shared_cost.SharedCostInstance
-        """
-        return SharedCostInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.SharedCostPage>"

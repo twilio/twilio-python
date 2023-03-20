@@ -125,6 +125,29 @@ class BillingPeriodInstance(InstanceResource):
         return "<Twilio.Supersim.V1.BillingPeriodInstance {}>".format(context)
 
 
+class BillingPeriodPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BillingPeriodInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
+        """
+        return BillingPeriodInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.BillingPeriodPage>"
+
+
 class BillingPeriodList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
@@ -320,26 +343,3 @@ class BillingPeriodList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.BillingPeriodList>"
-
-
-class BillingPeriodPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BillingPeriodInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
-        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
-        """
-        return BillingPeriodInstance(
-            self._version, payload, sim_sid=self._solution["sim_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.BillingPeriodPage>"

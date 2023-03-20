@@ -487,6 +487,32 @@ class ChallengeContext(InstanceContext):
         return "<Twilio.Verify.V2.ChallengeContext {}>".format(context)
 
 
+class ChallengePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ChallengeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
+        """
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.ChallengePage>"
+
+
 class ChallengeList(ListResource):
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
@@ -894,29 +920,3 @@ class ChallengeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.ChallengeList>"
-
-
-class ChallengePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ChallengeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
-        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
-        """
-        return ChallengeInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            identity=self._solution["identity"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.ChallengePage>"

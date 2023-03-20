@@ -513,6 +513,29 @@ class UserContext(InstanceContext):
         return "<Twilio.Conversations.V1.UserContext {}>".format(context)
 
 
+class UserPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UserInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.user.UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        return UserInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.UserPage>"
+
+
 class UserList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
@@ -816,26 +839,3 @@ class UserList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.UserList>"
-
-
-class UserPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UserInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.user.UserInstance
-        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
-        """
-        return UserInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.UserPage>"

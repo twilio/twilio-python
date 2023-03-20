@@ -406,6 +406,29 @@ class InteractionChannelContext(InstanceContext):
         return "<Twilio.FlexApi.V1.InteractionChannelContext {}>".format(context)
 
 
+class InteractionChannelPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InteractionChannelInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
+        """
+        return InteractionChannelInstance(
+            self._version, payload, interaction_sid=self._solution["interaction_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.InteractionChannelPage>"
+
+
 class InteractionChannelList(ListResource):
     def __init__(self, version: Version, interaction_sid: str):
         """
@@ -627,26 +650,3 @@ class InteractionChannelList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.InteractionChannelList>"
-
-
-class InteractionChannelPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InteractionChannelInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
-        """
-        return InteractionChannelInstance(
-            self._version, payload, interaction_sid=self._solution["interaction_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.InteractionChannelPage>"

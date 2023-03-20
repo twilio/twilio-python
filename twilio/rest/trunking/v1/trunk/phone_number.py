@@ -449,6 +449,29 @@ class PhoneNumberContext(InstanceContext):
         return "<Twilio.Trunking.V1.PhoneNumberContext {}>".format(context)
 
 
+class PhoneNumberPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of PhoneNumberInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
+        """
+        return PhoneNumberInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trunking.V1.PhoneNumberPage>"
+
+
 class PhoneNumberList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
@@ -720,26 +743,3 @@ class PhoneNumberList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trunking.V1.PhoneNumberList>"
-
-
-class PhoneNumberPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of PhoneNumberInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
-        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
-        """
-        return PhoneNumberInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trunking.V1.PhoneNumberPage>"

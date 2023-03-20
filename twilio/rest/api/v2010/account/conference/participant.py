@@ -588,6 +588,32 @@ class ParticipantContext(InstanceContext):
         return "<Twilio.Api.V2010.ParticipantContext {}>".format(context)
 
 
+class ParticipantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.ParticipantPage>"
+
+
 class ParticipantList(ListResource):
     def __init__(self, version: Version, account_sid: str, conference_sid: str):
         """
@@ -1241,29 +1267,3 @@ class ParticipantList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.ParticipantList>"
-
-
-class ParticipantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ParticipantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        return ParticipantInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.ParticipantPage>"

@@ -378,6 +378,29 @@ class RoleContext(InstanceContext):
         return "<Twilio.Conversations.V1.RoleContext {}>".format(context)
 
 
+class RolePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RoleInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.role.RoleInstance
+        :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
+        """
+        return RoleInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.RolePage>"
+
+
 class RoleList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
@@ -657,26 +680,3 @@ class RoleList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.RoleList>"
-
-
-class RolePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RoleInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.role.RoleInstance
-        :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
-        """
-        return RoleInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.RolePage>"

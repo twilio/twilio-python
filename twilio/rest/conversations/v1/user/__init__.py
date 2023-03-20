@@ -492,6 +492,27 @@ class UserContext(InstanceContext):
         return "<Twilio.Conversations.V1.UserContext {}>".format(context)
 
 
+class UserPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UserInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.user.UserInstance
+        :rtype: twilio.rest.conversations.v1.user.UserInstance
+        """
+        return UserInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.UserPage>"
+
+
 class UserList(ListResource):
     def __init__(self, version: Version):
         """
@@ -782,24 +803,3 @@ class UserList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.UserList>"
-
-
-class UserPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UserInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.user.UserInstance
-        :rtype: twilio.rest.conversations.v1.user.UserInstance
-        """
-        return UserInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.UserPage>"

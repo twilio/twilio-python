@@ -267,6 +267,29 @@ class ItemAssignmentContext(InstanceContext):
         return "<Twilio.Numbers.V2.ItemAssignmentContext {}>".format(context)
 
 
+class ItemAssignmentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ItemAssignmentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
+        """
+        return ItemAssignmentInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Numbers.V2.ItemAssignmentPage>"
+
+
 class ItemAssignmentList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
@@ -540,26 +563,3 @@ class ItemAssignmentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Numbers.V2.ItemAssignmentList>"
-
-
-class ItemAssignmentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ItemAssignmentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
-        """
-        return ItemAssignmentInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Numbers.V2.ItemAssignmentPage>"

@@ -394,6 +394,29 @@ class FunctionContext(InstanceContext):
         return "<Twilio.Serverless.V1.FunctionContext {}>".format(context)
 
 
+class FunctionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FunctionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.function.FunctionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
+        """
+        return FunctionInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.FunctionPage>"
+
+
 class FunctionList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -665,26 +688,3 @@ class FunctionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.FunctionList>"
-
-
-class FunctionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FunctionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.function.FunctionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
-        """
-        return FunctionInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.FunctionPage>"

@@ -471,6 +471,32 @@ class WebhookContext(InstanceContext):
         return "<Twilio.Chat.V2.WebhookContext {}>".format(context)
 
 
+class WebhookPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WebhookInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
+        """
+        return WebhookInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Chat.V2.WebhookPage>"
+
+
 class WebhookList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
@@ -808,29 +834,3 @@ class WebhookList(ListResource):
         :rtype: str
         """
         return "<Twilio.Chat.V2.WebhookList>"
-
-
-class WebhookPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WebhookInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
-        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
-        """
-        return WebhookInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Chat.V2.WebhookPage>"

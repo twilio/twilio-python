@@ -450,6 +450,29 @@ class OriginationUrlContext(InstanceContext):
         return "<Twilio.Trunking.V1.OriginationUrlContext {}>".format(context)
 
 
+class OriginationUrlPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of OriginationUrlInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        """
+        return OriginationUrlInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trunking.V1.OriginationUrlPage>"
+
+
 class OriginationUrlList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
@@ -737,26 +760,3 @@ class OriginationUrlList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trunking.V1.OriginationUrlList>"
-
-
-class OriginationUrlPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of OriginationUrlInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        """
-        return OriginationUrlInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trunking.V1.OriginationUrlPage>"

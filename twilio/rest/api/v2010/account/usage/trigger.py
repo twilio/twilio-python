@@ -803,6 +803,29 @@ class TriggerContext(InstanceContext):
         return "<Twilio.Api.V2010.TriggerContext {}>".format(context)
 
 
+class TriggerPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TriggerInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        return TriggerInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.TriggerPage>"
+
+
 class TriggerList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -1198,26 +1221,3 @@ class TriggerList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.TriggerList>"
-
-
-class TriggerPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TriggerInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        """
-        return TriggerInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.TriggerPage>"

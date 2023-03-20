@@ -627,6 +627,27 @@ class HostedNumberOrderContext(InstanceContext):
         )
 
 
+class HostedNumberOrderPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of HostedNumberOrderInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
+        """
+        return HostedNumberOrderInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.HostedNumbers.HostedNumberOrderPage>"
+
+
 class HostedNumberOrderList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1103,24 +1124,3 @@ class HostedNumberOrderList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.HostedNumbers.HostedNumberOrderList>"
-
-
-class HostedNumberOrderPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of HostedNumberOrderInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
-        """
-        return HostedNumberOrderInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.HostedNumbers.HostedNumberOrderPage>"

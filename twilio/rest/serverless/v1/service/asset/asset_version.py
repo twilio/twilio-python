@@ -255,6 +255,32 @@ class AssetVersionContext(InstanceContext):
         return "<Twilio.Serverless.V1.AssetVersionContext {}>".format(context)
 
 
+class AssetVersionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssetVersionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
+        """
+        return AssetVersionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            asset_sid=self._solution["asset_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.AssetVersionPage>"
+
+
 class AssetVersionList(ListResource):
     def __init__(self, version: Version, service_sid: str, asset_sid: str):
         """
@@ -486,29 +512,3 @@ class AssetVersionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.AssetVersionList>"
-
-
-class AssetVersionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssetVersionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
-        """
-        return AssetVersionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            asset_sid=self._solution["asset_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.AssetVersionPage>"

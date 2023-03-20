@@ -542,6 +542,29 @@ class TaskContext(InstanceContext):
         return "<Twilio.Autopilot.V1.TaskContext {}>".format(context)
 
 
+class TaskPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TaskInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
+        """
+        return TaskInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.TaskPage>"
+
+
 class TaskList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
@@ -837,26 +860,3 @@ class TaskList(ListResource):
         :rtype: str
         """
         return "<Twilio.Autopilot.V1.TaskList>"
-
-
-class TaskPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TaskInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.TaskInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
-        """
-        return TaskInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Autopilot.V1.TaskPage>"

@@ -380,6 +380,29 @@ class KeyContext(InstanceContext):
         return "<Twilio.Preview.DeployedDevices.KeyContext {}>".format(context)
 
 
+class KeyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of KeyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        """
+        return KeyInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.DeployedDevices.KeyPage>"
+
+
 class KeyList(ListResource):
     def __init__(self, version: Version, fleet_sid: str):
         """
@@ -671,26 +694,3 @@ class KeyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.DeployedDevices.KeyList>"
-
-
-class KeyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of KeyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        """
-        return KeyInstance(
-            self._version, payload, fleet_sid=self._solution["fleet_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.DeployedDevices.KeyPage>"

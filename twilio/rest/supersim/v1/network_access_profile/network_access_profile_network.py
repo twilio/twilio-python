@@ -277,6 +277,31 @@ class NetworkAccessProfileNetworkContext(InstanceContext):
         )
 
 
+class NetworkAccessProfileNetworkPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of NetworkAccessProfileNetworkInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        """
+        return NetworkAccessProfileNetworkInstance(
+            self._version,
+            payload,
+            network_access_profile_sid=self._solution["network_access_profile_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.NetworkAccessProfileNetworkPage>"
+
+
 class NetworkAccessProfileNetworkList(ListResource):
     def __init__(self, version: Version, network_access_profile_sid: str):
         """
@@ -560,28 +585,3 @@ class NetworkAccessProfileNetworkList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.NetworkAccessProfileNetworkList>"
-
-
-class NetworkAccessProfileNetworkPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of NetworkAccessProfileNetworkInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
-        """
-        return NetworkAccessProfileNetworkInstance(
-            self._version,
-            payload,
-            network_access_profile_sid=self._solution["network_access_profile_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.NetworkAccessProfileNetworkPage>"

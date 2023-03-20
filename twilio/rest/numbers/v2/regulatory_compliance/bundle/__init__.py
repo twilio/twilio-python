@@ -564,6 +564,27 @@ class BundleContext(InstanceContext):
         return "<Twilio.Numbers.V2.BundleContext {}>".format(context)
 
 
+class BundlePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BundleInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
+        """
+        return BundleInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Numbers.V2.BundlePage>"
+
+
 class BundleList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1088,24 +1109,3 @@ class BundleList(ListResource):
         :rtype: str
         """
         return "<Twilio.Numbers.V2.BundleList>"
-
-
-class BundlePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BundleInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
-        """
-        return BundleInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Numbers.V2.BundlePage>"

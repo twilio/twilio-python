@@ -266,6 +266,27 @@ class VerificationAttemptContext(InstanceContext):
         return "<Twilio.Verify.V2.VerificationAttemptContext {}>".format(context)
 
 
+class VerificationAttemptPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of VerificationAttemptInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+        return VerificationAttemptInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.VerificationAttemptPage>"
+
+
 class VerificationAttemptList(ListResource):
     def __init__(self, version: Version):
         """
@@ -648,24 +669,3 @@ class VerificationAttemptList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.VerificationAttemptList>"
-
-
-class VerificationAttemptPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of VerificationAttemptInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-        return VerificationAttemptInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.VerificationAttemptPage>"

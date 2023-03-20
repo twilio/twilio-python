@@ -220,6 +220,27 @@ class EventTypeContext(InstanceContext):
         return "<Twilio.Events.V1.EventTypeContext {}>".format(context)
 
 
+class EventTypePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EventTypeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.events.v1.event_type.EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+        return EventTypeInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Events.V1.EventTypePage>"
+
+
 class EventTypeList(ListResource):
     def __init__(self, version: Version):
         """
@@ -450,24 +471,3 @@ class EventTypeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Events.V1.EventTypeList>"
-
-
-class EventTypePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EventTypeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.events.v1.event_type.EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
-        """
-        return EventTypeInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Events.V1.EventTypePage>"

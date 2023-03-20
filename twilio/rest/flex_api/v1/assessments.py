@@ -327,6 +327,27 @@ class AssessmentsContext(InstanceContext):
         return "<Twilio.FlexApi.V1.AssessmentsContext {}>".format(context)
 
 
+class AssessmentsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssessmentsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
+        """
+        return AssessmentsInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.AssessmentsPage>"
+
+
 class AssessmentsList(ListResource):
     def __init__(self, version: Version):
         """
@@ -707,24 +728,3 @@ class AssessmentsList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.AssessmentsList>"
-
-
-class AssessmentsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssessmentsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
-        """
-        return AssessmentsInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.AssessmentsPage>"

@@ -321,6 +321,27 @@ class ContentContext(InstanceContext):
         return "<Twilio.Content.V1.ContentContext {}>".format(context)
 
 
+class ContentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ContentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.content.v1.content.ContentInstance
+        :rtype: twilio.rest.content.v1.content.ContentInstance
+        """
+        return ContentInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Content.V1.ContentPage>"
+
+
 class ContentList(ListResource):
     def __init__(self, version: Version):
         """
@@ -533,24 +554,3 @@ class ContentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Content.V1.ContentList>"
-
-
-class ContentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ContentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.content.v1.content.ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
-        """
-        return ContentInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Content.V1.ContentPage>"

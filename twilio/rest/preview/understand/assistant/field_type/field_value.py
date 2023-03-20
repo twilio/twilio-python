@@ -316,6 +316,32 @@ class FieldValueContext(InstanceContext):
         return "<Twilio.Preview.Understand.FieldValueContext {}>".format(context)
 
 
+class FieldValuePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FieldValueInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        return FieldValueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution["assistant_sid"],
+            field_type_sid=self._solution["field_type_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.FieldValuePage>"
+
+
 class FieldValueList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, field_type_sid: str):
         """
@@ -629,29 +655,3 @@ class FieldValueList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Understand.FieldValueList>"
-
-
-class FieldValuePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FieldValueInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
-        """
-        return FieldValueInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution["assistant_sid"],
-            field_type_sid=self._solution["field_type_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Understand.FieldValuePage>"

@@ -372,6 +372,27 @@ class ConnectionPolicyContext(InstanceContext):
         return "<Twilio.Voice.V1.ConnectionPolicyContext {}>".format(context)
 
 
+class ConnectionPolicyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConnectionPolicyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
+        """
+        return ConnectionPolicyInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.ConnectionPolicyPage>"
+
+
 class ConnectionPolicyList(ListResource):
     def __init__(self, version: Version):
         """
@@ -630,24 +651,3 @@ class ConnectionPolicyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.ConnectionPolicyList>"
-
-
-class ConnectionPolicyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ConnectionPolicyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
-        """
-        return ConnectionPolicyInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.ConnectionPolicyPage>"

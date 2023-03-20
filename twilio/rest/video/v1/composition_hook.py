@@ -542,6 +542,27 @@ class CompositionHookContext(InstanceContext):
         return "<Twilio.Video.V1.CompositionHookContext {}>".format(context)
 
 
+class CompositionHookPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CompositionHookInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
+        """
+        return CompositionHookInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.CompositionHookPage>"
+
+
 class CompositionHookList(ListResource):
     def __init__(self, version: Version):
         """
@@ -962,24 +983,3 @@ class CompositionHookList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.CompositionHookList>"
-
-
-class CompositionHookPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CompositionHookInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
-        """
-        return CompositionHookInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.CompositionHookPage>"

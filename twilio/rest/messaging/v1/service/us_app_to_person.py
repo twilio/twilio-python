@@ -429,6 +429,31 @@ class UsAppToPersonContext(InstanceContext):
         return "<Twilio.Messaging.V1.UsAppToPersonContext {}>".format(context)
 
 
+class UsAppToPersonPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UsAppToPersonInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
+        """
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Messaging.V1.UsAppToPersonPage>"
+
+
 class UsAppToPersonList(ListResource):
     def __init__(self, version: Version, messaging_service_sid: str):
         """
@@ -788,28 +813,3 @@ class UsAppToPersonList(ListResource):
         :rtype: str
         """
         return "<Twilio.Messaging.V1.UsAppToPersonList>"
-
-
-class UsAppToPersonPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UsAppToPersonInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
-        """
-        return UsAppToPersonInstance(
-            self._version,
-            payload,
-            messaging_service_sid=self._solution["messaging_service_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Messaging.V1.UsAppToPersonPage>"

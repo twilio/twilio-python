@@ -167,6 +167,32 @@ class NationalInstance(InstanceResource):
         return "<Twilio.Api.V2010.NationalInstance {}>".format(context)
 
 
+class NationalPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of NationalInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance
+        """
+        return NationalInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            country_code=self._solution["country_code"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.NationalPage>"
+
+
 class NationalList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
@@ -716,29 +742,3 @@ class NationalList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.NationalList>"
-
-
-class NationalPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of NationalInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance
-        """
-        return NationalInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.NationalPage>"

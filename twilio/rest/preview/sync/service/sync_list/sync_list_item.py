@@ -434,6 +434,32 @@ class SyncListItemContext(InstanceContext):
         return "<Twilio.Preview.Sync.SyncListItemContext {}>".format(context)
 
 
+class SyncListItemPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SyncListItemInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        return SyncListItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            list_sid=self._solution["list_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Sync.SyncListItemPage>"
+
+
 class SyncListItemList(ListResource):
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
@@ -795,29 +821,3 @@ class SyncListItemList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Sync.SyncListItemList>"
-
-
-class SyncListItemPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SyncListItemInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
-        """
-        return SyncListItemInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            list_sid=self._solution["list_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Sync.SyncListItemPage>"

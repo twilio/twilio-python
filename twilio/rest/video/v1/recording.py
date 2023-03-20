@@ -386,6 +386,27 @@ class RecordingContext(InstanceContext):
         return "<Twilio.Video.V1.RecordingContext {}>".format(context)
 
 
+class RecordingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RecordingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.recording.RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        """
+        return RecordingInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.RecordingPage>"
+
+
 class RecordingList(ListResource):
     def __init__(self, version: Version):
         """
@@ -732,24 +753,3 @@ class RecordingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.RecordingList>"
-
-
-class RecordingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RecordingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-        return RecordingInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.RecordingPage>"

@@ -329,6 +329,27 @@ class PublicKeyContext(InstanceContext):
         return "<Twilio.Accounts.V1.PublicKeyContext {}>".format(context)
 
 
+class PublicKeyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of PublicKeyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        """
+        return PublicKeyInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Accounts.V1.PublicKeyPage>"
+
+
 class PublicKeyList(ListResource):
     def __init__(self, version: Version):
         """
@@ -597,24 +618,3 @@ class PublicKeyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Accounts.V1.PublicKeyList>"
-
-
-class PublicKeyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of PublicKeyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
-        """
-        return PublicKeyInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Accounts.V1.PublicKeyPage>"

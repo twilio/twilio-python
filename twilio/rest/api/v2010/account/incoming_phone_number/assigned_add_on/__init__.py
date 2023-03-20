@@ -355,6 +355,32 @@ class AssignedAddOnContext(InstanceContext):
         return "<Twilio.Api.V2010.AssignedAddOnContext {}>".format(context)
 
 
+class AssignedAddOnPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssignedAddOnInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AssignedAddOnPage>"
+
+
 class AssignedAddOnList(ListResource):
     def __init__(self, version: Version, account_sid: str, resource_sid: str):
         """
@@ -642,29 +668,3 @@ class AssignedAddOnList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AssignedAddOnList>"
-
-
-class AssignedAddOnPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssignedAddOnInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
-        """
-        return AssignedAddOnInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AssignedAddOnPage>"

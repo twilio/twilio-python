@@ -272,6 +272,27 @@ class CountryContext(InstanceContext):
         return "<Twilio.Voice.V1.CountryContext {}>".format(context)
 
 
+class CountryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CountryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        """
+        return CountryInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.CountryPage>"
+
+
 class CountryList(ListResource):
     def __init__(self, version: Version):
         """
@@ -618,24 +639,3 @@ class CountryList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.CountryList>"
-
-
-class CountryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CountryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-        return CountryInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.CountryPage>"

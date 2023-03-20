@@ -398,6 +398,32 @@ class DocumentPermissionContext(InstanceContext):
         return "<Twilio.Preview.Sync.DocumentPermissionContext {}>".format(context)
 
 
+class DocumentPermissionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DocumentPermissionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        """
+        return DocumentPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            document_sid=self._solution["document_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Sync.DocumentPermissionPage>"
+
+
 class DocumentPermissionList(ListResource):
     def __init__(self, version: Version, service_sid: str, document_sid: str):
         """
@@ -631,29 +657,3 @@ class DocumentPermissionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Sync.DocumentPermissionList>"
-
-
-class DocumentPermissionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DocumentPermissionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
-        """
-        return DocumentPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            document_sid=self._solution["document_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Sync.DocumentPermissionPage>"

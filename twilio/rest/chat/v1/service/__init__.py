@@ -1200,6 +1200,27 @@ class ServiceContext(InstanceContext):
         return "<Twilio.Chat.V1.ServiceContext {}>".format(context)
 
 
+class ServicePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ServiceInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.chat.v1.service.ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
+        """
+        return ServiceInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Chat.V1.ServicePage>"
+
+
 class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1458,24 +1479,3 @@ class ServiceList(ListResource):
         :rtype: str
         """
         return "<Twilio.Chat.V1.ServiceList>"
-
-
-class ServicePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ServiceInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.chat.v1.service.ServiceInstance
-        :rtype: twilio.rest.chat.v1.service.ServiceInstance
-        """
-        return ServiceInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Chat.V1.ServicePage>"

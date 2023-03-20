@@ -484,6 +484,32 @@ class UserChannelContext(InstanceContext):
         return "<Twilio.Chat.V2.UserChannelContext {}>".format(context)
 
 
+class UserChannelPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UserChannelInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
+        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
+        """
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            user_sid=self._solution["user_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Chat.V2.UserChannelPage>"
+
+
 class UserChannelList(ListResource):
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
@@ -715,29 +741,3 @@ class UserChannelList(ListResource):
         :rtype: str
         """
         return "<Twilio.Chat.V2.UserChannelList>"
-
-
-class UserChannelPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UserChannelInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
-        """
-        return UserChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Chat.V2.UserChannelPage>"

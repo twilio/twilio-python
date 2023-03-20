@@ -534,6 +534,27 @@ class TrustProductsContext(InstanceContext):
         return "<Twilio.Trusthub.V1.TrustProductsContext {}>".format(context)
 
 
+class TrustProductsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TrustProductsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
+        """
+        return TrustProductsInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.TrustProductsPage>"
+
+
 class TrustProductsList(ListResource):
     def __init__(self, version: Version):
         """
@@ -886,24 +907,3 @@ class TrustProductsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsList>"
-
-
-class TrustProductsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TrustProductsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
-        """
-        return TrustProductsInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.TrustProductsPage>"

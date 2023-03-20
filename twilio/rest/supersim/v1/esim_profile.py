@@ -291,6 +291,27 @@ class EsimProfileContext(InstanceContext):
         return "<Twilio.Supersim.V1.EsimProfileContext {}>".format(context)
 
 
+class EsimProfilePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EsimProfileInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        return EsimProfileInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.EsimProfilePage>"
+
+
 class EsimProfileList(ListResource):
     def __init__(self, version: Version):
         """
@@ -647,24 +668,3 @@ class EsimProfileList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.EsimProfileList>"
-
-
-class EsimProfilePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EsimProfileInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        """
-        return EsimProfileInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.EsimProfilePage>"

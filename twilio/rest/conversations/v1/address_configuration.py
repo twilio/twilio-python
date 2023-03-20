@@ -476,6 +476,27 @@ class AddressConfigurationContext(InstanceContext):
         )
 
 
+class AddressConfigurationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AddressConfigurationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
+        """
+        return AddressConfigurationInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.AddressConfigurationPage>"
+
+
 class AddressConfigurationList(ListResource):
     def __init__(self, version: Version):
         """
@@ -822,24 +843,3 @@ class AddressConfigurationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.AddressConfigurationList>"
-
-
-class AddressConfigurationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AddressConfigurationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        """
-        return AddressConfigurationInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.AddressConfigurationPage>"

@@ -503,6 +503,29 @@ class DailyInstance(InstanceResource):
         return "<Twilio.Api.V2010.DailyInstance {}>".format(context)
 
 
+class DailyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DailyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
+        """
+        return DailyInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.DailyPage>"
+
+
 class DailyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -798,26 +821,3 @@ class DailyList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.DailyList>"
-
-
-class DailyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DailyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
-        """
-        return DailyInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.DailyPage>"

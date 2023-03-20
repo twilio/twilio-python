@@ -416,6 +416,29 @@ class QueryContext(InstanceContext):
         return "<Twilio.Preview.Understand.QueryContext {}>".format(context)
 
 
+class QueryPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of QueryInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.understand.assistant.query.QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        return QueryInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Understand.QueryPage>"
+
+
 class QueryList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
@@ -797,26 +820,3 @@ class QueryList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Understand.QueryList>"
-
-
-class QueryPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of QueryInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.understand.assistant.query.QueryInstance
-        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
-        """
-        return QueryInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Understand.QueryPage>"

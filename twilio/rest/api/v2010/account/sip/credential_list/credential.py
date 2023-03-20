@@ -373,6 +373,32 @@ class CredentialContext(InstanceContext):
         return "<Twilio.Api.V2010.CredentialContext {}>".format(context)
 
 
+class CredentialPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CredentialInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
+        """
+        return CredentialInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            credential_list_sid=self._solution["credential_list_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.CredentialPage>"
+
+
 class CredentialList(ListResource):
     def __init__(self, version: Version, account_sid: str, credential_list_sid: str):
         """
@@ -664,29 +690,3 @@ class CredentialList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.CredentialList>"
-
-
-class CredentialPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CredentialInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
-        """
-        return CredentialInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            credential_list_sid=self._solution["credential_list_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.CredentialPage>"

@@ -288,6 +288,27 @@ class IpCommandContext(InstanceContext):
         return "<Twilio.Supersim.V1.IpCommandContext {}>".format(context)
 
 
+class IpCommandPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of IpCommandInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+        return IpCommandInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.IpCommandPage>"
+
+
 class IpCommandList(ListResource):
     def __init__(self, version: Version):
         """
@@ -680,24 +701,3 @@ class IpCommandList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.IpCommandList>"
-
-
-class IpCommandPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of IpCommandInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-        return IpCommandInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.IpCommandPage>"

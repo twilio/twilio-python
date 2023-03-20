@@ -71,6 +71,29 @@ class SimIpAddressInstance(InstanceResource):
         return "<Twilio.Supersim.V1.SimIpAddressInstance {}>".format(context)
 
 
+class SimIpAddressPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SimIpAddressInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
+        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
+        """
+        return SimIpAddressInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.SimIpAddressPage>"
+
+
 class SimIpAddressList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
@@ -266,26 +289,3 @@ class SimIpAddressList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.SimIpAddressList>"
-
-
-class SimIpAddressPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SimIpAddressInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
-        """
-        return SimIpAddressInstance(
-            self._version, payload, sim_sid=self._solution["sim_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.SimIpAddressPage>"

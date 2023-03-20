@@ -330,6 +330,27 @@ class AlertContext(InstanceContext):
         return "<Twilio.Monitor.V1.AlertContext {}>".format(context)
 
 
+class AlertPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AlertInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.monitor.v1.alert.AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
+        """
+        return AlertInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Monitor.V1.AlertPage>"
+
+
 class AlertList(ListResource):
     def __init__(self, version: Version):
         """
@@ -622,24 +643,3 @@ class AlertList(ListResource):
         :rtype: str
         """
         return "<Twilio.Monitor.V1.AlertList>"
-
-
-class AlertPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AlertInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.monitor.v1.alert.AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-        return AlertInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Monitor.V1.AlertPage>"

@@ -311,6 +311,27 @@ class AccountConfigContext(InstanceContext):
         return "<Twilio.Microvisor.V1.AccountConfigContext {}>".format(context)
 
 
+class AccountConfigPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AccountConfigInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
+        """
+        return AccountConfigInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Microvisor.V1.AccountConfigPage>"
+
+
 class AccountConfigList(ListResource):
     def __init__(self, version: Version):
         """
@@ -573,24 +594,3 @@ class AccountConfigList(ListResource):
         :rtype: str
         """
         return "<Twilio.Microvisor.V1.AccountConfigList>"
-
-
-class AccountConfigPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AccountConfigInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        """
-        return AccountConfigInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Microvisor.V1.AccountConfigPage>"

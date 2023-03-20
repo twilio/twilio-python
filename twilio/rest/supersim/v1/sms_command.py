@@ -249,6 +249,27 @@ class SmsCommandContext(InstanceContext):
         return "<Twilio.Supersim.V1.SmsCommandContext {}>".format(context)
 
 
+class SmsCommandPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SmsCommandInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        return SmsCommandInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.SmsCommandPage>"
+
+
 class SmsCommandList(ListResource):
     def __init__(self, version: Version):
         """
@@ -597,24 +618,3 @@ class SmsCommandList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.SmsCommandList>"
-
-
-class SmsCommandPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SmsCommandInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-        return SmsCommandInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.SmsCommandPage>"

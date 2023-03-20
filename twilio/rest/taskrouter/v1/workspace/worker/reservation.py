@@ -1011,6 +1011,32 @@ class ReservationContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.ReservationContext {}>".format(context)
 
 
+class ReservationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ReservationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
+        """
+        return ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.ReservationPage>"
+
+
 class ReservationList(ListResource):
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
@@ -1270,29 +1296,3 @@ class ReservationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.ReservationList>"
-
-
-class ReservationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ReservationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
-        """
-        return ReservationInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            worker_sid=self._solution["worker_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.ReservationPage>"

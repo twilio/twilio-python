@@ -381,6 +381,27 @@ class PlayerStreamerContext(InstanceContext):
         return "<Twilio.Media.V1.PlayerStreamerContext {}>".format(context)
 
 
+class PlayerStreamerPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of PlayerStreamerInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
+        """
+        return PlayerStreamerInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Media.V1.PlayerStreamerPage>"
+
+
 class PlayerStreamerList(ListResource):
     def __init__(self, version: Version):
         """
@@ -701,24 +722,3 @@ class PlayerStreamerList(ListResource):
         :rtype: str
         """
         return "<Twilio.Media.V1.PlayerStreamerList>"
-
-
-class PlayerStreamerPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of PlayerStreamerInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
-        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
-        """
-        return PlayerStreamerInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Media.V1.PlayerStreamerPage>"

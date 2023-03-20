@@ -457,6 +457,29 @@ class SyncMapContext(InstanceContext):
         return "<Twilio.Sync.V1.SyncMapContext {}>".format(context)
 
 
+class SyncMapPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SyncMapInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
+        """
+        return SyncMapInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Sync.V1.SyncMapPage>"
+
+
 class SyncMapList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -740,26 +763,3 @@ class SyncMapList(ListResource):
         :rtype: str
         """
         return "<Twilio.Sync.V1.SyncMapList>"
-
-
-class SyncMapPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SyncMapInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
-        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
-        """
-        return SyncMapInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Sync.V1.SyncMapPage>"

@@ -503,6 +503,29 @@ class YesterdayInstance(InstanceResource):
         return "<Twilio.Api.V2010.YesterdayInstance {}>".format(context)
 
 
+class YesterdayPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of YesterdayInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
+        """
+        return YesterdayInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.YesterdayPage>"
+
+
 class YesterdayList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -798,26 +821,3 @@ class YesterdayList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.YesterdayList>"
-
-
-class YesterdayPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of YesterdayInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance
-        """
-        return YesterdayInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.YesterdayPage>"

@@ -729,6 +729,29 @@ class DomainContext(InstanceContext):
         return "<Twilio.Api.V2010.DomainContext {}>".format(context)
 
 
+class DomainPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DomainInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
+        """
+        return DomainInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.DomainPage>"
+
+
 class DomainList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -1078,26 +1101,3 @@ class DomainList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.DomainList>"
-
-
-class DomainPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DomainInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
-        """
-        return DomainInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.DomainPage>"

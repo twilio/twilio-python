@@ -356,6 +356,29 @@ class OutgoingCallerIdContext(InstanceContext):
         return "<Twilio.Api.V2010.OutgoingCallerIdContext {}>".format(context)
 
 
+class OutgoingCallerIdPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of OutgoingCallerIdInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        """
+        return OutgoingCallerIdInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.OutgoingCallerIdPage>"
+
+
 class OutgoingCallerIdList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -641,26 +664,3 @@ class OutgoingCallerIdList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.OutgoingCallerIdList>"
-
-
-class OutgoingCallerIdPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of OutgoingCallerIdInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
-        """
-        return OutgoingCallerIdInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.OutgoingCallerIdPage>"

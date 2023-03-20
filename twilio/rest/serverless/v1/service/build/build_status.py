@@ -207,6 +207,7 @@ class BuildStatusContext(InstanceContext):
         return '<Twilio.Serverless.V1.BuildStatusContext {}>'.format(context)
 
 
+
 class BuildStatusList(ListResource):
 
     def __init__(self, version: Version, service_sid: str, sid: str):
@@ -257,5 +258,4 @@ class BuildStatusList(ListResource):
         :rtype: str
         """
         return '<Twilio.Serverless.V1.BuildStatusList>'
-
 

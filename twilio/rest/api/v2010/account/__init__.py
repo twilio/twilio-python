@@ -989,6 +989,27 @@ class AccountContext(InstanceContext):
         return "<Twilio.Api.V2010.AccountContext {}>".format(context)
 
 
+class AccountPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AccountInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        return AccountInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AccountPage>"
+
+
 class AccountList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1305,24 +1326,3 @@ class AccountList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AccountList>"
-
-
-class AccountPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AccountInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        return AccountInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AccountPage>"

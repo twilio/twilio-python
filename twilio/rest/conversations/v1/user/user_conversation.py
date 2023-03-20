@@ -507,6 +507,29 @@ class UserConversationContext(InstanceContext):
         return "<Twilio.Conversations.V1.UserConversationContext {}>".format(context)
 
 
+class UserConversationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of UserConversationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
+        """
+        return UserConversationInstance(
+            self._version, payload, user_sid=self._solution["user_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.UserConversationPage>"
+
+
 class UserConversationList(ListResource):
     def __init__(self, version: Version, user_sid: str):
         """
@@ -732,26 +755,3 @@ class UserConversationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.UserConversationList>"
-
-
-class UserConversationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of UserConversationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
-        """
-        return UserConversationInstance(
-            self._version, payload, user_sid=self._solution["user_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.UserConversationPage>"

@@ -411,6 +411,29 @@ class FieldTypeContext(InstanceContext):
         return "<Twilio.Autopilot.V1.FieldTypeContext {}>".format(context)
 
 
+class FieldTypePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FieldTypeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
+        """
+        return FieldTypeInstance(
+            self._version, payload, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Autopilot.V1.FieldTypePage>"
+
+
 class FieldTypeList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
@@ -686,26 +709,3 @@ class FieldTypeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Autopilot.V1.FieldTypeList>"
-
-
-class FieldTypePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FieldTypeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
-        """
-        return FieldTypeInstance(
-            self._version, payload, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Autopilot.V1.FieldTypePage>"

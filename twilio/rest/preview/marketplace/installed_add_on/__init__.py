@@ -403,6 +403,27 @@ class InstalledAddOnContext(InstanceContext):
         return "<Twilio.Preview.Marketplace.InstalledAddOnContext {}>".format(context)
 
 
+class InstalledAddOnPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InstalledAddOnInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        """
+        return InstalledAddOnInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Marketplace.InstalledAddOnPage>"
+
+
 class InstalledAddOnList(ListResource):
     def __init__(self, version: Version):
         """
@@ -685,24 +706,3 @@ class InstalledAddOnList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Marketplace.InstalledAddOnList>"
-
-
-class InstalledAddOnPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InstalledAddOnInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        return InstalledAddOnInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Marketplace.InstalledAddOnPage>"

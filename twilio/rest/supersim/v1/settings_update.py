@@ -127,6 +127,27 @@ class SettingsUpdateInstance(InstanceResource):
         return "<Twilio.Supersim.V1.SettingsUpdateInstance {}>".format(context)
 
 
+class SettingsUpdatePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SettingsUpdateInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        """
+        return SettingsUpdateInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.SettingsUpdatePage>"
+
+
 class SettingsUpdateList(ListResource):
     def __init__(self, version: Version):
         """
@@ -353,24 +374,3 @@ class SettingsUpdateList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.SettingsUpdateList>"
-
-
-class SettingsUpdatePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SettingsUpdateInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
-        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
-        """
-        return SettingsUpdateInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.SettingsUpdatePage>"

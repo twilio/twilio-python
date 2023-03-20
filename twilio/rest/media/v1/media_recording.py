@@ -352,6 +352,27 @@ class MediaRecordingContext(InstanceContext):
         return "<Twilio.Media.V1.MediaRecordingContext {}>".format(context)
 
 
+class MediaRecordingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MediaRecordingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+        return MediaRecordingInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Media.V1.MediaRecordingPage>"
+
+
 class MediaRecordingList(ListResource):
     def __init__(self, version: Version):
         """
@@ -662,24 +683,3 @@ class MediaRecordingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Media.V1.MediaRecordingList>"
-
-
-class MediaRecordingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MediaRecordingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-        return MediaRecordingInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Media.V1.MediaRecordingPage>"

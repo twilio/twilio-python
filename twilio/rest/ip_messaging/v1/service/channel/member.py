@@ -425,6 +425,32 @@ class MemberContext(InstanceContext):
         return "<Twilio.IpMessaging.V1.MemberContext {}>".format(context)
 
 
+class MemberPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MemberInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        """
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.IpMessaging.V1.MemberPage>"
+
+
 class MemberList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
@@ -734,29 +760,3 @@ class MemberList(ListResource):
         :rtype: str
         """
         return "<Twilio.IpMessaging.V1.MemberList>"
-
-
-class MemberPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MemberInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
-        """
-        return MemberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.IpMessaging.V1.MemberPage>"

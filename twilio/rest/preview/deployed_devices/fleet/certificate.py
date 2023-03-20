@@ -380,6 +380,29 @@ class CertificateContext(InstanceContext):
         return "<Twilio.Preview.DeployedDevices.CertificateContext {}>".format(context)
 
 
+class CertificatePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CertificateInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        """
+        return CertificateInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.DeployedDevices.CertificatePage>"
+
+
 class CertificateList(ListResource):
     def __init__(self, version: Version, fleet_sid: str):
         """
@@ -683,26 +706,3 @@ class CertificateList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.DeployedDevices.CertificateList>"
-
-
-class CertificatePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CertificateInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
-        """
-        return CertificateInstance(
-            self._version, payload, fleet_sid=self._solution["fleet_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.DeployedDevices.CertificatePage>"

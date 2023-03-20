@@ -202,6 +202,27 @@ class NetworkContext(InstanceContext):
         return "<Twilio.Supersim.V1.NetworkContext {}>".format(context)
 
 
+class NetworkPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of NetworkInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.network.NetworkInstance
+        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
+        """
+        return NetworkInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.NetworkPage>"
+
+
 class NetworkList(ListResource):
     def __init__(self, version: Version):
         """
@@ -488,24 +509,3 @@ class NetworkList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.NetworkList>"
-
-
-class NetworkPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of NetworkInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.network.NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-        return NetworkInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.NetworkPage>"

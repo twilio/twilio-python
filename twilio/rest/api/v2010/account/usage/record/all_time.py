@@ -503,6 +503,29 @@ class AllTimeInstance(InstanceResource):
         return "<Twilio.Api.V2010.AllTimeInstance {}>".format(context)
 
 
+class AllTimePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AllTimeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
+        """
+        return AllTimeInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AllTimePage>"
+
+
 class AllTimeList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -798,26 +821,3 @@ class AllTimeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AllTimeList>"
-
-
-class AllTimePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AllTimeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
-        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
-        """
-        return AllTimeInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AllTimePage>"

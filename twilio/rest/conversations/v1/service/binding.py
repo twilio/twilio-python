@@ -317,6 +317,29 @@ class BindingContext(InstanceContext):
         return "<Twilio.Conversations.V1.BindingContext {}>".format(context)
 
 
+class BindingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BindingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
+        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
+        """
+        return BindingInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Conversations.V1.BindingPage>"
+
+
 class BindingList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
@@ -596,26 +619,3 @@ class BindingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Conversations.V1.BindingList>"
-
-
-class BindingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BindingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.conversations.v1.service.binding.BindingInstance
-        :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
-        """
-        return BindingInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Conversations.V1.BindingPage>"

@@ -167,6 +167,32 @@ class VoipInstance(InstanceResource):
         return "<Twilio.Api.V2010.VoipInstance {}>".format(context)
 
 
+class VoipPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of VoipInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.voip.VoipInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.voip.VoipInstance
+        """
+        return VoipInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            country_code=self._solution["country_code"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.VoipPage>"
+
+
 class VoipList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
@@ -716,29 +742,3 @@ class VoipList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.VoipList>"
-
-
-class VoipPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of VoipInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.voip.VoipInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.voip.VoipInstance
-        """
-        return VoipInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.VoipPage>"

@@ -676,6 +676,29 @@ class ApplicationContext(InstanceContext):
         return "<Twilio.Api.V2010.ApplicationContext {}>".format(context)
 
 
+class ApplicationPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ApplicationInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
+        """
+        return ApplicationInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.ApplicationPage>"
+
+
 class ApplicationList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -1065,26 +1088,3 @@ class ApplicationList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.ApplicationList>"
-
-
-class ApplicationPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ApplicationInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
-        """
-        return ApplicationInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.ApplicationPage>"

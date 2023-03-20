@@ -284,6 +284,27 @@ class CallSummariesInstance(InstanceResource):
         return "<Twilio.Insights.V1.CallSummariesInstance {}>".format(context)
 
 
+class CallSummariesPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CallSummariesInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
+        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
+        """
+        return CallSummariesInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Insights.V1.CallSummariesPage>"
+
+
 class CallSummariesList(ListResource):
     def __init__(self, version: Version):
         """
@@ -824,24 +845,3 @@ class CallSummariesList(ListResource):
         :rtype: str
         """
         return "<Twilio.Insights.V1.CallSummariesList>"
-
-
-class CallSummariesPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CallSummariesInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
-        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
-        """
-        return CallSummariesInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Insights.V1.CallSummariesPage>"

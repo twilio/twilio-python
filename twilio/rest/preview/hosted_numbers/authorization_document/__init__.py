@@ -445,6 +445,27 @@ class AuthorizationDocumentContext(InstanceContext):
         )
 
 
+class AuthorizationDocumentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AuthorizationDocumentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
+        """
+        return AuthorizationDocumentInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.HostedNumbers.AuthorizationDocumentPage>"
+
+
 class AuthorizationDocumentList(ListResource):
     def __init__(self, version: Version):
         """
@@ -781,24 +802,3 @@ class AuthorizationDocumentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.HostedNumbers.AuthorizationDocumentList>"
-
-
-class AuthorizationDocumentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AuthorizationDocumentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
-        """
-        return AuthorizationDocumentInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.HostedNumbers.AuthorizationDocumentPage>"

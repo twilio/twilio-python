@@ -202,6 +202,27 @@ class EndUserTypeContext(InstanceContext):
         return "<Twilio.Trusthub.V1.EndUserTypeContext {}>".format(context)
 
 
+class EndUserTypePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EndUserTypeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
+        """
+        return EndUserTypeInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.EndUserTypePage>"
+
+
 class EndUserTypeList(ListResource):
     def __init__(self, version: Version):
         """
@@ -414,24 +435,3 @@ class EndUserTypeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.EndUserTypeList>"
-
-
-class EndUserTypePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EndUserTypeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
-        """
-        return EndUserTypeInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.EndUserTypePage>"

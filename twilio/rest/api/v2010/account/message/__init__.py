@@ -559,6 +559,29 @@ class MessageContext(InstanceContext):
         return "<Twilio.Api.V2010.MessageContext {}>".format(context)
 
 
+class MessagePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of MessageInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.message.MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
+        """
+        return MessageInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.MessagePage>"
+
+
 class MessageList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -1078,26 +1101,3 @@ class MessageList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.MessageList>"
-
-
-class MessagePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of MessageInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.message.MessageInstance
-        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
-        """
-        return MessageInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.MessagePage>"

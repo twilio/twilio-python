@@ -336,6 +336,29 @@ class DeviceConfigContext(InstanceContext):
         return "<Twilio.Microvisor.V1.DeviceConfigContext {}>".format(context)
 
 
+class DeviceConfigPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DeviceConfigInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        return DeviceConfigInstance(
+            self._version, payload, device_sid=self._solution["device_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Microvisor.V1.DeviceConfigPage>"
+
+
 class DeviceConfigList(ListResource):
     def __init__(self, version: Version, device_sid: str):
         """
@@ -611,26 +634,3 @@ class DeviceConfigList(ListResource):
         :rtype: str
         """
         return "<Twilio.Microvisor.V1.DeviceConfigList>"
-
-
-class DeviceConfigPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DeviceConfigInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        """
-        return DeviceConfigInstance(
-            self._version, payload, device_sid=self._solution["device_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Microvisor.V1.DeviceConfigPage>"

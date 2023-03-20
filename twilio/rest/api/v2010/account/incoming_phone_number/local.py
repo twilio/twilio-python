@@ -377,6 +377,29 @@ class LocalInstance(InstanceResource):
         return "<Twilio.Api.V2010.LocalInstance {}>".format(context)
 
 
+class LocalPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of LocalInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
+        """
+        return LocalInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.LocalPage>"
+
+
 class LocalList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -860,26 +883,3 @@ class LocalList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.LocalList>"
-
-
-class LocalPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of LocalInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance
-        """
-        return LocalInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.LocalPage>"

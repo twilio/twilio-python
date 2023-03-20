@@ -405,6 +405,27 @@ class CompositionContext(InstanceContext):
         return "<Twilio.Video.V1.CompositionContext {}>".format(context)
 
 
+class CompositionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CompositionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.composition.CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        return CompositionInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.CompositionPage>"
+
+
 class CompositionList(ListResource):
     def __init__(self, version: Version):
         """
@@ -819,24 +840,3 @@ class CompositionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.CompositionList>"
-
-
-class CompositionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CompositionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.composition.CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        return CompositionInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.CompositionPage>"

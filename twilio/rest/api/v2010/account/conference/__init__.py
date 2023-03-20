@@ -464,6 +464,29 @@ class ConferenceContext(InstanceContext):
         return "<Twilio.Api.V2010.ConferenceContext {}>".format(context)
 
 
+class ConferencePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConferenceInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        """
+        return ConferenceInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.ConferencePage>"
+
+
 class ConferenceList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -855,26 +878,3 @@ class ConferenceList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.ConferenceList>"
-
-
-class ConferencePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ConferenceInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.conference.ConferenceInstance
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
-        """
-        return ConferenceInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.ConferencePage>"

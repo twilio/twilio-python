@@ -273,6 +273,32 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
         )
 
 
+class AuthCallsCredentialListMappingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AuthCallsCredentialListMappingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
+        """
+        return AuthCallsCredentialListMappingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            domain_sid=self._solution["domain_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AuthCallsCredentialListMappingPage>"
+
+
 class AuthCallsCredentialListMappingList(ListResource):
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
@@ -568,29 +594,3 @@ class AuthCallsCredentialListMappingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AuthCallsCredentialListMappingList>"
-
-
-class AuthCallsCredentialListMappingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AuthCallsCredentialListMappingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
-        """
-        return AuthCallsCredentialListMappingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            domain_sid=self._solution["domain_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AuthCallsCredentialListMappingPage>"

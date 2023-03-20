@@ -371,6 +371,27 @@ class InsightsSegmentsContext(InstanceContext):
         return "<Twilio.FlexApi.V1.InsightsSegmentsContext {}>".format(context)
 
 
+class InsightsSegmentsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InsightsSegmentsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
+        """
+        return InsightsSegmentsInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.InsightsSegmentsPage>"
+
+
 class InsightsSegmentsList(ListResource):
     def __init__(self, version: Version):
         """
@@ -641,24 +662,3 @@ class InsightsSegmentsList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsSegmentsList>"
-
-
-class InsightsSegmentsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InsightsSegmentsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        """
-        return InsightsSegmentsInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.InsightsSegmentsPage>"

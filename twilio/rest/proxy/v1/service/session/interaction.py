@@ -425,6 +425,32 @@ class InteractionContext(InstanceContext):
         return "<Twilio.Proxy.V1.InteractionContext {}>".format(context)
 
 
+class InteractionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InteractionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
+        """
+        return InteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Proxy.V1.InteractionPage>"
+
+
 class InteractionList(ListResource):
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
@@ -658,29 +684,3 @@ class InteractionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Proxy.V1.InteractionList>"
-
-
-class InteractionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InteractionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
-        """
-        return InteractionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Proxy.V1.InteractionPage>"

@@ -395,6 +395,29 @@ class EnvironmentContext(InstanceContext):
         return "<Twilio.Serverless.V1.EnvironmentContext {}>".format(context)
 
 
+class EnvironmentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EnvironmentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+        return EnvironmentInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Serverless.V1.EnvironmentPage>"
+
+
 class EnvironmentList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
@@ -670,26 +693,3 @@ class EnvironmentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Serverless.V1.EnvironmentList>"
-
-
-class EnvironmentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EnvironmentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
-        """
-        return EnvironmentInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Serverless.V1.EnvironmentPage>"

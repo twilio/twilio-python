@@ -326,6 +326,27 @@ class NetworkAccessProfileContext(InstanceContext):
         return "<Twilio.Supersim.V1.NetworkAccessProfileContext {}>".format(context)
 
 
+class NetworkAccessProfilePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of NetworkAccessProfileInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
+        """
+        return NetworkAccessProfileInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Supersim.V1.NetworkAccessProfilePage>"
+
+
 class NetworkAccessProfileList(ListResource):
     def __init__(self, version: Version):
         """
@@ -588,24 +609,3 @@ class NetworkAccessProfileList(ListResource):
         :rtype: str
         """
         return "<Twilio.Supersim.V1.NetworkAccessProfileList>"
-
-
-class NetworkAccessProfilePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of NetworkAccessProfileInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
-        """
-        return NetworkAccessProfileInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Supersim.V1.NetworkAccessProfilePage>"

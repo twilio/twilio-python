@@ -576,6 +576,29 @@ class AddressContext(InstanceContext):
         return "<Twilio.Api.V2010.AddressContext {}>".format(context)
 
 
+class AddressPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AddressInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.address.AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AddressPage>"
+
+
 class AddressList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -987,26 +1010,3 @@ class AddressList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AddressList>"
-
-
-class AddressPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AddressInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.address.AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
-        """
-        return AddressInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AddressPage>"

@@ -250,6 +250,27 @@ class AvailableAddOnContext(InstanceContext):
         return "<Twilio.Preview.Marketplace.AvailableAddOnContext {}>".format(context)
 
 
+class AvailableAddOnPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AvailableAddOnInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
+        """
+        return AvailableAddOnInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Marketplace.AvailableAddOnPage>"
+
+
 class AvailableAddOnList(ListResource):
     def __init__(self, version: Version):
         """
@@ -462,24 +483,3 @@ class AvailableAddOnList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Marketplace.AvailableAddOnList>"
-
-
-class AvailableAddOnPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AvailableAddOnInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
-        """
-        return AvailableAddOnInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Marketplace.AvailableAddOnPage>"

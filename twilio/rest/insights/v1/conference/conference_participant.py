@@ -483,6 +483,29 @@ class ConferenceParticipantContext(InstanceContext):
         return "<Twilio.Insights.V1.ConferenceParticipantContext {}>".format(context)
 
 
+class ConferenceParticipantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConferenceParticipantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
+        """
+        return ConferenceParticipantInstance(
+            self._version, payload, conference_sid=self._solution["conference_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Insights.V1.ConferenceParticipantPage>"
+
+
 class ConferenceParticipantList(ListResource):
     def __init__(self, version: Version, conference_sid: str):
         """
@@ -790,26 +813,3 @@ class ConferenceParticipantList(ListResource):
         :rtype: str
         """
         return "<Twilio.Insights.V1.ConferenceParticipantList>"
-
-
-class ConferenceParticipantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ConferenceParticipantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
-        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
-        """
-        return ConferenceParticipantInstance(
-            self._version, payload, conference_sid=self._solution["conference_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Insights.V1.ConferenceParticipantPage>"

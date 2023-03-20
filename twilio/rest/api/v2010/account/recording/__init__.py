@@ -473,6 +473,29 @@ class RecordingContext(InstanceContext):
         return "<Twilio.Api.V2010.RecordingContext {}>".format(context)
 
 
+class RecordingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RecordingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
+        """
+        return RecordingInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.RecordingPage>"
+
+
 class RecordingList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -828,26 +851,3 @@ class RecordingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.RecordingList>"
-
-
-class RecordingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RecordingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
-        """
-        return RecordingInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.RecordingPage>"

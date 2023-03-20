@@ -277,6 +277,31 @@ class CustomerProfilesEntityAssignmentsContext(InstanceContext):
         )
 
 
+class CustomerProfilesEntityAssignmentsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CustomerProfilesEntityAssignmentsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        """
+        return CustomerProfilesEntityAssignmentsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsPage>"
+
+
 class CustomerProfilesEntityAssignmentsList(ListResource):
     def __init__(self, version: Version, customer_profile_sid: str):
         """
@@ -566,28 +591,3 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsList>"
-
-
-class CustomerProfilesEntityAssignmentsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CustomerProfilesEntityAssignmentsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
-        """
-        return CustomerProfilesEntityAssignmentsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsPage>"

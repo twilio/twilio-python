@@ -157,6 +157,27 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         )
 
 
+class InsightsAssessmentsCommentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InsightsAssessmentsCommentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
+        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
+        """
+        return InsightsAssessmentsCommentInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentPage>"
+
+
 class InsightsAssessmentsCommentList(ListResource):
     def __init__(self, version: Version):
         """
@@ -529,24 +550,3 @@ class InsightsAssessmentsCommentList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentList>"
-
-
-class InsightsAssessmentsCommentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InsightsAssessmentsCommentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
-        """
-        return InsightsAssessmentsCommentInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentPage>"

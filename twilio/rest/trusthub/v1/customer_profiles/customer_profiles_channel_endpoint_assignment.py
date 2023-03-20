@@ -280,6 +280,31 @@ class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
         )
 
 
+class CustomerProfilesChannelEndpointAssignmentPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of CustomerProfilesChannelEndpointAssignmentInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
+        """
+        return CustomerProfilesChannelEndpointAssignmentInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution["customer_profile_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentPage>"
+
+
 class CustomerProfilesChannelEndpointAssignmentList(ListResource):
     def __init__(self, version: Version, customer_profile_sid: str):
         """
@@ -635,28 +660,3 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentList>"
-
-
-class CustomerProfilesChannelEndpointAssignmentPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of CustomerProfilesChannelEndpointAssignmentInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
-        """
-        return CustomerProfilesChannelEndpointAssignmentInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentPage>"

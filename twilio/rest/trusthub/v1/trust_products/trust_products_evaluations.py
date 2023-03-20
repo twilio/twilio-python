@@ -245,6 +245,31 @@ class TrustProductsEvaluationsContext(InstanceContext):
         return "<Twilio.Trusthub.V1.TrustProductsEvaluationsContext {}>".format(context)
 
 
+class TrustProductsEvaluationsPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of TrustProductsEvaluationsInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        return TrustProductsEvaluationsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsPage>"
+
+
 class TrustProductsEvaluationsList(ListResource):
     def __init__(self, version: Version, trust_product_sid: str):
         """
@@ -526,28 +551,3 @@ class TrustProductsEvaluationsList(ListResource):
         :rtype: str
         """
         return "<Twilio.Trusthub.V1.TrustProductsEvaluationsList>"
-
-
-class TrustProductsEvaluationsPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of TrustProductsEvaluationsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
-        """
-        return TrustProductsEvaluationsInstance(
-            self._version,
-            payload,
-            trust_product_sid=self._solution["trust_product_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trusthub.V1.TrustProductsEvaluationsPage>"

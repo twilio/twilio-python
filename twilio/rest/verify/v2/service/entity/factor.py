@@ -541,6 +541,32 @@ class FactorContext(InstanceContext):
         return "<Twilio.Verify.V2.FactorContext {}>".format(context)
 
 
+class FactorPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FactorInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.entity.factor.FactorInstance
+        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
+        """
+        return FactorInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.FactorPage>"
+
+
 class FactorList(ListResource):
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
@@ -772,29 +798,3 @@ class FactorList(ListResource):
         :rtype: str
         """
         return "<Twilio.Verify.V2.FactorList>"
-
-
-class FactorPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FactorInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.entity.factor.FactorInstance
-        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
-        """
-        return FactorInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            identity=self._solution["identity"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.FactorPage>"

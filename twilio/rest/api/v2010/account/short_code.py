@@ -427,6 +427,29 @@ class ShortCodeContext(InstanceContext):
         return "<Twilio.Api.V2010.ShortCodeContext {}>".format(context)
 
 
+class ShortCodePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ShortCodeInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        """
+        return ShortCodeInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.ShortCodePage>"
+
+
 class ShortCodeList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -712,26 +735,3 @@ class ShortCodeList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.ShortCodeList>"
-
-
-class ShortCodePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ShortCodeInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
-        """
-        return ShortCodeInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.ShortCodePage>"

@@ -261,6 +261,29 @@ class AuthorizedConnectAppContext(InstanceContext):
         return "<Twilio.Api.V2010.AuthorizedConnectAppContext {}>".format(context)
 
 
+class AuthorizedConnectAppPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AuthorizedConnectAppInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
+        """
+        return AuthorizedConnectAppInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AuthorizedConnectAppPage>"
+
+
 class AuthorizedConnectAppList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
@@ -488,26 +511,3 @@ class AuthorizedConnectAppList(ListResource):
         :rtype: str
         """
         return "<Twilio.Api.V2010.AuthorizedConnectAppList>"
-
-
-class AuthorizedConnectAppPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AuthorizedConnectAppInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
-        """
-        return AuthorizedConnectAppInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AuthorizedConnectAppPage>"

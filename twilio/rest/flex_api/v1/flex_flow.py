@@ -618,6 +618,27 @@ class FlexFlowContext(InstanceContext):
         return "<Twilio.FlexApi.V1.FlexFlowContext {}>".format(context)
 
 
+class FlexFlowPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of FlexFlowInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        """
+        return FlexFlowInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.FlexApi.V1.FlexFlowPage>"
+
+
 class FlexFlowList(ListResource):
     def __init__(self, version: Version):
         """
@@ -1000,24 +1021,3 @@ class FlexFlowList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V1.FlexFlowList>"
-
-
-class FlexFlowPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of FlexFlowInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
-        """
-        return FlexFlowInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.FlexApi.V1.FlexFlowPage>"

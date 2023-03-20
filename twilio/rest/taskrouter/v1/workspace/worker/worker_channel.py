@@ -393,6 +393,32 @@ class WorkerChannelContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.WorkerChannelContext {}>".format(context)
 
 
+class WorkerChannelPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkerChannelInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        """
+        return WorkerChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.WorkerChannelPage>"
+
+
 class WorkerChannelList(ListResource):
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
@@ -624,29 +650,3 @@ class WorkerChannelList(ListResource):
         :rtype: str
         """
         return "<Twilio.Taskrouter.V1.WorkerChannelList>"
-
-
-class WorkerChannelPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WorkerChannelInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
-        """
-        return WorkerChannelInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            worker_sid=self._solution["worker_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.WorkerChannelPage>"

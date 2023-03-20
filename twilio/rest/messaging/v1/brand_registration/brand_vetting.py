@@ -263,6 +263,29 @@ class BrandVettingContext(InstanceContext):
         return "<Twilio.Messaging.V1.BrandVettingContext {}>".format(context)
 
 
+class BrandVettingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of BrandVettingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
+        """
+        return BrandVettingInstance(
+            self._version, payload, brand_sid=self._solution["brand_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Messaging.V1.BrandVettingPage>"
+
+
 class BrandVettingList(ListResource):
     def __init__(self, version: Version, brand_sid: str):
         """
@@ -570,26 +593,3 @@ class BrandVettingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Messaging.V1.BrandVettingList>"
-
-
-class BrandVettingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of BrandVettingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
-        """
-        return BrandVettingInstance(
-            self._version, payload, brand_sid=self._solution["brand_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Messaging.V1.BrandVettingPage>"

@@ -333,6 +333,27 @@ class SourceIpMappingContext(InstanceContext):
         return "<Twilio.Voice.V1.SourceIpMappingContext {}>".format(context)
 
 
+class SourceIpMappingPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SourceIpMappingInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
+        """
+        return SourceIpMappingInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.SourceIpMappingPage>"
+
+
 class SourceIpMappingList(ListResource):
     def __init__(self, version: Version):
         """
@@ -595,24 +616,3 @@ class SourceIpMappingList(ListResource):
         :rtype: str
         """
         return "<Twilio.Voice.V1.SourceIpMappingList>"
-
-
-class SourceIpMappingPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SourceIpMappingInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
-        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
-        """
-        return SourceIpMappingInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.SourceIpMappingPage>"

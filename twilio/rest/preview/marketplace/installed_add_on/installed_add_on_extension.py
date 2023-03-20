@@ -316,6 +316,31 @@ class InstalledAddOnExtensionContext(InstanceContext):
         )
 
 
+class InstalledAddOnExtensionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InstalledAddOnExtensionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        """
+        return InstalledAddOnExtensionInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionPage>"
+
+
 class InstalledAddOnExtensionList(ListResource):
     def __init__(self, version: Version, installed_add_on_sid: str):
         """
@@ -543,28 +568,3 @@ class InstalledAddOnExtensionList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionList>"
-
-
-class InstalledAddOnExtensionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InstalledAddOnExtensionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
-        """
-        return InstalledAddOnExtensionInstance(
-            self._version,
-            payload,
-            installed_add_on_sid=self._solution["installed_add_on_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Marketplace.InstalledAddOnExtensionPage>"

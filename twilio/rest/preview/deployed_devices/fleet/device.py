@@ -449,6 +449,29 @@ class DeviceContext(InstanceContext):
         return "<Twilio.Preview.DeployedDevices.DeviceContext {}>".format(context)
 
 
+class DevicePage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of DeviceInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
+        """
+        return DeviceInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.DeployedDevices.DevicePage>"
+
+
 class DeviceList(ListResource):
     def __init__(self, version: Version, fleet_sid: str):
         """
@@ -772,26 +795,3 @@ class DeviceList(ListResource):
         :rtype: str
         """
         return "<Twilio.Preview.DeployedDevices.DeviceList>"
-
-
-class DevicePage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of DeviceInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
-        """
-        return DeviceInstance(
-            self._version, payload, fleet_sid=self._solution["fleet_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.DeployedDevices.DevicePage>"

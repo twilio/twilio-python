@@ -352,6 +352,29 @@ class ParticipantContext(InstanceContext):
         return "<Twilio.Insights.V1.ParticipantContext {}>".format(context)
 
 
+class ParticipantPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ParticipantInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        """
+        return ParticipantInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Insights.V1.ParticipantPage>"
+
+
 class ParticipantList(ListResource):
     def __init__(self, version: Version, room_sid: str):
         """
@@ -577,26 +600,3 @@ class ParticipantList(ListResource):
         :rtype: str
         """
         return "<Twilio.Insights.V1.ParticipantList>"
-
-
-class ParticipantPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ParticipantInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
-        """
-        return ParticipantInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Insights.V1.ParticipantPage>"
