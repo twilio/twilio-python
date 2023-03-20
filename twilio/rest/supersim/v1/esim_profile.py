@@ -14,13 +14,281 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class EsimProfileInstance(InstanceResource):
+    class Status(object):
+        NEW = "new"
+        RESERVING = "reserving"
+        AVAILABLE = "available"
+        DOWNLOADED = "downloaded"
+        INSTALLED = "installed"
+        FAILED = "failed"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the EsimProfileInstance
+
+        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "iccid": payload.get("iccid"),
+            "sim_sid": payload.get("sim_sid"),
+            "status": payload.get("status"),
+            "eid": payload.get("eid"),
+            "smdp_plus_address": payload.get("smdp_plus_address"),
+            "matching_id": payload.get("matching_id"),
+            "activation_code": payload.get("activation_code"),
+            "error_code": payload.get("error_code"),
+            "error_message": payload.get("error_message"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[EsimProfileContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: EsimProfileContext for this EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        """
+        if self._context is None:
+            self._context = EsimProfileContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the eSIM Profile resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the eSIM Profile resource belongs.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def iccid(self):
+        """
+        :returns: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the Sim resource.
+        :rtype: str
+        """
+        return self._properties["iccid"]
+
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource that this eSIM Profile controls.
+        :rtype: str
+        """
+        return self._properties["sim_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: EsimProfileInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def eid(self):
+        """
+        :returns: Identifier of the eUICC that can claim the eSIM Profile.
+        :rtype: str
+        """
+        return self._properties["eid"]
+
+    @property
+    def smdp_plus_address(self):
+        """
+        :returns: Address of the SM-DP+ server from which the Profile will be downloaded. The URL will appear once the eSIM Profile reaches the status `available`.
+        :rtype: str
+        """
+        return self._properties["smdp_plus_address"]
+
+    @property
+    def matching_id(self):
+        """
+        :returns: Unique identifier of the eSIM profile that can be used to identify and download the eSIM profile from the SM-DP+ server. Populated if `generate_matching_id` is set to `true` when creating the eSIM profile reservation.
+        :rtype: str
+        """
+        return self._properties["matching_id"]
+
+    @property
+    def activation_code(self):
+        """
+        :returns: Combined machine-readable activation code for acquiring an eSIM Profile with the Activation Code download method. Can be used in a QR code to download an eSIM profile.
+        :rtype: str
+        """
+        return self._properties["activation_code"]
+
+    @property
+    def error_code(self):
+        """
+        :returns: Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.
+        :rtype: str
+        """
+        return self._properties["error_code"]
+
+    @property
+    def error_message(self):
+        """
+        :returns: Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.
+        :rtype: str
+        """
+        return self._properties["error_message"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the eSIM Profile resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the EsimProfileInstance
+
+
+        :returns: The fetched EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EsimProfileInstance
+
+
+        :returns: The fetched EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.EsimProfileInstance {}>".format(context)
+
+
+class EsimProfileContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the EsimProfileContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the eSIM Profile resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/ESimProfiles/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the EsimProfileInstance
+
+
+        :returns: The fetched EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EsimProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EsimProfileInstance
+
+
+        :returns: The fetched EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EsimProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.EsimProfileContext {}>".format(context)
 
 
 class EsimProfileList(ListResource):
@@ -400,272 +668,3 @@ class EsimProfilePage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Supersim.V1.EsimProfilePage>"
-
-
-class EsimProfileInstance(InstanceResource):
-    class Status(object):
-        NEW = "new"
-        RESERVING = "reserving"
-        AVAILABLE = "available"
-        DOWNLOADED = "downloaded"
-        INSTALLED = "installed"
-        FAILED = "failed"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the EsimProfileInstance
-
-        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "iccid": payload.get("iccid"),
-            "sim_sid": payload.get("sim_sid"),
-            "status": payload.get("status"),
-            "eid": payload.get("eid"),
-            "smdp_plus_address": payload.get("smdp_plus_address"),
-            "matching_id": payload.get("matching_id"),
-            "activation_code": payload.get("activation_code"),
-            "error_code": payload.get("error_code"),
-            "error_message": payload.get("error_message"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[EsimProfileContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: EsimProfileContext for this EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
-        """
-        if self._context is None:
-            self._context = EsimProfileContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the eSIM Profile resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the eSIM Profile resource belongs.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def iccid(self):
-        """
-        :returns: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the Sim resource.
-        :rtype: str
-        """
-        return self._properties["iccid"]
-
-    @property
-    def sim_sid(self):
-        """
-        :returns: The SID of the [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource that this eSIM Profile controls.
-        :rtype: str
-        """
-        return self._properties["sim_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: EsimProfileInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def eid(self):
-        """
-        :returns: Identifier of the eUICC that can claim the eSIM Profile.
-        :rtype: str
-        """
-        return self._properties["eid"]
-
-    @property
-    def smdp_plus_address(self):
-        """
-        :returns: Address of the SM-DP+ server from which the Profile will be downloaded. The URL will appear once the eSIM Profile reaches the status `available`.
-        :rtype: str
-        """
-        return self._properties["smdp_plus_address"]
-
-    @property
-    def matching_id(self):
-        """
-        :returns: Unique identifier of the eSIM profile that can be used to identify and download the eSIM profile from the SM-DP+ server. Populated if `generate_matching_id` is set to `true` when creating the eSIM profile reservation.
-        :rtype: str
-        """
-        return self._properties["matching_id"]
-
-    @property
-    def activation_code(self):
-        """
-        :returns: Combined machine-readable activation code for acquiring an eSIM Profile with the Activation Code download method. Can be used in a QR code to download an eSIM profile.
-        :rtype: str
-        """
-        return self._properties["activation_code"]
-
-    @property
-    def error_code(self):
-        """
-        :returns: Code indicating the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.
-        :rtype: str
-        """
-        return self._properties["error_code"]
-
-    @property
-    def error_message(self):
-        """
-        :returns: Error message describing the failure if the download of the SIM Profile failed and the eSIM Profile is in `failed` state.
-        :rtype: str
-        """
-        return self._properties["error_message"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the eSIM Profile resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the EsimProfileInstance
-
-
-        :returns: The fetched EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EsimProfileInstance
-
-
-        :returns: The fetched EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.EsimProfileInstance {}>".format(context)
-
-
-class EsimProfileContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the EsimProfileContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the eSIM Profile resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/ESimProfiles/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the EsimProfileInstance
-
-
-        :returns: The fetched EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EsimProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EsimProfileInstance
-
-
-        :returns: The fetched EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EsimProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.EsimProfileContext {}>".format(context)

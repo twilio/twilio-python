@@ -25,50 +25,6 @@ from twilio.rest.insights.v1.call.event import EventList
 from twilio.rest.insights.v1.call.metric import MetricList
 
 
-class CallList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the CallList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.insights.v1.call.CallList
-        :rtype: twilio.rest.insights.v1.call.CallList
-        """
-        super().__init__(version)
-
-    def get(self, sid):
-        """
-        Constructs a CallContext
-
-        :param sid:
-
-        :returns: twilio.rest.insights.v1.call.CallContext
-        :rtype: twilio.rest.insights.v1.call.CallContext
-        """
-        return CallContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a CallContext
-
-        :param sid:
-
-        :returns: twilio.rest.insights.v1.call.CallContext
-        :rtype: twilio.rest.insights.v1.call.CallContext
-        """
-        return CallContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Insights.V1.CallList>"
-
-
 class CallInstance(InstanceResource):
     def __init__(self, version, payload, sid: Optional[str] = None):
         """
@@ -334,3 +290,47 @@ class CallContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallContext {}>".format(context)
+
+
+class CallList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the CallList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.insights.v1.call.CallList
+        :rtype: twilio.rest.insights.v1.call.CallList
+        """
+        super().__init__(version)
+
+    def get(self, sid):
+        """
+        Constructs a CallContext
+
+        :param sid:
+
+        :returns: twilio.rest.insights.v1.call.CallContext
+        :rtype: twilio.rest.insights.v1.call.CallContext
+        """
+        return CallContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CallContext
+
+        :param sid:
+
+        :returns: twilio.rest.insights.v1.call.CallContext
+        :rtype: twilio.rest.insights.v1.call.CallContext
+        """
+        return CallContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Insights.V1.CallList>"

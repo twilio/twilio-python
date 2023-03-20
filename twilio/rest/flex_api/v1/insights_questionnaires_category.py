@@ -22,6 +22,271 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class InsightsQuestionnairesCategoryInstance(InstanceResource):
+    def __init__(self, version, payload, category_id: Optional[str] = None):
+        """
+        Initialize the InsightsQuestionnairesCategoryInstance
+
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "category_id": payload.get("category_id"),
+            "name": payload.get("name"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "category_id": category_id or self._properties["category_id"],
+        }
+        self._context: Optional[InsightsQuestionnairesCategoryContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: InsightsQuestionnairesCategoryContext for this InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        """
+        if self._context is None:
+            self._context = InsightsQuestionnairesCategoryContext(
+                self._version,
+                category_id=self._solution["category_id"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def category_id(self):
+        """
+        :returns: The unique ID for the category
+        :rtype: str
+        """
+        return self._properties["category_id"]
+
+    @property
+    def name(self):
+        """
+        :returns: The name of this category.
+        :rtype: str
+        """
+        return self._properties["name"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self, token=values.unset):
+        """
+        Deletes the InsightsQuestionnairesCategoryInstance
+
+        :param str token: The Token HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete(
+            token=token,
+        )
+
+    async def delete_async(self, token=values.unset):
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
+
+        :param str token: The Token HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async(
+            token=token,
+        )
+
+    def update(self, name, token=values.unset):
+        """
+        Update the InsightsQuestionnairesCategoryInstance
+
+        :param str name: The name of this category.
+        :param str token: The Token HTTP request header
+
+        :returns: The updated InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        return self._proxy.update(
+            name=name,
+            token=token,
+        )
+
+    async def update_async(self, name, token=values.unset):
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
+
+        :param str name: The name of this category.
+        :param str token: The Token HTTP request header
+
+        :returns: The updated InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        return await self._proxy.update_async(
+            name=name,
+            token=token,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryInstance {}>".format(
+            context
+        )
+
+
+class InsightsQuestionnairesCategoryContext(InstanceContext):
+    def __init__(self, version: Version, category_id: str):
+        """
+        Initialize the InsightsQuestionnairesCategoryContext
+
+        :param Version version: Version that contains the resource
+        :param category_id: The ID of the category to be update
+
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "category_id": category_id,
+        }
+        self._uri = "/Insights/QM/Categories/{category_id}".format(**self._solution)
+
+    def delete(self, token=values.unset):
+        """
+        Deletes the InsightsQuestionnairesCategoryInstance
+
+        :param str token: The Token HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "Token": token,
+            }
+        )
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+
+    async def delete_async(self, token=values.unset):
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
+
+        :param str token: The Token HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of(
+            {
+                "Token": token,
+            }
+        )
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def update(self, name, token=values.unset):
+        """
+        Update the InsightsQuestionnairesCategoryInstance
+
+        :param str name: The name of this category.
+        :param str token: The Token HTTP request header
+
+        :returns: The updated InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        data = values.of(
+            {
+                "Name": name,
+            }
+        )
+        headers = values.of(
+            {
+                "Token": token,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return InsightsQuestionnairesCategoryInstance(
+            self._version, payload, category_id=self._solution["category_id"]
+        )
+
+    async def update_async(self, name, token=values.unset):
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
+
+        :param str name: The name of this category.
+        :param str token: The Token HTTP request header
+
+        :returns: The updated InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        data = values.of(
+            {
+                "Name": name,
+            }
+        )
+        headers = values.of(
+            {
+                "Token": token,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return InsightsQuestionnairesCategoryInstance(
+            self._version, payload, category_id=self._solution["category_id"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryContext {}>".format(
+            context
+        )
+
+
 class InsightsQuestionnairesCategoryList(ListResource):
     def __init__(self, version: Version):
         """
@@ -329,268 +594,3 @@ class InsightsQuestionnairesCategoryPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryPage>"
-
-
-class InsightsQuestionnairesCategoryInstance(InstanceResource):
-    def __init__(self, version, payload, category_id: Optional[str] = None):
-        """
-        Initialize the InsightsQuestionnairesCategoryInstance
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "category_id": payload.get("category_id"),
-            "name": payload.get("name"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "category_id": category_id or self._properties["category_id"],
-        }
-        self._context: Optional[InsightsQuestionnairesCategoryContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: InsightsQuestionnairesCategoryContext for this InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        """
-        if self._context is None:
-            self._context = InsightsQuestionnairesCategoryContext(
-                self._version,
-                category_id=self._solution["category_id"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def category_id(self):
-        """
-        :returns: The unique ID for the category
-        :rtype: str
-        """
-        return self._properties["category_id"]
-
-    @property
-    def name(self):
-        """
-        :returns: The name of this category.
-        :rtype: str
-        """
-        return self._properties["name"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self, token=values.unset):
-        """
-        Deletes the InsightsQuestionnairesCategoryInstance
-
-        :param str token: The Token HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete(
-            token=token,
-        )
-
-    async def delete_async(self, token=values.unset):
-        """
-        Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
-
-        :param str token: The Token HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async(
-            token=token,
-        )
-
-    def update(self, name, token=values.unset):
-        """
-        Update the InsightsQuestionnairesCategoryInstance
-
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
-
-        :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        """
-        return self._proxy.update(
-            name=name,
-            token=token,
-        )
-
-    async def update_async(self, name, token=values.unset):
-        """
-        Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
-
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
-
-        :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        """
-        return await self._proxy.update_async(
-            name=name,
-            token=token,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryInstance {}>".format(
-            context
-        )
-
-
-class InsightsQuestionnairesCategoryContext(InstanceContext):
-    def __init__(self, version: Version, category_id: str):
-        """
-        Initialize the InsightsQuestionnairesCategoryContext
-
-        :param Version version: Version that contains the resource
-        :param category_id: The ID of the category to be update
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "category_id": category_id,
-        }
-        self._uri = "/Insights/QM/Categories/{category_id}".format(**self._solution)
-
-    def delete(self, token=values.unset):
-        """
-        Deletes the InsightsQuestionnairesCategoryInstance
-
-        :param str token: The Token HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "Token": token,
-            }
-        )
-
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
-
-    async def delete_async(self, token=values.unset):
-        """
-        Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
-
-        :param str token: The Token HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of(
-            {
-                "Token": token,
-            }
-        )
-
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
-
-    def update(self, name, token=values.unset):
-        """
-        Update the InsightsQuestionnairesCategoryInstance
-
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
-
-        :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        """
-        data = values.of(
-            {
-                "Name": name,
-            }
-        )
-        headers = values.of(
-            {
-                "Token": token,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InsightsQuestionnairesCategoryInstance(
-            self._version, payload, category_id=self._solution["category_id"]
-        )
-
-    async def update_async(self, name, token=values.unset):
-        """
-        Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
-
-        :param str name: The name of this category.
-        :param str token: The Token HTTP request header
-
-        :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        """
-        data = values.of(
-            {
-                "Name": name,
-            }
-        )
-        headers = values.of(
-            {
-                "Token": token,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InsightsQuestionnairesCategoryInstance(
-            self._version, payload, category_id=self._solution["category_id"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryContext {}>".format(
-            context
-        )

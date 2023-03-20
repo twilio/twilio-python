@@ -14,13 +14,264 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class IpAccessControlListInstance(InstanceResource):
+    def __init__(self, version, payload, trunk_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the IpAccessControlListInstance
+
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "sid": payload.get("sid"),
+            "trunk_sid": payload.get("trunk_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "trunk_sid": trunk_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[IpAccessControlListContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: IpAccessControlListContext for this IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
+        """
+        if self._context is None:
+            self._context = IpAccessControlListContext(
+                self._version,
+                trunk_sid=self._solution["trunk_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlList resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the IpAccessControlList resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def trunk_sid(self):
+        """
+        :returns: The SID of the Trunk the resource is associated with.
+        :rtype: str
+        """
+        return self._properties["trunk_sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the IpAccessControlListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the IpAccessControlListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the IpAccessControlListInstance
+
+
+        :returns: The fetched IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the IpAccessControlListInstance
+
+
+        :returns: The fetched IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trunking.V1.IpAccessControlListInstance {}>".format(context)
+
+
+class IpAccessControlListContext(InstanceContext):
+    def __init__(self, version: Version, trunk_sid: str, sid: str):
+        """
+        Initialize the IpAccessControlListContext
+
+        :param Version version: Version that contains the resource
+        :param trunk_sid: The SID of the Trunk from which to fetch the IP Access Control List.
+        :param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
+
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "trunk_sid": trunk_sid,
+            "sid": sid,
+        }
+        self._uri = "/Trunks/{trunk_sid}/IpAccessControlLists/{sid}".format(
+            **self._solution
+        )
+
+    def delete(self):
+        """
+        Deletes the IpAccessControlListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the IpAccessControlListInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the IpAccessControlListInstance
+
+
+        :returns: The fetched IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the IpAccessControlListInstance
+
+
+        :returns: The fetched IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return IpAccessControlListInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trunking.V1.IpAccessControlListContext {}>".format(context)
 
 
 class IpAccessControlListList(ListResource):
@@ -317,255 +568,3 @@ class IpAccessControlListPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Trunking.V1.IpAccessControlListPage>"
-
-
-class IpAccessControlListInstance(InstanceResource):
-    def __init__(self, version, payload, trunk_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the IpAccessControlListInstance
-
-        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "sid": payload.get("sid"),
-            "trunk_sid": payload.get("trunk_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "trunk_sid": trunk_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[IpAccessControlListContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: IpAccessControlListContext for this IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
-        """
-        if self._context is None:
-            self._context = IpAccessControlListContext(
-                self._version,
-                trunk_sid=self._solution["trunk_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlList resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the IpAccessControlList resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def trunk_sid(self):
-        """
-        :returns: The SID of the Trunk the resource is associated with.
-        :rtype: str
-        """
-        return self._properties["trunk_sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the IpAccessControlListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the IpAccessControlListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the IpAccessControlListInstance
-
-
-        :returns: The fetched IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the IpAccessControlListInstance
-
-
-        :returns: The fetched IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.IpAccessControlListInstance {}>".format(context)
-
-
-class IpAccessControlListContext(InstanceContext):
-    def __init__(self, version: Version, trunk_sid: str, sid: str):
-        """
-        Initialize the IpAccessControlListContext
-
-        :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to fetch the IP Access Control List.
-        :param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
-
-        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
-            "sid": sid,
-        }
-        self._uri = "/Trunks/{trunk_sid}/IpAccessControlLists/{sid}".format(
-            **self._solution
-        )
-
-    def delete(self):
-        """
-        Deletes the IpAccessControlListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the IpAccessControlListInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the IpAccessControlListInstance
-
-
-        :returns: The fetched IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return IpAccessControlListInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution["trunk_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the IpAccessControlListInstance
-
-
-        :returns: The fetched IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return IpAccessControlListInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution["trunk_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.IpAccessControlListContext {}>".format(context)

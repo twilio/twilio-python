@@ -14,329 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class KeyList(ListResource):
-    def __init__(self, version: Version, fleet_sid: str):
-        """
-        Initialize the KeyList
-
-        :param Version version: Version that contains the resource
-        :param fleet_sid:
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyList
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "fleet_sid": fleet_sid,
-        }
-        self._uri = "/Fleets/{fleet_sid}/Keys".format(**self._solution)
-
-    def create(self, friendly_name=values.unset, device_sid=values.unset):
-        """
-        Create the KeyInstance
-
-        :param str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-
-        :returns: The created KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DeviceSid": device_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return KeyInstance(
-            self._version, payload, fleet_sid=self._solution["fleet_sid"]
-        )
-
-    async def create_async(self, friendly_name=values.unset, device_sid=values.unset):
-        """
-        Asynchronously create the KeyInstance
-
-        :param str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-
-        :returns: The created KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DeviceSid": device_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return KeyInstance(
-            self._version, payload, fleet_sid=self._solution["fleet_sid"]
-        )
-
-    def stream(self, device_sid=values.unset, limit=None, page_size=None):
-        """
-        Streams KeyInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(device_sid=device_sid, page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, device_sid=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously streams KeyInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            device_sid=device_sid, page_size=limits["page_size"]
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, device_sid=values.unset, limit=None, page_size=None):
-        """
-        Lists KeyInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
-        """
-        return list(
-            self.stream(
-                device_sid=device_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, device_sid=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously lists KeyInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
-        """
-        return list(
-            await self.stream_async(
-                device_sid=device_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        device_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of KeyInstance records from the API.
-        Request is executed immediately
-
-        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
-        """
-        data = values.of(
-            {
-                "DeviceSid": device_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return KeyPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        device_sid=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of KeyInstance records from the API.
-        Request is executed immediately
-
-        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
-        """
-        data = values.of(
-            {
-                "DeviceSid": device_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return KeyPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of KeyInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return KeyPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of KeyInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return KeyPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a KeyContext
-
-        :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
-        """
-        return KeyContext(self._version, fleet_sid=self._solution["fleet_sid"], sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a KeyContext
-
-        :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
-        """
-        return KeyContext(self._version, fleet_sid=self._solution["fleet_sid"], sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.DeployedDevices.KeyList>"
-
-
-class KeyPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of KeyInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
-        """
-        return KeyInstance(
-            self._version, payload, fleet_sid=self._solution["fleet_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.DeployedDevices.KeyPage>"
 
 
 class KeyInstance(InstanceResource):
@@ -695,3 +378,319 @@ class KeyContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.DeployedDevices.KeyContext {}>".format(context)
+
+
+class KeyList(ListResource):
+    def __init__(self, version: Version, fleet_sid: str):
+        """
+        Initialize the KeyList
+
+        :param Version version: Version that contains the resource
+        :param fleet_sid:
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "fleet_sid": fleet_sid,
+        }
+        self._uri = "/Fleets/{fleet_sid}/Keys".format(**self._solution)
+
+    def create(self, friendly_name=values.unset, device_sid=values.unset):
+        """
+        Create the KeyInstance
+
+        :param str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
+        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
+
+        :returns: The created KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DeviceSid": device_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return KeyInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    async def create_async(self, friendly_name=values.unset, device_sid=values.unset):
+        """
+        Asynchronously create the KeyInstance
+
+        :param str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
+        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
+
+        :returns: The created KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DeviceSid": device_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return KeyInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    def stream(self, device_sid=values.unset, limit=None, page_size=None):
+        """
+        Streams KeyInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(device_sid=device_sid, page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, device_sid=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously streams KeyInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            device_sid=device_sid, page_size=limits["page_size"]
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, device_sid=values.unset, limit=None, page_size=None):
+        """
+        Lists KeyInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
+        """
+        return list(
+            self.stream(
+                device_sid=device_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, device_sid=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously lists KeyInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
+        """
+        return list(
+            await self.stream_async(
+                device_sid=device_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        device_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of KeyInstance records from the API.
+        Request is executed immediately
+
+        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
+        """
+        data = values.of(
+            {
+                "DeviceSid": device_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return KeyPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        device_sid=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of KeyInstance records from the API.
+        Request is executed immediately
+
+        :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
+        """
+        data = values.of(
+            {
+                "DeviceSid": device_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return KeyPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of KeyInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return KeyPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of KeyInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return KeyPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a KeyContext
+
+        :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        """
+        return KeyContext(self._version, fleet_sid=self._solution["fleet_sid"], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a KeyContext
+
+        :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        """
+        return KeyContext(self._version, fleet_sid=self._solution["fleet_sid"], sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.DeployedDevices.KeyList>"
+
+
+class KeyPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of KeyInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        """
+        return KeyInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.DeployedDevices.KeyPage>"

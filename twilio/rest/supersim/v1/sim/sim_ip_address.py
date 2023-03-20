@@ -21,6 +21,56 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class SimIpAddressInstance(InstanceResource):
+    class IpAddressVersion(object):
+        IPV4 = "IPv4"
+        IPV6 = "IPv6"
+
+    def __init__(self, version, payload, sim_sid: str):
+        """
+        Initialize the SimIpAddressInstance
+
+        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
+        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "ip_address": payload.get("ip_address"),
+            "ip_address_version": payload.get("ip_address_version"),
+        }
+
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+
+    @property
+    def ip_address(self):
+        """
+        :returns: IP address assigned to the given Super SIM
+        :rtype: str
+        """
+        return self._properties["ip_address"]
+
+    @property
+    def ip_address_version(self):
+        """
+        :returns:
+        :rtype: SimIpAddressInstance.IpAddressVersion
+        """
+        return self._properties["ip_address_version"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.SimIpAddressInstance {}>".format(context)
+
+
 class SimIpAddressList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
@@ -239,53 +289,3 @@ class SimIpAddressPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Supersim.V1.SimIpAddressPage>"
-
-
-class SimIpAddressInstance(InstanceResource):
-    class IpAddressVersion(object):
-        IPV4 = "IPv4"
-        IPV6 = "IPv6"
-
-    def __init__(self, version, payload, sim_sid: str):
-        """
-        Initialize the SimIpAddressInstance
-
-        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
-        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "ip_address": payload.get("ip_address"),
-            "ip_address_version": payload.get("ip_address_version"),
-        }
-
-        self._solution = {
-            "sim_sid": sim_sid,
-        }
-
-    @property
-    def ip_address(self):
-        """
-        :returns: IP address assigned to the given Super SIM
-        :rtype: str
-        """
-        return self._properties["ip_address"]
-
-    @property
-    def ip_address_version(self):
-        """
-        :returns:
-        :rtype: SimIpAddressInstance.IpAddressVersion
-        """
-        return self._properties["ip_address_version"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SimIpAddressInstance {}>".format(context)

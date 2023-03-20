@@ -13,13 +13,85 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
+
+class SubscribeRulesInstance(InstanceResource):
+    def __init__(self, version, payload, room_sid: str, participant_sid: str):
+        """
+        Initialize the SubscribeRulesInstance
+
+        :returns: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "participant_sid": payload.get("participant_sid"),
+            "room_sid": payload.get("room_sid"),
+            "rules": payload.get("rules"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+        }
+
+        self._solution = {
+            "room_sid": room_sid,
+            "participant_sid": participant_sid,
+        }
+
+    @property
+    def participant_sid(self):
+        """
+        :returns: The SID of the Participant resource for the Subscribe Rules.
+        :rtype: str
+        """
+        return self._properties["participant_sid"]
+
+    @property
+    def room_sid(self):
+        """
+        :returns: The SID of the Room resource for the Subscribe Rules
+        :rtype: str
+        """
+        return self._properties["room_sid"]
+
+    @property
+    def rules(self):
+        """
+        :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+        :rtype: list[VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules]
+        """
+        return self._properties["rules"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.SubscribeRulesInstance {}>".format(context)
 
 
 class SubscribeRulesList(ListResource):
@@ -143,77 +215,3 @@ class SubscribeRulesList(ListResource):
         :rtype: str
         """
         return "<Twilio.Video.V1.SubscribeRulesList>"
-
-
-class SubscribeRulesInstance(InstanceResource):
-    def __init__(self, version, payload, room_sid: str, participant_sid: str):
-        """
-        Initialize the SubscribeRulesInstance
-
-        :returns: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "participant_sid": payload.get("participant_sid"),
-            "room_sid": payload.get("room_sid"),
-            "rules": payload.get("rules"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-        }
-
-        self._solution = {
-            "room_sid": room_sid,
-            "participant_sid": participant_sid,
-        }
-
-    @property
-    def participant_sid(self):
-        """
-        :returns: The SID of the Participant resource for the Subscribe Rules.
-        :rtype: str
-        """
-        return self._properties["participant_sid"]
-
-    @property
-    def room_sid(self):
-        """
-        :returns: The SID of the Room resource for the Subscribe Rules
-        :rtype: str
-        """
-        return self._properties["room_sid"]
-
-    @property
-    def rules(self):
-        """
-        :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-        :rtype: list[VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules]
-        """
-        return self._properties["rules"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.SubscribeRulesInstance {}>".format(context)

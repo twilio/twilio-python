@@ -14,58 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class ChannelList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the ChannelList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.chat.v3.channel.ChannelList
-        :rtype: twilio.rest.chat.v3.channel.ChannelList
-        """
-        super().__init__(version)
-
-    def get(self, service_sid, sid):
-        """
-        Constructs a ChannelContext
-
-        :param service_sid: The unique SID identifier of the Service.
-        :param sid: A 34 character string that uniquely identifies this Channel.
-
-        :returns: twilio.rest.chat.v3.channel.ChannelContext
-        :rtype: twilio.rest.chat.v3.channel.ChannelContext
-        """
-        return ChannelContext(self._version, service_sid=service_sid, sid=sid)
-
-    def __call__(self, service_sid, sid):
-        """
-        Constructs a ChannelContext
-
-        :param service_sid: The unique SID identifier of the Service.
-        :param sid: A 34 character string that uniquely identifies this Channel.
-
-        :returns: twilio.rest.chat.v3.channel.ChannelContext
-        :rtype: twilio.rest.chat.v3.channel.ChannelContext
-        """
-        return ChannelContext(self._version, service_sid=service_sid, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Chat.V3.ChannelList>"
 
 
 class ChannelInstance(InstanceResource):
@@ -407,3 +360,49 @@ class ChannelContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Chat.V3.ChannelContext {}>".format(context)
+
+
+class ChannelList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the ChannelList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.chat.v3.channel.ChannelList
+        :rtype: twilio.rest.chat.v3.channel.ChannelList
+        """
+        super().__init__(version)
+
+    def get(self, service_sid, sid):
+        """
+        Constructs a ChannelContext
+
+        :param service_sid: The unique SID identifier of the Service.
+        :param sid: A 34 character string that uniquely identifies this Channel.
+
+        :returns: twilio.rest.chat.v3.channel.ChannelContext
+        :rtype: twilio.rest.chat.v3.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=service_sid, sid=sid)
+
+    def __call__(self, service_sid, sid):
+        """
+        Constructs a ChannelContext
+
+        :param service_sid: The unique SID identifier of the Service.
+        :param sid: A 34 character string that uniquely identifies this Channel.
+
+        :returns: twilio.rest.chat.v3.channel.ChannelContext
+        :rtype: twilio.rest.chat.v3.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=service_sid, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Chat.V3.ChannelList>"

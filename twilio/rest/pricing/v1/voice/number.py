@@ -20,50 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class NumberList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the NumberList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.pricing.v1.voice.number.NumberList
-        :rtype: twilio.rest.pricing.v1.voice.number.NumberList
-        """
-        super().__init__(version)
-
-    def get(self, number):
-        """
-        Constructs a NumberContext
-
-        :param number: The phone number to fetch.
-
-        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
-        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
-        """
-        return NumberContext(self._version, number=number)
-
-    def __call__(self, number):
-        """
-        Constructs a NumberContext
-
-        :param number: The phone number to fetch.
-
-        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
-        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
-        """
-        return NumberContext(self._version, number=number)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Pricing.V1.NumberList>"
-
-
 class NumberInstance(InstanceResource):
     def __init__(self, version, payload, number: Optional[str] = None):
         """
@@ -260,3 +216,47 @@ class NumberContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Pricing.V1.NumberContext {}>".format(context)
+
+
+class NumberList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the NumberList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.pricing.v1.voice.number.NumberList
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberList
+        """
+        super().__init__(version)
+
+    def get(self, number):
+        """
+        Constructs a NumberContext
+
+        :param number: The phone number to fetch.
+
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
+        """
+        return NumberContext(self._version, number=number)
+
+    def __call__(self, number):
+        """
+        Constructs a NumberContext
+
+        :param number: The phone number to fetch.
+
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
+        """
+        return NumberContext(self._version, number=number)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Pricing.V1.NumberList>"

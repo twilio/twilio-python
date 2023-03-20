@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,475 +23,6 @@ from twilio.base.page import Page
 from twilio.rest.video.v1.room.participant import ParticipantList
 from twilio.rest.video.v1.room.recording_rules import RecordingRulesList
 from twilio.rest.video.v1.room.room_recording import RoomRecordingList
-
-
-class RoomList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the RoomList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.video.v1.room.RoomList
-        :rtype: twilio.rest.video.v1.room.RoomList
-        """
-        super().__init__(version)
-
-        self._uri = "/Rooms"
-
-    def create(
-        self,
-        enable_turn=values.unset,
-        type=values.unset,
-        unique_name=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_participants=values.unset,
-        record_participants_on_connect=values.unset,
-        video_codecs=values.unset,
-        media_region=values.unset,
-        recording_rules=values.unset,
-        audio_only=values.unset,
-        max_participant_duration=values.unset,
-        empty_room_timeout=values.unset,
-        unused_room_timeout=values.unset,
-        large_room=values.unset,
-    ):
-        """
-        Create the RoomInstance
-
-        :param bool enable_turn: Deprecated, now always considered to be true.
-        :param RoomInstance.RoomType type:
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
-        :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-        :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-        :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-        :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-        :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
-        :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
-        :param bool large_room: When set to true, indicated that this is the large room.
-
-        :returns: The created RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        data = values.of(
-            {
-                "EnableTurn": enable_turn,
-                "Type": type,
-                "UniqueName": unique_name,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "MaxParticipants": max_participants,
-                "RecordParticipantsOnConnect": record_participants_on_connect,
-                "VideoCodecs": serialize.map(video_codecs, lambda e: e),
-                "MediaRegion": media_region,
-                "RecordingRules": serialize.object(recording_rules),
-                "AudioOnly": audio_only,
-                "MaxParticipantDuration": max_participant_duration,
-                "EmptyRoomTimeout": empty_room_timeout,
-                "UnusedRoomTimeout": unused_room_timeout,
-                "LargeRoom": large_room,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return RoomInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        enable_turn=values.unset,
-        type=values.unset,
-        unique_name=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-        max_participants=values.unset,
-        record_participants_on_connect=values.unset,
-        video_codecs=values.unset,
-        media_region=values.unset,
-        recording_rules=values.unset,
-        audio_only=values.unset,
-        max_participant_duration=values.unset,
-        empty_room_timeout=values.unset,
-        unused_room_timeout=values.unset,
-        large_room=values.unset,
-    ):
-        """
-        Asynchronously create the RoomInstance
-
-        :param bool enable_turn: Deprecated, now always considered to be true.
-        :param RoomInstance.RoomType type:
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
-        :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-        :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-        :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-        :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-        :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
-        :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
-        :param bool large_room: When set to true, indicated that this is the large room.
-
-        :returns: The created RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        data = values.of(
-            {
-                "EnableTurn": enable_turn,
-                "Type": type,
-                "UniqueName": unique_name,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "MaxParticipants": max_participants,
-                "RecordParticipantsOnConnect": record_participants_on_connect,
-                "VideoCodecs": serialize.map(video_codecs, lambda e: e),
-                "MediaRegion": media_region,
-                "RecordingRules": serialize.object(recording_rules),
-                "AudioOnly": audio_only,
-                "MaxParticipantDuration": max_participant_duration,
-                "EmptyRoomTimeout": empty_room_timeout,
-                "UnusedRoomTimeout": unused_room_timeout,
-                "LargeRoom": large_room,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return RoomInstance(self._version, payload)
-
-    def stream(
-        self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams RoomInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            status=status,
-            unique_name=unique_name,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams RoomInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            status=status,
-            unique_name=unique_name,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists RoomInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
-        """
-        return list(
-            self.stream(
-                status=status,
-                unique_name=unique_name,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists RoomInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
-        """
-        return list(
-            await self.stream_async(
-                status=status,
-                unique_name=unique_name,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
-        """
-        data = values.of(
-            {
-                "Status": status,
-                "UniqueName": unique_name,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return RoomPage(self._version, response)
-
-    async def page_async(
-        self,
-        status=values.unset,
-        unique_name=values.unset,
-        date_created_after=values.unset,
-        date_created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
-        :param str unique_name: Read only rooms with the this `unique_name`.
-        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
-        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
-        """
-        data = values.of(
-            {
-                "Status": status,
-                "UniqueName": unique_name,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return RoomPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return RoomPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RoomPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a RoomContext
-
-        :param sid: The SID of the Room resource to update.
-
-        :returns: twilio.rest.video.v1.room.RoomContext
-        :rtype: twilio.rest.video.v1.room.RoomContext
-        """
-        return RoomContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a RoomContext
-
-        :param sid: The SID of the Room resource to update.
-
-        :returns: twilio.rest.video.v1.room.RoomContext
-        :rtype: twilio.rest.video.v1.room.RoomContext
-        """
-        return RoomContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.RoomList>"
-
-
-class RoomPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RoomInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.video.v1.room.RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        return RoomInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Video.V1.RoomPage>"
 
 
 class RoomInstance(InstanceResource):
@@ -1021,3 +550,472 @@ class RoomContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Video.V1.RoomContext {}>".format(context)
+
+
+class RoomList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the RoomList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.video.v1.room.RoomList
+        :rtype: twilio.rest.video.v1.room.RoomList
+        """
+        super().__init__(version)
+
+        self._uri = "/Rooms"
+
+    def create(
+        self,
+        enable_turn=values.unset,
+        type=values.unset,
+        unique_name=values.unset,
+        status_callback=values.unset,
+        status_callback_method=values.unset,
+        max_participants=values.unset,
+        record_participants_on_connect=values.unset,
+        video_codecs=values.unset,
+        media_region=values.unset,
+        recording_rules=values.unset,
+        audio_only=values.unset,
+        max_participant_duration=values.unset,
+        empty_room_timeout=values.unset,
+        unused_room_timeout=values.unset,
+        large_room=values.unset,
+    ):
+        """
+        Create the RoomInstance
+
+        :param bool enable_turn: Deprecated, now always considered to be true.
+        :param RoomInstance.RoomType type:
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
+        :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
+        :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+        :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+        :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+        :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+        :param bool large_room: When set to true, indicated that this is the large room.
+
+        :returns: The created RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        data = values.of(
+            {
+                "EnableTurn": enable_turn,
+                "Type": type,
+                "UniqueName": unique_name,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "MaxParticipants": max_participants,
+                "RecordParticipantsOnConnect": record_participants_on_connect,
+                "VideoCodecs": serialize.map(video_codecs, lambda e: e),
+                "MediaRegion": media_region,
+                "RecordingRules": serialize.object(recording_rules),
+                "AudioOnly": audio_only,
+                "MaxParticipantDuration": max_participant_duration,
+                "EmptyRoomTimeout": empty_room_timeout,
+                "UnusedRoomTimeout": unused_room_timeout,
+                "LargeRoom": large_room,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return RoomInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        enable_turn=values.unset,
+        type=values.unset,
+        unique_name=values.unset,
+        status_callback=values.unset,
+        status_callback_method=values.unset,
+        max_participants=values.unset,
+        record_participants_on_connect=values.unset,
+        video_codecs=values.unset,
+        media_region=values.unset,
+        recording_rules=values.unset,
+        audio_only=values.unset,
+        max_participant_duration=values.unset,
+        empty_room_timeout=values.unset,
+        unused_room_timeout=values.unset,
+        large_room=values.unset,
+    ):
+        """
+        Asynchronously create the RoomInstance
+
+        :param bool enable_turn: Deprecated, now always considered to be true.
+        :param RoomInstance.RoomType type:
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
+        :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
+        :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+        :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+        :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+        :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+        :param bool large_room: When set to true, indicated that this is the large room.
+
+        :returns: The created RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        data = values.of(
+            {
+                "EnableTurn": enable_turn,
+                "Type": type,
+                "UniqueName": unique_name,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "MaxParticipants": max_participants,
+                "RecordParticipantsOnConnect": record_participants_on_connect,
+                "VideoCodecs": serialize.map(video_codecs, lambda e: e),
+                "MediaRegion": media_region,
+                "RecordingRules": serialize.object(recording_rules),
+                "AudioOnly": audio_only,
+                "MaxParticipantDuration": max_participant_duration,
+                "EmptyRoomTimeout": empty_room_timeout,
+                "UnusedRoomTimeout": unused_room_timeout,
+                "LargeRoom": large_room,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return RoomInstance(self._version, payload)
+
+    def stream(
+        self,
+        status=values.unset,
+        unique_name=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams RoomInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            status=status,
+            unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        status=values.unset,
+        unique_name=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams RoomInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            status=status,
+            unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        status=values.unset,
+        unique_name=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists RoomInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
+        """
+        return list(
+            self.stream(
+                status=status,
+                unique_name=unique_name,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        status=values.unset,
+        unique_name=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists RoomInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.video.v1.room.RoomInstance]
+        """
+        return list(
+            await self.stream_async(
+                status=status,
+                unique_name=unique_name,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        status=values.unset,
+        unique_name=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomPage
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "UniqueName": unique_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return RoomPage(self._version, response)
+
+    async def page_async(
+        self,
+        status=values.unset,
+        unique_name=values.unset,
+        date_created_after=values.unset,
+        date_created_before=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomPage
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "UniqueName": unique_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return RoomPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return RoomPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return RoomPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a RoomContext
+
+        :param sid: The SID of the Room resource to update.
+
+        :returns: twilio.rest.video.v1.room.RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
+        """
+        return RoomContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RoomContext
+
+        :param sid: The SID of the Room resource to update.
+
+        :returns: twilio.rest.video.v1.room.RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
+        """
+        return RoomContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.RoomList>"
+
+
+class RoomPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RoomInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.video.v1.room.RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        return RoomInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Video.V1.RoomPage>"

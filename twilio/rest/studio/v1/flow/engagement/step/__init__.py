@@ -14,273 +14,13 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.studio.v1.flow.engagement.step.step_context import StepContextList
-
-
-class StepList(ListResource):
-    def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
-        """
-        Initialize the StepList
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Step to read.
-        :param engagement_sid: The SID of the Engagement with the Step to read.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepList
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-            "engagement_sid": engagement_sid,
-        }
-        self._uri = "/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps".format(
-            **self._solution
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams StepInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams StepInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists StepInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists StepInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of StepInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return StepPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of StepInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return StepPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of StepInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return StepPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of StepInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return StepPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a StepContext
-
-        :param sid: The SID of the Step resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
-        """
-        return StepContext(
-            self._version,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a StepContext
-
-        :param sid: The SID of the Step resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
-        """
-        return StepContext(
-            self._version,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Studio.V1.StepList>"
-
-
-class StepPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of StepInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-        return StepInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution["flow_sid"],
-            engagement_sid=self._solution["engagement_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V1.StepPage>"
 
 
 class StepInstance(InstanceResource):
@@ -574,3 +314,262 @@ class StepContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.StepContext {}>".format(context)
+
+
+class StepList(ListResource):
+    def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
+        """
+        Initialize the StepList
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow with the Step to read.
+        :param engagement_sid: The SID of the Engagement with the Step to read.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "flow_sid": flow_sid,
+            "engagement_sid": engagement_sid,
+        }
+        self._uri = "/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps".format(
+            **self._solution
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams StepInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams StepInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists StepInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists StepInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of StepInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return StepPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of StepInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return StepPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of StepInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return StepPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of StepInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return StepPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a StepContext
+
+        :param sid: The SID of the Step resource to fetch.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        """
+        return StepContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a StepContext
+
+        :param sid: The SID of the Step resource to fetch.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        """
+        return StepContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Studio.V1.StepList>"
+
+
+class StepPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of StepInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        """
+        return StepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V1.StepPage>"

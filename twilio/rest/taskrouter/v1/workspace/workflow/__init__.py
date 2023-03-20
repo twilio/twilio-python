@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,354 +29,6 @@ from twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics 
 from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import (
     WorkflowStatisticsList,
 )
-
-
-class WorkflowList(ListResource):
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the WorkflowList
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Workflow to read.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-        self._uri = "/Workspaces/{workspace_sid}/Workflows".format(**self._solution)
-
-    def create(
-        self,
-        friendly_name,
-        configuration,
-        assignment_callback_url=values.unset,
-        fallback_assignment_callback_url=values.unset,
-        task_reservation_timeout=values.unset,
-    ):
-        """
-        Create the WorkflowInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
-        :param str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-        :param str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
-        :param str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
-        :param int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
-
-        :returns: The created WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Configuration": configuration,
-                "AssignmentCallbackUrl": assignment_callback_url,
-                "FallbackAssignmentCallbackUrl": fallback_assignment_callback_url,
-                "TaskReservationTimeout": task_reservation_timeout,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WorkflowInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    async def create_async(
-        self,
-        friendly_name,
-        configuration,
-        assignment_callback_url=values.unset,
-        fallback_assignment_callback_url=values.unset,
-        task_reservation_timeout=values.unset,
-    ):
-        """
-        Asynchronously create the WorkflowInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
-        :param str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-        :param str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
-        :param str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
-        :param int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
-
-        :returns: The created WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Configuration": configuration,
-                "AssignmentCallbackUrl": assignment_callback_url,
-                "FallbackAssignmentCallbackUrl": fallback_assignment_callback_url,
-                "TaskReservationTimeout": task_reservation_timeout,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WorkflowInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Streams WorkflowInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self, friendly_name=values.unset, limit=None, page_size=None
-    ):
-        """
-        Asynchronously streams WorkflowInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            friendly_name=friendly_name, page_size=limits["page_size"]
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Lists WorkflowInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
-        """
-        return list(
-            self.stream(
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
-        """
-        Asynchronously lists WorkflowInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
-        """
-        return list(
-            await self.stream_async(
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of WorkflowInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return WorkflowPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        friendly_name=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of WorkflowInstance records from the API.
-        Request is executed immediately
-
-        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return WorkflowPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of WorkflowInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return WorkflowPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of WorkflowInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return WorkflowPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a WorkflowContext
-
-        :param sid: The SID of the Workflow resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        """
-        return WorkflowContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a WorkflowContext
-
-        :param sid: The SID of the Workflow resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
-        """
-        return WorkflowContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkflowList>"
-
-
-class WorkflowPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WorkflowInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
-        """
-        return WorkflowInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.WorkflowPage>"
 
 
 class WorkflowInstance(InstanceResource):
@@ -924,3 +575,351 @@ class WorkflowContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkflowContext {}>".format(context)
+
+
+class WorkflowList(ListResource):
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the WorkflowList
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Workflow to read.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/Workflows".format(**self._solution)
+
+    def create(
+        self,
+        friendly_name,
+        configuration,
+        assignment_callback_url=values.unset,
+        fallback_assignment_callback_url=values.unset,
+        task_reservation_timeout=values.unset,
+    ):
+        """
+        Create the WorkflowInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
+        :param str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+        :param str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+        :param str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
+        :param int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+
+        :returns: The created WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Configuration": configuration,
+                "AssignmentCallbackUrl": assignment_callback_url,
+                "FallbackAssignmentCallbackUrl": fallback_assignment_callback_url,
+                "TaskReservationTimeout": task_reservation_timeout,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WorkflowInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    async def create_async(
+        self,
+        friendly_name,
+        configuration,
+        assignment_callback_url=values.unset,
+        fallback_assignment_callback_url=values.unset,
+        task_reservation_timeout=values.unset,
+    ):
+        """
+        Asynchronously create the WorkflowInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
+        :param str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+        :param str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+        :param str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
+        :param int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+
+        :returns: The created WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Configuration": configuration,
+                "AssignmentCallbackUrl": assignment_callback_url,
+                "FallbackAssignmentCallbackUrl": fallback_assignment_callback_url,
+                "TaskReservationTimeout": task_reservation_timeout,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WorkflowInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def stream(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Streams WorkflowInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self, friendly_name=values.unset, limit=None, page_size=None
+    ):
+        """
+        Asynchronously streams WorkflowInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            friendly_name=friendly_name, page_size=limits["page_size"]
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Lists WorkflowInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
+        """
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, friendly_name=values.unset, limit=None, page_size=None):
+        """
+        Asynchronously lists WorkflowInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance]
+        """
+        return list(
+            await self.stream_async(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of WorkflowInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return WorkflowPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        friendly_name=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of WorkflowInstance records from the API.
+        Request is executed immediately
+
+        :param str friendly_name: The `friendly_name` of the Workflow resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return WorkflowPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of WorkflowInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return WorkflowPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of WorkflowInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return WorkflowPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a WorkflowContext
+
+        :param sid: The SID of the Workflow resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        """
+        return WorkflowContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a WorkflowContext
+
+        :param sid: The SID of the Workflow resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowContext
+        """
+        return WorkflowContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.WorkflowList>"
+
+
+class WorkflowPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkflowInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        return WorkflowInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.WorkflowPage>"

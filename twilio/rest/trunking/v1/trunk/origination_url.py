@@ -14,325 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class OriginationUrlList(ListResource):
-    def __init__(self, version: Version, trunk_sid: str):
-        """
-        Initialize the OriginationUrlList
-
-        :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to read the OriginationUrl.
-
-        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
-        }
-        self._uri = "/Trunks/{trunk_sid}/OriginationUrls".format(**self._solution)
-
-    def create(self, weight, priority, enabled, friendly_name, sip_url):
-        """
-        Create the OriginationUrlInstance
-
-        :param int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-        :param int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-        :param bool enabled: Whether the URL is enabled. The default is `true`.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
-
-        :returns: The created OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        """
-        data = values.of(
-            {
-                "Weight": weight,
-                "Priority": priority,
-                "Enabled": enabled,
-                "FriendlyName": friendly_name,
-                "SipUrl": sip_url,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return OriginationUrlInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    async def create_async(self, weight, priority, enabled, friendly_name, sip_url):
-        """
-        Asynchronously create the OriginationUrlInstance
-
-        :param int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-        :param int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-        :param bool enabled: Whether the URL is enabled. The default is `true`.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
-
-        :returns: The created OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        """
-        data = values.of(
-            {
-                "Weight": weight,
-                "Priority": priority,
-                "Enabled": enabled,
-                "FriendlyName": friendly_name,
-                "SipUrl": sip_url,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return OriginationUrlInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams OriginationUrlInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams OriginationUrlInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists OriginationUrlInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists OriginationUrlInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of OriginationUrlInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return OriginationUrlPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of OriginationUrlInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return OriginationUrlPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of OriginationUrlInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return OriginationUrlPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of OriginationUrlInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return OriginationUrlPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a OriginationUrlContext
-
-        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
-
-        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
-        """
-        return OriginationUrlContext(
-            self._version, trunk_sid=self._solution["trunk_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a OriginationUrlContext
-
-        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
-
-        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
-        """
-        return OriginationUrlContext(
-            self._version, trunk_sid=self._solution["trunk_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trunking.V1.OriginationUrlList>"
-
-
-class OriginationUrlPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of OriginationUrlInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
-        """
-        return OriginationUrlInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Trunking.V1.OriginationUrlPage>"
 
 
 class OriginationUrlInstance(InstanceResource):
@@ -761,3 +448,315 @@ class OriginationUrlContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trunking.V1.OriginationUrlContext {}>".format(context)
+
+
+class OriginationUrlList(ListResource):
+    def __init__(self, version: Version, trunk_sid: str):
+        """
+        Initialize the OriginationUrlList
+
+        :param Version version: Version that contains the resource
+        :param trunk_sid: The SID of the Trunk from which to read the OriginationUrl.
+
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "trunk_sid": trunk_sid,
+        }
+        self._uri = "/Trunks/{trunk_sid}/OriginationUrls".format(**self._solution)
+
+    def create(self, weight, priority, enabled, friendly_name, sip_url):
+        """
+        Create the OriginationUrlInstance
+
+        :param int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param bool enabled: Whether the URL is enabled. The default is `true`.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+
+        :returns: The created OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        """
+        data = values.of(
+            {
+                "Weight": weight,
+                "Priority": priority,
+                "Enabled": enabled,
+                "FriendlyName": friendly_name,
+                "SipUrl": sip_url,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return OriginationUrlInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    async def create_async(self, weight, priority, enabled, friendly_name, sip_url):
+        """
+        Asynchronously create the OriginationUrlInstance
+
+        :param int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param bool enabled: Whether the URL is enabled. The default is `true`.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+
+        :returns: The created OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        """
+        data = values.of(
+            {
+                "Weight": weight,
+                "Priority": priority,
+                "Enabled": enabled,
+                "FriendlyName": friendly_name,
+                "SipUrl": sip_url,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return OriginationUrlInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams OriginationUrlInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams OriginationUrlInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists OriginationUrlInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists OriginationUrlInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of OriginationUrlInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return OriginationUrlPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of OriginationUrlInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return OriginationUrlPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of OriginationUrlInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return OriginationUrlPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of OriginationUrlInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return OriginationUrlPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a OriginationUrlContext
+
+        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
+
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        """
+        return OriginationUrlContext(
+            self._version, trunk_sid=self._solution["trunk_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a OriginationUrlContext
+
+        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
+
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlContext
+        """
+        return OriginationUrlContext(
+            self._version, trunk_sid=self._solution["trunk_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Trunking.V1.OriginationUrlList>"
+
+
+class OriginationUrlPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of OriginationUrlInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
+        """
+        return OriginationUrlInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Trunking.V1.OriginationUrlPage>"

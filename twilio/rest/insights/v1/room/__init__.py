@@ -14,366 +14,13 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.insights.v1.room.participant import ParticipantList
-
-
-class RoomList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the RoomList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.insights.v1.room.RoomList
-        :rtype: twilio.rest.insights.v1.room.RoomList
-        """
-        super().__init__(version)
-
-        self._uri = "/Video/Rooms"
-
-    def stream(
-        self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams RoomInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            room_type=room_type,
-            codec=codec,
-            room_name=room_name,
-            created_after=created_after,
-            created_before=created_before,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams RoomInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            room_type=room_type,
-            codec=codec,
-            room_name=room_name,
-            created_after=created_after,
-            created_before=created_before,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists RoomInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
-        """
-        return list(
-            self.stream(
-                room_type=room_type,
-                codec=codec,
-                room_name=room_name,
-                created_after=created_after,
-                created_before=created_before,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists RoomInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
-        """
-        return list(
-            await self.stream_async(
-                room_type=room_type,
-                codec=codec,
-                room_name=room_name,
-                created_after=created_after,
-                created_before=created_before,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.insights.v1.room.RoomPage
-        """
-        data = values.of(
-            {
-                "RoomType": serialize.map(room_type, lambda e: e),
-                "Codec": serialize.map(codec, lambda e: e),
-                "RoomName": room_name,
-                "CreatedAfter": serialize.iso8601_datetime(created_after),
-                "CreatedBefore": serialize.iso8601_datetime(created_before),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return RoomPage(self._version, response)
-
-    async def page_async(
-        self,
-        room_type=values.unset,
-        codec=values.unset,
-        room_name=values.unset,
-        created_after=values.unset,
-        created_before=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :param str room_name: Room friendly name.
-        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
-        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.insights.v1.room.RoomPage
-        """
-        data = values.of(
-            {
-                "RoomType": serialize.map(room_type, lambda e: e),
-                "Codec": serialize.map(codec, lambda e: e),
-                "RoomName": room_name,
-                "CreatedAfter": serialize.iso8601_datetime(created_after),
-                "CreatedBefore": serialize.iso8601_datetime(created_before),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return RoomPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.insights.v1.room.RoomPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return RoomPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of RoomInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RoomInstance
-        :rtype: twilio.rest.insights.v1.room.RoomPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RoomPage(self._version, response)
-
-    def get(self, room_sid):
-        """
-        Constructs a RoomContext
-
-        :param room_sid: The SID of the Room resource.
-
-        :returns: twilio.rest.insights.v1.room.RoomContext
-        :rtype: twilio.rest.insights.v1.room.RoomContext
-        """
-        return RoomContext(self._version, room_sid=room_sid)
-
-    def __call__(self, room_sid):
-        """
-        Constructs a RoomContext
-
-        :param room_sid: The SID of the Room resource.
-
-        :returns: twilio.rest.insights.v1.room.RoomContext
-        :rtype: twilio.rest.insights.v1.room.RoomContext
-        """
-        return RoomContext(self._version, room_sid=room_sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Insights.V1.RoomList>"
-
-
-class RoomPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RoomInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.insights.v1.room.RoomInstance
-        :rtype: twilio.rest.insights.v1.room.RoomInstance
-        """
-        return RoomInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Insights.V1.RoomPage>"
 
 
 class RoomInstance(InstanceResource):
@@ -831,3 +478,354 @@ class RoomContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.RoomContext {}>".format(context)
+
+
+class RoomList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the RoomList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.insights.v1.room.RoomList
+        :rtype: twilio.rest.insights.v1.room.RoomList
+        """
+        super().__init__(version)
+
+        self._uri = "/Video/Rooms"
+
+    def stream(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams RoomInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param str room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            room_type=room_type,
+            codec=codec,
+            room_name=room_name,
+            created_after=created_after,
+            created_before=created_before,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams RoomInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param str room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            room_type=room_type,
+            codec=codec,
+            room_name=room_name,
+            created_after=created_after,
+            created_before=created_before,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists RoomInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param str room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
+        """
+        return list(
+            self.stream(
+                room_type=room_type,
+                codec=codec,
+                room_name=room_name,
+                created_after=created_after,
+                created_before=created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists RoomInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param str room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.insights.v1.room.RoomInstance]
+        """
+        return list(
+            await self.stream_async(
+                room_type=room_type,
+                codec=codec,
+                room_name=room_name,
+                created_after=created_after,
+                created_before=created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param str room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomPage
+        """
+        data = values.of(
+            {
+                "RoomType": serialize.map(room_type, lambda e: e),
+                "Codec": serialize.map(codec, lambda e: e),
+                "RoomName": room_name,
+                "CreatedAfter": serialize.iso8601_datetime(created_after),
+                "CreatedBefore": serialize.iso8601_datetime(created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return RoomPage(self._version, response)
+
+    async def page_async(
+        self,
+        room_type=values.unset,
+        codec=values.unset,
+        room_name=values.unset,
+        created_after=values.unset,
+        created_before=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param str room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomPage
+        """
+        data = values.of(
+            {
+                "RoomType": serialize.map(room_type, lambda e: e),
+                "Codec": serialize.map(codec, lambda e: e),
+                "RoomName": room_name,
+                "CreatedAfter": serialize.iso8601_datetime(created_after),
+                "CreatedBefore": serialize.iso8601_datetime(created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return RoomPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return RoomPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of RoomInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return RoomPage(self._version, response)
+
+    def get(self, room_sid):
+        """
+        Constructs a RoomContext
+
+        :param room_sid: The SID of the Room resource.
+
+        :returns: twilio.rest.insights.v1.room.RoomContext
+        :rtype: twilio.rest.insights.v1.room.RoomContext
+        """
+        return RoomContext(self._version, room_sid=room_sid)
+
+    def __call__(self, room_sid):
+        """
+        Constructs a RoomContext
+
+        :param room_sid: The SID of the Room resource.
+
+        :returns: twilio.rest.insights.v1.room.RoomContext
+        :rtype: twilio.rest.insights.v1.room.RoomContext
+        """
+        return RoomContext(self._version, room_sid=room_sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Insights.V1.RoomList>"
+
+
+class RoomPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RoomInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.insights.v1.room.RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomInstance
+        """
+        return RoomInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Insights.V1.RoomPage>"

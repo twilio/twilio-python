@@ -20,6 +20,50 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+class WebChannelsInstance(InstanceResource):
+    def __init__(self, version, payload):
+        """
+        Initialize the WebChannelsInstance
+
+        :returns: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
+        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "conversation_sid": payload.get("conversation_sid"),
+            "identity": payload.get("identity"),
+        }
+
+        self._solution = {}
+
+    @property
+    def conversation_sid(self):
+        """
+        :returns: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
+        :rtype: str
+        """
+        return self._properties["conversation_sid"]
+
+    @property
+    def identity(self):
+        """
+        :returns: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
+        :rtype: str
+        """
+        return self._properties["identity"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V2.WebChannelsInstance {}>".format(context)
+
+
 class WebChannelsList(ListResource):
     def __init__(self, version: Version):
         """
@@ -112,47 +156,3 @@ class WebChannelsList(ListResource):
         :rtype: str
         """
         return "<Twilio.FlexApi.V2.WebChannelsList>"
-
-
-class WebChannelsInstance(InstanceResource):
-    def __init__(self, version, payload):
-        """
-        Initialize the WebChannelsInstance
-
-        :returns: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
-        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "conversation_sid": payload.get("conversation_sid"),
-            "identity": payload.get("identity"),
-        }
-
-        self._solution = {}
-
-    @property
-    def conversation_sid(self):
-        """
-        :returns: The unique string representing the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) created.
-        :rtype: str
-        """
-        return self._properties["conversation_sid"]
-
-    @property
-    def identity(self):
-        """
-        :returns: The unique string representing the User created and should be authorized to participate in the Conversation. For more details, see [User Identity & Access Tokens](https://www.twilio.com/docs/conversations/identity).
-        :rtype: str
-        """
-        return self._properties["identity"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V2.WebChannelsInstance {}>".format(context)

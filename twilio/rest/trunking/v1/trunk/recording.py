@@ -21,54 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class RecordingList(ListResource):
-    def __init__(self, version: Version, trunk_sid: str):
-        """
-        Initialize the RecordingList
-
-        :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk from which to fetch the recording settings.
-
-        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingList
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a RecordingContext
-
-
-        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
-        """
-        return RecordingContext(self._version, trunk_sid=self._solution["trunk_sid"])
-
-    def __call__(self):
-        """
-        Constructs a RecordingContext
-
-
-        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
-        """
-        return RecordingContext(self._version, trunk_sid=self._solution["trunk_sid"])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Trunking.V1.RecordingList>"
-
-
 class RecordingInstance(InstanceResource):
     class RecordingMode(object):
         DO_NOT_RECORD = "do-not-record"
@@ -315,3 +267,51 @@ class RecordingContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Trunking.V1.RecordingContext {}>".format(context)
+
+
+class RecordingList(ListResource):
+    def __init__(self, version: Version, trunk_sid: str):
+        """
+        Initialize the RecordingList
+
+        :param Version version: Version that contains the resource
+        :param trunk_sid: The SID of the Trunk from which to fetch the recording settings.
+
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingList
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "trunk_sid": trunk_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a RecordingContext
+
+
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        """
+        return RecordingContext(self._version, trunk_sid=self._solution["trunk_sid"])
+
+    def __call__(self):
+        """
+        Constructs a RecordingContext
+
+
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        """
+        return RecordingContext(self._version, trunk_sid=self._solution["trunk_sid"])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Trunking.V1.RecordingList>"

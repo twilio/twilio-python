@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,442 +23,6 @@ from twilio.base.page import Page
 from twilio.rest.api.v2010.account.address.dependent_phone_number import (
     DependentPhoneNumberList,
 )
-
-
-class AddressList(ListResource):
-    def __init__(self, version: Version, account_sid: str):
-        """
-        Initialize the AddressList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
-
-        :returns: twilio.rest.api.v2010.account.address.AddressList
-        :rtype: twilio.rest.api.v2010.account.address.AddressList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Addresses.json".format(**self._solution)
-
-    def create(
-        self,
-        customer_name,
-        street,
-        city,
-        region,
-        postal_code,
-        iso_country,
-        friendly_name=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
-    ):
-        """
-        Create the AddressInstance
-
-        :param str customer_name: The name to associate with the new address.
-        :param str street: The number and street address of the new address.
-        :param str city: The city of the new address.
-        :param str region: The state or region of the new address.
-        :param str postal_code: The postal code of the new address.
-        :param str iso_country: The ISO country code of the new address.
-        :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-        :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
-
-        :returns: The created AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
-        """
-        data = values.of(
-            {
-                "CustomerName": customer_name,
-                "Street": street,
-                "City": city,
-                "Region": region,
-                "PostalCode": postal_code,
-                "IsoCountry": iso_country,
-                "FriendlyName": friendly_name,
-                "EmergencyEnabled": emergency_enabled,
-                "AutoCorrectAddress": auto_correct_address,
-                "StreetSecondary": street_secondary,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AddressInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(
-        self,
-        customer_name,
-        street,
-        city,
-        region,
-        postal_code,
-        iso_country,
-        friendly_name=values.unset,
-        emergency_enabled=values.unset,
-        auto_correct_address=values.unset,
-        street_secondary=values.unset,
-    ):
-        """
-        Asynchronously create the AddressInstance
-
-        :param str customer_name: The name to associate with the new address.
-        :param str street: The number and street address of the new address.
-        :param str city: The city of the new address.
-        :param str region: The state or region of the new address.
-        :param str postal_code: The postal code of the new address.
-        :param str iso_country: The ISO country code of the new address.
-        :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-        :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
-
-        :returns: The created AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
-        """
-        data = values.of(
-            {
-                "CustomerName": customer_name,
-                "Street": street,
-                "City": city,
-                "Region": region,
-                "PostalCode": postal_code,
-                "IsoCountry": iso_country,
-                "FriendlyName": friendly_name,
-                "EmergencyEnabled": emergency_enabled,
-                "AutoCorrectAddress": auto_correct_address,
-                "StreetSecondary": street_secondary,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AddressInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def stream(
-        self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams AddressInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            customer_name=customer_name,
-            friendly_name=friendly_name,
-            iso_country=iso_country,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams AddressInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            customer_name=customer_name,
-            friendly_name=friendly_name,
-            iso_country=iso_country,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists AddressInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
-        """
-        return list(
-            self.stream(
-                customer_name=customer_name,
-                friendly_name=friendly_name,
-                iso_country=iso_country,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists AddressInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
-        """
-        return list(
-            await self.stream_async(
-                customer_name=customer_name,
-                friendly_name=friendly_name,
-                iso_country=iso_country,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of AddressInstance records from the API.
-        Request is executed immediately
-
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressPage
-        """
-        data = values.of(
-            {
-                "CustomerName": customer_name,
-                "FriendlyName": friendly_name,
-                "IsoCountry": iso_country,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AddressPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        customer_name=values.unset,
-        friendly_name=values.unset,
-        iso_country=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of AddressInstance records from the API.
-        Request is executed immediately
-
-        :param str customer_name: The `customer_name` of the Address resources to read.
-        :param str friendly_name: The string that identifies the Address resources to read.
-        :param str iso_country: The ISO country code of the Address resources to read.
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressPage
-        """
-        data = values.of(
-            {
-                "CustomerName": customer_name,
-                "FriendlyName": friendly_name,
-                "IsoCountry": iso_country,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AddressPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AddressInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AddressPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AddressInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AddressPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a AddressContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
-
-        :returns: twilio.rest.api.v2010.account.address.AddressContext
-        :rtype: twilio.rest.api.v2010.account.address.AddressContext
-        """
-        return AddressContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a AddressContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
-
-        :returns: twilio.rest.api.v2010.account.address.AddressContext
-        :rtype: twilio.rest.api.v2010.account.address.AddressContext
-        """
-        return AddressContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.AddressList>"
-
-
-class AddressPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AddressInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.address.AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
-        """
-        return AddressInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AddressPage>"
 
 
 class AddressInstance(InstanceResource):
@@ -1011,3 +574,439 @@ class AddressContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AddressContext {}>".format(context)
+
+
+class AddressList(ListResource):
+    def __init__(self, version: Version, account_sid: str):
+        """
+        Initialize the AddressList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
+
+        :returns: twilio.rest.api.v2010.account.address.AddressList
+        :rtype: twilio.rest.api.v2010.account.address.AddressList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Addresses.json".format(**self._solution)
+
+    def create(
+        self,
+        customer_name,
+        street,
+        city,
+        region,
+        postal_code,
+        iso_country,
+        friendly_name=values.unset,
+        emergency_enabled=values.unset,
+        auto_correct_address=values.unset,
+        street_secondary=values.unset,
+    ):
+        """
+        Create the AddressInstance
+
+        :param str customer_name: The name to associate with the new address.
+        :param str street: The number and street address of the new address.
+        :param str city: The city of the new address.
+        :param str region: The state or region of the new address.
+        :param str postal_code: The postal code of the new address.
+        :param str iso_country: The ISO country code of the new address.
+        :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+        :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param str street_secondary: The additional number and street address of the address.
+
+        :returns: The created AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "IsoCountry": iso_country,
+                "FriendlyName": friendly_name,
+                "EmergencyEnabled": emergency_enabled,
+                "AutoCorrectAddress": auto_correct_address,
+                "StreetSecondary": street_secondary,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        customer_name,
+        street,
+        city,
+        region,
+        postal_code,
+        iso_country,
+        friendly_name=values.unset,
+        emergency_enabled=values.unset,
+        auto_correct_address=values.unset,
+        street_secondary=values.unset,
+    ):
+        """
+        Asynchronously create the AddressInstance
+
+        :param str customer_name: The name to associate with the new address.
+        :param str street: The number and street address of the new address.
+        :param str city: The city of the new address.
+        :param str region: The state or region of the new address.
+        :param str postal_code: The postal code of the new address.
+        :param str iso_country: The ISO country code of the new address.
+        :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+        :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param str street_secondary: The additional number and street address of the address.
+
+        :returns: The created AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "IsoCountry": iso_country,
+                "FriendlyName": friendly_name,
+                "EmergencyEnabled": emergency_enabled,
+                "AutoCorrectAddress": auto_correct_address,
+                "StreetSecondary": street_secondary,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
+        customer_name=values.unset,
+        friendly_name=values.unset,
+        iso_country=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams AddressInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            iso_country=iso_country,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        customer_name=values.unset,
+        friendly_name=values.unset,
+        iso_country=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams AddressInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            iso_country=iso_country,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        customer_name=values.unset,
+        friendly_name=values.unset,
+        iso_country=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists AddressInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
+        """
+        return list(
+            self.stream(
+                customer_name=customer_name,
+                friendly_name=friendly_name,
+                iso_country=iso_country,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        customer_name=values.unset,
+        friendly_name=values.unset,
+        iso_country=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists AddressInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.address.AddressInstance]
+        """
+        return list(
+            await self.stream_async(
+                customer_name=customer_name,
+                friendly_name=friendly_name,
+                iso_country=iso_country,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        customer_name=values.unset,
+        friendly_name=values.unset,
+        iso_country=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of AddressInstance records from the API.
+        Request is executed immediately
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
+        """
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "FriendlyName": friendly_name,
+                "IsoCountry": iso_country,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AddressPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        customer_name=values.unset,
+        friendly_name=values.unset,
+        iso_country=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of AddressInstance records from the API.
+        Request is executed immediately
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
+        """
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "FriendlyName": friendly_name,
+                "IsoCountry": iso_country,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AddressPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AddressInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AddressPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AddressInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AddressPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a AddressContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
+        """
+        return AddressContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a AddressContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+
+        :returns: twilio.rest.api.v2010.account.address.AddressContext
+        :rtype: twilio.rest.api.v2010.account.address.AddressContext
+        """
+        return AddressContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.AddressList>"
+
+
+class AddressPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AddressInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.address.AddressInstance
+        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
+        """
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AddressPage>"

@@ -21,48 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class InsightsUserRolesList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the InsightsUserRolesList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a InsightsUserRolesContext
-
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        """
-        return InsightsUserRolesContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a InsightsUserRolesContext
-
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        """
-        return InsightsUserRolesContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FlexApi.V1.InsightsUserRolesList>"
-
-
 class InsightsUserRolesInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -220,3 +178,45 @@ class InsightsUserRolesContext(InstanceContext):
         """
 
         return "<Twilio.FlexApi.V1.InsightsUserRolesContext>"
+
+
+class InsightsUserRolesList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the InsightsUserRolesList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a InsightsUserRolesContext
+
+
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a InsightsUserRolesContext
+
+
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FlexApi.V1.InsightsUserRolesList>"

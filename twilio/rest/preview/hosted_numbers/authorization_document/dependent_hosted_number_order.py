@@ -13,13 +13,257 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class DependentHostedNumberOrderInstance(InstanceResource):
+    class Status(object):
+        RECEIVED = "received"
+        PENDING_VERIFICATION = "pending-verification"
+        VERIFIED = "verified"
+        PENDING_LOA = "pending-loa"
+        CARRIER_PROCESSING = "carrier-processing"
+        TESTING = "testing"
+        COMPLETED = "completed"
+        FAILED = "failed"
+        ACTION_REQUIRED = "action-required"
+
+    class VerificationType(object):
+        PHONE_CALL = "phone-call"
+        PHONE_BILL = "phone-bill"
+
+    def __init__(self, version, payload, signing_document_sid: str):
+        """
+        Initialize the DependentHostedNumberOrderInstance
+
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "incoming_phone_number_sid": payload.get("incoming_phone_number_sid"),
+            "address_sid": payload.get("address_sid"),
+            "signing_document_sid": payload.get("signing_document_sid"),
+            "phone_number": payload.get("phone_number"),
+            "capabilities": payload.get("capabilities"),
+            "friendly_name": payload.get("friendly_name"),
+            "unique_name": payload.get("unique_name"),
+            "status": payload.get("status"),
+            "failure_reason": payload.get("failure_reason"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "verification_attempts": deserialize.integer(
+                payload.get("verification_attempts")
+            ),
+            "email": payload.get("email"),
+            "cc_emails": payload.get("cc_emails"),
+            "verification_type": payload.get("verification_type"),
+            "verification_document_sid": payload.get("verification_document_sid"),
+            "extension": payload.get("extension"),
+            "call_delay": deserialize.integer(payload.get("call_delay")),
+            "verification_code": payload.get("verification_code"),
+            "verification_call_sids": payload.get("verification_call_sids"),
+        }
+
+        self._solution = {
+            "signing_document_sid": signing_document_sid,
+        }
+
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this Authorization Document
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The unique SID identifier of the Account.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def incoming_phone_number_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :rtype: str
+        """
+        return self._properties["incoming_phone_number_sid"]
+
+    @property
+    def address_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+        :rtype: str
+        """
+        return self._properties["address_sid"]
+
+    @property
+    def signing_document_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
+        :rtype: str
+        """
+        return self._properties["signing_document_sid"]
+
+    @property
+    def phone_number(self):
+        """
+        :returns: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :rtype: str
+        """
+        return self._properties["phone_number"]
+
+    @property
+    def capabilities(self):
+        """
+        :returns:
+        :rtype: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities
+        """
+        return self._properties["capabilities"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A human readable description of this resource, up to 64 characters.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def unique_name(self):
+        """
+        :returns: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :rtype: str
+        """
+        return self._properties["unique_name"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: DependentHostedNumberOrderInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def failure_reason(self):
+        """
+        :returns: A message that explains why a hosted_number_order went to status \"action-required\"
+        :rtype: str
+        """
+        return self._properties["failure_reason"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def verification_attempts(self):
+        """
+        :returns: The number of attempts made to verify ownership of the phone number that is being hosted.
+        :rtype: int
+        """
+        return self._properties["verification_attempts"]
+
+    @property
+    def email(self):
+        """
+        :returns: Email of the owner of this phone number that is being hosted.
+        :rtype: str
+        """
+        return self._properties["email"]
+
+    @property
+    def cc_emails(self):
+        """
+        :returns: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :rtype: list[str]
+        """
+        return self._properties["cc_emails"]
+
+    @property
+    def verification_type(self):
+        """
+        :returns:
+        :rtype: DependentHostedNumberOrderInstance.VerificationType
+        """
+        return self._properties["verification_type"]
+
+    @property
+    def verification_document_sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies the Identity Document resource that represents the document for verifying ownership of the number to be hosted.
+        :rtype: str
+        """
+        return self._properties["verification_document_sid"]
+
+    @property
+    def extension(self):
+        """
+        :returns: A numerical extension to be used when making the ownership verification call.
+        :rtype: str
+        """
+        return self._properties["extension"]
+
+    @property
+    def call_delay(self):
+        """
+        :returns: A value between 0-30 specifying the number of seconds to delay initiating the ownership verification call.
+        :rtype: int
+        """
+        return self._properties["call_delay"]
+
+    @property
+    def verification_code(self):
+        """
+        :returns: The digits passed during the ownership verification call.
+        :rtype: str
+        """
+        return self._properties["verification_code"]
+
+    @property
+    def verification_call_sids(self):
+        """
+        :returns: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
+        :rtype: list[str]
+        """
+        return self._properties["verification_call_sids"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderInstance {}>".format(
+            context
+        )
 
 
 class DependentHostedNumberOrderList(ListResource):
@@ -360,248 +604,3 @@ class DependentHostedNumberOrderPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderPage>"
-
-
-class DependentHostedNumberOrderInstance(InstanceResource):
-    class Status(object):
-        RECEIVED = "received"
-        PENDING_VERIFICATION = "pending-verification"
-        VERIFIED = "verified"
-        PENDING_LOA = "pending-loa"
-        CARRIER_PROCESSING = "carrier-processing"
-        TESTING = "testing"
-        COMPLETED = "completed"
-        FAILED = "failed"
-        ACTION_REQUIRED = "action-required"
-
-    class VerificationType(object):
-        PHONE_CALL = "phone-call"
-        PHONE_BILL = "phone-bill"
-
-    def __init__(self, version, payload, signing_document_sid: str):
-        """
-        Initialize the DependentHostedNumberOrderInstance
-
-        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "incoming_phone_number_sid": payload.get("incoming_phone_number_sid"),
-            "address_sid": payload.get("address_sid"),
-            "signing_document_sid": payload.get("signing_document_sid"),
-            "phone_number": payload.get("phone_number"),
-            "capabilities": payload.get("capabilities"),
-            "friendly_name": payload.get("friendly_name"),
-            "unique_name": payload.get("unique_name"),
-            "status": payload.get("status"),
-            "failure_reason": payload.get("failure_reason"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "verification_attempts": deserialize.integer(
-                payload.get("verification_attempts")
-            ),
-            "email": payload.get("email"),
-            "cc_emails": payload.get("cc_emails"),
-            "verification_type": payload.get("verification_type"),
-            "verification_document_sid": payload.get("verification_document_sid"),
-            "extension": payload.get("extension"),
-            "call_delay": deserialize.integer(payload.get("call_delay")),
-            "verification_code": payload.get("verification_code"),
-            "verification_call_sids": payload.get("verification_call_sids"),
-        }
-
-        self._solution = {
-            "signing_document_sid": signing_document_sid,
-        }
-
-    @property
-    def sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies this Authorization Document
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The unique SID identifier of the Account.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def incoming_phone_number_sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
-        :rtype: str
-        """
-        return self._properties["incoming_phone_number_sid"]
-
-    @property
-    def address_sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
-        :rtype: str
-        """
-        return self._properties["address_sid"]
-
-    @property
-    def signing_document_sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
-        :rtype: str
-        """
-        return self._properties["signing_document_sid"]
-
-    @property
-    def phone_number(self):
-        """
-        :returns: An E164 formatted phone number hosted by this HostedNumberOrder.
-        :rtype: str
-        """
-        return self._properties["phone_number"]
-
-    @property
-    def capabilities(self):
-        """
-        :returns:
-        :rtype: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities
-        """
-        return self._properties["capabilities"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A human readable description of this resource, up to 64 characters.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def unique_name(self):
-        """
-        :returns: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :rtype: str
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: DependentHostedNumberOrderInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def failure_reason(self):
-        """
-        :returns: A message that explains why a hosted_number_order went to status \"action-required\"
-        :rtype: str
-        """
-        return self._properties["failure_reason"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def verification_attempts(self):
-        """
-        :returns: The number of attempts made to verify ownership of the phone number that is being hosted.
-        :rtype: int
-        """
-        return self._properties["verification_attempts"]
-
-    @property
-    def email(self):
-        """
-        :returns: Email of the owner of this phone number that is being hosted.
-        :rtype: str
-        """
-        return self._properties["email"]
-
-    @property
-    def cc_emails(self):
-        """
-        :returns: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :rtype: list[str]
-        """
-        return self._properties["cc_emails"]
-
-    @property
-    def verification_type(self):
-        """
-        :returns:
-        :rtype: DependentHostedNumberOrderInstance.VerificationType
-        """
-        return self._properties["verification_type"]
-
-    @property
-    def verification_document_sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies the Identity Document resource that represents the document for verifying ownership of the number to be hosted.
-        :rtype: str
-        """
-        return self._properties["verification_document_sid"]
-
-    @property
-    def extension(self):
-        """
-        :returns: A numerical extension to be used when making the ownership verification call.
-        :rtype: str
-        """
-        return self._properties["extension"]
-
-    @property
-    def call_delay(self):
-        """
-        :returns: A value between 0-30 specifying the number of seconds to delay initiating the ownership verification call.
-        :rtype: int
-        """
-        return self._properties["call_delay"]
-
-    @property
-    def verification_code(self):
-        """
-        :returns: The digits passed during the ownership verification call.
-        :rtype: str
-        """
-        return self._properties["verification_code"]
-
-    @property
-    def verification_call_sids(self):
-        """
-        :returns: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
-        :rtype: list[str]
-        """
-        return self._properties["verification_call_sids"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderInstance {}>".format(
-            context
-        )

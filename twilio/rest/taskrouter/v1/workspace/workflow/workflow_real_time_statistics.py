@@ -14,70 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class WorkflowRealTimeStatisticsList(ListResource):
-    def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
-        """
-        Initialize the WorkflowRealTimeStatisticsList
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Workflow to fetch.
-        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-            "workflow_sid": workflow_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a WorkflowRealTimeStatisticsContext
-
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
-        """
-        return WorkflowRealTimeStatisticsContext(
-            self._version,
-            workspace_sid=self._solution["workspace_sid"],
-            workflow_sid=self._solution["workflow_sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a WorkflowRealTimeStatisticsContext
-
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
-        """
-        return WorkflowRealTimeStatisticsContext(
-            self._version,
-            workspace_sid=self._solution["workspace_sid"],
-            workflow_sid=self._solution["workflow_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkflowRealTimeStatisticsList>"
 
 
 class WorkflowRealTimeStatisticsInstance(InstanceResource):
@@ -324,3 +265,61 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         return "<Twilio.Taskrouter.V1.WorkflowRealTimeStatisticsContext {}>".format(
             context
         )
+
+
+class WorkflowRealTimeStatisticsList(ListResource):
+    def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
+        """
+        Initialize the WorkflowRealTimeStatisticsList
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Workflow to fetch.
+        :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+            "workflow_sid": workflow_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a WorkflowRealTimeStatisticsContext
+
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        """
+        return WorkflowRealTimeStatisticsContext(
+            self._version,
+            workspace_sid=self._solution["workspace_sid"],
+            workflow_sid=self._solution["workflow_sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a WorkflowRealTimeStatisticsContext
+
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        """
+        return WorkflowRealTimeStatisticsContext(
+            self._version,
+            workspace_sid=self._solution["workspace_sid"],
+            workflow_sid=self._solution["workflow_sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.WorkflowRealTimeStatisticsList>"

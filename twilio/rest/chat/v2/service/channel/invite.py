@@ -14,14 +14,306 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class InviteInstance(InstanceResource):
+    def __init__(
+        self,
+        version,
+        payload,
+        service_sid: str,
+        channel_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the InviteInstance
+
+        :returns: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "channel_sid": payload.get("channel_sid"),
+            "service_sid": payload.get("service_sid"),
+            "identity": payload.get("identity"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "role_sid": payload.get("role_sid"),
+            "created_by": payload.get("created_by"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "channel_sid": channel_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[InviteContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: InviteContext for this InviteInstance
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteContext
+        """
+        if self._context is None:
+            self._context = InviteContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                channel_sid=self._solution["channel_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Invite resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Invite resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def channel_sid(self):
+        """
+        :returns: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource belongs to.
+        :rtype: str
+        """
+        return self._properties["channel_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Invite resource is associated with.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def identity(self):
+        """
+        :returns: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
+        :rtype: str
+        """
+        return self._properties["identity"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def role_sid(self):
+        """
+        :returns: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the resource.
+        :rtype: str
+        """
+        return self._properties["role_sid"]
+
+    @property
+    def created_by(self):
+        """
+        :returns: The `identity` of the User that created the invite.
+        :rtype: str
+        """
+        return self._properties["created_by"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Invite resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the InviteInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the InviteInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the InviteInstance
+
+
+        :returns: The fetched InviteInstance
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the InviteInstance
+
+
+        :returns: The fetched InviteInstance
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Chat.V2.InviteInstance {}>".format(context)
+
+
+class InviteContext(InstanceContext):
+    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
+        """
+        Initialize the InviteContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Invite resource from.
+        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource to fetch belongs to. This value can be the Channel resource's `sid` or `unique_name`.
+        :param sid: The SID of the Invite resource to fetch.
+
+        :returns: twilio.rest.chat.v2.service.channel.invite.InviteContext
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "channel_sid": channel_sid,
+            "sid": sid,
+        }
+        self._uri = (
+            "/Services/{service_sid}/Channels/{channel_sid}/Invites/{sid}".format(
+                **self._solution
+            )
+        )
+
+    def delete(self):
+        """
+        Deletes the InviteInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the InviteInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the InviteInstance
+
+
+        :returns: The fetched InviteInstance
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return InviteInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the InviteInstance
+
+
+        :returns: The fetched InviteInstance
+        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return InviteInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Chat.V2.InviteContext {}>".format(context)
 
 
 class InviteList(ListResource):
@@ -359,297 +651,3 @@ class InvitePage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Chat.V2.InvitePage>"
-
-
-class InviteInstance(InstanceResource):
-    def __init__(
-        self,
-        version,
-        payload,
-        service_sid: str,
-        channel_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the InviteInstance
-
-        :returns: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "service_sid": payload.get("service_sid"),
-            "identity": payload.get("identity"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "role_sid": payload.get("role_sid"),
-            "created_by": payload.get("created_by"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "service_sid": service_sid,
-            "channel_sid": channel_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[InviteContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: InviteContext for this InviteInstance
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteContext
-        """
-        if self._context is None:
-            self._context = InviteContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                channel_sid=self._solution["channel_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Invite resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Invite resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def channel_sid(self):
-        """
-        :returns: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource belongs to.
-        :rtype: str
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the Invite resource is associated with.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def identity(self):
-        """
-        :returns: The application-defined string that uniquely identifies the resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
-        :rtype: str
-        """
-        return self._properties["identity"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def role_sid(self):
-        """
-        :returns: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the resource.
-        :rtype: str
-        """
-        return self._properties["role_sid"]
-
-    @property
-    def created_by(self):
-        """
-        :returns: The `identity` of the User that created the invite.
-        :rtype: str
-        """
-        return self._properties["created_by"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Invite resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the InviteInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the InviteInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the InviteInstance
-
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the InviteInstance
-
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V2.InviteInstance {}>".format(context)
-
-
-class InviteContext(InstanceContext):
-    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        """
-        Initialize the InviteContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Invite resource from.
-        :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource to fetch belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-        :param sid: The SID of the Invite resource to fetch.
-
-        :returns: twilio.rest.chat.v2.service.channel.invite.InviteContext
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "channel_sid": channel_sid,
-            "sid": sid,
-        }
-        self._uri = (
-            "/Services/{service_sid}/Channels/{channel_sid}/Invites/{sid}".format(
-                **self._solution
-            )
-        )
-
-    def delete(self):
-        """
-        Deletes the InviteInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the InviteInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the InviteInstance
-
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return InviteInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the InviteInstance
-
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return InviteInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V2.InviteContext {}>".format(context)

@@ -13,91 +13,11 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class DeviceCodeList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the DeviceCodeList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeList
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeList
-        """
-        super().__init__(version)
-
-        self._uri = "/device/code"
-
-    def create(self, client_sid, scopes, audiences=values.unset):
-        """
-        Create the DeviceCodeInstance
-
-        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param list[str] scopes: An Array of scopes for authorization request
-        :param list[str] audiences: An array of intended audiences for token requests
-
-        :returns: The created DeviceCodeInstance
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
-        """
-        data = values.of(
-            {
-                "ClientSid": client_sid,
-                "Scopes": serialize.map(scopes, lambda e: e),
-                "Audiences": serialize.map(audiences, lambda e: e),
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return DeviceCodeInstance(self._version, payload)
-
-    async def create_async(self, client_sid, scopes, audiences=values.unset):
-        """
-        Asynchronously create the DeviceCodeInstance
-
-        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param list[str] scopes: An Array of scopes for authorization request
-        :param list[str] audiences: An array of intended audiences for token requests
-
-        :returns: The created DeviceCodeInstance
-        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
-        """
-        data = values.of(
-            {
-                "ClientSid": client_sid,
-                "Scopes": serialize.map(scopes, lambda e: e),
-                "Audiences": serialize.map(audiences, lambda e: e),
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return DeviceCodeInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Oauth.V1.DeviceCodeList>"
 
 
 class DeviceCodeInstance(InstanceResource):
@@ -178,3 +98,81 @@ class DeviceCodeInstance(InstanceResource):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Oauth.V1.DeviceCodeInstance {}>".format(context)
+
+
+class DeviceCodeList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the DeviceCodeList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeList
+        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeList
+        """
+        super().__init__(version)
+
+        self._uri = "/device/code"
+
+    def create(self, client_sid, scopes, audiences=values.unset):
+        """
+        Create the DeviceCodeInstance
+
+        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param list[str] scopes: An Array of scopes for authorization request
+        :param list[str] audiences: An array of intended audiences for token requests
+
+        :returns: The created DeviceCodeInstance
+        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
+        """
+        data = values.of(
+            {
+                "ClientSid": client_sid,
+                "Scopes": serialize.map(scopes, lambda e: e),
+                "Audiences": serialize.map(audiences, lambda e: e),
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return DeviceCodeInstance(self._version, payload)
+
+    async def create_async(self, client_sid, scopes, audiences=values.unset):
+        """
+        Asynchronously create the DeviceCodeInstance
+
+        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param list[str] scopes: An Array of scopes for authorization request
+        :param list[str] audiences: An array of intended audiences for token requests
+
+        :returns: The created DeviceCodeInstance
+        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
+        """
+        data = values.of(
+            {
+                "ClientSid": client_sid,
+                "Scopes": serialize.map(scopes, lambda e: e),
+                "Audiences": serialize.map(audiences, lambda e: e),
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return DeviceCodeInstance(self._version, payload)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Oauth.V1.DeviceCodeList>"

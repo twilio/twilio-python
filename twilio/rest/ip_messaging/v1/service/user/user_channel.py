@@ -13,13 +13,122 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class UserChannelInstance(InstanceResource):
+    class ChannelStatus(object):
+        JOINED = "joined"
+        INVITED = "invited"
+        NOT_PARTICIPATING = "not_participating"
+
+    def __init__(self, version, payload, service_sid: str, user_sid: str):
+        """
+        Initialize the UserChannelInstance
+
+        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "channel_sid": payload.get("channel_sid"),
+            "member_sid": payload.get("member_sid"),
+            "status": payload.get("status"),
+            "last_consumed_message_index": deserialize.integer(
+                payload.get("last_consumed_message_index")
+            ),
+            "unread_messages_count": deserialize.integer(
+                payload.get("unread_messages_count")
+            ),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "user_sid": user_sid,
+        }
+
+    @property
+    def account_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def channel_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["channel_sid"]
+
+    @property
+    def member_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["member_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: UserChannelInstance.ChannelStatus
+        """
+        return self._properties["status"]
+
+    @property
+    def last_consumed_message_index(self):
+        """
+        :returns:
+        :rtype: int
+        """
+        return self._properties["last_consumed_message_index"]
+
+    @property
+    def unread_messages_count(self):
+        """
+        :returns:
+        :rtype: int
+        """
+        return self._properties["unread_messages_count"]
+
+    @property
+    def links(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.IpMessaging.V1.UserChannelInstance {}>".format(context)
 
 
 class UserChannelList(ListResource):
@@ -247,113 +356,3 @@ class UserChannelPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.IpMessaging.V1.UserChannelPage>"
-
-
-class UserChannelInstance(InstanceResource):
-    class ChannelStatus(object):
-        JOINED = "joined"
-        INVITED = "invited"
-        NOT_PARTICIPATING = "not_participating"
-
-    def __init__(self, version, payload, service_sid: str, user_sid: str):
-        """
-        Initialize the UserChannelInstance
-
-        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "channel_sid": payload.get("channel_sid"),
-            "member_sid": payload.get("member_sid"),
-            "status": payload.get("status"),
-            "last_consumed_message_index": deserialize.integer(
-                payload.get("last_consumed_message_index")
-            ),
-            "unread_messages_count": deserialize.integer(
-                payload.get("unread_messages_count")
-            ),
-            "links": payload.get("links"),
-        }
-
-        self._solution = {
-            "service_sid": service_sid,
-            "user_sid": user_sid,
-        }
-
-    @property
-    def account_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def channel_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["channel_sid"]
-
-    @property
-    def member_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["member_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: UserChannelInstance.ChannelStatus
-        """
-        return self._properties["status"]
-
-    @property
-    def last_consumed_message_index(self):
-        """
-        :returns:
-        :rtype: int
-        """
-        return self._properties["last_consumed_message_index"]
-
-    @property
-    def unread_messages_count(self):
-        """
-        :returns:
-        :rtype: int
-        """
-        return self._properties["unread_messages_count"]
-
-    @property
-    def links(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.UserChannelInstance {}>".format(context)

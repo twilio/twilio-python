@@ -14,64 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class StyleSheetList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the StyleSheetList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant
-
-        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
-        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a StyleSheetContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
-        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
-        """
-        return StyleSheetContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __call__(self):
-        """
-        Constructs a StyleSheetContext
-
-
-        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
-        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
-        """
-        return StyleSheetContext(
-            self._version, assistant_sid=self._solution["assistant_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Understand.StyleSheetList>"
 
 
 class StyleSheetInstance(InstanceResource):
@@ -319,3 +266,55 @@ class StyleSheetContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Understand.StyleSheetContext {}>".format(context)
+
+
+class StyleSheetList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the StyleSheetList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the Assistant
+
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a StyleSheetContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        """
+        return StyleSheetContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __call__(self):
+        """
+        Constructs a StyleSheetContext
+
+
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        """
+        return StyleSheetContext(
+            self._version, assistant_sid=self._solution["assistant_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Understand.StyleSheetList>"

@@ -14,14 +14,320 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class AlertInstance(InstanceResource):
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the AlertInstance
+
+        :returns: twilio.rest.monitor.v1.alert.AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "alert_text": payload.get("alert_text"),
+            "api_version": payload.get("api_version"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_generated": deserialize.iso8601_datetime(
+                payload.get("date_generated")
+            ),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "error_code": payload.get("error_code"),
+            "log_level": payload.get("log_level"),
+            "more_info": payload.get("more_info"),
+            "request_method": payload.get("request_method"),
+            "request_url": payload.get("request_url"),
+            "request_variables": payload.get("request_variables"),
+            "resource_sid": payload.get("resource_sid"),
+            "response_body": payload.get("response_body"),
+            "response_headers": payload.get("response_headers"),
+            "sid": payload.get("sid"),
+            "url": payload.get("url"),
+            "request_headers": payload.get("request_headers"),
+            "service_sid": payload.get("service_sid"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[AlertContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: AlertContext for this AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
+        """
+        if self._context is None:
+            self._context = AlertContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Alert resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def alert_text(self):
+        """
+        :returns: The text of the alert.
+        :rtype: str
+        """
+        return self._properties["alert_text"]
+
+    @property
+    def api_version(self):
+        """
+        :returns: The API version used when the alert was generated.  Can be empty for events that don't have a specific API version.
+        :rtype: str
+        """
+        return self._properties["api_version"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_generated(self):
+        """
+        :returns: The date and time in GMT when the alert was generated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.  Due to buffering, this can be different than `date_created`.
+        :rtype: datetime
+        """
+        return self._properties["date_generated"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def error_code(self):
+        """
+        :returns: The error code for the condition that generated the alert. See the [Error Dictionary](https://www.twilio.com/docs/api/errors) for possible causes and solutions to the error.
+        :rtype: str
+        """
+        return self._properties["error_code"]
+
+    @property
+    def log_level(self):
+        """
+        :returns: The log level.  Can be: `error`, `warning`, `notice`, or `debug`.
+        :rtype: str
+        """
+        return self._properties["log_level"]
+
+    @property
+    def more_info(self):
+        """
+        :returns: The URL of the page in our [Error Dictionary](https://www.twilio.com/docs/api/errors) with more information about the error condition.
+        :rtype: str
+        """
+        return self._properties["more_info"]
+
+    @property
+    def request_method(self):
+        """
+        :returns: The method used by the request that generated the alert. If the alert was generated by a request we made to your server, this is the method we used. If the alert was generated by a request from your application to our API, this is the method your application used.
+        :rtype: str
+        """
+        return self._properties["request_method"]
+
+    @property
+    def request_url(self):
+        """
+        :returns: The URL of the request that generated the alert. If the alert was generated by a request we made to your server, this is the URL on your server that generated the alert. If the alert was generated by a request from your application to our API, this is the URL of the resource requested.
+        :rtype: str
+        """
+        return self._properties["request_url"]
+
+    @property
+    def request_variables(self):
+        """
+        :returns: The variables passed in the request that generated the alert. This value is only returned when a single Alert resource is fetched.
+        :rtype: str
+        """
+        return self._properties["request_variables"]
+
+    @property
+    def resource_sid(self):
+        """
+        :returns: The SID of the resource for which the alert was generated.  For instance, if your server failed to respond to an HTTP request during the flow of a particular call, this value would be the SID of the server.  This value is empty if the alert was not generated for a particular resource.
+        :rtype: str
+        """
+        return self._properties["resource_sid"]
+
+    @property
+    def response_body(self):
+        """
+        :returns: The response body of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
+        :rtype: str
+        """
+        return self._properties["response_body"]
+
+    @property
+    def response_headers(self):
+        """
+        :returns: The response headers of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
+        :rtype: str
+        """
+        return self._properties["response_headers"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Alert resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Alert resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def request_headers(self):
+        """
+        :returns: The request headers of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
+        :rtype: str
+        """
+        return self._properties["request_headers"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the service or resource that generated the alert. Can be `null`.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    def fetch(self):
+        """
+        Fetch the AlertInstance
+
+
+        :returns: The fetched AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AlertInstance
+
+
+        :returns: The fetched AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Monitor.V1.AlertInstance {}>".format(context)
+
+
+class AlertContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the AlertContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Alert resource to fetch.
+
+        :returns: twilio.rest.monitor.v1.alert.AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Alerts/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the AlertInstance
+
+
+        :returns: The fetched AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AlertInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AlertInstance
+
+
+        :returns: The fetched AlertInstance
+        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AlertInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Monitor.V1.AlertContext {}>".format(context)
 
 
 class AlertList(ListResource):
@@ -337,311 +643,3 @@ class AlertPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Monitor.V1.AlertPage>"
-
-
-class AlertInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the AlertInstance
-
-        :returns: twilio.rest.monitor.v1.alert.AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "alert_text": payload.get("alert_text"),
-            "api_version": payload.get("api_version"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_generated": deserialize.iso8601_datetime(
-                payload.get("date_generated")
-            ),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "error_code": payload.get("error_code"),
-            "log_level": payload.get("log_level"),
-            "more_info": payload.get("more_info"),
-            "request_method": payload.get("request_method"),
-            "request_url": payload.get("request_url"),
-            "request_variables": payload.get("request_variables"),
-            "resource_sid": payload.get("resource_sid"),
-            "response_body": payload.get("response_body"),
-            "response_headers": payload.get("response_headers"),
-            "sid": payload.get("sid"),
-            "url": payload.get("url"),
-            "request_headers": payload.get("request_headers"),
-            "service_sid": payload.get("service_sid"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[AlertContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: AlertContext for this AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertContext
-        """
-        if self._context is None:
-            self._context = AlertContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Alert resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def alert_text(self):
-        """
-        :returns: The text of the alert.
-        :rtype: str
-        """
-        return self._properties["alert_text"]
-
-    @property
-    def api_version(self):
-        """
-        :returns: The API version used when the alert was generated.  Can be empty for events that don't have a specific API version.
-        :rtype: str
-        """
-        return self._properties["api_version"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_generated(self):
-        """
-        :returns: The date and time in GMT when the alert was generated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.  Due to buffering, this can be different than `date_created`.
-        :rtype: datetime
-        """
-        return self._properties["date_generated"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def error_code(self):
-        """
-        :returns: The error code for the condition that generated the alert. See the [Error Dictionary](https://www.twilio.com/docs/api/errors) for possible causes and solutions to the error.
-        :rtype: str
-        """
-        return self._properties["error_code"]
-
-    @property
-    def log_level(self):
-        """
-        :returns: The log level.  Can be: `error`, `warning`, `notice`, or `debug`.
-        :rtype: str
-        """
-        return self._properties["log_level"]
-
-    @property
-    def more_info(self):
-        """
-        :returns: The URL of the page in our [Error Dictionary](https://www.twilio.com/docs/api/errors) with more information about the error condition.
-        :rtype: str
-        """
-        return self._properties["more_info"]
-
-    @property
-    def request_method(self):
-        """
-        :returns: The method used by the request that generated the alert. If the alert was generated by a request we made to your server, this is the method we used. If the alert was generated by a request from your application to our API, this is the method your application used.
-        :rtype: str
-        """
-        return self._properties["request_method"]
-
-    @property
-    def request_url(self):
-        """
-        :returns: The URL of the request that generated the alert. If the alert was generated by a request we made to your server, this is the URL on your server that generated the alert. If the alert was generated by a request from your application to our API, this is the URL of the resource requested.
-        :rtype: str
-        """
-        return self._properties["request_url"]
-
-    @property
-    def request_variables(self):
-        """
-        :returns: The variables passed in the request that generated the alert. This value is only returned when a single Alert resource is fetched.
-        :rtype: str
-        """
-        return self._properties["request_variables"]
-
-    @property
-    def resource_sid(self):
-        """
-        :returns: The SID of the resource for which the alert was generated.  For instance, if your server failed to respond to an HTTP request during the flow of a particular call, this value would be the SID of the server.  This value is empty if the alert was not generated for a particular resource.
-        :rtype: str
-        """
-        return self._properties["resource_sid"]
-
-    @property
-    def response_body(self):
-        """
-        :returns: The response body of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
-        :rtype: str
-        """
-        return self._properties["response_body"]
-
-    @property
-    def response_headers(self):
-        """
-        :returns: The response headers of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
-        :rtype: str
-        """
-        return self._properties["response_headers"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Alert resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Alert resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def request_headers(self):
-        """
-        :returns: The request headers of the request that generated the alert. This value is only returned when a single Alert resource is fetched.
-        :rtype: str
-        """
-        return self._properties["request_headers"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the service or resource that generated the alert. Can be `null`.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    def fetch(self):
-        """
-        Fetch the AlertInstance
-
-
-        :returns: The fetched AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AlertInstance
-
-
-        :returns: The fetched AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Monitor.V1.AlertInstance {}>".format(context)
-
-
-class AlertContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the AlertContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Alert resource to fetch.
-
-        :returns: twilio.rest.monitor.v1.alert.AlertContext
-        :rtype: twilio.rest.monitor.v1.alert.AlertContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/Alerts/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the AlertInstance
-
-
-        :returns: The fetched AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AlertInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AlertInstance
-
-
-        :returns: The fetched AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AlertInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Monitor.V1.AlertContext {}>".format(context)

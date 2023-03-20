@@ -14,60 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class CallSummaryList(ListResource):
-    def __init__(self, version: Version, call_sid: str):
-        """
-        Initialize the CallSummaryList
-
-        :param Version version: Version that contains the resource
-        :param call_sid:
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryList
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "call_sid": call_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a CallSummaryContext
-
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        """
-        return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
-
-    def __call__(self):
-        """
-        Constructs a CallSummaryContext
-
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        """
-        return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Insights.V1.CallSummaryList>"
 
 
 class CallSummaryInstance(InstanceResource):
@@ -455,3 +406,51 @@ class CallSummaryContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Insights.V1.CallSummaryContext {}>".format(context)
+
+
+class CallSummaryList(ListResource):
+    def __init__(self, version: Version, call_sid: str):
+        """
+        Initialize the CallSummaryList
+
+        :param Version version: Version that contains the resource
+        :param call_sid:
+
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryList
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "call_sid": call_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a CallSummaryContext
+
+
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        """
+        return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
+
+    def __call__(self):
+        """
+        Constructs a CallSummaryContext
+
+
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        """
+        return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Insights.V1.CallSummaryList>"

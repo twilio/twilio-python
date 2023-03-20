@@ -14,14 +14,256 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class VerificationAttemptInstance(InstanceResource):
+    class Channels(object):
+        SMS = "sms"
+        CALL = "call"
+        EMAIL = "email"
+        WHATSAPP = "whatsapp"
+
+    class ConversionStatus(object):
+        CONVERTED = "converted"
+        UNCONVERTED = "unconverted"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the VerificationAttemptInstance
+
+        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "verification_sid": payload.get("verification_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "conversion_status": payload.get("conversion_status"),
+            "channel": payload.get("channel"),
+            "price": payload.get("price"),
+            "channel_data": payload.get("channel_data"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[VerificationAttemptContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: VerificationAttemptContext for this VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        """
+        if self._context is None:
+            self._context = VerificationAttemptContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The SID that uniquely identifies the verification attempt resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) used to generate the attempt.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def verification_sid(self):
+        """
+        :returns: The SID of the [Verification](https://www.twilio.com/docs/verify/api/verification) that generated the attempt.
+        :rtype: str
+        """
+        return self._properties["verification_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this Attempt was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def conversion_status(self):
+        """
+        :returns:
+        :rtype: VerificationAttemptInstance.ConversionStatus
+        """
+        return self._properties["conversion_status"]
+
+    @property
+    def channel(self):
+        """
+        :returns:
+        :rtype: VerificationAttemptInstance.Channels
+        """
+        return self._properties["channel"]
+
+    @property
+    def price(self):
+        """
+        :returns: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
+        :rtype: dict
+        """
+        return self._properties["price"]
+
+    @property
+    def channel_data(self):
+        """
+        :returns: An object containing the channel specific information for an attempt.
+        :rtype: dict
+        """
+        return self._properties["channel_data"]
+
+    @property
+    def url(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the VerificationAttemptInstance
+
+
+        :returns: The fetched VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptInstance
+
+
+        :returns: The fetched VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.VerificationAttemptInstance {}>".format(context)
+
+
+class VerificationAttemptContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the VerificationAttemptContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique SID identifier of a Verification Attempt
+
+        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Attempts/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the VerificationAttemptInstance
+
+
+        :returns: The fetched VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return VerificationAttemptInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptInstance
+
+
+        :returns: The fetched VerificationAttemptInstance
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return VerificationAttemptInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.VerificationAttemptContext {}>".format(context)
 
 
 class VerificationAttemptList(ListResource):
@@ -427,247 +669,3 @@ class VerificationAttemptPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Verify.V2.VerificationAttemptPage>"
-
-
-class VerificationAttemptInstance(InstanceResource):
-    class Channels(object):
-        SMS = "sms"
-        CALL = "call"
-        EMAIL = "email"
-        WHATSAPP = "whatsapp"
-
-    class ConversionStatus(object):
-        CONVERTED = "converted"
-        UNCONVERTED = "unconverted"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the VerificationAttemptInstance
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "verification_sid": payload.get("verification_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "conversion_status": payload.get("conversion_status"),
-            "channel": payload.get("channel"),
-            "price": payload.get("price"),
-            "channel_data": payload.get("channel_data"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[VerificationAttemptContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: VerificationAttemptContext for this VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        """
-        if self._context is None:
-            self._context = VerificationAttemptContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The SID that uniquely identifies the verification attempt resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Verification resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) used to generate the attempt.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def verification_sid(self):
-        """
-        :returns: The SID of the [Verification](https://www.twilio.com/docs/verify/api/verification) that generated the attempt.
-        :rtype: str
-        """
-        return self._properties["verification_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date that this Attempt was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def conversion_status(self):
-        """
-        :returns:
-        :rtype: VerificationAttemptInstance.ConversionStatus
-        """
-        return self._properties["conversion_status"]
-
-    @property
-    def channel(self):
-        """
-        :returns:
-        :rtype: VerificationAttemptInstance.Channels
-        """
-        return self._properties["channel"]
-
-    @property
-    def price(self):
-        """
-        :returns: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
-        :rtype: dict
-        """
-        return self._properties["price"]
-
-    @property
-    def channel_data(self):
-        """
-        :returns: An object containing the channel specific information for an attempt.
-        :rtype: dict
-        """
-        return self._properties["channel_data"]
-
-    @property
-    def url(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the VerificationAttemptInstance
-
-
-        :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the VerificationAttemptInstance
-
-
-        :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptInstance {}>".format(context)
-
-
-class VerificationAttemptContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the VerificationAttemptContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique SID identifier of a Verification Attempt
-
-        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/Attempts/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the VerificationAttemptInstance
-
-
-        :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return VerificationAttemptInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the VerificationAttemptInstance
-
-
-        :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return VerificationAttemptInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptContext {}>".format(context)

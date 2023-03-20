@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,342 +22,6 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.proxy.v1.service.session.interaction import InteractionList
 from twilio.rest.proxy.v1.service.session.participant import ParticipantList
-
-
-class SessionList(ListResource):
-    def __init__(self, version: Version, service_sid: str):
-        """
-        Initialize the SessionList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read.
-
-        :returns: twilio.rest.proxy.v1.service.session.SessionList
-        :rtype: twilio.rest.proxy.v1.service.session.SessionList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/Sessions".format(**self._solution)
-
-    def create(
-        self,
-        unique_name=values.unset,
-        date_expiry=values.unset,
-        ttl=values.unset,
-        mode=values.unset,
-        status=values.unset,
-        participants=values.unset,
-    ):
-        """
-        Create the SessionInstance
-
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-        :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-        :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-        :param SessionInstance.Mode mode:
-        :param SessionInstance.Status status:
-        :param list[object] participants: The Participant objects to include in the new session.
-
-        :returns: The created SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
-        """
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "DateExpiry": serialize.iso8601_datetime(date_expiry),
-                "Ttl": ttl,
-                "Mode": mode,
-                "Status": status,
-                "Participants": serialize.map(
-                    participants, lambda e: serialize.object(e)
-                ),
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SessionInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(
-        self,
-        unique_name=values.unset,
-        date_expiry=values.unset,
-        ttl=values.unset,
-        mode=values.unset,
-        status=values.unset,
-        participants=values.unset,
-    ):
-        """
-        Asynchronously create the SessionInstance
-
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-        :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-        :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-        :param SessionInstance.Mode mode:
-        :param SessionInstance.Status status:
-        :param list[object] participants: The Participant objects to include in the new session.
-
-        :returns: The created SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
-        """
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "DateExpiry": serialize.iso8601_datetime(date_expiry),
-                "Ttl": ttl,
-                "Mode": mode,
-                "Status": status,
-                "Participants": serialize.map(
-                    participants, lambda e: serialize.object(e)
-                ),
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SessionInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams SessionInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams SessionInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists SessionInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists SessionInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of SessionInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SessionPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of SessionInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return SessionPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of SessionInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return SessionPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of SessionInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SessionPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a SessionContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.session.SessionContext
-        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
-        """
-        return SessionContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a SessionContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
-
-        :returns: twilio.rest.proxy.v1.service.session.SessionContext
-        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
-        """
-        return SessionContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Proxy.V1.SessionList>"
-
-
-class SessionPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of SessionInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.proxy.v1.service.session.SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
-        """
-        return SessionInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Proxy.V1.SessionPage>"
 
 
 class SessionInstance(InstanceResource):
@@ -862,3 +524,339 @@ class SessionContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Proxy.V1.SessionContext {}>".format(context)
+
+
+class SessionList(ListResource):
+    def __init__(self, version: Version, service_sid: str):
+        """
+        Initialize the SessionList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read.
+
+        :returns: twilio.rest.proxy.v1.service.session.SessionList
+        :rtype: twilio.rest.proxy.v1.service.session.SessionList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+        }
+        self._uri = "/Services/{service_sid}/Sessions".format(**self._solution)
+
+    def create(
+        self,
+        unique_name=values.unset,
+        date_expiry=values.unset,
+        ttl=values.unset,
+        mode=values.unset,
+        status=values.unset,
+        participants=values.unset,
+    ):
+        """
+        Create the SessionInstance
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+        :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+        :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+        :param SessionInstance.Mode mode:
+        :param SessionInstance.Status status:
+        :param list[object] participants: The Participant objects to include in the new session.
+
+        :returns: The created SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "DateExpiry": serialize.iso8601_datetime(date_expiry),
+                "Ttl": ttl,
+                "Mode": mode,
+                "Status": status,
+                "Participants": serialize.map(
+                    participants, lambda e: serialize.object(e)
+                ),
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SessionInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    async def create_async(
+        self,
+        unique_name=values.unset,
+        date_expiry=values.unset,
+        ttl=values.unset,
+        mode=values.unset,
+        status=values.unset,
+        participants=values.unset,
+    ):
+        """
+        Asynchronously create the SessionInstance
+
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+        :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+        :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+        :param SessionInstance.Mode mode:
+        :param SessionInstance.Status status:
+        :param list[object] participants: The Participant objects to include in the new session.
+
+        :returns: The created SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "DateExpiry": serialize.iso8601_datetime(date_expiry),
+                "Ttl": ttl,
+                "Mode": mode,
+                "Status": status,
+                "Participants": serialize.map(
+                    participants, lambda e: serialize.object(e)
+                ),
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return SessionInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams SessionInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams SessionInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists SessionInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists SessionInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of SessionInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return SessionPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of SessionInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return SessionPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of SessionInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return SessionPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of SessionInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return SessionPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a SessionContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+
+        :returns: twilio.rest.proxy.v1.service.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
+        """
+        return SessionContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a SessionContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+
+        :returns: twilio.rest.proxy.v1.service.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
+        """
+        return SessionContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Proxy.V1.SessionList>"
+
+
+class SessionPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of SessionInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.proxy.v1.service.session.SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
+        """
+        return SessionInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Proxy.V1.SessionPage>"

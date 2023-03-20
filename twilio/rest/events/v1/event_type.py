@@ -14,13 +14,210 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class EventTypeInstance(InstanceResource):
+    def __init__(self, version, payload, type: Optional[str] = None):
+        """
+        Initialize the EventTypeInstance
+
+        :returns: twilio.rest.events.v1.event_type.EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "type": payload.get("type"),
+            "schema_id": payload.get("schema_id"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "description": payload.get("description"),
+            "url": payload.get("url"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "type": type or self._properties["type"],
+        }
+        self._context: Optional[EventTypeContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: EventTypeContext for this EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
+        """
+        if self._context is None:
+            self._context = EventTypeContext(
+                self._version,
+                type=self._solution["type"],
+            )
+        return self._context
+
+    @property
+    def type(self):
+        """
+        :returns: A string that uniquely identifies this Event Type.
+        :rtype: str
+        """
+        return self._properties["type"]
+
+    @property
+    def schema_id(self):
+        """
+        :returns: A string that uniquely identifies the Schema this Event Type adheres to.
+        :rtype: str
+        """
+        return self._properties["schema_id"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this Event Type was created, given in ISO 8601 format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this Event Type was updated, given in ISO 8601 format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def description(self):
+        """
+        :returns: A human readable description for this Event Type.
+        :rtype: str
+        """
+        return self._properties["description"]
+
+    @property
+    def url(self):
+        """
+        :returns: The URL of this resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def links(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def fetch(self):
+        """
+        Fetch the EventTypeInstance
+
+
+        :returns: The fetched EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EventTypeInstance
+
+
+        :returns: The fetched EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.EventTypeInstance {}>".format(context)
+
+
+class EventTypeContext(InstanceContext):
+    def __init__(self, version: Version, type: str):
+        """
+        Initialize the EventTypeContext
+
+        :param Version version: Version that contains the resource
+        :param type: A string that uniquely identifies this Event Type.
+
+        :returns: twilio.rest.events.v1.event_type.EventTypeContext
+        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "type": type,
+        }
+        self._uri = "/Types/{type}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the EventTypeInstance
+
+
+        :returns: The fetched EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EventTypeInstance(
+            self._version,
+            payload,
+            type=self._solution["type"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EventTypeInstance
+
+
+        :returns: The fetched EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EventTypeInstance(
+            self._version,
+            payload,
+            type=self._solution["type"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Events.V1.EventTypeContext {}>".format(context)
 
 
 class EventTypeList(ListResource):
@@ -274,201 +471,3 @@ class EventTypePage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Events.V1.EventTypePage>"
-
-
-class EventTypeInstance(InstanceResource):
-    def __init__(self, version, payload, type: Optional[str] = None):
-        """
-        Initialize the EventTypeInstance
-
-        :returns: twilio.rest.events.v1.event_type.EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "type": payload.get("type"),
-            "schema_id": payload.get("schema_id"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "description": payload.get("description"),
-            "url": payload.get("url"),
-            "links": payload.get("links"),
-        }
-
-        self._solution = {
-            "type": type or self._properties["type"],
-        }
-        self._context: Optional[EventTypeContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: EventTypeContext for this EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
-        """
-        if self._context is None:
-            self._context = EventTypeContext(
-                self._version,
-                type=self._solution["type"],
-            )
-        return self._context
-
-    @property
-    def type(self):
-        """
-        :returns: A string that uniquely identifies this Event Type.
-        :rtype: str
-        """
-        return self._properties["type"]
-
-    @property
-    def schema_id(self):
-        """
-        :returns: A string that uniquely identifies the Schema this Event Type adheres to.
-        :rtype: str
-        """
-        return self._properties["schema_id"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date that this Event Type was created, given in ISO 8601 format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this Event Type was updated, given in ISO 8601 format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def description(self):
-        """
-        :returns: A human readable description for this Event Type.
-        :rtype: str
-        """
-        return self._properties["description"]
-
-    @property
-    def url(self):
-        """
-        :returns: The URL of this resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def links(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def fetch(self):
-        """
-        Fetch the EventTypeInstance
-
-
-        :returns: The fetched EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EventTypeInstance
-
-
-        :returns: The fetched EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.EventTypeInstance {}>".format(context)
-
-
-class EventTypeContext(InstanceContext):
-    def __init__(self, version: Version, type: str):
-        """
-        Initialize the EventTypeContext
-
-        :param Version version: Version that contains the resource
-        :param type: A string that uniquely identifies this Event Type.
-
-        :returns: twilio.rest.events.v1.event_type.EventTypeContext
-        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "type": type,
-        }
-        self._uri = "/Types/{type}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the EventTypeInstance
-
-
-        :returns: The fetched EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EventTypeInstance(
-            self._version,
-            payload,
-            type=self._solution["type"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EventTypeInstance
-
-
-        :returns: The fetched EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EventTypeInstance(
-            self._version,
-            payload,
-            type=self._solution["type"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.EventTypeContext {}>".format(context)

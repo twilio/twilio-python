@@ -13,91 +13,11 @@ r"""
 """
 
 
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class TokenList(ListResource):
-    def __init__(self, version: Version, account_sid: str):
-        """
-        Initialize the TokenList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-
-        :returns: twilio.rest.api.v2010.account.token.TokenList
-        :rtype: twilio.rest.api.v2010.account.token.TokenList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Tokens.json".format(**self._solution)
-
-    def create(self, ttl=values.unset):
-        """
-        Create the TokenInstance
-
-        :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
-
-        :returns: The created TokenInstance
-        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
-        """
-        data = values.of(
-            {
-                "Ttl": ttl,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return TokenInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(self, ttl=values.unset):
-        """
-        Asynchronously create the TokenInstance
-
-        :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
-
-        :returns: The created TokenInstance
-        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
-        """
-        data = values.of(
-            {
-                "Ttl": ttl,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return TokenInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.TokenList>"
 
 
 class TokenInstance(InstanceResource):
@@ -189,3 +109,82 @@ class TokenInstance(InstanceResource):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.TokenInstance {}>".format(context)
+
+
+class TokenList(ListResource):
+    def __init__(self, version: Version, account_sid: str):
+        """
+        Initialize the TokenList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+
+        :returns: twilio.rest.api.v2010.account.token.TokenList
+        :rtype: twilio.rest.api.v2010.account.token.TokenList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Tokens.json".format(**self._solution)
+
+    def create(self, ttl=values.unset):
+        """
+        Create the TokenInstance
+
+        :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+
+        :returns: The created TokenInstance
+        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
+        """
+        data = values.of(
+            {
+                "Ttl": ttl,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return TokenInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(self, ttl=values.unset):
+        """
+        Asynchronously create the TokenInstance
+
+        :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+
+        :returns: The created TokenInstance
+        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
+        """
+        data = values.of(
+            {
+                "Ttl": ttl,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return TokenInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.TokenList>"

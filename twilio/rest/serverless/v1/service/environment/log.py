@@ -14,14 +14,285 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class LogInstance(InstanceResource):
+    class Level(object):
+        INFO = "info"
+        WARN = "warn"
+        ERROR = "error"
+
+    def __init__(
+        self,
+        version,
+        payload,
+        service_sid: str,
+        environment_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the LogInstance
+
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "environment_sid": payload.get("environment_sid"),
+            "build_sid": payload.get("build_sid"),
+            "deployment_sid": payload.get("deployment_sid"),
+            "function_sid": payload.get("function_sid"),
+            "request_sid": payload.get("request_sid"),
+            "level": payload.get("level"),
+            "message": payload.get("message"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[LogContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: LogContext for this LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
+        """
+        if self._context is None:
+            self._context = LogContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                environment_sid=self._solution["environment_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Log resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the Service that the Log resource is associated with.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def environment_sid(self):
+        """
+        :returns: The SID of the environment in which the log occurred.
+        :rtype: str
+        """
+        return self._properties["environment_sid"]
+
+    @property
+    def build_sid(self):
+        """
+        :returns: The SID of the build that corresponds to the log.
+        :rtype: str
+        """
+        return self._properties["build_sid"]
+
+    @property
+    def deployment_sid(self):
+        """
+        :returns: The SID of the deployment that corresponds to the log.
+        :rtype: str
+        """
+        return self._properties["deployment_sid"]
+
+    @property
+    def function_sid(self):
+        """
+        :returns: The SID of the function whose invocation produced the log.
+        :rtype: str
+        """
+        return self._properties["function_sid"]
+
+    @property
+    def request_sid(self):
+        """
+        :returns: The SID of the request associated with the log.
+        :rtype: str
+        """
+        return self._properties["request_sid"]
+
+    @property
+    def level(self):
+        """
+        :returns:
+        :rtype: LogInstance.Level
+        """
+        return self._properties["level"]
+
+    @property
+    def message(self):
+        """
+        :returns: The log message.
+        :rtype: str
+        """
+        return self._properties["message"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Log resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the LogInstance
+
+
+        :returns: The fetched LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the LogInstance
+
+
+        :returns: The fetched LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.LogInstance {}>".format(context)
+
+
+class LogContext(InstanceContext):
+    def __init__(
+        self, version: Version, service_sid: str, environment_sid: str, sid: str
+    ):
+        """
+        Initialize the LogContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Log resource from.
+        :param environment_sid: The SID of the environment with the Log resource to fetch.
+        :param sid: The SID of the Log resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+            "sid": sid,
+        }
+        self._uri = (
+            "/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}".format(
+                **self._solution
+            )
+        )
+
+    def fetch(self):
+        """
+        Fetch the LogInstance
+
+
+        :returns: The fetched LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return LogInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the LogInstance
+
+
+        :returns: The fetched LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return LogInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.LogContext {}>".format(context)
 
 
 class LogList(ListResource):
@@ -363,276 +634,3 @@ class LogPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Serverless.V1.LogPage>"
-
-
-class LogInstance(InstanceResource):
-    class Level(object):
-        INFO = "info"
-        WARN = "warn"
-        ERROR = "error"
-
-    def __init__(
-        self,
-        version,
-        payload,
-        service_sid: str,
-        environment_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the LogInstance
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "environment_sid": payload.get("environment_sid"),
-            "build_sid": payload.get("build_sid"),
-            "deployment_sid": payload.get("deployment_sid"),
-            "function_sid": payload.get("function_sid"),
-            "request_sid": payload.get("request_sid"),
-            "level": payload.get("level"),
-            "message": payload.get("message"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "service_sid": service_sid,
-            "environment_sid": environment_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[LogContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: LogContext for this LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
-        """
-        if self._context is None:
-            self._context = LogContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                environment_sid=self._solution["environment_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Log resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the Service that the Log resource is associated with.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def environment_sid(self):
-        """
-        :returns: The SID of the environment in which the log occurred.
-        :rtype: str
-        """
-        return self._properties["environment_sid"]
-
-    @property
-    def build_sid(self):
-        """
-        :returns: The SID of the build that corresponds to the log.
-        :rtype: str
-        """
-        return self._properties["build_sid"]
-
-    @property
-    def deployment_sid(self):
-        """
-        :returns: The SID of the deployment that corresponds to the log.
-        :rtype: str
-        """
-        return self._properties["deployment_sid"]
-
-    @property
-    def function_sid(self):
-        """
-        :returns: The SID of the function whose invocation produced the log.
-        :rtype: str
-        """
-        return self._properties["function_sid"]
-
-    @property
-    def request_sid(self):
-        """
-        :returns: The SID of the request associated with the log.
-        :rtype: str
-        """
-        return self._properties["request_sid"]
-
-    @property
-    def level(self):
-        """
-        :returns:
-        :rtype: LogInstance.Level
-        """
-        return self._properties["level"]
-
-    @property
-    def message(self):
-        """
-        :returns: The log message.
-        :rtype: str
-        """
-        return self._properties["message"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Log resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the LogInstance
-
-
-        :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the LogInstance
-
-
-        :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.LogInstance {}>".format(context)
-
-
-class LogContext(InstanceContext):
-    def __init__(
-        self, version: Version, service_sid: str, environment_sid: str, sid: str
-    ):
-        """
-        Initialize the LogContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Log resource from.
-        :param environment_sid: The SID of the environment with the Log resource to fetch.
-        :param sid: The SID of the Log resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "environment_sid": environment_sid,
-            "sid": sid,
-        }
-        self._uri = (
-            "/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}".format(
-                **self._solution
-            )
-        )
-
-    def fetch(self):
-        """
-        Fetch the LogInstance
-
-
-        :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return LogInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the LogInstance
-
-
-        :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return LogInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.LogContext {}>".format(context)

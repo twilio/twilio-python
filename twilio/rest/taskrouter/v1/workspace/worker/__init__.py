@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -35,528 +34,6 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics imp
 from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import (
     WorkersStatisticsList,
 )
-
-
-class WorkerList(ListResource):
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the WorkerList
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Workers to read.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-        self._uri = "/Workspaces/{workspace_sid}/Workers".format(**self._solution)
-
-        self._cumulative_statistics: Optional[WorkersCumulativeStatisticsList] = None
-        self._real_time_statistics: Optional[WorkersRealTimeStatisticsList] = None
-        self._statistics: Optional[WorkersStatisticsList] = None
-
-    def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
-        """
-        Create the WorkerInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
-        :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
-        :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-
-        :returns: The created WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "ActivitySid": activity_sid,
-                "Attributes": attributes,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WorkerInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    async def create_async(
-        self, friendly_name, activity_sid=values.unset, attributes=values.unset
-    ):
-        """
-        Asynchronously create the WorkerInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
-        :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
-        :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-
-        :returns: The created WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "ActivitySid": activity_sid,
-                "Attributes": attributes,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return WorkerInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def stream(
-        self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Streams WorkerInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            activity_name=activity_name,
-            activity_sid=activity_sid,
-            available=available,
-            friendly_name=friendly_name,
-            target_workers_expression=target_workers_expression,
-            task_queue_name=task_queue_name,
-            task_queue_sid=task_queue_sid,
-            ordering=ordering,
-            page_size=limits["page_size"],
-        )
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(
-        self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously streams WorkerInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            activity_name=activity_name,
-            activity_sid=activity_sid,
-            available=available,
-            friendly_name=friendly_name,
-            target_workers_expression=target_workers_expression,
-            task_queue_name=task_queue_name,
-            task_queue_sid=task_queue_sid,
-            ordering=ordering,
-            page_size=limits["page_size"],
-        )
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(
-        self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Lists WorkerInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
-        """
-        return list(
-            self.stream(
-                activity_name=activity_name,
-                activity_sid=activity_sid,
-                available=available,
-                friendly_name=friendly_name,
-                target_workers_expression=target_workers_expression,
-                task_queue_name=task_queue_name,
-                task_queue_sid=task_queue_sid,
-                ordering=ordering,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(
-        self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        limit=None,
-        page_size=None,
-    ):
-        """
-        Asynchronously lists WorkerInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
-        """
-        return list(
-            await self.stream_async(
-                activity_name=activity_name,
-                activity_sid=activity_sid,
-                available=available,
-                friendly_name=friendly_name,
-                target_workers_expression=target_workers_expression,
-                task_queue_name=task_queue_name,
-                task_queue_sid=task_queue_sid,
-                ordering=ordering,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Retrieve a single page of WorkerInstance records from the API.
-        Request is executed immediately
-
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
-        """
-        data = values.of(
-            {
-                "ActivityName": activity_name,
-                "ActivitySid": activity_sid,
-                "Available": available,
-                "FriendlyName": friendly_name,
-                "TargetWorkersExpression": target_workers_expression,
-                "TaskQueueName": task_queue_name,
-                "TaskQueueSid": task_queue_sid,
-                "Ordering": ordering,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return WorkerPage(self._version, response, self._solution)
-
-    async def page_async(
-        self,
-        activity_name=values.unset,
-        activity_sid=values.unset,
-        available=values.unset,
-        friendly_name=values.unset,
-        target_workers_expression=values.unset,
-        task_queue_name=values.unset,
-        task_queue_sid=values.unset,
-        ordering=values.unset,
-        page_token=values.unset,
-        page_number=values.unset,
-        page_size=values.unset,
-    ):
-        """
-        Asynchronously retrieve a single page of WorkerInstance records from the API.
-        Request is executed immediately
-
-        :param str activity_name: The `activity_name` of the Worker resources to read.
-        :param str activity_sid: The `activity_sid` of the Worker resources to read.
-        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-        :param str friendly_name: The `friendly_name` of the Worker resources to read.
-        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
-        :param str ordering: Sorting parameter for Workers
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
-        """
-        data = values.of(
-            {
-                "ActivityName": activity_name,
-                "ActivitySid": activity_sid,
-                "Available": available,
-                "FriendlyName": friendly_name,
-                "TargetWorkersExpression": target_workers_expression,
-                "TaskQueueName": task_queue_name,
-                "TaskQueueSid": task_queue_sid,
-                "Ordering": ordering,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return WorkerPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of WorkerInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return WorkerPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of WorkerInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return WorkerPage(self._version, response, self._solution)
-
-    @property
-    def cumulative_statistics(self):
-        """
-        Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
-        """
-        if self._cumulative_statistics is None:
-            self._cumulative_statistics = WorkersCumulativeStatisticsList(
-                self._version, workspace_sid=self._solution["workspace_sid"]
-            )
-        return self._cumulative_statistics
-
-    @property
-    def real_time_statistics(self):
-        """
-        Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
-        """
-        if self._real_time_statistics is None:
-            self._real_time_statistics = WorkersRealTimeStatisticsList(
-                self._version, workspace_sid=self._solution["workspace_sid"]
-            )
-        return self._real_time_statistics
-
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = WorkersStatisticsList(
-                self._version, workspace_sid=self._solution["workspace_sid"]
-            )
-        return self._statistics
-
-    def get(self, sid):
-        """
-        Constructs a WorkerContext
-
-        :param sid: The SID of the Worker resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        """
-        return WorkerContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a WorkerContext
-
-        :param sid: The SID of the Worker resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
-        """
-        return WorkerContext(
-            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Taskrouter.V1.WorkerList>"
-
-
-class WorkerPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of WorkerInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
-        """
-        return WorkerInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Taskrouter.V1.WorkerPage>"
 
 
 class WorkerInstance(InstanceResource):
@@ -1107,3 +584,525 @@ class WorkerContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkerContext {}>".format(context)
+
+
+class WorkerList(ListResource):
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the WorkerList
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Workers to read.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/Workers".format(**self._solution)
+
+        self._cumulative_statistics: Optional[WorkersCumulativeStatisticsList] = None
+        self._real_time_statistics: Optional[WorkersRealTimeStatisticsList] = None
+        self._statistics: Optional[WorkersStatisticsList] = None
+
+    def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
+        """
+        Create the WorkerInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+
+        :returns: The created WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ActivitySid": activity_sid,
+                "Attributes": attributes,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WorkerInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    async def create_async(
+        self, friendly_name, activity_sid=values.unset, attributes=values.unset
+    ):
+        """
+        Asynchronously create the WorkerInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+
+        :returns: The created WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ActivitySid": activity_sid,
+                "Attributes": attributes,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return WorkerInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def stream(
+        self,
+        activity_name=values.unset,
+        activity_sid=values.unset,
+        available=values.unset,
+        friendly_name=values.unset,
+        target_workers_expression=values.unset,
+        task_queue_name=values.unset,
+        task_queue_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Streams WorkerInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(
+        self,
+        activity_name=values.unset,
+        activity_sid=values.unset,
+        available=values.unset,
+        friendly_name=values.unset,
+        target_workers_expression=values.unset,
+        task_queue_name=values.unset,
+        task_queue_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously streams WorkerInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(
+        self,
+        activity_name=values.unset,
+        activity_sid=values.unset,
+        available=values.unset,
+        friendly_name=values.unset,
+        target_workers_expression=values.unset,
+        task_queue_name=values.unset,
+        task_queue_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Lists WorkerInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
+        """
+        return list(
+            self.stream(
+                activity_name=activity_name,
+                activity_sid=activity_sid,
+                available=available,
+                friendly_name=friendly_name,
+                target_workers_expression=target_workers_expression,
+                task_queue_name=task_queue_name,
+                task_queue_sid=task_queue_sid,
+                ordering=ordering,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(
+        self,
+        activity_name=values.unset,
+        activity_sid=values.unset,
+        available=values.unset,
+        friendly_name=values.unset,
+        target_workers_expression=values.unset,
+        task_queue_name=values.unset,
+        task_queue_sid=values.unset,
+        ordering=values.unset,
+        limit=None,
+        page_size=None,
+    ):
+        """
+        Asynchronously lists WorkerInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
+        """
+        return list(
+            await self.stream_async(
+                activity_name=activity_name,
+                activity_sid=activity_sid,
+                available=available,
+                friendly_name=friendly_name,
+                target_workers_expression=target_workers_expression,
+                task_queue_name=task_queue_name,
+                task_queue_sid=task_queue_sid,
+                ordering=ordering,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self,
+        activity_name=values.unset,
+        activity_sid=values.unset,
+        available=values.unset,
+        friendly_name=values.unset,
+        target_workers_expression=values.unset,
+        task_queue_name=values.unset,
+        task_queue_sid=values.unset,
+        ordering=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Retrieve a single page of WorkerInstance records from the API.
+        Request is executed immediately
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
+        """
+        data = values.of(
+            {
+                "ActivityName": activity_name,
+                "ActivitySid": activity_sid,
+                "Available": available,
+                "FriendlyName": friendly_name,
+                "TargetWorkersExpression": target_workers_expression,
+                "TaskQueueName": task_queue_name,
+                "TaskQueueSid": task_queue_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return WorkerPage(self._version, response, self._solution)
+
+    async def page_async(
+        self,
+        activity_name=values.unset,
+        activity_sid=values.unset,
+        available=values.unset,
+        friendly_name=values.unset,
+        target_workers_expression=values.unset,
+        task_queue_name=values.unset,
+        task_queue_sid=values.unset,
+        ordering=values.unset,
+        page_token=values.unset,
+        page_number=values.unset,
+        page_size=values.unset,
+    ):
+        """
+        Asynchronously retrieve a single page of WorkerInstance records from the API.
+        Request is executed immediately
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
+        """
+        data = values.of(
+            {
+                "ActivityName": activity_name,
+                "ActivitySid": activity_sid,
+                "Available": available,
+                "FriendlyName": friendly_name,
+                "TargetWorkersExpression": target_workers_expression,
+                "TaskQueueName": task_queue_name,
+                "TaskQueueSid": task_queue_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return WorkerPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of WorkerInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return WorkerPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of WorkerInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return WorkerPage(self._version, response, self._solution)
+
+    @property
+    def cumulative_statistics(self):
+        """
+        Access the cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
+        """
+        if self._cumulative_statistics is None:
+            self._cumulative_statistics = WorkersCumulativeStatisticsList(
+                self._version, workspace_sid=self._solution["workspace_sid"]
+            )
+        return self._cumulative_statistics
+
+    @property
+    def real_time_statistics(self):
+        """
+        Access the real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
+        """
+        if self._real_time_statistics is None:
+            self._real_time_statistics = WorkersRealTimeStatisticsList(
+                self._version, workspace_sid=self._solution["workspace_sid"]
+            )
+        return self._real_time_statistics
+
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = WorkersStatisticsList(
+                self._version, workspace_sid=self._solution["workspace_sid"]
+            )
+        return self._statistics
+
+    def get(self, sid):
+        """
+        Constructs a WorkerContext
+
+        :param sid: The SID of the Worker resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        """
+        return WorkerContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a WorkerContext
+
+        :param sid: The SID of the Worker resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        """
+        return WorkerContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Taskrouter.V1.WorkerList>"
+
+
+class WorkerPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of WorkerInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        return WorkerInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Taskrouter.V1.WorkerPage>"

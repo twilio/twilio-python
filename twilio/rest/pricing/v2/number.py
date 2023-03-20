@@ -21,50 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class NumberList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the NumberList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.pricing.v2.number.NumberList
-        :rtype: twilio.rest.pricing.v2.number.NumberList
-        """
-        super().__init__(version)
-
-    def get(self, destination_number):
-        """
-        Constructs a NumberContext
-
-        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
-        """
-        return NumberContext(self._version, destination_number=destination_number)
-
-    def __call__(self, destination_number):
-        """
-        Constructs a NumberContext
-
-        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
-        """
-        return NumberContext(self._version, destination_number=destination_number)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Pricing.V2.NumberList>"
-
-
 class NumberInstance(InstanceResource):
     def __init__(self, version, payload, destination_number: Optional[str] = None):
         """
@@ -287,3 +243,47 @@ class NumberContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Pricing.V2.NumberContext {}>".format(context)
+
+
+class NumberList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the NumberList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.pricing.v2.number.NumberList
+        :rtype: twilio.rest.pricing.v2.number.NumberList
+        """
+        super().__init__(version)
+
+    def get(self, destination_number):
+        """
+        Constructs a NumberContext
+
+        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: twilio.rest.pricing.v2.number.NumberContext
+        :rtype: twilio.rest.pricing.v2.number.NumberContext
+        """
+        return NumberContext(self._version, destination_number=destination_number)
+
+    def __call__(self, destination_number):
+        """
+        Constructs a NumberContext
+
+        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: twilio.rest.pricing.v2.number.NumberContext
+        :rtype: twilio.rest.pricing.v2.number.NumberContext
+        """
+        return NumberContext(self._version, destination_number=destination_number)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Pricing.V2.NumberList>"

@@ -14,13 +14,342 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class MediaRecordingInstance(InstanceResource):
+    class Format(object):
+        MP4 = "mp4"
+        WEBM = "webm"
+
+    class Order(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    class Status(object):
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the MediaRecordingInstance
+
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "duration": deserialize.integer(payload.get("duration")),
+            "format": payload.get("format"),
+            "links": payload.get("links"),
+            "processor_sid": payload.get("processor_sid"),
+            "resolution": payload.get("resolution"),
+            "source_sid": payload.get("source_sid"),
+            "sid": payload.get("sid"),
+            "media_size": payload.get("media_size"),
+            "status": payload.get("status"),
+            "status_callback": payload.get("status_callback"),
+            "status_callback_method": payload.get("status_callback_method"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[MediaRecordingContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: MediaRecordingContext for this MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        """
+        if self._context is None:
+            self._context = MediaRecordingContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def duration(self):
+        """
+        :returns: The duration of the MediaRecording in seconds.
+        :rtype: int
+        """
+        return self._properties["duration"]
+
+    @property
+    def format(self):
+        """
+        :returns:
+        :rtype: MediaRecordingInstance.Format
+        """
+        return self._properties["format"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URLs of related resources.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    @property
+    def processor_sid(self):
+        """
+        :returns: The SID of the MediaProcessor resource which produced the MediaRecording.
+        :rtype: str
+        """
+        return self._properties["processor_sid"]
+
+    @property
+    def resolution(self):
+        """
+        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height).
+        :rtype: str
+        """
+        return self._properties["resolution"]
+
+    @property
+    def source_sid(self):
+        """
+        :returns: The SID of the resource that generated the original media track(s) of the MediaRecording.
+        :rtype: str
+        """
+        return self._properties["source_sid"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string generated to identify the MediaRecording resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def media_size(self):
+        """
+        :returns: The size of the recording media in bytes.
+        :rtype: int
+        """
+        return self._properties["media_size"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: MediaRecordingInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def status_callback(self):
+        """
+        :returns: The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+        :rtype: str
+        """
+        return self._properties["status_callback"]
+
+    @property
+    def status_callback_method(self):
+        """
+        :returns: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+        :rtype: str
+        """
+        return self._properties["status_callback_method"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the MediaRecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the MediaRecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the MediaRecordingInstance
+
+
+        :returns: The fetched MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the MediaRecordingInstance
+
+
+        :returns: The fetched MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Media.V1.MediaRecordingInstance {}>".format(context)
+
+
+class MediaRecordingContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the MediaRecordingContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the MediaRecording resource to fetch.
+
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/MediaRecordings/{sid}".format(**self._solution)
+
+    def delete(self):
+        """
+        Deletes the MediaRecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the MediaRecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the MediaRecordingInstance
+
+
+        :returns: The fetched MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return MediaRecordingInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the MediaRecordingInstance
+
+
+        :returns: The fetched MediaRecordingInstance
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return MediaRecordingInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Media.V1.MediaRecordingContext {}>".format(context)
 
 
 class MediaRecordingList(ListResource):
@@ -354,333 +683,3 @@ class MediaRecordingPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Media.V1.MediaRecordingPage>"
-
-
-class MediaRecordingInstance(InstanceResource):
-    class Format(object):
-        MP4 = "mp4"
-        WEBM = "webm"
-
-    class Order(object):
-        ASC = "asc"
-        DESC = "desc"
-
-    class Status(object):
-        PROCESSING = "processing"
-        COMPLETED = "completed"
-        DELETED = "deleted"
-        FAILED = "failed"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the MediaRecordingInstance
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "duration": deserialize.integer(payload.get("duration")),
-            "format": payload.get("format"),
-            "links": payload.get("links"),
-            "processor_sid": payload.get("processor_sid"),
-            "resolution": payload.get("resolution"),
-            "source_sid": payload.get("source_sid"),
-            "sid": payload.get("sid"),
-            "media_size": payload.get("media_size"),
-            "status": payload.get("status"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[MediaRecordingContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: MediaRecordingContext for this MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
-        """
-        if self._context is None:
-            self._context = MediaRecordingContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MediaRecording resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def duration(self):
-        """
-        :returns: The duration of the MediaRecording in seconds.
-        :rtype: int
-        """
-        return self._properties["duration"]
-
-    @property
-    def format(self):
-        """
-        :returns:
-        :rtype: MediaRecordingInstance.Format
-        """
-        return self._properties["format"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URLs of related resources.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    @property
-    def processor_sid(self):
-        """
-        :returns: The SID of the MediaProcessor resource which produced the MediaRecording.
-        :rtype: str
-        """
-        return self._properties["processor_sid"]
-
-    @property
-    def resolution(self):
-        """
-        :returns: The dimensions of the video image in pixels expressed as columns (width) and rows (height).
-        :rtype: str
-        """
-        return self._properties["resolution"]
-
-    @property
-    def source_sid(self):
-        """
-        :returns: The SID of the resource that generated the original media track(s) of the MediaRecording.
-        :rtype: str
-        """
-        return self._properties["source_sid"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string generated to identify the MediaRecording resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def media_size(self):
-        """
-        :returns: The size of the recording media in bytes.
-        :rtype: int
-        """
-        return self._properties["media_size"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: MediaRecordingInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def status_callback(self):
-        """
-        :returns: The URL to which Twilio will send asynchronous webhook requests for every MediaRecording event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
-        :rtype: str
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def status_callback_method(self):
-        """
-        :returns: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-        :rtype: str
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the MediaRecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the MediaRecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the MediaRecordingInstance
-
-
-        :returns: The fetched MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the MediaRecordingInstance
-
-
-        :returns: The fetched MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.MediaRecordingInstance {}>".format(context)
-
-
-class MediaRecordingContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the MediaRecordingContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the MediaRecording resource to fetch.
-
-        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/MediaRecordings/{sid}".format(**self._solution)
-
-    def delete(self):
-        """
-        Deletes the MediaRecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the MediaRecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the MediaRecordingInstance
-
-
-        :returns: The fetched MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return MediaRecordingInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the MediaRecordingInstance
-
-
-        :returns: The fetched MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return MediaRecordingInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.MediaRecordingContext {}>".format(context)

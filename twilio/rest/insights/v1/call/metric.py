@@ -21,6 +21,128 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class MetricInstance(InstanceResource):
+    class StreamDirection(object):
+        UNKNOWN = "unknown"
+        INBOUND = "inbound"
+        OUTBOUND = "outbound"
+        BOTH = "both"
+
+    class TwilioEdge(object):
+        UNKNOWN_EDGE = "unknown_edge"
+        CARRIER_EDGE = "carrier_edge"
+        SIP_EDGE = "sip_edge"
+        SDK_EDGE = "sdk_edge"
+        CLIENT_EDGE = "client_edge"
+
+    def __init__(self, version, payload, call_sid: str):
+        """
+        Initialize the MetricInstance
+
+        :returns: twilio.rest.insights.v1.call.metric.MetricInstance
+        :rtype: twilio.rest.insights.v1.call.metric.MetricInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "timestamp": payload.get("timestamp"),
+            "call_sid": payload.get("call_sid"),
+            "account_sid": payload.get("account_sid"),
+            "edge": payload.get("edge"),
+            "direction": payload.get("direction"),
+            "carrier_edge": payload.get("carrier_edge"),
+            "sip_edge": payload.get("sip_edge"),
+            "sdk_edge": payload.get("sdk_edge"),
+            "client_edge": payload.get("client_edge"),
+        }
+
+        self._solution = {
+            "call_sid": call_sid,
+        }
+
+    @property
+    def timestamp(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["timestamp"]
+
+    @property
+    def call_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["call_sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def edge(self):
+        """
+        :returns:
+        :rtype: MetricInstance.TwilioEdge
+        """
+        return self._properties["edge"]
+
+    @property
+    def direction(self):
+        """
+        :returns:
+        :rtype: MetricInstance.StreamDirection
+        """
+        return self._properties["direction"]
+
+    @property
+    def carrier_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["carrier_edge"]
+
+    @property
+    def sip_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["sip_edge"]
+
+    @property
+    def sdk_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["sdk_edge"]
+
+    @property
+    def client_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["client_edge"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.MetricInstance {}>".format(context)
+
+
 class MetricList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
@@ -279,125 +401,3 @@ class MetricPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Insights.V1.MetricPage>"
-
-
-class MetricInstance(InstanceResource):
-    class StreamDirection(object):
-        UNKNOWN = "unknown"
-        INBOUND = "inbound"
-        OUTBOUND = "outbound"
-        BOTH = "both"
-
-    class TwilioEdge(object):
-        UNKNOWN_EDGE = "unknown_edge"
-        CARRIER_EDGE = "carrier_edge"
-        SIP_EDGE = "sip_edge"
-        SDK_EDGE = "sdk_edge"
-        CLIENT_EDGE = "client_edge"
-
-    def __init__(self, version, payload, call_sid: str):
-        """
-        Initialize the MetricInstance
-
-        :returns: twilio.rest.insights.v1.call.metric.MetricInstance
-        :rtype: twilio.rest.insights.v1.call.metric.MetricInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "timestamp": payload.get("timestamp"),
-            "call_sid": payload.get("call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "edge": payload.get("edge"),
-            "direction": payload.get("direction"),
-            "carrier_edge": payload.get("carrier_edge"),
-            "sip_edge": payload.get("sip_edge"),
-            "sdk_edge": payload.get("sdk_edge"),
-            "client_edge": payload.get("client_edge"),
-        }
-
-        self._solution = {
-            "call_sid": call_sid,
-        }
-
-    @property
-    def timestamp(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["timestamp"]
-
-    @property
-    def call_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def edge(self):
-        """
-        :returns:
-        :rtype: MetricInstance.TwilioEdge
-        """
-        return self._properties["edge"]
-
-    @property
-    def direction(self):
-        """
-        :returns:
-        :rtype: MetricInstance.StreamDirection
-        """
-        return self._properties["direction"]
-
-    @property
-    def carrier_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["carrier_edge"]
-
-    @property
-    def sip_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["sip_edge"]
-
-    @property
-    def sdk_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["sdk_edge"]
-
-    @property
-    def client_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["client_edge"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.MetricInstance {}>".format(context)

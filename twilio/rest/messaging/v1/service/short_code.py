@@ -14,13 +14,280 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class ShortCodeInstance(InstanceResource):
+    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
+        """
+        Initialize the ShortCodeInstance
+
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "service_sid": payload.get("service_sid"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "short_code": payload.get("short_code"),
+            "country_code": payload.get("country_code"),
+            "capabilities": payload.get("capabilities"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[ShortCodeContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ShortCodeContext for this ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        """
+        if self._context is None:
+            self._context = ShortCodeContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the ShortCode resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def service_sid(self):
+        """
+        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
+        :rtype: str
+        """
+        return self._properties["service_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def short_code(self):
+        """
+        :returns: The [E.164](https://www.twilio.com/docs/glossary/what-e164) format of the short code.
+        :rtype: str
+        """
+        return self._properties["short_code"]
+
+    @property
+    def country_code(self):
+        """
+        :returns: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
+        :rtype: str
+        """
+        return self._properties["country_code"]
+
+    @property
+    def capabilities(self):
+        """
+        :returns: An array of values that describe whether the number can receive calls or messages. Can be: `SMS` and `MMS`.
+        :rtype: list[str]
+        """
+        return self._properties["capabilities"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the ShortCode resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def delete(self):
+        """
+        Deletes the ShortCodeInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ShortCodeInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the ShortCodeInstance
+
+
+        :returns: The fetched ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ShortCodeInstance
+
+
+        :returns: The fetched ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.ShortCodeInstance {}>".format(context)
+
+
+class ShortCodeContext(InstanceContext):
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the ShortCodeContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
+        :param sid: The SID of the ShortCode resource to fetch.
+
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid,
+        }
+        self._uri = "/Services/{service_sid}/ShortCodes/{sid}".format(**self._solution)
+
+    def delete(self):
+        """
+        Deletes the ShortCodeInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ShortCodeInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the ShortCodeInstance
+
+
+        :returns: The fetched ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ShortCodeInstance
+
+
+        :returns: The fetched ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.ShortCodeContext {}>".format(context)
 
 
 class ShortCodeList(ListResource):
@@ -317,271 +584,3 @@ class ShortCodePage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Messaging.V1.ShortCodePage>"
-
-
-class ShortCodeInstance(InstanceResource):
-    def __init__(self, version, payload, service_sid: str, sid: Optional[str] = None):
-        """
-        Initialize the ShortCodeInstance
-
-        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "service_sid": payload.get("service_sid"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "short_code": payload.get("short_code"),
-            "country_code": payload.get("country_code"),
-            "capabilities": payload.get("capabilities"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[ShortCodeContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ShortCodeContext for this ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
-        """
-        if self._context is None:
-            self._context = ShortCodeContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the ShortCode resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def service_sid(self):
-        """
-        :returns: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) the resource is associated with.
-        :rtype: str
-        """
-        return self._properties["service_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def short_code(self):
-        """
-        :returns: The [E.164](https://www.twilio.com/docs/glossary/what-e164) format of the short code.
-        :rtype: str
-        """
-        return self._properties["short_code"]
-
-    @property
-    def country_code(self):
-        """
-        :returns: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
-        :rtype: str
-        """
-        return self._properties["country_code"]
-
-    @property
-    def capabilities(self):
-        """
-        :returns: An array of values that describe whether the number can receive calls or messages. Can be: `SMS` and `MMS`.
-        :rtype: list[str]
-        """
-        return self._properties["capabilities"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the ShortCode resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def delete(self):
-        """
-        Deletes the ShortCodeInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ShortCodeInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the ShortCodeInstance
-
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ShortCodeInstance
-
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ShortCodeInstance {}>".format(context)
-
-
-class ShortCodeContext(InstanceContext):
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the ShortCodeContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
-        :param sid: The SID of the ShortCode resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid,
-        }
-        self._uri = "/Services/{service_sid}/ShortCodes/{sid}".format(**self._solution)
-
-    def delete(self):
-        """
-        Deletes the ShortCodeInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ShortCodeInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the ShortCodeInstance
-
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ShortCodeInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ShortCodeInstance
-
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ShortCodeInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ShortCodeContext {}>".format(context)

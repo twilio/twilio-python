@@ -14,54 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class AuthTokenPromotionList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the AuthTokenPromotionList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
-        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a AuthTokenPromotionContext
-
-
-        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
-        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
-        """
-        return AuthTokenPromotionContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a AuthTokenPromotionContext
-
-
-        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
-        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
-        """
-        return AuthTokenPromotionContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Accounts.V1.AuthTokenPromotionList>"
 
 
 class AuthTokenPromotionInstance(InstanceResource):
@@ -230,3 +187,45 @@ class AuthTokenPromotionContext(InstanceContext):
         """
 
         return "<Twilio.Accounts.V1.AuthTokenPromotionContext>"
+
+
+class AuthTokenPromotionList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the AuthTokenPromotionList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a AuthTokenPromotionContext
+
+
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        """
+        return AuthTokenPromotionContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a AuthTokenPromotionContext
+
+
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        """
+        return AuthTokenPromotionContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Accounts.V1.AuthTokenPromotionList>"

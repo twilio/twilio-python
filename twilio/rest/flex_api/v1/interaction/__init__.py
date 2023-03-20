@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,102 +23,6 @@ from twilio.base.version import Version
 from twilio.rest.flex_api.v1.interaction.interaction_channel import (
     InteractionChannelList,
 )
-
-
-class InteractionList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the InteractionList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.flex_api.v1.interaction.InteractionList
-        :rtype: twilio.rest.flex_api.v1.interaction.InteractionList
-        """
-        super().__init__(version)
-
-        self._uri = "/Interactions"
-
-    def create(self, channel, routing):
-        """
-        Create the InteractionInstance
-
-        :param object channel: The Interaction's channel.
-        :param object routing: The Interaction's routing logic.
-
-        :returns: The created InteractionInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
-        """
-        data = values.of(
-            {
-                "Channel": serialize.object(channel),
-                "Routing": serialize.object(routing),
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return InteractionInstance(self._version, payload)
-
-    async def create_async(self, channel, routing):
-        """
-        Asynchronously create the InteractionInstance
-
-        :param object channel: The Interaction's channel.
-        :param object routing: The Interaction's routing logic.
-
-        :returns: The created InteractionInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
-        """
-        data = values.of(
-            {
-                "Channel": serialize.object(channel),
-                "Routing": serialize.object(routing),
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return InteractionInstance(self._version, payload)
-
-    def get(self, sid):
-        """
-        Constructs a InteractionContext
-
-        :param sid: The SID of the Interaction resource to fetch.
-
-        :returns: twilio.rest.flex_api.v1.interaction.InteractionContext
-        :rtype: twilio.rest.flex_api.v1.interaction.InteractionContext
-        """
-        return InteractionContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a InteractionContext
-
-        :param sid: The SID of the Interaction resource to fetch.
-
-        :returns: twilio.rest.flex_api.v1.interaction.InteractionContext
-        :rtype: twilio.rest.flex_api.v1.interaction.InteractionContext
-        """
-        return InteractionContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.FlexApi.V1.InteractionList>"
 
 
 class InteractionInstance(InstanceResource):
@@ -327,3 +230,99 @@ class InteractionContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InteractionContext {}>".format(context)
+
+
+class InteractionList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the InteractionList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.flex_api.v1.interaction.InteractionList
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionList
+        """
+        super().__init__(version)
+
+        self._uri = "/Interactions"
+
+    def create(self, channel, routing):
+        """
+        Create the InteractionInstance
+
+        :param object channel: The Interaction's channel.
+        :param object routing: The Interaction's routing logic.
+
+        :returns: The created InteractionInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
+        """
+        data = values.of(
+            {
+                "Channel": serialize.object(channel),
+                "Routing": serialize.object(routing),
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return InteractionInstance(self._version, payload)
+
+    async def create_async(self, channel, routing):
+        """
+        Asynchronously create the InteractionInstance
+
+        :param object channel: The Interaction's channel.
+        :param object routing: The Interaction's routing logic.
+
+        :returns: The created InteractionInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
+        """
+        data = values.of(
+            {
+                "Channel": serialize.object(channel),
+                "Routing": serialize.object(routing),
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return InteractionInstance(self._version, payload)
+
+    def get(self, sid):
+        """
+        Constructs a InteractionContext
+
+        :param sid: The SID of the Interaction resource to fetch.
+
+        :returns: twilio.rest.flex_api.v1.interaction.InteractionContext
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InteractionContext
+
+        :param sid: The SID of the Interaction resource to fetch.
+
+        :returns: twilio.rest.flex_api.v1.interaction.InteractionContext
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.FlexApi.V1.InteractionList>"

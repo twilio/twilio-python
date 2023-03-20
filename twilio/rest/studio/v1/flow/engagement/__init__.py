@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -26,310 +24,6 @@ from twilio.rest.studio.v1.flow.engagement.engagement_context import (
     EngagementContextList,
 )
 from twilio.rest.studio.v1.flow.engagement.step import StepList
-
-
-class EngagementList(ListResource):
-    def __init__(self, version: Version, flow_sid: str):
-        """
-        Initialize the EngagementList
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow to read Engagements from.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementList
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-        }
-        self._uri = "/Flows/{flow_sid}/Engagements".format(**self._solution)
-
-    def create(self, to, from_, parameters=values.unset):
-        """
-        Create the EngagementInstance
-
-        :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
-        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
-        :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
-
-        :returns: The created EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        """
-        data = values.of(
-            {
-                "To": to,
-                "From": from_,
-                "Parameters": serialize.object(parameters),
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return EngagementInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    async def create_async(self, to, from_, parameters=values.unset):
-        """
-        Asynchronously create the EngagementInstance
-
-        :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
-        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
-        :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
-
-        :returns: The created EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        """
-        data = values.of(
-            {
-                "To": to,
-                "From": from_,
-                "Parameters": serialize.object(parameters),
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return EngagementInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams EngagementInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams EngagementInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists EngagementInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists EngagementInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of EngagementInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return EngagementPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of EngagementInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return EngagementPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of EngagementInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return EngagementPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of EngagementInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EngagementPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a EngagementContext
-
-        :param sid: The SID of the Engagement resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        """
-        return EngagementContext(
-            self._version, flow_sid=self._solution["flow_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a EngagementContext
-
-        :param sid: The SID of the Engagement resource to fetch.
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
-        """
-        return EngagementContext(
-            self._version, flow_sid=self._solution["flow_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Studio.V1.EngagementList>"
-
-
-class EngagementPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of EngagementInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
-        """
-        return EngagementInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Studio.V1.EngagementPage>"
 
 
 class EngagementInstance(InstanceResource):
@@ -675,3 +369,307 @@ class EngagementContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Studio.V1.EngagementContext {}>".format(context)
+
+
+class EngagementList(ListResource):
+    def __init__(self, version: Version, flow_sid: str):
+        """
+        Initialize the EngagementList
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow to read Engagements from.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementList
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "flow_sid": flow_sid,
+        }
+        self._uri = "/Flows/{flow_sid}/Engagements".format(**self._solution)
+
+    def create(self, to, from_, parameters=values.unset):
+        """
+        Create the EngagementInstance
+
+        :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+        :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+
+        :returns: The created EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        """
+        data = values.of(
+            {
+                "To": to,
+                "From": from_,
+                "Parameters": serialize.object(parameters),
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return EngagementInstance(
+            self._version, payload, flow_sid=self._solution["flow_sid"]
+        )
+
+    async def create_async(self, to, from_, parameters=values.unset):
+        """
+        Asynchronously create the EngagementInstance
+
+        :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+        :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+
+        :returns: The created EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        """
+        data = values.of(
+            {
+                "To": to,
+                "From": from_,
+                "Parameters": serialize.object(parameters),
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return EngagementInstance(
+            self._version, payload, flow_sid=self._solution["flow_sid"]
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams EngagementInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams EngagementInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists EngagementInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists EngagementInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of EngagementInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return EngagementPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of EngagementInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return EngagementPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of EngagementInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return EngagementPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of EngagementInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return EngagementPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a EngagementContext
+
+        :param sid: The SID of the Engagement resource to fetch.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        """
+        return EngagementContext(
+            self._version, flow_sid=self._solution["flow_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a EngagementContext
+
+        :param sid: The SID of the Engagement resource to fetch.
+
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        """
+        return EngagementContext(
+            self._version, flow_sid=self._solution["flow_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Studio.V1.EngagementList>"
+
+
+class EngagementPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of EngagementInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        """
+        return EngagementInstance(
+            self._version, payload, flow_sid=self._solution["flow_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Studio.V1.EngagementPage>"

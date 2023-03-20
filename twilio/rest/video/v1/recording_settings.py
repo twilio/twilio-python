@@ -21,48 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class RecordingSettingsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the RecordingSettingsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsList
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a RecordingSettingsContext
-
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        """
-        return RecordingSettingsContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a RecordingSettingsContext
-
-
-        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
-        """
-        return RecordingSettingsContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Video.V1.RecordingSettingsList>"
-
-
 class RecordingSettingsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -396,3 +354,45 @@ class RecordingSettingsContext(InstanceContext):
         """
 
         return "<Twilio.Video.V1.RecordingSettingsContext>"
+
+
+class RecordingSettingsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the RecordingSettingsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsList
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a RecordingSettingsContext
+
+
+        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        """
+        return RecordingSettingsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a RecordingSettingsContext
+
+
+        :returns: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsContext
+        """
+        return RecordingSettingsContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Video.V1.RecordingSettingsList>"

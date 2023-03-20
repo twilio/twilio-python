@@ -21,48 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class SettingsList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the SettingsList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
-        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a SettingsContext
-
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
-        """
-        return SettingsContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a SettingsContext
-
-
-        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
-        """
-        return SettingsContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Voice.V1.SettingsList>"
-
-
 class SettingsInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -278,3 +236,45 @@ class SettingsContext(InstanceContext):
         """
 
         return "<Twilio.Voice.V1.SettingsContext>"
+
+
+class SettingsList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the SettingsList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a SettingsContext
+
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        """
+        return SettingsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a SettingsContext
+
+
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        """
+        return SettingsContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Voice.V1.SettingsList>"

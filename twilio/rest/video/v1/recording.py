@@ -14,14 +14,376 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class RecordingInstance(InstanceResource):
+    class Codec(object):
+        VP8 = "VP8"
+        H264 = "H264"
+        OPUS = "OPUS"
+        PCMU = "PCMU"
+
+    class Format(object):
+        MKA = "mka"
+        MKV = "mkv"
+
+    class Status(object):
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+
+    class Type(object):
+        AUDIO = "audio"
+        VIDEO = "video"
+        DATA = "data"
+
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the RecordingInstance
+
+        :returns: twilio.rest.video.v1.recording.RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "status": payload.get("status"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "sid": payload.get("sid"),
+            "source_sid": payload.get("source_sid"),
+            "size": payload.get("size"),
+            "url": payload.get("url"),
+            "type": payload.get("type"),
+            "duration": deserialize.integer(payload.get("duration")),
+            "container_format": payload.get("container_format"),
+            "codec": payload.get("codec"),
+            "grouping_sids": payload.get("grouping_sids"),
+            "track_name": payload.get("track_name"),
+            "offset": payload.get("offset"),
+            "media_external_location": payload.get("media_external_location"),
+            "status_callback": payload.get("status_callback"),
+            "status_callback_method": payload.get("status_callback_method"),
+            "links": payload.get("links"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[RecordingContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: RecordingContext for this RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        """
+        if self._context is None:
+            self._context = RecordingContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: RecordingInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Recording resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def source_sid(self):
+        """
+        :returns: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
+        :rtype: str
+        """
+        return self._properties["source_sid"]
+
+    @property
+    def size(self):
+        """
+        :returns: The size of the recorded track, in bytes.
+        :rtype: int
+        """
+        return self._properties["size"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    @property
+    def type(self):
+        """
+        :returns:
+        :rtype: RecordingInstance.Type
+        """
+        return self._properties["type"]
+
+    @property
+    def duration(self):
+        """
+        :returns: The duration of the recording in seconds rounded to the nearest second. Sub-second tracks have a `Duration` property of 1 second
+        :rtype: int
+        """
+        return self._properties["duration"]
+
+    @property
+    def container_format(self):
+        """
+        :returns:
+        :rtype: RecordingInstance.Format
+        """
+        return self._properties["container_format"]
+
+    @property
+    def codec(self):
+        """
+        :returns:
+        :rtype: RecordingInstance.Codec
+        """
+        return self._properties["codec"]
+
+    @property
+    def grouping_sids(self):
+        """
+        :returns: A list of SIDs related to the recording. Includes the `room_sid` and `participant_sid`.
+        :rtype: dict
+        """
+        return self._properties["grouping_sids"]
+
+    @property
+    def track_name(self):
+        """
+        :returns: The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
+        :rtype: str
+        """
+        return self._properties["track_name"]
+
+    @property
+    def offset(self):
+        """
+        :returns: The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
+        :rtype: int
+        """
+        return self._properties["offset"]
+
+    @property
+    def media_external_location(self):
+        """
+        :returns: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
+        :rtype: str
+        """
+        return self._properties["media_external_location"]
+
+    @property
+    def status_callback(self):
+        """
+        :returns: The URL called using the `status_callback_method` to send status information on every recording event.
+        :rtype: str
+        """
+        return self._properties["status_callback"]
+
+    @property
+    def status_callback_method(self):
+        """
+        :returns: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
+        :rtype: str
+        """
+        return self._properties["status_callback_method"]
+
+    @property
+    def links(self):
+        """
+        :returns: The URLs of related resources.
+        :rtype: dict
+        """
+        return self._properties["links"]
+
+    def delete(self):
+        """
+        Deletes the RecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the RecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the RecordingInstance
+
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RecordingInstance
+
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.RecordingInstance {}>".format(context)
+
+
+class RecordingContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the RecordingContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Recording resource to fetch.
+
+        :returns: twilio.rest.video.v1.recording.RecordingContext
+        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Recordings/{sid}".format(**self._solution)
+
+    def delete(self):
+        """
+        Deletes the RecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the RecordingInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the RecordingInstance
+
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the RecordingInstance
+
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.video.v1.recording.RecordingInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.RecordingContext {}>".format(context)
 
 
 class RecordingList(ListResource):
@@ -391,367 +753,3 @@ class RecordingPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Video.V1.RecordingPage>"
-
-
-class RecordingInstance(InstanceResource):
-    class Codec(object):
-        VP8 = "VP8"
-        H264 = "H264"
-        OPUS = "OPUS"
-        PCMU = "PCMU"
-
-    class Format(object):
-        MKA = "mka"
-        MKV = "mkv"
-
-    class Status(object):
-        PROCESSING = "processing"
-        COMPLETED = "completed"
-        DELETED = "deleted"
-        FAILED = "failed"
-
-    class Type(object):
-        AUDIO = "audio"
-        VIDEO = "video"
-        DATA = "data"
-
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the RecordingInstance
-
-        :returns: twilio.rest.video.v1.recording.RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "status": payload.get("status"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "sid": payload.get("sid"),
-            "source_sid": payload.get("source_sid"),
-            "size": payload.get("size"),
-            "url": payload.get("url"),
-            "type": payload.get("type"),
-            "duration": deserialize.integer(payload.get("duration")),
-            "container_format": payload.get("container_format"),
-            "codec": payload.get("codec"),
-            "grouping_sids": payload.get("grouping_sids"),
-            "track_name": payload.get("track_name"),
-            "offset": payload.get("offset"),
-            "media_external_location": payload.get("media_external_location"),
-            "status_callback": payload.get("status_callback"),
-            "status_callback_method": payload.get("status_callback_method"),
-            "links": payload.get("links"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[RecordingContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: RecordingContext for this RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
-        """
-        if self._context is None:
-            self._context = RecordingContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: RecordingInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the Recording resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def source_sid(self):
-        """
-        :returns: The SID of the recording source. For a Room Recording, this value is a `track_sid`.
-        :rtype: str
-        """
-        return self._properties["source_sid"]
-
-    @property
-    def size(self):
-        """
-        :returns: The size of the recorded track, in bytes.
-        :rtype: int
-        """
-        return self._properties["size"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    @property
-    def type(self):
-        """
-        :returns:
-        :rtype: RecordingInstance.Type
-        """
-        return self._properties["type"]
-
-    @property
-    def duration(self):
-        """
-        :returns: The duration of the recording in seconds rounded to the nearest second. Sub-second tracks have a `Duration` property of 1 second
-        :rtype: int
-        """
-        return self._properties["duration"]
-
-    @property
-    def container_format(self):
-        """
-        :returns:
-        :rtype: RecordingInstance.Format
-        """
-        return self._properties["container_format"]
-
-    @property
-    def codec(self):
-        """
-        :returns:
-        :rtype: RecordingInstance.Codec
-        """
-        return self._properties["codec"]
-
-    @property
-    def grouping_sids(self):
-        """
-        :returns: A list of SIDs related to the recording. Includes the `room_sid` and `participant_sid`.
-        :rtype: dict
-        """
-        return self._properties["grouping_sids"]
-
-    @property
-    def track_name(self):
-        """
-        :returns: The name that was given to the source track of the recording. If no name is given, the `source_sid` is used.
-        :rtype: str
-        """
-        return self._properties["track_name"]
-
-    @property
-    def offset(self):
-        """
-        :returns: The time in milliseconds elapsed between an arbitrary point in time, common to all group rooms, and the moment when the source room of this track started. This information provides a synchronization mechanism for recordings belonging to the same room.
-        :rtype: int
-        """
-        return self._properties["offset"]
-
-    @property
-    def media_external_location(self):
-        """
-        :returns: The URL of the media file associated with the recording when stored externally. See [External S3 Recordings](/docs/video/api/external-s3-recordings) for more details.
-        :rtype: str
-        """
-        return self._properties["media_external_location"]
-
-    @property
-    def status_callback(self):
-        """
-        :returns: The URL called using the `status_callback_method` to send status information on every recording event.
-        :rtype: str
-        """
-        return self._properties["status_callback"]
-
-    @property
-    def status_callback_method(self):
-        """
-        :returns: The HTTP method used to call `status_callback`. Can be: `POST` or `GET`, defaults to `POST`.
-        :rtype: str
-        """
-        return self._properties["status_callback_method"]
-
-    @property
-    def links(self):
-        """
-        :returns: The URLs of related resources.
-        :rtype: dict
-        """
-        return self._properties["links"]
-
-    def delete(self):
-        """
-        Deletes the RecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the RecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the RecordingInstance
-
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingInstance {}>".format(context)
-
-
-class RecordingContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the RecordingContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Recording resource to fetch.
-
-        :returns: twilio.rest.video.v1.recording.RecordingContext
-        :rtype: twilio.rest.video.v1.recording.RecordingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/Recordings/{sid}".format(**self._solution)
-
-    def delete(self):
-        """
-        Deletes the RecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the RecordingInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the RecordingInstance
-
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingContext {}>".format(context)

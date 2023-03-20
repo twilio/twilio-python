@@ -14,56 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class TrunkList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the TrunkList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.routes.v2.trunk.TrunkList
-        :rtype: twilio.rest.routes.v2.trunk.TrunkList
-        """
-        super().__init__(version)
-
-    def get(self, sip_trunk_domain):
-        """
-        Constructs a TrunkContext
-
-        :param sip_trunk_domain: The absolute URL of the SIP Trunk
-
-        :returns: twilio.rest.routes.v2.trunk.TrunkContext
-        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
-        """
-        return TrunkContext(self._version, sip_trunk_domain=sip_trunk_domain)
-
-    def __call__(self, sip_trunk_domain):
-        """
-        Constructs a TrunkContext
-
-        :param sip_trunk_domain: The absolute URL of the SIP Trunk
-
-        :returns: twilio.rest.routes.v2.trunk.TrunkContext
-        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
-        """
-        return TrunkContext(self._version, sip_trunk_domain=sip_trunk_domain)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Routes.V2.TrunkList>"
 
 
 class TrunkInstance(InstanceResource):
@@ -356,3 +311,47 @@ class TrunkContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Routes.V2.TrunkContext {}>".format(context)
+
+
+class TrunkList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the TrunkList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.routes.v2.trunk.TrunkList
+        :rtype: twilio.rest.routes.v2.trunk.TrunkList
+        """
+        super().__init__(version)
+
+    def get(self, sip_trunk_domain):
+        """
+        Constructs a TrunkContext
+
+        :param sip_trunk_domain: The absolute URL of the SIP Trunk
+
+        :returns: twilio.rest.routes.v2.trunk.TrunkContext
+        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
+        """
+        return TrunkContext(self._version, sip_trunk_domain=sip_trunk_domain)
+
+    def __call__(self, sip_trunk_domain):
+        """
+        Constructs a TrunkContext
+
+        :param sip_trunk_domain: The absolute URL of the SIP Trunk
+
+        :returns: twilio.rest.routes.v2.trunk.TrunkContext
+        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
+        """
+        return TrunkContext(self._version, sip_trunk_domain=sip_trunk_domain)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Routes.V2.TrunkList>"

@@ -20,48 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class OauthList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the OauthList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthList
-        :rtype: twilio.rest.oauth.v1.oauth.OauthList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a OauthContext
-
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthContext
-        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
-        """
-        return OauthContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a OauthContext
-
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthContext
-        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
-        """
-        return OauthContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Oauth.V1.OauthList>"
-
-
 class OauthInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -203,3 +161,45 @@ class OauthContext(InstanceContext):
         """
 
         return "<Twilio.Oauth.V1.OauthContext>"
+
+
+class OauthList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the OauthList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.oauth.v1.oauth.OauthList
+        :rtype: twilio.rest.oauth.v1.oauth.OauthList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a OauthContext
+
+
+        :returns: twilio.rest.oauth.v1.oauth.OauthContext
+        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
+        """
+        return OauthContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a OauthContext
+
+
+        :returns: twilio.rest.oauth.v1.oauth.OauthContext
+        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
+        """
+        return OauthContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Oauth.V1.OauthList>"

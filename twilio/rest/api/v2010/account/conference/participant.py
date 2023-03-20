@@ -14,14 +14,578 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class ParticipantInstance(InstanceResource):
+    class Status(object):
+        QUEUED = "queued"
+        CONNECTING = "connecting"
+        RINGING = "ringing"
+        CONNECTED = "connected"
+        COMPLETE = "complete"
+        FAILED = "failed"
+
+    def __init__(
+        self,
+        version,
+        payload,
+        account_sid: str,
+        conference_sid: str,
+        call_sid: Optional[str] = None,
+    ):
+        """
+        Initialize the ParticipantInstance
+
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "account_sid": payload.get("account_sid"),
+            "call_sid": payload.get("call_sid"),
+            "label": payload.get("label"),
+            "call_sid_to_coach": payload.get("call_sid_to_coach"),
+            "coaching": payload.get("coaching"),
+            "conference_sid": payload.get("conference_sid"),
+            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
+            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
+            "end_conference_on_exit": payload.get("end_conference_on_exit"),
+            "muted": payload.get("muted"),
+            "hold": payload.get("hold"),
+            "start_conference_on_enter": payload.get("start_conference_on_enter"),
+            "status": payload.get("status"),
+            "uri": payload.get("uri"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+            "conference_sid": conference_sid,
+            "call_sid": call_sid or self._properties["call_sid"],
+        }
+        self._context: Optional[ParticipantContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ParticipantContext for this ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
+        """
+        if self._context is None:
+            self._context = ParticipantContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                conference_sid=self._solution["conference_sid"],
+                call_sid=self._solution["call_sid"],
+            )
+        return self._context
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def call_sid(self):
+        """
+        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Participant resource is associated with.
+        :rtype: str
+        """
+        return self._properties["call_sid"]
+
+    @property
+    def label(self):
+        """
+        :returns: The user-specified label of this participant, if one was given when the participant was created. This may be used to fetch, update or delete the participant.
+        :rtype: str
+        """
+        return self._properties["label"]
+
+    @property
+    def call_sid_to_coach(self):
+        """
+        :returns: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :rtype: str
+        """
+        return self._properties["call_sid_to_coach"]
+
+    @property
+    def coaching(self):
+        """
+        :returns: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :rtype: bool
+        """
+        return self._properties["coaching"]
+
+    @property
+    def conference_sid(self):
+        """
+        :returns: The SID of the conference the participant is in.
+        :rtype: str
+        """
+        return self._properties["conference_sid"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def end_conference_on_exit(self):
+        """
+        :returns: Whether the conference ends when the participant leaves. Can be: `true` or `false` and the default is `false`. If `true`, the conference ends and all other participants drop out when the participant leaves.
+        :rtype: bool
+        """
+        return self._properties["end_conference_on_exit"]
+
+    @property
+    def muted(self):
+        """
+        :returns: Whether the participant is muted. Can be `true` or `false`.
+        :rtype: bool
+        """
+        return self._properties["muted"]
+
+    @property
+    def hold(self):
+        """
+        :returns: Whether the participant is on hold. Can be `true` or `false`.
+        :rtype: bool
+        """
+        return self._properties["hold"]
+
+    @property
+    def start_conference_on_enter(self):
+        """
+        :returns: Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :rtype: bool
+        """
+        return self._properties["start_conference_on_enter"]
+
+    @property
+    def status(self):
+        """
+        :returns:
+        :rtype: ParticipantInstance.Status
+        """
+        return self._properties["status"]
+
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :rtype: str
+        """
+        return self._properties["uri"]
+
+    def delete(self):
+        """
+        Deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def update(
+        self,
+        muted=values.unset,
+        hold=values.unset,
+        hold_url=values.unset,
+        hold_method=values.unset,
+        announce_url=values.unset,
+        announce_method=values.unset,
+        wait_url=values.unset,
+        wait_method=values.unset,
+        beep_on_exit=values.unset,
+        end_conference_on_exit=values.unset,
+        coaching=values.unset,
+        call_sid_to_coach=values.unset,
+    ):
+        """
+        Update the ParticipantInstance
+
+        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: The updated ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        return self._proxy.update(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+        )
+
+    async def update_async(
+        self,
+        muted=values.unset,
+        hold=values.unset,
+        hold_url=values.unset,
+        hold_method=values.unset,
+        announce_url=values.unset,
+        announce_method=values.unset,
+        wait_url=values.unset,
+        wait_method=values.unset,
+        beep_on_exit=values.unset,
+        end_conference_on_exit=values.unset,
+        coaching=values.unset,
+        call_sid_to_coach=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the ParticipantInstance
+
+        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: The updated ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        return await self._proxy.update_async(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.ParticipantInstance {}>".format(context)
+
+
+class ParticipantContext(InstanceContext):
+    def __init__(
+        self, version: Version, account_sid: str, conference_sid: str, call_sid: str
+    ):
+        """
+        Initialize the ParticipantContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
+        :param conference_sid: The SID of the conference with the participant to update.
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
+
+        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+            "conference_sid": conference_sid,
+            "call_sid": call_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json".format(
+            **self._solution
+        )
+
+    def delete(self):
+        """
+        Deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self):
+        """
+        Asynchronous coroutine that deletes the ParticipantInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance
+
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def update(
+        self,
+        muted=values.unset,
+        hold=values.unset,
+        hold_url=values.unset,
+        hold_method=values.unset,
+        announce_url=values.unset,
+        announce_method=values.unset,
+        wait_url=values.unset,
+        wait_method=values.unset,
+        beep_on_exit=values.unset,
+        end_conference_on_exit=values.unset,
+        coaching=values.unset,
+        call_sid_to_coach=values.unset,
+    ):
+        """
+        Update the ParticipantInstance
+
+        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: The updated ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        data = values.of(
+            {
+                "Muted": muted,
+                "Hold": hold,
+                "HoldUrl": hold_url,
+                "HoldMethod": hold_method,
+                "AnnounceUrl": announce_url,
+                "AnnounceMethod": announce_method,
+                "WaitUrl": wait_url,
+                "WaitMethod": wait_method,
+                "BeepOnExit": beep_on_exit,
+                "EndConferenceOnExit": end_conference_on_exit,
+                "Coaching": coaching,
+                "CallSidToCoach": call_sid_to_coach,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    async def update_async(
+        self,
+        muted=values.unset,
+        hold=values.unset,
+        hold_url=values.unset,
+        hold_method=values.unset,
+        announce_url=values.unset,
+        announce_method=values.unset,
+        wait_url=values.unset,
+        wait_method=values.unset,
+        beep_on_exit=values.unset,
+        end_conference_on_exit=values.unset,
+        coaching=values.unset,
+        call_sid_to_coach=values.unset,
+    ):
+        """
+        Asynchronous coroutine to update the ParticipantInstance
+
+        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: The updated ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        data = values.of(
+            {
+                "Muted": muted,
+                "Hold": hold,
+                "HoldUrl": hold_url,
+                "HoldMethod": hold_method,
+                "AnnounceUrl": announce_url,
+                "AnnounceMethod": announce_method,
+                "WaitUrl": wait_url,
+                "WaitMethod": wait_method,
+                "BeepOnExit": beep_on_exit,
+                "EndConferenceOnExit": end_conference_on_exit,
+                "Coaching": coaching,
+                "CallSidToCoach": call_sid_to_coach,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.ParticipantContext {}>".format(context)
 
 
 class ParticipantList(ListResource):
@@ -703,569 +1267,3 @@ class ParticipantPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Api.V2010.ParticipantPage>"
-
-
-class ParticipantInstance(InstanceResource):
-    class Status(object):
-        QUEUED = "queued"
-        CONNECTING = "connecting"
-        RINGING = "ringing"
-        CONNECTED = "connected"
-        COMPLETE = "complete"
-        FAILED = "failed"
-
-    def __init__(
-        self,
-        version,
-        payload,
-        account_sid: str,
-        conference_sid: str,
-        call_sid: Optional[str] = None,
-    ):
-        """
-        Initialize the ParticipantInstance
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "account_sid": payload.get("account_sid"),
-            "call_sid": payload.get("call_sid"),
-            "label": payload.get("label"),
-            "call_sid_to_coach": payload.get("call_sid_to_coach"),
-            "coaching": payload.get("coaching"),
-            "conference_sid": payload.get("conference_sid"),
-            "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
-            "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
-            "end_conference_on_exit": payload.get("end_conference_on_exit"),
-            "muted": payload.get("muted"),
-            "hold": payload.get("hold"),
-            "start_conference_on_enter": payload.get("start_conference_on_enter"),
-            "status": payload.get("status"),
-            "uri": payload.get("uri"),
-        }
-
-        self._solution = {
-            "account_sid": account_sid,
-            "conference_sid": conference_sid,
-            "call_sid": call_sid or self._properties["call_sid"],
-        }
-        self._context: Optional[ParticipantContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ParticipantContext for this ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
-        """
-        if self._context is None:
-            self._context = ParticipantContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                conference_sid=self._solution["conference_sid"],
-                call_sid=self._solution["call_sid"],
-            )
-        return self._context
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def call_sid(self):
-        """
-        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Participant resource is associated with.
-        :rtype: str
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def label(self):
-        """
-        :returns: The user-specified label of this participant, if one was given when the participant was created. This may be used to fetch, update or delete the participant.
-        :rtype: str
-        """
-        return self._properties["label"]
-
-    @property
-    def call_sid_to_coach(self):
-        """
-        :returns: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-        :rtype: str
-        """
-        return self._properties["call_sid_to_coach"]
-
-    @property
-    def coaching(self):
-        """
-        :returns: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :rtype: bool
-        """
-        return self._properties["coaching"]
-
-    @property
-    def conference_sid(self):
-        """
-        :returns: The SID of the conference the participant is in.
-        :rtype: str
-        """
-        return self._properties["conference_sid"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def end_conference_on_exit(self):
-        """
-        :returns: Whether the conference ends when the participant leaves. Can be: `true` or `false` and the default is `false`. If `true`, the conference ends and all other participants drop out when the participant leaves.
-        :rtype: bool
-        """
-        return self._properties["end_conference_on_exit"]
-
-    @property
-    def muted(self):
-        """
-        :returns: Whether the participant is muted. Can be `true` or `false`.
-        :rtype: bool
-        """
-        return self._properties["muted"]
-
-    @property
-    def hold(self):
-        """
-        :returns: Whether the participant is on hold. Can be `true` or `false`.
-        :rtype: bool
-        """
-        return self._properties["hold"]
-
-    @property
-    def start_conference_on_enter(self):
-        """
-        :returns: Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-        :rtype: bool
-        """
-        return self._properties["start_conference_on_enter"]
-
-    @property
-    def status(self):
-        """
-        :returns:
-        :rtype: ParticipantInstance.Status
-        """
-        return self._properties["status"]
-
-    @property
-    def uri(self):
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
-        """
-        return self._properties["uri"]
-
-    def delete(self):
-        """
-        Deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._proxy.delete_async()
-
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
-    ):
-        """
-        Update the ParticipantInstance
-
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-
-        :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        return self._proxy.update(
-            muted=muted,
-            hold=hold,
-            hold_url=hold_url,
-            hold_method=hold_method,
-            announce_url=announce_url,
-            announce_method=announce_method,
-            wait_url=wait_url,
-            wait_method=wait_method,
-            beep_on_exit=beep_on_exit,
-            end_conference_on_exit=end_conference_on_exit,
-            coaching=coaching,
-            call_sid_to_coach=call_sid_to_coach,
-        )
-
-    async def update_async(
-        self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the ParticipantInstance
-
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-
-        :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        return await self._proxy.update_async(
-            muted=muted,
-            hold=hold,
-            hold_url=hold_url,
-            hold_method=hold_method,
-            announce_url=announce_url,
-            announce_method=announce_method,
-            wait_url=wait_url,
-            wait_method=wait_method,
-            beep_on_exit=beep_on_exit,
-            end_conference_on_exit=end_conference_on_exit,
-            coaching=coaching,
-            call_sid_to_coach=call_sid_to_coach,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ParticipantInstance {}>".format(context)
-
-
-class ParticipantContext(InstanceContext):
-    def __init__(
-        self, version: Version, account_sid: str, conference_sid: str, call_sid: str
-    ):
-        """
-        Initialize the ParticipantContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
-        :param conference_sid: The SID of the conference with the participant to update.
-        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-
-        :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "conference_sid": conference_sid,
-            "call_sid": call_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json".format(
-            **self._solution
-        )
-
-    def delete(self):
-        """
-        Deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    async def delete_async(self):
-        """
-        Asynchronous coroutine that deletes the ParticipantInstance
-
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the ParticipantInstance
-
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    def update(
-        self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
-    ):
-        """
-        Update the ParticipantInstance
-
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-
-        :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        data = values.of(
-            {
-                "Muted": muted,
-                "Hold": hold,
-                "HoldUrl": hold_url,
-                "HoldMethod": hold_method,
-                "AnnounceUrl": announce_url,
-                "AnnounceMethod": announce_method,
-                "WaitUrl": wait_url,
-                "WaitMethod": wait_method,
-                "BeepOnExit": beep_on_exit,
-                "EndConferenceOnExit": end_conference_on_exit,
-                "Coaching": coaching,
-                "CallSidToCoach": call_sid_to_coach,
-            }
-        )
-
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    async def update_async(
-        self,
-        muted=values.unset,
-        hold=values.unset,
-        hold_url=values.unset,
-        hold_method=values.unset,
-        announce_url=values.unset,
-        announce_method=values.unset,
-        wait_url=values.unset,
-        wait_method=values.unset,
-        beep_on_exit=values.unset,
-        end_conference_on_exit=values.unset,
-        coaching=values.unset,
-        call_sid_to_coach=values.unset,
-    ):
-        """
-        Asynchronous coroutine to update the ParticipantInstance
-
-        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-
-        :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
-        """
-        data = values.of(
-            {
-                "Muted": muted,
-                "Hold": hold,
-                "HoldUrl": hold_url,
-                "HoldMethod": hold_method,
-                "AnnounceUrl": announce_url,
-                "AnnounceMethod": announce_method,
-                "WaitUrl": wait_url,
-                "WaitMethod": wait_method,
-                "BeepOnExit": beep_on_exit,
-                "EndConferenceOnExit": end_conference_on_exit,
-                "Coaching": coaching,
-                "CallSidToCoach": call_sid_to_coach,
-            }
-        )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-            call_sid=self._solution["call_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ParticipantContext {}>".format(context)

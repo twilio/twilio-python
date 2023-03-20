@@ -22,6 +22,257 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class AssignedAddOnExtensionInstance(InstanceResource):
+    def __init__(
+        self,
+        version,
+        payload,
+        account_sid: str,
+        resource_sid: str,
+        assigned_add_on_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the AssignedAddOnExtensionInstance
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "account_sid": payload.get("account_sid"),
+            "resource_sid": payload.get("resource_sid"),
+            "assigned_add_on_sid": payload.get("assigned_add_on_sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "product_name": payload.get("product_name"),
+            "unique_name": payload.get("unique_name"),
+            "uri": payload.get("uri"),
+            "enabled": payload.get("enabled"),
+        }
+
+        self._solution = {
+            "account_sid": account_sid,
+            "resource_sid": resource_sid,
+            "assigned_add_on_sid": assigned_add_on_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[AssignedAddOnExtensionContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: AssignedAddOnExtensionContext for this AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
+        """
+        if self._context is None:
+            self._context = AssignedAddOnExtensionContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                resource_sid=self._solution["resource_sid"],
+                assigned_add_on_sid=self._solution["assigned_add_on_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that that we created to identify the resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def resource_sid(self):
+        """
+        :returns: The SID of the Phone Number to which the Add-on is assigned.
+        :rtype: str
+        """
+        return self._properties["resource_sid"]
+
+    @property
+    def assigned_add_on_sid(self):
+        """
+        :returns: The SID that uniquely identifies the assigned Add-on installation.
+        :rtype: str
+        """
+        return self._properties["assigned_add_on_sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def product_name(self):
+        """
+        :returns: A string that you assigned to describe the Product this Extension is used within.
+        :rtype: str
+        """
+        return self._properties["product_name"]
+
+    @property
+    def unique_name(self):
+        """
+        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :rtype: str
+        """
+        return self._properties["unique_name"]
+
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :rtype: str
+        """
+        return self._properties["uri"]
+
+    @property
+    def enabled(self):
+        """
+        :returns: Whether the Extension will be invoked.
+        :rtype: bool
+        """
+        return self._properties["enabled"]
+
+    def fetch(self):
+        """
+        Fetch the AssignedAddOnExtensionInstance
+
+
+        :returns: The fetched AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssignedAddOnExtensionInstance
+
+
+        :returns: The fetched AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AssignedAddOnExtensionInstance {}>".format(context)
+
+
+class AssignedAddOnExtensionContext(InstanceContext):
+    def __init__(
+        self,
+        version: Version,
+        account_sid: str,
+        resource_sid: str,
+        assigned_add_on_sid: str,
+        sid: str,
+    ):
+        """
+        Initialize the AssignedAddOnExtensionContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
+        :param resource_sid: The SID of the Phone Number to which the Add-on is assigned.
+        :param assigned_add_on_sid: The SID that uniquely identifies the assigned Add-on installation.
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+            "resource_sid": resource_sid,
+            "assigned_add_on_sid": assigned_add_on_sid,
+            "sid": sid,
+        }
+        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{assigned_add_on_sid}/Extensions/{sid}.json".format(
+            **self._solution
+        )
+
+    def fetch(self):
+        """
+        Fetch the AssignedAddOnExtensionInstance
+
+
+        :returns: The fetched AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AssignedAddOnExtensionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            assigned_add_on_sid=self._solution["assigned_add_on_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the AssignedAddOnExtensionInstance
+
+
+        :returns: The fetched AssignedAddOnExtensionInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return AssignedAddOnExtensionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            assigned_add_on_sid=self._solution["assigned_add_on_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AssignedAddOnExtensionContext {}>".format(context)
+
+
 class AssignedAddOnExtensionList(ListResource):
     def __init__(
         self,
@@ -290,254 +541,3 @@ class AssignedAddOnExtensionPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Api.V2010.AssignedAddOnExtensionPage>"
-
-
-class AssignedAddOnExtensionInstance(InstanceResource):
-    def __init__(
-        self,
-        version,
-        payload,
-        account_sid: str,
-        resource_sid: str,
-        assigned_add_on_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the AssignedAddOnExtensionInstance
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "account_sid": payload.get("account_sid"),
-            "resource_sid": payload.get("resource_sid"),
-            "assigned_add_on_sid": payload.get("assigned_add_on_sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "product_name": payload.get("product_name"),
-            "unique_name": payload.get("unique_name"),
-            "uri": payload.get("uri"),
-            "enabled": payload.get("enabled"),
-        }
-
-        self._solution = {
-            "account_sid": account_sid,
-            "resource_sid": resource_sid,
-            "assigned_add_on_sid": assigned_add_on_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[AssignedAddOnExtensionContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: AssignedAddOnExtensionContext for this AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
-        """
-        if self._context is None:
-            self._context = AssignedAddOnExtensionContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                resource_sid=self._solution["resource_sid"],
-                assigned_add_on_sid=self._solution["assigned_add_on_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that that we created to identify the resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def resource_sid(self):
-        """
-        :returns: The SID of the Phone Number to which the Add-on is assigned.
-        :rtype: str
-        """
-        return self._properties["resource_sid"]
-
-    @property
-    def assigned_add_on_sid(self):
-        """
-        :returns: The SID that uniquely identifies the assigned Add-on installation.
-        :rtype: str
-        """
-        return self._properties["assigned_add_on_sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: The string that you assigned to describe the resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def product_name(self):
-        """
-        :returns: A string that you assigned to describe the Product this Extension is used within.
-        :rtype: str
-        """
-        return self._properties["product_name"]
-
-    @property
-    def unique_name(self):
-        """
-        :returns: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :rtype: str
-        """
-        return self._properties["unique_name"]
-
-    @property
-    def uri(self):
-        """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
-        :rtype: str
-        """
-        return self._properties["uri"]
-
-    @property
-    def enabled(self):
-        """
-        :returns: Whether the Extension will be invoked.
-        :rtype: bool
-        """
-        return self._properties["enabled"]
-
-    def fetch(self):
-        """
-        Fetch the AssignedAddOnExtensionInstance
-
-
-        :returns: The fetched AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AssignedAddOnExtensionInstance
-
-
-        :returns: The fetched AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AssignedAddOnExtensionInstance {}>".format(context)
-
-
-class AssignedAddOnExtensionContext(InstanceContext):
-    def __init__(
-        self,
-        version: Version,
-        account_sid: str,
-        resource_sid: str,
-        assigned_add_on_sid: str,
-        sid: str,
-    ):
-        """
-        Initialize the AssignedAddOnExtensionContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
-        :param resource_sid: The SID of the Phone Number to which the Add-on is assigned.
-        :param assigned_add_on_sid: The SID that uniquely identifies the assigned Add-on installation.
-        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "resource_sid": resource_sid,
-            "assigned_add_on_sid": assigned_add_on_sid,
-            "sid": sid,
-        }
-        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{assigned_add_on_sid}/Extensions/{sid}.json".format(
-            **self._solution
-        )
-
-    def fetch(self):
-        """
-        Fetch the AssignedAddOnExtensionInstance
-
-
-        :returns: The fetched AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AssignedAddOnExtensionInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-            assigned_add_on_sid=self._solution["assigned_add_on_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the AssignedAddOnExtensionInstance
-
-
-        :returns: The fetched AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return AssignedAddOnExtensionInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-            assigned_add_on_sid=self._solution["assigned_add_on_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AssignedAddOnExtensionContext {}>".format(context)

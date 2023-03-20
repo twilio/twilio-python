@@ -21,6 +21,147 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class EventInstance(InstanceResource):
+    class Level(object):
+        UNKNOWN = "UNKNOWN"
+        DEBUG = "DEBUG"
+        INFO = "INFO"
+        WARNING = "WARNING"
+        ERROR = "ERROR"
+
+    class TwilioEdge(object):
+        UNKNOWN_EDGE = "unknown_edge"
+        CARRIER_EDGE = "carrier_edge"
+        SIP_EDGE = "sip_edge"
+        SDK_EDGE = "sdk_edge"
+        CLIENT_EDGE = "client_edge"
+
+    def __init__(self, version, payload, call_sid: str):
+        """
+        Initialize the EventInstance
+
+        :returns: twilio.rest.insights.v1.call.event.EventInstance
+        :rtype: twilio.rest.insights.v1.call.event.EventInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "timestamp": payload.get("timestamp"),
+            "call_sid": payload.get("call_sid"),
+            "account_sid": payload.get("account_sid"),
+            "edge": payload.get("edge"),
+            "group": payload.get("group"),
+            "level": payload.get("level"),
+            "name": payload.get("name"),
+            "carrier_edge": payload.get("carrier_edge"),
+            "sip_edge": payload.get("sip_edge"),
+            "sdk_edge": payload.get("sdk_edge"),
+            "client_edge": payload.get("client_edge"),
+        }
+
+        self._solution = {
+            "call_sid": call_sid,
+        }
+
+    @property
+    def timestamp(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["timestamp"]
+
+    @property
+    def call_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["call_sid"]
+
+    @property
+    def account_sid(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["account_sid"]
+
+    @property
+    def edge(self):
+        """
+        :returns:
+        :rtype: EventInstance.TwilioEdge
+        """
+        return self._properties["edge"]
+
+    @property
+    def group(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["group"]
+
+    @property
+    def level(self):
+        """
+        :returns:
+        :rtype: EventInstance.Level
+        """
+        return self._properties["level"]
+
+    @property
+    def name(self):
+        """
+        :returns:
+        :rtype: str
+        """
+        return self._properties["name"]
+
+    @property
+    def carrier_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["carrier_edge"]
+
+    @property
+    def sip_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["sip_edge"]
+
+    @property
+    def sdk_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["sdk_edge"]
+
+    @property
+    def client_edge(self):
+        """
+        :returns:
+        :rtype: dict
+        """
+        return self._properties["client_edge"]
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.EventInstance {}>".format(context)
+
+
 class EventList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
@@ -257,144 +398,3 @@ class EventPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Insights.V1.EventPage>"
-
-
-class EventInstance(InstanceResource):
-    class Level(object):
-        UNKNOWN = "UNKNOWN"
-        DEBUG = "DEBUG"
-        INFO = "INFO"
-        WARNING = "WARNING"
-        ERROR = "ERROR"
-
-    class TwilioEdge(object):
-        UNKNOWN_EDGE = "unknown_edge"
-        CARRIER_EDGE = "carrier_edge"
-        SIP_EDGE = "sip_edge"
-        SDK_EDGE = "sdk_edge"
-        CLIENT_EDGE = "client_edge"
-
-    def __init__(self, version, payload, call_sid: str):
-        """
-        Initialize the EventInstance
-
-        :returns: twilio.rest.insights.v1.call.event.EventInstance
-        :rtype: twilio.rest.insights.v1.call.event.EventInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "timestamp": payload.get("timestamp"),
-            "call_sid": payload.get("call_sid"),
-            "account_sid": payload.get("account_sid"),
-            "edge": payload.get("edge"),
-            "group": payload.get("group"),
-            "level": payload.get("level"),
-            "name": payload.get("name"),
-            "carrier_edge": payload.get("carrier_edge"),
-            "sip_edge": payload.get("sip_edge"),
-            "sdk_edge": payload.get("sdk_edge"),
-            "client_edge": payload.get("client_edge"),
-        }
-
-        self._solution = {
-            "call_sid": call_sid,
-        }
-
-    @property
-    def timestamp(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["timestamp"]
-
-    @property
-    def call_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["call_sid"]
-
-    @property
-    def account_sid(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["account_sid"]
-
-    @property
-    def edge(self):
-        """
-        :returns:
-        :rtype: EventInstance.TwilioEdge
-        """
-        return self._properties["edge"]
-
-    @property
-    def group(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["group"]
-
-    @property
-    def level(self):
-        """
-        :returns:
-        :rtype: EventInstance.Level
-        """
-        return self._properties["level"]
-
-    @property
-    def name(self):
-        """
-        :returns:
-        :rtype: str
-        """
-        return self._properties["name"]
-
-    @property
-    def carrier_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["carrier_edge"]
-
-    @property
-    def sip_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["sip_edge"]
-
-    @property
-    def sdk_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["sdk_edge"]
-
-    @property
-    def client_edge(self):
-        """
-        :returns:
-        :rtype: dict
-        """
-        return self._properties["client_edge"]
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.EventInstance {}>".format(context)

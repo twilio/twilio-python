@@ -14,8 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,321 +23,6 @@ from twilio.base.page import Page
 from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension import (
     AssignedAddOnExtensionList,
 )
-
-
-class AssignedAddOnList(ListResource):
-    def __init__(self, version: Version, account_sid: str, resource_sid: str):
-        """
-        Initialize the AssignedAddOnList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
-        :param resource_sid: The SID of the Phone Number to which the Add-on is assigned.
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "resource_sid": resource_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns.json".format(
-            **self._solution
-        )
-
-    def create(self, installed_add_on_sid):
-        """
-        Create the AssignedAddOnInstance
-
-        :param str installed_add_on_sid: The SID that identifies the Add-on installation.
-
-        :returns: The created AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
-        """
-        data = values.of(
-            {
-                "InstalledAddOnSid": installed_add_on_sid,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AssignedAddOnInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-        )
-
-    async def create_async(self, installed_add_on_sid):
-        """
-        Asynchronously create the AssignedAddOnInstance
-
-        :param str installed_add_on_sid: The SID that identifies the Add-on installation.
-
-        :returns: The created AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
-        """
-        data = values.of(
-            {
-                "InstalledAddOnSid": installed_add_on_sid,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AssignedAddOnInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams AssignedAddOnInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams AssignedAddOnInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists AssignedAddOnInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists AssignedAddOnInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of AssignedAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AssignedAddOnPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of AssignedAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return AssignedAddOnPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of AssignedAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return AssignedAddOnPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of AssignedAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AssignedAddOnPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a AssignedAddOnContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
-        """
-        return AssignedAddOnContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a AssignedAddOnContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
-        """
-        return AssignedAddOnContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.AssignedAddOnList>"
-
-
-class AssignedAddOnPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of AssignedAddOnInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
-        """
-        return AssignedAddOnInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            resource_sid=self._solution["resource_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Api.V2010.AssignedAddOnPage>"
 
 
 class AssignedAddOnInstance(InstanceResource):
@@ -669,3 +353,318 @@ class AssignedAddOnContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AssignedAddOnContext {}>".format(context)
+
+
+class AssignedAddOnList(ListResource):
+    def __init__(self, version: Version, account_sid: str, resource_sid: str):
+        """
+        Initialize the AssignedAddOnList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
+        :param resource_sid: The SID of the Phone Number to which the Add-on is assigned.
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+            "resource_sid": resource_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns.json".format(
+            **self._solution
+        )
+
+    def create(self, installed_add_on_sid):
+        """
+        Create the AssignedAddOnInstance
+
+        :param str installed_add_on_sid: The SID that identifies the Add-on installation.
+
+        :returns: The created AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        data = values.of(
+            {
+                "InstalledAddOnSid": installed_add_on_sid,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+        )
+
+    async def create_async(self, installed_add_on_sid):
+        """
+        Asynchronously create the AssignedAddOnInstance
+
+        :param str installed_add_on_sid: The SID that identifies the Add-on installation.
+
+        :returns: The created AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        data = values.of(
+            {
+                "InstalledAddOnSid": installed_add_on_sid,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams AssignedAddOnInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams AssignedAddOnInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists AssignedAddOnInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists AssignedAddOnInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of AssignedAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return AssignedAddOnPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of AssignedAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return AssignedAddOnPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of AssignedAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return AssignedAddOnPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of AssignedAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return AssignedAddOnPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a AssignedAddOnContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        """
+        return AssignedAddOnContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a AssignedAddOnContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnContext
+        """
+        return AssignedAddOnContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.AssignedAddOnList>"
+
+
+class AssignedAddOnPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of AssignedAddOnInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Api.V2010.AssignedAddOnPage>"

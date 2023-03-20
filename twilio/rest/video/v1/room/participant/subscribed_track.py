@@ -14,13 +14,263 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+
+
+class SubscribedTrackInstance(InstanceResource):
+    class Kind(object):
+        AUDIO = "audio"
+        VIDEO = "video"
+        DATA = "data"
+
+    def __init__(
+        self,
+        version,
+        payload,
+        room_sid: str,
+        participant_sid: str,
+        sid: Optional[str] = None,
+    ):
+        """
+        Initialize the SubscribedTrackInstance
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "participant_sid": payload.get("participant_sid"),
+            "publisher_sid": payload.get("publisher_sid"),
+            "room_sid": payload.get("room_sid"),
+            "name": payload.get("name"),
+            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
+            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
+            "enabled": payload.get("enabled"),
+            "kind": payload.get("kind"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "room_sid": room_sid,
+            "participant_sid": participant_sid,
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[SubscribedTrackContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: SubscribedTrackContext for this SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        """
+        if self._context is None:
+            self._context = SubscribedTrackContext(
+                self._version,
+                room_sid=self._solution["room_sid"],
+                participant_sid=self._solution["participant_sid"],
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the RoomParticipantSubscribedTrack resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def participant_sid(self):
+        """
+        :returns: The SID of the participant that subscribes to the track.
+        :rtype: str
+        """
+        return self._properties["participant_sid"]
+
+    @property
+    def publisher_sid(self):
+        """
+        :returns: The SID of the participant that publishes the track.
+        :rtype: str
+        """
+        return self._properties["publisher_sid"]
+
+    @property
+    def room_sid(self):
+        """
+        :returns: The SID of the room where the track is published.
+        :rtype: str
+        """
+        return self._properties["room_sid"]
+
+    @property
+    def name(self):
+        """
+        :returns: The track name. Must have no more than 128 characters and be unique among the participant's published tracks.
+        :rtype: str
+        """
+        return self._properties["name"]
+
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_created"]
+
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties["date_updated"]
+
+    @property
+    def enabled(self):
+        """
+        :returns: Whether the track is enabled.
+        :rtype: bool
+        """
+        return self._properties["enabled"]
+
+    @property
+    def kind(self):
+        """
+        :returns:
+        :rtype: SubscribedTrackInstance.Kind
+        """
+        return self._properties["kind"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the SubscribedTrackInstance
+
+
+        :returns: The fetched SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SubscribedTrackInstance
+
+
+        :returns: The fetched SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.SubscribedTrackInstance {}>".format(context)
+
+
+class SubscribedTrackContext(InstanceContext):
+    def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
+        """
+        Initialize the SubscribedTrackContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room where the Track resource to fetch is subscribed.
+        :param participant_sid: The SID of the participant that subscribes to the Track resource to fetch.
+        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
+
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "room_sid": room_sid,
+            "participant_sid": participant_sid,
+            "sid": sid,
+        }
+        self._uri = "/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks/{sid}".format(
+            **self._solution
+        )
+
+    def fetch(self):
+        """
+        Fetch the SubscribedTrackInstance
+
+
+        :returns: The fetched SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SubscribedTrackInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SubscribedTrackInstance
+
+
+        :returns: The fetched SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SubscribedTrackInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.SubscribedTrackContext {}>".format(context)
 
 
 class SubscribedTrackList(ListResource):
@@ -282,254 +532,3 @@ class SubscribedTrackPage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Video.V1.SubscribedTrackPage>"
-
-
-class SubscribedTrackInstance(InstanceResource):
-    class Kind(object):
-        AUDIO = "audio"
-        VIDEO = "video"
-        DATA = "data"
-
-    def __init__(
-        self,
-        version,
-        payload,
-        room_sid: str,
-        participant_sid: str,
-        sid: Optional[str] = None,
-    ):
-        """
-        Initialize the SubscribedTrackInstance
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "participant_sid": payload.get("participant_sid"),
-            "publisher_sid": payload.get("publisher_sid"),
-            "room_sid": payload.get("room_sid"),
-            "name": payload.get("name"),
-            "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
-            "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
-            "enabled": payload.get("enabled"),
-            "kind": payload.get("kind"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "room_sid": room_sid,
-            "participant_sid": participant_sid,
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[SubscribedTrackContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: SubscribedTrackContext for this SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        """
-        if self._context is None:
-            self._context = SubscribedTrackContext(
-                self._version,
-                room_sid=self._solution["room_sid"],
-                participant_sid=self._solution["participant_sid"],
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that we created to identify the RoomParticipantSubscribedTrack resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def participant_sid(self):
-        """
-        :returns: The SID of the participant that subscribes to the track.
-        :rtype: str
-        """
-        return self._properties["participant_sid"]
-
-    @property
-    def publisher_sid(self):
-        """
-        :returns: The SID of the participant that publishes the track.
-        :rtype: str
-        """
-        return self._properties["publisher_sid"]
-
-    @property
-    def room_sid(self):
-        """
-        :returns: The SID of the room where the track is published.
-        :rtype: str
-        """
-        return self._properties["room_sid"]
-
-    @property
-    def name(self):
-        """
-        :returns: The track name. Must have no more than 128 characters and be unique among the participant's published tracks.
-        :rtype: str
-        """
-        return self._properties["name"]
-
-    @property
-    def date_created(self):
-        """
-        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_created"]
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :rtype: datetime
-        """
-        return self._properties["date_updated"]
-
-    @property
-    def enabled(self):
-        """
-        :returns: Whether the track is enabled.
-        :rtype: bool
-        """
-        return self._properties["enabled"]
-
-    @property
-    def kind(self):
-        """
-        :returns:
-        :rtype: SubscribedTrackInstance.Kind
-        """
-        return self._properties["kind"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the SubscribedTrackInstance
-
-
-        :returns: The fetched SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SubscribedTrackInstance
-
-
-        :returns: The fetched SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.SubscribedTrackInstance {}>".format(context)
-
-
-class SubscribedTrackContext(InstanceContext):
-    def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
-        """
-        Initialize the SubscribedTrackContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room where the Track resource to fetch is subscribed.
-        :param participant_sid: The SID of the participant that subscribes to the Track resource to fetch.
-        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
-
-        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "room_sid": room_sid,
-            "participant_sid": participant_sid,
-            "sid": sid,
-        }
-        self._uri = "/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks/{sid}".format(
-            **self._solution
-        )
-
-    def fetch(self):
-        """
-        Fetch the SubscribedTrackInstance
-
-
-        :returns: The fetched SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SubscribedTrackInstance(
-            self._version,
-            payload,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SubscribedTrackInstance
-
-
-        :returns: The fetched SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SubscribedTrackInstance(
-            self._version,
-            payload,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.SubscribedTrackContext {}>".format(context)

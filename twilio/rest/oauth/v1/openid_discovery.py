@@ -20,48 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class OpenidDiscoveryList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the OpenidDiscoveryList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
-        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a OpenidDiscoveryContext
-
-
-        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
-        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
-        """
-        return OpenidDiscoveryContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a OpenidDiscoveryContext
-
-
-        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
-        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
-        """
-        return OpenidDiscoveryContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Oauth.V1.OpenidDiscoveryList>"
-
-
 class OpenidDiscoveryInstance(InstanceResource):
     def __init__(self, version, payload):
         """
@@ -306,3 +264,45 @@ class OpenidDiscoveryContext(InstanceContext):
         """
 
         return "<Twilio.Oauth.V1.OpenidDiscoveryContext>"
+
+
+class OpenidDiscoveryList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the OpenidDiscoveryList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a OpenidDiscoveryContext
+
+
+        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        """
+        return OpenidDiscoveryContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a OpenidDiscoveryContext
+
+
+        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        """
+        return OpenidDiscoveryContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Oauth.V1.OpenidDiscoveryList>"

@@ -21,64 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class TaskStatisticsList(ListResource):
-    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
-        """
-        Initialize the TaskStatisticsList
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) that is associated with the resource to fetch.
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "assistant_sid": assistant_sid,
-            "task_sid": task_sid,
-        }
-
-    def get(self):
-        """
-        Constructs a TaskStatisticsContext
-
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
-        """
-        return TaskStatisticsContext(
-            self._version,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a TaskStatisticsContext
-
-
-        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
-        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
-        """
-        return TaskStatisticsContext(
-            self._version,
-            assistant_sid=self._solution["assistant_sid"],
-            task_sid=self._solution["task_sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Autopilot.V1.TaskStatisticsList>"
-
-
 class TaskStatisticsInstance(InstanceResource):
     def __init__(self, version, payload, assistant_sid: str, task_sid: str):
         """
@@ -274,3 +216,61 @@ class TaskStatisticsContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Autopilot.V1.TaskStatisticsContext {}>".format(context)
+
+
+class TaskStatisticsList(ListResource):
+    def __init__(self, version: Version, assistant_sid: str, task_sid: str):
+        """
+        Initialize the TaskStatisticsList
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
+        :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) that is associated with the resource to fetch.
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "assistant_sid": assistant_sid,
+            "task_sid": task_sid,
+        }
+
+    def get(self):
+        """
+        Constructs a TaskStatisticsContext
+
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
+        """
+        return TaskStatisticsContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a TaskStatisticsContext
+
+
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
+        """
+        return TaskStatisticsContext(
+            self._version,
+            assistant_sid=self._solution["assistant_sid"],
+            task_sid=self._solution["task_sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Autopilot.V1.TaskStatisticsList>"

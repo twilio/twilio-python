@@ -14,351 +14,12 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-
-
-class ConnectionPolicyTargetList(ListResource):
-    def __init__(self, version: Version, connection_policy_sid: str):
-        """
-        Initialize the ConnectionPolicyTargetList
-
-        :param Version version: Version that contains the resource
-        :param connection_policy_sid: The SID of the Connection Policy from which to read the Targets.
-
-        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetList
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "connection_policy_sid": connection_policy_sid,
-        }
-        self._uri = "/ConnectionPolicies/{connection_policy_sid}/Targets".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        target,
-        friendly_name=values.unset,
-        priority=values.unset,
-        weight=values.unset,
-        enabled=values.unset,
-    ):
-        """
-        Create the ConnectionPolicyTargetInstance
-
-        :param str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
-        :param int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
-        :param bool enabled: Whether the Target is enabled. The default is `true`.
-
-        :returns: The created ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        """
-        data = values.of(
-            {
-                "Target": target,
-                "FriendlyName": friendly_name,
-                "Priority": priority,
-                "Weight": weight,
-                "Enabled": enabled,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ConnectionPolicyTargetInstance(
-            self._version,
-            payload,
-            connection_policy_sid=self._solution["connection_policy_sid"],
-        )
-
-    async def create_async(
-        self,
-        target,
-        friendly_name=values.unset,
-        priority=values.unset,
-        weight=values.unset,
-        enabled=values.unset,
-    ):
-        """
-        Asynchronously create the ConnectionPolicyTargetInstance
-
-        :param str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
-        :param int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
-        :param bool enabled: Whether the Target is enabled. The default is `true`.
-
-        :returns: The created ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        """
-        data = values.of(
-            {
-                "Target": target,
-                "FriendlyName": friendly_name,
-                "Priority": priority,
-                "Weight": weight,
-                "Enabled": enabled,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return ConnectionPolicyTargetInstance(
-            self._version,
-            payload,
-            connection_policy_sid=self._solution["connection_policy_sid"],
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams ConnectionPolicyTargetInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams ConnectionPolicyTargetInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists ConnectionPolicyTargetInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists ConnectionPolicyTargetInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of ConnectionPolicyTargetInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of ConnectionPolicyTargetInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of ConnectionPolicyTargetInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of ConnectionPolicyTargetInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ConnectionPolicyTargetPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a ConnectionPolicyTargetContext
-
-        :param sid: The unique string that we created to identify the Target resource to update.
-
-        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
-        """
-        return ConnectionPolicyTargetContext(
-            self._version,
-            connection_policy_sid=self._solution["connection_policy_sid"],
-            sid=sid,
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a ConnectionPolicyTargetContext
-
-        :param sid: The unique string that we created to identify the Target resource to update.
-
-        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
-        """
-        return ConnectionPolicyTargetContext(
-            self._version,
-            connection_policy_sid=self._solution["connection_policy_sid"],
-            sid=sid,
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Voice.V1.ConnectionPolicyTargetList>"
-
-
-class ConnectionPolicyTargetPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of ConnectionPolicyTargetInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        """
-        return ConnectionPolicyTargetInstance(
-            self._version,
-            payload,
-            connection_policy_sid=self._solution["connection_policy_sid"],
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Voice.V1.ConnectionPolicyTargetPage>"
 
 
 class ConnectionPolicyTargetInstance(InstanceResource):
@@ -791,3 +452,341 @@ class ConnectionPolicyTargetContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Voice.V1.ConnectionPolicyTargetContext {}>".format(context)
+
+
+class ConnectionPolicyTargetList(ListResource):
+    def __init__(self, version: Version, connection_policy_sid: str):
+        """
+        Initialize the ConnectionPolicyTargetList
+
+        :param Version version: Version that contains the resource
+        :param connection_policy_sid: The SID of the Connection Policy from which to read the Targets.
+
+        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetList
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "connection_policy_sid": connection_policy_sid,
+        }
+        self._uri = "/ConnectionPolicies/{connection_policy_sid}/Targets".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        target,
+        friendly_name=values.unset,
+        priority=values.unset,
+        weight=values.unset,
+        enabled=values.unset,
+    ):
+        """
+        Create the ConnectionPolicyTargetInstance
+
+        :param str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
+        :param int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
+        :param bool enabled: Whether the Target is enabled. The default is `true`.
+
+        :returns: The created ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        data = values.of(
+            {
+                "Target": target,
+                "FriendlyName": friendly_name,
+                "Priority": priority,
+                "Weight": weight,
+                "Enabled": enabled,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution["connection_policy_sid"],
+        )
+
+    async def create_async(
+        self,
+        target,
+        friendly_name=values.unset,
+        priority=values.unset,
+        weight=values.unset,
+        enabled=values.unset,
+    ):
+        """
+        Asynchronously create the ConnectionPolicyTargetInstance
+
+        :param str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
+        :param int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
+        :param bool enabled: Whether the Target is enabled. The default is `true`.
+
+        :returns: The created ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        data = values.of(
+            {
+                "Target": target,
+                "FriendlyName": friendly_name,
+                "Priority": priority,
+                "Weight": weight,
+                "Enabled": enabled,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution["connection_policy_sid"],
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams ConnectionPolicyTargetInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams ConnectionPolicyTargetInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists ConnectionPolicyTargetInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists ConnectionPolicyTargetInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of ConnectionPolicyTargetInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of ConnectionPolicyTargetInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of ConnectionPolicyTargetInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of ConnectionPolicyTargetInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return ConnectionPolicyTargetPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a ConnectionPolicyTargetContext
+
+        :param sid: The unique string that we created to identify the Target resource to update.
+
+        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
+        """
+        return ConnectionPolicyTargetContext(
+            self._version,
+            connection_policy_sid=self._solution["connection_policy_sid"],
+            sid=sid,
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a ConnectionPolicyTargetContext
+
+        :param sid: The unique string that we created to identify the Target resource to update.
+
+        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
+        """
+        return ConnectionPolicyTargetContext(
+            self._version,
+            connection_policy_sid=self._solution["connection_policy_sid"],
+            sid=sid,
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Voice.V1.ConnectionPolicyTargetList>"
+
+
+class ConnectionPolicyTargetPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of ConnectionPolicyTargetInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution["connection_policy_sid"],
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Voice.V1.ConnectionPolicyTargetPage>"

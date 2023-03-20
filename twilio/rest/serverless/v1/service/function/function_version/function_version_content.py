@@ -20,68 +20,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class FunctionVersionContentList(ListResource):
-    def __init__(self, version: Version, service_sid: str, function_sid: str, sid: str):
-        """
-        Initialize the FunctionVersionContentList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Function Version content from.
-        :param function_sid: The SID of the Function that is the parent of the Function Version content to fetch.
-        :param sid: The SID of the Function Version content to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "function_sid": function_sid,
-            "sid": sid,
-        }
-
-    def get(self):
-        """
-        Constructs a FunctionVersionContentContext
-
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
-        """
-        return FunctionVersionContentContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            function_sid=self._solution["function_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __call__(self):
-        """
-        Constructs a FunctionVersionContentContext
-
-
-        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
-        """
-        return FunctionVersionContentContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            function_sid=self._solution["function_sid"],
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Serverless.V1.FunctionVersionContentList>"
-
-
 class FunctionVersionContentInstance(InstanceResource):
     def __init__(self, version, payload, service_sid: str, function_sid: str, sid: str):
         """
@@ -285,3 +223,65 @@ class FunctionVersionContentContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.FunctionVersionContentContext {}>".format(context)
+
+
+class FunctionVersionContentList(ListResource):
+    def __init__(self, version: Version, service_sid: str, function_sid: str, sid: str):
+        """
+        Initialize the FunctionVersionContentList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Function Version content from.
+        :param function_sid: The SID of the Function that is the parent of the Function Version content to fetch.
+        :param sid: The SID of the Function Version content to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+            "function_sid": function_sid,
+            "sid": sid,
+        }
+
+    def get(self):
+        """
+        Constructs a FunctionVersionContentContext
+
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
+        """
+        return FunctionVersionContentContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            function_sid=self._solution["function_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __call__(self):
+        """
+        Constructs a FunctionVersionContentContext
+
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext
+        """
+        return FunctionVersionContentContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            function_sid=self._solution["function_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Serverless.V1.FunctionVersionContentList>"

@@ -21,50 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class PhoneNumberList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the PhoneNumberList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberList
-        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberList
-        """
-        super().__init__(version)
-
-    def get(self, phone_number):
-        """
-        Constructs a PhoneNumberContext
-
-        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
-
-        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
-        """
-        return PhoneNumberContext(self._version, phone_number=phone_number)
-
-    def __call__(self, phone_number):
-        """
-        Constructs a PhoneNumberContext
-
-        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
-
-        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
-        """
-        return PhoneNumberContext(self._version, phone_number=phone_number)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Lookups.V2.PhoneNumberList>"
-
-
 class PhoneNumberInstance(InstanceResource):
     class ValidationError(object):
         TOO_SHORT = "TOO_SHORT"
@@ -501,3 +457,47 @@ class PhoneNumberContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Lookups.V2.PhoneNumberContext {}>".format(context)
+
+
+class PhoneNumberList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the PhoneNumberList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberList
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberList
+        """
+        super().__init__(version)
+
+    def get(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+
+        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
+
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
+
+    def __call__(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+
+        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
+
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Lookups.V2.PhoneNumberList>"

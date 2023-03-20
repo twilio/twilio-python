@@ -14,57 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class DomainConfigList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the DomainConfigList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigList
-        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
-        """
-        super().__init__(version)
-
-    def get(self, domain_sid):
-        """
-        Constructs a DomainConfigContext
-
-        :param domain_sid: Unique string used to identify the domain that this config should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
-        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
-        """
-        return DomainConfigContext(self._version, domain_sid=domain_sid)
-
-    def __call__(self, domain_sid):
-        """
-        Constructs a DomainConfigContext
-
-        :param domain_sid: Unique string used to identify the domain that this config should be associated with.
-
-        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
-        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
-        """
-        return DomainConfigContext(self._version, domain_sid=domain_sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Messaging.V1.DomainConfigList>"
 
 
 class DomainConfigInstance(InstanceResource):
@@ -402,3 +356,47 @@ class DomainConfigContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.DomainConfigContext {}>".format(context)
+
+
+class DomainConfigList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the DomainConfigList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigList
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
+        """
+        super().__init__(version)
+
+    def get(self, domain_sid):
+        """
+        Constructs a DomainConfigContext
+
+        :param domain_sid: Unique string used to identify the domain that this config should be associated with.
+
+        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        """
+        return DomainConfigContext(self._version, domain_sid=domain_sid)
+
+    def __call__(self, domain_sid):
+        """
+        Constructs a DomainConfigContext
+
+        :param domain_sid: Unique string used to identify the domain that this config should be associated with.
+
+        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        """
+        return DomainConfigContext(self._version, domain_sid=domain_sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Messaging.V1.DomainConfigList>"

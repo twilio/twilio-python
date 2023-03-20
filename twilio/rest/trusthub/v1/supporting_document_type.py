@@ -22,6 +22,186 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class SupportingDocumentTypeInstance(InstanceResource):
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the SupportingDocumentTypeInstance
+
+        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "machine_name": payload.get("machine_name"),
+            "fields": payload.get("fields"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[SupportingDocumentTypeContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: SupportingDocumentTypeContext for this SupportingDocumentTypeInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
+        """
+        if self._context is None:
+            self._context = SupportingDocumentTypeContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A human-readable description of the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def machine_name(self):
+        """
+        :returns: The machine-readable description of the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties["machine_name"]
+
+    @property
+    def fields(self):
+        """
+        :returns: The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
+        :rtype: list[object]
+        """
+        return self._properties["fields"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the Supporting Document Type resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the SupportingDocumentTypeInstance
+
+
+        :returns: The fetched SupportingDocumentTypeInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SupportingDocumentTypeInstance
+
+
+        :returns: The fetched SupportingDocumentTypeInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.SupportingDocumentTypeInstance {}>".format(context)
+
+
+class SupportingDocumentTypeContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SupportingDocumentTypeContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+
+        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/SupportingDocumentTypes/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the SupportingDocumentTypeInstance
+
+
+        :returns: The fetched SupportingDocumentTypeInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SupportingDocumentTypeInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the SupportingDocumentTypeInstance
+
+
+        :returns: The fetched SupportingDocumentTypeInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return SupportingDocumentTypeInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.SupportingDocumentTypeContext {}>".format(context)
+
+
 class SupportingDocumentTypeList(ListResource):
     def __init__(self, version: Version):
         """
@@ -255,183 +435,3 @@ class SupportingDocumentTypePage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Trusthub.V1.SupportingDocumentTypePage>"
-
-
-class SupportingDocumentTypeInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the SupportingDocumentTypeInstance
-
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "machine_name": payload.get("machine_name"),
-            "fields": payload.get("fields"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[SupportingDocumentTypeContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: SupportingDocumentTypeContext for this SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
-        """
-        if self._context is None:
-            self._context = SupportingDocumentTypeContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that identifies the Supporting Document Type resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A human-readable description of the Supporting Document Type resource.
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def machine_name(self):
-        """
-        :returns: The machine-readable description of the Supporting Document Type resource.
-        :rtype: str
-        """
-        return self._properties["machine_name"]
-
-    @property
-    def fields(self):
-        """
-        :returns: The required information for creating a Supporting Document. The required fields will change as regulatory needs change and will differ for businesses and individuals.
-        :rtype: list[object]
-        """
-        return self._properties["fields"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the Supporting Document Type resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the SupportingDocumentTypeInstance
-
-
-        :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SupportingDocumentTypeInstance
-
-
-        :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.SupportingDocumentTypeInstance {}>".format(context)
-
-
-class SupportingDocumentTypeContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SupportingDocumentTypeContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the Supporting Document Type resource.
-
-        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/SupportingDocumentTypes/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the SupportingDocumentTypeInstance
-
-
-        :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SupportingDocumentTypeInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the SupportingDocumentTypeInstance
-
-
-        :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return SupportingDocumentTypeInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.SupportingDocumentTypeContext {}>".format(context)

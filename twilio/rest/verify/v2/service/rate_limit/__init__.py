@@ -14,314 +14,13 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.verify.v2.service.rate_limit.bucket import BucketList
-
-
-class RateLimitList(ListResource):
-    def __init__(self, version: Version, service_sid: str):
-        """
-        Initialize the RateLimitList
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitList
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/RateLimits".format(**self._solution)
-
-    def create(self, unique_name, description=values.unset):
-        """
-        Create the RateLimitInstance
-
-        :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
-        :param str description: Description of this Rate Limit
-
-        :returns: The created RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "Description": description,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return RateLimitInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(self, unique_name, description=values.unset):
-        """
-        Asynchronously create the RateLimitInstance
-
-        :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
-        :param str description: Description of this Rate Limit
-
-        :returns: The created RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "Description": description,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return RateLimitInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams RateLimitInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams RateLimitInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists RateLimitInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists RateLimitInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of RateLimitInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return RateLimitPage(self._version, response, self._solution)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of RateLimitInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return RateLimitPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of RateLimitInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return RateLimitPage(self._version, response, self._solution)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of RateLimitInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RateLimitPage(self._version, response, self._solution)
-
-    def get(self, sid):
-        """
-        Constructs a RateLimitContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
-        """
-        return RateLimitContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a RateLimitContext
-
-        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
-        """
-        return RateLimitContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Verify.V2.RateLimitList>"
-
-
-class RateLimitPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of RateLimitInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
-        """
-        return RateLimitInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Verify.V2.RateLimitPage>"
 
 
 class RateLimitInstance(InstanceResource):
@@ -700,3 +399,303 @@ class RateLimitContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Verify.V2.RateLimitContext {}>".format(context)
+
+
+class RateLimitList(ListResource):
+    def __init__(self, version: Version, service_sid: str):
+        """
+        Initialize the RateLimitList
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitList
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+        }
+        self._uri = "/Services/{service_sid}/RateLimits".format(**self._solution)
+
+    def create(self, unique_name, description=values.unset):
+        """
+        Create the RateLimitInstance
+
+        :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
+        :param str description: Description of this Rate Limit
+
+        :returns: The created RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "Description": description,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return RateLimitInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    async def create_async(self, unique_name, description=values.unset):
+        """
+        Asynchronously create the RateLimitInstance
+
+        :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
+        :param str description: Description of this Rate Limit
+
+        :returns: The created RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "Description": description,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return RateLimitInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams RateLimitInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams RateLimitInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists RateLimitInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists RateLimitInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of RateLimitInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return RateLimitPage(self._version, response, self._solution)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of RateLimitInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return RateLimitPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of RateLimitInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return RateLimitPage(self._version, response, self._solution)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of RateLimitInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return RateLimitPage(self._version, response, self._solution)
+
+    def get(self, sid):
+        """
+        Constructs a RateLimitContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        """
+        return RateLimitContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a RateLimitContext
+
+        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        """
+        return RateLimitContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Verify.V2.RateLimitList>"
+
+
+class RateLimitPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of RateLimitInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        return RateLimitInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Verify.V2.RateLimitPage>"

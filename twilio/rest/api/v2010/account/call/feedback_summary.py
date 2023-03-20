@@ -14,150 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class FeedbackSummaryList(ListResource):
-    def __init__(self, version: Version, account_sid: str):
-        """
-        Initialize the FeedbackSummaryList
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Calls/FeedbackSummary.json".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        start_date,
-        end_date,
-        include_subaccounts=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-    ):
-        """
-        Create the FeedbackSummaryInstance
-
-        :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param bool include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
-        :param str status_callback: The URL that we will request when the feedback summary is complete.
-        :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
-
-        :returns: The created FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
-        """
-        data = values.of(
-            {
-                "StartDate": serialize.iso8601_date(start_date),
-                "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return FeedbackSummaryInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(
-        self,
-        start_date,
-        end_date,
-        include_subaccounts=values.unset,
-        status_callback=values.unset,
-        status_callback_method=values.unset,
-    ):
-        """
-        Asynchronously create the FeedbackSummaryInstance
-
-        :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
-        :param bool include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
-        :param str status_callback: The URL that we will request when the feedback summary is complete.
-        :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
-
-        :returns: The created FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
-        """
-        data = values.of(
-            {
-                "StartDate": serialize.iso8601_date(start_date),
-                "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return FeedbackSummaryInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def get(self, sid):
-        """
-        Constructs a FeedbackSummaryContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
-        """
-        return FeedbackSummaryContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __call__(self, sid):
-        """
-        Constructs a FeedbackSummaryContext
-
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
-        """
-        return FeedbackSummaryContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Api.V2010.FeedbackSummaryList>"
 
 
 class FeedbackSummaryInstance(InstanceResource):
@@ -487,3 +348,140 @@ class FeedbackSummaryContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Api.V2010.FeedbackSummaryContext {}>".format(context)
+
+
+class FeedbackSummaryList(ListResource):
+    def __init__(self, version: Version, account_sid: str):
+        """
+        Initialize the FeedbackSummaryList
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryList
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Calls/FeedbackSummary.json".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        start_date,
+        end_date,
+        include_subaccounts=values.unset,
+        status_callback=values.unset,
+        status_callback_method=values.unset,
+    ):
+        """
+        Create the FeedbackSummaryInstance
+
+        :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param bool include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
+        :param str status_callback: The URL that we will request when the feedback summary is complete.
+        :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
+
+        :returns: The created FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
+        """
+        data = values.of(
+            {
+                "StartDate": serialize.iso8601_date(start_date),
+                "EndDate": serialize.iso8601_date(end_date),
+                "IncludeSubaccounts": include_subaccounts,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FeedbackSummaryInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        start_date,
+        end_date,
+        include_subaccounts=values.unset,
+        status_callback=values.unset,
+        status_callback_method=values.unset,
+    ):
+        """
+        Asynchronously create the FeedbackSummaryInstance
+
+        :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
+        :param bool include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
+        :param str status_callback: The URL that we will request when the feedback summary is complete.
+        :param str status_callback_method: The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
+
+        :returns: The created FeedbackSummaryInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
+        """
+        data = values.of(
+            {
+                "StartDate": serialize.iso8601_date(start_date),
+                "EndDate": serialize.iso8601_date(end_date),
+                "IncludeSubaccounts": include_subaccounts,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FeedbackSummaryInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def get(self, sid):
+        """
+        Constructs a FeedbackSummaryContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
+        """
+        return FeedbackSummaryContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __call__(self, sid):
+        """
+        Constructs a FeedbackSummaryContext
+
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryContext
+        """
+        return FeedbackSummaryContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Api.V2010.FeedbackSummaryList>"

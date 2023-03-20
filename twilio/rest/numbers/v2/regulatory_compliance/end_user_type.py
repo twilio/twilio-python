@@ -22,6 +22,186 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 
 
+class EndUserTypeInstance(InstanceResource):
+    def __init__(self, version, payload, sid: Optional[str] = None):
+        """
+        Initialize the EndUserTypeInstance
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
+        """
+        super().__init__(version)
+
+        self._properties = {
+            "sid": payload.get("sid"),
+            "friendly_name": payload.get("friendly_name"),
+            "machine_name": payload.get("machine_name"),
+            "fields": payload.get("fields"),
+            "url": payload.get("url"),
+        }
+
+        self._solution = {
+            "sid": sid or self._properties["sid"],
+        }
+        self._context: Optional[EndUserTypeContext] = None
+
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: EndUserTypeContext for this EndUserTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
+        """
+        if self._context is None:
+            self._context = EndUserTypeContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
+        return self._context
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies the End-User Type resource.
+        :rtype: str
+        """
+        return self._properties["sid"]
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A human-readable description that is assigned to describe the End-User Type resource. Examples can include first name, last name, email, business name, etc
+        :rtype: str
+        """
+        return self._properties["friendly_name"]
+
+    @property
+    def machine_name(self):
+        """
+        :returns: A machine-readable description of the End-User Type resource. Examples can include first_name, last_name, email, business_name, etc.
+        :rtype: str
+        """
+        return self._properties["machine_name"]
+
+    @property
+    def fields(self):
+        """
+        :returns: The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
+        :rtype: list[object]
+        """
+        return self._properties["fields"]
+
+    @property
+    def url(self):
+        """
+        :returns: The absolute URL of the End-User Type resource.
+        :rtype: str
+        """
+        return self._properties["url"]
+
+    def fetch(self):
+        """
+        Fetch the EndUserTypeInstance
+
+
+        :returns: The fetched EndUserTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EndUserTypeInstance
+
+
+        :returns: The fetched EndUserTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.EndUserTypeInstance {}>".format(context)
+
+
+class EndUserTypeContext(InstanceContext):
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the EndUserTypeContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that identifies the End-User Type resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/RegulatoryCompliance/EndUserTypes/{sid}".format(**self._solution)
+
+    def fetch(self):
+        """
+        Fetch the EndUserTypeInstance
+
+
+        :returns: The fetched EndUserTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EndUserTypeInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    async def fetch_async(self):
+        """
+        Asynchronous coroutine to fetch the EndUserTypeInstance
+
+
+        :returns: The fetched EndUserTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return EndUserTypeInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.EndUserTypeContext {}>".format(context)
+
+
 class EndUserTypeList(ListResource):
     def __init__(self, version: Version):
         """
@@ -255,183 +435,3 @@ class EndUserTypePage(Page):
         :returns: Machine friendly representation
         """
         return "<Twilio.Numbers.V2.EndUserTypePage>"
-
-
-class EndUserTypeInstance(InstanceResource):
-    def __init__(self, version, payload, sid: Optional[str] = None):
-        """
-        Initialize the EndUserTypeInstance
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
-        """
-        super().__init__(version)
-
-        self._properties = {
-            "sid": payload.get("sid"),
-            "friendly_name": payload.get("friendly_name"),
-            "machine_name": payload.get("machine_name"),
-            "fields": payload.get("fields"),
-            "url": payload.get("url"),
-        }
-
-        self._solution = {
-            "sid": sid or self._properties["sid"],
-        }
-        self._context: Optional[EndUserTypeContext] = None
-
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: EndUserTypeContext for this EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
-        """
-        if self._context is None:
-            self._context = EndUserTypeContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
-        return self._context
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that identifies the End-User Type resource.
-        :rtype: str
-        """
-        return self._properties["sid"]
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A human-readable description that is assigned to describe the End-User Type resource. Examples can include first name, last name, email, business name, etc
-        :rtype: str
-        """
-        return self._properties["friendly_name"]
-
-    @property
-    def machine_name(self):
-        """
-        :returns: A machine-readable description of the End-User Type resource. Examples can include first_name, last_name, email, business_name, etc.
-        :rtype: str
-        """
-        return self._properties["machine_name"]
-
-    @property
-    def fields(self):
-        """
-        :returns: The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
-        :rtype: list[object]
-        """
-        return self._properties["fields"]
-
-    @property
-    def url(self):
-        """
-        :returns: The absolute URL of the End-User Type resource.
-        :rtype: str
-        """
-        return self._properties["url"]
-
-    def fetch(self):
-        """
-        Fetch the EndUserTypeInstance
-
-
-        :returns: The fetched EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
-        """
-        return self._proxy.fetch()
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EndUserTypeInstance
-
-
-        :returns: The fetched EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
-        """
-        return await self._proxy.fetch_async()
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.EndUserTypeInstance {}>".format(context)
-
-
-class EndUserTypeContext(InstanceContext):
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the EndUserTypeContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the End-User Type resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
-        self._uri = "/RegulatoryCompliance/EndUserTypes/{sid}".format(**self._solution)
-
-    def fetch(self):
-        """
-        Fetch the EndUserTypeInstance
-
-
-        :returns: The fetched EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
-        """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EndUserTypeInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    async def fetch_async(self):
-        """
-        Asynchronous coroutine to fetch the EndUserTypeInstance
-
-
-        :returns: The fetched EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
-        """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
-
-        return EndUserTypeInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
-        )
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.EndUserTypeContext {}>".format(context)

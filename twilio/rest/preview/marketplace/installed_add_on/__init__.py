@@ -14,9 +14,7 @@ r"""
 
 
 from typing import Optional
-from twilio.base import deserialize
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,311 +23,6 @@ from twilio.base.page import Page
 from twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension import (
     InstalledAddOnExtensionList,
 )
-
-
-class InstalledAddOnList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the InstalledAddOnList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
-        """
-        super().__init__(version)
-
-        self._uri = "/InstalledAddOns"
-
-    def create(
-        self,
-        available_add_on_sid,
-        accept_terms_of_service,
-        configuration=values.unset,
-        unique_name=values.unset,
-    ):
-        """
-        Create the InstalledAddOnInstance
-
-        :param str available_add_on_sid: The SID of the AvaliableAddOn to install.
-        :param bool accept_terms_of_service: Whether the Terms of Service were accepted.
-        :param object configuration: The JSON object that represents the configuration of the new Add-on being installed.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
-
-        :returns: The created InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        data = values.of(
-            {
-                "AvailableAddOnSid": available_add_on_sid,
-                "AcceptTermsOfService": accept_terms_of_service,
-                "Configuration": serialize.object(configuration),
-                "UniqueName": unique_name,
-            }
-        )
-
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return InstalledAddOnInstance(self._version, payload)
-
-    async def create_async(
-        self,
-        available_add_on_sid,
-        accept_terms_of_service,
-        configuration=values.unset,
-        unique_name=values.unset,
-    ):
-        """
-        Asynchronously create the InstalledAddOnInstance
-
-        :param str available_add_on_sid: The SID of the AvaliableAddOn to install.
-        :param bool accept_terms_of_service: Whether the Terms of Service were accepted.
-        :param object configuration: The JSON object that represents the configuration of the new Add-on being installed.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
-
-        :returns: The created InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        data = values.of(
-            {
-                "AvailableAddOnSid": available_add_on_sid,
-                "AcceptTermsOfService": accept_terms_of_service,
-                "Configuration": serialize.object(configuration),
-                "UniqueName": unique_name,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return InstalledAddOnInstance(self._version, payload)
-
-    def stream(self, limit=None, page_size=None):
-        """
-        Streams InstalledAddOnInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
-
-        return self._version.stream(page, limits["limit"])
-
-    async def stream_async(self, limit=None, page_size=None):
-        """
-        Asynchronously streams InstalledAddOnInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
-
-        return await self._version.stream_async(page, limits["limit"])
-
-    def list(self, limit=None, page_size=None):
-        """
-        Lists InstalledAddOnInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
-        """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    async def list_async(self, limit=None, page_size=None):
-        """
-        Asynchronously lists InstalledAddOnInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
-        """
-        return list(
-            await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
-
-    def page(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Retrieve a single page of InstalledAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return InstalledAddOnPage(self._version, response)
-
-    async def page_async(
-        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
-    ):
-        """
-        Asynchronously retrieve a single page of InstalledAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
-        """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
-
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return InstalledAddOnPage(self._version, response)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of InstalledAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
-        """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return InstalledAddOnPage(self._version, response)
-
-    async def get_page_async(self, target_url):
-        """
-        Asynchronously retrieve a specific page of InstalledAddOnInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
-        """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InstalledAddOnPage(self._version, response)
-
-    def get(self, sid):
-        """
-        Constructs a InstalledAddOnContext
-
-        :param sid: The SID of the InstalledAddOn resource to update.
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
-        """
-        return InstalledAddOnContext(self._version, sid=sid)
-
-    def __call__(self, sid):
-        """
-        Constructs a InstalledAddOnContext
-
-        :param sid: The SID of the InstalledAddOn resource to update.
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
-        """
-        return InstalledAddOnContext(self._version, sid=sid)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Preview.Marketplace.InstalledAddOnList>"
-
-
-class InstalledAddOnPage(Page):
-    def get_instance(self, payload):
-        """
-        Build an instance of InstalledAddOnInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        return InstalledAddOnInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-        return "<Twilio.Preview.Marketplace.InstalledAddOnPage>"
 
 
 class InstalledAddOnInstance(InstanceResource):
@@ -708,3 +401,308 @@ class InstalledAddOnContext(InstanceContext):
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
         return "<Twilio.Preview.Marketplace.InstalledAddOnContext {}>".format(context)
+
+
+class InstalledAddOnList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the InstalledAddOnList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        """
+        super().__init__(version)
+
+        self._uri = "/InstalledAddOns"
+
+    def create(
+        self,
+        available_add_on_sid,
+        accept_terms_of_service,
+        configuration=values.unset,
+        unique_name=values.unset,
+    ):
+        """
+        Create the InstalledAddOnInstance
+
+        :param str available_add_on_sid: The SID of the AvaliableAddOn to install.
+        :param bool accept_terms_of_service: Whether the Terms of Service were accepted.
+        :param object configuration: The JSON object that represents the configuration of the new Add-on being installed.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
+
+        :returns: The created InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        """
+        data = values.of(
+            {
+                "AvailableAddOnSid": available_add_on_sid,
+                "AcceptTermsOfService": accept_terms_of_service,
+                "Configuration": serialize.object(configuration),
+                "UniqueName": unique_name,
+            }
+        )
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return InstalledAddOnInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        available_add_on_sid,
+        accept_terms_of_service,
+        configuration=values.unset,
+        unique_name=values.unset,
+    ):
+        """
+        Asynchronously create the InstalledAddOnInstance
+
+        :param str available_add_on_sid: The SID of the AvaliableAddOn to install.
+        :param bool accept_terms_of_service: Whether the Terms of Service were accepted.
+        :param object configuration: The JSON object that represents the configuration of the new Add-on being installed.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
+
+        :returns: The created InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        """
+        data = values.of(
+            {
+                "AvailableAddOnSid": available_add_on_sid,
+                "AcceptTermsOfService": accept_terms_of_service,
+                "Configuration": serialize.object(configuration),
+                "UniqueName": unique_name,
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return InstalledAddOnInstance(self._version, payload)
+
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams InstalledAddOnInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = self.page(page_size=limits["page_size"])
+
+        return self._version.stream(page, limits["limit"])
+
+    async def stream_async(self, limit=None, page_size=None):
+        """
+        Asynchronously streams InstalledAddOnInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page = await self.page_async(page_size=limits["page_size"])
+
+        return await self._version.stream_async(page, limits["limit"])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists InstalledAddOnInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
+        """
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    async def list_async(self, limit=None, page_size=None):
+        """
+        Asynchronously lists InstalledAddOnInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance]
+        """
+        return list(
+            await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
+
+    def page(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Retrieve a single page of InstalledAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return InstalledAddOnPage(self._version, response)
+
+    async def page_async(
+        self, page_token=values.unset, page_number=values.unset, page_size=values.unset
+    ):
+        """
+        Asynchronously retrieve a single page of InstalledAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return InstalledAddOnPage(self._version, response)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of InstalledAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
+        """
+        response = self._version.domain.twilio.request("GET", target_url)
+        return InstalledAddOnPage(self._version, response)
+
+    async def get_page_async(self, target_url):
+        """
+        Asynchronously retrieve a specific page of InstalledAddOnInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
+        """
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return InstalledAddOnPage(self._version, response)
+
+    def get(self, sid):
+        """
+        Constructs a InstalledAddOnContext
+
+        :param sid: The SID of the InstalledAddOn resource to update.
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        """
+        return InstalledAddOnContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InstalledAddOnContext
+
+        :param sid: The SID of the InstalledAddOn resource to update.
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        """
+        return InstalledAddOnContext(self._version, sid=sid)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Preview.Marketplace.InstalledAddOnList>"
+
+
+class InstalledAddOnPage(Page):
+    def get_instance(self, payload):
+        """
+        Build an instance of InstalledAddOnInstance
+
+        :param dict payload: Payload response from the API
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        """
+        return InstalledAddOnInstance(self._version, payload)
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.Preview.Marketplace.InstalledAddOnPage>"

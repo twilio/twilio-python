@@ -14,54 +14,11 @@ r"""
 
 
 from typing import Optional
-from twilio.base import serialize
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
-class WebhookList(ListResource):
-    def __init__(self, version: Version):
-        """
-        Initialize the WebhookList
-
-        :param Version version: Version that contains the resource
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
-        """
-        super().__init__(version)
-
-    def get(self):
-        """
-        Constructs a WebhookContext
-
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        """
-        return WebhookContext(self._version)
-
-    def __call__(self):
-        """
-        Constructs a WebhookContext
-
-
-        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
-        """
-        return WebhookContext(self._version)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return "<Twilio.Conversations.V1.WebhookList>"
 
 
 class WebhookInstance(InstanceResource):
@@ -390,3 +347,45 @@ class WebhookContext(InstanceContext):
         """
 
         return "<Twilio.Conversations.V1.WebhookContext>"
+
+
+class WebhookList(ListResource):
+    def __init__(self, version: Version):
+        """
+        Initialize the WebhookList
+
+        :param Version version: Version that contains the resource
+
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        """
+        super().__init__(version)
+
+    def get(self):
+        """
+        Constructs a WebhookContext
+
+
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        """
+        return WebhookContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a WebhookContext
+
+
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        """
+        return WebhookContext(self._version)
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        return "<Twilio.Conversations.V1.WebhookList>"
