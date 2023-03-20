@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -97,11 +98,11 @@ class TaskStatisticsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
         }
+        self._context: Optional[TaskStatisticsContext] = None
 
     @property
     def _proxy(self):

@@ -401,11 +401,11 @@ class ParticipantInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ParticipantContext] = None
 
     @property
     def _proxy(self):
@@ -638,10 +638,10 @@ class ParticipantContext(InstanceContext):
         }
         self._uri = "/Rooms/{room_sid}/Participants/{sid}".format(**self._solution)
 
-        self._anonymize = None
-        self._published_tracks = None
-        self._subscribe_rules = None
-        self._subscribed_tracks = None
+        self._anonymize: Optional[AnonymizeList] = None
+        self._published_tracks: Optional[PublishedTrackList] = None
+        self._subscribe_rules: Optional[SubscribeRulesList] = None
+        self._subscribed_tracks: Optional[SubscribedTrackList] = None
 
     def fetch(self):
         """

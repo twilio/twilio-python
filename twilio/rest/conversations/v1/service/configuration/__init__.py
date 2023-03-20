@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -43,8 +44,8 @@ class ConfigurationList(ListResource):
             "chat_service_sid": chat_service_sid,
         }
 
-        self._notifications = None
-        self._webhooks = None
+        self._notifications: Optional[NotificationList] = None
+        self._webhooks: Optional[WebhookList] = None
 
     @property
     def notifications(self):
@@ -134,10 +135,10 @@ class ConfigurationInstance(InstanceResource):
             "reachability_enabled": payload.get("reachability_enabled"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
         }
+        self._context: Optional[ConfigurationContext] = None
 
     @property
     def _proxy(self):

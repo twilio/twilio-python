@@ -455,12 +455,12 @@ class SyncMapItemInstance(InstanceResource):
             "created_by": payload.get("created_by"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "map_sid": map_sid,
             "key": key or self._properties["key"],
         }
+        self._context: Optional[SyncMapItemContext] = None
 
     @property
     def _proxy(self):

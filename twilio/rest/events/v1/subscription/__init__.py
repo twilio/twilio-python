@@ -37,9 +37,7 @@ class SubscriptionList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Subscriptions".format(**self._solution)
+        self._uri = "/Subscriptions"
 
     def create(self, description, sink_sid, types):
         """
@@ -220,7 +218,7 @@ class SubscriptionList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SubscriptionPage(self._version, response, self._solution)
+        return SubscriptionPage(self._version, response)
 
     async def page_async(
         self,
@@ -253,7 +251,7 @@ class SubscriptionList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SubscriptionPage(self._version, response, self._solution)
+        return SubscriptionPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -266,7 +264,7 @@ class SubscriptionList(ListResource):
         :rtype: twilio.rest.events.v1.subscription.SubscriptionPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SubscriptionPage(self._version, response, self._solution)
+        return SubscriptionPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -279,7 +277,7 @@ class SubscriptionList(ListResource):
         :rtype: twilio.rest.events.v1.subscription.SubscriptionPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SubscriptionPage(self._version, response, self._solution)
+        return SubscriptionPage(self._version, response)
 
     def get(self, sid):
         """
@@ -355,10 +353,10 @@ class SubscriptionInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SubscriptionContext] = None
 
     @property
     def _proxy(self):
@@ -550,7 +548,7 @@ class SubscriptionContext(InstanceContext):
         }
         self._uri = "/Subscriptions/{sid}".format(**self._solution)
 
-        self._subscribed_events = None
+        self._subscribed_events: Optional[SubscribedEventList] = None
 
     def delete(self):
         """

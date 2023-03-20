@@ -400,12 +400,12 @@ class ParticipantInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "session_sid": session_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ParticipantContext] = None
 
     @property
     def _proxy(self):
@@ -617,7 +617,7 @@ class ParticipantContext(InstanceContext):
             )
         )
 
-        self._message_interactions = None
+        self._message_interactions: Optional[MessageInteractionList] = None
 
     def delete(self):
         """

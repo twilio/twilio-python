@@ -286,11 +286,11 @@ class SigningKeyInstance(InstanceResource):
             "date_updated": deserialize.rfc2822_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SigningKeyContext] = None
 
     @property
     def _proxy(self):

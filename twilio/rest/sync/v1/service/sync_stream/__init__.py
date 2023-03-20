@@ -347,11 +347,11 @@ class SyncStreamInstance(InstanceResource):
             "created_by": payload.get("created_by"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SyncStreamContext] = None
 
     @property
     def _proxy(self):
@@ -558,7 +558,7 @@ class SyncStreamContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Streams/{sid}".format(**self._solution)
 
-        self._stream_messages = None
+        self._stream_messages: Optional[StreamMessageList] = None
 
     def delete(self):
         """

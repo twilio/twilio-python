@@ -340,11 +340,11 @@ class ItemAssignmentInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "bundle_sid": bundle_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ItemAssignmentContext] = None
 
     @property
     def _proxy(self):

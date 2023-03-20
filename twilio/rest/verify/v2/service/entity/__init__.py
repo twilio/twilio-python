@@ -345,11 +345,11 @@ class EntityInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "identity": identity or self._properties["identity"],
         }
+        self._context: Optional[EntityContext] = None
 
     @property
     def _proxy(self):
@@ -536,9 +536,9 @@ class EntityContext(InstanceContext):
             **self._solution
         )
 
-        self._challenges = None
-        self._factors = None
-        self._new_factors = None
+        self._challenges: Optional[ChallengeList] = None
+        self._factors: Optional[FactorList] = None
+        self._new_factors: Optional[NewFactorList] = None
 
     def delete(self):
         """

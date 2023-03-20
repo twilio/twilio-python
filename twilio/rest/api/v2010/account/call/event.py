@@ -263,7 +263,6 @@ class EventInstance(InstanceResource):
             "response": payload.get("response"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.video.v1.composition import CompositionList
@@ -30,12 +31,12 @@ class V1(Version):
         :param domain: The Twilio.video domain
         """
         super().__init__(domain, "v1")
-        self._compositions = None
-        self._composition_hooks = None
-        self._composition_settings = None
-        self._recordings = None
-        self._recording_settings = None
-        self._rooms = None
+        self._compositions: Optional[CompositionList] = None
+        self._composition_hooks: Optional[CompositionHookList] = None
+        self._composition_settings: Optional[CompositionSettingsList] = None
+        self._recordings: Optional[RecordingList] = None
+        self._recording_settings: Optional[RecordingSettingsList] = None
+        self._rooms: Optional[RoomList] = None
 
     @property
     def compositions(self) -> CompositionList:

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,9 +31,6 @@ class OpenidDiscoveryList(ListResource):
         :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -94,8 +92,8 @@ class OpenidDiscoveryInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[OpenidDiscoveryContext] = None
 
     @property
     def _proxy(self):
@@ -259,9 +257,7 @@ class OpenidDiscoveryContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/.well-known/openid-configuration".format(**self._solution)
+        self._uri = "/.well-known/openid-configuration"
 
     def fetch(self):
         """
@@ -308,5 +304,5 @@ class OpenidDiscoveryContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.OpenidDiscoveryContext {}>".format(context)
+
+        return "<Twilio.Oauth.V1.OpenidDiscoveryContext>"

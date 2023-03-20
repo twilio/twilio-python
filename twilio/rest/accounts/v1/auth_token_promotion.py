@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -32,9 +33,6 @@ class AuthTokenPromotionList(ListResource):
         :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -84,8 +82,8 @@ class AuthTokenPromotionInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[AuthTokenPromotionContext] = None
 
     @property
     def _proxy(self):
@@ -185,9 +183,7 @@ class AuthTokenPromotionContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/AuthTokens/Promote".format(**self._solution)
+        self._uri = "/AuthTokens/Promote"
 
     def update(self):
         """
@@ -232,5 +228,5 @@ class AuthTokenPromotionContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Accounts.V1.AuthTokenPromotionContext {}>".format(context)
+
+        return "<Twilio.Accounts.V1.AuthTokenPromotionContext>"

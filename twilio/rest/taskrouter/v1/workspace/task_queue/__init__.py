@@ -54,7 +54,7 @@ class TaskQueueList(ListResource):
         }
         self._uri = "/Workspaces/{workspace_sid}/TaskQueues".format(**self._solution)
 
-        self._statistics = None
+        self._statistics: Optional[TaskQueuesStatisticsList] = None
 
     def create(
         self,
@@ -515,11 +515,11 @@ class TaskQueueInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TaskQueueContext] = None
 
     @property
     def _proxy(self):
@@ -824,9 +824,9 @@ class TaskQueueContext(InstanceContext):
             **self._solution
         )
 
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
+        self._cumulative_statistics: Optional[TaskQueueCumulativeStatisticsList] = None
+        self._real_time_statistics: Optional[TaskQueueRealTimeStatisticsList] = None
+        self._statistics: Optional[TaskQueueStatisticsList] = None
 
     def delete(self):
         """

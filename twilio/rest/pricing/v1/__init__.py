@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.pricing.v1.messaging import MessagingList
@@ -27,9 +28,9 @@ class V1(Version):
         :param domain: The Twilio.pricing domain
         """
         super().__init__(domain, "v1")
-        self._messaging = None
-        self._phone_numbers = None
-        self._voice = None
+        self._messaging: Optional[MessagingList] = None
+        self._phone_numbers: Optional[PhoneNumberList] = None
+        self._voice: Optional[VoiceList] = None
 
     @property
     def messaging(self) -> MessagingList:

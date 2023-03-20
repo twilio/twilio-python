@@ -34,9 +34,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/QM/Categories".format(**self._solution)
+        self._uri = "/Insights/QM/Categories"
 
     def create(self, name, token=values.unset):
         """
@@ -215,9 +213,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return InsightsQuestionnairesCategoryPage(
-            self._version, response, self._solution
-        )
+        return InsightsQuestionnairesCategoryPage(self._version, response)
 
     async def page_async(
         self,
@@ -250,9 +246,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return InsightsQuestionnairesCategoryPage(
-            self._version, response, self._solution
-        )
+        return InsightsQuestionnairesCategoryPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -265,9 +259,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return InsightsQuestionnairesCategoryPage(
-            self._version, response, self._solution
-        )
+        return InsightsQuestionnairesCategoryPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -280,9 +272,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InsightsQuestionnairesCategoryPage(
-            self._version, response, self._solution
-        )
+        return InsightsQuestionnairesCategoryPage(self._version, response)
 
     def get(self, category_id):
         """
@@ -358,10 +348,10 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "category_id": category_id or self._properties["category_id"],
         }
+        self._context: Optional[InsightsQuestionnairesCategoryContext] = None
 
     @property
     def _proxy(self):

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.chat.v3.channel import ChannelList
@@ -25,7 +26,7 @@ class V3(Version):
         :param domain: The Twilio.chat domain
         """
         super().__init__(domain, "v3")
-        self._channels = None
+        self._channels: Optional[ChannelList] = None
 
     @property
     def channels(self) -> ChannelList:

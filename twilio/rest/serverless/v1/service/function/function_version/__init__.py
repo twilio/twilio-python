@@ -319,12 +319,12 @@ class FunctionVersionInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "function_sid": function_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[FunctionVersionContext] = None
 
     @property
     def _proxy(self):
@@ -484,7 +484,7 @@ class FunctionVersionContext(InstanceContext):
             )
         )
 
-        self._function_version_content = None
+        self._function_version_content: Optional[FunctionVersionContentList] = None
 
     def fetch(self):
         """

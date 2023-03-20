@@ -38,9 +38,7 @@ class InteractionList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Interactions".format(**self._solution)
+        self._uri = "/Interactions"
 
     def create(self, channel, routing):
         """
@@ -142,10 +140,10 @@ class InteractionInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[InteractionContext] = None
 
     @property
     def _proxy(self):
@@ -263,7 +261,7 @@ class InteractionContext(InstanceContext):
         }
         self._uri = "/Interactions/{sid}".format(**self._solution)
 
-        self._channels = None
+        self._channels: Optional[InteractionChannelList] = None
 
     def fetch(self):
         """

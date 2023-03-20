@@ -42,9 +42,7 @@ class ServiceList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Services".format(**self._solution)
+        self._uri = "/Services"
 
     def create(
         self,
@@ -301,7 +299,7 @@ class ServiceList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ServicePage(self._version, response, self._solution)
+        return ServicePage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -328,7 +326,7 @@ class ServiceList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return ServicePage(self._version, response, self._solution)
+        return ServicePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -341,7 +339,7 @@ class ServiceList(ListResource):
         :rtype: twilio.rest.messaging.v1.service.ServicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ServicePage(self._version, response, self._solution)
+        return ServicePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -354,7 +352,7 @@ class ServiceList(ListResource):
         :rtype: twilio.rest.messaging.v1.service.ServicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ServicePage(self._version, response, self._solution)
+        return ServicePage(self._version, response)
 
     def get(self, sid):
         """
@@ -452,10 +450,10 @@ class ServiceInstance(InstanceResource):
             ),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ServiceContext] = None
 
     @property
     def _proxy(self):
@@ -899,11 +897,11 @@ class ServiceContext(InstanceContext):
         }
         self._uri = "/Services/{sid}".format(**self._solution)
 
-        self._alpha_senders = None
-        self._phone_numbers = None
-        self._short_codes = None
-        self._us_app_to_person = None
-        self._us_app_to_person_usecases = None
+        self._alpha_senders: Optional[AlphaSenderList] = None
+        self._phone_numbers: Optional[PhoneNumberList] = None
+        self._short_codes: Optional[ShortCodeList] = None
+        self._us_app_to_person: Optional[UsAppToPersonList] = None
+        self._us_app_to_person_usecases: Optional[UsAppToPersonUsecaseList] = None
 
     def delete(self):
         """

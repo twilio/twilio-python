@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.media.v1.media_processor import MediaProcessorList
@@ -27,9 +28,9 @@ class V1(Version):
         :param domain: The Twilio.media domain
         """
         super().__init__(domain, "v1")
-        self._media_processor = None
-        self._media_recording = None
-        self._player_streamer = None
+        self._media_processor: Optional[MediaProcessorList] = None
+        self._media_recording: Optional[MediaRecordingList] = None
+        self._player_streamer: Optional[PlayerStreamerList] = None
 
     @property
     def media_processor(self) -> MediaProcessorList:

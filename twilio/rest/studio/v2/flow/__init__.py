@@ -39,9 +39,7 @@ class FlowList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Flows".format(**self._solution)
+        self._uri = "/Flows"
 
     def create(self, friendly_name, status, definition, commit_message=values.unset):
         """
@@ -216,7 +214,7 @@ class FlowList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return FlowPage(self._version, response, self._solution)
+        return FlowPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -243,7 +241,7 @@ class FlowList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return FlowPage(self._version, response, self._solution)
+        return FlowPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -256,7 +254,7 @@ class FlowList(ListResource):
         :rtype: twilio.rest.studio.v2.flow.FlowPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return FlowPage(self._version, response, self._solution)
+        return FlowPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -269,7 +267,7 @@ class FlowList(ListResource):
         :rtype: twilio.rest.studio.v2.flow.FlowPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return FlowPage(self._version, response, self._solution)
+        return FlowPage(self._version, response)
 
     def get(self, sid):
         """
@@ -356,10 +354,10 @@ class FlowInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[FlowContext] = None
 
     @property
     def _proxy(self):
@@ -647,9 +645,9 @@ class FlowContext(InstanceContext):
         }
         self._uri = "/Flows/{sid}".format(**self._solution)
 
-        self._executions = None
-        self._revisions = None
-        self._test_users = None
+        self._executions: Optional[ExecutionList] = None
+        self._revisions: Optional[FlowRevisionList] = None
+        self._test_users: Optional[FlowTestUserList] = None
 
     def delete(self):
         """

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -85,10 +86,10 @@ class FlowTestUserInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid,
         }
+        self._context: Optional[FlowTestUserContext] = None
 
     @property
     def _proxy(self):

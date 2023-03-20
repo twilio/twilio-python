@@ -336,13 +336,13 @@ class UserConversationInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "user_sid": user_sid,
             "conversation_sid": conversation_sid
             or self._properties["conversation_sid"],
         }
+        self._context: Optional[UserConversationContext] = None
 
     @property
     def _proxy(self):

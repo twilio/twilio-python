@@ -583,11 +583,11 @@ class TaskInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TaskContext] = None
 
     @property
     def _proxy(self):
@@ -924,7 +924,7 @@ class TaskContext(InstanceContext):
         }
         self._uri = "/Workspaces/{workspace_sid}/Tasks/{sid}".format(**self._solution)
 
-        self._reservations = None
+        self._reservations: Optional[ReservationList] = None
 
     def delete(self, if_match=values.unset):
         """

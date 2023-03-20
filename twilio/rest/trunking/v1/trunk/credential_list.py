@@ -339,11 +339,11 @@ class CredentialListInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "trunk_sid": trunk_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CredentialListContext] = None
 
     @property
     def _proxy(self):

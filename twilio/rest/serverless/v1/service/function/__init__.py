@@ -343,11 +343,11 @@ class FunctionInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[FunctionContext] = None
 
     @property
     def _proxy(self):
@@ -538,7 +538,7 @@ class FunctionContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Functions/{sid}".format(**self._solution)
 
-        self._function_versions = None
+        self._function_versions: Optional[FunctionVersionList] = None
 
     def delete(self):
         """

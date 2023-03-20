@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.routes.v2.phone_number import PhoneNumberList
@@ -27,9 +28,9 @@ class V2(Version):
         :param domain: The Twilio.routes domain
         """
         super().__init__(domain, "v2")
-        self._phone_numbers = None
-        self._sip_domains = None
-        self._trunks = None
+        self._phone_numbers: Optional[PhoneNumberList] = None
+        self._sip_domains: Optional[SipDomainList] = None
+        self._trunks: Optional[TrunkList] = None
 
     @property
     def phone_numbers(self) -> PhoneNumberList:

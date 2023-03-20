@@ -341,11 +341,11 @@ class DeviceConfigInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "device_sid": device_sid,
             "key": key or self._properties["key"],
         }
+        self._context: Optional[DeviceConfigContext] = None
 
     @property
     def _proxy(self):

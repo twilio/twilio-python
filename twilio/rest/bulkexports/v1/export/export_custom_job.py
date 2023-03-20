@@ -351,7 +351,6 @@ class ExportCustomJobInstance(InstanceResource):
             "estimated_completion_time": payload.get("estimated_completion_time"),
         }
 
-        self._context = None
         self._solution = {
             "resource_type": resource_type,
         }

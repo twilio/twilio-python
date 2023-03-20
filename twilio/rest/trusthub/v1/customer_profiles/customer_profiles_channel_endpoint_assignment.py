@@ -427,11 +427,11 @@ class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "customer_profile_sid": customer_profile_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CustomerProfilesChannelEndpointAssignmentContext] = None
 
     @property
     def _proxy(self):

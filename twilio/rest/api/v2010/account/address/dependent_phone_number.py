@@ -298,7 +298,6 @@ class DependentPhoneNumberInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "address_sid": address_sid,

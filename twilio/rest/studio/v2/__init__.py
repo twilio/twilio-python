@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.studio.v2.flow import FlowList
@@ -26,8 +27,8 @@ class V2(Version):
         :param domain: The Twilio.studio domain
         """
         super().__init__(domain, "v2")
-        self._flows = None
-        self._flow_validate = None
+        self._flows: Optional[FlowList] = None
+        self._flow_validate: Optional[FlowValidateList] = None
 
     @property
     def flows(self) -> FlowList:

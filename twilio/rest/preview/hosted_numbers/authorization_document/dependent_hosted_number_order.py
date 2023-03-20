@@ -414,7 +414,6 @@ class DependentHostedNumberOrderInstance(InstanceResource):
             "verification_call_sids": payload.get("verification_call_sids"),
         }
 
-        self._context = None
         self._solution = {
             "signing_document_sid": signing_document_sid,
         }

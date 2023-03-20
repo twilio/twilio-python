@@ -438,11 +438,11 @@ class DomainInstance(InstanceResource):
             "emergency_caller_sid": payload.get("emergency_caller_sid"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[DomainContext] = None
 
     @property
     def _proxy(self):
@@ -837,9 +837,11 @@ class DomainContext(InstanceContext):
             **self._solution
         )
 
-        self._auth = None
-        self._credential_list_mappings = None
-        self._ip_access_control_list_mappings = None
+        self._auth: Optional[AuthTypesList] = None
+        self._credential_list_mappings: Optional[CredentialListMappingList] = None
+        self._ip_access_control_list_mappings: Optional[
+            IpAccessControlListMappingList
+        ] = None
 
     def delete(self):
         """

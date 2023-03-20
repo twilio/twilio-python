@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -33,9 +34,6 @@ class VerificationAttemptsSummaryList(ListResource):
         :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -93,8 +91,8 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[VerificationAttemptsSummaryContext] = None
 
     @property
     def _proxy(self):
@@ -238,9 +236,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Attempts/Summary".format(**self._solution)
+        self._uri = "/Attempts/Summary"
 
     def fetch(
         self,
@@ -333,7 +329,5 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptsSummaryContext {}>".format(
-            context
-        )
+
+        return "<Twilio.Verify.V2.VerificationAttemptsSummaryContext>"

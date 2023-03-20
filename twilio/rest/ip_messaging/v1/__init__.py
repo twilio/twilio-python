@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.ip_messaging.v1.credential import CredentialList
@@ -26,8 +27,8 @@ class V1(Version):
         :param domain: The Twilio.ip_messaging domain
         """
         super().__init__(domain, "v1")
-        self._credentials = None
-        self._services = None
+        self._credentials: Optional[CredentialList] = None
+        self._services: Optional[ServiceList] = None
 
     @property
     def credentials(self) -> CredentialList:

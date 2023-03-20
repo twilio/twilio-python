@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.preview.hosted_numbers.authorization_document import (
@@ -28,8 +29,8 @@ class HostedNumbers(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain, "HostedNumbers")
-        self._authorization_documents = None
-        self._hosted_number_orders = None
+        self._authorization_documents: Optional[AuthorizationDocumentList] = None
+        self._hosted_number_orders: Optional[HostedNumberOrderList] = None
 
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:

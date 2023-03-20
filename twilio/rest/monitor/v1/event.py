@@ -36,9 +36,7 @@ class EventList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Events".format(**self._solution)
+        self._uri = "/Events"
 
     def stream(
         self,
@@ -266,7 +264,7 @@ class EventList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response)
 
     async def page_async(
         self,
@@ -314,7 +312,7 @@ class EventList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -327,7 +325,7 @@ class EventList(ListResource):
         :rtype: twilio.rest.monitor.v1.event.EventPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -340,7 +338,7 @@ class EventList(ListResource):
         :rtype: twilio.rest.monitor.v1.event.EventPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EventPage(self._version, response, self._solution)
+        return EventPage(self._version, response)
 
     def get(self, sid):
         """
@@ -422,10 +420,10 @@ class EventInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EventContext] = None
 
     @property
     def _proxy(self):

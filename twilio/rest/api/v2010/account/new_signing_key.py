@@ -118,7 +118,6 @@ class NewSigningKeyInstance(InstanceResource):
             "secret": payload.get("secret"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
         }

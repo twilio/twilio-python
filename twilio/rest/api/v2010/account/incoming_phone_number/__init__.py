@@ -50,9 +50,9 @@ class IncomingPhoneNumberList(ListResource):
             **self._solution
         )
 
-        self._local = None
-        self._mobile = None
-        self._toll_free = None
+        self._local: Optional[LocalList] = None
+        self._mobile: Optional[MobileList] = None
+        self._toll_free: Optional[TollFreeList] = None
 
     def create(
         self,
@@ -684,11 +684,11 @@ class IncomingPhoneNumberInstance(InstanceResource):
             "status": payload.get("status"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[IncomingPhoneNumberContext] = None
 
     @property
     def _proxy(self):
@@ -1227,7 +1227,7 @@ class IncomingPhoneNumberContext(InstanceContext):
             **self._solution
         )
 
-        self._assigned_add_ons = None
+        self._assigned_add_ons: Optional[AssignedAddOnList] = None
 
     def delete(self):
         """

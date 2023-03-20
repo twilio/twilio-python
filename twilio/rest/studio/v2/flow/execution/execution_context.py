@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -95,11 +96,11 @@ class ExecutionContextInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "flow_sid": flow_sid,
             "execution_sid": execution_sid,
         }
+        self._context: Optional[ExecutionContextContext] = None
 
     @property
     def _proxy(self):

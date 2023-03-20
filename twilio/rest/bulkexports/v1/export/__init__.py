@@ -36,11 +36,9 @@ class ExportList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Exports".format(**self._solution)
+        self._uri = "/Exports"
 
-        self._jobs = None
+        self._jobs: Optional[JobList] = None
 
     @property
     def jobs(self):
@@ -102,10 +100,10 @@ class ExportInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "resource_type": resource_type or self._properties["resource_type"],
         }
+        self._context: Optional[ExportContext] = None
 
     @property
     def _proxy(self):
@@ -217,8 +215,8 @@ class ExportContext(InstanceContext):
         }
         self._uri = "/Exports/{resource_type}".format(**self._solution)
 
-        self._days = None
-        self._export_custom_jobs = None
+        self._days: Optional[DayList] = None
+        self._export_custom_jobs: Optional[ExportCustomJobList] = None
 
     def fetch(self):
         """

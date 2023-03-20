@@ -33,9 +33,7 @@ class SafelistList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/SafeList/Numbers".format(**self._solution)
+        self._uri = "/SafeList/Numbers"
 
     def create(self, phone_number):
         """
@@ -131,10 +129,10 @@ class SafelistInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "phone_number": phone_number or self._properties["phone_number"],
         }
+        self._context: Optional[SafelistContext] = None
 
     @property
     def _proxy(self):

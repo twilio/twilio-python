@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.insights.v1.call import CallList
@@ -29,11 +30,11 @@ class V1(Version):
         :param domain: The Twilio.insights domain
         """
         super().__init__(domain, "v1")
-        self._calls = None
-        self._call_summaries = None
-        self._conferences = None
-        self._rooms = None
-        self._settings = None
+        self._calls: Optional[CallList] = None
+        self._call_summaries: Optional[CallSummariesList] = None
+        self._conferences: Optional[ConferenceList] = None
+        self._rooms: Optional[RoomList] = None
+        self._settings: Optional[SettingList] = None
 
     @property
     def calls(self) -> CallList:

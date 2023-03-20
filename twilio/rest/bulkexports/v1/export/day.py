@@ -288,11 +288,11 @@ class DayInstance(InstanceResource):
             "resource_type": payload.get("resource_type"),
         }
 
-        self._context = None
         self._solution = {
             "resource_type": resource_type,
             "day": day or self._properties["day"],
         }
+        self._context: Optional[DayContext] = None
 
     @property
     def _proxy(self):

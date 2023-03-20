@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.flex_api.v2.web_channels import WebChannelsList
@@ -25,7 +26,7 @@ class V2(Version):
         :param domain: The Twilio.flex_api domain
         """
         super().__init__(domain, "v2")
-        self._web_channels = None
+        self._web_channels: Optional[WebChannelsList] = None
 
     @property
     def web_channels(self) -> WebChannelsList:

@@ -38,9 +38,7 @@ class SinkList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Sinks".format(**self._solution)
+        self._uri = "/Sinks"
 
     def create(self, description, sink_configuration, sink_type):
         """
@@ -240,7 +238,7 @@ class SinkList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SinkPage(self._version, response, self._solution)
+        return SinkPage(self._version, response)
 
     async def page_async(
         self,
@@ -276,7 +274,7 @@ class SinkList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SinkPage(self._version, response, self._solution)
+        return SinkPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -289,7 +287,7 @@ class SinkList(ListResource):
         :rtype: twilio.rest.events.v1.sink.SinkPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SinkPage(self._version, response, self._solution)
+        return SinkPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -302,7 +300,7 @@ class SinkList(ListResource):
         :rtype: twilio.rest.events.v1.sink.SinkPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SinkPage(self._version, response, self._solution)
+        return SinkPage(self._version, response)
 
     def get(self, sid):
         """
@@ -390,10 +388,10 @@ class SinkInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SinkContext] = None
 
     @property
     def _proxy(self):
@@ -599,8 +597,8 @@ class SinkContext(InstanceContext):
         }
         self._uri = "/Sinks/{sid}".format(**self._solution)
 
-        self._sink_test = None
-        self._sink_validate = None
+        self._sink_test: Optional[SinkTestList] = None
+        self._sink_validate: Optional[SinkValidateList] = None
 
     def delete(self):
         """

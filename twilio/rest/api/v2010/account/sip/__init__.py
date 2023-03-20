@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -42,9 +45,9 @@ class SipList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/SIP.json".format(**self._solution)
 
-        self._credential_lists = None
-        self._domains = None
-        self._ip_access_control_lists = None
+        self._credential_lists: Optional[CredentialListList] = None
+        self._domains: Optional[DomainList] = None
+        self._ip_access_control_lists: Optional[IpAccessControlListList] = None
 
     @property
     def credential_lists(self):

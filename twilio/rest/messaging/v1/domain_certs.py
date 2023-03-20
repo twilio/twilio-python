@@ -34,9 +34,6 @@ class DomainCertsList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, domain_sid):
         """
         Constructs a DomainCertsContext
@@ -90,10 +87,10 @@ class DomainCertsInstance(InstanceResource):
             "validated": payload.get("validated"),
         }
 
-        self._context = None
         self._solution = {
             "domain_sid": domain_sid or self._properties["domain_sid"],
         }
+        self._context: Optional[DomainCertsContext] = None
 
     @property
     def _proxy(self):

@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -47,8 +50,8 @@ class AuthTypesList(ListResource):
             **self._solution
         )
 
-        self._calls = None
-        self._registrations = None
+        self._calls: Optional[AuthTypeCallsList] = None
+        self._registrations: Optional[AuthTypeRegistrationsList] = None
 
     @property
     def calls(self):

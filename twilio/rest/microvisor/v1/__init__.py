@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.microvisor.v1.account_config import AccountConfigList
@@ -28,10 +29,10 @@ class V1(Version):
         :param domain: The Twilio.microvisor domain
         """
         super().__init__(domain, "v1")
-        self._account_configs = None
-        self._account_secrets = None
-        self._apps = None
-        self._devices = None
+        self._account_configs: Optional[AccountConfigList] = None
+        self._account_secrets: Optional[AccountSecretList] = None
+        self._apps: Optional[AppList] = None
+        self._devices: Optional[DeviceList] = None
 
     @property
     def account_configs(self) -> AccountConfigList:

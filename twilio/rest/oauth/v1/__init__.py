@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.oauth.v1.device_code import DeviceCodeList
@@ -29,11 +30,11 @@ class V1(Version):
         :param domain: The Twilio.oauth domain
         """
         super().__init__(domain, "v1")
-        self._device_code = None
-        self._oauth = None
-        self._openid_discovery = None
-        self._token = None
-        self._user_info = None
+        self._device_code: Optional[DeviceCodeList] = None
+        self._oauth: Optional[OauthList] = None
+        self._openid_discovery: Optional[OpenidDiscoveryList] = None
+        self._token: Optional[TokenList] = None
+        self._user_info: Optional[UserInfoList] = None
 
     @property
     def device_code(self) -> DeviceCodeList:

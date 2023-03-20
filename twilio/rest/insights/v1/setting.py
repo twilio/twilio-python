@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class SettingList(ListResource):
         :rtype: twilio.rest.insights.v1.setting.SettingList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -82,8 +80,8 @@ class SettingInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[SettingContext] = None
 
     @property
     def _proxy(self):
@@ -225,9 +223,7 @@ class SettingContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Voice/Settings".format(**self._solution)
+        self._uri = "/Voice/Settings"
 
     def fetch(self, subaccount_sid=values.unset):
         """
@@ -348,5 +344,5 @@ class SettingContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.SettingContext {}>".format(context)
+
+        return "<Twilio.Insights.V1.SettingContext>"

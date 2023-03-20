@@ -325,7 +325,6 @@ class InteractionChannelInviteInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "interaction_sid": interaction_sid,
             "channel_sid": channel_sid,

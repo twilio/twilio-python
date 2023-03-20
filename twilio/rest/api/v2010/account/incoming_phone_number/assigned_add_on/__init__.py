@@ -372,12 +372,12 @@ class AssignedAddOnInstance(InstanceResource):
             "subresource_uris": payload.get("subresource_uris"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "resource_sid": resource_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AssignedAddOnContext] = None
 
     @property
     def _proxy(self):
@@ -571,7 +571,7 @@ class AssignedAddOnContext(InstanceContext):
             **self._solution
         )
 
-        self._extensions = None
+        self._extensions: Optional[AssignedAddOnExtensionList] = None
 
     def delete(self):
         """

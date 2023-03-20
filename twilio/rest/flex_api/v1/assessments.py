@@ -35,9 +35,7 @@ class AssessmentsList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/QM/Assessments".format(**self._solution)
+        self._uri = "/Insights/QM/Assessments"
 
     def create(
         self,
@@ -311,7 +309,7 @@ class AssessmentsList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AssessmentsPage(self._version, response, self._solution)
+        return AssessmentsPage(self._version, response)
 
     async def page_async(
         self,
@@ -347,7 +345,7 @@ class AssessmentsList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return AssessmentsPage(self._version, response, self._solution)
+        return AssessmentsPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -360,7 +358,7 @@ class AssessmentsList(ListResource):
         :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AssessmentsPage(self._version, response, self._solution)
+        return AssessmentsPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -373,7 +371,7 @@ class AssessmentsList(ListResource):
         :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AssessmentsPage(self._version, response, self._solution)
+        return AssessmentsPage(self._version, response)
 
     def get(self, assessment_id):
         """
@@ -455,10 +453,10 @@ class AssessmentsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "assessment_id": assessment_id or self._properties["assessment_id"],
         }
+        self._context: Optional[AssessmentsContext] = None
 
     @property
     def _proxy(self):

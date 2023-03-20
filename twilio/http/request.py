@@ -23,7 +23,7 @@ class Request(object):
         **kwargs
     ):
         self.method = method
-        if method and method != Match.ANY:
+        if method and method is not Match.ANY:
             self.method = method.upper()
         self.url = url
         self.auth = auth

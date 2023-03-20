@@ -125,7 +125,6 @@ class StreamMessageInstance(InstanceResource):
             "data": payload.get("data"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "stream_sid": stream_sid,

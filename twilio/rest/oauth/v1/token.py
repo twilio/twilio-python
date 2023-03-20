@@ -33,9 +33,7 @@ class TokenList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/token".format(**self._solution)
+        self._uri = "/token"
 
     def create(
         self,
@@ -163,7 +161,6 @@ class TokenInstance(InstanceResource):
             ),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

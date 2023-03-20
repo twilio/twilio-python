@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.numbers.v2.regulatory_compliance import RegulatoryComplianceList
@@ -25,7 +26,7 @@ class V2(Version):
         :param domain: The Twilio.numbers domain
         """
         super().__init__(domain, "v2")
-        self._regulatory_compliance = None
+        self._regulatory_compliance: Optional[RegulatoryComplianceList] = None
 
     @property
     def regulatory_compliance(self) -> RegulatoryComplianceList:

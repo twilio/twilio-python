@@ -391,12 +391,12 @@ class InviteInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "channel_sid": channel_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[InviteContext] = None
 
     @property
     def _proxy(self):

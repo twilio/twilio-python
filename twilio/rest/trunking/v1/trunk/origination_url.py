@@ -359,11 +359,11 @@ class OriginationUrlInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "trunk_sid": trunk_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[OriginationUrlContext] = None
 
     @property
     def _proxy(self):

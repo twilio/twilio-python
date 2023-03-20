@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -109,11 +110,11 @@ class FeedbackInstance(InstanceResource):
             "sid": payload.get("sid"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
         }
+        self._context: Optional[FeedbackContext] = None
 
     @property
     def _proxy(self):

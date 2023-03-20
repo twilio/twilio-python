@@ -473,11 +473,11 @@ class ApplicationInstance(InstanceResource):
             ),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ApplicationContext] = None
 
     @property
     def _proxy(self):

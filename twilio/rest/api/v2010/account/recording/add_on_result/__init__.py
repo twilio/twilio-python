@@ -325,12 +325,12 @@ class AddOnResultInstance(InstanceResource):
             "subresource_uris": payload.get("subresource_uris"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "reference_sid": reference_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AddOnResultContext] = None
 
     @property
     def _proxy(self):
@@ -518,7 +518,7 @@ class AddOnResultContext(InstanceContext):
             **self._solution
         )
 
-        self._payloads = None
+        self._payloads: Optional[PayloadList] = None
 
     def delete(self):
         """

@@ -259,7 +259,6 @@ class HighriskSpecialPrefixInstance(InstanceResource):
             "prefix": payload.get("prefix"),
         }
 
-        self._context = None
         self._solution = {
             "iso_code": iso_code,
         }

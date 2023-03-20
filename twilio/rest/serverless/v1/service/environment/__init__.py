@@ -350,11 +350,11 @@ class EnvironmentInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EnvironmentContext] = None
 
     @property
     def _proxy(self):
@@ -565,9 +565,9 @@ class EnvironmentContext(InstanceContext):
             **self._solution
         )
 
-        self._deployments = None
-        self._logs = None
-        self._variables = None
+        self._deployments: Optional[DeploymentList] = None
+        self._logs: Optional[LogList] = None
+        self._variables: Optional[VariableList] = None
 
     def delete(self):
         """

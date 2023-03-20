@@ -337,11 +337,11 @@ class ParticipantInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid,
             "participant_sid": participant_sid or self._properties["participant_sid"],
         }
+        self._context: Optional[ParticipantContext] = None
 
     @property
     def _proxy(self):

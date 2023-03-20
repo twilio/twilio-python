@@ -35,9 +35,7 @@ class InsightsSegmentsList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/Segments".format(**self._solution)
+        self._uri = "/Insights/Segments"
 
     def stream(
         self,
@@ -201,7 +199,7 @@ class InsightsSegmentsList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return InsightsSegmentsPage(self._version, response, self._solution)
+        return InsightsSegmentsPage(self._version, response)
 
     async def page_async(
         self,
@@ -237,7 +235,7 @@ class InsightsSegmentsList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return InsightsSegmentsPage(self._version, response, self._solution)
+        return InsightsSegmentsPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -250,7 +248,7 @@ class InsightsSegmentsList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return InsightsSegmentsPage(self._version, response, self._solution)
+        return InsightsSegmentsPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -263,7 +261,7 @@ class InsightsSegmentsList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InsightsSegmentsPage(self._version, response, self._solution)
+        return InsightsSegmentsPage(self._version, response)
 
     def get(self, segment_id):
         """
@@ -353,10 +351,10 @@ class InsightsSegmentsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "segment_id": segment_id or self._properties["segment_id"],
         }
+        self._context: Optional[InsightsSegmentsContext] = None
 
     @property
     def _proxy(self):

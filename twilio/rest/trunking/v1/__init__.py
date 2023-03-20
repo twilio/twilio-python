@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.trunking.v1.trunk import TrunkList
@@ -25,7 +26,7 @@ class V1(Version):
         :param domain: The Twilio.trunking domain
         """
         super().__init__(domain, "v1")
-        self._trunks = None
+        self._trunks: Optional[TrunkList] = None
 
     @property
     def trunks(self) -> TrunkList:

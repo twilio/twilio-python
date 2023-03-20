@@ -390,12 +390,12 @@ class MediaInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "message_sid": message_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[MediaContext] = None
 
     @property
     def _proxy(self):

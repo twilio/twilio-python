@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -40,16 +43,14 @@ class RegulatoryComplianceList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/RegulatoryCompliance".format(**self._solution)
+        self._uri = "/RegulatoryCompliance"
 
-        self._bundles = None
-        self._end_users = None
-        self._end_user_types = None
-        self._regulations = None
-        self._supporting_documents = None
-        self._supporting_document_types = None
+        self._bundles: Optional[BundleList] = None
+        self._end_users: Optional[EndUserList] = None
+        self._end_user_types: Optional[EndUserTypeList] = None
+        self._regulations: Optional[RegulationList] = None
+        self._supporting_documents: Optional[SupportingDocumentList] = None
+        self._supporting_document_types: Optional[SupportingDocumentTypeList] = None
 
     @property
     def bundles(self):

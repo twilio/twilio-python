@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -131,11 +132,11 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "task_queue_sid": task_queue_sid,
         }
+        self._context: Optional[TaskQueueCumulativeStatisticsContext] = None
 
     @property
     def _proxy(self):

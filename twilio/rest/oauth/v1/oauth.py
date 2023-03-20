@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -30,9 +31,6 @@ class OauthList(ListResource):
         :rtype: twilio.rest.oauth.v1.oauth.OauthList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -79,8 +77,8 @@ class OauthInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[OauthContext] = None
 
     @property
     def _proxy(self):
@@ -156,9 +154,7 @@ class OauthContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/certs".format(**self._solution)
+        self._uri = "/certs"
 
     def fetch(self):
         """
@@ -205,5 +201,5 @@ class OauthContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Oauth.V1.OauthContext {}>".format(context)
+
+        return "<Twilio.Oauth.V1.OauthContext>"

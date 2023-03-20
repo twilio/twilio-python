@@ -57,7 +57,7 @@ class CallList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Calls.json".format(**self._solution)
 
-        self._feedback_summaries = None
+        self._feedback_summaries: Optional[FeedbackSummaryList] = None
 
     def create(
         self,
@@ -823,11 +823,11 @@ class CallInstance(InstanceResource):
             "subresource_uris": payload.get("subresource_uris"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CallContext] = None
 
     @property
     def _proxy(self):
@@ -1296,15 +1296,17 @@ class CallContext(InstanceContext):
         }
         self._uri = "/Accounts/{account_sid}/Calls/{sid}.json".format(**self._solution)
 
-        self._events = None
-        self._feedback = None
-        self._notifications = None
-        self._payments = None
-        self._recordings = None
-        self._siprec = None
-        self._streams = None
-        self._user_defined_messages = None
-        self._user_defined_message_subscriptions = None
+        self._events: Optional[EventList] = None
+        self._feedback: Optional[FeedbackList] = None
+        self._notifications: Optional[NotificationList] = None
+        self._payments: Optional[PaymentList] = None
+        self._recordings: Optional[RecordingList] = None
+        self._siprec: Optional[SiprecList] = None
+        self._streams: Optional[StreamList] = None
+        self._user_defined_messages: Optional[UserDefinedMessageList] = None
+        self._user_defined_message_subscriptions: Optional[
+            UserDefinedMessageSubscriptionList
+        ] = None
 
     def delete(self):
         """

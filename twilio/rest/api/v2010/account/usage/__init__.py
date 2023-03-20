@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -39,8 +42,8 @@ class UsageList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Usage.json".format(**self._solution)
 
-        self._records = None
-        self._triggers = None
+        self._records: Optional[RecordList] = None
+        self._triggers: Optional[TriggerList] = None
 
     @property
     def records(self):

@@ -357,11 +357,11 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "network_access_profile_sid": network_access_profile_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[NetworkAccessProfileNetworkContext] = None
 
     @property
     def _proxy(self):

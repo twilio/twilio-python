@@ -33,9 +33,7 @@ class RestoreAssistantList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Assistants/Restore".format(**self._solution)
+        self._uri = "/Assistants/Restore"
 
     def update(self, assistant):
         """
@@ -118,7 +116,6 @@ class RestoreAssistantInstance(InstanceResource):
             "callback_events": payload.get("callback_events"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

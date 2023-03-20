@@ -348,11 +348,11 @@ class FieldTypeInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[FieldTypeContext] = None
 
     @property
     def _proxy(self):
@@ -557,7 +557,7 @@ class FieldTypeContext(InstanceContext):
             **self._solution
         )
 
-        self._field_values = None
+        self._field_values: Optional[FieldValueList] = None
 
     def delete(self):
         """

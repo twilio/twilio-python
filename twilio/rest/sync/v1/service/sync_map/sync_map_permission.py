@@ -309,12 +309,12 @@ class SyncMapPermissionInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "map_sid": map_sid,
             "identity": identity or self._properties["identity"],
         }
+        self._context: Optional[SyncMapPermissionContext] = None
 
     @property
     def _proxy(self):

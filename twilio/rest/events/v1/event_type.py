@@ -35,9 +35,7 @@ class EventTypeList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Types".format(**self._solution)
+        self._uri = "/Types"
 
     def stream(self, schema_id=values.unset, limit=None, page_size=None):
         """
@@ -164,7 +162,7 @@ class EventTypeList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return EventTypePage(self._version, response, self._solution)
+        return EventTypePage(self._version, response)
 
     async def page_async(
         self,
@@ -197,7 +195,7 @@ class EventTypeList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return EventTypePage(self._version, response, self._solution)
+        return EventTypePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -210,7 +208,7 @@ class EventTypeList(ListResource):
         :rtype: twilio.rest.events.v1.event_type.EventTypePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return EventTypePage(self._version, response, self._solution)
+        return EventTypePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -223,7 +221,7 @@ class EventTypeList(ListResource):
         :rtype: twilio.rest.events.v1.event_type.EventTypePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EventTypePage(self._version, response, self._solution)
+        return EventTypePage(self._version, response)
 
     def get(self, type):
         """
@@ -298,10 +296,10 @@ class EventTypeInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "type": type or self._properties["type"],
         }
+        self._context: Optional[EventTypeContext] = None
 
     @property
     def _proxy(self):

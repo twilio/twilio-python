@@ -360,11 +360,11 @@ class EngagementInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "flow_sid": flow_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EngagementContext] = None
 
     @property
     def _proxy(self):
@@ -563,8 +563,8 @@ class EngagementContext(InstanceContext):
         }
         self._uri = "/Flows/{flow_sid}/Engagements/{sid}".format(**self._solution)
 
-        self._engagement_context = None
-        self._steps = None
+        self._engagement_context: Optional[EngagementContextList] = None
+        self._steps: Optional[StepList] = None
 
     def delete(self):
         """

@@ -340,11 +340,11 @@ class DeviceSecretInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "device_sid": device_sid,
             "key": key or self._properties["key"],
         }
+        self._context: Optional[DeviceSecretContext] = None
 
     @property
     def _proxy(self):

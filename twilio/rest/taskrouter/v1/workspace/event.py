@@ -524,11 +524,11 @@ class EventInstance(InstanceResource):
             "workspace_sid": payload.get("workspace_sid"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EventContext] = None
 
     @property
     def _proxy(self):

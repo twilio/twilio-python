@@ -33,9 +33,7 @@ class BulkCountryUpdateList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/DialingPermissions/BulkCountryUpdates".format(**self._solution)
+        self._uri = "/DialingPermissions/BulkCountryUpdates"
 
     def create(self, update_request):
         """
@@ -108,7 +106,6 @@ class BulkCountryUpdateInstance(InstanceResource):
             "update_request": payload.get("update_request"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

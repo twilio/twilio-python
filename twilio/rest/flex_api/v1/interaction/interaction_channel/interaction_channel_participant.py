@@ -382,12 +382,12 @@ class InteractionChannelParticipantInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "interaction_sid": interaction_sid,
             "channel_sid": channel_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[InteractionChannelParticipantContext] = None
 
     @property
     def _proxy(self):

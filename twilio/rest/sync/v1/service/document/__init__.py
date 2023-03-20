@@ -358,11 +358,11 @@ class DocumentInstance(InstanceResource):
             "created_by": payload.get("created_by"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[DocumentContext] = None
 
     @property
     def _proxy(self):
@@ -595,7 +595,7 @@ class DocumentContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Documents/{sid}".format(**self._solution)
 
-        self._document_permissions = None
+        self._document_permissions: Optional[DocumentPermissionList] = None
 
     def delete(self):
         """

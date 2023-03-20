@@ -514,12 +514,12 @@ class RecordingInstance(InstanceResource):
             "track": payload.get("track"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[RecordingContext] = None
 
     @property
     def _proxy(self):

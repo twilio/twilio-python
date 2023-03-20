@@ -33,9 +33,6 @@ class PhoneNumberList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, phone_number):
         """
         Constructs a PhoneNumberContext
@@ -104,10 +101,10 @@ class PhoneNumberInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "phone_number": phone_number or self._properties["phone_number"],
         }
+        self._context: Optional[PhoneNumberContext] = None
 
     @property
     def _proxy(self):

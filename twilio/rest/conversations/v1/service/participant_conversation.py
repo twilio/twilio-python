@@ -326,7 +326,6 @@ class ParticipantConversationInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
         }

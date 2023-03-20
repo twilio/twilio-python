@@ -36,9 +36,7 @@ class HostedNumberOrderList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/HostedNumberOrders".format(**self._solution)
+        self._uri = "/HostedNumberOrders"
 
     def create(
         self,
@@ -399,7 +397,7 @@ class HostedNumberOrderList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return HostedNumberOrderPage(self._version, response, self._solution)
+        return HostedNumberOrderPage(self._version, response)
 
     async def page_async(
         self,
@@ -444,7 +442,7 @@ class HostedNumberOrderList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return HostedNumberOrderPage(self._version, response, self._solution)
+        return HostedNumberOrderPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -457,7 +455,7 @@ class HostedNumberOrderList(ListResource):
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return HostedNumberOrderPage(self._version, response, self._solution)
+        return HostedNumberOrderPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -470,7 +468,7 @@ class HostedNumberOrderList(ListResource):
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return HostedNumberOrderPage(self._version, response, self._solution)
+        return HostedNumberOrderPage(self._version, response)
 
     def get(self, sid):
         """
@@ -578,10 +576,10 @@ class HostedNumberOrderInstance(InstanceResource):
             "verification_call_sids": payload.get("verification_call_sids"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[HostedNumberOrderContext] = None
 
     @property
     def _proxy(self):

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -32,9 +33,6 @@ class DeactivationsList(ListResource):
         :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -80,8 +78,8 @@ class DeactivationsInstance(InstanceResource):
             "redirect_to": payload.get("redirect_to"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[DeactivationsContext] = None
 
     @property
     def _proxy(self):
@@ -155,9 +153,7 @@ class DeactivationsContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Deactivations".format(**self._solution)
+        self._uri = "/Deactivations"
 
     def fetch(self, date=values.unset):
         """
@@ -214,5 +210,5 @@ class DeactivationsContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DeactivationsContext {}>".format(context)
+
+        return "<Twilio.Messaging.V1.DeactivationsContext>"

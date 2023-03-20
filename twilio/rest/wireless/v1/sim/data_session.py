@@ -273,7 +273,6 @@ class DataSessionInstance(InstanceResource):
             "imei": payload.get("imei"),
         }
 
-        self._context = None
         self._solution = {
             "sim_sid": sim_sid,
         }

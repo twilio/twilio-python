@@ -44,9 +44,7 @@ class CustomerProfilesList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/CustomerProfiles".format(**self._solution)
+        self._uri = "/CustomerProfiles"
 
     def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
         """
@@ -289,7 +287,7 @@ class CustomerProfilesList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CustomerProfilesPage(self._version, response, self._solution)
+        return CustomerProfilesPage(self._version, response)
 
     async def page_async(
         self,
@@ -328,7 +326,7 @@ class CustomerProfilesList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return CustomerProfilesPage(self._version, response, self._solution)
+        return CustomerProfilesPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -341,7 +339,7 @@ class CustomerProfilesList(ListResource):
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return CustomerProfilesPage(self._version, response, self._solution)
+        return CustomerProfilesPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -354,7 +352,7 @@ class CustomerProfilesList(ListResource):
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CustomerProfilesPage(self._version, response, self._solution)
+        return CustomerProfilesPage(self._version, response)
 
     def get(self, sid):
         """
@@ -441,10 +439,10 @@ class CustomerProfilesInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CustomerProfilesContext] = None
 
     @property
     def _proxy(self):
@@ -708,9 +706,15 @@ class CustomerProfilesContext(InstanceContext):
         }
         self._uri = "/CustomerProfiles/{sid}".format(**self._solution)
 
-        self._customer_profiles_channel_endpoint_assignment = None
-        self._customer_profiles_entity_assignments = None
-        self._customer_profiles_evaluations = None
+        self._customer_profiles_channel_endpoint_assignment: Optional[
+            CustomerProfilesChannelEndpointAssignmentList
+        ] = None
+        self._customer_profiles_entity_assignments: Optional[
+            CustomerProfilesEntityAssignmentsList
+        ] = None
+        self._customer_profiles_evaluations: Optional[
+            CustomerProfilesEvaluationsList
+        ] = None
 
     def delete(self):
         """

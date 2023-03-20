@@ -32,9 +32,6 @@ class JobList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, job_sid):
         """
         Constructs a JobContext
@@ -92,10 +89,10 @@ class JobInstance(InstanceResource):
             "estimated_completion_time": payload.get("estimated_completion_time"),
         }
 
-        self._context = None
         self._solution = {
             "job_sid": job_sid or self._properties["job_sid"],
         }
+        self._context: Optional[JobContext] = None
 
     @property
     def _proxy(self):

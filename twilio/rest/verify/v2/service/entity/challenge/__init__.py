@@ -521,12 +521,12 @@ class ChallengeInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "identity": identity,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ChallengeContext] = None
 
     @property
     def _proxy(self):
@@ -788,7 +788,7 @@ class ChallengeContext(InstanceContext):
             )
         )
 
-        self._notifications = None
+        self._notifications: Optional[NotificationList] = None
 
     def fetch(self):
         """

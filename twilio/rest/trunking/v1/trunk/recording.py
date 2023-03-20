@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -94,10 +95,10 @@ class RecordingInstance(InstanceResource):
             "trim": payload.get("trim"),
         }
 
-        self._context = None
         self._solution = {
             "trunk_sid": trunk_sid,
         }
+        self._context: Optional[RecordingContext] = None
 
     @property
     def _proxy(self):

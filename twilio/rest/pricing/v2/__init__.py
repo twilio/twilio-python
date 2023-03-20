@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.pricing.v2.country import CountryList
@@ -27,9 +28,9 @@ class V2(Version):
         :param domain: The Twilio.pricing domain
         """
         super().__init__(domain, "v2")
-        self._countries = None
-        self._numbers = None
-        self._voice = None
+        self._countries: Optional[CountryList] = None
+        self._numbers: Optional[NumberList] = None
+        self._voice: Optional[VoiceList] = None
 
     @property
     def countries(self) -> CountryList:

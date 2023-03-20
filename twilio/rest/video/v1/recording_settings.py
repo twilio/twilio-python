@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class RecordingSettingsList(ListResource):
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -86,8 +84,8 @@ class RecordingSettingsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[RecordingSettingsContext] = None
 
     @property
     def _proxy(self):
@@ -273,9 +271,7 @@ class RecordingSettingsContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/RecordingSettings/Default".format(**self._solution)
+        self._uri = "/RecordingSettings/Default"
 
     def create(
         self,
@@ -398,5 +394,5 @@ class RecordingSettingsContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingSettingsContext {}>".format(context)
+
+        return "<Twilio.Video.V1.RecordingSettingsContext>"

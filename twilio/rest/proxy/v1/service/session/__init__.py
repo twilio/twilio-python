@@ -405,11 +405,11 @@ class SessionInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SessionContext] = None
 
     @property
     def _proxy(self):
@@ -684,8 +684,8 @@ class SessionContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Sessions/{sid}".format(**self._solution)
 
-        self._interactions = None
-        self._participants = None
+        self._interactions: Optional[InteractionList] = None
+        self._participants: Optional[ParticipantList] = None
 
     def delete(self):
         """

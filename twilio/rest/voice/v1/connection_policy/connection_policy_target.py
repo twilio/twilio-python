@@ -387,11 +387,11 @@ class ConnectionPolicyTargetInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "connection_policy_sid": connection_policy_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ConnectionPolicyTargetContext] = None
 
     @property
     def _proxy(self):

@@ -230,7 +230,6 @@ class NewFactorInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "identity": identity,

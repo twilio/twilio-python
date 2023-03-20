@@ -297,11 +297,11 @@ class AvailableAddOnExtensionInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "available_add_on_sid": available_add_on_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AvailableAddOnExtensionContext] = None
 
     @property
     def _proxy(self):

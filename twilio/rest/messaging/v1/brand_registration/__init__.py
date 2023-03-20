@@ -36,9 +36,7 @@ class BrandRegistrationList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/a2p/BrandRegistrations".format(**self._solution)
+        self._uri = "/a2p/BrandRegistrations"
 
     def create(
         self,
@@ -229,7 +227,7 @@ class BrandRegistrationList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return BrandRegistrationPage(self._version, response, self._solution)
+        return BrandRegistrationPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -256,7 +254,7 @@ class BrandRegistrationList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return BrandRegistrationPage(self._version, response, self._solution)
+        return BrandRegistrationPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -269,7 +267,7 @@ class BrandRegistrationList(ListResource):
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return BrandRegistrationPage(self._version, response, self._solution)
+        return BrandRegistrationPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -282,7 +280,7 @@ class BrandRegistrationList(ListResource):
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return BrandRegistrationPage(self._version, response, self._solution)
+        return BrandRegistrationPage(self._version, response)
 
     def get(self, sid):
         """
@@ -390,10 +388,10 @@ class BrandRegistrationInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[BrandRegistrationContext] = None
 
     @property
     def _proxy(self):
@@ -651,7 +649,7 @@ class BrandRegistrationContext(InstanceContext):
         }
         self._uri = "/a2p/BrandRegistrations/{sid}".format(**self._solution)
 
-        self._brand_vettings = None
+        self._brand_vettings: Optional[BrandVettingList] = None
 
     def fetch(self):
         """

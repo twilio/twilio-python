@@ -344,11 +344,11 @@ class IpAccessControlListInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[IpAccessControlListContext] = None
 
     @property
     def _proxy(self):
@@ -535,7 +535,7 @@ class IpAccessControlListContext(InstanceContext):
             )
         )
 
-        self._ip_addresses = None
+        self._ip_addresses: Optional[IpAddressList] = None
 
     def delete(self):
         """

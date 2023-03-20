@@ -319,12 +319,12 @@ class WorkerChannelInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "worker_sid": worker_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[WorkerChannelContext] = None
 
     @property
     def _proxy(self):

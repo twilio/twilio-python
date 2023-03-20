@@ -33,9 +33,7 @@ class TemplateList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Templates".format(**self._solution)
+        self._uri = "/Templates"
 
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -166,7 +164,7 @@ class TemplateList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     async def page_async(
         self,
@@ -199,7 +197,7 @@ class TemplateList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -212,7 +210,7 @@ class TemplateList(ListResource):
         :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -225,7 +223,7 @@ class TemplateList(ListResource):
         :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return TemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response)
 
     def __repr__(self):
         """
@@ -276,7 +274,6 @@ class TemplateInstance(InstanceResource):
             "translations": payload.get("translations"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -49,8 +52,12 @@ class AuthTypeCallsList(ListResource):
             )
         )
 
-        self._credential_list_mappings = None
-        self._ip_access_control_list_mappings = None
+        self._credential_list_mappings: Optional[
+            AuthCallsCredentialListMappingList
+        ] = None
+        self._ip_access_control_list_mappings: Optional[
+            AuthCallsIpAccessControlListMappingList
+        ] = None
 
     @property
     def credential_list_mappings(self):

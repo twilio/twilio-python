@@ -418,12 +418,12 @@ class WebhookInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "conversation_sid": conversation_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[WebhookContext] = None
 
     @property
     def _proxy(self):

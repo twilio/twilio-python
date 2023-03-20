@@ -37,9 +37,7 @@ class RoomList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Video/Rooms".format(**self._solution)
+        self._uri = "/Video/Rooms"
 
     def stream(
         self,
@@ -252,7 +250,7 @@ class RoomList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return RoomPage(self._version, response, self._solution)
+        return RoomPage(self._version, response)
 
     async def page_async(
         self,
@@ -297,7 +295,7 @@ class RoomList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return RoomPage(self._version, response, self._solution)
+        return RoomPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -310,7 +308,7 @@ class RoomList(ListResource):
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return RoomPage(self._version, response, self._solution)
+        return RoomPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -323,7 +321,7 @@ class RoomList(ListResource):
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RoomPage(self._version, response, self._solution)
+        return RoomPage(self._version, response)
 
     def get(self, room_sid):
         """
@@ -478,10 +476,10 @@ class RoomInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid or self._properties["room_sid"],
         }
+        self._context: Optional[RoomContext] = None
 
     @property
     def _proxy(self):
@@ -767,7 +765,7 @@ class RoomContext(InstanceContext):
         }
         self._uri = "/Video/Rooms/{room_sid}".format(**self._solution)
 
-        self._participants = None
+        self._participants: Optional[ParticipantList] = None
 
     def fetch(self):
         """

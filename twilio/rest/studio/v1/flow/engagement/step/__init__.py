@@ -315,12 +315,12 @@ class StepInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "flow_sid": flow_sid,
             "engagement_sid": engagement_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[StepContext] = None
 
     @property
     def _proxy(self):
@@ -502,7 +502,7 @@ class StepContext(InstanceContext):
             **self._solution
         )
 
-        self._step_context = None
+        self._step_context: Optional[StepContextList] = None
 
     def fetch(self):
         """

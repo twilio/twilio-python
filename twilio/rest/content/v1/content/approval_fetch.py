@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -84,10 +85,10 @@ class ApprovalFetchInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid,
         }
+        self._context: Optional[ApprovalFetchContext] = None
 
     @property
     def _proxy(self):

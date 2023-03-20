@@ -48,9 +48,7 @@ class AssistantList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Assistants".format(**self._solution)
+        self._uri = "/Assistants"
 
     def create(
         self,
@@ -259,7 +257,7 @@ class AssistantList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AssistantPage(self._version, response, self._solution)
+        return AssistantPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -286,7 +284,7 @@ class AssistantList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return AssistantPage(self._version, response, self._solution)
+        return AssistantPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -299,7 +297,7 @@ class AssistantList(ListResource):
         :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AssistantPage(self._version, response, self._solution)
+        return AssistantPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -312,7 +310,7 @@ class AssistantList(ListResource):
         :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AssistantPage(self._version, response, self._solution)
+        return AssistantPage(self._version, response)
 
     def get(self, sid):
         """
@@ -392,10 +390,10 @@ class AssistantInstance(InstanceResource):
             "callback_events": payload.get("callback_events"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AssistantContext] = None
 
     @property
     def _proxy(self):
@@ -733,14 +731,16 @@ class AssistantContext(InstanceContext):
         }
         self._uri = "/Assistants/{sid}".format(**self._solution)
 
-        self._assistant_fallback_actions = None
-        self._assistant_initiation_actions = None
-        self._dialogues = None
-        self._field_types = None
-        self._model_builds = None
-        self._queries = None
-        self._style_sheet = None
-        self._tasks = None
+        self._assistant_fallback_actions: Optional[AssistantFallbackActionsList] = None
+        self._assistant_initiation_actions: Optional[
+            AssistantInitiationActionsList
+        ] = None
+        self._dialogues: Optional[DialogueList] = None
+        self._field_types: Optional[FieldTypeList] = None
+        self._model_builds: Optional[ModelBuildList] = None
+        self._queries: Optional[QueryList] = None
+        self._style_sheet: Optional[StyleSheetList] = None
+        self._tasks: Optional[TaskList] = None
 
     def delete(self):
         """

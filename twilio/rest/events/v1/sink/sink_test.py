@@ -93,7 +93,6 @@ class SinkTestInstance(InstanceResource):
             "result": payload.get("result"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid,
         }

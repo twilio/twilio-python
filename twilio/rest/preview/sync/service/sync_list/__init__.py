@@ -346,11 +346,11 @@ class SyncListInstance(InstanceResource):
             "created_by": payload.get("created_by"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SyncListContext] = None
 
     @property
     def _proxy(self):
@@ -541,8 +541,8 @@ class SyncListContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Lists/{sid}".format(**self._solution)
 
-        self._sync_list_items = None
-        self._sync_list_permissions = None
+        self._sync_list_items: Optional[SyncListItemList] = None
+        self._sync_list_permissions: Optional[SyncListPermissionList] = None
 
     def delete(self):
         """

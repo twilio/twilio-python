@@ -690,7 +690,6 @@ class MonthlyInstance(InstanceResource):
             "usage_unit": payload.get("usage_unit"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
         }

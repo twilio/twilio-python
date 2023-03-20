@@ -56,9 +56,9 @@ class WorkerList(ListResource):
         }
         self._uri = "/Workspaces/{workspace_sid}/Workers".format(**self._solution)
 
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
+        self._cumulative_statistics: Optional[WorkersCumulativeStatisticsList] = None
+        self._real_time_statistics: Optional[WorkersRealTimeStatisticsList] = None
+        self._statistics: Optional[WorkersStatisticsList] = None
 
     def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
         """
@@ -587,11 +587,11 @@ class WorkerInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[WorkerContext] = None
 
     @property
     def _proxy(self):
@@ -878,9 +878,9 @@ class WorkerContext(InstanceContext):
         }
         self._uri = "/Workspaces/{workspace_sid}/Workers/{sid}".format(**self._solution)
 
-        self._reservations = None
-        self._worker_channels = None
-        self._statistics = None
+        self._reservations: Optional[ReservationList] = None
+        self._worker_channels: Optional[WorkerChannelList] = None
+        self._statistics: Optional[WorkerStatisticsList] = None
 
     def delete(self, if_match=values.unset):
         """

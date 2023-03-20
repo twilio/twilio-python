@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class SettingsList(ListResource):
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -82,8 +80,8 @@ class SettingsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[SettingsContext] = None
 
     @property
     def _proxy(self):
@@ -185,9 +183,7 @@ class SettingsContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Settings".format(**self._solution)
+        self._uri = "/Settings"
 
     def fetch(self):
         """
@@ -280,5 +276,5 @@ class SettingsContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.SettingsContext {}>".format(context)
+
+        return "<Twilio.Voice.V1.SettingsContext>"

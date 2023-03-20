@@ -599,7 +599,6 @@ class TollFreeInstance(InstanceResource):
             "status": payload.get("status"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
         }

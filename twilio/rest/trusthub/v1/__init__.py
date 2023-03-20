@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.trusthub.v1.customer_profiles import CustomerProfilesList
@@ -31,13 +32,13 @@ class V1(Version):
         :param domain: The Twilio.trusthub domain
         """
         super().__init__(domain, "v1")
-        self._customer_profiles = None
-        self._end_users = None
-        self._end_user_types = None
-        self._policies = None
-        self._supporting_documents = None
-        self._supporting_document_types = None
-        self._trust_products = None
+        self._customer_profiles: Optional[CustomerProfilesList] = None
+        self._end_users: Optional[EndUserList] = None
+        self._end_user_types: Optional[EndUserTypeList] = None
+        self._policies: Optional[PoliciesList] = None
+        self._supporting_documents: Optional[SupportingDocumentList] = None
+        self._supporting_document_types: Optional[SupportingDocumentTypeList] = None
+        self._trust_products: Optional[TrustProductsList] = None
 
     @property
     def customer_profiles(self) -> CustomerProfilesList:

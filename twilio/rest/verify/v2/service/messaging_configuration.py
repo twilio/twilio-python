@@ -347,11 +347,11 @@ class MessagingConfigurationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "country": country or self._properties["country"],
         }
+        self._context: Optional[MessagingConfigurationContext] = None
 
     @property
     def _proxy(self):

@@ -34,9 +34,7 @@ class InsightsAssessmentsCommentList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/QM/Assessments/Comments".format(**self._solution)
+        self._uri = "/Insights/QM/Assessments/Comments"
 
     def create(
         self,
@@ -321,7 +319,7 @@ class InsightsAssessmentsCommentList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return InsightsAssessmentsCommentPage(self._version, response, self._solution)
+        return InsightsAssessmentsCommentPage(self._version, response)
 
     async def page_async(
         self,
@@ -360,7 +358,7 @@ class InsightsAssessmentsCommentList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return InsightsAssessmentsCommentPage(self._version, response, self._solution)
+        return InsightsAssessmentsCommentPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -373,7 +371,7 @@ class InsightsAssessmentsCommentList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return InsightsAssessmentsCommentPage(self._version, response, self._solution)
+        return InsightsAssessmentsCommentPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -386,7 +384,7 @@ class InsightsAssessmentsCommentList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InsightsAssessmentsCommentPage(self._version, response, self._solution)
+        return InsightsAssessmentsCommentPage(self._version, response)
 
     def __repr__(self):
         """
@@ -444,7 +442,6 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.events.v1.event_type import EventTypeList
@@ -28,10 +29,10 @@ class V1(Version):
         :param domain: The Twilio.events domain
         """
         super().__init__(domain, "v1")
-        self._event_types = None
-        self._schemas = None
-        self._sinks = None
-        self._subscriptions = None
+        self._event_types: Optional[EventTypeList] = None
+        self._schemas: Optional[SchemaList] = None
+        self._sinks: Optional[SinkList] = None
+        self._subscriptions: Optional[SubscriptionList] = None
 
     @property
     def event_types(self) -> EventTypeList:

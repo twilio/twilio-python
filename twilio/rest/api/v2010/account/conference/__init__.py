@@ -483,11 +483,11 @@ class ConferenceInstance(InstanceResource):
             "call_sid_ending_conference": payload.get("call_sid_ending_conference"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ConferenceContext] = None
 
     @property
     def _proxy(self):
@@ -720,8 +720,8 @@ class ConferenceContext(InstanceContext):
             **self._solution
         )
 
-        self._participants = None
-        self._recordings = None
+        self._participants: Optional[ParticipantList] = None
+        self._recordings: Optional[RecordingList] = None
 
     def fetch(self):
         """

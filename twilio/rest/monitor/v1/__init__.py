@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.monitor.v1.alert import AlertList
@@ -26,8 +27,8 @@ class V1(Version):
         :param domain: The Twilio.monitor domain
         """
         super().__init__(domain, "v1")
-        self._alerts = None
-        self._events = None
+        self._alerts: Optional[AlertList] = None
+        self._events: Optional[EventList] = None
 
     @property
     def alerts(self) -> AlertList:

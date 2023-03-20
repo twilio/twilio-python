@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -52,14 +53,14 @@ class RecordList(ListResource):
             **self._solution
         )
 
-        self._all_time = None
-        self._daily = None
-        self._last_month = None
-        self._monthly = None
-        self._this_month = None
-        self._today = None
-        self._yearly = None
-        self._yesterday = None
+        self._all_time: Optional[AllTimeList] = None
+        self._daily: Optional[DailyList] = None
+        self._last_month: Optional[LastMonthList] = None
+        self._monthly: Optional[MonthlyList] = None
+        self._this_month: Optional[ThisMonthList] = None
+        self._today: Optional[TodayList] = None
+        self._yearly: Optional[YearlyList] = None
+        self._yesterday: Optional[YesterdayList] = None
 
     def stream(
         self,
@@ -819,7 +820,6 @@ class RecordInstance(InstanceResource):
             "usage_unit": payload.get("usage_unit"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
         }

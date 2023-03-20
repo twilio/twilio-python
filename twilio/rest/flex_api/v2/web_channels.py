@@ -32,9 +32,7 @@ class WebChannelsList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/WebChats".format(**self._solution)
+        self._uri = "/WebChats"
 
     def create(
         self,
@@ -131,7 +129,6 @@ class WebChannelsInstance(InstanceResource):
             "identity": payload.get("identity"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

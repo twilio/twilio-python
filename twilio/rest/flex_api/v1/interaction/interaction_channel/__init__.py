@@ -315,11 +315,11 @@ class InteractionChannelInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "interaction_sid": interaction_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[InteractionChannelContext] = None
 
     @property
     def _proxy(self):
@@ -506,8 +506,8 @@ class InteractionChannelContext(InstanceContext):
             **self._solution
         )
 
-        self._invites = None
-        self._participants = None
+        self._invites: Optional[InteractionChannelInviteList] = None
+        self._participants: Optional[InteractionChannelParticipantList] = None
 
     def fetch(self):
         """

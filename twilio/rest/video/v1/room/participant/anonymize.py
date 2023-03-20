@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -107,11 +108,11 @@ class AnonymizeInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid,
             "sid": sid,
         }
+        self._context: Optional[AnonymizeContext] = None
 
     @property
     def _proxy(self):

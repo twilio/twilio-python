@@ -44,9 +44,7 @@ class TrustProductsList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/TrustProducts".format(**self._solution)
+        self._uri = "/TrustProducts"
 
     def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
         """
@@ -289,7 +287,7 @@ class TrustProductsList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return TrustProductsPage(self._version, response, self._solution)
+        return TrustProductsPage(self._version, response)
 
     async def page_async(
         self,
@@ -328,7 +326,7 @@ class TrustProductsList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return TrustProductsPage(self._version, response, self._solution)
+        return TrustProductsPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -341,7 +339,7 @@ class TrustProductsList(ListResource):
         :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return TrustProductsPage(self._version, response, self._solution)
+        return TrustProductsPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -354,7 +352,7 @@ class TrustProductsList(ListResource):
         :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return TrustProductsPage(self._version, response, self._solution)
+        return TrustProductsPage(self._version, response)
 
     def get(self, sid):
         """
@@ -441,10 +439,10 @@ class TrustProductsInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TrustProductsContext] = None
 
     @property
     def _proxy(self):
@@ -708,9 +706,13 @@ class TrustProductsContext(InstanceContext):
         }
         self._uri = "/TrustProducts/{sid}".format(**self._solution)
 
-        self._trust_products_channel_endpoint_assignment = None
-        self._trust_products_entity_assignments = None
-        self._trust_products_evaluations = None
+        self._trust_products_channel_endpoint_assignment: Optional[
+            TrustProductsChannelEndpointAssignmentList
+        ] = None
+        self._trust_products_entity_assignments: Optional[
+            TrustProductsEntityAssignmentsList
+        ] = None
+        self._trust_products_evaluations: Optional[TrustProductsEvaluationsList] = None
 
     def delete(self):
         """

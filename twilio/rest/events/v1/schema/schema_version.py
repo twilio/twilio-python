@@ -285,11 +285,11 @@ class SchemaVersionInstance(InstanceResource):
             "raw": payload.get("raw"),
         }
 
-        self._context = None
         self._solution = {
             "id": id,
             "schema_version": schema_version or self._properties["schema_version"],
         }
+        self._context: Optional[SchemaVersionContext] = None
 
     @property
     def _proxy(self):

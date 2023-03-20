@@ -33,9 +33,6 @@ class ExportConfigurationList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, resource_type):
         """
         Constructs a ExportConfigurationContext
@@ -86,10 +83,10 @@ class ExportConfigurationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "resource_type": resource_type or self._properties["resource_type"],
         }
+        self._context: Optional[ExportConfigurationContext] = None
 
     @property
     def _proxy(self):

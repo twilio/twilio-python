@@ -455,11 +455,11 @@ class QueryInstance(InstanceResource):
             "source_channel": payload.get("source_channel"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[QueryContext] = None
 
     @property
     def _proxy(self):

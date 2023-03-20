@@ -297,7 +297,6 @@ class EventInstance(InstanceResource):
             "client_edge": payload.get("client_edge"),
         }
 
-        self._context = None
         self._solution = {
             "call_sid": call_sid,
         }

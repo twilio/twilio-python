@@ -35,9 +35,7 @@ class SourceIpMappingList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/SourceIpMappings".format(**self._solution)
+        self._uri = "/SourceIpMappings"
 
     def create(self, ip_record_sid, sip_domain_sid):
         """
@@ -202,7 +200,7 @@ class SourceIpMappingList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SourceIpMappingPage(self._version, response, self._solution)
+        return SourceIpMappingPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -229,7 +227,7 @@ class SourceIpMappingList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SourceIpMappingPage(self._version, response, self._solution)
+        return SourceIpMappingPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -242,7 +240,7 @@ class SourceIpMappingList(ListResource):
         :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SourceIpMappingPage(self._version, response, self._solution)
+        return SourceIpMappingPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -255,7 +253,7 @@ class SourceIpMappingList(ListResource):
         :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SourceIpMappingPage(self._version, response, self._solution)
+        return SourceIpMappingPage(self._version, response)
 
     def get(self, sid):
         """
@@ -329,10 +327,10 @@ class SourceIpMappingInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SourceIpMappingContext] = None
 
     @property
     def _proxy(self):

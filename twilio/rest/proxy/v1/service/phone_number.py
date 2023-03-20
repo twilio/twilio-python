@@ -356,11 +356,11 @@ class PhoneNumberInstance(InstanceResource):
             "in_use": deserialize.integer(payload.get("in_use")),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[PhoneNumberContext] = None
 
     @property
     def _proxy(self):

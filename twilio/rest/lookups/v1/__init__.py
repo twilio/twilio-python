@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.lookups.v1.phone_number import PhoneNumberList
@@ -25,7 +26,7 @@ class V1(Version):
         :param domain: The Twilio.lookups domain
         """
         super().__init__(domain, "v1")
-        self._phone_numbers = None
+        self._phone_numbers: Optional[PhoneNumberList] = None
 
     @property
     def phone_numbers(self) -> PhoneNumberList:

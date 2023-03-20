@@ -625,7 +625,6 @@ class NationalInstance(InstanceResource):
             "capabilities": payload.get("capabilities"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "country_code": country_code,

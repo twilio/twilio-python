@@ -296,11 +296,11 @@ class FlowRevisionInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid,
             "revision": revision or self._properties["revision"],
         }
+        self._context: Optional[FlowRevisionContext] = None
 
     @property
     def _proxy(self):

@@ -169,11 +169,11 @@ class AccessTokenInstance(InstanceResource):
             "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AccessTokenContext] = None
 
     @property
     def _proxy(self):

@@ -460,12 +460,12 @@ class MessageInstance(InstanceResource):
             "content_sid": payload.get("content_sid"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "conversation_sid": conversation_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[MessageContext] = None
 
     @property
     def _proxy(self):
@@ -769,7 +769,7 @@ class MessageContext(InstanceContext):
             **self._solution
         )
 
-        self._delivery_receipts = None
+        self._delivery_receipts: Optional[DeliveryReceiptList] = None
 
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """

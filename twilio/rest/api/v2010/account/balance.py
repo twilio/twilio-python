@@ -89,7 +89,6 @@ class BalanceInstance(InstanceResource):
             "currency": payload.get("currency"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
         }

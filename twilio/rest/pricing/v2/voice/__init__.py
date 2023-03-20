@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -32,12 +35,10 @@ class VoiceList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Voice".format(**self._solution)
+        self._uri = "/Voice"
 
-        self._countries = None
-        self._numbers = None
+        self._countries: Optional[CountryList] = None
+        self._numbers: Optional[NumberList] = None
 
     @property
     def countries(self):

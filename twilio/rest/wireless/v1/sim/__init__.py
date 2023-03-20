@@ -37,9 +37,7 @@ class SimList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Sims".format(**self._solution)
+        self._uri = "/Sims"
 
     def stream(
         self,
@@ -252,7 +250,7 @@ class SimList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SimPage(self._version, response, self._solution)
+        return SimPage(self._version, response)
 
     async def page_async(
         self,
@@ -297,7 +295,7 @@ class SimList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SimPage(self._version, response, self._solution)
+        return SimPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -310,7 +308,7 @@ class SimList(ListResource):
         :rtype: twilio.rest.wireless.v1.sim.SimPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SimPage(self._version, response, self._solution)
+        return SimPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -323,7 +321,7 @@ class SimList(ListResource):
         :rtype: twilio.rest.wireless.v1.sim.SimPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SimPage(self._version, response, self._solution)
+        return SimPage(self._version, response)
 
     def get(self, sid):
         """
@@ -428,10 +426,10 @@ class SimInstance(InstanceResource):
             "ip_address": payload.get("ip_address"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SimContext] = None
 
     @property
     def _proxy(self):
@@ -865,8 +863,8 @@ class SimContext(InstanceContext):
         }
         self._uri = "/Sims/{sid}".format(**self._solution)
 
-        self._data_sessions = None
-        self._usage_records = None
+        self._data_sessions: Optional[DataSessionList] = None
+        self._usage_records: Optional[UsageRecordList] = None
 
     def delete(self):
         """

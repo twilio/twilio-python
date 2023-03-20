@@ -33,9 +33,6 @@ class NumberList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, destination_number):
         """
         Constructs a NumberContext
@@ -89,11 +86,11 @@ class NumberInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "destination_number": destination_number
             or self._properties["destination_number"],
         }
+        self._context: Optional[NumberContext] = None
 
     @property
     def _proxy(self):

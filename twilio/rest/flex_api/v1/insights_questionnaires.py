@@ -35,9 +35,7 @@ class InsightsQuestionnairesList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/QM/Questionnaires".format(**self._solution)
+        self._uri = "/Insights/QM/Questionnaires"
 
     def create(
         self,
@@ -283,7 +281,7 @@ class InsightsQuestionnairesList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return InsightsQuestionnairesPage(self._version, response, self._solution)
+        return InsightsQuestionnairesPage(self._version, response)
 
     async def page_async(
         self,
@@ -319,7 +317,7 @@ class InsightsQuestionnairesList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return InsightsQuestionnairesPage(self._version, response, self._solution)
+        return InsightsQuestionnairesPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -332,7 +330,7 @@ class InsightsQuestionnairesList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return InsightsQuestionnairesPage(self._version, response, self._solution)
+        return InsightsQuestionnairesPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -345,7 +343,7 @@ class InsightsQuestionnairesList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InsightsQuestionnairesPage(self._version, response, self._solution)
+        return InsightsQuestionnairesPage(self._version, response)
 
     def get(self, id):
         """
@@ -420,10 +418,10 @@ class InsightsQuestionnairesInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "id": id or self._properties["id"],
         }
+        self._context: Optional[InsightsQuestionnairesContext] = None
 
     @property
     def _proxy(self):

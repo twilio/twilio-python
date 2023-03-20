@@ -451,12 +451,12 @@ class SyncListItemInstance(InstanceResource):
             "created_by": payload.get("created_by"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "list_sid": list_sid,
             "index": index or self._properties["index"],
         }
+        self._context: Optional[SyncListItemContext] = None
 
     @property
     def _proxy(self):

@@ -346,11 +346,11 @@ class DeploymentInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "fleet_sid": fleet_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[DeploymentContext] = None
 
     @property
     def _proxy(self):

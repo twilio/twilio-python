@@ -341,11 +341,11 @@ class AssetInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AssetContext] = None
 
     @property
     def _proxy(self):
@@ -536,7 +536,7 @@ class AssetContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Assets/{sid}".format(**self._solution)
 
-        self._asset_versions = None
+        self._asset_versions: Optional[AssetVersionList] = None
 
     def delete(self):
         """

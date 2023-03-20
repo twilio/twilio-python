@@ -355,11 +355,11 @@ class ModelBuildInstance(InstanceResource):
             "error_code": deserialize.integer(payload.get("error_code")),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ModelBuildContext] = None
 
     @property
     def _proxy(self):

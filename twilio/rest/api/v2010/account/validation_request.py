@@ -155,7 +155,6 @@ class ValidationRequestInstance(InstanceResource):
             "validation_code": payload.get("validation_code"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
         }

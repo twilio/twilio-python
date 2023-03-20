@@ -39,6 +39,7 @@ class BuildList(ListResource):
         """
         super().__init__(version)
 
+        
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/{service_sid}/Builds'.format(**self._solution)
@@ -259,6 +260,9 @@ class BuildList(ListResource):
         return BuildPage(self._version, response, self._solution)
 
 
+
+
+
     def get(self, sid):
         """
         Constructs a BuildContext
@@ -359,9 +363,9 @@ class BuildInstance(InstanceResource):
             'links': payload.get('links'),
         }
 
-        self._context = None
         self._solution = { 'service_sid': service_sid, 'sid': sid or self._properties['sid'],  }
-    
+        self._context: Optional[BuildContext] = None
+
     @property
     def _proxy(self):
         """
@@ -547,6 +551,7 @@ class BuildContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
         self._solution = { 
             'service_sid': service_sid,
@@ -554,7 +559,7 @@ class BuildContext(InstanceContext):
         }
         self._uri = '/Services/{service_sid}/Builds/{sid}'.format(**self._solution)
         
-        self._build_status = None
+        self._build_status: Optional[BuildStatusList] = None
     
     
     def delete(self):

@@ -162,7 +162,6 @@ class VerificationCheckInstance(InstanceResource):
             "sna_attempts_error_codes": payload.get("sna_attempts_error_codes"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
         }
