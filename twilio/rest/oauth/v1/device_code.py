@@ -34,9 +34,7 @@ class DeviceCodeList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/device/code".format(**self._solution)
+        self._uri = "/device/code"
 
     def create(self, client_sid, scopes, audiences=values.unset):
         """
@@ -121,7 +119,6 @@ class DeviceCodeInstance(InstanceResource):
             "interval": deserialize.integer(payload.get("interval")),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

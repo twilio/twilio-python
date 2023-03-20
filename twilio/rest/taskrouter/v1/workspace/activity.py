@@ -407,11 +407,11 @@ class ActivityInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ActivityContext] = None
 
     @property
     def _proxy(self):

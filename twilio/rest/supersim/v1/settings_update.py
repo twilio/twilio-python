@@ -34,9 +34,7 @@ class SettingsUpdateList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/SettingsUpdates".format(**self._solution)
+        self._uri = "/SettingsUpdates"
 
     def stream(self, sim=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -178,7 +176,7 @@ class SettingsUpdateList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     async def page_async(
         self,
@@ -214,7 +212,7 @@ class SettingsUpdateList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -227,7 +225,7 @@ class SettingsUpdateList(ListResource):
         :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdatePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -240,7 +238,7 @@ class SettingsUpdateList(ListResource):
         :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdatePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SettingsUpdatePage(self._version, response, self._solution)
+        return SettingsUpdatePage(self._version, response)
 
     def __repr__(self):
         """
@@ -302,7 +300,6 @@ class SettingsUpdateInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

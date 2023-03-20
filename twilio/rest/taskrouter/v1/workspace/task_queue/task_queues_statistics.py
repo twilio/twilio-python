@@ -396,7 +396,6 @@ class TaskQueuesStatisticsInstance(InstanceResource):
             "workspace_sid": payload.get("workspace_sid"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
         }

@@ -624,11 +624,11 @@ class MessageInstance(InstanceResource):
             "subresource_uris": payload.get("subresource_uris"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[MessageContext] = None
 
     @property
     def _proxy(self):
@@ -931,8 +931,8 @@ class MessageContext(InstanceContext):
             **self._solution
         )
 
-        self._feedback = None
-        self._media = None
+        self._feedback: Optional[FeedbackList] = None
+        self._media: Optional[MediaList] = None
 
     def delete(self):
         """

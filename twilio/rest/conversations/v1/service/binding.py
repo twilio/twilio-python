@@ -359,11 +359,11 @@ class BindingInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[BindingContext] = None
 
     @property
     def _proxy(self):

@@ -802,11 +802,11 @@ class TriggerInstance(InstanceResource):
             "usage_record_uri": payload.get("usage_record_uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TriggerContext] = None
 
     @property
     def _proxy(self):

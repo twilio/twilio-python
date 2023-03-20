@@ -33,9 +33,6 @@ class UserList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, sid):
         """
         Constructs a UserContext
@@ -92,10 +89,10 @@ class UserInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[UserContext] = None
 
     @property
     def _proxy(self):

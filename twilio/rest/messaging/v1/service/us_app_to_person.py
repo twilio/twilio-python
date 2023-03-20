@@ -449,11 +449,11 @@ class UsAppToPersonInstance(InstanceResource):
             "mock": payload.get("mock"),
         }
 
-        self._context = None
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[UsAppToPersonContext] = None
 
     @property
     def _proxy(self):

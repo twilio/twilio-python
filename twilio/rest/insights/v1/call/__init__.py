@@ -37,9 +37,6 @@ class CallList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, sid):
         """
         Constructs a CallContext
@@ -88,10 +85,10 @@ class CallInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CallContext] = None
 
     @property
     def _proxy(self):
@@ -223,10 +220,10 @@ class CallContext(InstanceContext):
         }
         self._uri = "/Voice/{sid}".format(**self._solution)
 
-        self._annotation = None
-        self._summary = None
-        self._events = None
-        self._metrics = None
+        self._annotation: Optional[AnnotationList] = None
+        self._summary: Optional[CallSummaryList] = None
+        self._events: Optional[EventList] = None
+        self._metrics: Optional[MetricList] = None
 
     def fetch(self):
         """

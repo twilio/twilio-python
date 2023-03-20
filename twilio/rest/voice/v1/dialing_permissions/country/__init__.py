@@ -37,9 +37,7 @@ class CountryList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/DialingPermissions/Countries".format(**self._solution)
+        self._uri = "/DialingPermissions/Countries"
 
     def stream(
         self,
@@ -267,7 +265,7 @@ class CountryList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     async def page_async(
         self,
@@ -315,7 +313,7 @@ class CountryList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -328,7 +326,7 @@ class CountryList(ListResource):
         :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -341,7 +339,7 @@ class CountryList(ListResource):
         :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     def get(self, iso_code):
         """
@@ -422,10 +420,10 @@ class CountryInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "iso_code": iso_code or self._properties["iso_code"],
         }
+        self._context: Optional[CountryContext] = None
 
     @property
     def _proxy(self):
@@ -575,7 +573,7 @@ class CountryContext(InstanceContext):
         }
         self._uri = "/DialingPermissions/Countries/{iso_code}".format(**self._solution)
 
-        self._highrisk_special_prefixes = None
+        self._highrisk_special_prefixes: Optional[HighriskSpecialPrefixList] = None
 
     def fetch(self):
         """

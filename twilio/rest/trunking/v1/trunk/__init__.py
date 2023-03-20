@@ -40,9 +40,7 @@ class TrunkList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Trunks".format(**self._solution)
+        self._uri = "/Trunks"
 
     def create(
         self,
@@ -251,7 +249,7 @@ class TrunkList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return TrunkPage(self._version, response, self._solution)
+        return TrunkPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -278,7 +276,7 @@ class TrunkList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return TrunkPage(self._version, response, self._solution)
+        return TrunkPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -291,7 +289,7 @@ class TrunkList(ListResource):
         :rtype: twilio.rest.trunking.v1.trunk.TrunkPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return TrunkPage(self._version, response, self._solution)
+        return TrunkPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -304,7 +302,7 @@ class TrunkList(ListResource):
         :rtype: twilio.rest.trunking.v1.trunk.TrunkPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return TrunkPage(self._version, response, self._solution)
+        return TrunkPage(self._version, response)
 
     def get(self, sid):
         """
@@ -398,10 +396,10 @@ class TrunkInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TrunkContext] = None
 
     @property
     def _proxy(self):
@@ -749,11 +747,11 @@ class TrunkContext(InstanceContext):
         }
         self._uri = "/Trunks/{sid}".format(**self._solution)
 
-        self._credentials_lists = None
-        self._ip_access_control_lists = None
-        self._origination_urls = None
-        self._phone_numbers = None
-        self._recordings = None
+        self._credentials_lists: Optional[CredentialListList] = None
+        self._ip_access_control_lists: Optional[IpAccessControlListList] = None
+        self._origination_urls: Optional[OriginationUrlList] = None
+        self._phone_numbers: Optional[PhoneNumberList] = None
+        self._recordings: Optional[RecordingList] = None
 
     def delete(self):
         """

@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class CompositionSettingsList(ListResource):
         :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -86,8 +84,8 @@ class CompositionSettingsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[CompositionSettingsContext] = None
 
     @property
     def _proxy(self):
@@ -273,9 +271,7 @@ class CompositionSettingsContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/CompositionSettings/Default".format(**self._solution)
+        self._uri = "/CompositionSettings/Default"
 
     def create(
         self,
@@ -398,5 +394,5 @@ class CompositionSettingsContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionSettingsContext {}>".format(context)
+
+        return "<Twilio.Video.V1.CompositionSettingsContext>"

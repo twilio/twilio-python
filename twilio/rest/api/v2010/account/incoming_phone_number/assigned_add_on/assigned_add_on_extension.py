@@ -322,13 +322,13 @@ class AssignedAddOnExtensionInstance(InstanceResource):
             "enabled": payload.get("enabled"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "resource_sid": resource_sid,
             "assigned_add_on_sid": assigned_add_on_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AssignedAddOnExtensionContext] = None
 
     @property
     def _proxy(self):

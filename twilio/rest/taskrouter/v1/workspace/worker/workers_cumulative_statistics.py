@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -111,10 +112,10 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
         }
+        self._context: Optional[WorkersCumulativeStatisticsContext] = None
 
     @property
     def _proxy(self):

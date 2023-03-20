@@ -36,9 +36,7 @@ class EndUserList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/RegulatoryCompliance/EndUsers".format(**self._solution)
+        self._uri = "/RegulatoryCompliance/EndUsers"
 
     def create(self, friendly_name, type, attributes=values.unset):
         """
@@ -207,7 +205,7 @@ class EndUserList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return EndUserPage(self._version, response, self._solution)
+        return EndUserPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -234,7 +232,7 @@ class EndUserList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return EndUserPage(self._version, response, self._solution)
+        return EndUserPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -247,7 +245,7 @@ class EndUserList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return EndUserPage(self._version, response, self._solution)
+        return EndUserPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -260,7 +258,7 @@ class EndUserList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EndUserPage(self._version, response, self._solution)
+        return EndUserPage(self._version, response)
 
     def get(self, sid):
         """
@@ -340,10 +338,10 @@ class EndUserInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EndUserContext] = None
 
     @property
     def _proxy(self):

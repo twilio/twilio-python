@@ -322,12 +322,12 @@ class DeliveryReceiptInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "conversation_sid": conversation_sid,
             "message_sid": message_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[DeliveryReceiptContext] = None
 
     @property
     def _proxy(self):

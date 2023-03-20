@@ -25,7 +25,7 @@ class Page(object):
         "uri",
     }
 
-    def __init__(self, version, response, solution):
+    def __init__(self, version, response, solution={}):
         payload = self.process_response(response)
 
         self._version = version

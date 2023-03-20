@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.conversations.v1.address_configuration import AddressConfigurationList
@@ -34,14 +35,14 @@ class V1(Version):
         :param domain: The Twilio.conversations domain
         """
         super().__init__(domain, "v1")
-        self._address_configurations = None
-        self._configuration = None
-        self._conversations = None
-        self._credentials = None
-        self._participant_conversations = None
-        self._roles = None
-        self._services = None
-        self._users = None
+        self._address_configurations: Optional[AddressConfigurationList] = None
+        self._configuration: Optional[ConfigurationList] = None
+        self._conversations: Optional[ConversationList] = None
+        self._credentials: Optional[CredentialList] = None
+        self._participant_conversations: Optional[ParticipantConversationList] = None
+        self._roles: Optional[RoleList] = None
+        self._services: Optional[ServiceList] = None
+        self._users: Optional[UserList] = None
 
     @property
     def address_configurations(self) -> AddressConfigurationList:

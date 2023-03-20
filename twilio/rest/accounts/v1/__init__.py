@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.accounts.v1.auth_token_promotion import AuthTokenPromotionList
@@ -27,9 +28,9 @@ class V1(Version):
         :param domain: The Twilio.accounts domain
         """
         super().__init__(domain, "v1")
-        self._auth_token_promotion = None
-        self._credentials = None
-        self._secondary_auth_token = None
+        self._auth_token_promotion: Optional[AuthTokenPromotionList] = None
+        self._credentials: Optional[CredentialList] = None
+        self._secondary_auth_token: Optional[SecondaryAuthTokenList] = None
 
     @property
     def auth_token_promotion(self) -> AuthTokenPromotionList:

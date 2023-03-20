@@ -356,11 +356,11 @@ class WebhookInstance(InstanceResource):
             "webhook_method": payload.get("webhook_method"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[WebhookContext] = None
 
     @property
     def _proxy(self):

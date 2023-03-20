@@ -419,11 +419,11 @@ class ExecutionInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "flow_sid": flow_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ExecutionContext] = None
 
     @property
     def _proxy(self):
@@ -640,8 +640,8 @@ class ExecutionContext(InstanceContext):
         }
         self._uri = "/Flows/{flow_sid}/Executions/{sid}".format(**self._solution)
 
-        self._execution_context = None
-        self._steps = None
+        self._execution_context: Optional[ExecutionContextList] = None
+        self._steps: Optional[ExecutionStepList] = None
 
     def delete(self):
         """

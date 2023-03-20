@@ -34,9 +34,7 @@ class NetworkList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Networks".format(**self._solution)
+        self._uri = "/Networks"
 
     def stream(
         self,
@@ -213,7 +211,7 @@ class NetworkList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     async def page_async(
         self,
@@ -252,7 +250,7 @@ class NetworkList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -265,7 +263,7 @@ class NetworkList(ListResource):
         :rtype: twilio.rest.supersim.v1.network.NetworkPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -278,7 +276,7 @@ class NetworkList(ListResource):
         :rtype: twilio.rest.supersim.v1.network.NetworkPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return NetworkPage(self._version, response, self._solution)
+        return NetworkPage(self._version, response)
 
     def get(self, sid):
         """
@@ -351,10 +349,10 @@ class NetworkInstance(InstanceResource):
             "identifiers": payload.get("identifiers"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[NetworkContext] = None
 
     @property
     def _proxy(self):

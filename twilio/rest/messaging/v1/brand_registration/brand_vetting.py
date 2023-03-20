@@ -383,12 +383,12 @@ class BrandVettingInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "brand_sid": brand_sid,
             "brand_vetting_sid": brand_vetting_sid
             or self._properties["brand_vetting_sid"],
         }
+        self._context: Optional[BrandVettingContext] = None
 
     @property
     def _proxy(self):

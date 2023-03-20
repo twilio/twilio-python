@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -35,11 +36,13 @@ class BuildStatusList(ListResource):
         """
         super().__init__(version)
 
+        
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'sid': sid,  }
         
         
         
+
     def get(self):
         """
         Constructs a BuildStatusContext
@@ -93,9 +96,9 @@ class BuildStatusInstance(InstanceResource):
             'url': payload.get('url'),
         }
 
-        self._context = None
         self._solution = { 'service_sid': service_sid, 'sid': sid,  }
-    
+        self._context: Optional[BuildStatusContext] = None
+
     @property
     def _proxy(self):
         """
@@ -195,6 +198,7 @@ class BuildStatusContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
         self._solution = { 
             'service_sid': service_sid,

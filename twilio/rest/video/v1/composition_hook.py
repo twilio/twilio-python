@@ -36,9 +36,7 @@ class CompositionHookList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/CompositionHooks".format(**self._solution)
+        self._uri = "/CompositionHooks"
 
     def create(
         self,
@@ -346,7 +344,7 @@ class CompositionHookList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CompositionHookPage(self._version, response, self._solution)
+        return CompositionHookPage(self._version, response)
 
     async def page_async(
         self,
@@ -388,7 +386,7 @@ class CompositionHookList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return CompositionHookPage(self._version, response, self._solution)
+        return CompositionHookPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -401,7 +399,7 @@ class CompositionHookList(ListResource):
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return CompositionHookPage(self._version, response, self._solution)
+        return CompositionHookPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -414,7 +412,7 @@ class CompositionHookList(ListResource):
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CompositionHookPage(self._version, response, self._solution)
+        return CompositionHookPage(self._version, response)
 
     def get(self, sid):
         """
@@ -501,10 +499,10 @@ class CompositionHookInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CompositionHookContext] = None
 
     @property
     def _proxy(self):

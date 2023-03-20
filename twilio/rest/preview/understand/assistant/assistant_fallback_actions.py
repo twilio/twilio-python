@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -90,10 +91,10 @@ class AssistantFallbackActionsInstance(InstanceResource):
             "data": payload.get("data"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
         }
+        self._context: Optional[AssistantFallbackActionsContext] = None
 
     @property
     def _proxy(self):

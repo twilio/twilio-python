@@ -63,9 +63,7 @@ class AccountList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Accounts.json".format(**self._solution)
+        self._uri = "/Accounts.json"
 
     def create(self, friendly_name=values.unset):
         """
@@ -275,7 +273,7 @@ class AccountList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AccountPage(self._version, response, self._solution)
+        return AccountPage(self._version, response)
 
     async def page_async(
         self,
@@ -311,7 +309,7 @@ class AccountList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return AccountPage(self._version, response, self._solution)
+        return AccountPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -324,7 +322,7 @@ class AccountList(ListResource):
         :rtype: twilio.rest.api.v2010.account.AccountPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AccountPage(self._version, response, self._solution)
+        return AccountPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -337,7 +335,7 @@ class AccountList(ListResource):
         :rtype: twilio.rest.api.v2010.account.AccountPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AccountPage(self._version, response, self._solution)
+        return AccountPage(self._version, response)
 
     def get(self, sid):
         """
@@ -424,10 +422,10 @@ class AccountInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AccountContext] = None
 
     @property
     def _proxy(self):
@@ -845,30 +843,30 @@ class AccountContext(InstanceContext):
         }
         self._uri = "/Accounts/{sid}.json".format(**self._solution)
 
-        self._addresses = None
-        self._applications = None
-        self._authorized_connect_apps = None
-        self._available_phone_numbers = None
-        self._balance = None
-        self._calls = None
-        self._conferences = None
-        self._connect_apps = None
-        self._incoming_phone_numbers = None
-        self._keys = None
-        self._messages = None
-        self._new_keys = None
-        self._new_signing_keys = None
-        self._notifications = None
-        self._outgoing_caller_ids = None
-        self._queues = None
-        self._recordings = None
-        self._short_codes = None
-        self._signing_keys = None
-        self._sip = None
-        self._tokens = None
-        self._transcriptions = None
-        self._usage = None
-        self._validation_requests = None
+        self._addresses: Optional[AddressList] = None
+        self._applications: Optional[ApplicationList] = None
+        self._authorized_connect_apps: Optional[AuthorizedConnectAppList] = None
+        self._available_phone_numbers: Optional[AvailablePhoneNumberCountryList] = None
+        self._balance: Optional[BalanceList] = None
+        self._calls: Optional[CallList] = None
+        self._conferences: Optional[ConferenceList] = None
+        self._connect_apps: Optional[ConnectAppList] = None
+        self._incoming_phone_numbers: Optional[IncomingPhoneNumberList] = None
+        self._keys: Optional[KeyList] = None
+        self._messages: Optional[MessageList] = None
+        self._new_keys: Optional[NewKeyList] = None
+        self._new_signing_keys: Optional[NewSigningKeyList] = None
+        self._notifications: Optional[NotificationList] = None
+        self._outgoing_caller_ids: Optional[OutgoingCallerIdList] = None
+        self._queues: Optional[QueueList] = None
+        self._recordings: Optional[RecordingList] = None
+        self._short_codes: Optional[ShortCodeList] = None
+        self._signing_keys: Optional[SigningKeyList] = None
+        self._sip: Optional[SipList] = None
+        self._tokens: Optional[TokenList] = None
+        self._transcriptions: Optional[TranscriptionList] = None
+        self._usage: Optional[UsageList] = None
+        self._validation_requests: Optional[ValidationRequestList] = None
 
     def fetch(self):
         """

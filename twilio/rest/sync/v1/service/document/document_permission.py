@@ -311,12 +311,12 @@ class DocumentPermissionInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "document_sid": document_sid,
             "identity": identity or self._properties["identity"],
         }
+        self._context: Optional[DocumentPermissionContext] = None
 
     @property
     def _proxy(self):

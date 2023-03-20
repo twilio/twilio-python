@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -32,9 +33,6 @@ class SecondaryAuthTokenList(ListResource):
         :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -84,8 +82,8 @@ class SecondaryAuthTokenInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[SecondaryAuthTokenContext] = None
 
     @property
     def _proxy(self):
@@ -205,9 +203,7 @@ class SecondaryAuthTokenContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/AuthTokens/Secondary".format(**self._solution)
+        self._uri = "/AuthTokens/Secondary"
 
     def create(self):
         """
@@ -272,5 +268,5 @@ class SecondaryAuthTokenContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Accounts.V1.SecondaryAuthTokenContext {}>".format(context)
+
+        return "<Twilio.Accounts.V1.SecondaryAuthTokenContext>"

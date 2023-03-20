@@ -346,11 +346,11 @@ class QueueInstance(InstanceResource):
             "max_size": deserialize.integer(payload.get("max_size")),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[QueueContext] = None
 
     @property
     def _proxy(self):
@@ -553,7 +553,7 @@ class QueueContext(InstanceContext):
         }
         self._uri = "/Accounts/{account_sid}/Queues/{sid}.json".format(**self._solution)
 
-        self._members = None
+        self._members: Optional[MemberList] = None
 
     def delete(self):
         """

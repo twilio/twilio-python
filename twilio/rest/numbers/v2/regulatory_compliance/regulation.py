@@ -34,9 +34,7 @@ class RegulationList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/RegulatoryCompliance/Regulations".format(**self._solution)
+        self._uri = "/RegulatoryCompliance/Regulations"
 
     def stream(
         self,
@@ -219,7 +217,7 @@ class RegulationList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return RegulationPage(self._version, response, self._solution)
+        return RegulationPage(self._version, response)
 
     async def page_async(
         self,
@@ -258,7 +256,7 @@ class RegulationList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return RegulationPage(self._version, response, self._solution)
+        return RegulationPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -271,7 +269,7 @@ class RegulationList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return RegulationPage(self._version, response, self._solution)
+        return RegulationPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -284,7 +282,7 @@ class RegulationList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return RegulationPage(self._version, response, self._solution)
+        return RegulationPage(self._version, response)
 
     def get(self, sid):
         """
@@ -363,10 +361,10 @@ class RegulationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[RegulationContext] = None
 
     @property
     def _proxy(self):

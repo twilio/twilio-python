@@ -491,11 +491,11 @@ class AddressInstance(InstanceResource):
             "street_secondary": payload.get("street_secondary"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AddressContext] = None
 
     @property
     def _proxy(self):
@@ -806,7 +806,7 @@ class AddressContext(InstanceContext):
             **self._solution
         )
 
-        self._dependent_phone_numbers = None
+        self._dependent_phone_numbers: Optional[DependentPhoneNumberList] = None
 
     def delete(self):
         """

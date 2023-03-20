@@ -342,11 +342,11 @@ class CredentialListInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CredentialListContext] = None
 
     @property
     def _proxy(self):
@@ -531,7 +531,7 @@ class CredentialListContext(InstanceContext):
             **self._solution
         )
 
-        self._credentials = None
+        self._credentials: Optional[CredentialList] = None
 
     def delete(self):
         """

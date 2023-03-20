@@ -332,11 +332,11 @@ class EvaluationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "bundle_sid": bundle_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EvaluationContext] = None
 
     @property
     def _proxy(self):

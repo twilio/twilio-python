@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -87,10 +88,10 @@ class PlaybackGrantInstance(InstanceResource):
             "grant": payload.get("grant"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid,
         }
+        self._context: Optional[PlaybackGrantContext] = None
 
     @property
     def _proxy(self):

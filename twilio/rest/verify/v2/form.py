@@ -32,9 +32,6 @@ class FormList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, form_type):
         """
         Constructs a FormContext
@@ -87,10 +84,10 @@ class FormInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "form_type": form_type or self._properties["form_type"],
         }
+        self._context: Optional[FormContext] = None
 
     @property
     def _proxy(self):

@@ -34,9 +34,7 @@ class UsageRecordList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/UsageRecords".format(**self._solution)
+        self._uri = "/UsageRecords"
 
     def stream(
         self,
@@ -213,7 +211,7 @@ class UsageRecordList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     async def page_async(
         self,
@@ -252,7 +250,7 @@ class UsageRecordList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -265,7 +263,7 @@ class UsageRecordList(ListResource):
         :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -278,7 +276,7 @@ class UsageRecordList(ListResource):
         :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return UsageRecordPage(self._version, response, self._solution)
+        return UsageRecordPage(self._version, response)
 
     def __repr__(self):
         """
@@ -333,7 +331,6 @@ class UsageRecordInstance(InstanceResource):
             "data": payload.get("data"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

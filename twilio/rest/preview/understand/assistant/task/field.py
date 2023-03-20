@@ -371,12 +371,12 @@ class FieldInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[FieldContext] = None
 
     @property
     def _proxy(self):

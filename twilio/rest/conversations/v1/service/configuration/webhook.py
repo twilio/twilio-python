@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import serialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -97,10 +98,10 @@ class WebhookInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
         }
+        self._context: Optional[WebhookContext] = None
 
     @property
     def _proxy(self):

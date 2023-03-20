@@ -360,11 +360,11 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "trust_product_sid": trust_product_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TrustProductsEntityAssignmentsContext] = None
 
     @property
     def _proxy(self):

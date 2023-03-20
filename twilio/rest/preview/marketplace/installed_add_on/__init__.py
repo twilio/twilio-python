@@ -39,9 +39,7 @@ class InstalledAddOnList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/InstalledAddOns".format(**self._solution)
+        self._uri = "/InstalledAddOns"
 
     def create(
         self,
@@ -226,7 +224,7 @@ class InstalledAddOnList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return InstalledAddOnPage(self._version, response, self._solution)
+        return InstalledAddOnPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -253,7 +251,7 @@ class InstalledAddOnList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return InstalledAddOnPage(self._version, response, self._solution)
+        return InstalledAddOnPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -266,7 +264,7 @@ class InstalledAddOnList(ListResource):
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return InstalledAddOnPage(self._version, response, self._solution)
+        return InstalledAddOnPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -279,7 +277,7 @@ class InstalledAddOnList(ListResource):
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InstalledAddOnPage(self._version, response, self._solution)
+        return InstalledAddOnPage(self._version, response)
 
     def get(self, sid):
         """
@@ -357,10 +355,10 @@ class InstalledAddOnInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[InstalledAddOnContext] = None
 
     @property
     def _proxy(self):
@@ -568,7 +566,7 @@ class InstalledAddOnContext(InstanceContext):
         }
         self._uri = "/InstalledAddOns/{sid}".format(**self._solution)
 
-        self._extensions = None
+        self._extensions: Optional[InstalledAddOnExtensionList] = None
 
     def delete(self):
         """

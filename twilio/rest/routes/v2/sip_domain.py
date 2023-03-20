@@ -34,9 +34,6 @@ class SipDomainList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, sip_domain):
         """
         Constructs a SipDomainContext
@@ -90,10 +87,10 @@ class SipDomainInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "sip_domain": sip_domain or self._properties["sip_domain"],
         }
+        self._context: Optional[SipDomainContext] = None
 
     @property
     def _proxy(self):

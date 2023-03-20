@@ -371,12 +371,12 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
             "sid": payload.get("sid"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "domain_sid": domain_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AuthCallsIpAccessControlListMappingContext] = None
 
     @property
     def _proxy(self):

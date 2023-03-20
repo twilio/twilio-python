@@ -35,9 +35,6 @@ class SchemaList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, id):
         """
         Constructs a SchemaContext
@@ -90,10 +87,10 @@ class SchemaInstance(InstanceResource):
             "latest_version": deserialize.integer(payload.get("latest_version")),
         }
 
-        self._context = None
         self._solution = {
             "id": id or self._properties["id"],
         }
+        self._context: Optional[SchemaContext] = None
 
     @property
     def _proxy(self):
@@ -211,7 +208,7 @@ class SchemaContext(InstanceContext):
         }
         self._uri = "/Schemas/{id}".format(**self._solution)
 
-        self._versions = None
+        self._versions: Optional[SchemaVersionList] = None
 
     def fetch(self):
         """

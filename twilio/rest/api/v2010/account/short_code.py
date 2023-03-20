@@ -358,11 +358,11 @@ class ShortCodeInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ShortCodeContext] = None
 
     @property
     def _proxy(self):

@@ -489,11 +489,11 @@ class BindingInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[BindingContext] = None
 
     @property
     def _proxy(self):

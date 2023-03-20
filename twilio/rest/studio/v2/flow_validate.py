@@ -33,9 +33,7 @@ class FlowValidateList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Flows/Validate".format(**self._solution)
+        self._uri = "/Flows/Validate"
 
     def update(self, friendly_name, status, definition, commit_message=values.unset):
         """
@@ -121,7 +119,6 @@ class FlowValidateInstance(InstanceResource):
             "valid": payload.get("valid"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

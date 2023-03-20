@@ -342,11 +342,11 @@ class ShortCodeInstance(InstanceResource):
             "is_reserved": payload.get("is_reserved"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ShortCodeContext] = None
 
     @property
     def _proxy(self):

@@ -34,9 +34,7 @@ class CountryList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Voice/Countries".format(**self._solution)
+        self._uri = "/Voice/Countries"
 
     def stream(self, limit=None, page_size=None):
         """
@@ -151,7 +149,7 @@ class CountryList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -178,7 +176,7 @@ class CountryList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -191,7 +189,7 @@ class CountryList(ListResource):
         :rtype: twilio.rest.pricing.v1.voice.country.CountryPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -204,7 +202,7 @@ class CountryList(ListResource):
         :rtype: twilio.rest.pricing.v1.voice.country.CountryPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CountryPage(self._version, response, self._solution)
+        return CountryPage(self._version, response)
 
     def get(self, iso_country):
         """
@@ -278,10 +276,10 @@ class CountryInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "iso_country": iso_country or self._properties["iso_country"],
         }
+        self._context: Optional[CountryContext] = None
 
     @property
     def _proxy(self):

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.flex_api.v1.assessments import AssessmentsList
@@ -49,21 +50,29 @@ class V1(Version):
         :param domain: The Twilio.flex_api domain
         """
         super().__init__(domain, "v1")
-        self._assessments = None
-        self._channel = None
-        self._configuration = None
-        self._flex_flow = None
-        self._insights_assessments_comment = None
-        self._insights_questionnaires = None
-        self._insights_questionnaires_category = None
-        self._insights_questionnaires_question = None
-        self._insights_segments = None
-        self._insights_session = None
-        self._insights_settings_answer_sets = None
-        self._insights_settings_comment = None
-        self._insights_user_roles = None
-        self._interaction = None
-        self._web_channel = None
+        self._assessments: Optional[AssessmentsList] = None
+        self._channel: Optional[ChannelList] = None
+        self._configuration: Optional[ConfigurationList] = None
+        self._flex_flow: Optional[FlexFlowList] = None
+        self._insights_assessments_comment: Optional[
+            InsightsAssessmentsCommentList
+        ] = None
+        self._insights_questionnaires: Optional[InsightsQuestionnairesList] = None
+        self._insights_questionnaires_category: Optional[
+            InsightsQuestionnairesCategoryList
+        ] = None
+        self._insights_questionnaires_question: Optional[
+            InsightsQuestionnairesQuestionList
+        ] = None
+        self._insights_segments: Optional[InsightsSegmentsList] = None
+        self._insights_session: Optional[InsightsSessionList] = None
+        self._insights_settings_answer_sets: Optional[
+            InsightsSettingsAnswerSetsList
+        ] = None
+        self._insights_settings_comment: Optional[InsightsSettingsCommentList] = None
+        self._insights_user_roles: Optional[InsightsUserRolesList] = None
+        self._interaction: Optional[InteractionList] = None
+        self._web_channel: Optional[WebChannelList] = None
 
     @property
     def assessments(self) -> AssessmentsList:

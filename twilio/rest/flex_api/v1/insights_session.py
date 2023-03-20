@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,9 +32,6 @@ class InsightsSessionList(ListResource):
         :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
         """
         super().__init__(version)
-
-        # Path Solution
-        self._solution = {}
 
     def get(self):
         """
@@ -83,8 +81,8 @@ class InsightsSessionInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
+        self._context: Optional[InsightsSessionContext] = None
 
     @property
     def _proxy(self):
@@ -190,9 +188,7 @@ class InsightsSessionContext(InstanceContext):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/Session".format(**self._solution)
+        self._uri = "/Insights/Session"
 
     def create(self, authorization=values.unset):
         """
@@ -241,5 +237,5 @@ class InsightsSessionContext(InstanceContext):
         :returns: Machine friendly representation
         :rtype: str
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InsightsSessionContext {}>".format(context)
+
+        return "<Twilio.FlexApi.V1.InsightsSessionContext>"

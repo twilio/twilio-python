@@ -371,11 +371,11 @@ class TaskInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TaskContext] = None
 
     @property
     def _proxy(self):
@@ -636,10 +636,10 @@ class TaskContext(InstanceContext):
         }
         self._uri = "/Assistants/{assistant_sid}/Tasks/{sid}".format(**self._solution)
 
-        self._fields = None
-        self._samples = None
-        self._task_actions = None
-        self._statistics = None
+        self._fields: Optional[FieldList] = None
+        self._samples: Optional[SampleList] = None
+        self._task_actions: Optional[TaskActionsList] = None
+        self._statistics: Optional[TaskStatisticsList] = None
 
     def delete(self):
         """

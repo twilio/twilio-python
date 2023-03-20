@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.taskrouter.v1.workspace import WorkspaceList
@@ -25,7 +26,7 @@ class V1(Version):
         :param domain: The Twilio.taskrouter domain
         """
         super().__init__(domain, "v1")
-        self._workspaces = None
+        self._workspaces: Optional[WorkspaceList] = None
 
     @property
     def workspaces(self) -> WorkspaceList:

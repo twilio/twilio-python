@@ -394,12 +394,12 @@ class FieldValueInstance(InstanceResource):
             "synonym_of": payload.get("synonym_of"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "field_type_sid": field_type_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[FieldValueContext] = None
 
     @property
     def _proxy(self):

@@ -346,11 +346,11 @@ class SyncMapInstance(InstanceResource):
             "created_by": payload.get("created_by"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SyncMapContext] = None
 
     @property
     def _proxy(self):
@@ -541,8 +541,8 @@ class SyncMapContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Maps/{sid}".format(**self._solution)
 
-        self._sync_map_items = None
-        self._sync_map_permissions = None
+        self._sync_map_items: Optional[SyncMapItemList] = None
+        self._sync_map_permissions: Optional[SyncMapPermissionList] = None
 
     def delete(self):
         """

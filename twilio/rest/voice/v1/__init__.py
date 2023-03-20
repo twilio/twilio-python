@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.voice.v1.archived_call import ArchivedCallList
@@ -30,12 +31,12 @@ class V1(Version):
         :param domain: The Twilio.voice domain
         """
         super().__init__(domain, "v1")
-        self._archived_calls = None
-        self._byoc_trunks = None
-        self._connection_policies = None
-        self._dialing_permissions = None
-        self._ip_records = None
-        self._source_ip_mappings = None
+        self._archived_calls: Optional[ArchivedCallList] = None
+        self._byoc_trunks: Optional[ByocTrunkList] = None
+        self._connection_policies: Optional[ConnectionPolicyList] = None
+        self._dialing_permissions: Optional[DialingPermissionsList] = None
+        self._ip_records: Optional[IpRecordList] = None
+        self._source_ip_mappings: Optional[SourceIpMappingList] = None
 
     @property
     def archived_calls(self) -> ArchivedCallList:

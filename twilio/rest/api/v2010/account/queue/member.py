@@ -308,12 +308,12 @@ class MemberInstance(InstanceResource):
             "queue_sid": payload.get("queue_sid"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "queue_sid": queue_sid,
             "call_sid": call_sid or self._properties["call_sid"],
         }
+        self._context: Optional[MemberContext] = None
 
     @property
     def _proxy(self):

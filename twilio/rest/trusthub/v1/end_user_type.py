@@ -34,9 +34,7 @@ class EndUserTypeList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/EndUserTypes".format(**self._solution)
+        self._uri = "/EndUserTypes"
 
     def stream(self, limit=None, page_size=None):
         """
@@ -151,7 +149,7 @@ class EndUserTypeList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return EndUserTypePage(self._version, response, self._solution)
+        return EndUserTypePage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -178,7 +176,7 @@ class EndUserTypeList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return EndUserTypePage(self._version, response, self._solution)
+        return EndUserTypePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -191,7 +189,7 @@ class EndUserTypeList(ListResource):
         :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return EndUserTypePage(self._version, response, self._solution)
+        return EndUserTypePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -204,7 +202,7 @@ class EndUserTypeList(ListResource):
         :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return EndUserTypePage(self._version, response, self._solution)
+        return EndUserTypePage(self._version, response)
 
     def get(self, sid):
         """
@@ -277,10 +275,10 @@ class EndUserTypeInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[EndUserTypeContext] = None
 
     @property
     def _proxy(self):

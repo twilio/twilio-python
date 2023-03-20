@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.content.v1.content import ContentList
@@ -26,8 +27,8 @@ class V1(Version):
         :param domain: The Twilio.content domain
         """
         super().__init__(domain, "v1")
-        self._contents = None
-        self._legacy_contents = None
+        self._contents: Optional[ContentList] = None
+        self._legacy_contents: Optional[LegacyContentList] = None
 
     @property
     def contents(self) -> ContentList:

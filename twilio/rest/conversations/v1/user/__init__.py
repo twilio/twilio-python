@@ -36,9 +36,7 @@ class UserList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Users".format(**self._solution)
+        self._uri = "/Users"
 
     def create(
         self,
@@ -231,7 +229,7 @@ class UserList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return UserPage(self._version, response, self._solution)
+        return UserPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -258,7 +256,7 @@ class UserList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return UserPage(self._version, response, self._solution)
+        return UserPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -271,7 +269,7 @@ class UserList(ListResource):
         :rtype: twilio.rest.conversations.v1.user.UserPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return UserPage(self._version, response, self._solution)
+        return UserPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -284,7 +282,7 @@ class UserList(ListResource):
         :rtype: twilio.rest.conversations.v1.user.UserPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return UserPage(self._version, response, self._solution)
+        return UserPage(self._version, response)
 
     def get(self, sid):
         """
@@ -369,10 +367,10 @@ class UserInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[UserContext] = None
 
     @property
     def _proxy(self):
@@ -630,7 +628,7 @@ class UserContext(InstanceContext):
         }
         self._uri = "/Users/{sid}".format(**self._solution)
 
-        self._user_conversations = None
+        self._user_conversations: Optional[UserConversationList] = None
 
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """

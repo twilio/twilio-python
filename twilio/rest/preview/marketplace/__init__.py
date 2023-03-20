@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.preview.marketplace.available_add_on import AvailableAddOnList
@@ -26,8 +27,8 @@ class Marketplace(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain, "marketplace")
-        self._available_add_ons = None
-        self._installed_add_ons = None
+        self._available_add_ons: Optional[AvailableAddOnList] = None
+        self._installed_add_ons: Optional[InstalledAddOnList] = None
 
     @property
     def available_add_ons(self) -> AvailableAddOnList:

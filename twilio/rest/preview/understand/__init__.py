@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.preview.understand.assistant import AssistantList
@@ -25,7 +26,7 @@ class Understand(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain, "understand")
-        self._assistants = None
+        self._assistants: Optional[AssistantList] = None
 
     @property
     def assistants(self) -> AssistantList:

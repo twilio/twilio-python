@@ -35,9 +35,7 @@ class IpCommandList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/IpCommands".format(**self._solution)
+        self._uri = "/IpCommands"
 
     def create(
         self,
@@ -317,7 +315,7 @@ class IpCommandList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     async def page_async(
         self,
@@ -359,7 +357,7 @@ class IpCommandList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -372,7 +370,7 @@ class IpCommandList(ListResource):
         :rtype: twilio.rest.supersim.v1.ip_command.IpCommandPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -385,7 +383,7 @@ class IpCommandList(ListResource):
         :rtype: twilio.rest.supersim.v1.ip_command.IpCommandPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return IpCommandPage(self._version, response, self._solution)
+        return IpCommandPage(self._version, response)
 
     def get(self, sid):
         """
@@ -480,10 +478,10 @@ class IpCommandInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[IpCommandContext] = None
 
     @property
     def _proxy(self):

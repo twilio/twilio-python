@@ -402,12 +402,12 @@ class LogInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "environment_sid": environment_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[LogContext] = None
 
     @property
     def _proxy(self):

@@ -30,9 +30,7 @@ class UsecaseList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Services/Usecases".format(**self._solution)
+        self._uri = "/Services/Usecases"
 
     def fetch(self):
         """
@@ -80,7 +78,6 @@ class UsecaseInstance(InstanceResource):
             "usecases": payload.get("usecases"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

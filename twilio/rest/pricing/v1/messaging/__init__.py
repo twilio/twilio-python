@@ -13,6 +13,9 @@ r"""
 """
 
 
+from typing import Optional
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
@@ -31,11 +34,9 @@ class MessagingList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Messaging".format(**self._solution)
+        self._uri = "/Messaging"
 
-        self._countries = None
+        self._countries: Optional[CountryList] = None
 
     @property
     def countries(self):

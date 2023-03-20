@@ -349,11 +349,11 @@ class SubscribedEventInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "subscription_sid": subscription_sid,
             "type": type or self._properties["type"],
         }
+        self._context: Optional[SubscribedEventContext] = None
 
     @property
     def _proxy(self):

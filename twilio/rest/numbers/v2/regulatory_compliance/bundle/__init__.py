@@ -48,9 +48,7 @@ class BundleList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/RegulatoryCompliance/Bundles".format(**self._solution)
+        self._uri = "/RegulatoryCompliance/Bundles"
 
     def create(
         self,
@@ -441,7 +439,7 @@ class BundleList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return BundlePage(self._version, response, self._solution)
+        return BundlePage(self._version, response)
 
     async def page_async(
         self,
@@ -504,7 +502,7 @@ class BundleList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return BundlePage(self._version, response, self._solution)
+        return BundlePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -517,7 +515,7 @@ class BundleList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundlePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return BundlePage(self._version, response, self._solution)
+        return BundlePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -530,7 +528,7 @@ class BundleList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundlePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return BundlePage(self._version, response, self._solution)
+        return BundlePage(self._version, response)
 
     def get(self, sid):
         """
@@ -626,10 +624,10 @@ class BundleInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[BundleContext] = None
 
     @property
     def _proxy(self):
@@ -903,10 +901,10 @@ class BundleContext(InstanceContext):
         }
         self._uri = "/RegulatoryCompliance/Bundles/{sid}".format(**self._solution)
 
-        self._bundle_copies = None
-        self._evaluations = None
-        self._item_assignments = None
-        self._replace_items = None
+        self._bundle_copies: Optional[BundleCopyList] = None
+        self._evaluations: Optional[EvaluationList] = None
+        self._item_assignments: Optional[ItemAssignmentList] = None
+        self._replace_items: Optional[ReplaceItemsList] = None
 
     def delete(self):
         """

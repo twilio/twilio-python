@@ -398,11 +398,11 @@ class DeviceInstance(InstanceResource):
             ),
         }
 
-        self._context = None
         self._solution = {
             "fleet_sid": fleet_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[DeviceContext] = None
 
     @property
     def _proxy(self):

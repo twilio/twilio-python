@@ -339,7 +339,6 @@ class UsageRecordInstance(InstanceResource):
             "data": payload.get("data"),
         }
 
-        self._context = None
         self._solution = {
             "sim_sid": sim_sid,
         }

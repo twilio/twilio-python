@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.preview.sync.service import ServiceList
@@ -25,7 +26,7 @@ class Sync(Version):
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain, "Sync")
-        self._services = None
+        self._services: Optional[ServiceList] = None
 
     @property
     def services(self) -> ServiceList:

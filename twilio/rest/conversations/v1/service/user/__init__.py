@@ -386,11 +386,11 @@ class UserInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[UserContext] = None
 
     @property
     def _proxy(self):
@@ -651,7 +651,7 @@ class UserContext(InstanceContext):
         }
         self._uri = "/Services/{chat_service_sid}/Users/{sid}".format(**self._solution)
 
-        self._user_conversations = None
+        self._user_conversations: Optional[UserConversationList] = None
 
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """

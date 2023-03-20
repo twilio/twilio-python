@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -92,10 +93,10 @@ class NotificationInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
         }
+        self._context: Optional[NotificationContext] = None
 
     @property
     def _proxy(self):

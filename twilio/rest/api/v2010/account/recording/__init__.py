@@ -456,11 +456,11 @@ class RecordingInstance(InstanceResource):
             "media_url": payload.get("media_url"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[RecordingContext] = None
 
     @property
     def _proxy(self):
@@ -731,8 +731,8 @@ class RecordingContext(InstanceContext):
             **self._solution
         )
 
-        self._add_on_results = None
-        self._transcriptions = None
+        self._add_on_results: Optional[AddOnResultList] = None
+        self._transcriptions: Optional[TranscriptionList] = None
 
     def delete(self):
         """

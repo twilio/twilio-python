@@ -33,9 +33,7 @@ class ExternalCampaignList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Services/PreregisteredUsa2p".format(**self._solution)
+        self._uri = "/Services/PreregisteredUsa2p"
 
     def create(self, campaign_id, messaging_service_sid):
         """
@@ -115,7 +113,6 @@ class ExternalCampaignInstance(InstanceResource):
             "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

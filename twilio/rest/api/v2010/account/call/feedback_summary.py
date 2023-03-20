@@ -201,11 +201,11 @@ class FeedbackSummaryInstance(InstanceResource):
             "status": payload.get("status"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[FeedbackSummaryContext] = None
 
     @property
     def _proxy(self):

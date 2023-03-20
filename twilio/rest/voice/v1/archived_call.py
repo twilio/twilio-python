@@ -32,9 +32,6 @@ class ArchivedCallList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, date, sid):
         """
         Constructs a ArchivedCallContext

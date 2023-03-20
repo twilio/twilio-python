@@ -394,12 +394,12 @@ class SampleInstance(InstanceResource):
             "source_channel": payload.get("source_channel"),
         }
 
-        self._context = None
         self._solution = {
             "assistant_sid": assistant_sid,
             "task_sid": task_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SampleContext] = None
 
     @property
     def _proxy(self):

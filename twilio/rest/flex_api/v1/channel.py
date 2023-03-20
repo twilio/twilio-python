@@ -35,9 +35,7 @@ class ChannelList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Channels".format(**self._solution)
+        self._uri = "/Channels"
 
     def create(
         self,
@@ -258,7 +256,7 @@ class ChannelList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ChannelPage(self._version, response, self._solution)
+        return ChannelPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -285,7 +283,7 @@ class ChannelList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return ChannelPage(self._version, response, self._solution)
+        return ChannelPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -298,7 +296,7 @@ class ChannelList(ListResource):
         :rtype: twilio.rest.flex_api.v1.channel.ChannelPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ChannelPage(self._version, response, self._solution)
+        return ChannelPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -311,7 +309,7 @@ class ChannelList(ListResource):
         :rtype: twilio.rest.flex_api.v1.channel.ChannelPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ChannelPage(self._version, response, self._solution)
+        return ChannelPage(self._version, response)
 
     def get(self, sid):
         """
@@ -387,10 +385,10 @@ class ChannelInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ChannelContext] = None
 
     @property
     def _proxy(self):

@@ -36,9 +36,7 @@ class SupportingDocumentList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/RegulatoryCompliance/SupportingDocuments".format(**self._solution)
+        self._uri = "/RegulatoryCompliance/SupportingDocuments"
 
     def create(self, friendly_name, type, attributes=values.unset):
         """
@@ -207,7 +205,7 @@ class SupportingDocumentList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SupportingDocumentPage(self._version, response, self._solution)
+        return SupportingDocumentPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -234,7 +232,7 @@ class SupportingDocumentList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SupportingDocumentPage(self._version, response, self._solution)
+        return SupportingDocumentPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -247,7 +245,7 @@ class SupportingDocumentList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document.SupportingDocumentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SupportingDocumentPage(self._version, response, self._solution)
+        return SupportingDocumentPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -260,7 +258,7 @@ class SupportingDocumentList(ListResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document.SupportingDocumentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SupportingDocumentPage(self._version, response, self._solution)
+        return SupportingDocumentPage(self._version, response)
 
     def get(self, sid):
         """
@@ -347,10 +345,10 @@ class SupportingDocumentInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SupportingDocumentContext] = None
 
     @property
     def _proxy(self):

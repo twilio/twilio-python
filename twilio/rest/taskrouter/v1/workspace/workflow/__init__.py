@@ -410,11 +410,11 @@ class WorkflowInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[WorkflowContext] = None
 
     @property
     def _proxy(self):
@@ -703,9 +703,9 @@ class WorkflowContext(InstanceContext):
             **self._solution
         )
 
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
+        self._cumulative_statistics: Optional[WorkflowCumulativeStatisticsList] = None
+        self._real_time_statistics: Optional[WorkflowRealTimeStatisticsList] = None
+        self._statistics: Optional[WorkflowStatisticsList] = None
 
     def delete(self):
         """

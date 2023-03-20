@@ -39,9 +39,7 @@ class ConversationList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Conversations".format(**self._solution)
+        self._uri = "/Conversations"
 
     def create(
         self,
@@ -264,7 +262,7 @@ class ConversationList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ConversationPage(self._version, response, self._solution)
+        return ConversationPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -291,7 +289,7 @@ class ConversationList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return ConversationPage(self._version, response, self._solution)
+        return ConversationPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -304,7 +302,7 @@ class ConversationList(ListResource):
         :rtype: twilio.rest.conversations.v1.conversation.ConversationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ConversationPage(self._version, response, self._solution)
+        return ConversationPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -317,7 +315,7 @@ class ConversationList(ListResource):
         :rtype: twilio.rest.conversations.v1.conversation.ConversationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ConversationPage(self._version, response, self._solution)
+        return ConversationPage(self._version, response)
 
     def get(self, sid):
         """
@@ -408,10 +406,10 @@ class ConversationInstance(InstanceResource):
             "bindings": payload.get("bindings"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ConversationContext] = None
 
     @property
     def _proxy(self):
@@ -733,9 +731,9 @@ class ConversationContext(InstanceContext):
         }
         self._uri = "/Conversations/{sid}".format(**self._solution)
 
-        self._messages = None
-        self._participants = None
-        self._webhooks = None
+        self._messages: Optional[MessageList] = None
+        self._participants: Optional[ParticipantList] = None
+        self._webhooks: Optional[WebhookList] = None
 
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """

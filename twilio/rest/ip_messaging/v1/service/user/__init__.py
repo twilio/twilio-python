@@ -373,11 +373,11 @@ class UserInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[UserContext] = None
 
     @property
     def _proxy(self):
@@ -628,7 +628,7 @@ class UserContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Users/{sid}".format(**self._solution)
 
-        self._user_channels = None
+        self._user_channels: Optional[UserChannelList] = None
 
     def delete(self):
         """

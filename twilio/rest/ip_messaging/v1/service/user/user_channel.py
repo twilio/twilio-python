@@ -279,7 +279,6 @@ class UserChannelInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "user_sid": user_sid,

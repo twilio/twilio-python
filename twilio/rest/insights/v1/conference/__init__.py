@@ -38,9 +38,7 @@ class ConferenceList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Conferences".format(**self._solution)
+        self._uri = "/Conferences"
 
     def stream(
         self,
@@ -328,7 +326,7 @@ class ConferenceList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ConferencePage(self._version, response, self._solution)
+        return ConferencePage(self._version, response)
 
     async def page_async(
         self,
@@ -388,7 +386,7 @@ class ConferenceList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return ConferencePage(self._version, response, self._solution)
+        return ConferencePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -401,7 +399,7 @@ class ConferenceList(ListResource):
         :rtype: twilio.rest.insights.v1.conference.ConferencePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ConferencePage(self._version, response, self._solution)
+        return ConferencePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -414,7 +412,7 @@ class ConferenceList(ListResource):
         :rtype: twilio.rest.insights.v1.conference.ConferencePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ConferencePage(self._version, response, self._solution)
+        return ConferencePage(self._version, response)
 
     def get(self, conference_sid):
         """
@@ -555,10 +553,10 @@ class ConferenceInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "conference_sid": conference_sid or self._properties["conference_sid"],
         }
+        self._context: Optional[ConferenceContext] = None
 
     @property
     def _proxy(self):
@@ -820,7 +818,7 @@ class ConferenceContext(InstanceContext):
         }
         self._uri = "/Conferences/{conference_sid}".format(**self._solution)
 
-        self._conference_participants = None
+        self._conference_participants: Optional[ConferenceParticipantList] = None
 
     def fetch(self):
         """

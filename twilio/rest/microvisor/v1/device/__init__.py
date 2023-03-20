@@ -37,9 +37,7 @@ class DeviceList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Devices".format(**self._solution)
+        self._uri = "/Devices"
 
     def stream(self, limit=None, page_size=None):
         """
@@ -154,7 +152,7 @@ class DeviceList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return DevicePage(self._version, response, self._solution)
+        return DevicePage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -181,7 +179,7 @@ class DeviceList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return DevicePage(self._version, response, self._solution)
+        return DevicePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -194,7 +192,7 @@ class DeviceList(ListResource):
         :rtype: twilio.rest.microvisor.v1.device.DevicePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return DevicePage(self._version, response, self._solution)
+        return DevicePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -207,7 +205,7 @@ class DeviceList(ListResource):
         :rtype: twilio.rest.microvisor.v1.device.DevicePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return DevicePage(self._version, response, self._solution)
+        return DevicePage(self._version, response)
 
     def get(self, sid):
         """
@@ -284,10 +282,10 @@ class DeviceInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[DeviceContext] = None
 
     @property
     def _proxy(self):
@@ -491,8 +489,8 @@ class DeviceContext(InstanceContext):
         }
         self._uri = "/Devices/{sid}".format(**self._solution)
 
-        self._device_configs = None
-        self._device_secrets = None
+        self._device_configs: Optional[DeviceConfigList] = None
+        self._device_secrets: Optional[DeviceSecretList] = None
 
     def fetch(self):
         """

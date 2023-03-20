@@ -311,11 +311,11 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
             "subresource_uris": payload.get("subresource_uris"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "country_code": country_code or self._properties["country_code"],
         }
+        self._context: Optional[AvailablePhoneNumberCountryContext] = None
 
     @property
     def _proxy(self):
@@ -502,13 +502,13 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
             )
         )
 
-        self._local = None
-        self._machine_to_machine = None
-        self._mobile = None
-        self._national = None
-        self._shared_cost = None
-        self._toll_free = None
-        self._voip = None
+        self._local: Optional[LocalList] = None
+        self._machine_to_machine: Optional[MachineToMachineList] = None
+        self._mobile: Optional[MobileList] = None
+        self._national: Optional[NationalList] = None
+        self._shared_cost: Optional[SharedCostList] = None
+        self._toll_free: Optional[TollFreeList] = None
+        self._voip: Optional[VoipList] = None
 
     def fetch(self):
         """

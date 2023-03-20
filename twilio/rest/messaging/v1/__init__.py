@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.messaging.v1.brand_registration import BrandRegistrationList
@@ -32,14 +33,14 @@ class V1(Version):
         :param domain: The Twilio.messaging domain
         """
         super().__init__(domain, "v1")
-        self._brand_registrations = None
-        self._deactivations = None
-        self._domain_certs = None
-        self._domain_config = None
-        self._external_campaign = None
-        self._services = None
-        self._tollfree_verifications = None
-        self._usecases = None
+        self._brand_registrations: Optional[BrandRegistrationList] = None
+        self._deactivations: Optional[DeactivationsList] = None
+        self._domain_certs: Optional[DomainCertsList] = None
+        self._domain_config: Optional[DomainConfigList] = None
+        self._external_campaign: Optional[ExternalCampaignList] = None
+        self._services: Optional[ServiceList] = None
+        self._tollfree_verifications: Optional[TollfreeVerificationList] = None
+        self._usecases: Optional[UsecaseList] = None
 
     @property
     def brand_registrations(self) -> BrandRegistrationList:

@@ -36,9 +36,7 @@ class ContentList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Content".format(**self._solution)
+        self._uri = "/Content"
 
     def stream(self, limit=None, page_size=None):
         """
@@ -153,7 +151,7 @@ class ContentList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ContentPage(self._version, response, self._solution)
+        return ContentPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -180,7 +178,7 @@ class ContentList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return ContentPage(self._version, response, self._solution)
+        return ContentPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -193,7 +191,7 @@ class ContentList(ListResource):
         :rtype: twilio.rest.content.v1.content.ContentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ContentPage(self._version, response, self._solution)
+        return ContentPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -206,7 +204,7 @@ class ContentList(ListResource):
         :rtype: twilio.rest.content.v1.content.ContentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ContentPage(self._version, response, self._solution)
+        return ContentPage(self._version, response)
 
     def get(self, sid):
         """
@@ -284,10 +282,10 @@ class ContentInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ContentContext] = None
 
     @property
     def _proxy(self):
@@ -465,7 +463,7 @@ class ContentContext(InstanceContext):
         }
         self._uri = "/Content/{sid}".format(**self._solution)
 
-        self._approval_fetch = None
+        self._approval_fetch: Optional[ApprovalFetchList] = None
 
     def delete(self):
         """

@@ -304,11 +304,11 @@ class AuthorizedConnectAppInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "connect_app_sid": connect_app_sid or self._properties["connect_app_sid"],
         }
+        self._context: Optional[AuthorizedConnectAppContext] = None
 
     @property
     def _proxy(self):

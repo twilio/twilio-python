@@ -427,11 +427,11 @@ class ChannelInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ChannelContext] = None
 
     @property
     def _proxy(self):
@@ -748,10 +748,10 @@ class ChannelContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Channels/{sid}".format(**self._solution)
 
-        self._invites = None
-        self._members = None
-        self._messages = None
-        self._webhooks = None
+        self._invites: Optional[InviteList] = None
+        self._members: Optional[MemberList] = None
+        self._messages: Optional[MessageList] = None
+        self._webhooks: Optional[WebhookList] = None
 
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """

@@ -30,9 +30,7 @@ class InsightsSettingsAnswerSetsList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/QM/Settings/AnswerSets".format(**self._solution)
+        self._uri = "/Insights/QM/Settings/AnswerSets"
 
     def fetch(self):
         """
@@ -84,7 +82,6 @@ class InsightsSettingsAnswerSetsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

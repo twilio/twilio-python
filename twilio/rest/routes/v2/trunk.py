@@ -34,9 +34,6 @@ class TrunkList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, sip_trunk_domain):
         """
         Constructs a TrunkContext
@@ -90,11 +87,11 @@ class TrunkInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "sip_trunk_domain": sip_trunk_domain
             or self._properties["sip_trunk_domain"],
         }
+        self._context: Optional[TrunkContext] = None
 
     @property
     def _proxy(self):

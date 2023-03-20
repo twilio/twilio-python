@@ -36,9 +36,7 @@ class TollfreeVerificationList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Tollfree/Verifications".format(**self._solution)
+        self._uri = "/Tollfree/Verifications"
 
     def create(
         self,
@@ -390,7 +388,7 @@ class TollfreeVerificationList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return TollfreeVerificationPage(self._version, response, self._solution)
+        return TollfreeVerificationPage(self._version, response)
 
     async def page_async(
         self,
@@ -426,7 +424,7 @@ class TollfreeVerificationList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return TollfreeVerificationPage(self._version, response, self._solution)
+        return TollfreeVerificationPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -439,7 +437,7 @@ class TollfreeVerificationList(ListResource):
         :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return TollfreeVerificationPage(self._version, response, self._solution)
+        return TollfreeVerificationPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -452,7 +450,7 @@ class TollfreeVerificationList(ListResource):
         :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return TollfreeVerificationPage(self._version, response, self._solution)
+        return TollfreeVerificationPage(self._version, response)
 
     def get(self, sid):
         """
@@ -567,10 +565,10 @@ class TollfreeVerificationInstance(InstanceResource):
             "external_reference_id": payload.get("external_reference_id"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TollfreeVerificationContext] = None
 
     @property
     def _proxy(self):

@@ -39,9 +39,7 @@ class AuthorizationDocumentList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/AuthorizationDocuments".format(**self._solution)
+        self._uri = "/AuthorizationDocuments"
 
     def create(
         self,
@@ -271,7 +269,7 @@ class AuthorizationDocumentList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AuthorizationDocumentPage(self._version, response, self._solution)
+        return AuthorizationDocumentPage(self._version, response)
 
     async def page_async(
         self,
@@ -307,7 +305,7 @@ class AuthorizationDocumentList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return AuthorizationDocumentPage(self._version, response, self._solution)
+        return AuthorizationDocumentPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -320,7 +318,7 @@ class AuthorizationDocumentList(ListResource):
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AuthorizationDocumentPage(self._version, response, self._solution)
+        return AuthorizationDocumentPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -333,7 +331,7 @@ class AuthorizationDocumentList(ListResource):
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AuthorizationDocumentPage(self._version, response, self._solution)
+        return AuthorizationDocumentPage(self._version, response)
 
     def get(self, sid):
         """
@@ -417,10 +415,10 @@ class AuthorizationDocumentInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[AuthorizationDocumentContext] = None
 
     @property
     def _proxy(self):
@@ -640,7 +638,9 @@ class AuthorizationDocumentContext(InstanceContext):
         }
         self._uri = "/AuthorizationDocuments/{sid}".format(**self._solution)
 
-        self._dependent_hosted_number_orders = None
+        self._dependent_hosted_number_orders: Optional[
+            DependentHostedNumberOrderList
+        ] = None
 
     def fetch(self):
         """

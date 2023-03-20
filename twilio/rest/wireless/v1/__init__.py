@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.wireless.v1.command import CommandList
@@ -28,10 +29,10 @@ class V1(Version):
         :param domain: The Twilio.wireless domain
         """
         super().__init__(domain, "v1")
-        self._commands = None
-        self._rate_plans = None
-        self._sims = None
-        self._usage_records = None
+        self._commands: Optional[CommandList] = None
+        self._rate_plans: Optional[RatePlanList] = None
+        self._sims: Optional[SimList] = None
+        self._usage_records: Optional[UsageRecordList] = None
 
     @property
     def commands(self) -> CommandList:

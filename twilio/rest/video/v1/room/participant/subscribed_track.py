@@ -319,12 +319,12 @@ class SubscribedTrackInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid,
             "participant_sid": participant_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SubscribedTrackContext] = None
 
     @property
     def _proxy(self):

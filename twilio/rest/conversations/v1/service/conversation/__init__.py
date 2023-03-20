@@ -427,11 +427,11 @@ class ConversationInstance(InstanceResource):
             "bindings": payload.get("bindings"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ConversationContext] = None
 
     @property
     def _proxy(self):
@@ -758,9 +758,9 @@ class ConversationContext(InstanceContext):
             **self._solution
         )
 
-        self._messages = None
-        self._participants = None
-        self._webhooks = None
+        self._messages: Optional[MessageList] = None
+        self._participants: Optional[ParticipantList] = None
+        self._webhooks: Optional[WebhookList] = None
 
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """

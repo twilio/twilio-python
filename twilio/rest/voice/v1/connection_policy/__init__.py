@@ -38,9 +38,7 @@ class ConnectionPolicyList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/ConnectionPolicies".format(**self._solution)
+        self._uri = "/ConnectionPolicies"
 
     def create(self, friendly_name=values.unset):
         """
@@ -201,7 +199,7 @@ class ConnectionPolicyList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ConnectionPolicyPage(self._version, response, self._solution)
+        return ConnectionPolicyPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -228,7 +226,7 @@ class ConnectionPolicyList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return ConnectionPolicyPage(self._version, response, self._solution)
+        return ConnectionPolicyPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -241,7 +239,7 @@ class ConnectionPolicyList(ListResource):
         :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ConnectionPolicyPage(self._version, response, self._solution)
+        return ConnectionPolicyPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -254,7 +252,7 @@ class ConnectionPolicyList(ListResource):
         :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ConnectionPolicyPage(self._version, response, self._solution)
+        return ConnectionPolicyPage(self._version, response)
 
     def get(self, sid):
         """
@@ -329,10 +327,10 @@ class ConnectionPolicyInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ConnectionPolicyContext] = None
 
     @property
     def _proxy(self):
@@ -512,7 +510,7 @@ class ConnectionPolicyContext(InstanceContext):
         }
         self._uri = "/ConnectionPolicies/{sid}".format(**self._solution)
 
-        self._targets = None
+        self._targets: Optional[ConnectionPolicyTargetList] = None
 
     def delete(self):
         """

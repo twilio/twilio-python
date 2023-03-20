@@ -434,12 +434,12 @@ class ParticipantInstance(InstanceResource):
             "last_read_timestamp": payload.get("last_read_timestamp"),
         }
 
-        self._context = None
         self._solution = {
             "chat_service_sid": chat_service_sid,
             "conversation_sid": conversation_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ParticipantContext] = None
 
     @property
     def _proxy(self):

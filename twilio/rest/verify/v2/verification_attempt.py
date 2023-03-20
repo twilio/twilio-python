@@ -36,9 +36,7 @@ class VerificationAttemptList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Attempts".format(**self._solution)
+        self._uri = "/Attempts"
 
     def stream(
         self,
@@ -296,7 +294,7 @@ class VerificationAttemptList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return VerificationAttemptPage(self._version, response, self._solution)
+        return VerificationAttemptPage(self._version, response)
 
     async def page_async(
         self,
@@ -350,7 +348,7 @@ class VerificationAttemptList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return VerificationAttemptPage(self._version, response, self._solution)
+        return VerificationAttemptPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -363,7 +361,7 @@ class VerificationAttemptList(ListResource):
         :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return VerificationAttemptPage(self._version, response, self._solution)
+        return VerificationAttemptPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -376,7 +374,7 @@ class VerificationAttemptList(ListResource):
         :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return VerificationAttemptPage(self._version, response, self._solution)
+        return VerificationAttemptPage(self._version, response)
 
     def get(self, sid):
         """
@@ -465,10 +463,10 @@ class VerificationAttemptInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[VerificationAttemptContext] = None
 
     @property
     def _proxy(self):

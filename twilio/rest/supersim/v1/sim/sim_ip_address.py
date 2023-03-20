@@ -260,7 +260,6 @@ class SimIpAddressInstance(InstanceResource):
             "ip_address_version": payload.get("ip_address_version"),
         }
 
-        self._context = None
         self._solution = {
             "sim_sid": sim_sid,
         }

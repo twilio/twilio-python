@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.api.v2010.account import AccountList
@@ -26,8 +27,8 @@ class V2010(Version):
         :param domain: The Twilio.api domain
         """
         super().__init__(domain, "2010-04-01")
-        self._accounts = None
-        self._account = None
+        self._accounts: Optional[AccountList] = None
+        self._account: Optional[AccountContext] = None
 
     @property
     def accounts(self) -> AccountList:

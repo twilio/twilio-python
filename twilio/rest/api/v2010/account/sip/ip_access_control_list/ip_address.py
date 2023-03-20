@@ -381,12 +381,12 @@ class IpAddressInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "ip_access_control_list_sid": ip_access_control_list_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[IpAddressContext] = None
 
     @property
     def _proxy(self):

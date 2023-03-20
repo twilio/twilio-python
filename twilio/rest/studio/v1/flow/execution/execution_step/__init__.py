@@ -317,12 +317,12 @@ class ExecutionStepInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "flow_sid": flow_sid,
             "execution_sid": execution_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ExecutionStepContext] = None
 
     @property
     def _proxy(self):
@@ -504,7 +504,7 @@ class ExecutionStepContext(InstanceContext):
             **self._solution
         )
 
-        self._step_context = None
+        self._step_context: Optional[ExecutionStepContextList] = None
 
     def fetch(self):
         """

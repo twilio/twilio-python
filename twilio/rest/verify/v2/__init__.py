@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.verify.v2.form import FormList
@@ -32,12 +33,14 @@ class V2(Version):
         :param domain: The Twilio.verify domain
         """
         super().__init__(domain, "v2")
-        self._forms = None
-        self._safelist = None
-        self._services = None
-        self._templates = None
-        self._verification_attempts = None
-        self._verification_attempts_summary = None
+        self._forms: Optional[FormList] = None
+        self._safelist: Optional[SafelistList] = None
+        self._services: Optional[ServiceList] = None
+        self._templates: Optional[TemplateList] = None
+        self._verification_attempts: Optional[VerificationAttemptList] = None
+        self._verification_attempts_summary: Optional[
+            VerificationAttemptsSummaryList
+        ] = None
 
     @property
     def forms(self) -> FormList:

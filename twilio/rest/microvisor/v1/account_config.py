@@ -35,9 +35,7 @@ class AccountConfigList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Configs".format(**self._solution)
+        self._uri = "/Configs"
 
     def create(self, key, value):
         """
@@ -202,7 +200,7 @@ class AccountConfigList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return AccountConfigPage(self._version, response, self._solution)
+        return AccountConfigPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -229,7 +227,7 @@ class AccountConfigList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return AccountConfigPage(self._version, response, self._solution)
+        return AccountConfigPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -242,7 +240,7 @@ class AccountConfigList(ListResource):
         :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return AccountConfigPage(self._version, response, self._solution)
+        return AccountConfigPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -255,7 +253,7 @@ class AccountConfigList(ListResource):
         :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return AccountConfigPage(self._version, response, self._solution)
+        return AccountConfigPage(self._version, response)
 
     def get(self, key):
         """
@@ -327,10 +325,10 @@ class AccountConfigInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "key": key or self._properties["key"],
         }
+        self._context: Optional[AccountConfigContext] = None
 
     @property
     def _proxy(self):

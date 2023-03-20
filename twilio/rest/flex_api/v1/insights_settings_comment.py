@@ -30,9 +30,7 @@ class InsightsSettingsCommentList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Insights/QM/Settings/CommentTags".format(**self._solution)
+        self._uri = "/Insights/QM/Settings/CommentTags"
 
     def fetch(self):
         """
@@ -82,7 +80,6 @@ class InsightsSettingsCommentInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

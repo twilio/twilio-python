@@ -34,9 +34,6 @@ class ChannelList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, service_sid, sid):
         """
         Constructs a ChannelContext
@@ -112,11 +109,11 @@ class ChannelInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid or self._properties["service_sid"],
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[ChannelContext] = None
 
     @property
     def _proxy(self):

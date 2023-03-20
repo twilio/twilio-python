@@ -325,13 +325,13 @@ class PayloadInstance(InstanceResource):
             "subresource_uris": payload.get("subresource_uris"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "reference_sid": reference_sid,
             "add_on_result_sid": add_on_result_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[PayloadContext] = None
 
     @property
     def _proxy(self):

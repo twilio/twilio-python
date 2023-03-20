@@ -354,11 +354,11 @@ class TaskChannelInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[TaskChannelContext] = None
 
     @property
     def _proxy(self):

@@ -309,12 +309,12 @@ class SyncListPermissionInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "list_sid": list_sid,
             "identity": identity or self._properties["identity"],
         }
+        self._context: Optional[SyncListPermissionContext] = None
 
     @property
     def _proxy(self):

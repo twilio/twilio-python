@@ -140,7 +140,6 @@ class NotificationInstance(InstanceResource):
             "date_created": deserialize.iso8601_datetime(payload.get("date_created")),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "identity": identity,

@@ -34,9 +34,7 @@ class ParticipantConversationList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/ParticipantConversations".format(**self._solution)
+        self._uri = "/ParticipantConversations"
 
     def stream(
         self, identity=values.unset, address=values.unset, limit=None, page_size=None
@@ -184,7 +182,7 @@ class ParticipantConversationList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return ParticipantConversationPage(self._version, response, self._solution)
+        return ParticipantConversationPage(self._version, response)
 
     async def page_async(
         self,
@@ -220,7 +218,7 @@ class ParticipantConversationList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return ParticipantConversationPage(self._version, response, self._solution)
+        return ParticipantConversationPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -233,7 +231,7 @@ class ParticipantConversationList(ListResource):
         :rtype: twilio.rest.conversations.v1.participant_conversation.ParticipantConversationPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return ParticipantConversationPage(self._version, response, self._solution)
+        return ParticipantConversationPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -246,7 +244,7 @@ class ParticipantConversationList(ListResource):
         :rtype: twilio.rest.conversations.v1.participant_conversation.ParticipantConversationPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return ParticipantConversationPage(self._version, response, self._solution)
+        return ParticipantConversationPage(self._version, response)
 
     def __repr__(self):
         """
@@ -319,7 +317,6 @@ class ParticipantConversationInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

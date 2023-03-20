@@ -419,11 +419,11 @@ class RoomRecordingInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[RoomRecordingContext] = None
 
     @property
     def _proxy(self):

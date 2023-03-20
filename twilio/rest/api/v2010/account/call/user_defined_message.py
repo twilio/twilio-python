@@ -133,7 +133,6 @@ class UserDefinedMessageInstance(InstanceResource):
             "date_created": deserialize.rfc2822_datetime(payload.get("date_created")),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "call_sid": call_sid,

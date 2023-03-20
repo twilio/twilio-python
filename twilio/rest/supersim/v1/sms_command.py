@@ -35,9 +35,7 @@ class SmsCommandList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/SmsCommands".format(**self._solution)
+        self._uri = "/SmsCommands"
 
     def create(
         self, sim, payload, callback_method=values.unset, callback_url=values.unset
@@ -276,7 +274,7 @@ class SmsCommandList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return SmsCommandPage(self._version, response, self._solution)
+        return SmsCommandPage(self._version, response)
 
     async def page_async(
         self,
@@ -315,7 +313,7 @@ class SmsCommandList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return SmsCommandPage(self._version, response, self._solution)
+        return SmsCommandPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -328,7 +326,7 @@ class SmsCommandList(ListResource):
         :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return SmsCommandPage(self._version, response, self._solution)
+        return SmsCommandPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -341,7 +339,7 @@ class SmsCommandList(ListResource):
         :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return SmsCommandPage(self._version, response, self._solution)
+        return SmsCommandPage(self._version, response)
 
     def get(self, sid):
         """
@@ -429,10 +427,10 @@ class SmsCommandInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[SmsCommandContext] = None
 
     @property
     def _proxy(self):

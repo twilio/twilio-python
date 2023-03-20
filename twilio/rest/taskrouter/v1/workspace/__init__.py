@@ -51,9 +51,7 @@ class WorkspaceList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/Workspaces".format(**self._solution)
+        self._uri = "/Workspaces"
 
     def create(
         self,
@@ -266,7 +264,7 @@ class WorkspaceList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return WorkspacePage(self._version, response, self._solution)
+        return WorkspacePage(self._version, response)
 
     async def page_async(
         self,
@@ -299,7 +297,7 @@ class WorkspaceList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return WorkspacePage(self._version, response, self._solution)
+        return WorkspacePage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -312,7 +310,7 @@ class WorkspaceList(ListResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return WorkspacePage(self._version, response, self._solution)
+        return WorkspacePage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -325,7 +323,7 @@ class WorkspaceList(ListResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspacePage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return WorkspacePage(self._version, response, self._solution)
+        return WorkspacePage(self._version, response)
 
     def get(self, sid):
         """
@@ -412,10 +410,10 @@ class WorkspaceInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[WorkspaceContext] = None
 
     @property
     def _proxy(self):
@@ -791,16 +789,16 @@ class WorkspaceContext(InstanceContext):
         }
         self._uri = "/Workspaces/{sid}".format(**self._solution)
 
-        self._activities = None
-        self._events = None
-        self._tasks = None
-        self._task_channels = None
-        self._task_queues = None
-        self._workers = None
-        self._workflows = None
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
+        self._activities: Optional[ActivityList] = None
+        self._events: Optional[EventList] = None
+        self._tasks: Optional[TaskList] = None
+        self._task_channels: Optional[TaskChannelList] = None
+        self._task_queues: Optional[TaskQueueList] = None
+        self._workers: Optional[WorkerList] = None
+        self._workflows: Optional[WorkflowList] = None
+        self._cumulative_statistics: Optional[WorkspaceCumulativeStatisticsList] = None
+        self._real_time_statistics: Optional[WorkspaceRealTimeStatisticsList] = None
+        self._statistics: Optional[WorkspaceStatisticsList] = None
 
     def delete(self):
         """

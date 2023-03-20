@@ -358,11 +358,11 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "customer_profile_sid": customer_profile_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[CustomerProfilesEvaluationsContext] = None
 
     @property
     def _proxy(self):

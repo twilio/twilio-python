@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base import deserialize
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -134,10 +135,10 @@ class CallSummaryInstance(InstanceResource):
             "annotation": payload.get("annotation"),
         }
 
-        self._context = None
         self._solution = {
             "call_sid": call_sid,
         }
+        self._context: Optional[CallSummaryContext] = None
 
     @property
     def _proxy(self):

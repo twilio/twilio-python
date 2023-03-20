@@ -364,11 +364,11 @@ class PhoneNumberInstance(InstanceResource):
             "voice_url": payload.get("voice_url"),
         }
 
-        self._context = None
         self._solution = {
             "trunk_sid": trunk_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[PhoneNumberContext] = None
 
     @property
     def _proxy(self):

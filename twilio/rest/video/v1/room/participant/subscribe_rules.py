@@ -163,7 +163,6 @@ class SubscribeRulesInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "room_sid": room_sid,
             "participant_sid": participant_sid,

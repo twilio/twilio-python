@@ -34,9 +34,7 @@ class LegacyContentList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/LegacyContent".format(**self._solution)
+        self._uri = "/LegacyContent"
 
     def stream(self, limit=None, page_size=None):
         """
@@ -151,7 +149,7 @@ class LegacyContentList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     async def page_async(
         self, page_token=values.unset, page_number=values.unset, page_size=values.unset
@@ -178,7 +176,7 @@ class LegacyContentList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -191,7 +189,7 @@ class LegacyContentList(ListResource):
         :rtype: twilio.rest.content.v1.legacy_content.LegacyContentPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -204,7 +202,7 @@ class LegacyContentList(ListResource):
         :rtype: twilio.rest.content.v1.legacy_content.LegacyContentPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return LegacyContentPage(self._version, response, self._solution)
+        return LegacyContentPage(self._version, response)
 
     def __repr__(self):
         """
@@ -261,7 +259,6 @@ class LegacyContentInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {}
 
     @property

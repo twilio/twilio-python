@@ -36,9 +36,7 @@ class PlayerStreamerList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-        self._uri = "/PlayerStreamers".format(**self._solution)
+        self._uri = "/PlayerStreamers"
 
     def create(
         self,
@@ -252,7 +250,7 @@ class PlayerStreamerList(ListResource):
         )
 
         response = self._version.page(method="GET", uri=self._uri, params=data)
-        return PlayerStreamerPage(self._version, response, self._solution)
+        return PlayerStreamerPage(self._version, response)
 
     async def page_async(
         self,
@@ -288,7 +286,7 @@ class PlayerStreamerList(ListResource):
         response = await self._version.page_async(
             method="GET", uri=self._uri, params=data
         )
-        return PlayerStreamerPage(self._version, response, self._solution)
+        return PlayerStreamerPage(self._version, response)
 
     def get_page(self, target_url):
         """
@@ -301,7 +299,7 @@ class PlayerStreamerList(ListResource):
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerPage
         """
         response = self._version.domain.twilio.request("GET", target_url)
-        return PlayerStreamerPage(self._version, response, self._solution)
+        return PlayerStreamerPage(self._version, response)
 
     async def get_page_async(self, target_url):
         """
@@ -314,7 +312,7 @@ class PlayerStreamerList(ListResource):
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerPage
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
-        return PlayerStreamerPage(self._version, response, self._solution)
+        return PlayerStreamerPage(self._version, response)
 
     def get(self, sid):
         """
@@ -410,10 +408,10 @@ class PlayerStreamerInstance(InstanceResource):
             "max_duration": deserialize.integer(payload.get("max_duration")),
         }
 
-        self._context = None
         self._solution = {
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[PlayerStreamerContext] = None
 
     @property
     def _proxy(self):
@@ -613,7 +611,7 @@ class PlayerStreamerContext(InstanceContext):
         }
         self._uri = "/PlayerStreamers/{sid}".format(**self._solution)
 
-        self._playback_grant = None
+        self._playback_grant: Optional[PlaybackGrantList] = None
 
     def fetch(self):
         """

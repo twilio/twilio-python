@@ -95,7 +95,6 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
             "us_app_to_person_usecases": payload.get("us_app_to_person_usecases"),
         }
 
-        self._context = None
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
         }

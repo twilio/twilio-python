@@ -346,11 +346,11 @@ class RateLimitInstance(InstanceResource):
             "links": payload.get("links"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "sid": sid or self._properties["sid"],
         }
+        self._context: Optional[RateLimitContext] = None
 
     @property
     def _proxy(self):
@@ -549,7 +549,7 @@ class RateLimitContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/RateLimits/{sid}".format(**self._solution)
 
-        self._buckets = None
+        self._buckets: Optional[BucketList] = None
 
     def delete(self):
         """

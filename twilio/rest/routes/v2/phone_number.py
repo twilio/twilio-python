@@ -34,9 +34,6 @@ class PhoneNumberList(ListResource):
         """
         super().__init__(version)
 
-        # Path Solution
-        self._solution = {}
-
     def get(self, phone_number):
         """
         Constructs a PhoneNumberContext
@@ -90,10 +87,10 @@ class PhoneNumberInstance(InstanceResource):
             "date_updated": deserialize.iso8601_datetime(payload.get("date_updated")),
         }
 
-        self._context = None
         self._solution = {
             "phone_number": phone_number or self._properties["phone_number"],
         }
+        self._context: Optional[PhoneNumberContext] = None
 
     @property
     def _proxy(self):

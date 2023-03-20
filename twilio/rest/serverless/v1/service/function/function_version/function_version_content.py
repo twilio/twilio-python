@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -100,12 +101,12 @@ class FunctionVersionContentInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "function_sid": function_sid,
             "sid": sid,
         }
+        self._context: Optional[FunctionVersionContentContext] = None
 
     @property
     def _proxy(self):

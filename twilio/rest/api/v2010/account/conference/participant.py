@@ -747,12 +747,12 @@ class ParticipantInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "conference_sid": conference_sid,
             "call_sid": call_sid or self._properties["call_sid"],
         }
+        self._context: Optional[ParticipantContext] = None
 
     @property
     def _proxy(self):

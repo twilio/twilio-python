@@ -331,12 +331,12 @@ class UserChannelInstance(InstanceResource):
             "notification_level": payload.get("notification_level"),
         }
 
-        self._context = None
         self._solution = {
             "service_sid": service_sid,
             "user_sid": user_sid,
             "channel_sid": channel_sid or self._properties["channel_sid"],
         }
+        self._context: Optional[UserChannelContext] = None
 
     @property
     def _proxy(self):

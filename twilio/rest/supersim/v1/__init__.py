@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.supersim.v1.esim_profile import EsimProfileList
@@ -33,15 +34,15 @@ class V1(Version):
         :param domain: The Twilio.supersim domain
         """
         super().__init__(domain, "v1")
-        self._esim_profiles = None
-        self._fleets = None
-        self._ip_commands = None
-        self._networks = None
-        self._network_access_profiles = None
-        self._settings_updates = None
-        self._sims = None
-        self._sms_commands = None
-        self._usage_records = None
+        self._esim_profiles: Optional[EsimProfileList] = None
+        self._fleets: Optional[FleetList] = None
+        self._ip_commands: Optional[IpCommandList] = None
+        self._networks: Optional[NetworkList] = None
+        self._network_access_profiles: Optional[NetworkAccessProfileList] = None
+        self._settings_updates: Optional[SettingsUpdateList] = None
+        self._sims: Optional[SimList] = None
+        self._sms_commands: Optional[SmsCommandList] = None
+        self._usage_records: Optional[UsageRecordList] = None
 
     @property
     def esim_profiles(self) -> EsimProfileList:

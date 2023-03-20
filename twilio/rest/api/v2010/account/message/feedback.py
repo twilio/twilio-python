@@ -135,7 +135,6 @@ class FeedbackInstance(InstanceResource):
             "uri": payload.get("uri"),
         }
 
-        self._context = None
         self._solution = {
             "account_sid": account_sid,
             "message_sid": message_sid,

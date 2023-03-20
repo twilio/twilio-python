@@ -13,6 +13,7 @@ r"""
 """
 
 
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -95,11 +96,11 @@ class EngagementContextInstance(InstanceResource):
             "url": payload.get("url"),
         }
 
-        self._context = None
         self._solution = {
             "flow_sid": flow_sid,
             "engagement_sid": engagement_sid,
         }
+        self._context: Optional[EngagementContextContext] = None
 
     @property
     def _proxy(self):
