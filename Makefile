@@ -19,8 +19,8 @@ develop: venv
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
 analysis:
-	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501,W391,W291,W293,F401 tests
-	. venv/bin/activate; flake8 --ignore=E402,F401,W391,W291,W293 twilio --max-line-length=300
+	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501,W391,W291,W293,F401,W503,E203 tests
+	. venv/bin/activate; flake8 --ignore=E402,F401,W391,W291,W293,W503,E203 twilio --max-line-length=300
 
 test: analysis prettier-check
 	. venv/bin/activate; pytest tests --ignore=tests/cluster
