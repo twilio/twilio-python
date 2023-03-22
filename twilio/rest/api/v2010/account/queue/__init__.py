@@ -135,7 +135,7 @@ class QueueInstance(InstanceResource):
     @property
     def max_size(self):
         """
-        :returns:  The maximum number of calls that can be in the queue. The default is 100 and the maximum is 5000.
+        :returns:  The maximum number of calls that can be in the queue. The default is 1000 and the maximum is 5000.
         :rtype: int
         """
         return self._properties["max_size"]
@@ -185,7 +185,7 @@ class QueueInstance(InstanceResource):
         Update the QueueInstance
 
         :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
@@ -200,7 +200,7 @@ class QueueInstance(InstanceResource):
         Asynchronous coroutine to update the QueueInstance
 
         :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
@@ -327,7 +327,7 @@ class QueueContext(InstanceContext):
         Update the QueueInstance
 
         :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
@@ -357,7 +357,7 @@ class QueueContext(InstanceContext):
         Asynchronous coroutine to update the QueueInstance
 
         :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The updated QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
@@ -456,7 +456,7 @@ class QueueList(ListResource):
         Create the QueueInstance
 
         :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The created QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
@@ -483,7 +483,7 @@ class QueueList(ListResource):
         Asynchronously create the QueueInstance
 
         :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 1000. The maximum is 5000.
 
         :returns: The created QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance

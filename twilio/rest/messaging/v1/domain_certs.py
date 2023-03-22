@@ -39,7 +39,7 @@ class DomainCertsInstance(InstanceResource):
             "domain_name": payload.get("domain_name"),
             "certificate_sid": payload.get("certificate_sid"),
             "url": payload.get("url"),
-            "validated": payload.get("validated"),
+            "cert_in_validation": payload.get("cert_in_validation"),
         }
 
         self._solution = {
@@ -120,12 +120,12 @@ class DomainCertsInstance(InstanceResource):
         return self._properties["url"]
 
     @property
-    def validated(self):
+    def cert_in_validation(self):
         """
-        :returns: Boolean value indicating whether certificate has been validated
-        :rtype: bool
+        :returns: Optional JSON field describing the status and upload date of a new certificate in the process of validation
+        :rtype: dict
         """
-        return self._properties["validated"]
+        return self._properties["cert_in_validation"]
 
     def delete(self):
         """

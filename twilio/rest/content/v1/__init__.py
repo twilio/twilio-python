@@ -16,6 +16,7 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.content.v1.content import ContentList
+from twilio.rest.content.v1.content_and_approvals import ContentAndApprovalsList
 from twilio.rest.content.v1.legacy_content import LegacyContentList
 
 
@@ -28,6 +29,7 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._contents: Optional[ContentList] = None
+        self._content_and_approvals: Optional[ContentAndApprovalsList] = None
         self._legacy_contents: Optional[LegacyContentList] = None
 
     @property
@@ -35,6 +37,12 @@ class V1(Version):
         if self._contents is None:
             self._contents = ContentList(self)
         return self._contents
+
+    @property
+    def content_and_approvals(self) -> ContentAndApprovalsList:
+        if self._content_and_approvals is None:
+            self._content_and_approvals = ContentAndApprovalsList(self)
+        return self._content_and_approvals
 
     @property
     def legacy_contents(self) -> LegacyContentList:

@@ -19,7 +19,13 @@ from twilio.rest.messaging.v1.brand_registration import BrandRegistrationList
 from twilio.rest.messaging.v1.deactivations import DeactivationsList
 from twilio.rest.messaging.v1.domain_certs import DomainCertsList
 from twilio.rest.messaging.v1.domain_config import DomainConfigList
+from twilio.rest.messaging.v1.domain_config_messaging_service import (
+    DomainConfigMessagingServiceList,
+)
 from twilio.rest.messaging.v1.external_campaign import ExternalCampaignList
+from twilio.rest.messaging.v1.linkshortening_messaging_service import (
+    LinkshorteningMessagingServiceList,
+)
 from twilio.rest.messaging.v1.service import ServiceList
 from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationList
 from twilio.rest.messaging.v1.usecase import UsecaseList
@@ -37,7 +43,13 @@ class V1(Version):
         self._deactivations: Optional[DeactivationsList] = None
         self._domain_certs: Optional[DomainCertsList] = None
         self._domain_config: Optional[DomainConfigList] = None
+        self._domain_config_messaging_service: Optional[
+            DomainConfigMessagingServiceList
+        ] = None
         self._external_campaign: Optional[ExternalCampaignList] = None
+        self._linkshortening_messaging_service: Optional[
+            LinkshorteningMessagingServiceList
+        ] = None
         self._services: Optional[ServiceList] = None
         self._tollfree_verifications: Optional[TollfreeVerificationList] = None
         self._usecases: Optional[UsecaseList] = None
@@ -67,10 +79,26 @@ class V1(Version):
         return self._domain_config
 
     @property
+    def domain_config_messaging_service(self) -> DomainConfigMessagingServiceList:
+        if self._domain_config_messaging_service is None:
+            self._domain_config_messaging_service = DomainConfigMessagingServiceList(
+                self
+            )
+        return self._domain_config_messaging_service
+
+    @property
     def external_campaign(self) -> ExternalCampaignList:
         if self._external_campaign is None:
             self._external_campaign = ExternalCampaignList(self)
         return self._external_campaign
+
+    @property
+    def linkshortening_messaging_service(self) -> LinkshorteningMessagingServiceList:
+        if self._linkshortening_messaging_service is None:
+            self._linkshortening_messaging_service = LinkshorteningMessagingServiceList(
+                self
+            )
+        return self._linkshortening_messaging_service
 
     @property
     def services(self) -> ServiceList:

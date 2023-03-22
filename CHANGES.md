@@ -3,6 +3,81 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-03-22] Version 8.0.0-rc.1
+-------------------------------
+**Library - Docs**
+- [PR #690](https://github.com/twilio/twilio-python/pull/690): Fix upgrade guide. Thanks to [@rakatyal](https://github.com/rakatyal)!
+- [PR #677](https://github.com/twilio/twilio-python/pull/677): update UPGRADE.md to include resource links for Voice TwiML changes; apply markdownlint. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+- [PR #675](https://github.com/twilio/twilio-python/pull/675): Add upgrade guide for 8.0.0-rc. Thanks to [@rakatyal](https://github.com/rakatyal)!
+- [PR #672](https://github.com/twilio/twilio-python/pull/672): Adding remaining docstrings. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Library - Chore**
+- [PR #685](https://github.com/twilio/twilio-python/pull/685): Prep for RC release. Thanks to [@rakatyal](https://github.com/rakatyal)!
+- [PR #689](https://github.com/twilio/twilio-python/pull/689): move list implementations to the bottom. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #686](https://github.com/twilio/twilio-python/pull/686): refactor base initialization. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #683](https://github.com/twilio/twilio-python/pull/683): fix pyright errors in http folder. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #680](https://github.com/twilio/twilio-python/pull/680): allow 'None' for non-parent params. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #681](https://github.com/twilio/twilio-python/pull/681): update generated header to be r-string. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #688](https://github.com/twilio/twilio-python/pull/688): mark dependents as optional and drop empty path solutions. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #684](https://github.com/twilio/twilio-python/pull/684): Update README / docstring for Authenticating Client. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #682](https://github.com/twilio/twilio-python/pull/682): only include list operations if a path is present. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #679](https://github.com/twilio/twilio-python/pull/679): twiml support to utf-8. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #674](https://github.com/twilio/twilio-python/pull/674): call fetch for fetch operations. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #671](https://github.com/twilio/twilio-python/pull/671): github actions and python-tests. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #673](https://github.com/twilio/twilio-python/pull/673): correct the FormTypes enum reference. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #670](https://github.com/twilio/twilio-python/pull/670): correct the param typing for enums. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #667](https://github.com/twilio/twilio-python/pull/667): move the init files for preview endpoints. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #665](https://github.com/twilio/twilio-python/pull/665): correct the enum names. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #666](https://github.com/twilio/twilio-python/pull/666): init import statements. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #663](https://github.com/twilio/twilio-python/pull/663): include serialize.prefixed_collapsible_map. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #662](https://github.com/twilio/twilio-python/pull/662): Add Underscore to ListProperty. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #661](https://github.com/twilio/twilio-python/pull/661): Operations Parameters and Remove $ from URI Paths. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Library - Feature**
+- [PR #678](https://github.com/twilio/twilio-python/pull/678): make python code prettier. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #676](https://github.com/twilio/twilio-python/pull/676): async support. Thanks to [@Hunga1](https://github.com/Hunga1)!
+- [PR #664](https://github.com/twilio/twilio-python/pull/664): add enum classes. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #660](https://github.com/twilio/twilio-python/pull/660): Python ApiContext and ApiInstance. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Library - Test**
+- [PR #669](https://github.com/twilio/twilio-python/pull/669): Adding python cluster tests. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Api**
+- Revert Corrected the data type for `friendly_name` in Available Phone Number Local, Mobile and TollFree resources
+- Corrected the data type for `friendly_name` in Available Phone Number Local, Mobile and TollFree resources **(breaking change)**
+- Add new categories for whatsapp template
+- Remove `scheduled_for` property from message resource
+- Add `scheduled_for` property to message resource
+- Add `public_application_connect_enabled` param to Application resource
+
+**Conversations**
+- Add support for creating Multi-Channel Rich Content Messages
+
+**Lookups**
+- Remove `validation_results` from the `default_output_properties`
+- Add `disposable_phone_number_risk` package to the lookup response
+- Add `sms_pumping_risk` package to the lookup response
+- Changed the no data message for match postal code from `no_data` to `data_not_available` in identity match package
+
+**Messaging**
+- Add `linkshortening_messaging_service` resource
+- Add new endpoint for GetDomainConfigByMessagingServiceSid
+- Remove `validated` parameter and add `cert_in_validation` parameter to Link Shortening API **(breaking change)**
+- Add new tollfree verification API property (ExternalReferenceId)]
+- Add update/edit tollfree verification API
+
+**Supersim**
+- Add ESimProfile's `matching_id` and `activation_code` parameters to libraries
+
+**Verify**
+- Add `device_ip` parameter and channel `auto` for sna/sms orchestration
+
+**Twiml**
+- Add support for `<Application>` noun and `<ApplicationSid>` noun, nested `<Parameter>` to `<Hangup>` and `<Leave>` verb
+
+
 [2023-03-22] Version 8.0.0-rc.0
 ---------------------------
 - Release Candidate prep
