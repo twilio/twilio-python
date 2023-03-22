@@ -40,7 +40,10 @@ class DomainCertsTestCase(IntegrationTestCase):
                 "date_created": "2021-02-06T18:02:04Z",
                 "date_updated": "2021-02-06T18:02:04Z",
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificate",
-                "validated": true
+                "cert_in_validation": {
+                    "date_expires": "2021-02-06T18:02:04Z",
+                    "status": "pending"
+                }
             }
             '''
         ))
@@ -57,11 +60,14 @@ class DomainCertsTestCase(IntegrationTestCase):
                 "certificate_sid": "CWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "domain_name": "https://api.example.com",
                 "domain_sid": "DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_expires": "2021-02-06T18:02:04Z",
+                "date_expires": null,
                 "date_created": "2021-02-06T18:02:04Z",
                 "date_updated": "2021-02-06T18:02:04Z",
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificate",
-                "validated": true
+                "cert_in_validation": {
+                    "date_expires": "2021-02-06T18:02:04Z",
+                    "status": "pending"
+                }
             }
             '''
         ))
@@ -93,7 +99,10 @@ class DomainCertsTestCase(IntegrationTestCase):
                 "date_created": "2021-02-06T18:02:04Z",
                 "date_updated": "2021-02-06T18:02:04Z",
                 "url": "https://messaging.twilio.com/v1/LinkShortening/Domains/DNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Certificate",
-                "validated": true
+                "cert_in_validation": {
+                    "date_expires": "2021-02-06T18:02:04Z",
+                    "status": "pending"
+                }
             }
             '''
         ))

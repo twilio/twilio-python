@@ -57,7 +57,7 @@ class VerificationList(ListResource):
         :param unicode app_hash: Your App Hash to be appended at the end of an SMS.
         :param unicode template_sid: The verification template SMS or Voice message.
         :param unicode template_custom_substitutions: The values of the special variables declared on the message template.
-        :param unicode device_ip: The IP address of the client's device.
+        :param unicode device_ip: Encouraged if using the auto channel. The IP address of the client's device.
 
         :returns: The created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance

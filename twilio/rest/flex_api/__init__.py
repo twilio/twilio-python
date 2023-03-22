@@ -84,6 +84,13 @@ class FlexApi(Domain):
         return self.v1.insights_assessments_comment
 
     @property
+    def insights_conversations(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_conversations.InsightsConversationsList
+        """
+        return self.v1.insights_conversations
+
+    @property
     def insights_questionnaires(self):
         """
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList

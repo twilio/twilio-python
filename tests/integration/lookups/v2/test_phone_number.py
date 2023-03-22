@@ -539,6 +539,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "number_blocked": false,
                     "number_blocked_date": null,
                     "number_blocked_last_3_months": null,
+                    "sms_pumping_risk_score": 61,
                     "error_code": null
                 },
                 "disposable_phone_number_risk": null,

@@ -44,6 +44,13 @@ class Content(Domain):
         return self.v1.contents
 
     @property
+    def content_and_approvals(self):
+        """
+        :rtype: twilio.rest.content.v1.content_and_approvals.ContentAndApprovalsList
+        """
+        return self.v1.content_and_approvals
+
+    @property
     def legacy_contents(self):
         """
         :rtype: twilio.rest.content.v1.legacy_content.LegacyContentList

@@ -65,11 +65,25 @@ class Messaging(Domain):
         return self.v1.domain_config
 
     @property
+    def domain_config_messaging_service(self):
+        """
+        :rtype: twilio.rest.messaging.v1.domain_config_messaging_service.DomainConfigMessagingServiceList
+        """
+        return self.v1.domain_config_messaging_service
+
+    @property
     def external_campaign(self):
         """
         :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
         """
         return self.v1.external_campaign
+
+    @property
+    def linkshortening_messaging_service(self):
+        """
+        :rtype: twilio.rest.messaging.v1.linkshortening_messaging_service.LinkshorteningMessagingServiceList
+        """
+        return self.v1.linkshortening_messaging_service
 
     @property
     def services(self):

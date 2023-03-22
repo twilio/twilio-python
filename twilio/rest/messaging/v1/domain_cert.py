@@ -192,7 +192,7 @@ class DomainCertsInstance(InstanceResource):
             'domain_name': payload.get('domain_name'),
             'certificate_sid': payload.get('certificate_sid'),
             'url': payload.get('url'),
-            'validated': payload.get('validated'),
+            'cert_in_validation': payload.get('cert_in_validation'),
         }
 
         # Context
@@ -269,12 +269,12 @@ class DomainCertsInstance(InstanceResource):
         return self._properties['url']
 
     @property
-    def validated(self):
+    def cert_in_validation(self):
         """
-        :returns: Certificate validation field
-        :rtype: bool
+        :returns: New certificate in process of validation field
+        :rtype: dict
         """
-        return self._properties['validated']
+        return self._properties['cert_in_validation']
 
     def update(self, tls_cert):
         """
