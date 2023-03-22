@@ -52,15 +52,15 @@ posted here._
   - Cumulative and Real-Time Workers Statistics no longer accept a WorkerSid
   - `GET /v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics`
 
-    Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).cumulativeStatistics()`
+    Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).cumulative_statistics()`
 
-    New: `client.taskrouter.v1.workspaces('WS...').workers.cumulativeStatistics()`
+    New: `client.taskrouter.v1.workspaces('WS...').workers.cumulative_statistics()`
 
   - `GET /v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics`
 
-    Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).realTimeStatistics()`
+    Old: `client.taskrouter.v1.workspaces('WS...').workers('WK...).real_time_statistics()`
 
-    New: `client.taskrouter.v1.workspaces('WS...').workers.realTimeStatistics()`
+    New: `client.taskrouter.v1.workspaces('WS...').workers.real_time_statistics()`
 
 ## [2021-09-22] 6.x.x to 7.x.x
 
