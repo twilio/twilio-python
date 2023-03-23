@@ -9,21 +9,24 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.ip_messaging.v1 import V1
 from twilio.rest.ip_messaging.v2 import V2
 
 
 class IpMessagingBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the IpMessaging Domain
 
         :returns: Domain for IpMessaging
         """
         super().__init__(twilio, "https://ip-messaging.twilio.com")
-        self._v1 = None
-        self._v2 = None
+        self._v1: Optional[V1] = None
+        self._v2: Optional[V2] = None
 
     @property
     def v1(self) -> V1:

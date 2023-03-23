@@ -9,19 +9,22 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.messaging.v1 import V1
 
 
 class MessagingBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Messaging Domain
 
         :returns: Domain for Messaging
         """
         super().__init__(twilio, "https://messaging.twilio.com")
-        self._v1 = None
+        self._v1: Optional[V1] = None
 
     @property
     def v1(self) -> V1:
