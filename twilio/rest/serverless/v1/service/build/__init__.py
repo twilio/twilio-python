@@ -113,7 +113,7 @@ class BuildInstance(InstanceResource):
     def asset_versions(self):
         """
         :returns: The list of Asset Version resource SIDs that are included in the Build.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties['asset_versions']
     
@@ -121,7 +121,7 @@ class BuildInstance(InstanceResource):
     def function_versions(self):
         """
         :returns: The list of Function Version resource SIDs that are included in the Build.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties['function_versions']
     
@@ -129,7 +129,7 @@ class BuildInstance(InstanceResource):
     def dependencies(self):
         """
         :returns: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties['dependencies']
     
@@ -406,8 +406,8 @@ class BuildList(ListResource):
         """
         Create the BuildInstance
 
-        :param list[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
-        :param list[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param List[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param List[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
         :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
         :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
         
@@ -429,8 +429,8 @@ class BuildList(ListResource):
         """
         Asynchronously create the BuildInstance
 
-        :param list[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
-        :param list[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param List[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param List[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
         :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
         :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
         

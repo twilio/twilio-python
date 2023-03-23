@@ -111,7 +111,7 @@ class AuthorizationDocumentInstance(InstanceResource):
     def cc_emails(self):
         """
         :returns: Email recipients who will be informed when an Authorization Document has been sent and signed.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["cc_emails"]
 
@@ -180,10 +180,10 @@ class AuthorizationDocumentInstance(InstanceResource):
         """
         Update the AuthorizationDocumentInstance
 
-        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
         :param AuthorizationDocumentInstance.Status status:
         :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
@@ -214,10 +214,10 @@ class AuthorizationDocumentInstance(InstanceResource):
         """
         Asynchronous coroutine to update the AuthorizationDocumentInstance
 
-        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
         :param AuthorizationDocumentInstance.Status status:
         :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
@@ -334,10 +334,10 @@ class AuthorizationDocumentContext(InstanceContext):
         """
         Update the AuthorizationDocumentInstance
 
-        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
         :param AuthorizationDocumentInstance.Status status:
         :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
@@ -382,10 +382,10 @@ class AuthorizationDocumentContext(InstanceContext):
         """
         Asynchronous coroutine to update the AuthorizationDocumentInstance
 
-        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
         :param AuthorizationDocumentInstance.Status status:
         :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
@@ -492,12 +492,12 @@ class AuthorizationDocumentList(ListResource):
         """
         Create the AuthorizationDocumentInstance
 
-        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
         :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
-        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
 
         :returns: The created AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
@@ -535,12 +535,12 @@ class AuthorizationDocumentList(ListResource):
         """
         Asynchronously create the AuthorizationDocumentInstance
 
-        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param List[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
         :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
-        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+        :param List[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
 
         :returns: The created AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance

@@ -72,7 +72,7 @@ class TokenInstance(InstanceResource):
     def ice_servers(self):
         """
         :returns: An array representing the ephemeral credentials and the STUN and TURN server URIs.
-        :rtype: list[ApiV2010AccountTokenIceServers]
+        :rtype: List[str]
         """
         return self._properties["ice_servers"]
 

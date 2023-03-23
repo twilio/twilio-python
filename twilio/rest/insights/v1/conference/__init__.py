@@ -280,7 +280,7 @@ class ConferenceInstance(InstanceResource):
     def tags(self):
         """
         :returns: Tags for detected conference conditions and participant behaviors which may be of interest.
-        :rtype: list[ConferenceInstance.Tag]
+        :rtype: List[ConferenceInstance.Tag]
         """
         return self._properties["tags"]
 

@@ -128,7 +128,7 @@ class ShortCodeInstance(InstanceResource):
     def capabilities(self):
         """
         :returns:
-        :rtype: ProxyV1ServiceShortCodeCapabilities
+        :rtype: str
         """
         return self._properties["capabilities"]
 

@@ -58,7 +58,7 @@ class InsightsUserRolesInstance(InstanceResource):
     def roles(self):
         """
         :returns: Flex Insights roles for the user
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["roles"]
 

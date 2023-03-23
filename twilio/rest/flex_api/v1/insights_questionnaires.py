@@ -107,7 +107,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
     def questions(self):
         """
         :returns: The list of questions with category for a questionnaire
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["questions"]
 
@@ -186,7 +186,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         :param str token: The Token HTTP request header
         :param str name: The name of this questionnaire
         :param str description: The description of this questionnaire
-        :param list[str] question_ids: The list of questions ids under a questionnaire
+        :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
@@ -214,7 +214,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         :param str token: The Token HTTP request header
         :param str name: The name of this questionnaire
         :param str description: The description of this questionnaire
-        :param list[str] question_ids: The list of questions ids under a questionnaire
+        :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
@@ -358,7 +358,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         :param str token: The Token HTTP request header
         :param str name: The name of this questionnaire
         :param str description: The description of this questionnaire
-        :param list[str] question_ids: The list of questions ids under a questionnaire
+        :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
@@ -400,7 +400,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         :param str token: The Token HTTP request header
         :param str name: The name of this questionnaire
         :param str description: The description of this questionnaire
-        :param list[str] question_ids: The list of questions ids under a questionnaire
+        :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The updated InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
@@ -488,7 +488,7 @@ class InsightsQuestionnairesList(ListResource):
         :param str token: The Token HTTP request header
         :param str description: The description of this questionnaire
         :param bool active: The flag to enable or disable questionnaire
-        :param list[str] question_ids: The list of questions ids under a questionnaire
+        :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
@@ -527,7 +527,7 @@ class InsightsQuestionnairesList(ListResource):
         :param str token: The Token HTTP request header
         :param str description: The description of this questionnaire
         :param bool active: The flag to enable or disable questionnaire
-        :param list[str] question_ids: The list of questions ids under a questionnaire
+        :param List[str] question_ids: The list of questions ids under a questionnaire
 
         :returns: The created InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance

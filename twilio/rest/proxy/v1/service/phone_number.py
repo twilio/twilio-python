@@ -138,7 +138,7 @@ class PhoneNumberInstance(InstanceResource):
     def capabilities(self):
         """
         :returns:
-        :rtype: ProxyV1ServicePhoneNumberCapabilities
+        :rtype: str
         """
         return self._properties["capabilities"]
 

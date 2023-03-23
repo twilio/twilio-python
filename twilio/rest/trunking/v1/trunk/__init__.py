@@ -179,7 +179,7 @@ class TrunkInstance(InstanceResource):
     def auth_type_set(self):
         """
         :returns: Reserved.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["auth_type_set"]
 

@@ -240,7 +240,7 @@ class RoomInstance(InstanceResource):
     def video_codecs(self):
         """
         :returns: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :rtype: list[RoomInstance.VideoCodec]
+        :rtype: List[RoomInstance.VideoCodec]
         """
         return self._properties["video_codecs"]
 
@@ -615,7 +615,7 @@ class RoomList(ListResource):
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
         :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param List[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
         :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
@@ -683,7 +683,7 @@ class RoomList(ListResource):
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
         :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param List[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
         :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.

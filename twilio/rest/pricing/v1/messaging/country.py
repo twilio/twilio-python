@@ -82,7 +82,7 @@ class CountryInstance(InstanceResource):
     def outbound_sms_prices(self):
         """
         :returns: The list of [OutboundSMSPrice](https://www.twilio.com/docs/sms/api/pricing#outbound-sms-price) records that represent the price to send a message for each MCC/MNC applicable in this country.
-        :rtype: list[PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices]
+        :rtype: List[str]
         """
         return self._properties["outbound_sms_prices"]
 
@@ -90,7 +90,7 @@ class CountryInstance(InstanceResource):
     def inbound_sms_prices(self):
         """
         :returns: The list of [InboundPrice](https://www.twilio.com/docs/sms/api/pricing#inbound-price) records that describe the price to receive an inbound SMS to the different Twilio phone number types supported in this country
-        :rtype: list[PricingV1MessagingMessagingCountryInstanceInboundSmsPrices]
+        :rtype: List[str]
         """
         return self._properties["inbound_sms_prices"]
 

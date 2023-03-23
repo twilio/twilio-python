@@ -70,7 +70,7 @@ class FlowTestUserInstance(InstanceResource):
     def test_users(self):
         """
         :returns: List of test user identities that can test draft versions of the flow.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["test_users"]
 
@@ -106,7 +106,7 @@ class FlowTestUserInstance(InstanceResource):
         """
         Update the FlowTestUserInstance
 
-        :param list[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserInstance
@@ -119,7 +119,7 @@ class FlowTestUserInstance(InstanceResource):
         """
         Asynchronous coroutine to update the FlowTestUserInstance
 
-        :param list[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserInstance
@@ -202,7 +202,7 @@ class FlowTestUserContext(InstanceContext):
         """
         Update the FlowTestUserInstance
 
-        :param list[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserInstance
@@ -225,7 +225,7 @@ class FlowTestUserContext(InstanceContext):
         """
         Asynchronous coroutine to update the FlowTestUserInstance
 
-        :param list[str] test_users: List of test user identities that can test draft versions of the flow.
+        :param List[str] test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserInstance

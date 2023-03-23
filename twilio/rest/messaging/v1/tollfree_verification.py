@@ -267,7 +267,7 @@ class TollfreeVerificationInstance(InstanceResource):
     def use_case_categories(self):
         """
         :returns: The category of the use case for the Tollfree Number. List as many are applicable..
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["use_case_categories"]
 
@@ -291,7 +291,7 @@ class TollfreeVerificationInstance(InstanceResource):
     def opt_in_image_urls(self):
         """
         :returns: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["opt_in_image_urls"]
 
@@ -408,10 +408,10 @@ class TollfreeVerificationInstance(InstanceResource):
         :param str business_name: The name of the business or organization using the Tollfree number.
         :param str business_website: The website of the business or organization using the Tollfree number.
         :param str notification_email: The email address to receive the notification about the verification result. .
-        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param List[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param str production_message_sample: An example of message content, i.e. a sample message.
-        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param List[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
         :param TollfreeVerificationInstance.OptInType opt_in_type:
         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param str business_street_address: The address of the business or organization using the Tollfree number.
@@ -481,10 +481,10 @@ class TollfreeVerificationInstance(InstanceResource):
         :param str business_name: The name of the business or organization using the Tollfree number.
         :param str business_website: The website of the business or organization using the Tollfree number.
         :param str notification_email: The email address to receive the notification about the verification result. .
-        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param List[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param str production_message_sample: An example of message content, i.e. a sample message.
-        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param List[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
         :param TollfreeVerificationInstance.OptInType opt_in_type:
         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param str business_street_address: The address of the business or organization using the Tollfree number.
@@ -624,10 +624,10 @@ class TollfreeVerificationContext(InstanceContext):
         :param str business_name: The name of the business or organization using the Tollfree number.
         :param str business_website: The website of the business or organization using the Tollfree number.
         :param str notification_email: The email address to receive the notification about the verification result. .
-        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param List[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param str production_message_sample: An example of message content, i.e. a sample message.
-        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param List[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
         :param TollfreeVerificationInstance.OptInType opt_in_type:
         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param str business_street_address: The address of the business or organization using the Tollfree number.
@@ -709,10 +709,10 @@ class TollfreeVerificationContext(InstanceContext):
         :param str business_name: The name of the business or organization using the Tollfree number.
         :param str business_website: The website of the business or organization using the Tollfree number.
         :param str notification_email: The email address to receive the notification about the verification result. .
-        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param List[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param str production_message_sample: An example of message content, i.e. a sample message.
-        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param List[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
         :param TollfreeVerificationInstance.OptInType opt_in_type:
         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param str business_street_address: The address of the business or organization using the Tollfree number.
@@ -843,10 +843,10 @@ class TollfreeVerificationList(ListResource):
         :param str business_name: The name of the business or organization using the Tollfree number.
         :param str business_website: The website of the business or organization using the Tollfree number.
         :param str notification_email: The email address to receive the notification about the verification result. .
-        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param List[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param str production_message_sample: An example of message content, i.e. a sample message.
-        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param List[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
         :param TollfreeVerificationInstance.OptInType opt_in_type:
         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
@@ -935,10 +935,10 @@ class TollfreeVerificationList(ListResource):
         :param str business_name: The name of the business or organization using the Tollfree number.
         :param str business_website: The website of the business or organization using the Tollfree number.
         :param str notification_email: The email address to receive the notification about the verification result. .
-        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param List[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param str production_message_sample: An example of message content, i.e. a sample message.
-        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param List[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
         :param TollfreeVerificationInstance.OptInType opt_in_type:
         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.

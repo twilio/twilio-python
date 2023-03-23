@@ -106,7 +106,7 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
     def identifiers(self):
         """
         :returns: Array of objects identifying the [MCC-MNCs](https://en.wikipedia.org/wiki/Mobile_country_code) that are included in the Network resource.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["identifiers"]
 

@@ -82,7 +82,7 @@ class CountryInstance(InstanceResource):
     def outbound_prefix_prices(self):
         """
         :returns: The list of [OutboundPrefixPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-prefix-price-with-origin) records.
-        :rtype: list[PricingV2TrunkingCountryInstanceTerminatingPrefixPrices]
+        :rtype: List[str]
         """
         return self._properties["outbound_prefix_prices"]
 
@@ -90,7 +90,7 @@ class CountryInstance(InstanceResource):
     def inbound_call_prices(self):
         """
         :returns: The list of [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) records.
-        :rtype: list[PricingV2TrunkingCountryInstanceOriginatingCallPrices]
+        :rtype: List[str]
         """
         return self._properties["inbound_call_prices"]
 

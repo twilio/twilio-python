@@ -534,7 +534,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str token: The Token HTTP request header
-        :param list[str] category_id: The list of category IDs
+        :param List[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -562,7 +562,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str token: The Token HTTP request header
-        :param list[str] category_id: The list of category IDs
+        :param List[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -589,7 +589,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         memory before returning.
 
         :param str token: The Token HTTP request header
-        :param list[str] category_id: The list of category IDs
+        :param List[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -618,7 +618,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         memory before returning.
 
         :param str token: The Token HTTP request header
-        :param list[str] category_id: The list of category IDs
+        :param List[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -651,7 +651,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         Request is executed immediately
 
         :param str token: The Token HTTP request header
-        :param list[str] category_id: The list of category IDs
+        :param List[str] category_id: The list of category IDs
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -685,7 +685,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         Request is executed immediately
 
         :param str token: The Token HTTP request header
-        :param list[str] category_id: The list of category IDs
+        :param List[str] category_id: The list of category IDs
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

@@ -88,7 +88,7 @@ class SettingsUpdateInstance(InstanceResource):
     def packages(self):
         """
         :returns: Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["packages"]
 

@@ -53,7 +53,7 @@ class RecordingRulesInstance(InstanceResource):
     def rules(self):
         """
         :returns: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :rtype: list[VideoV1RoomRoomRecordingRuleRules]
+        :rtype: List[str]
         """
         return self._properties["rules"]
 

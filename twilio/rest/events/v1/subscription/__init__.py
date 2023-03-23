@@ -424,7 +424,7 @@ class SubscriptionList(ListResource):
 
         :param str description: A human readable description for the Subscription **This value should not contain PII.**
         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param list[object] types: An array of objects containing the subscribed Event Types
+        :param List[object] types: An array of objects containing the subscribed Event Types
 
         :returns: The created SubscriptionInstance
         :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
@@ -451,7 +451,7 @@ class SubscriptionList(ListResource):
 
         :param str description: A human readable description for the Subscription **This value should not contain PII.**
         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param list[object] types: An array of objects containing the subscribed Event Types
+        :param List[object] types: An array of objects containing the subscribed Event Types
 
         :returns: The created SubscriptionInstance
         :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance

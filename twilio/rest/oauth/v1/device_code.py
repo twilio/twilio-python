@@ -119,8 +119,8 @@ class DeviceCodeList(ListResource):
         Create the DeviceCodeInstance
 
         :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param list[str] scopes: An Array of scopes for authorization request
-        :param list[str] audiences: An array of intended audiences for token requests
+        :param List[str] scopes: An Array of scopes for authorization request
+        :param List[str] audiences: An array of intended audiences for token requests
 
         :returns: The created DeviceCodeInstance
         :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance
@@ -146,8 +146,8 @@ class DeviceCodeList(ListResource):
         Asynchronously create the DeviceCodeInstance
 
         :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-        :param list[str] scopes: An Array of scopes for authorization request
-        :param list[str] audiences: An array of intended audiences for token requests
+        :param List[str] scopes: An Array of scopes for authorization request
+        :param List[str] audiences: An array of intended audiences for token requests
 
         :returns: The created DeviceCodeInstance
         :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance

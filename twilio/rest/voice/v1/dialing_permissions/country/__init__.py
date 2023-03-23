@@ -100,7 +100,7 @@ class CountryInstance(InstanceResource):
     def country_codes(self):
         """
         :returns: The E.164 assigned [country codes(s)](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["country_codes"]
 

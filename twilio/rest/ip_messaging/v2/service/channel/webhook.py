@@ -202,8 +202,8 @@ class WebhookInstance(InstanceResource):
 
         :param str configuration_url:
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters:
-        :param list[str] configuration_triggers:
+        :param List[str] configuration_filters:
+        :param List[str] configuration_triggers:
         :param str configuration_flow_sid:
         :param int configuration_retry_count:
 
@@ -233,8 +233,8 @@ class WebhookInstance(InstanceResource):
 
         :param str configuration_url:
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters:
-        :param list[str] configuration_triggers:
+        :param List[str] configuration_filters:
+        :param List[str] configuration_triggers:
         :param str configuration_flow_sid:
         :param int configuration_retry_count:
 
@@ -372,8 +372,8 @@ class WebhookContext(InstanceContext):
 
         :param str configuration_url:
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters:
-        :param list[str] configuration_triggers:
+        :param List[str] configuration_filters:
+        :param List[str] configuration_triggers:
         :param str configuration_flow_sid:
         :param int configuration_retry_count:
 
@@ -423,8 +423,8 @@ class WebhookContext(InstanceContext):
 
         :param str configuration_url:
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters:
-        :param list[str] configuration_triggers:
+        :param List[str] configuration_filters:
+        :param List[str] configuration_triggers:
         :param str configuration_flow_sid:
         :param int configuration_retry_count:
 
@@ -536,8 +536,8 @@ class WebhookList(ListResource):
         :param WebhookInstance.Type type:
         :param str configuration_url:
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters:
-        :param list[str] configuration_triggers:
+        :param List[str] configuration_filters:
+        :param List[str] configuration_triggers:
         :param str configuration_flow_sid:
         :param int configuration_retry_count:
 
@@ -589,8 +589,8 @@ class WebhookList(ListResource):
         :param WebhookInstance.Type type:
         :param str configuration_url:
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters:
-        :param list[str] configuration_triggers:
+        :param List[str] configuration_filters:
+        :param List[str] configuration_triggers:
         :param str configuration_flow_sid:
         :param int configuration_retry_count:
 

@@ -226,7 +226,7 @@ class ServiceInstance(InstanceResource):
     def webhook_filters(self):
         """
         :returns:
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["webhook_filters"]
 
@@ -373,7 +373,7 @@ class ServiceInstance(InstanceResource):
         :param str pre_webhook_url:
         :param str post_webhook_url:
         :param str webhook_method:
-        :param list[str] webhook_filters:
+        :param List[str] webhook_filters:
         :param str webhooks_on_message_send_url:
         :param str webhooks_on_message_send_method:
         :param str webhooks_on_message_update_url:
@@ -548,7 +548,7 @@ class ServiceInstance(InstanceResource):
         :param str pre_webhook_url:
         :param str post_webhook_url:
         :param str webhook_method:
-        :param list[str] webhook_filters:
+        :param List[str] webhook_filters:
         :param str webhooks_on_message_send_url:
         :param str webhooks_on_message_send_method:
         :param str webhooks_on_message_update_url:
@@ -853,7 +853,7 @@ class ServiceContext(InstanceContext):
         :param str pre_webhook_url:
         :param str post_webhook_url:
         :param str webhook_method:
-        :param list[str] webhook_filters:
+        :param List[str] webhook_filters:
         :param str webhooks_on_message_send_url:
         :param str webhooks_on_message_send_method:
         :param str webhooks_on_message_update_url:
@@ -1038,7 +1038,7 @@ class ServiceContext(InstanceContext):
         :param str pre_webhook_url:
         :param str post_webhook_url:
         :param str webhook_method:
-        :param list[str] webhook_filters:
+        :param List[str] webhook_filters:
         :param str webhooks_on_message_send_url:
         :param str webhooks_on_message_send_method:
         :param str webhooks_on_message_update_url:

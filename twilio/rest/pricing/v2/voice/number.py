@@ -100,7 +100,7 @@ class NumberInstance(InstanceResource):
     def outbound_call_prices(self):
         """
         :returns: The list of [OutboundCallPriceWithOrigin](https://www.twilio.com/docs/voice/pricing#outbound-call-price-with-origin) records.
-        :rtype: list[PricingV2VoiceVoiceNumberOutboundCallPrices]
+        :rtype: List[str]
         """
         return self._properties["outbound_call_prices"]
 
@@ -108,7 +108,7 @@ class NumberInstance(InstanceResource):
     def inbound_call_price(self):
         """
         :returns:
-        :rtype: PricingV2VoiceVoiceNumberInboundCallPrice
+        :rtype: str
         """
         return self._properties["inbound_call_price"]
 

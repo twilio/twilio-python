@@ -113,7 +113,7 @@ class RoleInstance(InstanceResource):
     def permissions(self):
         """
         :returns: An array of the permissions the role has been granted.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["permissions"]
 
@@ -185,7 +185,7 @@ class RoleInstance(InstanceResource):
         """
         Update the RoleInstance
 
-        :param list[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance
@@ -198,7 +198,7 @@ class RoleInstance(InstanceResource):
         """
         Asynchronous coroutine to update the RoleInstance
 
-        :param list[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance
@@ -307,7 +307,7 @@ class RoleContext(InstanceContext):
         """
         Update the RoleInstance
 
-        :param list[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance
@@ -330,7 +330,7 @@ class RoleContext(InstanceContext):
         """
         Asynchronous coroutine to update the RoleInstance
 
-        :param list[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+        :param List[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance
@@ -401,7 +401,7 @@ class RoleList(ListResource):
 
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param RoleInstance.RoleType type:
-        :param list[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+        :param List[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
 
         :returns: The created RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance
@@ -428,7 +428,7 @@ class RoleList(ListResource):
 
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param RoleInstance.RoleType type:
-        :param list[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+        :param List[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
 
         :returns: The created RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance

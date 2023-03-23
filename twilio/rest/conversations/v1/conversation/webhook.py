@@ -185,8 +185,8 @@ class WebhookInstance(InstanceResource):
 
         :param str configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param List[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param List[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance
@@ -213,8 +213,8 @@ class WebhookInstance(InstanceResource):
 
         :param str configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param List[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param List[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance
@@ -343,8 +343,8 @@ class WebhookContext(InstanceContext):
 
         :param str configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param List[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param List[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance
@@ -390,8 +390,8 @@ class WebhookContext(InstanceContext):
 
         :param str configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param List[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param List[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance
@@ -495,8 +495,8 @@ class WebhookList(ListResource):
         :param WebhookInstance.Target target:
         :param str configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param List[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param List[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
         :param int configuration_replay_after: The message index for which and it's successors the webhook will be replayed. Not set by default
 
@@ -545,8 +545,8 @@ class WebhookList(ListResource):
         :param WebhookInstance.Target target:
         :param str configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method:
-        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param List[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param List[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
         :param int configuration_replay_after: The message index for which and it's successors the webhook will be replayed. Not set by default
 

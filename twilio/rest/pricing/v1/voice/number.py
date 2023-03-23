@@ -89,7 +89,7 @@ class NumberInstance(InstanceResource):
     def outbound_call_price(self):
         """
         :returns:
-        :rtype: PricingV1VoiceVoiceNumberOutboundCallPrice
+        :rtype: str
         """
         return self._properties["outbound_call_price"]
 
@@ -97,7 +97,7 @@ class NumberInstance(InstanceResource):
     def inbound_call_price(self):
         """
         :returns:
-        :rtype: PricingV1VoiceVoiceNumberInboundCallPrice
+        :rtype: str
         """
         return self._properties["inbound_call_price"]
 

@@ -558,7 +558,7 @@ class RecordingList(ListResource):
         """
         Create the RecordingInstance
 
-        :param list[str] recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
+        :param List[str] recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
         :param str recording_status_callback: The URL we should call using the `recording_status_callback_method` on each recording event specified in  `recording_status_callback_event`. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback).
         :param str recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
         :param str trim: Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
@@ -606,7 +606,7 @@ class RecordingList(ListResource):
         """
         Asynchronously create the RecordingInstance
 
-        :param list[str] recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
+        :param List[str] recording_status_callback_event: The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
         :param str recording_status_callback: The URL we should call using the `recording_status_callback_method` on each recording event specified in  `recording_status_callback_event`. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback).
         :param str recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
         :param str trim: Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.

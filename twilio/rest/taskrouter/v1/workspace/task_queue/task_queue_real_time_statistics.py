@@ -93,7 +93,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     def activity_statistics(self):
         """
         :returns: The number of current Workers by Activity.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["activity_statistics"]
 

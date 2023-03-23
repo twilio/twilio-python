@@ -366,7 +366,7 @@ class NetworkAccessProfileList(ListResource):
         Create the NetworkAccessProfileInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param list[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
+        :param List[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
 
         :returns: The created NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
@@ -391,7 +391,7 @@ class NetworkAccessProfileList(ListResource):
         Asynchronously create the NetworkAccessProfileInstance
 
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param list[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
+        :param List[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
 
         :returns: The created NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance

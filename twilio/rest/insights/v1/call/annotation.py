@@ -114,7 +114,7 @@ class AnnotationInstance(InstanceResource):
     def quality_issues(self):
         """
         :returns: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["quality_issues"]
 

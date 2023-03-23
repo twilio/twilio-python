@@ -68,7 +68,7 @@ class InsightsConversationsInstance(InstanceResource):
     def segments(self):
         """
         :returns: The Segments of a conversation
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["segments"]
 

@@ -116,7 +116,7 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
     def results(self):
         """
         :returns: The results of the Evaluation which includes the valid and invalid attributes.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["results"]
 

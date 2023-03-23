@@ -148,7 +148,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def capabilities(self):
         """
         :returns:
-        :rtype: PreviewHostedNumbersHostedNumberOrderCapabilities
+        :rtype: str
         """
         return self._properties["capabilities"]
 
@@ -220,7 +220,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def cc_emails(self):
         """
         :returns: A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["cc_emails"]
 
@@ -276,7 +276,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def verification_call_sids(self):
         """
         :returns: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["verification_call_sids"]
 
@@ -339,7 +339,7 @@ class HostedNumberOrderInstance(InstanceResource):
         :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param str email: Email of the owner of this phone number that is being hosted.
-        :param list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
         :param HostedNumberOrderInstance.Status status:
         :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
         :param HostedNumberOrderInstance.VerificationType verification_type:
@@ -382,7 +382,7 @@ class HostedNumberOrderInstance(InstanceResource):
         :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param str email: Email of the owner of this phone number that is being hosted.
-        :param list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
         :param HostedNumberOrderInstance.Status status:
         :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
         :param HostedNumberOrderInstance.VerificationType verification_type:
@@ -523,7 +523,7 @@ class HostedNumberOrderContext(InstanceContext):
         :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param str email: Email of the owner of this phone number that is being hosted.
-        :param list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
         :param HostedNumberOrderInstance.Status status:
         :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
         :param HostedNumberOrderInstance.VerificationType verification_type:
@@ -578,7 +578,7 @@ class HostedNumberOrderContext(InstanceContext):
         :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param str email: Email of the owner of this phone number that is being hosted.
-        :param list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param List[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
         :param HostedNumberOrderInstance.Status status:
         :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
         :param HostedNumberOrderInstance.VerificationType verification_type:
@@ -690,7 +690,7 @@ class HostedNumberOrderList(ListResource):
         :param str account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
         :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param str unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param list[str] cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
+        :param List[str] cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
         :param str sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
         :param str sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
         :param str sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
@@ -764,7 +764,7 @@ class HostedNumberOrderList(ListResource):
         :param str account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
         :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param str unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param list[str] cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
+        :param List[str] cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
         :param str sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
         :param str sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
         :param str sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.

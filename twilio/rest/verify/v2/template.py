@@ -69,7 +69,7 @@ class TemplateInstance(InstanceResource):
     def channels(self):
         """
         :returns: A list of channels that support the Template. Can include: sms, voice
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["channels"]
 

@@ -177,7 +177,7 @@ class ParticipantInstance(InstanceResource):
     def codecs(self):
         """
         :returns: Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
-        :rtype: list[ParticipantInstance.Codec]
+        :rtype: List[ParticipantInstance.Codec]
         """
         return self._properties["codecs"]
 

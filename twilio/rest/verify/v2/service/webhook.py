@@ -118,7 +118,7 @@ class WebhookInstance(InstanceResource):
     def event_types(self):
         """
         :returns: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["event_types"]
 
@@ -230,7 +230,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
 
         :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+        :param List[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param str webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status:
         :param WebhookInstance.Version version:
@@ -258,7 +258,7 @@ class WebhookInstance(InstanceResource):
         Asynchronous coroutine to update the WebhookInstance
 
         :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+        :param List[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param str webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status:
         :param WebhookInstance.Version version:
@@ -386,7 +386,7 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
 
         :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+        :param List[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param str webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status:
         :param WebhookInstance.Version version:
@@ -429,7 +429,7 @@ class WebhookContext(InstanceContext):
         Asynchronous coroutine to update the WebhookInstance
 
         :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+        :param List[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param str webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status:
         :param WebhookInstance.Version version:
@@ -525,7 +525,7 @@ class WebhookList(ListResource):
         Create the WebhookInstance
 
         :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+        :param List[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param str webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status:
         :param WebhookInstance.Version version:
@@ -565,7 +565,7 @@ class WebhookList(ListResource):
         Asynchronously create the WebhookInstance
 
         :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
+        :param List[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param str webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status:
         :param WebhookInstance.Version version:
