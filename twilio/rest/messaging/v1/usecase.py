@@ -38,7 +38,7 @@ class UsecaseInstance(InstanceResource):
     def usecases(self):
         """
         :returns: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["usecases"]
 

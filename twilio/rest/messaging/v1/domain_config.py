@@ -83,7 +83,7 @@ class DomainConfigInstance(InstanceResource):
     def messaging_service_sids(self):
         """
         :returns: A list of messagingServiceSids (with prefix MG).
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["messaging_service_sids"]
 
@@ -157,7 +157,7 @@ class DomainConfigInstance(InstanceResource):
         """
         Update the DomainConfigInstance
 
-        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param List[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
@@ -182,7 +182,7 @@ class DomainConfigInstance(InstanceResource):
         """
         Asynchronous coroutine to update the DomainConfigInstance
 
-        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param List[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
@@ -279,7 +279,7 @@ class DomainConfigContext(InstanceContext):
         """
         Update the DomainConfigInstance
 
-        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param List[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
@@ -318,7 +318,7 @@ class DomainConfigContext(InstanceContext):
         """
         Asynchronous coroutine to update the DomainConfigInstance
 
-        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
+        :param List[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
         :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)

@@ -791,7 +791,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param List[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -814,7 +814,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param List[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -836,7 +836,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param List[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -861,7 +861,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param List[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -891,7 +891,7 @@ class ChannelList(ListResource):
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param List[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -922,7 +922,7 @@ class ChannelList(ListResource):
         Asynchronously retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
 
-        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param List[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

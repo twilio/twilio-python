@@ -178,7 +178,7 @@ class ConfigurationInstance(InstanceResource):
     def taskrouter_taskqueues(self):
         """
         :returns: The list of TaskRouter TaskQueues.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["taskrouter_taskqueues"]
 
@@ -186,7 +186,7 @@ class ConfigurationInstance(InstanceResource):
     def taskrouter_skills(self):
         """
         :returns: The Skill description for TaskRouter workers.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["taskrouter_skills"]
 
@@ -370,7 +370,7 @@ class ConfigurationInstance(InstanceResource):
     def integrations(self):
         """
         :returns: A list of objects that contain the configurations for the Integrations supported in this configuration.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["integrations"]
 
@@ -386,7 +386,7 @@ class ConfigurationInstance(InstanceResource):
     def serverless_service_sids(self):
         """
         :returns: The list of serverless service SIDs.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["serverless_service_sids"]
 
@@ -450,7 +450,7 @@ class ConfigurationInstance(InstanceResource):
     def channel_configs(self):
         """
         :returns: Settings for different limits for Flex Conversations channels attachments.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["channel_configs"]
 

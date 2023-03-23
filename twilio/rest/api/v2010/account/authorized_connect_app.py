@@ -142,7 +142,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def permissions(self):
         """
         :returns: The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
-        :rtype: list[AuthorizedConnectAppInstance.Permission]
+        :rtype: List[AuthorizedConnectAppInstance.Permission]
         """
         return self._properties["permissions"]
 

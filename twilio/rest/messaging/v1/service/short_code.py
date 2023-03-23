@@ -127,7 +127,7 @@ class ShortCodeInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: An array of values that describe whether the number can receive calls or messages. Can be: `SMS` and `MMS`.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["capabilities"]
 

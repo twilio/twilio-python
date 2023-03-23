@@ -107,7 +107,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     def activity_durations(self):
         """
         :returns: The minimum, average, maximum, and total time (in seconds) that Workers spent in each Activity.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["activity_durations"]
 

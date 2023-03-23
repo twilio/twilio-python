@@ -198,7 +198,7 @@ class AddressConfigurationInstance(InstanceResource):
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
@@ -238,7 +238,7 @@ class AddressConfigurationInstance(InstanceResource):
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
@@ -376,7 +376,7 @@ class AddressConfigurationContext(InstanceContext):
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
@@ -430,7 +430,7 @@ class AddressConfigurationContext(InstanceContext):
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
@@ -536,7 +536,7 @@ class AddressConfigurationList(ListResource):
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
@@ -594,7 +594,7 @@ class AddressConfigurationList(ListResource):
         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method:
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param List[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 

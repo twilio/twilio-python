@@ -138,7 +138,7 @@ class LocalInstance(InstanceResource):
     def capabilities(self):
         """
         :returns:
-        :rtype: ApiV2010AccountIncomingPhoneNumberCapabilities
+        :rtype: str
         """
         return self._properties["capabilities"]
 

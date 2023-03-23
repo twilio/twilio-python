@@ -128,7 +128,7 @@ class OpenidDiscoveryInstance(InstanceResource):
     def response_type_supported(self):
         """
         :returns: A collection of response type supported by authorization server.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["response_type_supported"]
 
@@ -136,7 +136,7 @@ class OpenidDiscoveryInstance(InstanceResource):
     def subject_type_supported(self):
         """
         :returns: A collection of subject by authorization server.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["subject_type_supported"]
 
@@ -144,7 +144,7 @@ class OpenidDiscoveryInstance(InstanceResource):
     def id_token_signing_alg_values_supported(self):
         """
         :returns: A collection of JWS signing algorithms supported by authorization server to sign identity token.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["id_token_signing_alg_values_supported"]
 
@@ -152,7 +152,7 @@ class OpenidDiscoveryInstance(InstanceResource):
     def scopes_supported(self):
         """
         :returns: A collection of scopes supported by authorization server for identity token
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["scopes_supported"]
 
@@ -160,7 +160,7 @@ class OpenidDiscoveryInstance(InstanceResource):
     def claims_supported(self):
         """
         :returns: A collection of claims supported by authorization server for identity token
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["claims_supported"]
 

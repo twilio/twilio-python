@@ -40,7 +40,7 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
     def us_app_to_person_usecases(self):
         """
         :returns: Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["us_app_to_person_usecases"]
 

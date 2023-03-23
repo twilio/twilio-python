@@ -585,7 +585,7 @@ class SessionList(ListResource):
         :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
         :param SessionInstance.Mode mode:
         :param SessionInstance.Status status:
-        :param list[object] participants: The Participant objects to include in the new session.
+        :param List[object] participants: The Participant objects to include in the new session.
 
         :returns: The created SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -630,7 +630,7 @@ class SessionList(ListResource):
         :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
         :param SessionInstance.Mode mode:
         :param SessionInstance.Status status:
-        :param list[object] participants: The Participant objects to include in the new session.
+        :param List[object] participants: The Participant objects to include in the new session.
 
         :returns: The created SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance

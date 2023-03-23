@@ -459,7 +459,7 @@ class MessageInteractionList(ListResource):
         Create the MessageInteractionInstance
 
         :param str body: The message to send to the participant
-        :param list[str] media_url: Reserved. Not currently supported.
+        :param List[str] media_url: Reserved. Not currently supported.
 
         :returns: The created MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
@@ -490,7 +490,7 @@ class MessageInteractionList(ListResource):
         Asynchronously create the MessageInteractionInstance
 
         :param str body: The message to send to the participant
-        :param list[str] media_url: Reserved. Not currently supported.
+        :param List[str] media_url: Reserved. Not currently supported.
 
         :returns: The created MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance

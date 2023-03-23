@@ -152,7 +152,7 @@ class MachineToMachineInstance(InstanceResource):
     def capabilities(self):
         """
         :returns:
-        :rtype: ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities
+        :rtype: str
         """
         return self._properties["capabilities"]
 

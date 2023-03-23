@@ -89,7 +89,7 @@ class EndUserTypeInstance(InstanceResource):
     def fields(self):
         """
         :returns: The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["fields"]
 

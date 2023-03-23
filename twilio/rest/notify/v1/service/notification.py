@@ -97,7 +97,7 @@ class NotificationInstance(InstanceResource):
     def identities(self):
         """
         :returns: The list of `identity` values of the Users to notify. We will attempt to deliver notifications only to Bindings with an identity in this list.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["identities"]
 
@@ -105,7 +105,7 @@ class NotificationInstance(InstanceResource):
     def tags(self):
         """
         :returns: The tags that select the Bindings to notify. Notifications will be attempted only to Bindings that have all of the tags listed in this property.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["tags"]
 
@@ -113,7 +113,7 @@ class NotificationInstance(InstanceResource):
     def segments(self):
         """
         :returns: The list of Segments to notify. The [Segment](https://www.twilio.com/docs/notify/api/segment-resource) resource is deprecated. Use the `tags` property, instead.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["segments"]
 
@@ -287,12 +287,12 @@ class NotificationList(ListResource):
         :param object sms: The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
         :param object facebook_messenger: Deprecated.
         :param object fcm: The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
-        :param list[str] segment: The Segment resource is deprecated. Use the `tag` parameter, instead.
+        :param List[str] segment: The Segment resource is deprecated. Use the `tag` parameter, instead.
         :param object alexa: Deprecated.
-        :param list[str] to_binding: The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
+        :param List[str] to_binding: The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
         :param str delivery_callback_url: URL to send webhooks.
-        :param list[str] identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
-        :param list[str] tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
+        :param List[str] identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
+        :param List[str] tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
 
         :returns: The created NotificationInstance
         :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
@@ -366,12 +366,12 @@ class NotificationList(ListResource):
         :param object sms: The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
         :param object facebook_messenger: Deprecated.
         :param object fcm: The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
-        :param list[str] segment: The Segment resource is deprecated. Use the `tag` parameter, instead.
+        :param List[str] segment: The Segment resource is deprecated. Use the `tag` parameter, instead.
         :param object alexa: Deprecated.
-        :param list[str] to_binding: The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
+        :param List[str] to_binding: The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
         :param str delivery_callback_url: URL to send webhooks.
-        :param list[str] identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
-        :param list[str] tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
+        :param List[str] identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
+        :param List[str] tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
 
         :returns: The created NotificationInstance
         :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance

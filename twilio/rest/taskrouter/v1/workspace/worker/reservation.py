@@ -278,7 +278,7 @@ class ReservationInstance(InstanceResource):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -291,7 +291,7 @@ class ReservationInstance(InstanceResource):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -302,7 +302,7 @@ class ReservationInstance(InstanceResource):
         :param str region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param str sip_auth_username: The SIP username used for authentication.
         :param str sip_auth_password: The SIP password for authentication.
-        :param list[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param List[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
         :param str post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
@@ -447,7 +447,7 @@ class ReservationInstance(InstanceResource):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -460,7 +460,7 @@ class ReservationInstance(InstanceResource):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -471,7 +471,7 @@ class ReservationInstance(InstanceResource):
         :param str region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param str sip_auth_username: The SIP username used for authentication.
         :param str sip_auth_password: The SIP password for authentication.
-        :param list[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param List[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
         :param str post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
@@ -696,7 +696,7 @@ class ReservationContext(InstanceContext):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -709,7 +709,7 @@ class ReservationContext(InstanceContext):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -720,7 +720,7 @@ class ReservationContext(InstanceContext):
         :param str region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param str sip_auth_username: The SIP username used for authentication.
         :param str sip_auth_password: The SIP password for authentication.
-        :param list[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param List[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
         :param str post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
@@ -889,7 +889,7 @@ class ReservationContext(InstanceContext):
         :param str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :param list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param List[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :param int timeout: The timeout for a call when executing a Conference instruction.
         :param bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :param bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -902,7 +902,7 @@ class ReservationContext(InstanceContext):
         :param int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :param str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :param str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param List[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :param str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :param str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :param str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -913,7 +913,7 @@ class ReservationContext(InstanceContext):
         :param str region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param str sip_auth_username: The SIP username used for authentication.
         :param str sip_auth_password: The SIP password for authentication.
-        :param list[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param List[str] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
         :param str post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins.

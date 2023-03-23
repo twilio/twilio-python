@@ -282,7 +282,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def coached_participants(self):
         """
         :returns: Call SIDs coached by this participant.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["coached_participants"]
 

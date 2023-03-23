@@ -100,7 +100,7 @@ class NumberInstance(InstanceResource):
     def terminating_prefix_prices(self):
         """
         :returns:
-        :rtype: list[PricingV2TrunkingCountryInstanceTerminatingPrefixPrices]
+        :rtype: List[str]
         """
         return self._properties["terminating_prefix_prices"]
 
@@ -108,7 +108,7 @@ class NumberInstance(InstanceResource):
     def originating_call_price(self):
         """
         :returns:
-        :rtype: PricingV2TrunkingNumberOriginatingCallPrice
+        :rtype: str
         """
         return self._properties["originating_call_price"]
 

@@ -87,7 +87,7 @@ class WebhookInstance(InstanceResource):
     def filters(self):
         """
         :returns: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["filters"]
 
@@ -155,7 +155,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
 
         :param str method: The HTTP method to be used when sending a webhook request.
-        :param list[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param WebhookInstance.Target target:
@@ -183,7 +183,7 @@ class WebhookInstance(InstanceResource):
         Asynchronous coroutine to update the WebhookInstance
 
         :param str method: The HTTP method to be used when sending a webhook request.
-        :param list[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param WebhookInstance.Target target:
@@ -274,7 +274,7 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
 
         :param str method: The HTTP method to be used when sending a webhook request.
-        :param list[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param WebhookInstance.Target target:
@@ -312,7 +312,7 @@ class WebhookContext(InstanceContext):
         Asynchronous coroutine to update the WebhookInstance
 
         :param str method: The HTTP method to be used when sending a webhook request.
-        :param list[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param List[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param WebhookInstance.Target target:

@@ -63,7 +63,7 @@ class SubscribeRulesInstance(InstanceResource):
     def rules(self):
         """
         :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-        :rtype: list[VideoV1RoomRoomParticipantRoomParticipantSubscribeRuleRules]
+        :rtype: List[str]
         """
         return self._properties["rules"]
 

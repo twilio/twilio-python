@@ -81,7 +81,7 @@ class CountryInstance(InstanceResource):
     def phone_number_prices(self):
         """
         :returns: The list of [PhoneNumberPrice](https://www.twilio.com/docs/phone-numbers/pricing#phone-number-price) records.
-        :rtype: list[PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices]
+        :rtype: List[str]
         """
         return self._properties["phone_number_prices"]
 

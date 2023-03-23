@@ -163,7 +163,7 @@ class VerificationInstance(InstanceResource):
     def send_code_attempts(self):
         """
         :returns: An array of verification attempt objects containing the channel attempted and the channel-specific transaction SID.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["send_code_attempts"]
 

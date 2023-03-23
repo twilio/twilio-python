@@ -118,7 +118,7 @@ class AlphaSenderInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: An array of values that describe whether the number can receive calls or messages. Can be: `SMS`.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["capabilities"]
 

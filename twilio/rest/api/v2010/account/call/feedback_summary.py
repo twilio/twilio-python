@@ -145,7 +145,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def issues(self):
         """
         :returns: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["issues"]
 

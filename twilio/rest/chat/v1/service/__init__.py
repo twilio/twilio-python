@@ -226,7 +226,7 @@ class ServiceInstance(InstanceResource):
     def webhook_filters(self):
         """
         :returns: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["webhook_filters"]
 
@@ -373,7 +373,7 @@ class ServiceInstance(InstanceResource):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
         :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
         :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
@@ -548,7 +548,7 @@ class ServiceInstance(InstanceResource):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
         :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
         :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
@@ -853,7 +853,7 @@ class ServiceContext(InstanceContext):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
         :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
         :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.
@@ -1038,7 +1038,7 @@ class ServiceContext(InstanceContext):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhooks_on_message_send_url: The URL of the webhook to call in response to the `on_message_send` event using the `webhooks.on_message_send.method` HTTP method.
         :param str webhooks_on_message_send_method: The HTTP method to use when calling the `webhooks.on_message_send.url`.
         :param str webhooks_on_message_update_url: The URL of the webhook to call in response to the `on_message_update` event using the `webhooks.on_message_update.method` HTTP method.

@@ -225,7 +225,7 @@ class ServiceInstance(InstanceResource):
     def webhook_filters(self):
         """
         :returns: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["webhook_filters"]
 
@@ -378,7 +378,7 @@ class ServiceInstance(InstanceResource):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
         :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
         :param str media_compatibility_message: The message to send when a media message has no text. Can be used as placeholder message.
@@ -484,7 +484,7 @@ class ServiceInstance(InstanceResource):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
         :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
         :param str media_compatibility_message: The message to send when a media message has no text. Can be used as placeholder message.
@@ -731,7 +731,7 @@ class ServiceContext(InstanceContext):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
         :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
         :param str media_compatibility_message: The message to send when a media message has no text. Can be used as placeholder message.
@@ -847,7 +847,7 @@ class ServiceContext(InstanceContext):
         :param str pre_webhook_url: The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str post_webhook_url: The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param str webhook_method: The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-        :param list[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+        :param List[str] webhook_filters: The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
         :param int limits_channel_members: The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
         :param int limits_user_channels: The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
         :param str media_compatibility_message: The message to send when a media message has no text. Can be used as placeholder message.

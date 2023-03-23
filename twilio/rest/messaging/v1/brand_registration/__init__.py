@@ -197,7 +197,7 @@ class BrandRegistrationInstance(InstanceResource):
     def brand_feedback(self):
         """
         :returns: Feedback on how to improve brand score
-        :rtype: list[BrandRegistrationInstance.BrandFeedback]
+        :rtype: List[BrandRegistrationInstance.BrandFeedback]
         """
         return self._properties["brand_feedback"]
 

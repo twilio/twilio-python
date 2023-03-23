@@ -142,7 +142,7 @@ class FlowRevisionInstance(InstanceResource):
     def errors(self):
         """
         :returns: List of error in the flow definition.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["errors"]
 

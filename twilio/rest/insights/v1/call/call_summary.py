@@ -247,7 +247,7 @@ class CallSummaryInstance(InstanceResource):
     def tags(self):
         """
         :returns:
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["tags"]
 

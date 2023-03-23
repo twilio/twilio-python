@@ -148,7 +148,7 @@ class VerificationCheckInstance(InstanceResource):
     def sna_attempts_error_codes(self):
         """
         :returns: List of error codes as a result of attempting a verification using the `sna` channel. The error codes are chronologically ordered, from the first attempt to the latest attempt. This will be an empty list if no errors occured or `null` if the last channel used wasn't `sna`.
-        :rtype: list[object]
+        :rtype: List[object]
         """
         return self._properties["sna_attempts_error_codes"]
 

@@ -129,7 +129,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     def capabilities(self):
         """
         :returns:
-        :rtype: PreviewHostedNumbersAuthorizationDocumentDependentHostedNumberOrderCapabilities
+        :rtype: str
         """
         return self._properties["capabilities"]
 
@@ -201,7 +201,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     def cc_emails(self):
         """
         :returns: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["cc_emails"]
 
@@ -249,7 +249,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     def verification_call_sids(self):
         """
         :returns: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["verification_call_sids"]
 

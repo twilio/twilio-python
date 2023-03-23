@@ -115,7 +115,7 @@ class RoleInstance(InstanceResource):
     def permissions(self):
         """
         :returns:
-        :rtype: list[str]
+        :rtype: List[str]
         """
         return self._properties["permissions"]
 
@@ -187,7 +187,7 @@ class RoleInstance(InstanceResource):
         """
         Update the RoleInstance
 
-        :param list[str] permission:
+        :param List[str] permission:
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
@@ -200,7 +200,7 @@ class RoleInstance(InstanceResource):
         """
         Asynchronous coroutine to update the RoleInstance
 
-        :param list[str] permission:
+        :param List[str] permission:
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
@@ -313,7 +313,7 @@ class RoleContext(InstanceContext):
         """
         Update the RoleInstance
 
-        :param list[str] permission:
+        :param List[str] permission:
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
@@ -341,7 +341,7 @@ class RoleContext(InstanceContext):
         """
         Asynchronous coroutine to update the RoleInstance
 
-        :param list[str] permission:
+        :param List[str] permission:
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
@@ -424,7 +424,7 @@ class RoleList(ListResource):
 
         :param str friendly_name:
         :param RoleInstance.RoleType type:
-        :param list[str] permission:
+        :param List[str] permission:
 
         :returns: The created RoleInstance
         :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
@@ -453,7 +453,7 @@ class RoleList(ListResource):
 
         :param str friendly_name:
         :param RoleInstance.RoleType type:
-        :param list[str] permission:
+        :param List[str] permission:
 
         :returns: The created RoleInstance
         :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
