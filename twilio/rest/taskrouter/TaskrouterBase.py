@@ -9,19 +9,22 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.taskrouter.v1 import V1
 
 
 class TaskrouterBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Taskrouter Domain
 
         :returns: Domain for Taskrouter
         """
         super().__init__(twilio, "https://taskrouter.twilio.com")
-        self._v1 = None
+        self._v1: Optional[V1] = None
 
     @property
     def v1(self) -> V1:

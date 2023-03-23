@@ -9,21 +9,24 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.lookups.v1 import V1
 from twilio.rest.lookups.v2 import V2
 
 
 class LookupsBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Lookups Domain
 
         :returns: Domain for Lookups
         """
         super().__init__(twilio, "https://lookups.twilio.com")
-        self._v1 = None
-        self._v2 = None
+        self._v1: Optional[V1] = None
+        self._v2: Optional[V2] = None
 
     @property
     def v1(self) -> V1:

@@ -9,21 +9,24 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.studio.v1 import V1
 from twilio.rest.studio.v2 import V2
 
 
 class StudioBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Studio Domain
 
         :returns: Domain for Studio
         """
         super().__init__(twilio, "https://studio.twilio.com")
-        self._v1 = None
-        self._v2 = None
+        self._v1: Optional[V1] = None
+        self._v2: Optional[V2] = None
 
     @property
     def v1(self) -> V1:

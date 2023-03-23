@@ -9,19 +9,22 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.api.v2010 import V2010
 
 
 class ApiBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Api Domain
 
         :returns: Domain for Api
         """
         super().__init__(twilio, "https://api.twilio.com")
-        self._v2010 = None
+        self._v2010: Optional[V2010] = None
 
     @property
     def v2010(self) -> V2010:

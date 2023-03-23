@@ -9,19 +9,22 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.numbers.v2 import V2
 
 
 class NumbersBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Numbers Domain
 
         :returns: Domain for Numbers
         """
         super().__init__(twilio, "https://numbers.twilio.com")
-        self._v2 = None
+        self._v2: Optional[V2] = None
 
     @property
     def v2(self) -> V2:

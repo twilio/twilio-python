@@ -9,23 +9,26 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.chat.v1 import V1
 from twilio.rest.chat.v2 import V2
 from twilio.rest.chat.v3 import V3
 
 
 class ChatBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Chat Domain
 
         :returns: Domain for Chat
         """
         super().__init__(twilio, "https://chat.twilio.com")
-        self._v1 = None
-        self._v2 = None
-        self._v3 = None
+        self._v1: Optional[V1] = None
+        self._v2: Optional[V2] = None
+        self._v3: Optional[V3] = None
 
     @property
     def v1(self) -> V1:

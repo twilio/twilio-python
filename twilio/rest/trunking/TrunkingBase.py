@@ -9,19 +9,22 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.trunking.v1 import V1
 
 
 class TrunkingBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Trunking Domain
 
         :returns: Domain for Trunking
         """
         super().__init__(twilio, "https://trunking.twilio.com")
-        self._v1 = None
+        self._v1: Optional[V1] = None
 
     @property
     def v1(self) -> V1:

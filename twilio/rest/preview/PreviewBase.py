@@ -9,7 +9,10 @@ r"""
   Do not edit the class manually.
 """
 
+from typing import Optional
+
 from twilio.base.domain import Domain
+from twilio.rest import Client
 from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.sync import Sync
@@ -19,19 +22,19 @@ from twilio.rest.preview.wireless import Wireless
 
 
 class PreviewBase(Domain):
-    def __init__(self, twilio):
+    def __init__(self, twilio: Client):
         """
         Initialize the Preview Domain
 
         :returns: Domain for Preview
         """
         super().__init__(twilio, "https://preview.twilio.com")
-        self._deployed_devices = None
-        self._hosted_numbers = None
-        self._sync = None
-        self._marketplace = None
-        self._understand = None
-        self._wireless = None
+        self._deployed_devices: Optional[DeployedDevices] = None
+        self._hosted_numbers: Optional[HostedNumbers] = None
+        self._sync: Optional[Sync] = None
+        self._marketplace: Optional[Marketplace] = None
+        self._understand: Optional[Understand] = None
+        self._wireless: Optional[Wireless] = None
 
     @property
     def deployed_devices(self) -> DeployedDevices:
