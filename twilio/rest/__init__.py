@@ -8,7 +8,76 @@ r"""
   https://openapi-generator.tech
   Do not edit the class manually.
 """
+from typing import TYPE_CHECKING, Optional
+
 from twilio.base.client_base import ClientBase
+
+if TYPE_CHECKING:
+    from twilio.rest.accounts import Accounts
+    from twilio.rest.api import Api
+    from twilio.rest.autopilot import Autopilot
+    from twilio.rest.bulkexports import Bulkexports
+    from twilio.rest.chat import Chat
+    from twilio.rest.content import Content
+    from twilio.rest.conversations import Conversations
+    from twilio.rest.events import Events
+    from twilio.rest.flex_api import FlexApi
+    from twilio.rest.frontline_api import FrontlineApi
+    from twilio.rest.insights import Insights
+    from twilio.rest.ip_messaging import IpMessaging
+    from twilio.rest.lookups import Lookups
+    from twilio.rest.media import Media
+    from twilio.rest.messaging import Messaging
+    from twilio.rest.microvisor import Microvisor
+    from twilio.rest.monitor import Monitor
+    from twilio.rest.notify import Notify
+    from twilio.rest.numbers import Numbers
+    from twilio.rest.oauth import Oauth
+    from twilio.rest.preview import Preview
+    from twilio.rest.pricing import Pricing
+    from twilio.rest.proxy import Proxy
+    from twilio.rest.routes import Routes
+    from twilio.rest.serverless import Serverless
+    from twilio.rest.studio import Studio
+    from twilio.rest.supersim import Supersim
+    from twilio.rest.sync import Sync
+    from twilio.rest.taskrouter import Taskrouter
+    from twilio.rest.trunking import Trunking
+    from twilio.rest.trusthub import Trusthub
+    from twilio.rest.verify import Verify
+    from twilio.rest.video import Video
+    from twilio.rest.voice import Voice
+    from twilio.rest.wireless import Wireless
+    from twilio.rest.api.v2010.account.address import AddressList
+    from twilio.rest.api.v2010.account.application import ApplicationList
+    from twilio.rest.api.v2010.account.authorized_connect_app import (
+        AuthorizedConnectAppList,
+    )
+    from twilio.rest.api.v2010.account.available_phone_number_country import (
+        AvailablePhoneNumberCountryList,
+    )
+    from twilio.rest.api.v2010.account.balance import BalanceList
+    from twilio.rest.api.v2010.account.call import CallList
+    from twilio.rest.api.v2010.account.conference import ConferenceList
+    from twilio.rest.api.v2010.account.connect_app import ConnectAppList
+    from twilio.rest.api.v2010.account.incoming_phone_number import (
+        IncomingPhoneNumberList,
+    )
+    from twilio.rest.api.v2010.account.key import KeyList
+    from twilio.rest.api.v2010.account.new_key import NewKeyList
+    from twilio.rest.api.v2010.account.message import MessageList
+    from twilio.rest.api.v2010.account.signing_key import SigningKeyList
+    from twilio.rest.api.v2010.account.new_signing_key import NewSigningKeyList
+    from twilio.rest.api.v2010.account.notification import NotificationList
+    from twilio.rest.api.v2010.account.outgoing_caller_id import OutgoingCallerIdList
+    from twilio.rest.api.v2010.account.validation_request import ValidationRequestList
+    from twilio.rest.api.v2010.account.queue import QueueList
+    from twilio.rest.api.v2010.account.recording import RecordingList
+    from twilio.rest.api.v2010.account.short_code import ShortCodeList
+    from twilio.rest.api.v2010.account.sip import SipList
+    from twilio.rest.api.v2010.account.token import TokenList
+    from twilio.rest.api.v2010.account.transcription import TranscriptionList
+    from twilio.rest.api.v2010.account.usage import UsageList
 
 
 class Client(ClientBase):
@@ -52,49 +121,48 @@ class Client(ClientBase):
         )
 
         # Domains
-        self._accounts = None
-        self._api = None
-        self._autopilot = None
-        self._bulkexports = None
-        self._chat = None
-        self._content = None
-        self._conversations = None
-        self._events = None
-        self._flex_api = None
-        self._frontline_api = None
-        self._insights = None
-        self._ip_messaging = None
-        self._lookups = None
-        self._media = None
-        self._messaging = None
-        self._microvisor = None
-        self._monitor = None
-        self._notify = None
-        self._numbers = None
-        self._oauth = None
-        self._preview = None
-        self._pricing = None
-        self._proxy = None
-        self._routes = None
-        self._serverless = None
-        self._studio = None
-        self._supersim = None
-        self._sync = None
-        self._taskrouter = None
-        self._trunking = None
-        self._trusthub = None
-        self._verify = None
-        self._video = None
-        self._voice = None
-        self._wireless = None
+        self._accounts: Optional["Accounts"] = None
+        self._api: Optional["Api"] = None
+        self._autopilot: Optional["Autopilot"] = None
+        self._bulkexports: Optional["Bulkexports"] = None
+        self._chat: Optional["Chat"] = None
+        self._content: Optional["Content"] = None
+        self._conversations: Optional["Conversations"] = None
+        self._events: Optional["Events"] = None
+        self._flex_api: Optional["FlexApi"] = None
+        self._frontline_api: Optional["FrontlineApi"] = None
+        self._insights: Optional["Insights"] = None
+        self._ip_messaging: Optional["IpMessaging"] = None
+        self._lookups: Optional["Lookups"] = None
+        self._media: Optional["Media"] = None
+        self._messaging: Optional["Messaging"] = None
+        self._microvisor: Optional["Microvisor"] = None
+        self._monitor: Optional["Monitor"] = None
+        self._notify: Optional["Notify"] = None
+        self._numbers: Optional["Numbers"] = None
+        self._oauth: Optional["Oauth"] = None
+        self._preview: Optional["Preview"] = None
+        self._pricing: Optional["Pricing"] = None
+        self._proxy: Optional["Proxy"] = None
+        self._routes: Optional["Routes"] = None
+        self._serverless: Optional["Serverless"] = None
+        self._studio: Optional["Studio"] = None
+        self._supersim: Optional["Supersim"] = None
+        self._sync: Optional["Sync"] = None
+        self._taskrouter: Optional["Taskrouter"] = None
+        self._trunking: Optional["Trunking"] = None
+        self._trusthub: Optional["Trusthub"] = None
+        self._verify: Optional["Verify"] = None
+        self._video: Optional["Video"] = None
+        self._voice: Optional["Voice"] = None
+        self._wireless: Optional["Wireless"] = None
 
     @property
-    def accounts(self):
+    def accounts(self) -> "Accounts":
         """
         Access the Accounts Twilio Domain
 
         :returns: Accounts Twilio Domain
-        :rtype: twilio.rest.accounts.Accounts
         """
         if self._accounts is None:
             from twilio.rest.accounts import Accounts
@@ -103,12 +171,11 @@ class Client(ClientBase):
         return self._accounts
 
     @property
-    def api(self):
+    def api(self) -> "Api":
         """
         Access the Api Twilio Domain
 
         :returns: Api Twilio Domain
-        :rtype: twilio.rest.api.Api
         """
         if self._api is None:
             from twilio.rest.api import Api
@@ -117,12 +184,11 @@ class Client(ClientBase):
         return self._api
 
     @property
-    def autopilot(self):
+    def autopilot(self) -> "Autopilot":
         """
         Access the Autopilot Twilio Domain
 
         :returns: Autopilot Twilio Domain
-        :rtype: twilio.rest.autopilot.Autopilot
         """
         if self._autopilot is None:
             from twilio.rest.autopilot import Autopilot
@@ -131,12 +197,11 @@ class Client(ClientBase):
         return self._autopilot
 
     @property
-    def bulkexports(self):
+    def bulkexports(self) -> "Bulkexports":
         """
         Access the Bulkexports Twilio Domain
 
         :returns: Bulkexports Twilio Domain
-        :rtype: twilio.rest.bulkexports.Bulkexports
         """
         if self._bulkexports is None:
             from twilio.rest.bulkexports import Bulkexports
@@ -145,12 +210,11 @@ class Client(ClientBase):
         return self._bulkexports
 
     @property
-    def chat(self):
+    def chat(self) -> "Chat":
         """
         Access the Chat Twilio Domain
 
         :returns: Chat Twilio Domain
-        :rtype: twilio.rest.chat.Chat
         """
         if self._chat is None:
             from twilio.rest.chat import Chat
@@ -159,12 +223,11 @@ class Client(ClientBase):
         return self._chat
 
     @property
-    def content(self):
+    def content(self) -> "Content":
         """
         Access the Content Twilio Domain
 
         :returns: Content Twilio Domain
-        :rtype: twilio.rest.content.Content
         """
         if self._content is None:
             from twilio.rest.content import Content
@@ -173,12 +236,11 @@ class Client(ClientBase):
         return self._content
 
     @property
-    def conversations(self):
+    def conversations(self) -> "Conversations":
         """
         Access the Conversations Twilio Domain
 
         :returns: Conversations Twilio Domain
-        :rtype: twilio.rest.conversations.Conversations
         """
         if self._conversations is None:
             from twilio.rest.conversations import Conversations
@@ -187,12 +249,11 @@ class Client(ClientBase):
         return self._conversations
 
     @property
-    def events(self):
+    def events(self) -> "Events":
         """
         Access the Events Twilio Domain
 
         :returns: Events Twilio Domain
-        :rtype: twilio.rest.events.Events
         """
         if self._events is None:
             from twilio.rest.events import Events
@@ -201,12 +262,11 @@ class Client(ClientBase):
         return self._events
 
     @property
-    def flex_api(self):
+    def flex_api(self) -> "FlexApi":
         """
         Access the FlexApi Twilio Domain
 
         :returns: FlexApi Twilio Domain
-        :rtype: twilio.rest.flex_api.FlexApi
         """
         if self._flex_api is None:
             from twilio.rest.flex_api import FlexApi
@@ -215,12 +275,11 @@ class Client(ClientBase):
         return self._flex_api
 
     @property
-    def frontline_api(self):
+    def frontline_api(self) -> "FrontlineApi":
         """
         Access the FrontlineApi Twilio Domain
 
         :returns: FrontlineApi Twilio Domain
-        :rtype: twilio.rest.frontline_api.FrontlineApi
         """
         if self._frontline_api is None:
             from twilio.rest.frontline_api import FrontlineApi
@@ -229,12 +288,11 @@ class Client(ClientBase):
         return self._frontline_api
 
     @property
-    def insights(self):
+    def insights(self) -> "Insights":
         """
         Access the Insights Twilio Domain
 
         :returns: Insights Twilio Domain
-        :rtype: twilio.rest.insights.Insights
         """
         if self._insights is None:
             from twilio.rest.insights import Insights
@@ -243,12 +301,11 @@ class Client(ClientBase):
         return self._insights
 
     @property
-    def ip_messaging(self):
+    def ip_messaging(self) -> "IpMessaging":
         """
         Access the IpMessaging Twilio Domain
 
         :returns: IpMessaging Twilio Domain
-        :rtype: twilio.rest.ip_messaging.IpMessaging
         """
         if self._ip_messaging is None:
             from twilio.rest.ip_messaging import IpMessaging
@@ -257,12 +314,11 @@ class Client(ClientBase):
         return self._ip_messaging
 
     @property
-    def lookups(self):
+    def lookups(self) -> "Lookups":
         """
         Access the Lookups Twilio Domain
 
         :returns: Lookups Twilio Domain
-        :rtype: twilio.rest.lookups.Lookups
         """
         if self._lookups is None:
             from twilio.rest.lookups import Lookups
@@ -271,12 +327,11 @@ class Client(ClientBase):
         return self._lookups
 
     @property
-    def media(self):
+    def media(self) -> "Media":
         """
         Access the Media Twilio Domain
 
         :returns: Media Twilio Domain
-        :rtype: twilio.rest.media.Media
         """
         if self._media is None:
             from twilio.rest.media import Media
@@ -285,12 +340,11 @@ class Client(ClientBase):
         return self._media
 
     @property
-    def messaging(self):
+    def messaging(self) -> "Messaging":
         """
         Access the Messaging Twilio Domain
 
         :returns: Messaging Twilio Domain
-        :rtype: twilio.rest.messaging.Messaging
         """
         if self._messaging is None:
             from twilio.rest.messaging import Messaging
@@ -299,12 +353,11 @@ class Client(ClientBase):
         return self._messaging
 
     @property
-    def microvisor(self):
+    def microvisor(self) -> "Microvisor":
         """
         Access the Microvisor Twilio Domain
 
         :returns: Microvisor Twilio Domain
-        :rtype: twilio.rest.microvisor.Microvisor
         """
         if self._microvisor is None:
             from twilio.rest.microvisor import Microvisor
@@ -313,12 +366,11 @@ class Client(ClientBase):
         return self._microvisor
 
     @property
-    def monitor(self):
+    def monitor(self) -> "Monitor":
         """
         Access the Monitor Twilio Domain
 
         :returns: Monitor Twilio Domain
-        :rtype: twilio.rest.monitor.Monitor
         """
         if self._monitor is None:
             from twilio.rest.monitor import Monitor
@@ -327,12 +379,11 @@ class Client(ClientBase):
         return self._monitor
 
     @property
-    def notify(self):
+    def notify(self) -> "Notify":
         """
         Access the Notify Twilio Domain
 
         :returns: Notify Twilio Domain
-        :rtype: twilio.rest.notify.Notify
         """
         if self._notify is None:
             from twilio.rest.notify import Notify
@@ -341,12 +392,11 @@ class Client(ClientBase):
         return self._notify
 
     @property
-    def numbers(self):
+    def numbers(self) -> "Numbers":
         """
         Access the Numbers Twilio Domain
 
         :returns: Numbers Twilio Domain
-        :rtype: twilio.rest.numbers.Numbers
         """
         if self._numbers is None:
             from twilio.rest.numbers import Numbers
@@ -355,12 +405,11 @@ class Client(ClientBase):
         return self._numbers
 
     @property
-    def oauth(self):
+    def oauth(self) -> "Oauth":
         """
         Access the Oauth Twilio Domain
 
         :returns: Oauth Twilio Domain
-        :rtype: twilio.rest.oauth.Oauth
         """
         if self._oauth is None:
             from twilio.rest.oauth import Oauth
@@ -369,12 +418,11 @@ class Client(ClientBase):
         return self._oauth
 
     @property
-    def preview(self):
+    def preview(self) -> "Preview":
         """
         Access the Preview Twilio Domain
 
         :returns: Preview Twilio Domain
-        :rtype: twilio.rest.preview.Preview
         """
         if self._preview is None:
             from twilio.rest.preview import Preview
@@ -383,12 +431,11 @@ class Client(ClientBase):
         return self._preview
 
     @property
-    def pricing(self):
+    def pricing(self) -> "Pricing":
         """
         Access the Pricing Twilio Domain
 
         :returns: Pricing Twilio Domain
-        :rtype: twilio.rest.pricing.Pricing
         """
         if self._pricing is None:
             from twilio.rest.pricing import Pricing
@@ -397,12 +444,11 @@ class Client(ClientBase):
         return self._pricing
 
     @property
-    def proxy(self):
+    def proxy(self) -> "Proxy":
         """
         Access the Proxy Twilio Domain
 
         :returns: Proxy Twilio Domain
-        :rtype: twilio.rest.proxy.Proxy
         """
         if self._proxy is None:
             from twilio.rest.proxy import Proxy
@@ -411,12 +457,11 @@ class Client(ClientBase):
         return self._proxy
 
     @property
-    def routes(self):
+    def routes(self) -> "Routes":
         """
         Access the Routes Twilio Domain
 
         :returns: Routes Twilio Domain
-        :rtype: twilio.rest.routes.Routes
         """
         if self._routes is None:
             from twilio.rest.routes import Routes
@@ -425,12 +470,11 @@ class Client(ClientBase):
         return self._routes
 
     @property
-    def serverless(self):
+    def serverless(self) -> "Serverless":
         """
         Access the Serverless Twilio Domain
 
         :returns: Serverless Twilio Domain
-        :rtype: twilio.rest.serverless.Serverless
         """
         if self._serverless is None:
             from twilio.rest.serverless import Serverless
@@ -439,12 +483,11 @@ class Client(ClientBase):
         return self._serverless
 
     @property
-    def studio(self):
+    def studio(self) -> "Studio":
         """
         Access the Studio Twilio Domain
 
         :returns: Studio Twilio Domain
-        :rtype: twilio.rest.studio.Studio
         """
         if self._studio is None:
             from twilio.rest.studio import Studio
@@ -453,12 +496,11 @@ class Client(ClientBase):
         return self._studio
 
     @property
-    def supersim(self):
+    def supersim(self) -> "Supersim":
         """
         Access the Supersim Twilio Domain
 
         :returns: Supersim Twilio Domain
-        :rtype: twilio.rest.supersim.Supersim
         """
         if self._supersim is None:
             from twilio.rest.supersim import Supersim
@@ -467,12 +509,11 @@ class Client(ClientBase):
         return self._supersim
 
     @property
-    def sync(self):
+    def sync(self) -> "Sync":
         """
         Access the Sync Twilio Domain
 
         :returns: Sync Twilio Domain
-        :rtype: twilio.rest.sync.Sync
         """
         if self._sync is None:
             from twilio.rest.sync import Sync
@@ -481,12 +522,11 @@ class Client(ClientBase):
         return self._sync
 
     @property
-    def taskrouter(self):
+    def taskrouter(self) -> "Taskrouter":
         """
         Access the Taskrouter Twilio Domain
 
         :returns: Taskrouter Twilio Domain
-        :rtype: twilio.rest.taskrouter.Taskrouter
         """
         if self._taskrouter is None:
             from twilio.rest.taskrouter import Taskrouter
@@ -495,12 +535,11 @@ class Client(ClientBase):
         return self._taskrouter
 
     @property
-    def trunking(self):
+    def trunking(self) -> "Trunking":
         """
         Access the Trunking Twilio Domain
 
         :returns: Trunking Twilio Domain
-        :rtype: twilio.rest.trunking.Trunking
         """
         if self._trunking is None:
             from twilio.rest.trunking import Trunking
@@ -509,12 +548,11 @@ class Client(ClientBase):
         return self._trunking
 
     @property
-    def trusthub(self):
+    def trusthub(self) -> "Trusthub":
         """
         Access the Trusthub Twilio Domain
 
         :returns: Trusthub Twilio Domain
-        :rtype: twilio.rest.trusthub.Trusthub
         """
         if self._trusthub is None:
             from twilio.rest.trusthub import Trusthub
@@ -523,12 +561,11 @@ class Client(ClientBase):
         return self._trusthub
 
     @property
-    def verify(self):
+    def verify(self) -> "Verify":
         """
         Access the Verify Twilio Domain
 
         :returns: Verify Twilio Domain
-        :rtype: twilio.rest.verify.Verify
         """
         if self._verify is None:
             from twilio.rest.verify import Verify
@@ -537,12 +574,11 @@ class Client(ClientBase):
         return self._verify
 
     @property
-    def video(self):
+    def video(self) -> "Video":
         """
         Access the Video Twilio Domain
 
         :returns: Video Twilio Domain
-        :rtype: twilio.rest.video.Video
         """
         if self._video is None:
             from twilio.rest.video import Video
@@ -551,12 +587,11 @@ class Client(ClientBase):
         return self._video
 
     @property
-    def voice(self):
+    def voice(self) -> "Voice":
         """
         Access the Voice Twilio Domain
 
         :returns: Voice Twilio Domain
-        :rtype: twilio.rest.voice.Voice
         """
         if self._voice is None:
             from twilio.rest.voice import Voice
@@ -565,12 +600,11 @@ class Client(ClientBase):
         return self._voice
 
     @property
-    def wireless(self):
+    def wireless(self) -> "Wireless":
         """
         Access the Wireless Twilio Domain
 
         :returns: Wireless Twilio Domain
-        :rtype: twilio.rest.wireless.Wireless
         """
         if self._wireless is None:
             from twilio.rest.wireless import Wireless
@@ -579,169 +613,97 @@ class Client(ClientBase):
         return self._wireless
 
     @property
-    def addresses(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.address.AddressList
-        """
+    def addresses(self) -> "AddressList":
         return self.api.account.addresses
 
     @property
-    def applications(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationList
-        """
+    def applications(self) -> "ApplicationList":
         return self.api.account.applications
 
     @property
-    def authorized_connect_apps(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppList
-        """
+    def authorized_connect_apps(self) -> "AuthorizedConnectAppList":
         return self.api.account.authorized_connect_apps
 
     @property
-    def available_phone_numbers(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryList
-        """
+    def available_phone_numbers(self) -> "AvailablePhoneNumberCountryList":
         return self.api.account.available_phone_numbers
 
     @property
-    def balance(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.balance.BalanceList
-        """
+    def balance(self) -> "BalanceList":
         return self.api.account.balance
 
     @property
-    def calls(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.call.CallList
-        """
+    def calls(self) -> "CallList":
         return self.api.account.calls
 
     @property
-    def conferences(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
-        """
+    def conferences(self) -> "ConferenceList":
         return self.api.account.conferences
 
     @property
-    def connect_apps(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
-        """
+    def connect_apps(self) -> "ConnectAppList":
         return self.api.account.connect_apps
 
     @property
-    def incoming_phone_numbers(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberList
-        """
+    def incoming_phone_numbers(self) -> "IncomingPhoneNumberList":
         return self.api.account.incoming_phone_numbers
 
     @property
-    def keys(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.key.KeyList
-        """
+    def keys(self) -> "KeyList":
         return self.api.account.keys
 
     @property
-    def new_keys(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.new_key.NewKeyList
-        """
+    def new_keys(self) -> "NewKeyList":
         return self.api.account.new_keys
 
     @property
-    def messages(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.message.MessageList
-        """
+    def messages(self) -> "MessageList":
         return self.api.account.messages
 
     @property
-    def signing_keys(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyList
-        """
+    def signing_keys(self) -> "SigningKeyList":
         return self.api.account.signing_keys
 
     @property
-    def new_signing_keys(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
-        """
+    def new_signing_keys(self) -> "NewSigningKeyList":
         return self.api.account.new_signing_keys
 
     @property
-    def notifications(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.notification.NotificationList
-        """
+    def notifications(self) -> "NotificationList":
         return self.api.account.notifications
 
     @property
-    def outgoing_caller_ids(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
-        """
+    def outgoing_caller_ids(self) -> "OutgoingCallerIdList":
         return self.api.account.outgoing_caller_ids
 
     @property
-    def validation_requests(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.validation_request.ValidationRequestList
-        """
+    def validation_requests(self) -> "ValidationRequestList":
         return self.api.account.validation_requests
 
     @property
-    def queues(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.queue.QueueList
-        """
+    def queues(self) -> "QueueList":
         return self.api.account.queues
 
     @property
-    def recordings(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingList
-        """
+    def recordings(self) -> "RecordingList":
         return self.api.account.recordings
 
     @property
-    def short_codes(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeList
-        """
+    def short_codes(self) -> "ShortCodeList":
         return self.api.account.short_codes
 
     @property
-    def sip(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.sip.SipList
-        """
+    def sip(self) -> "SipList":
         return self.api.account.sip
 
     @property
-    def tokens(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.token.TokenList
-        """
+    def tokens(self) -> "TokenList":
         return self.api.account.tokens
 
     @property
-    def transcriptions(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionList
-        """
+    def transcriptions(self) -> "TranscriptionList":
         return self.api.account.transcriptions
 
     @property
-    def usage(self):
-        """
-        :rtype: twilio.rest.api.v2010.account.usage.UsageList
-        """
+    def usage(self) -> "UsageList":
         return self.api.account.usage
